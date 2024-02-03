@@ -1,4 +1,4 @@
-      SUBROUTINE SLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK )
+      SUBROUTINE SLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, L, LDC, M, N;
-      REAL               TAU
+      REAL               TAU;
       // ..
       // .. Array Arguments ..
-      REAL               C( LDC, * ), V( * ), WORK( * )
+      REAL               C( LDC, * ), V( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. External Subroutines ..
@@ -79,7 +79,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of SLARZ
 

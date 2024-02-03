@@ -1,4 +1,4 @@
-      SUBROUTINE ZDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, RWORK, SWORK, IWORK, NOUT )
+      SUBROUTINE ZDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, RWORK, SWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +12,8 @@
       bool               DOTYPE( * );
       int                MVAL( * ), NSVAL( * ), IWORK( * );
       double             RWORK( * );
-      COMPLEX            SWORK( * )
-      COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
+      COMPLEX            SWORK( * );
+      COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * );
       // ..
 
 *  =====================================================================
@@ -56,43 +56,43 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 2006, 2007, 2008, 2009 /
+      DATA               ISEEDY / 2006, 2007, 2008, 2009 /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      KASE = 0
-      PATH( 1: 1 ) = 'Zomplex precision'
-      PATH( 2: 3 ) = 'GE'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      KASE = 0;
+      PATH( 1: 1 ) = 'Zomplex precision';
+      PATH( 2: 3 ) = 'GE';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
-      INFOT = 0
+      INFOT = 0;
 
       // Do for each value of M in MVAL
 
       for (IM = 1; IM <= NM; IM++) { // 120
-         M = MVAL( IM )
-         LDA = MAX( 1, M )
+         M = MVAL( IM );
+         LDA = MAX( 1, M );
 
-         N = M
-         NIMAT = NTYPES
+         N = M;
+         NIMAT = NTYPES;
          if (M <= 0 || N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100;
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT >= 5 && IMAT <= 7
+            ZEROT = IMAT >= 5 && IMAT <= 7;
             if (ZEROT && N < IMAT-4) GO TO 100;
 
             // Set up parameters with ZLATB4 and generate a test matrix
@@ -100,14 +100,14 @@
 
             zlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-            SRNAMT = 'ZLATMS'
+            SRNAMT = 'ZLATMS';
             zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from ZLATMS.
 
             if ( INFO != 0 ) {
                alaerh(PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-               GO TO 100
+               GO TO 100;
             }
 
             // For types 5-7, zero one or more columns of the matrix to
@@ -115,35 +115,35 @@
 
             if ( ZEROT ) {
                if ( IMAT == 5 ) {
-                  IZERO = 1
+                  IZERO = 1;
                } else if ( IMAT == 6 ) {
-                  IZERO = MIN( M, N )
+                  IZERO = MIN( M, N );
                } else {
-                  IZERO = MIN( M, N ) / 2 + 1
+                  IZERO = MIN( M, N ) / 2 + 1;
                }
-               IOFF = ( IZERO-1 )*LDA
+               IOFF = ( IZERO-1 )*LDA;
                if ( IMAT < 7 ) {
                   for (I = 1; I <= M; I++) { // 20
-                     A( IOFF+I ) = ZERO
+                     A( IOFF+I ) = ZERO;
                   } // 20
                } else {
                   zlaset('Full', M, N-IZERO+1, DCMPLX(ZERO), DCMPLX(ZERO), A( IOFF+1 ), LDA );
                }
             } else {
-               IZERO = 0
+               IZERO = 0;
             }
 
             for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
-               NRHS = NSVAL( IRHS )
-               XTYPE = 'N'
-               TRANS = 'N'
+               NRHS = NSVAL( IRHS );
+               XTYPE = 'N';
+               TRANS = 'N';
 
-               SRNAMT = 'ZLARHS'
+               SRNAMT = 'ZLARHS';
                zlarhs(PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO );
 
-               SRNAMT = 'ZCGESV'
+               SRNAMT = 'ZCGESV';
 
-               KASE = KASE + 1
+               KASE = KASE + 1;
 
                zlacpy('Full', M, N, A, LDA, AFAC, LDA );
 
@@ -159,12 +159,12 @@
                if ( INFO != IZERO ) {
 
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
-                  NERRS = NERRS + 1
+                  NERRS = NERRS + 1;
 
                   if ( INFO != IZERO && IZERO != 0 ) {
-                     WRITE( NOUT, FMT = 9988 )'ZCGESV',INFO, IZERO,M,IMAT
+                     WRITE( NOUT, FMT = 9988 )'ZCGESV',INFO, IZERO,M,IMAT;
                   } else {
-                     WRITE( NOUT, FMT = 9975 )'ZCGESV',INFO, M, IMAT
+                     WRITE( NOUT, FMT = 9975 )'ZCGESV',INFO, M, IMAT;
                   }
                }
 
@@ -193,18 +193,18 @@
                if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                   if ( NFAIL == 0 && NERRS == 0 ) {
-                     WRITE( NOUT, FMT = 8999 )'DGE'
-                     WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
-                     WRITE( NOUT, FMT = 8979 )
-                     WRITE( NOUT, FMT = '( '' Test ratios:'' )' )
-                     WRITE( NOUT, FMT = 8960 )1
-                     WRITE( NOUT, FMT = '( '' Messages:'' )' )
+                     WRITE( NOUT, FMT = 8999 )'DGE';
+                     WRITE( NOUT, FMT = '( '' Matrix types:'' )' );
+                     WRITE( NOUT, FMT = 8979 );
+                     WRITE( NOUT, FMT = '( '' Test ratios:'' )' );
+                     WRITE( NOUT, FMT = 8960 )1;
+                     WRITE( NOUT, FMT = '( '' Messages:'' )' );
                   }
 
-                  WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, 1, RESULT( 1 )
-                  NFAIL = NFAIL + 1
+                  WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, 1, RESULT( 1 );
+                  NFAIL = NFAIL + 1;
                }
-               NRUN = NRUN + 1
+               NRUN = NRUN + 1;
             } // 60
          } // 100
       } // 120
@@ -212,30 +212,30 @@
       // Print a summary of the results.
 
       if ( NFAIL > 0 ) {
-         WRITE( NOUT, FMT = 9996 )'ZCGESV', NFAIL, NRUN
+         WRITE( NOUT, FMT = 9996 )'ZCGESV', NFAIL, NRUN;
       } else {
-         WRITE( NOUT, FMT = 9995 )'ZCGESV', NRUN
+         WRITE( NOUT, FMT = 9995 )'ZCGESV', NRUN;
       }
       if ( NERRS > 0 ) {
-         WRITE( NOUT, FMT = 9994 )NERRS
+         WRITE( NOUT, FMT = 9994 )NERRS;
       }
 
- 9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )
- 9996 FORMAT( 1X, A6, ': ', I6, ' out of ', I6, ' tests failed to pass the threshold' )
- 9995 FORMAT( /1X, 'All tests for ', A6, ' routines passed the threshold ( ', I6, ' tests run)' )
- 9994 FORMAT( 6X, I6, ' error messages recorded' )
+ 9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 );
+ 9996 FORMAT( 1X, A6, ': ', I6, ' out of ', I6, ' tests failed to pass the threshold' );
+ 9995 FORMAT( /1X, 'All tests for ', A6, ' routines passed the threshold ( ', I6, ' tests run)' );
+ 9994 FORMAT( 6X, I6, ' error messages recorded' );
 
       // SUBNAM, INFO, INFOE, M, IMAT
 
- 9988 FORMAT( ' *** ', A6, ' returned with INFO =', I5, ' instead of ', I5, / ' ==> M =', I5, ', type ', I2 )
+ 9988 FORMAT( ' *** ', A6, ' returned with INFO =', I5, ' instead of ', I5, / ' ==> M =', I5, ', type ', I2 );
 
       // SUBNAM, INFO, M, IMAT
 
- 9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5, ', type ', I2 )
- 8999 FORMAT( / 1X, A3, ':  General dense matrices' )
- 8979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X, '2. Upper triangular', 16X, '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. Lower triangular', 16X, '9. Random, CNDNUM = 0.1/EPS', / 4X, '4. Random, CNDNUM = 2', 13X, '10. Scaled near underflow', / 4X, '5. First column zero', 14X, '11. Scaled near overflow', / 4X, '6. Last column zero' )
- 8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * SQRT(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' )
-      RETURN
+ 9975 FORMAT( ' *** Error code from ', A6, '=', I5, ' for M=', I5, ', type ', I2 );
+ 8999 FORMAT( / 1X, A3, ':  General dense matrices' );
+ 8979 FORMAT( 4X, '1. Diagonal', 24X, '7. Last n/2 columns zero', / 4X, '2. Upper triangular', 16X, '8. Random, CNDNUM = sqrt(0.1/EPS)', / 4X, '3. Lower triangular', 16X, '9. Random, CNDNUM = 0.1/EPS', / 4X, '4. Random, CNDNUM = 2', 13X, '10. Scaled near underflow', / 4X, '5. First column zero', 14X, '11. Scaled near overflow', / 4X, '6. Last column zero' );
+ 8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * SQRT(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if DGETRF' );
+      RETURN;
 
       // End of ZDRVAB
 

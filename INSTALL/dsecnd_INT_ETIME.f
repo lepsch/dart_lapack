@@ -7,20 +7,20 @@
 * =====================================================================
 
       // .. Local Scalars ..
-      REAL               T1
+      REAL               T1;
       // ..
       // .. Local Arrays ..
-      REAL               TARRAY( 2 )
+      REAL               TARRAY( 2 );
       // ..
       // .. Intrinsic Functions ..
-      REAL               ETIME
+      REAL               ETIME;
       // INTRINSIC ETIME
       // ..
       // .. Executable Statements ..
 
-      T1 = ETIME( TARRAY )
-      DSECND = TARRAY( 1 )
-      RETURN
+      T1 = ETIME( TARRAY );
+      DSECND = TARRAY( 1 );
+      RETURN;
 
       // End of DSECND
 

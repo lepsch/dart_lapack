@@ -1,4 +1,4 @@
-      SUBROUTINE ZGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE )
+      SUBROUTINE ZGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      COMPLEX*16         A( LDA, * ), RHS( * )
+      COMPLEX*16         A( LDA, * ), RHS( * );
       // ..
 
 *  =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, J;
       double             BIGNUM, EPS, SMLNUM;
-      COMPLEX*16         TEMP
+      COMPLEX*16         TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLASWP, ZSCAL
@@ -39,9 +39,9 @@
 
       // Set constant to control overflow
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Apply permutations IPIV to RHS
 
@@ -51,34 +51,34 @@
 
       for (I = 1; I <= N - 1; I++) { // 20
          for (J = I + 1; J <= N; J++) { // 10
-            RHS( J ) = RHS( J ) - A( J, I )*RHS( I )
+            RHS( J ) = RHS( J ) - A( J, I )*RHS( I );
          } // 10
       } // 20
 
       // Solve for U part
 
-      SCALE = ONE
+      SCALE = ONE;
 
       // Check for scaling
 
-      I = IZAMAX( N, RHS, 1 )
+      I = IZAMAX( N, RHS, 1 );
       if ( TWO*SMLNUM*ABS( RHS( I ) ) > ABS( A( N, N ) ) ) {
-         TEMP = DCMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) )
+         TEMP = DCMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) );
          zscal(N, TEMP, RHS( 1 ), 1 );
-         SCALE = SCALE*DBLE( TEMP )
+         SCALE = SCALE*DBLE( TEMP );
       }
-      DO 40 I = N, 1, -1
-         TEMP = DCMPLX( ONE, ZERO ) / A( I, I )
-         RHS( I ) = RHS( I )*TEMP
+      DO 40 I = N, 1, -1;
+         TEMP = DCMPLX( ONE, ZERO ) / A( I, I );
+         RHS( I ) = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30
-            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP )
+            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP );
          } // 30
       } // 40
 
       // Apply permutations JPIV to the solution (RHS)
 
       zlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      RETURN
+      RETURN;
 
       // End of ZGESC2
 

@@ -1,4 +1,4 @@
-      REAL             FUNCTION CQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK )
+      REAL             FUNCTION CQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      COMPLEX            A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               NORMA
+      REAL               NORMA;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 )
+      REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH
+      REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -37,27 +37,27 @@
       // ..
       // .. Executable Statements ..
 
-      CQPT01 = ZERO
+      CQPT01 = ZERO;
 
       // Test if there is enough workspace
 
       if ( LWORK < M*N+N ) {
          xerbla('CQPT01', 10 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      NORMA = CLANGE( 'One-norm', M, N, A, LDA, RWORK )
+      NORMA = CLANGE( 'One-norm', M, N, A, LDA, RWORK );
 
       for (J = 1; J <= K; J++) {
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = AF( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = AF( I, J );
          }
          for (I = J + 1; I <= M; I++) {
-            WORK( ( J-1 )*M+I ) = ZERO
+            WORK( ( J-1 )*M+I ) = ZERO;
          }
       }
       for (J = K + 1; J <= N; J++) {
@@ -73,9 +73,9 @@
          caxpy(M, CMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) CQPT01 = CQPT01 / NORMA
+      CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) CQPT01 = CQPT01 / NORMA;
 
-      RETURN
+      RETURN;
 
       // End of CQPT01
 

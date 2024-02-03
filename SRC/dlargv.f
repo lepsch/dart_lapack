@@ -1,4 +1,4 @@
-      SUBROUTINE DLARGV( N, X, INCX, Y, INCY, C, INCC )
+      SUBROUTINE DLARGV( N, X, INCX, Y, INCY, C, INCC );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -26,36 +26,36 @@
       // ..
       // .. Executable Statements ..
 
-      IX = 1
-      IY = 1
-      IC = 1
+      IX = 1;
+      IY = 1;
+      IC = 1;
       for (I = 1; I <= N; I++) { // 10
-         F = X( IX )
-         G = Y( IY )
+         F = X( IX );
+         G = Y( IY );
          if ( G == ZERO ) {
-            C( IC ) = ONE
+            C( IC ) = ONE;
          } else if ( F == ZERO ) {
-            C( IC ) = ZERO
-            Y( IY ) = ONE
-            X( IX ) = G
+            C( IC ) = ZERO;
+            Y( IY ) = ONE;
+            X( IX ) = G;
          } else if ( ABS( F ) > ABS( G ) ) {
-            T = G / F
-            TT = SQRT( ONE+T*T )
-            C( IC ) = ONE / TT
-            Y( IY ) = T*C( IC )
-            X( IX ) = F*TT
+            T = G / F;
+            TT = SQRT( ONE+T*T );
+            C( IC ) = ONE / TT;
+            Y( IY ) = T*C( IC );
+            X( IX ) = F*TT;
          } else {
-            T = F / G
-            TT = SQRT( ONE+T*T )
-            Y( IY ) = ONE / TT
-            C( IC ) = T*Y( IY )
-            X( IX ) = G*TT
+            T = F / G;
+            TT = SQRT( ONE+T*T );
+            Y( IY ) = ONE / TT;
+            C( IC ) = T*Y( IY );
+            X( IX ) = G*TT;
          }
-         IC = IC + INCC
-         IY = IY + INCY
-         IX = IX + INCX
+         IC = IC + INCC;
+         IY = IY + INCY;
+         IX = IX + INCX;
       } // 10
-      RETURN
+      RETURN;
 
       // End of DLARGV
 

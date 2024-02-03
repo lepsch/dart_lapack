@@ -1,4 +1,4 @@
-      SUBROUTINE SQLT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE SQLT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,23 +8,23 @@
       int                K, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE
+      REAL               ROGUE;
       const              ROGUE = -1.0e+10 ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, EPS, RESID
+      REAL               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY
+      REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -44,12 +44,12 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
-         RESULT( 1 ) = ZERO
-         RESULT( 2 ) = ZERO
-         RETURN
+         RESULT( 1 ) = ZERO;
+         RESULT( 2 ) = ZERO;
+         RETURN;
       }
 
-      EPS = SLAMCH( 'Epsilon' )
+      EPS = SLAMCH( 'Epsilon' );
 
       // Copy the last k columns of the factorization to the array Q
 
@@ -58,7 +58,7 @@
 
       // Generate the last n columns of the matrix Q
 
-      SRNAMT = 'SORGQL'
+      SRNAMT = 'SORGQL';
       sorgql(M, N, K, Q, LDA, TAU( N-K+1 ), WORK, LWORK, INFO );
 
       // Copy L(m-n+1:m,n-k+1:n)
@@ -72,12 +72,12 @@
 
       // Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 
-      ANORM = SLANGE( '1', M, K, A( 1, N-K+1 ), LDA, RWORK )
-      RESID = SLANGE( '1', N, K, L( M-N+1, N-K+1 ), LDA, RWORK )
+      ANORM = SLANGE( '1', M, K, A( 1, N-K+1 ), LDA, RWORK );
+      RESID = SLANGE( '1', N, K, L( M-N+1, N-K+1 ), LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -87,11 +87,11 @@
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 
-      RESID = SLANSY( '1', 'Upper', N, L, LDA, RWORK )
+      RESID = SLANSY( '1', 'Upper', N, L, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of SQLT02
 

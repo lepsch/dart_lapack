@@ -1,5 +1,5 @@
-      SUBROUTINE DERRORHR_COL( PATH, NUNIT )
-      IMPLICIT NONE
+      SUBROUTINE DERRORHR_COL( PATH, NUNIT );
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,15 +39,15 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A( I, J ) = 1.0 / DBLE( I+J )
-            T( I, J ) = 1.0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J );
+            T( I, J ) = 1.0 / DBLE( I+J );
          }
          D( J ) = 0.0;
       }
@@ -57,26 +57,26 @@
 
       // DORHR_COL
 
-      SRNAMT = 'DORHR_COL'
+      SRNAMT = 'DORHR_COL';
 
-      INFOT = 1
+      INFOT = 1;
       dorhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 2
+      INFOT = 2;
       dorhr_col(0, -1, 1, A, 1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
       dorhr_col(1, 2, 1, A, 1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 3
+      INFOT = 3;
       dorhr_col(0, 0, -1, A, 1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
       dorhr_col(0, 0, 0, A, 1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 5
+      INFOT = 5;
       dorhr_col(0, 0, 1, A, -1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
@@ -86,7 +86,7 @@
       dorhr_col(2, 0, 1, A, 1, T, 1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 7
+      INFOT = 7;
       dorhr_col(0, 0, 1, A, 1, T, -1, D, INFO );
       chkxer('DORHR_COL', INFOT, NOUT, LERR, OK );
 
@@ -100,7 +100,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of DERRORHR_COL
 

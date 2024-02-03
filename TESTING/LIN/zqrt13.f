@@ -1,4 +1,4 @@
-      SUBROUTINE ZQRT13( SCALE, M, N, A, LDA, NORMA, ISEED )
+      SUBROUTINE ZQRT13( SCALE, M, N, A, LDA, NORMA, ISEED );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
@@ -45,18 +45,18 @@
       for (J = 1; J <= N; J++) { // 10
          zlarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A( J, J ) = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ), 1 ), DBLE( A( J, J ) ) ) )
+            A( J, J ) = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ), 1 ), DBLE( A( J, J ) ) ) );
          }
       } // 10
 
       // scaled versions
 
       if ( SCALE != 1 ) {
-         NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY )
-         SMLNUM = DLAMCH( 'Safe minimum' )
-         BIGNUM = ONE / SMLNUM
-         SMLNUM = SMLNUM / DLAMCH( 'Epsilon' )
-         BIGNUM = ONE / SMLNUM
+         NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY );
+         SMLNUM = DLAMCH( 'Safe minimum' );
+         BIGNUM = ONE / SMLNUM;
+         SMLNUM = SMLNUM / DLAMCH( 'Epsilon' );
+         BIGNUM = ONE / SMLNUM;
 
          if ( SCALE == 2 ) {
 
@@ -71,8 +71,8 @@
          }
       }
 
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, DUMMY )
-      RETURN
+      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, DUMMY );
+      RETURN;
 
       // End of ZQRT13
 

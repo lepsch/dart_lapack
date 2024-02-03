@@ -1,31 +1,31 @@
-      SUBROUTINE SLA_SYAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
+      SUBROUTINE SLA_SYAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA
+      REAL               ALPHA, BETA;
       int                INCX, INCY, LDA, N, UPLO;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), X( * ), Y( * )
+      REAL               A( LDA, * ), X( * ), Y( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
-      REAL               TEMP, SAFE1
+      REAL               TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, SLAMCH
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // ..
       // .. External Functions ..
       // EXTERNAL ILAUPLO
@@ -38,45 +38,45 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( UPLO != ILAUPLO( 'U' ) && UPLO != ILAUPLO( 'L' ) ) {
-         INFO = 1
+         INFO = 1;
       } else if ( N < 0 ) {
-         INFO = 2
+         INFO = 2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = 5
+         INFO = 5;
       } else if ( INCX == 0 ) {
-         INFO = 7
+         INFO = 7;
       } else if ( INCY == 0 ) {
-         INFO = 10
+         INFO = 10;
       }
       if ( INFO != 0 ) {
          xerbla('SLA_SYAMV', INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
-      IF( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
+      IF( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN;
 
       // Set up the start points in  X  and  Y.
 
       if ( INCX > 0 ) {
-         KX = 1
+         KX = 1;
       } else {
-         KX = 1 - ( N - 1 )*INCX
+         KX = 1 - ( N - 1 )*INCX;
       }
       if ( INCY > 0 ) {
-         KY = 1
+         KY = 1;
       } else {
-         KY = 1 - ( N - 1 )*INCY
+         KY = 1 - ( N - 1 )*INCY;
       }
 
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
 
-      SAFE1 = SLAMCH( 'Safe minimum' )
-      SAFE1 = (N+1)*SAFE1
+      SAFE1 = SLAMCH( 'Safe minimum' );
+      SAFE1 = (N+1)*SAFE1;
 
       // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
 
@@ -84,65 +84,65 @@
       // the inexact flag.  Still doesn't help change the iteration order
       // to per-column.
 
-      IY = KY
+      IY = KY;
       if ( INCX == 1 ) {
          if ( UPLO == ILAUPLO( 'U' ) ) {
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( J, I ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( I, J ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          } else {
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( I, J ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( J, I ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          }
       } else {
@@ -150,71 +150,71 @@
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
-               JX = KX
+               JX = KX;
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( J, I ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
-                     JX = JX + INCX
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     JX = JX + INCX;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( I, J ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
-                     JX = JX + INCX
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     JX = JX + INCX;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          } else {
             for (I = 1; I <= N; I++) {
                if ( BETA == ZERO ) {
                   SYMB_ZERO = true;
-                  Y( IY ) = 0.0
+                  Y( IY ) = 0.0;
                } else if ( Y( IY ) == ZERO ) {
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
-               JX = KX
+               JX = KX;
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
-                     TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( I, J ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
-                     JX = JX + INCX
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     JX = JX + INCX;
                   }
                   for (J = I+1; J <= N; J++) {
-                     TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                     TEMP = ABS( A( J, I ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
-                     JX = JX + INCX
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     JX = JX + INCX;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of SLA_SYAMV
 

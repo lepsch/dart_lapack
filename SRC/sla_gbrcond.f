@@ -1,4 +1,4 @@
-      REAL FUNCTION SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK )
+      REAL FUNCTION SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), IPIV( * );
-      REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * )
+      REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * );
 *    ..
 
 *  =====================================================================
@@ -18,7 +18,7 @@
       // .. Local Scalars ..
       bool               NOTRANS;
       int                KASE, I, J, KD, KE;
-      REAL               AINVNM, TMP
+      REAL               AINVNM, TMP;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -35,80 +35,80 @@
       // ..
       // .. Executable Statements ..
 
-      SLA_GBRCOND = 0.0
+      SLA_GBRCOND = 0.0;
 
-      INFO = 0
-      NOTRANS = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOTRANS = LSAME( TRANS, 'N' );
       if ( !NOTRANS && !LSAME(TRANS, 'T') && !LSAME(TRANS, 'C') ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 || KL > N-1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 || KU > N-1 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KL+KU+1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAFB < 2*KL+KU+1 ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('SLA_GBRCOND', -INFO );
-         RETURN
+         RETURN;
       }
       if ( N == 0 ) {
-         SLA_GBRCOND = 1.0
-         RETURN
+         SLA_GBRCOND = 1.0;
+         RETURN;
       }
 
       // Compute the equilibration matrix R such that
       // inv(R)*A*C has unit 1-norm.
 
-      KD = KU + 1
-      KE = KL + 1
+      KD = KU + 1;
+      KE = KL + 1;
       if ( NOTRANS ) {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0
+            TMP = 0.0;
                if ( CMODE == 1 ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                  TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) )
+               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) );
                }
                } else if ( CMODE == 0 ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                     TMP = TMP + ABS( AB( KD+I-J, J ) )
+                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                     TMP = TMP + ABS( AB( KD+I-J, J ) );
                   }
                } else {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                     TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) )
+                  DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                     TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) );
                   }
                }
-            WORK( 2*N+I ) = TMP
+            WORK( 2*N+I ) = TMP;
          }
       } else {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0
+            TMP = 0.0;
             if ( CMODE == 1 ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                  TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) )
+               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) );
                }
             } else if ( CMODE == 0 ) {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                  TMP = TMP + ABS( AB( KE-I+J, I ) )
+               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  TMP = TMP + ABS( AB( KE-I+J, I ) );
                }
             } else {
-               DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                  TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) )
+               DO J = MAX( I-KL, 1 ), MIN( I+KU, N );
+                  TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) );
                }
             }
-            WORK( 2*N+I ) = TMP
+            WORK( 2*N+I ) = TMP;
          }
       }
 
       // Estimate the norm of inv(op(A)).
 
-      AINVNM = 0.0
+      AINVNM = 0.0;
 
-      KASE = 0
+      KASE = 0;
       } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -117,7 +117,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * WORK( 2*N+I )
+               WORK( I ) = WORK( I ) * WORK( 2*N+I );
             }
 
             if ( NOTRANS ) {
@@ -130,11 +130,11 @@
 
             if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) / C( I )
+                  WORK( I ) = WORK( I ) / C( I );
                }
             } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) * C( I )
+                  WORK( I ) = WORK( I ) * C( I );
                }
             }
          } else {
@@ -143,11 +143,11 @@
 
             if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) / C( I )
+                  WORK( I ) = WORK( I ) / C( I );
                }
             } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) * C( I )
+                  WORK( I ) = WORK( I ) * C( I );
                }
             }
 
@@ -160,17 +160,17 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * WORK( 2*N+I )
+               WORK( I ) = WORK( I ) * WORK( 2*N+I );
             }
          }
-         GO TO 10
+         GO TO 10;
       }
 
       // Compute the estimate of the reciprocal condition number.
 
       if (AINVNM != 0.0) SLA_GBRCOND = ( 1.0 / AINVNM );
 
-      RETURN
+      RETURN;
 
       // End of SLA_GBRCOND
 

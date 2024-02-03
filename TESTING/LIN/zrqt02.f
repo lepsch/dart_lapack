@@ -1,4 +1,4 @@
-      SUBROUTINE ZRQT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZRQT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         ROGUE
+      COMPLEX*16         ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..
@@ -45,12 +45,12 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
-         RESULT( 1 ) = ZERO
-         RESULT( 2 ) = ZERO
-         RETURN
+         RESULT( 1 ) = ZERO;
+         RESULT( 2 ) = ZERO;
+         RETURN;
       }
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
 
       // Copy the last k rows of the factorization to the array Q
 
@@ -59,7 +59,7 @@
 
       // Generate the last n rows of the matrix Q
 
-      SRNAMT = 'ZUNGRQ'
+      SRNAMT = 'ZUNGRQ';
       zungrq(M, N, K, Q, LDA, TAU( M-K+1 ), WORK, LWORK, INFO );
 
       // Copy R(m-k+1:m,n-m+1:n)
@@ -72,12 +72,12 @@
 
       // Compute norm( R - A*Q' ) / ( N * norm(A) * EPS ) .
 
-      ANORM = ZLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK )
-      RESID = ZLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK )
+      ANORM = ZLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK );
+      RESID = ZLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -87,11 +87,11 @@
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      RESID = ZLANSY( '1', 'Upper', M, R, LDA, RWORK )
+      RESID = ZLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of ZRQT02
 

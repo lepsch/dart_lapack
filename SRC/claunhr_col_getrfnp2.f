@@ -1,5 +1,5 @@
-      RECURSIVE SUBROUTINE CLAUNHR_COL_GETRFNP2( M, N, A, LDA, D, INFO )
-      IMPLICIT NONE
+      RECURSIVE SUBROUTINE CLAUNHR_COL_GETRFNP2( M, N, A, LDA, D, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX         A( LDA, * ), D( * )
+      COMPLEX         A( LDA, * ), D( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN
+      REAL               SFMIN;
       int                I, IINFO, N1, N2;
-      COMPLEX            Z
+      COMPLEX            Z;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -39,28 +39,28 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) )
+      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('CLAUNHR_COL_GETRFNP2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      IF( MIN( M, N ) == 0 ) RETURN
+      IF( MIN( M, N ) == 0 ) RETURN;
 
       if ( M == 1 ) {
 
@@ -69,11 +69,11 @@
 
          // Transfer the sign
 
-         D( 1 ) = CMPLX( -SIGN( ONE, REAL( A( 1, 1 ) ) ) )
+         D( 1 ) = CMPLX( -SIGN( ONE, REAL( A( 1, 1 ) ) ) );
 
          // Construct the row of U
 
-         A( 1, 1 ) = A( 1, 1 ) - D( 1 )
+         A( 1, 1 ) = A( 1, 1 ) - D( 1 );
 
       } else if ( N == 1 ) {
 
@@ -82,17 +82,17 @@
 
          // Transfer the sign
 
-         D( 1 ) = CMPLX( -SIGN( ONE, REAL( A( 1, 1 ) ) ) )
+         D( 1 ) = CMPLX( -SIGN( ONE, REAL( A( 1, 1 ) ) ) );
 
          // Construct the row of U
 
-         A( 1, 1 ) = A( 1, 1 ) - D( 1 )
+         A( 1, 1 ) = A( 1, 1 ) - D( 1 );
 
          // Scale the elements 2:M of the column
 
          // Determine machine safe minimum
 
-         SFMIN = SLAMCH('S')
+         SFMIN = SLAMCH('S');
 
          // Construct the subdiagonal elements of L
 
@@ -100,7 +100,7 @@
             cscal(M-1, CONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
             for (I = 2; I <= M; I++) {
-               A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
+               A( I, 1 ) = A( I, 1 ) / A( 1, 1 );
             }
          }
 
@@ -108,8 +108,8 @@
 
          // Divide the matrix B into four submatrices
 
-         N1 = MIN( M, N ) / 2
-         N2 = N-N1
+         N1 = MIN( M, N ) / 2;
+         N2 = N-N1;
 
 
          // Factor B11, recursive call
@@ -134,7 +134,7 @@
          claunhr_col_getrfnp2(M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO );
 
       }
-      RETURN
+      RETURN;
 
       // End of CLAUNHR_COL_GETRFNP2
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SSYT22( ITYPE, UPLO, N, M, KBAND, A, LDA, D, E, U, LDU, V, LDV, TAU, WORK, RESULT )
+      SUBROUTINE SSYT22( ITYPE, UPLO, N, M, KBAND, A, LDA, D, E, U, LDU, V, LDV, TAU, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,21 +9,21 @@
       int                ITYPE, KBAND, LDA, LDU, LDV, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      REAL               A( LDA, * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                J, JJ, JJ1, JJ2, NN, NNP1;
-      REAL               ANORM, ULP, UNFL, WNORM
+      REAL               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANSY
+      REAL               SLAMCH, SLANSY;
       // EXTERNAL SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..
@@ -34,48 +34,48 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO
-      RESULT( 2 ) = ZERO
+      RESULT( 1 ) = ZERO;
+      RESULT( 2 ) = ZERO;
       if (N <= 0 || M <= 0) RETURN;
 
-      UNFL = SLAMCH( 'Safe minimum' )
-      ULP = SLAMCH( 'Precision' )
+      UNFL = SLAMCH( 'Safe minimum' );
+      ULP = SLAMCH( 'Precision' );
 
       // Do Test 1
 
       // Norm of A:
 
-      ANORM = MAX( SLANSY( '1', UPLO, N, A, LDA, WORK ), UNFL )
+      ANORM = MAX( SLANSY( '1', UPLO, N, A, LDA, WORK ), UNFL );
 
       // Compute error matrix:
 
       // ITYPE=1: error = U**T A U - S
 
       ssymm('L', UPLO, N, M, ONE, A, LDA, U, LDU, ZERO, WORK, N );
-      NN = N*N
-      NNP1 = NN + 1
+      NN = N*N;
+      NNP1 = NN + 1;
       sgemm('T', 'N', M, M, N, ONE, U, LDU, WORK, N, ZERO, WORK( NNP1 ), N );
       for (J = 1; J <= M; J++) { // 10
-         JJ = NN + ( J-1 )*N + J
-         WORK( JJ ) = WORK( JJ ) - D( J )
+         JJ = NN + ( J-1 )*N + J;
+         WORK( JJ ) = WORK( JJ ) - D( J );
       } // 10
       if ( KBAND == 1 && N > 1 ) {
          for (J = 2; J <= M; J++) { // 20
-            JJ1 = NN + ( J-1 )*N + J - 1
-            JJ2 = NN + ( J-2 )*N + J
-            WORK( JJ1 ) = WORK( JJ1 ) - E( J-1 )
-            WORK( JJ2 ) = WORK( JJ2 ) - E( J-1 )
+            JJ1 = NN + ( J-1 )*N + J - 1;
+            JJ2 = NN + ( J-2 )*N + J;
+            WORK( JJ1 ) = WORK( JJ1 ) - E( J-1 );
+            WORK( JJ2 ) = WORK( JJ2 ) - E( J-1 );
          } // 20
       }
-      WNORM = SLANSY( '1', UPLO, M, WORK( NNP1 ), N, WORK( 1 ) )
+      WNORM = SLANSY( '1', UPLO, M, WORK( NNP1 ), N, WORK( 1 ) );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
+         RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP )
+            RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( M ) ) / ( M*ULP )
+            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( M ) ) / ( M*ULP );
          }
       }
 
@@ -85,7 +85,7 @@
 
       if (ITYPE == 1) CALL SORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
 
-      RETURN
+      RETURN;
 
       // End of SSYT22
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DGBTF2( M, N, KL, KU, AB, LDAB, IPIV, INFO )
+      SUBROUTINE DGBTF2( M, N, KL, KU, AB, LDAB, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,25 +36,25 @@
       // KV is the number of superdiagonals in the factor U, allowing for
       // fill-in.
 
-      KV = KU + KL
+      KV = KU + KL;
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KL+KV+1 ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('DGBTF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -65,35 +65,35 @@
 
       // Set fill-in elements in columns KU+2 to KV to zero.
 
-      DO 20 J = KU + 2, MIN( KV, N )
+      DO 20 J = KU + 2, MIN( KV, N );
          for (I = KV - J + 2; I <= KL; I++) { // 10
-            AB( I, J ) = ZERO
+            AB( I, J ) = ZERO;
          } // 10
       } // 20
 
       // JU is the index of the last column affected by the current stage
       // of the factorization.
 
-      JU = 1
+      JU = 1;
 
-      DO 40 J = 1, MIN( M, N )
+      DO 40 J = 1, MIN( M, N );
 
          // Set fill-in elements in column J+KV to zero.
 
          if ( J+KV <= N ) {
             for (I = 1; I <= KL; I++) { // 30
-               AB( I, J+KV ) = ZERO
+               AB( I, J+KV ) = ZERO;
             } // 30
          }
 
          // Find pivot and test for singularity. KM is the number of
          // subdiagonal elements in the current column.
 
-         KM = MIN( KL, M-J )
-         JP = IDAMAX( KM+1, AB( KV+1, J ), 1 )
-         IPIV( J ) = JP + J - 1
+         KM = MIN( KL, M-J );
+         JP = IDAMAX( KM+1, AB( KV+1, J ), 1 );
+         IPIV( J ) = JP + J - 1;
          if ( AB( KV+JP, J ) != ZERO ) {
-            JU = MAX( JU, MIN( J+KU+JP-1, N ) )
+            JU = MAX( JU, MIN( J+KU+JP-1, N ) );
 
             // Apply interchange to columns J to JU.
 
@@ -117,7 +117,7 @@
             if (INFO == 0) INFO = J;
          }
       } // 40
-      RETURN
+      RETURN;
 
       // End of DGBTF2
 

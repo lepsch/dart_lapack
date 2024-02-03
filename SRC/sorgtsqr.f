@@ -1,5 +1,5 @@
-      SUBROUTINE SORGTSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE SORGTSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int               INFO, LDA, LDT, LWORK, M, N, MB, NB;
       // ..
       // .. Array Arguments ..
-      REAL              A( LDA, * ), T( LDT, * ), WORK( * )
+      REAL              A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -23,7 +23,7 @@
       int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J;
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -36,20 +36,20 @@
 
       // Test the input parameters
 
-      LQUERY  = LWORK == -1
-      INFO = 0
+      LQUERY  = LWORK == -1;
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || M < N ) {
-         INFO = -2
+         INFO = -2;
       } else if ( MB <= N ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NB < 1 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
-         INFO = -8
+         INFO = -8;
       } else {
 
          // Test the input LWORK for the dimension of the array WORK.
@@ -57,25 +57,25 @@
          // in the call to SLAMTSQR. See the documentation for SLAMTSQR.
 
          if ( LWORK < 2 && ( !LQUERY) ) {
-            INFO = -10
+            INFO = -10;
          } else {
 
             // Set block size for column blocks
 
-            NBLOCAL = MIN( NB, N )
+            NBLOCAL = MIN( NB, N );
 
             // LWORK = -1, then set the size for the array C(LDC,N)
             // in SLAMTSQR call and set the optimal size of the work array
             // WORK(LWORK) in SLAMTSQR call.
 
-            LDC = M
-            LC = LDC*N
-            LW = N * NBLOCAL
+            LDC = M;
+            LC = LDC*N;
+            LW = N * NBLOCAL;
 
-            LWORKOPT = LC+LW
+            LWORKOPT = LC+LW;
 
             if ( ( LWORK < MAX( 1, LWORKOPT ) ) && ( !LQUERY) ) {
-               INFO = -10
+               INFO = -10;
             }
          }
 
@@ -85,17 +85,17 @@
 
       if ( INFO != 0 ) {
          xerbla('SORGTSQR', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+         RETURN;
       }
 
       // (1) Form explicitly the tall-skinny M-by-N left submatrix Q1_in
@@ -126,8 +126,8 @@
          scopy(M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT )
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK( LWORKOPT );
+      RETURN;
 
       // End of SORGTSQR
 

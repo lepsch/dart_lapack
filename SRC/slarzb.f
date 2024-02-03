@@ -1,4 +1,4 @@
-      SUBROUTINE SLARZB( SIDE, TRANS, DIRECT, STOREV, M, N, K, L, V, LDV, T, LDT, C, LDC, WORK, LDWORK )
+      SUBROUTINE SLARZB( SIDE, TRANS, DIRECT, STOREV, M, N, K, L, V, LDV, T, LDT, C, LDC, WORK, LDWORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                K, L, LDC, LDT, LDV, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
+      REAL               C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -37,21 +37,21 @@
 
       // Check for currently supported options
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( DIRECT, 'B' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( !LSAME( STOREV, 'R' ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('SLARZB', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( LSAME( TRANS, 'N' ) ) {
-         TRANST = 'T'
+         TRANST = 'T';
       } else {
-         TRANST = 'N'
+         TRANST = 'N';
       }
 
       if ( LSAME( SIDE, 'L' ) ) {
@@ -77,7 +77,7 @@
 
          for (J = 1; J <= N; J++) { // 30
             for (I = 1; I <= K; I++) { // 20
-               C( I, J ) = C( I, J ) - WORK( J, I )
+               C( I, J ) = C( I, J ) - WORK( J, I );
             } // 20
          } // 30
 
@@ -109,7 +109,7 @@
 
          for (J = 1; J <= K; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
-               C( I, J ) = C( I, J ) - WORK( I, J )
+               C( I, J ) = C( I, J ) - WORK( I, J );
             } // 50
          } // 60
 
@@ -120,7 +120,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of SLARZB
 

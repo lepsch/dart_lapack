@@ -1,4 +1,4 @@
-      SUBROUTINE DSFRK( TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C )
+      SUBROUTINE DSFRK( TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,33 +38,33 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NORMALTRANSR = LSAME( TRANSR, 'N' )
-      LOWER = LSAME( UPLO, 'L' )
-      NOTRANS = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NORMALTRANSR = LSAME( TRANSR, 'N' );
+      LOWER = LSAME( UPLO, 'L' );
+      NOTRANS = LSAME( TRANS, 'N' );
 
       if ( NOTRANS ) {
-         NROWA = N
+         NROWA = N;
       } else {
-         NROWA = K
+         NROWA = K;
       }
 
       if ( !NORMALTRANSR && !LSAME( TRANSR, 'T' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOTRANS && !LSAME( TRANS, 'T' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( K < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, NROWA ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('DSFRK ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
@@ -72,13 +72,13 @@
       // The quick return case: ((ALPHA == 0) && (BETA != ZERO)) is not
       // done (it is in DSYRK for example) and left in the general case.
 
-      IF( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN
+      IF( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN;
 
       if ( ( ALPHA == ZERO ) && ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
-            C( J ) = ZERO
+            C( J ) = ZERO;
          }
-         RETURN
+         RETURN;
       }
 
       // C is N-by-N.
@@ -87,15 +87,15 @@
 
       if ( MOD( N, 2 ) == 0 ) {
          NISODD = false;
-         NK = N / 2
+         NK = N / 2;
       } else {
          NISODD = true;
          if ( LOWER ) {
-            N2 = N / 2
-            N1 = N - N2
+            N2 = N / 2;
+            N1 = N - N2;
          } else {
-            N1 = N / 2
-            N2 = N - N1
+            N1 = N / 2;
+            N2 = N - N1;
          }
       }
 
@@ -313,7 +313,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DSFRK
 

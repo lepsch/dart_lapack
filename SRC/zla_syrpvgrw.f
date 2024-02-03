@@ -9,7 +9,7 @@
       int                N, INFO, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * );
       double             WORK( * );
       int                IPIV( * );
       // ..
@@ -20,7 +20,7 @@
       int                NCOLS, I, J, K, KP;
       double             AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, DIMAG, MAX, MIN
@@ -33,19 +33,19 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( DBLE ( ZDUM ) ) + ABS( DIMAG ( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE ( ZDUM ) ) + ABS( DIMAG ( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
-      UPPER = LSAME( 'Upper', UPLO )
+      UPPER = LSAME( 'Upper', UPLO );
       if ( INFO == 0 ) {
          if ( UPPER ) {
-            NCOLS = 1
+            NCOLS = 1;
          } else {
-            NCOLS = N
+            NCOLS = N;
          }
       } else {
-         NCOLS = INFO
+         NCOLS = INFO;
       }
 
       RPVGRW = 1.0;
@@ -60,15 +60,15 @@
       if ( UPPER ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) )
-               WORK( N+J ) = MAX( CABS1( A( I, J ) ), WORK( N+J ) )
+               WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) );
+               WORK( N+J ) = MAX( CABS1( A( I, J ) ), WORK( N+J ) );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) )
-               WORK( N+J ) = MAX( CABS1( A( I, J ) ), WORK( N+J ) )
+               WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) );
+               WORK( N+J ) = MAX( CABS1( A( I, J ) ), WORK( N+J ) );
             }
          }
       }
@@ -81,97 +81,97 @@
       // Calls to SSWAP would be severe overkill.
 
       if ( UPPER ) {
-         K = N
-         DO WHILE ( K < NCOLS && K > 0 )
+         K = N;
+         DO WHILE ( K < NCOLS && K > 0 );
             if ( IPIV( K ) > 0 ) {
                // 1x1 pivot
-               KP = IPIV( K )
+               KP = IPIV( K );
                if ( KP != K ) {
-                  TMP = WORK( N+K )
-                  WORK( N+K ) = WORK( N+KP )
-                  WORK( N+KP ) = TMP
+                  TMP = WORK( N+K );
+                  WORK( N+K ) = WORK( N+KP );
+                  WORK( N+KP ) = TMP;
                }
                for (I = 1; I <= K; I++) {
-                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
+                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) );
                }
-               K = K - 1
+               K = K - 1;
             } else {
                // 2x2 pivot
-               KP = -IPIV( K )
-               TMP = WORK( N+K-1 )
-               WORK( N+K-1 ) = WORK( N+KP )
-               WORK( N+KP ) = TMP
+               KP = -IPIV( K );
+               TMP = WORK( N+K-1 );
+               WORK( N+K-1 ) = WORK( N+KP );
+               WORK( N+KP ) = TMP;
                for (I = 1; I <= K-1; I++) {
-                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
-                  WORK( K-1 ) = MAX( CABS1( AF( I, K-1 ) ), WORK( K-1 ) )
+                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) );
+                  WORK( K-1 ) = MAX( CABS1( AF( I, K-1 ) ), WORK( K-1 ) );
                }
-               WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) )
-               K = K - 2
+               WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) );
+               K = K - 2;
             }
          }
-         K = NCOLS
-         DO WHILE ( K <= N )
+         K = NCOLS;
+         DO WHILE ( K <= N );
             if ( IPIV( K ) > 0 ) {
-               KP = IPIV( K )
+               KP = IPIV( K );
                if ( KP != K ) {
-                  TMP = WORK( N+K )
-                  WORK( N+K ) = WORK( N+KP )
-                  WORK( N+KP ) = TMP
+                  TMP = WORK( N+K );
+                  WORK( N+K ) = WORK( N+KP );
+                  WORK( N+KP ) = TMP;
                }
-               K = K + 1
+               K = K + 1;
             } else {
-               KP = -IPIV( K )
-               TMP = WORK( N+K )
-               WORK( N+K ) = WORK( N+KP )
-               WORK( N+KP ) = TMP
-               K = K + 2
+               KP = -IPIV( K );
+               TMP = WORK( N+K );
+               WORK( N+K ) = WORK( N+KP );
+               WORK( N+KP ) = TMP;
+               K = K + 2;
             }
          }
       } else {
-         K = 1
-         DO WHILE ( K <= NCOLS )
+         K = 1;
+         DO WHILE ( K <= NCOLS );
             if ( IPIV( K ) > 0 ) {
                // 1x1 pivot
-               KP = IPIV( K )
+               KP = IPIV( K );
                if ( KP != K ) {
-                  TMP = WORK( N+K )
-                  WORK( N+K ) = WORK( N+KP )
-                  WORK( N+KP ) = TMP
+                  TMP = WORK( N+K );
+                  WORK( N+K ) = WORK( N+KP );
+                  WORK( N+KP ) = TMP;
                }
                for (I = K; I <= N; I++) {
-                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
+                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) );
                }
-               K = K + 1
+               K = K + 1;
             } else {
                // 2x2 pivot
-               KP = -IPIV( K )
-               TMP = WORK( N+K+1 )
-               WORK( N+K+1 ) = WORK( N+KP )
-               WORK( N+KP ) = TMP
+               KP = -IPIV( K );
+               TMP = WORK( N+K+1 );
+               WORK( N+K+1 ) = WORK( N+KP );
+               WORK( N+KP ) = TMP;
                for (I = K+1; I <= N; I++) {
-                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
-                  WORK( K+1 ) = MAX( CABS1( AF( I, K+1 ) ), WORK( K+1 ) )
+                  WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) );
+                  WORK( K+1 ) = MAX( CABS1( AF( I, K+1 ) ), WORK( K+1 ) );
                }
-               WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) )
-               K = K + 2
+               WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) );
+               K = K + 2;
             }
          }
-         K = NCOLS
-         DO WHILE ( K >= 1 )
+         K = NCOLS;
+         DO WHILE ( K >= 1 );
             if ( IPIV( K ) > 0 ) {
-               KP = IPIV( K )
+               KP = IPIV( K );
                if ( KP != K ) {
-                  TMP = WORK( N+K )
-                  WORK( N+K ) = WORK( N+KP )
-                  WORK( N+KP ) = TMP
+                  TMP = WORK( N+K );
+                  WORK( N+K ) = WORK( N+KP );
+                  WORK( N+KP ) = TMP;
                }
-               K = K - 1
+               K = K - 1;
             } else {
-               KP = -IPIV( K )
-               TMP = WORK( N+K )
-               WORK( N+K ) = WORK( N+KP )
-               WORK( N+KP ) = TMP
-               K = K - 2
+               KP = -IPIV( K );
+               TMP = WORK( N+K );
+               WORK( N+K ) = WORK( N+KP );
+               WORK( N+KP ) = TMP;
+               K = K - 2;
             }
          }
       }
@@ -185,23 +185,23 @@
 
       if ( UPPER ) {
          for (I = NCOLS; I <= N; I++) {
-            UMAX = WORK( I )
-            AMAX = WORK( N+I )
+            UMAX = WORK( I );
+            AMAX = WORK( N+I );
             if ( UMAX /= 0.0 ) {
-               RPVGRW = MIN( AMAX / UMAX, RPVGRW )
+               RPVGRW = MIN( AMAX / UMAX, RPVGRW );
             }
          }
       } else {
          for (I = 1; I <= NCOLS; I++) {
-            UMAX = WORK( I )
-            AMAX = WORK( N+I )
+            UMAX = WORK( I );
+            AMAX = WORK( N+I );
             if ( UMAX /= 0.0 ) {
-               RPVGRW = MIN( AMAX / UMAX, RPVGRW )
+               RPVGRW = MIN( AMAX / UMAX, RPVGRW );
             }
          }
       }
 
-      ZLA_SYRPVGRW = RPVGRW
+      ZLA_SYRPVGRW = RPVGRW;
 
       // End of ZLA_SYRPVGRW
 

@@ -1,4 +1,4 @@
-      SUBROUTINE STRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, WR, WI, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE STRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, WR, WI, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,31 +7,31 @@
       // .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LIWORK, LWORK, M, N;
-      REAL               S, SEP
+      REAL               S, SEP;
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
-      REAL               Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * )
+      REAL               Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN;
-      REAL               EST, RNORM, SCALE
+      REAL               EST, RNORM, SCALE;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLANGE, SROUNDUP_LWORK
+      REAL               SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -44,29 +44,29 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) || WANTBH
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH
-      WANTQ = LSAME( COMPQ, 'V' )
+      WANTBH = LSAME( JOB, 'B' );
+      WANTS = LSAME( JOB, 'E' ) || WANTBH;
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
+      WANTQ = LSAME( COMPQ, 'V' );
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -8
+         INFO = -8;
       } else {
 
          // Set M to the dimension of the specified invariant subspace,
          // and test LWORK and LIWORK.
 
-         M = 0
+         M = 0;
          PAIR = false;
          for (K = 1; K <= N; K++) { // 10
             if ( PAIR ) {
@@ -74,88 +74,88 @@
             } else {
                if ( K < N ) {
                   if ( T( K+1, K ) == ZERO ) {
-                     IF( SELECT( K ) ) M = M + 1
+                     IF( SELECT( K ) ) M = M + 1;
                   } else {
                      PAIR = true;
-                     IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2
+                     IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
                   }
                } else {
-                  IF( SELECT( N ) ) M = M + 1
+                  IF( SELECT( N ) ) M = M + 1;
                }
             }
          } // 10
 
-         N1 = M
-         N2 = N - M
-         NN = N1*N2
+         N1 = M;
+         N2 = N - M;
+         NN = N1*N2;
 
          if (  WANTSP ) {
-            LWMIN = MAX( 1, 2*NN )
-            LIWMIN = MAX( 1, NN )
+            LWMIN = MAX( 1, 2*NN );
+            LIWMIN = MAX( 1, NN );
          } else if ( LSAME( JOB, 'N' ) ) {
-            LWMIN = MAX( 1, N )
-            LIWMIN = 1
+            LWMIN = MAX( 1, N );
+            LIWMIN = 1;
          } else if ( LSAME( JOB, 'E' ) ) {
-            LWMIN = MAX( 1, NN )
-            LIWMIN = 1
+            LWMIN = MAX( 1, NN );
+            LIWMIN = 1;
          }
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -15
+            INFO = -15;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -17
+            INFO = -17;
          }
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         IWORK( 1 ) = LIWMIN;
       }
 
       if ( INFO != 0 ) {
          xerbla('STRSEN', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
       if ( M == N || M == 0 ) {
          if (WANTS) S = ONE          IF( WANTSP ) SEP = SLANGE( '1', N, N, T, LDT, WORK );
-         GO TO 40
+         GO TO 40;
       }
 
       // Collect the selected blocks at the top-left corner of T.
 
-      KS = 0
+      KS = 0;
       PAIR = false;
       for (K = 1; K <= N; K++) { // 20
          if ( PAIR ) {
             PAIR = false;
          } else {
-            SWAP = SELECT( K )
+            SWAP = SELECT( K );
             if ( K < N ) {
                if ( T( K+1, K ) != ZERO ) {
                   PAIR = true;
-                  SWAP = SWAP || SELECT( K+1 )
+                  SWAP = SWAP || SELECT( K+1 );
                }
             }
             if ( SWAP ) {
-               KS = KS + 1
+               KS = KS + 1;
 
                // Swap the K-th block to position KS.
 
-               IERR = 0
-               KK = K
+               IERR = 0;
+               KK = K;
                if (K != KS) CALL STREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
                if ( IERR == 1 || IERR == 2 ) {
 
                   // Blocks too close to swap: exit.
 
-                  INFO = 1
+                  INFO = 1;
                   if (WANTS) S = ZERO                   IF( WANTSP ) SEP = ZERO;
-                  GO TO 40
+                  GO TO 40;
                }
                if (PAIR) KS = KS + 1;
             }
@@ -174,11 +174,11 @@
          // Estimate the reciprocal of the condition number of the cluster
          // of eigenvalues.
 
-         RNORM = SLANGE( 'F', N1, N2, WORK, N1, WORK )
+         RNORM = SLANGE( 'F', N1, N2, WORK, N1, WORK );
          if ( RNORM == ZERO ) {
-            S = ONE
+            S = ONE;
          } else {
-            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
+            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) );
          }
       }
 
@@ -186,8 +186,8 @@
 
          // Estimate sep(T11,T22).
 
-         EST = ZERO
-         KASE = 0
+         EST = ZERO;
+         KASE = 0;
          } // 30
          slacn2(NN, WORK( NN+1 ), WORK, IWORK, EST, KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -202,10 +202,10 @@
 
                strsyl('T', 'T', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
             }
-            GO TO 30
+            GO TO 30;
          }
 
-         SEP = SCALE / EST
+         SEP = SCALE / EST;
       }
 
       } // 40
@@ -213,20 +213,20 @@
       // Store the output eigenvalues in WR and WI.
 
       for (K = 1; K <= N; K++) { // 50
-         WR( K ) = T( K, K )
-         WI( K ) = ZERO
+         WR( K ) = T( K, K );
+         WI( K ) = ZERO;
       } // 50
       for (K = 1; K <= N - 1; K++) { // 60
          if ( T( K+1, K ) != ZERO ) {
-            WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) )
-            WI( K+1 ) = -WI( K )
+            WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) );
+            WI( K+1 ) = -WI( K );
          }
       } // 60
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      IWORK( 1 ) = LIWMIN;
 
-      RETURN
+      RETURN;
 
       // End of STRSEN
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SGGLSE( M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, INFO )
+      SUBROUTINE SGGLSE( M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, P;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), C( * ), D( * ), WORK( * ), X( * )
+      REAL               A( LDA, * ), B( LDB, * ), C( * ), D( * ), WORK( * ), X( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       // ..
       // .. External Functions ..
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
@@ -36,48 +36,48 @@
 
       // Test the input parameters
 
-      INFO = 0
-      MN = MIN( M, N )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      MN = MIN( M, N );
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( P < 0 || P > N || P < N-M ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, P ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       // Calculate workspace
 
       if ( INFO == 0) {
          if ( N == 0 ) {
-            LWKMIN = 1
-            LWKOPT = 1
+            LWKMIN = 1;
+            LWKOPT = 1;
          } else {
-            NB1 = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
-            NB2 = ILAENV( 1, 'SGERQF', ' ', M, N, -1, -1 )
-            NB3 = ILAENV( 1, 'SORMQR', ' ', M, N, P, -1 )
-            NB4 = ILAENV( 1, 'SORMRQ', ' ', M, N, P, -1 )
-            NB = MAX( NB1, NB2, NB3, NB4 )
-            LWKMIN = M + N + P
-            LWKOPT = P + MN + MAX( M, N )*NB
+            NB1 = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 );
+            NB2 = ILAENV( 1, 'SGERQF', ' ', M, N, -1, -1 );
+            NB3 = ILAENV( 1, 'SORMQR', ' ', M, N, P, -1 );
+            NB4 = ILAENV( 1, 'SORMRQ', ' ', M, N, P, -1 );
+            NB = MAX( NB1, NB2, NB3, NB4 );
+            LWKMIN = M + N + P;
+            LWKOPT = P + MN + MAX( M, N )*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
+         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
          if ( LWORK < LWKMIN && !LQUERY ) {
-            INFO = -12
+            INFO = -12;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('SGGLSE', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -94,13 +94,13 @@
       // orthogonal.
 
       sggrqf(P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
-      LOPT = INT( WORK( P+MN+1 ) )
+      LOPT = INT( WORK( P+MN+1 ) );
 
       // Update c = Z**T *c = ( c1 ) N-P
                            // ( c2 ) M+P-N
 
       sormqr('Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO );
-      LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) )
+      LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) );
 
       // Solve T12*x2 = d for x2
 
@@ -108,8 +108,8 @@
          strtrs('Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO );
 
          if ( INFO > 0 ) {
-            INFO = 1
-            RETURN
+            INFO = 1;
+            RETURN;
          }
 
          // Put the solution in X
@@ -127,8 +127,8 @@
          strtrs('Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO );
 
          if ( INFO > 0 ) {
-            INFO = 2
-            RETURN
+            INFO = 2;
+            RETURN;
          }
 
          // Put the solutions in X
@@ -139,10 +139,10 @@
       // Compute the residual vector:
 
       if ( M < N ) {
-         NR = M + P - N
+         NR = M + P - N;
          if (NR > 0) CALL SGEMV( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 );
       } else {
-         NR = P
+         NR = P;
       }
       if ( NR > 0 ) {
          strmv('Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 );
@@ -152,9 +152,9 @@
       // Backward transformation x = Q**T*x
 
       sormrq('Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO );
-      WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) )
+      WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) );
 
-      RETURN
+      RETURN;
 
       // End of SGGLSE
 

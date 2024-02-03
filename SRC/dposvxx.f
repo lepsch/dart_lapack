@@ -1,4 +1,4 @@
-      SUBROUTINE DPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
+      SUBROUTINE DPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,68 +45,68 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      EQUIL = LSAME( FACT, 'E' )
-      SMLNUM = DLAMCH( 'Safe minimum' )
-      BIGNUM = ONE / SMLNUM
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      EQUIL = LSAME( FACT, 'E' );
+      SMLNUM = DLAMCH( 'Safe minimum' );
+      BIGNUM = ONE / SMLNUM;
       if ( NOFACT || EQUIL ) {
-         EQUED = 'N'
+         EQUED = 'N';
          RCEQU = false;
       } else {
-         RCEQU = LSAME( EQUED, 'Y' )
+         RCEQU = LSAME( EQUED, 'Y' );
       }
 
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in DPORFSX.
 
-      RPVGRW = ZERO
+      RPVGRW = ZERO;
 
       // Test the input parameters.  PARAMS is not tested until DPORFSX.
 
       if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LSAME( FACT, 'F' ) && !( RCEQU || LSAME( EQUED, 'N' ) ) ) {
-         INFO = -9
+         INFO = -9;
       } else {
          if ( RCEQU ) {
-            SMIN = BIGNUM
-            SMAX = ZERO
+            SMIN = BIGNUM;
+            SMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               SMIN = MIN( SMIN, S( J ) )
-               SMAX = MAX( SMAX, S( J ) )
+               SMIN = MIN( SMIN, S( J ) );
+               SMAX = MAX( SMAX, S( J ) );
             } // 10
             if ( SMIN <= ZERO ) {
-               INFO = -10
+               INFO = -10;
             } else if ( N > 0 ) {
-               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
+               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM );
             } else {
-               SCOND = ONE
+               SCOND = ONE;
             }
          }
          if ( INFO == 0 ) {
             if ( LDB < MAX( 1, N ) ) {
-               INFO = -12
+               INFO = -12;
             } else if ( LDX < MAX( 1, N ) ) {
-               INFO = -14
+               INFO = -14;
             }
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DPOSVXX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( EQUIL ) {
@@ -119,7 +119,7 @@
       // Equilibrate the matrix.
 
             dlaqsy(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
-            RCEQU = LSAME( EQUED, 'Y' )
+            RCEQU = LSAME( EQUED, 'Y' );
          }
       }
 
@@ -142,14 +142,14 @@
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
 
-            RPVGRW = DLA_PORPVGRW( UPLO, INFO, A, LDA, AF, LDAF, WORK )
-            RETURN
+            RPVGRW = DLA_PORPVGRW( UPLO, INFO, A, LDA, AF, LDAF, WORK );
+            RETURN;
          }
       }
 
       // Compute the reciprocal growth factor RPVGRW.
 
-      RPVGRW = DLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, WORK )
+      RPVGRW = DLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, WORK );
 
       // Compute the solution matrix X.
 
@@ -168,7 +168,7 @@
          dlascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN
+      RETURN;
 
       // End of DPOSVXX
 

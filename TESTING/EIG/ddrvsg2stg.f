@@ -1,6 +1,6 @@
-      SUBROUTINE DDRVSG2STG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, LDB, D, D2, Z, LDZ, AB, BB, AP, BP, WORK, NWORK, IWORK, LIWORK, RESULT, INFO )
+      SUBROUTINE DDRVSG2STG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, LDB, D, D2, Z, LDZ, AB, BB, AP, BP, WORK, NWORK, IWORK, LIWORK, RESULT, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,45 +45,45 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
       // ..
       // .. Data statements ..
-      DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /
-      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 6*1 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 6*4 /
+      DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /;
+      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 6*1 /;
+      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 6*4 /;
       // ..
       // .. Executable Statements ..
 
       // 1)      Check for errors
 
-      NTESTT = 0
-      INFO = 0
+      NTESTT = 0;
+      INFO = 0;
 
       BADNN = false;
-      NMAX = 0
+      NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) )
+         NMAX = MAX( NMAX, NN( J ) );
          IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADNN ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NTYPES < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA <= 1 || LDA < NMAX ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDZ <= 1 || LDZ < NMAX ) {
-         INFO = -16
+         INFO = -16;
       } else if ( 2*MAX( NMAX, 3 )**2 > NWORK ) {
-         INFO = -21
+         INFO = -21;
       } else if ( 2*MAX( NMAX, 3 )**2 > LIWORK ) {
-         INFO = -23
+         INFO = -23;
       }
 
       if ( INFO != 0 ) {
          xerbla('DDRVSG2STG', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -92,41 +92,41 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      OVFL = DLAMCH( 'Overflow' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
-      ULPINV = ONE / ULP
-      RTUNFL = SQRT( UNFL )
-      RTOVFL = SQRT( OVFL )
+      UNFL = DLAMCH( 'Safe minimum' );
+      OVFL = DLAMCH( 'Overflow' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULPINV = ONE / ULP;
+      RTUNFL = SQRT( UNFL );
+      RTOVFL = SQRT( OVFL );
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED2( I ) = ISEED( I )
+         ISEED2( I ) = ISEED( I );
       } // 20
 
       // Loop over sizes, types
 
-      NERRS = 0
-      NMATS = 0
+      NERRS = 0;
+      NMATS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 650
-         N = NN( JSIZE )
-         ANINV = ONE / DBLE( MAX( 1, N ) )
+         N = NN( JSIZE );
+         ANINV = ONE / DBLE( MAX( 1, N ) );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES )
+            MTYPES = MIN( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES )
+            MTYPES = MIN( MAXTYP+1, NTYPES );
          }
 
-         KA9 = 0
-         KB9 = 0
+         KA9 = 0;
+         KB9 = 0;
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 640
-            IF( !DOTYPE( JTYPE ) ) GO TO 640
-            NMATS = NMATS + 1
-            NTEST = 0
+            IF( !DOTYPE( JTYPE ) ) GO TO 640;
+            NMATS = NMATS + 1;
+            NTEST = 0;
 
             for (J = 1; J <= 4; J++) { // 30
-               IOLDSD( J ) = ISEED( J )
+               IOLDSD( J ) = ISEED( J );
             } // 30
 
             // 2)      Compute "A"
@@ -146,29 +146,29 @@
 
             if (MTYPES > MAXTYP) GO TO 90;
 
-            ITYPE = KTYPE( JTYPE )
-            IMODE = KMODE( JTYPE )
+            ITYPE = KTYPE( JTYPE );
+            IMODE = KMODE( JTYPE );
 
             // Compute norm
 
-            GO TO ( 40, 50, 60 )KMAGN( JTYPE )
+            GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
             } // 40
-            ANORM = ONE
-            GO TO 70
+            ANORM = ONE;
+            GO TO 70;
 
             } // 50
-            ANORM = ( RTOVFL*ULP )*ANINV
-            GO TO 70
+            ANORM = ( RTOVFL*ULP )*ANINV;
+            GO TO 70;
 
             } // 60
-            ANORM = RTUNFL*N*ULPINV
-            GO TO 70
+            ANORM = RTUNFL*N*ULPINV;
+            GO TO 70;
 
             } // 70
 
-            IINFO = 0
-            COND = ULPINV
+            IINFO = 0;
+            COND = ULPINV;
 
             // Special Matrices -- Identity & Jordan block
 
@@ -176,51 +176,51 @@
 
                // Zero
 
-               KA = 0
-               KB = 0
+               KA = 0;
+               KB = 0;
                dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
 
             } else if ( ITYPE == 2 ) {
 
                // Identity
 
-               KA = 0
-               KB = 0
+               KA = 0;
+               KB = 0;
                dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
 
                // Diagonal Matrix, [Eigen]values Specified
 
-               KA = 0
-               KB = 0
+               KA = 0;
+               KB = 0;
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE == 5 ) {
 
                // symmetric, eigenvalues specified
 
-               KA = MAX( 0, N-1 )
-               KB = KA
+               KA = MAX( 0, N-1 );
+               KB = KA;
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
 
                // Diagonal, random eigenvalues
 
-               KA = 0
-               KB = 0
+               KA = 0;
+               KB = 0;
                dlatmr(N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE == 8 ) {
 
                // symmetric, random eigenvalues
 
-               KA = MAX( 0, N-1 )
-               KB = KA
+               KA = MAX( 0, N-1 );
+               KB = KA;
                dlatmr(N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
 
             } else if ( ITYPE == 9 ) {
@@ -236,39 +236,39 @@
                  // ka = 3   kb = 2
                  // ka = 3   kb = 3
 
-               KB9 = KB9 + 1
+               KB9 = KB9 + 1;
                if ( KB9 > KA9 ) {
-                  KA9 = KA9 + 1
-                  KB9 = 1
+                  KA9 = KA9 + 1;
+                  KB9 = 1;
                }
-               KA = MAX( 0, MIN( N-1, KA9 ) )
-               KB = MAX( 0, MIN( N-1, KB9 ) )
+               KA = MAX( 0, MIN( N-1, KA9 ) );
+               KB = MAX( 0, MIN( N-1, KB9 ) );
                dlatms(N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK( N+1 ), IINFO );
 
             } else {
 
-               IINFO = 1
+               IINFO = 1;
             }
 
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               RETURN
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               RETURN;
             }
 
             } // 90
 
-            ABSTOL = UNFL + UNFL
+            ABSTOL = UNFL + UNFL;
             if ( N <= 1 ) {
-               IL = 1
-               IU = N
+               IL = 1;
+               IU = N;
             } else {
-               IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
-               IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
+               IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) );
+               IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) );
                if ( IL > IU ) {
-                  ITEMP = IL
-                  IL = IU
-                  IU = ITEMP
+                  ITEMP = IL;
+                  IL = IU;
+                  IU = ITEMP;
                }
             }
 
@@ -294,20 +294,20 @@
 
                   // Test DSYGV
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   dlacpy(' ', N, N, A, LDA, Z, LDZ );
                   dlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   dsygv(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 100
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 100;
                      }
                   }
 
@@ -317,20 +317,20 @@
 
                   // Test DSYGV_2STAGE
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   dlacpy(' ', N, N, A, LDA, Z, LDZ );
                   dlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   dsygv_2stage(IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 ) 'DSYGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 ) 'DSYGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 100
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 100;
                      }
                   }
 
@@ -343,31 +343,31 @@
                   // D1 computed using the standard 1-stage reduction as reference
                   // D2 computed using the 2-stage reduction
 
-                  TEMP1 = ZERO
-                  TEMP2 = ZERO
+                  TEMP1 = ZERO;
+                  TEMP2 = ZERO;
                   for (J = 1; J <= N; J++) { // 151
-                     TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) )
-                     TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) )
+                     TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) );
+                     TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) );
                   } // 151
 
-                  RESULT( NTEST ) = TEMP2 /  MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
+                  RESULT( NTEST ) = TEMP2 /  MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
 
                   // Test DSYGVD
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   dlacpy(' ', N, N, A, LDA, Z, LDZ );
                   dlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   dsygvd(IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 100
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 100;
                      }
                   }
 
@@ -377,20 +377,20 @@
 
                   // Test DSYGVX
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   dlacpy(' ', N, N, A, LDA, AB, LDA );
                   dlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   dsygvx(IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 100
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 100;
                      }
                   }
 
@@ -398,7 +398,7 @@
 
                   dsgt01(IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   dlacpy(' ', N, N, A, LDA, AB, LDA );
                   dlacpy(UPLO, N, N, B, LDB, BB, LDB );
@@ -408,17 +408,17 @@
                   // It is quite possible that there are no eigenvalues
                   // in this interval.
 
-                  VL = ZERO
-                  VU = ANORM
+                  VL = ZERO;
+                  VU = ANORM;
                   dsygvx(IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 100
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 100;
                      }
                   }
 
@@ -426,20 +426,20 @@
 
                   dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   dlacpy(' ', N, N, A, LDA, AB, LDA );
                   dlacpy(UPLO, N, N, B, LDB, BB, LDB );
 
                   dsygvx(IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 100
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 100;
                      }
                   }
 
@@ -451,39 +451,39 @@
 
                   // Test DSPGV
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   // Copy the matrices into packed storage.
 
                   if ( LSAME( UPLO, 'U' ) ) {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 120
                         for (I = 1; I <= J; I++) { // 110
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 110
                      } // 120
                   } else {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 140
                         for (I = J; I <= N; I++) { // 130
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 130
                      } // 140
                   }
 
                   dspgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 310
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 310;
                      }
                   }
 
@@ -493,39 +493,39 @@
 
                   // Test DSPGVD
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   // Copy the matrices into packed storage.
 
                   if ( LSAME( UPLO, 'U' ) ) {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 160
                         for (I = 1; I <= J; I++) { // 150
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 150
                      } // 160
                   } else {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 180
                         for (I = J; I <= N; I++) { // 170
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 170
                      } // 180
                   }
 
                   dspgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 310
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 310;
                      }
                   }
 
@@ -535,39 +535,39 @@
 
                   // Test DSPGVX
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   // Copy the matrices into packed storage.
 
                   if ( LSAME( UPLO, 'U' ) ) {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 200
                         for (I = 1; I <= J; I++) { // 190
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 190
                      } // 200
                   } else {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 220
                         for (I = J; I <= N; I++) { // 210
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 210
                      } // 220
                   }
 
                   dspgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 310
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 310;
                      }
                   }
 
@@ -575,41 +575,41 @@
 
                   dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   // Copy the matrices into packed storage.
 
                   if ( LSAME( UPLO, 'U' ) ) {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 240
                         for (I = 1; I <= J; I++) { // 230
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 230
                      } // 240
                   } else {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 260
                         for (I = J; I <= N; I++) { // 250
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 250
                      } // 260
                   }
 
-                  VL = ZERO
-                  VU = ANORM
+                  VL = ZERO;
+                  VU = ANORM;
                   dspgvx(IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 310
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 310;
                      }
                   }
 
@@ -617,39 +617,39 @@
 
                   dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-                  NTEST = NTEST + 1
+                  NTEST = NTEST + 1;
 
                   // Copy the matrices into packed storage.
 
                   if ( LSAME( UPLO, 'U' ) ) {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 280
                         for (I = 1; I <= J; I++) { // 270
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 270
                      } // 280
                   } else {
-                     IJ = 1
+                     IJ = 1;
                      for (J = 1; J <= N; J++) { // 300
                         for (I = J; I <= N; I++) { // 290
-                           AP( IJ ) = A( I, J )
-                           BP( IJ ) = B( I, J )
-                           IJ = IJ + 1
+                           AP( IJ ) = A( I, J );
+                           BP( IJ ) = B( I, J );
+                           IJ = IJ + 1;
                         } // 290
                      } // 300
                   }
 
                   dspgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
                   if ( IINFO != 0 ) {
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                     INFO = ABS( IINFO )
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                     INFO = ABS( IINFO );
                      if ( IINFO < 0 ) {
-                        RETURN
+                        RETURN;
                      } else {
-                        RESULT( NTEST ) = ULPINV
-                        GO TO 310
+                        RESULT( NTEST ) = ULPINV;
+                        GO TO 310;
                      }
                   }
 
@@ -663,39 +663,39 @@
 
                      // TEST DSBGV
 
-                     NTEST = NTEST + 1
+                     NTEST = NTEST + 1;
 
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 340
-                           DO 320 I = MAX( 1, J-KA ), J
-                              AB( KA+1+I-J, J ) = A( I, J )
+                           DO 320 I = MAX( 1, J-KA ), J;
+                              AB( KA+1+I-J, J ) = A( I, J );
                            } // 320
-                           DO 330 I = MAX( 1, J-KB ), J
-                              BB( KB+1+I-J, J ) = B( I, J )
+                           DO 330 I = MAX( 1, J-KB ), J;
+                              BB( KB+1+I-J, J ) = B( I, J );
                            } // 330
                         } // 340
                      } else {
                         for (J = 1; J <= N; J++) { // 370
-                           DO 350 I = J, MIN( N, J+KA )
-                              AB( 1+I-J, J ) = A( I, J )
+                           DO 350 I = J, MIN( N, J+KA );
+                              AB( 1+I-J, J ) = A( I, J );
                            } // 350
-                           DO 360 I = J, MIN( N, J+KB )
-                              BB( 1+I-J, J ) = B( I, J )
+                           DO 360 I = J, MIN( N, J+KB );
+                              BB( 1+I-J, J ) = B( I, J );
                            } // 360
                         } // 370
                      }
 
                      dsbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO );
                      if ( IINFO != 0 ) {
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                        INFO = ABS( IINFO )
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                        INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN
+                           RETURN;
                         } else {
-                           RESULT( NTEST ) = ULPINV
-                           GO TO 620
+                           RESULT( NTEST ) = ULPINV;
+                           GO TO 620;
                         }
                      }
 
@@ -705,39 +705,39 @@
 
                      // TEST DSBGVD
 
-                     NTEST = NTEST + 1
+                     NTEST = NTEST + 1;
 
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 400
-                           DO 380 I = MAX( 1, J-KA ), J
-                              AB( KA+1+I-J, J ) = A( I, J )
+                           DO 380 I = MAX( 1, J-KA ), J;
+                              AB( KA+1+I-J, J ) = A( I, J );
                            } // 380
-                           DO 390 I = MAX( 1, J-KB ), J
-                              BB( KB+1+I-J, J ) = B( I, J )
+                           DO 390 I = MAX( 1, J-KB ), J;
+                              BB( KB+1+I-J, J ) = B( I, J );
                            } // 390
                         } // 400
                      } else {
                         for (J = 1; J <= N; J++) { // 430
-                           DO 410 I = J, MIN( N, J+KA )
-                              AB( 1+I-J, J ) = A( I, J )
+                           DO 410 I = J, MIN( N, J+KA );
+                              AB( 1+I-J, J ) = A( I, J );
                            } // 410
-                           DO 420 I = J, MIN( N, J+KB )
-                              BB( 1+I-J, J ) = B( I, J )
+                           DO 420 I = J, MIN( N, J+KB );
+                              BB( 1+I-J, J ) = B( I, J );
                            } // 420
                         } // 430
                      }
 
                      dsbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
                      if ( IINFO != 0 ) {
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                        INFO = ABS( IINFO )
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                        INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN
+                           RETURN;
                         } else {
-                           RESULT( NTEST ) = ULPINV
-                           GO TO 620
+                           RESULT( NTEST ) = ULPINV;
+                           GO TO 620;
                         }
                      }
 
@@ -747,39 +747,39 @@
 
                      // Test DSBGVX
 
-                     NTEST = NTEST + 1
+                     NTEST = NTEST + 1;
 
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 460
-                           DO 440 I = MAX( 1, J-KA ), J
-                              AB( KA+1+I-J, J ) = A( I, J )
+                           DO 440 I = MAX( 1, J-KA ), J;
+                              AB( KA+1+I-J, J ) = A( I, J );
                            } // 440
-                           DO 450 I = MAX( 1, J-KB ), J
-                              BB( KB+1+I-J, J ) = B( I, J )
+                           DO 450 I = MAX( 1, J-KB ), J;
+                              BB( KB+1+I-J, J ) = B( I, J );
                            } // 450
                         } // 460
                      } else {
                         for (J = 1; J <= N; J++) { // 490
-                           DO 470 I = J, MIN( N, J+KA )
-                              AB( 1+I-J, J ) = A( I, J )
+                           DO 470 I = J, MIN( N, J+KA );
+                              AB( 1+I-J, J ) = A( I, J );
                            } // 470
-                           DO 480 I = J, MIN( N, J+KB )
-                              BB( 1+I-J, J ) = B( I, J )
+                           DO 480 I = J, MIN( N, J+KB );
+                              BB( 1+I-J, J ) = B( I, J );
                            } // 480
                         } // 490
                      }
 
                      dsbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                        INFO = ABS( IINFO )
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                        INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN
+                           RETURN;
                         } else {
-                           RESULT( NTEST ) = ULPINV
-                           GO TO 620
+                           RESULT( NTEST ) = ULPINV;
+                           GO TO 620;
                         }
                      }
 
@@ -788,41 +788,41 @@
                      dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
 
-                     NTEST = NTEST + 1
+                     NTEST = NTEST + 1;
 
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 520
-                           DO 500 I = MAX( 1, J-KA ), J
-                              AB( KA+1+I-J, J ) = A( I, J )
+                           DO 500 I = MAX( 1, J-KA ), J;
+                              AB( KA+1+I-J, J ) = A( I, J );
                            } // 500
-                           DO 510 I = MAX( 1, J-KB ), J
-                              BB( KB+1+I-J, J ) = B( I, J )
+                           DO 510 I = MAX( 1, J-KB ), J;
+                              BB( KB+1+I-J, J ) = B( I, J );
                            } // 510
                         } // 520
                      } else {
                         for (J = 1; J <= N; J++) { // 550
-                           DO 530 I = J, MIN( N, J+KA )
-                              AB( 1+I-J, J ) = A( I, J )
+                           DO 530 I = J, MIN( N, J+KA );
+                              AB( 1+I-J, J ) = A( I, J );
                            } // 530
-                           DO 540 I = J, MIN( N, J+KB )
-                              BB( 1+I-J, J ) = B( I, J )
+                           DO 540 I = J, MIN( N, J+KB );
+                              BB( 1+I-J, J ) = B( I, J );
                            } // 540
                         } // 550
                      }
 
-                     VL = ZERO
-                     VU = ANORM
+                     VL = ZERO;
+                     VU = ANORM;
                      dsbgvx('V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                        INFO = ABS( IINFO )
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                        INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN
+                           RETURN;
                         } else {
-                           RESULT( NTEST ) = ULPINV
-                           GO TO 620
+                           RESULT( NTEST ) = ULPINV;
+                           GO TO 620;
                         }
                      }
 
@@ -830,39 +830,39 @@
 
                      dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-                     NTEST = NTEST + 1
+                     NTEST = NTEST + 1;
 
                      // Copy the matrices into band storage.
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 580
-                           DO 560 I = MAX( 1, J-KA ), J
-                              AB( KA+1+I-J, J ) = A( I, J )
+                           DO 560 I = MAX( 1, J-KA ), J;
+                              AB( KA+1+I-J, J ) = A( I, J );
                            } // 560
-                           DO 570 I = MAX( 1, J-KB ), J
-                              BB( KB+1+I-J, J ) = B( I, J )
+                           DO 570 I = MAX( 1, J-KB ), J;
+                              BB( KB+1+I-J, J ) = B( I, J );
                            } // 570
                         } // 580
                      } else {
                         for (J = 1; J <= N; J++) { // 610
-                           DO 590 I = J, MIN( N, J+KA )
-                              AB( 1+I-J, J ) = A( I, J )
+                           DO 590 I = J, MIN( N, J+KA );
+                              AB( 1+I-J, J ) = A( I, J );
                            } // 590
-                           DO 600 I = J, MIN( N, J+KB )
-                              BB( 1+I-J, J ) = B( I, J )
+                           DO 600 I = J, MIN( N, J+KB );
+                              BB( 1+I-J, J ) = B( I, J );
                            } // 600
                         } // 610
                      }
 
                      dsbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
                      if ( IINFO != 0 ) {
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
-                        INFO = ABS( IINFO )
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD;
+                        INFO = ABS( IINFO );
                         if ( IINFO < 0 ) {
-                           RETURN
+                           RETURN;
                         } else {
-                           RESULT( NTEST ) = ULPINV
-                           GO TO 620
+                           RESULT( NTEST ) = ULPINV;
+                           GO TO 620;
                         }
                      }
 
@@ -877,7 +877,7 @@
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-            NTESTT = NTESTT + NTEST
+            NTESTT = NTESTT + NTEST;
             dlafts('DSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
          } // 640
       } // 650
@@ -886,9 +886,9 @@
 
       dlasum('DSG', NOUNIT, NERRS, NTESTT );
 
-      RETURN
+      RETURN;
 
       // End of DDRVSG2STG
 
- 9999 FORMAT( ' DDRVSG2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' DDRVSG2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
       }

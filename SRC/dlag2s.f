@@ -1,4 +1,4 @@
-      SUBROUTINE DLAG2S( M, N, A, LDA, SA, LDSA, INFO )
+      SUBROUTINE DLAG2S( M, N, A, LDA, SA, LDSA, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int                INFO, LDA, LDSA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               SA( LDSA, * )
+      REAL               SA( LDSA, * );
       double             A( LDA, * );
       // ..
 
@@ -19,7 +19,7 @@
       double             RMAX;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -27,19 +27,19 @@
       // ..
       // .. Executable Statements ..
 
-      RMAX = SLAMCH( 'O' )
+      RMAX = SLAMCH( 'O' );
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             if ( ( A( I, J ) < -RMAX ) || ( A( I, J ) > RMAX ) ) {
-               INFO = 1
-               GO TO 30
+               INFO = 1;
+               GO TO 30;
             }
-            SA( I, J ) = REAL( A( I, J ) )
+            SA( I, J ) = REAL( A( I, J ) );
          } // 10
       } // 20
-      INFO = 0
+      INFO = 0;
       } // 30
-      RETURN
+      RETURN;
 
       // End of DLAG2S
 

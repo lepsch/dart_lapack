@@ -1,10 +1,10 @@
-      subroutine icamaxsub(n,x,incx,iamax)
+      subroutine icamaxsub(n,x,incx,iamax);
 
       // external icamax
       int      icamax,iamax;
       int     n,incx;
-      complex x(*)
+      complex x(*);
 
-      iamax=icamax(n,x,incx)
-      return
-      end
+      iamax=icamax(n,x,incx);
+      return;
+      end;

@@ -1,4 +1,4 @@
-      SUBROUTINE DSYTRI_ROOK( UPLO, N, A, LDA, IPIV, WORK, INFO )
+      SUBROUTINE DSYTRI_ROOK( UPLO, N, A, LDA, IPIV, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,18 +39,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DSYTRI_ROOK', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -63,18 +63,18 @@
 
          // Upper triangular storage: examine D from bottom to top
 
-         DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
+         DO 10 INFO = N, 1, -1;
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
          } // 20
       }
-      INFO = 0
+      INFO = 0;
 
       if ( UPPER ) {
 
@@ -83,7 +83,7 @@
          // K is the main loop index, increasing from 1 to N in steps of
          // 1 or 2, depending on the size of the diagonal blocks.
 
-         K = 1
+         K = 1;
          } // 30
 
          // If K > N, exit from loop.
@@ -96,7 +96,7 @@
 
             // Invert the diagonal block.
 
-            A( K, K ) = ONE / A( K, K )
+            A( K, K ) = ONE / A( K, K );
 
             // Compute column K of the inverse.
 
@@ -104,21 +104,21 @@
                dcopy(K-1, A( 1, K ), 1, WORK, 1 );
                dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 );
             }
-            KSTEP = 1
+            KSTEP = 1;
          } else {
 
             // 2 x 2 diagonal block
 
             // Invert the diagonal block.
 
-            T = ABS( A( K, K+1 ) )
-            AK = A( K, K ) / T
-            AKP1 = A( K+1, K+1 ) / T
-            AKKP1 = A( K, K+1 ) / T
-            D = T*( AK*AKP1-ONE )
-            A( K, K ) = AKP1 / D
-            A( K+1, K+1 ) = AK / D
-            A( K, K+1 ) = -AKKP1 / D
+            T = ABS( A( K, K+1 ) );
+            AK = A( K, K ) / T;
+            AKP1 = A( K+1, K+1 ) / T;
+            AKKP1 = A( K, K+1 ) / T;
+            D = T*( AK*AKP1-ONE );
+            A( K, K ) = AKP1 / D;
+            A( K+1, K+1 ) = AK / D;
+            A( K, K+1 ) = -AKKP1 / D;
 
             // Compute columns K and K+1 of the inverse.
 
@@ -128,7 +128,7 @@
                dcopy(K-1, A( 1, K+1 ), 1, WORK, 1 );
                dsymv(UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - DDOT( K-1, WORK, 1, A( 1, K+1 ), 1 );
             }
-            KSTEP = 2
+            KSTEP = 2;
          }
 
          if ( KSTEP == 1 ) {
@@ -136,45 +136,45 @@
             // Interchange rows and columns K and IPIV(K) in the leading
             // submatrix A(1:k+1,1:k+1)
 
-            KP = IPIV( K )
+            KP = IPIV( K );
             if ( KP != K ) {
                if (KP > 1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
-               TEMP = A( K, K )
-               A( K, K ) = A( KP, KP )
-               A( KP, KP ) = TEMP
+               TEMP = A( K, K );
+               A( K, K ) = A( KP, KP );
+               A( KP, KP ) = TEMP;
             }
          } else {
 
             // Interchange rows and columns K and K+1 with -IPIV(K) and
             // -IPIV(K+1)in the leading submatrix A(1:k+1,1:k+1)
 
-            KP = -IPIV( K )
+            KP = -IPIV( K );
             if ( KP != K ) {
                if (KP > 1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
-               TEMP = A( K, K )
-               A( K, K ) = A( KP, KP )
-               A( KP, KP ) = TEMP
-               TEMP = A( K, K+1 )
-               A( K, K+1 ) = A( KP, K+1 )
-               A( KP, K+1 ) = TEMP
+               TEMP = A( K, K );
+               A( K, K ) = A( KP, KP );
+               A( KP, KP ) = TEMP;
+               TEMP = A( K, K+1 );
+               A( K, K+1 ) = A( KP, K+1 );
+               A( KP, K+1 ) = TEMP;
             }
 
-            K = K + 1
-            KP = -IPIV( K )
+            K = K + 1;
+            KP = -IPIV( K );
             if ( KP != K ) {
                if (KP > 1) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                dswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
-               TEMP = A( K, K )
-               A( K, K ) = A( KP, KP )
-               A( KP, KP ) = TEMP
+               TEMP = A( K, K );
+               A( K, K ) = A( KP, KP );
+               A( KP, KP ) = TEMP;
             }
          }
 
-         K = K + 1
-         GO TO 30
+         K = K + 1;
+         GO TO 30;
          } // 40
 
       } else {
@@ -184,7 +184,7 @@
          // K is the main loop index, increasing from 1 to N in steps of
          // 1 or 2, depending on the size of the diagonal blocks.
 
-         K = N
+         K = N;
          } // 50
 
          // If K < 1, exit from loop.
@@ -197,7 +197,7 @@
 
             // Invert the diagonal block.
 
-            A( K, K ) = ONE / A( K, K )
+            A( K, K ) = ONE / A( K, K );
 
             // Compute column K of the inverse.
 
@@ -205,21 +205,21 @@
                dcopy(N-K, A( K+1, K ), 1, WORK, 1 );
                dsymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 );
             }
-            KSTEP = 1
+            KSTEP = 1;
          } else {
 
             // 2 x 2 diagonal block
 
             // Invert the diagonal block.
 
-            T = ABS( A( K, K-1 ) )
-            AK = A( K-1, K-1 ) / T
-            AKP1 = A( K, K ) / T
-            AKKP1 = A( K, K-1 ) / T
-            D = T*( AK*AKP1-ONE )
-            A( K-1, K-1 ) = AKP1 / D
-            A( K, K ) = AK / D
-            A( K, K-1 ) = -AKKP1 / D
+            T = ABS( A( K, K-1 ) );
+            AK = A( K-1, K-1 ) / T;
+            AKP1 = A( K, K ) / T;
+            AKKP1 = A( K, K-1 ) / T;
+            D = T*( AK*AKP1-ONE );
+            A( K-1, K-1 ) = AKP1 / D;
+            A( K, K ) = AK / D;
+            A( K, K-1 ) = -AKKP1 / D;
 
             // Compute columns K-1 and K of the inverse.
 
@@ -229,7 +229,7 @@
                dcopy(N-K, A( K+1, K-1 ), 1, WORK, 1 );
                dsymv(UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - DDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 );
             }
-            KSTEP = 2
+            KSTEP = 2;
          }
 
          if ( KSTEP == 1 ) {
@@ -237,49 +237,49 @@
             // Interchange rows and columns K and IPIV(K) in the trailing
             // submatrix A(k-1:n,k-1:n)
 
-            KP = IPIV( K )
+            KP = IPIV( K );
             if ( KP != K ) {
                if (KP < N) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
-               TEMP = A( K, K )
-               A( K, K ) = A( KP, KP )
-               A( KP, KP ) = TEMP
+               TEMP = A( K, K );
+               A( K, K ) = A( KP, KP );
+               A( KP, KP ) = TEMP;
             }
          } else {
 
             // Interchange rows and columns K and K-1 with -IPIV(K) and
             // -IPIV(K-1) in the trailing submatrix A(k-1:n,k-1:n)
 
-            KP = -IPIV( K )
+            KP = -IPIV( K );
             if ( KP != K ) {
                if (KP < N) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
-               TEMP = A( K, K )
-               A( K, K ) = A( KP, KP )
-               A( KP, KP ) = TEMP
-               TEMP = A( K, K-1 )
-               A( K, K-1 ) = A( KP, K-1 )
-               A( KP, K-1 ) = TEMP
+               TEMP = A( K, K );
+               A( K, K ) = A( KP, KP );
+               A( KP, KP ) = TEMP;
+               TEMP = A( K, K-1 );
+               A( K, K-1 ) = A( KP, K-1 );
+               A( KP, K-1 ) = TEMP;
             }
 
-            K = K - 1
-            KP = -IPIV( K )
+            K = K - 1;
+            KP = -IPIV( K );
             if ( KP != K ) {
                if (KP < N) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                dswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
-               TEMP = A( K, K )
-               A( K, K ) = A( KP, KP )
-               A( KP, KP ) = TEMP
+               TEMP = A( K, K );
+               A( K, K ) = A( KP, KP );
+               A( KP, KP ) = TEMP;
             }
          }
 
-         K = K - 1
-         GO TO 50
+         K = K - 1;
+         GO TO 50;
          } // 60
       }
 
-      RETURN
+      RETURN;
 
       // End of DSYTRI_ROOK
 

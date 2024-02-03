@@ -39,34 +39,34 @@
       // ..
       // .. Executable Statements ..
 
-      DQRT14 = ZERO
+      DQRT14 = ZERO;
       if ( LSAME( TRANS, 'N' ) ) {
-         LDWORK = M + NRHS
+         LDWORK = M + NRHS;
          TPSD = false;
          if ( LWORK < ( M+NRHS )*( N+2 ) ) {
             xerbla('DQRT14', 10 );
-            RETURN
+            RETURN;
          } else if ( N <= 0 || NRHS <= 0 ) {
-            RETURN
+            RETURN;
          }
       } else if ( LSAME( TRANS, 'T' ) ) {
-         LDWORK = M
+         LDWORK = M;
          TPSD = true;
          if ( LWORK < ( N+NRHS )*( M+2 ) ) {
             xerbla('DQRT14', 10 );
-            RETURN
+            RETURN;
          } else if ( M <= 0 || NRHS <= 0 ) {
-            RETURN
+            RETURN;
          }
       } else {
          xerbla('DQRT14', 1 );
-         RETURN
+         RETURN;
       }
 
       // Copy and scale A
 
       dlacpy('All', M, N, A, LDA, WORK, LDWORK );
-      ANRM = DLANGE( 'M', M, N, WORK, LDWORK, RWORK )
+      ANRM = DLANGE( 'M', M, N, WORK, LDWORK, RWORK );
       if (ANRM != ZERO) CALL DLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO );
 
       // Copy X or X' into the right place and scale it
@@ -84,10 +84,10 @@
          // Compute largest entry in upper triangle of
          // work(n+1:m,n+1:n+nrhs)
 
-         ERR = ZERO
+         ERR = ZERO;
          for (J = N + 1; J <= N + NRHS; J++) { // 20
-            DO 10 I = N + 1, MIN( M, J )
-               ERR = MAX( ERR, ABS( WORK( I+( J-1 )*M ) ) )
+            DO 10 I = N + 1, MIN( M, J );
+               ERR = MAX( ERR, ABS( WORK( I+( J-1 )*M ) ) );
             } // 10
          } // 20
 
@@ -97,11 +97,11 @@
 
          for (I = 1; I <= N; I++) { // 40
             for (J = 1; J <= NRHS; J++) { // 30
-               WORK( M+J+( I-1 )*LDWORK ) = X( I, J )
+               WORK( M+J+( I-1 )*LDWORK ) = X( I, J );
             } // 30
          } // 40
 
-         XNRM = DLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
+         XNRM = DLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK );
          if (XNRM != ZERO) CALL DLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO );
 
          // Compute LQ factorization of work
@@ -111,18 +111,18 @@
          // Compute largest entry in lower triangle in
          // work(m+1:m+nrhs,m+1:n)
 
-         ERR = ZERO
+         ERR = ZERO;
          for (J = M + 1; J <= N; J++) { // 60
             for (I = J; I <= LDWORK; I++) { // 50
-               ERR = MAX( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) )
+               ERR = MAX( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) );
             } // 50
          } // 60
 
       }
 
-      DQRT14 = ERR / ( DBLE( MAX( M, N, NRHS ) )*DLAMCH( 'Epsilon' ) )
+      DQRT14 = ERR / ( DBLE( MAX( M, N, NRHS ) )*DLAMCH( 'Epsilon' ) );
 
-      RETURN
+      RETURN;
 
       // End of DQRT14
 

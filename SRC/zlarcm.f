@@ -1,4 +1,4 @@
-      SUBROUTINE ZLARCM( M, N, A, LDA, B, LDB, C, LDC, RWORK )
+      SUBROUTINE ZLARCM( M, N, A, LDA, B, LDB, C, LDC, RWORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             A( LDA, * ), RWORK( * );
-      COMPLEX*16         B( LDB, * ), C( LDC, * )
+      COMPLEX*16         B( LDB, * ), C( LDC, * );
       // ..
 
 *  =====================================================================
@@ -31,35 +31,35 @@
 
       // Quick return if possible.
 
-      IF( ( M == 0 ) || ( N == 0 ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) ) RETURN;
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            RWORK( ( J-1 )*M+I ) = DBLE( B( I, J ) )
+            RWORK( ( J-1 )*M+I ) = DBLE( B( I, J ) );
          } // 10
       } // 20
 
-      L = M*N + 1
+      L = M*N + 1;
       dgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK, M, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 40
          for (I = 1; I <= M; I++) { // 30
-            C( I, J ) = RWORK( L+( J-1 )*M+I-1 )
+            C( I, J ) = RWORK( L+( J-1 )*M+I-1 );
          } // 30
       } // 40
 
       for (J = 1; J <= N; J++) { // 60
          for (I = 1; I <= M; I++) { // 50
-            RWORK( ( J-1 )*M+I ) = DIMAG( B( I, J ) )
+            RWORK( ( J-1 )*M+I ) = DIMAG( B( I, J ) );
          } // 50
       } // 60
       dgemm('N', 'N', M, N, M, ONE, A, LDA, RWORK, M, ZERO, RWORK( L ), M );
       for (J = 1; J <= N; J++) { // 80
          for (I = 1; I <= M; I++) { // 70
-            C( I, J ) = DCMPLX( DBLE( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) )
+            C( I, J ) = DCMPLX( DBLE( C( I, J ) ), RWORK( L+( J-1 )*M+I-1 ) );
          } // 70
       } // 80
 
-      RETURN
+      RETURN;
 
       // End of ZLARCM
 

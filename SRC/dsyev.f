@@ -1,4 +1,4 @@
-      SUBROUTINE DSYEV( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO )
+      SUBROUTINE DSYEV( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,77 +39,77 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 )
-         LWKOPT = MAX( 1, ( NB+2 )*N )
-         WORK( 1 ) = LWKOPT
+         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
+         LWKOPT = MAX( 1, ( NB+2 )*N );
+         WORK( 1 ) = LWKOPT;
 
-         IF( LWORK < MAX( 1, 3*N-1 ) && !LQUERY ) INFO = -8
+         IF( LWORK < MAX( 1, 3*N-1 ) && !LQUERY ) INFO = -8;
       }
 
       if ( INFO != 0 ) {
          xerbla('DSYEV ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       if ( N == 1 ) {
-         W( 1 ) = A( 1, 1 )
-         WORK( 1 ) = 2
+         W( 1 ) = A( 1, 1 );
+         WORK( 1 ) = 2;
          if (WANTZ) A( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
-      ISCALE = 0
+      ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if (ISCALE == 1) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call DSYTRD to reduce symmetric matrix to tridiagonal form.
 
-      INDE = 1
-      INDTAU = INDE + N
-      INDWRK = INDTAU + N
-      LLWORK = LWORK - INDWRK + 1
+      INDE = 1;
+      INDTAU = INDE + N;
+      INDWRK = INDTAU + N;
+      LLWORK = LWORK - INDWRK + 1;
       dsytrd(UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
@@ -126,18 +126,18 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of DSYEV
 

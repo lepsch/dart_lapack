@@ -1,4 +1,4 @@
-      SUBROUTINE CPTTRS( UPLO, N, NRHS, D, E, B, LDB, INFO )
+      SUBROUTINE CPTTRS( UPLO, N, NRHS, D, E, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +9,8 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               D( * )
-      COMPLEX            B( LDB, * ), E( * )
+      REAL               D( * );
+      COMPLEX            B( LDB, * ), E( * );
       // ..
 
 *  =====================================================================
@@ -33,20 +33,20 @@
 
       // Test the input arguments.
 
-      INFO = 0
-      UPPER = ( UPLO == 'U' || UPLO == 'u' )
+      INFO = 0;
+      UPPER = ( UPLO == 'U' || UPLO == 'u' );
       if ( !UPPER && !( UPLO == 'L' || UPLO == 'l' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('CPTTRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -56,29 +56,29 @@
       // Determine the number of right-hand sides to solve at a time.
 
       if ( NRHS == 1 ) {
-         NB = 1
+         NB = 1;
       } else {
-         NB = MAX( 1, ILAENV( 1, 'CPTTRS', UPLO, N, NRHS, -1, -1 ) )
+         NB = MAX( 1, ILAENV( 1, 'CPTTRS', UPLO, N, NRHS, -1, -1 ) );
       }
 
       // Decode UPLO
 
       if ( UPPER ) {
-         IUPLO = 1
+         IUPLO = 1;
       } else {
-         IUPLO = 0
+         IUPLO = 0;
       }
 
       if ( NB >= NRHS ) {
          cptts2(IUPLO, N, NRHS, D, E, B, LDB );
       } else {
-         DO 10 J = 1, NRHS, NB
-            JB = MIN( NRHS-J+1, NB )
+         DO 10 J = 1, NRHS, NB;
+            JB = MIN( NRHS-J+1, NB );
             cptts2(IUPLO, N, JB, D, E, B( 1, J ), LDB );
          } // 10
       }
 
-      RETURN
+      RETURN;
 
       // End of CPTTRS
 

@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -37,52 +37,52 @@
       // ..
       // .. Executable Statements ..
 
-      ZQRT12 = ZERO
+      ZQRT12 = ZERO;
 
       // Test that enough workspace is supplied
 
       if ( LWORK < M*N+2*MIN( M, N )+MAX( M, N ) ) {
          xerbla('ZQRT12', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      MN = MIN( M, N )
+      MN = MIN( M, N );
       if (MN <= ZERO) RETURN;
 
-      NRMSVL = DNRM2( MN, S, 1 )
+      NRMSVL = DNRM2( MN, S, 1 );
 
       // Copy upper triangle of A into work
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
       for (J = 1; J <= N; J++) {
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = A( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      BIGNUM = ONE / SMLNUM;
 
       // Scale work if max entry outside range [SMLNUM,BIGNUM]
 
-      ANRM = ZLANGE( 'M', M, N, WORK, M, DUMMY )
-      ISCL = 0
+      ANRM = ZLANGE( 'M', M, N, WORK, M, DUMMY );
+      ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          zlascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
-         ISCL = 1
+         ISCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          zlascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO );
-         ISCL = 1
+         ISCL = 1;
       }
 
       if ( ANRM != ZERO ) {
@@ -104,18 +104,18 @@
       } else {
 
          for (I = 1; I <= MN; I++) {
-            RWORK( I ) = ZERO
+            RWORK( I ) = ZERO;
          }
       }
 
       // Compare s and singular values of work
 
       daxpy(MN, -ONE, S, 1, RWORK( 1 ), 1 );
-      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
+      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
 
       if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 
-      RETURN
+      RETURN;
 
       // End of ZQRT12
 

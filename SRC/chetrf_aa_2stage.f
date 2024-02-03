@@ -1,10 +1,10 @@
-      SUBROUTINE CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
+      SUBROUTINE CHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -12,24 +12,24 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
-      COMPLEX            A( LDA, * ), TB( * ), WORK( * )
+      COMPLEX            A( LDA, * ), TB( * ), WORK( * );
       // ..
 
 *  =====================================================================
       // .. Parameters ..
-      COMPLEX            ZERO, ONE
+      COMPLEX            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE  = ( 1.0, 0.0 ) ;
 
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                I, J, K, I1, I2, TD;
       int                LDTB, NB, KB, JB, NT, IINFO;
-      COMPLEX            PIV
+      COMPLEX            PIV;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
 
       // ..
@@ -43,73 +43,73 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      WQUERY = ( LWORK == -1 )
-      TQUERY = ( LTB == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      WQUERY = ( LWORK == -1 );
+      TQUERY = ( LTB == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LTB < MAX( 1, 4*N ) && !TQUERY ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LWORK < MAX( 1, N ) && !WQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
 
       if ( INFO != 0 ) {
          xerbla('CHETRF_AA_2STAGE', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Answer the query
 
-      NB = ILAENV( 1, 'CHETRF_AA_2STAGE', UPLO, N, -1, -1, -1 )
+      NB = ILAENV( 1, 'CHETRF_AA_2STAGE', UPLO, N, -1, -1, -1 );
       if ( INFO == 0 ) {
          if ( TQUERY ) {
-            TB( 1 ) = SROUNDUP_LWORK( MAX( 1, (3*NB+1)*N ) )
+            TB( 1 ) = SROUNDUP_LWORK( MAX( 1, (3*NB+1)*N ) );
          }
          if ( WQUERY ) {
-            WORK( 1 ) = SROUNDUP_LWORK( MAX( 1, N*NB ) )
+            WORK( 1 ) = SROUNDUP_LWORK( MAX( 1, N*NB ) );
          }
       }
       if ( TQUERY || WQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return
 
       if ( N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Determine the number of the block size
 
-      LDTB = LTB/N
+      LDTB = LTB/N;
       if ( LDTB < 3*NB+1 ) {
-         NB = (LDTB-1)/3
+         NB = (LDTB-1)/3;
       }
       if ( LWORK < NB*N ) {
-         NB = LWORK/N
+         NB = LWORK/N;
       }
 
       // Determine the number of the block columns
 
-      NT = (N+NB-1)/NB
-      TD = 2*NB
-      KB = MIN(NB, N)
+      NT = (N+NB-1)/NB;
+      TD = 2*NB;
+      KB = MIN(NB, N);
 
       // Initialize vectors/matrices
 
       for (J = 1; J <= KB; J++) {
-         IPIV( J ) = J
+         IPIV( J ) = J;
       }
 
       // Save NB
 
-      TB( 1 ) = NB
+      TB( 1 ) = NB;
 
       if ( UPPER ) {
 
@@ -121,22 +121,22 @@
 
             // Generate Jth column of W and H
 
-            KB = MIN(NB, N-J*NB)
+            KB = MIN(NB, N-J*NB);
             for (I = 1; I <= J-1; I++) {
                if ( I == 1 ) {
                    // H(I,J) = T(I,I)*U(I,J) + T(I+1,I)*U(I+1,J)
                   if ( I == (J-1) ) {
-                     JB = NB+KB
+                     JB = NB+KB;
                   } else {
-                     JB = 2*NB
+                     JB = 2*NB;
                   }
                   cgemm('NoTranspose', 'NoTranspose', NB, KB, JB, ONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*U(I-1,J) + T(I,I)*U(I,J) + T(I,I+1)*U(I+1,J)
                   if ( I == (J-1) ) {
-                     JB = 2*NB+KB
+                     JB = 2*NB+KB;
                   } else {
-                     JB = 3*NB
+                     JB = 3*NB;
                   }
                   cgemm('NoTranspose', 'NoTranspose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                }
@@ -159,9 +159,9 @@
             // Expand T(J,J) into full format
 
             for (I = 1; I <= KB; I++) {
-               TB( TD+1 + (J*NB+I-1)*LDTB ) = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) )
+               TB( TD+1 + (J*NB+I-1)*LDTB ) = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) );
                for (K = I+1; K <= KB; K++) {
-                  TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = CONJG( TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) )
+                  TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) = CONJG( TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) );
                }
             }
 
@@ -209,7 +209,7 @@
 
                // Compute T(J+1, J), zero out for GEMM update
 
-               KB = MIN(NB, N-(J+1)*NB)
+               KB = MIN(NB, N-(J+1)*NB);
                claset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 );
                clacpy('Upper', KB, NB, WORK, N, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J > 0 ) {
@@ -221,7 +221,7 @@
 
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
-                     TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = CONJG( TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB ) )
+                     TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = CONJG( TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB ) );
                   }
                }
                claset('Lower', KB, NB, ZERO, ONE,  A( J*NB+1, (J+1)*NB+1), LDA );
@@ -230,10 +230,10 @@
 
                for (K = 1; K <= KB; K++) {
                   // > Adjust ipiv
-                  IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB
+                  IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB;
 
-                  I1 = (J+1)*NB+K
-                  I2 = IPIV( (J+1)*NB+K )
+                  I1 = (J+1)*NB+K;
+                  I2 = IPIV( (J+1)*NB+K );
                   if ( I1 != I2 ) {
                      // > Apply pivots to previous columns of L
                      cswap(K-1, A( (J+1)*NB+1, I1 ), 1,  A( (J+1)*NB+1, I2 ), 1 );
@@ -246,9 +246,9 @@
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
                      if (I2 < N) CALL CSWAP( N-I2, A( I1, I2+1 ), LDA, A( I2, I2+1 ), LDA );
                      // > Swap A(I1, I1) with A(I2, I2)
-                     PIV = A( I1, I1 )
-                     A( I1, I1 ) = A( I2, I2 )
-                     A( I2, I2 ) = PIV
+                     PIV = A( I1, I1 );
+                     A( I1, I1 ) = A( I2, I2 );
+                     A( I2, I2 ) = PIV;
                      // > Apply pivots to previous columns of L
                      if ( J > 0 ) {
                         cswap(J*NB, A( 1, I1 ), 1, A( 1, I2 ), 1 );
@@ -267,22 +267,22 @@
 
             // Generate Jth column of W and H
 
-            KB = MIN(NB, N-J*NB)
+            KB = MIN(NB, N-J*NB);
             for (I = 1; I <= J-1; I++) {
                if ( I == 1 ) {
                    // H(I,J) = T(I,I)*L(J,I)' + T(I+1,I)'*L(J,I+1)'
                   if ( I == (J-1) ) {
-                     JB = NB+KB
+                     JB = NB+KB;
                   } else {
-                     JB = 2*NB
+                     JB = 2*NB;
                   }
                   cgemm('NoTranspose', 'Conjugate transpose', NB, KB, JB, ONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                } else {
                   // H(I,J) = T(I,I-1)*L(J,I-1)' + T(I,I)*L(J,I)' + T(I,I+1)*L(J,I+1)'
                   if ( I == (J-1) ) {
-                     JB = 2*NB+KB
+                     JB = 2*NB+KB;
                   } else {
-                     JB = 3*NB
+                     JB = 3*NB;
                   }
                   cgemm('NoTranspose', 'Conjugate transpose', NB, KB, JB, ONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, ZERO, WORK( I*NB+1 ), N );
                }
@@ -305,9 +305,9 @@
             // Expand T(J,J) into full format
 
             for (I = 1; I <= KB; I++) {
-               TB( TD+1 + (J*NB+I-1)*LDTB )  = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) )
+               TB( TD+1 + (J*NB+I-1)*LDTB )  = REAL( TB( TD+1 + (J*NB+I-1)*LDTB ) );
                for (K = I+1; K <= KB; K++) {
-                  TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = CONJG( TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) )
+                  TB( TD-(K-(I+1)) + (J*NB+K-1)*LDTB ) = CONJG( TB( TD+(K-I)+1 + (J*NB+I-1)*LDTB ) );
                }
             }
 
@@ -336,7 +336,7 @@
 
                // Compute T(J+1, J), zero out for GEMM update
 
-               KB = MIN(NB, N-(J+1)*NB)
+               KB = MIN(NB, N-(J+1)*NB);
                claset('Full', KB, NB, ZERO, ZERO,  TB( TD+NB+1 + (J*NB)*LDTB), LDTB-1 );
                clacpy('Upper', KB, NB, A( (J+1)*NB+1, J*NB+1 ), LDA, TB( TD+NB+1 + (J*NB)*LDTB ), LDTB-1 );
                if ( J > 0 ) {
@@ -348,7 +348,7 @@
 
                for (K = 1; K <= NB; K++) {
                   for (I = 1; I <= KB; I++) {
-                     TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = CONJG( TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB ) )
+                     TB( TD-NB+K-I+1 + (J*NB+NB+I-1)*LDTB ) = CONJG( TB( TD+NB+I-K+1 + (J*NB+K-1)*LDTB ) );
                   }
                }
                claset('Upper', KB, NB, ZERO, ONE,  A( (J+1)*NB+1, J*NB+1), LDA );
@@ -357,10 +357,10 @@
 
                for (K = 1; K <= KB; K++) {
                   // > Adjust ipiv
-                  IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB
+                  IPIV( (J+1)*NB+K ) = IPIV( (J+1)*NB+K ) + (J+1)*NB;
 
-                  I1 = (J+1)*NB+K
-                  I2 = IPIV( (J+1)*NB+K )
+                  I1 = (J+1)*NB+K;
+                  I2 = IPIV( (J+1)*NB+K );
                   if ( I1 != I2 ) {
                      // > Apply pivots to previous columns of L
                      cswap(K-1, A( I1, (J+1)*NB+1 ), LDA,  A( I2, (J+1)*NB+1 ), LDA );
@@ -373,9 +373,9 @@
                      // > Swap A(I2+1:M, I1) with A(I2+1:M, I2)
                      if (I2 < N) CALL CSWAP( N-I2, A( I2+1, I1 ), 1, A( I2+1, I2 ), 1 );
                      // > Swap A(I1, I1) with A(I2, I2)
-                     PIV = A( I1, I1 )
-                     A( I1, I1 ) = A( I2, I2 )
-                     A( I2, I2 ) = PIV
+                     PIV = A( I1, I1 );
+                     A( I1, I1 ) = A( I2, I2 );
+                     A( I2, I2 ) = PIV;
                      // > Apply pivots to previous columns of L
                      if ( J > 0 ) {
                         cswap(J*NB, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
@@ -394,7 +394,7 @@
       // Factor the band matrix
       cgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
-      RETURN
+      RETURN;
 
       // End of CHETRF_AA_2STAGE
 

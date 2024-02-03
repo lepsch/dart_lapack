@@ -20,15 +20,15 @@
       // ..
       // .. Executable Statements ..
       if ( LSAME( TRANS, 'N' ) ) {
-         ILATRANS = BLAS_NO_TRANS
+         ILATRANS = BLAS_NO_TRANS;
       } else if ( LSAME( TRANS, 'T' ) ) {
-         ILATRANS = BLAS_TRANS
+         ILATRANS = BLAS_TRANS;
       } else if ( LSAME( TRANS, 'C' ) ) {
-         ILATRANS = BLAS_CONJ_TRANS
+         ILATRANS = BLAS_CONJ_TRANS;
       } else {
-         ILATRANS = -1
+         ILATRANS = -1;
       }
-      RETURN
+      RETURN;
 
       // End of ILATRANS
 

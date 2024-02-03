@@ -1,4 +1,4 @@
-      SUBROUTINE CTGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, INFO )
+      SUBROUTINE CTGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,30 +11,30 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       int                IWORK( * );
-      REAL               DIF( * ), S( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      REAL               DIF( * ), S( * );
+      COMPLEX            A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       int                IDIFJB;
       const              ZERO = 0.0, ONE = 1.0, IDIFJB = 3 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;
       int                I, IERR, IFST, ILST, K, KS, LWMIN, N1, N2;
-      REAL               BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM
-      COMPLEX            YHAX, YHBX
+      REAL               BIGNUM, COND, EPS, LNRM, RNRM, SCALE, SMLNUM;
+      COMPLEX            YHAX, YHBX;
       // ..
       // .. Local Arrays ..
-      COMPLEX            DUMMY( 1 ), DUMMY1( 1 )
+      COMPLEX            DUMMY( 1 ), DUMMY1( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK
-      COMPLEX            CDOTC
+      REAL               SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK;
+      COMPLEX            CDOTC;
       // EXTERNAL LSAME, SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK, CDOTC
       // ..
       // .. External Subroutines ..
@@ -47,64 +47,64 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) || WANTBH
-      WANTDF = LSAME( JOB, 'V' ) || WANTBH
+      WANTBH = LSAME( JOB, 'B' );
+      WANTS = LSAME( JOB, 'E' ) || WANTBH;
+      WANTDF = LSAME( JOB, 'V' ) || WANTBH;
 
-      SOMCON = LSAME( HOWMNY, 'S' )
+      SOMCON = LSAME( HOWMNY, 'S' );
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
 
       if ( !WANTS && !WANTDF ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( WANTS && LDVL < N ) {
-         INFO = -10
+         INFO = -10;
       } else if ( WANTS && LDVR < N ) {
-         INFO = -12
+         INFO = -12;
       } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
 
          if ( SOMCON ) {
-            M = 0
+            M = 0;
             for (K = 1; K <= N; K++) { // 10
-               IF( SELECT( K ) ) M = M + 1
+               IF( SELECT( K ) ) M = M + 1;
             } // 10
          } else {
-            M = N
+            M = N;
          }
 
          if ( N == 0 ) {
-            LWMIN = 1
+            LWMIN = 1;
          } else if ( LSAME( JOB, 'V' ) || LSAME( JOB, 'B' ) ) {
-            LWMIN = 2*N*N
+            LWMIN = 2*N*N;
          } else {
-            LWMIN = N
+            LWMIN = N;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
          if ( MM < M ) {
-            INFO = -15
+            INFO = -15;
          } else if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -18
+            INFO = -18;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CTGSNA', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -113,43 +113,43 @@
 
       // Get machine constants
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SLAMCH( 'S' ) / EPS
-      BIGNUM = ONE / SMLNUM
-      KS = 0
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SLAMCH( 'S' ) / EPS;
+      BIGNUM = ONE / SMLNUM;
+      KS = 0;
       for (K = 1; K <= N; K++) { // 20
 
          // Determine whether condition numbers are required for the k-th
          // eigenpair.
 
          if ( SOMCON ) {
-            IF( !SELECT( K ) ) GO TO 20
+            IF( !SELECT( K ) ) GO TO 20;
          }
 
-         KS = KS + 1
+         KS = KS + 1;
 
          if ( WANTS ) {
 
             // Compute the reciprocal condition number of the k-th
             // eigenvalue.
 
-            RNRM = SCNRM2( N, VR( 1, KS ), 1 )
-            LNRM = SCNRM2( N, VL( 1, KS ), 1 )
+            RNRM = SCNRM2( N, VR( 1, KS ), 1 );
+            LNRM = SCNRM2( N, VL( 1, KS ), 1 );
             cgemv('N', N, N, CMPLX( ONE, ZERO ), A, LDA, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 );
-            YHAX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 )
+            YHAX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 );
             cgemv('N', N, N, CMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, CMPLX( ZERO, ZERO ), WORK, 1 );
-            YHBX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 )
-            COND = SLAPY2( ABS( YHAX ), ABS( YHBX ) )
+            YHBX = CDOTC( N, WORK, 1, VL( 1, KS ), 1 );
+            COND = SLAPY2( ABS( YHAX ), ABS( YHBX ) );
             if ( COND == ZERO ) {
-               S( KS ) = -ONE
+               S( KS ) = -ONE;
             } else {
-               S( KS ) = COND / ( RNRM*LNRM )
+               S( KS ) = COND / ( RNRM*LNRM );
             }
          }
 
          if ( WANTDF ) {
             if ( N == 1 ) {
-               DIF( KS ) = SLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) )
+               DIF( KS ) = SLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) );
             } else {
 
                // Estimate the reciprocal condition number of the k-th
@@ -160,8 +160,8 @@
 
                clacpy('Full', N, N, A, LDA, WORK, N );
                clacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-               IFST = K
-               ILST = 1
+               IFST = K;
+               ILST = 1;
 
                ctgexc( false , false , N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR );
 
@@ -169,7 +169,7 @@
 
                   // Ill-conditioned problem - swap rejected.
 
-                  DIF( KS ) = ZERO
+                  DIF( KS ) = ZERO;
                } else {
 
                   // Reordering successful, solve generalized Sylvester
@@ -178,17 +178,17 @@
                              // B22 * R - L * B11 = B12,
                   // and compute estimate of Difl[(A11,B11), (A22, B22)].
 
-                  N1 = 1
-                  N2 = N - N1
-                  I = N*N + 1
+                  N1 = 1;
+                  N2 = N - N1;
+                  I = N*N + 1;
                   ctgsyl('N', IDIFJB, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), DUMMY, 1, IWORK, IERR );
                }
             }
          }
 
       } // 20
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      RETURN;
 
       // End of CTGSNA
 

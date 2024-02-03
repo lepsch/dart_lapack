@@ -1,4 +1,4 @@
-      SUBROUTINE SBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID )
+      SUBROUTINE SBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,26 +6,26 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 * ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
-      REAL               SASUM, SLAMCH, SLANGE
+      REAL               SASUM, SLAMCH, SLANGE;
       // EXTERNAL LSAME, ISAMAX, SASUM, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
@@ -38,11 +38,11 @@
 
       // Quick return if possible.
 
-      RESID = ZERO
-      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN
+      RESID = ZERO;
+      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN;
 
-      EPS = SLAMCH( 'Precision' )
-      ANORM = SLANGE( 'M', M, N, A, LDA, WORK )
+      EPS = SLAMCH( 'Precision' );
+      ANORM = SLANGE( 'M', M, N, A, LDA, WORK );
 
       // Compute U' * A * V.
 
@@ -50,28 +50,28 @@
 
       // norm(S - U' * B * V)
 
-      J = 0
+      J = 0;
       for (I = 1; I <= NS; I++) { // 10
-         WORK( J+I ) =  WORK( J+I ) + S( I )
-         RESID = MAX( RESID, SASUM( NS, WORK( J+1 ), 1 ) )
-         J = J + NS
+         WORK( J+I ) =  WORK( J+I ) + S( I );
+         RESID = MAX( RESID, SASUM( NS, WORK( J+1 ), 1 ) );
+         J = J + NS;
       } // 10
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM >= RESID ) {
-            RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
+            RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS )
+               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS )
+               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of SBDT05
 

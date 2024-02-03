@@ -1,4 +1,4 @@
-      SUBROUTINE ZTFTRI( TRANSR, UPLO, DIAG, N, A, INFO )
+      SUBROUTINE ZTFTRI( TRANSR, UPLO, DIAG, N, A, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( 0: * )
+      COMPLEX*16         A( 0: * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -36,21 +36,21 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NORMALTRANSR = LSAME( TRANSR, 'N' )
-      LOWER = LSAME( UPLO, 'L' )
+      INFO = 0;
+      NORMALTRANSR = LSAME( TRANSR, 'N' );
+      LOWER = LSAME( UPLO, 'L' );
       if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !LSAME( DIAG, 'N' ) && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZTFTRI', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,7 +61,7 @@
       // If N is even, set K = N/2 and NISODD = false;
 
       if ( MOD( N, 2 ) == 0 ) {
-         K = N / 2
+         K = N / 2;
          NISODD = false;
       } else {
          NISODD = true;
@@ -70,11 +70,11 @@
       // Set N1 and N2 depending on LOWER
 
       if ( LOWER ) {
-         N2 = N / 2
-         N1 = N - N2
+         N2 = N / 2;
+         N1 = N - N2;
       } else {
-         N1 = N / 2
-         N2 = N - N1
+         N1 = N / 2;
+         N2 = N - N1;
       }
 
 
@@ -213,7 +213,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZTFTRI
 

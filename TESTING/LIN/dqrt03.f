@@ -1,4 +1,4 @@
-      SUBROUTINE DQRT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DQRT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,11 +45,11 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEED / 1988, 1989, 1990, 1991 /
+      DATA               ISEED / 1988, 1989, 1990, 1991 /;
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
 
       // Copy the first k columns of the factorization to the array Q
 
@@ -58,18 +58,18 @@
 
       // Generate the m-by-m matrix Q
 
-      SRNAMT = 'DORGQR'
+      SRNAMT = 'DORGQR';
       dorgqr(M, M, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
          if ( ISIDE == 1 ) {
-            SIDE = 'L'
-            MC = M
-            NC = N
+            SIDE = 'L';
+            MC = M;
+            NC = N;
          } else {
-            SIDE = 'R'
-            MC = N
-            NC = M
+            SIDE = 'R';
+            MC = N;
+            NC = M;
          }
 
          // Generate MC by NC matrix C
@@ -77,14 +77,14 @@
          for (J = 1; J <= NC; J++) { // 10
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
-         CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
+         CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK );
          if (CNORM == 0.0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS == 1 ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'T'
+               TRANS = 'T';
             }
 
             // Copy C
@@ -93,7 +93,7 @@
 
             // Apply Q or Q' to C
 
-            SRNAMT = 'DORMQR'
+            SRNAMT = 'DORMQR';
             dormqr(SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
@@ -106,13 +106,13 @@
 
             // Compute error in the difference
 
-            RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK )
-            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, M ) )*CNORM*EPS )
+            RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK );
+            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, M ) )*CNORM*EPS );
 
          } // 20
       } // 30
 
-      RETURN
+      RETURN;
 
       // End of DQRT03
 

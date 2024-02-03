@@ -1,11 +1,11 @@
-      COMPLEX*16     FUNCTION ZLADIV( X, Y )
+      COMPLEX*16     FUNCTION ZLADIV( X, Y );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         X, Y
+      COMPLEX*16         X, Y;
       // ..
 
 *  =====================================================================
@@ -22,9 +22,9 @@
       // .. Executable Statements ..
 
       dladiv(DBLE( X ), DIMAG( X ), DBLE( Y ), DIMAG( Y ), ZR, ZI );
-      ZLADIV = DCMPLX( ZR, ZI )
+      ZLADIV = DCMPLX( ZR, ZI );
 
-      RETURN
+      RETURN;
 
       // End of ZLADIV
 

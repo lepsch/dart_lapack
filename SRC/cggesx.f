@@ -1,4 +1,4 @@
-      SUBROUTINE CGGESX( JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, INFO )
+      SUBROUTINE CGGESX( JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +11,8 @@
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               RCONDE( 2 ), RCONDV( 2 ), RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
+      REAL               RCONDE( 2 ), RCONDV( 2 ), RWORK( * );
+      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
       // .. Function Arguments ..
       bool               SELCTG;
@@ -22,18 +22,18 @@
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTSB, WANTSE, WANTSN, WANTST, WANTSV;
       int                I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SMLNUM
+      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DIF( 2 )
+      REAL               DIF( 2 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGSEN, CUNGQR, CUNMQR, XERBLA
@@ -41,7 +41,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
+      REAL               CLANGE, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, CLANGE, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
@@ -52,64 +52,64 @@
       // Decode the input arguments
 
       if ( LSAME( JOBVSL, 'N' ) ) {
-         IJOBVL = 1
+         IJOBVL = 1;
          ILVSL = false;
       } else if ( LSAME( JOBVSL, 'V' ) ) {
-         IJOBVL = 2
+         IJOBVL = 2;
          ILVSL = true;
       } else {
-         IJOBVL = -1
+         IJOBVL = -1;
          ILVSL = false;
       }
 
       if ( LSAME( JOBVSR, 'N' ) ) {
-         IJOBVR = 1
+         IJOBVR = 1;
          ILVSR = false;
       } else if ( LSAME( JOBVSR, 'V' ) ) {
-         IJOBVR = 2
+         IJOBVR = 2;
          ILVSR = true;
       } else {
-         IJOBVR = -1
+         IJOBVR = -1;
          ILVSR = false;
       }
 
-      WANTST = LSAME( SORT, 'S' )
-      WANTSN = LSAME( SENSE, 'N' )
-      WANTSE = LSAME( SENSE, 'E' )
-      WANTSV = LSAME( SENSE, 'V' )
-      WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      WANTST = LSAME( SORT, 'S' );
+      WANTSN = LSAME( SENSE, 'N' );
+      WANTSE = LSAME( SENSE, 'E' );
+      WANTSV = LSAME( SENSE, 'V' );
+      WANTSB = LSAME( SENSE, 'B' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
       if ( WANTSN ) {
-         IJOB = 0
+         IJOB = 0;
       } else if ( WANTSE ) {
-         IJOB = 1
+         IJOB = 1;
       } else if ( WANTSV ) {
-         IJOB = 2
+         IJOB = 2;
       } else if ( WANTSB ) {
-         IJOB = 4
+         IJOB = 4;
       }
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( IJOBVL <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IJOBVR <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( !( WANTSN || WANTSE || WANTSV || WANTSB ) || ( !WANTST && !WANTSN ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( N < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
-         INFO = -15
+         INFO = -15;
       } else if ( LDVSR < 1 || ( ILVSR && LDVSR < N ) ) {
-         INFO = -17
+         INFO = -17;
       }
 
       // Compute workspace
@@ -121,78 +121,78 @@
 
       if ( INFO == 0 ) {
          if ( N > 0) {
-            MINWRK = 2*N
-            MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )
-            MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) )
+            MINWRK = 2*N;
+            MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) );
+            MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) );
             if ( ILVSL ) {
-               MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) )
+               MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) );
             }
-            LWRK = MAXWRK
+            LWRK = MAXWRK;
             if (IJOB >= 1) LWRK = MAX( LWRK, N*N/2 );
          } else {
-            MINWRK = 1
-            MAXWRK = 1
-            LWRK   = 1
+            MINWRK = 1;
+            MAXWRK = 1;
+            LWRK   = 1;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWRK)
+         WORK( 1 ) = SROUNDUP_LWORK(LWRK);
          if ( WANTSN || N == 0 ) {
-            LIWMIN = 1
+            LIWMIN = 1;
          } else {
-            LIWMIN = N + 2
+            LIWMIN = N + 2;
          }
-         IWORK( 1 ) = LIWMIN
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -21
+            INFO = -21;
          } else if ( LIWORK < LIWMIN && !LQUERY) {
-            INFO = -24
+            INFO = -24;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CGGESX', -INFO );
-         RETURN
+         RETURN;
       } else if (LQUERY) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         SDIM = 0
-         RETURN
+         SDIM = 0;
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SQRT( SMLNUM ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SQRT( SMLNUM ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
+      ANRM = CLANGE( 'M', N, N, A, LDA, RWORK );
       ILASCL = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ANRMTO = SMLNUM
+         ANRMTO = SMLNUM;
          ILASCL = true;
       } else if ( ANRM > BIGNUM ) {
-         ANRMTO = BIGNUM
+         ANRMTO = BIGNUM;
          ILASCL = true;
       }
       if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
+      BNRM = CLANGE( 'M', N, N, B, LDB, RWORK );
       ILBSCL = false;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
-         BNRMTO = SMLNUM
+         BNRMTO = SMLNUM;
          ILBSCL = true;
       } else if ( BNRM > BIGNUM ) {
-         BNRMTO = BIGNUM
+         BNRMTO = BIGNUM;
          ILBSCL = true;
       }
       if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
@@ -200,18 +200,18 @@
       // Permute the matrix to make it more nearly triangular
       // (Real Workspace: need 6*N)
 
-      ILEFT = 1
-      IRIGHT = N + 1
-      IRWRK = IRIGHT + N
+      ILEFT = 1;
+      IRIGHT = N + 1;
+      IRWRK = IRIGHT + N;
       cggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
       // (Complex Workspace: need N, prefer N*NB)
 
-      IROWS = IHI + 1 - ILO
-      ICOLS = N + 1 - ILO
-      ITAU = 1
-      IWRK = ITAU + IROWS
+      IROWS = IHI + 1 - ILO;
+      ICOLS = N + 1 - ILO;
+      ITAU = 1;
+      IWRK = ITAU + IROWS;
       cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the unitary transformation to matrix A
@@ -239,23 +239,23 @@
 
       cgghrd(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR );
 
-      SDIM = 0
+      SDIM = 0;
 
       // Perform QZ algorithm, computing Schur vectors if desired
       // (Complex Workspace: need N)
       // (Real Workspace:    need N)
 
-      IWRK = ITAU
+      IWRK = ITAU;
       chgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR );
       if ( IERR != 0 ) {
          if ( IERR > 0 && IERR <= N ) {
-            INFO = IERR
+            INFO = IERR;
          } else if ( IERR > N && IERR <= 2*N ) {
-            INFO = IERR - N
+            INFO = IERR - N;
          } else {
-            INFO = N + 1
+            INFO = N + 1;
          }
-         GO TO 40
+         GO TO 40;
       }
 
       // Sort eigenvalues ALPHA/BETA and compute the reciprocal of
@@ -270,7 +270,7 @@
          // Select eigenvalues
 
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
+            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) );
          } // 10
 
          // Reorder eigenvalues, transform Generalized Schur vectors, and
@@ -285,15 +285,15 @@
 
              // not enough complex workspace
 
-            INFO = -21
+            INFO = -21;
          } else {
             if ( IJOB == 1 || IJOB == 4 ) {
-               RCONDE( 1 ) = PL
-               RCONDE( 2 ) = PR
+               RCONDE( 1 ) = PL;
+               RCONDE( 2 ) = PR;
             }
             if ( IJOB == 2 || IJOB == 4 ) {
-               RCONDV( 1 ) = DIF( 1 )
-               RCONDV( 2 ) = DIF( 2 )
+               RCONDV( 1 ) = DIF( 1 );
+               RCONDV( 2 ) = DIF( 2 );
             }
             if (IERR == 1) INFO = N + 3;
          }
@@ -324,21 +324,21 @@
          // Check if reordering is correct
 
          LASTSL = true;
-         SDIM = 0
+         SDIM = 0;
          for (I = 1; I <= N; I++) { // 30
-            CURSL = SELCTG( ALPHA( I ), BETA( I ) )
+            CURSL = SELCTG( ALPHA( I ), BETA( I ) );
             if (CURSL) SDIM = SDIM + 1             IF( CURSL && !LASTSL ) INFO = N + 2;
-            LASTSL = CURSL
+            LASTSL = CURSL;
          } // 30
 
       }
 
       } // 40
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
+      IWORK( 1 ) = LIWMIN;
 
-      RETURN
+      RETURN;
 
       // End of CGGESX
 

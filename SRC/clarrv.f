@@ -1,4 +1,4 @@
-      SUBROUTINE CLARRV( N, VL, VU, D, L, PIVMIN, ISPLIT, M, DOL, DOU, MINRGP, RTOL1, RTOL2, W, WERR, WGAP, IBLOCK, INDEXW, GERS, Z, LDZ, ISUPPZ, WORK, IWORK, INFO )
+      SUBROUTINE CLARRV( N, VL, VU, D, L, PIVMIN, ISPLIT, M, DOL, DOU, MINRGP, RTOL1, RTOL2, W, WERR, WGAP, IBLOCK, INDEXW, GERS, Z, LDZ, ISUPPZ, WORK, IWORK, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,12 +6,12 @@
 
       // .. Scalar Arguments ..
       int                DOL, DOU, INFO, LDZ, M, N;
-      REAL               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU
+      REAL               MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * );
       REAL               D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
-      COMPLEX           Z( LDZ, * )
+      COMPLEX           Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -19,19 +19,19 @@
       // .. Parameters ..
       int                MAXITR;
       const              MAXITR = 10 ;
-      COMPLEX            CZERO
+      COMPLEX            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      REAL               ZERO, ONE, TWO, THREE, FOUR, HALF
+      REAL               ZERO, ONE, TWO, THREE, FOUR, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;
       // ..
       // .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;
       int                DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW;
       int                INDIN1, INDIN2;
-      REAL               BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ
+      REAL               BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -44,57 +44,57 @@
       // .. Executable Statements ..
       // ..
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
       if ( (N <= 0) || (M <= 0) ) {
-         RETURN
+         RETURN;
       }
 
       // The first N entries of WORK are reserved for the eigenvalues
-      INDLD = N+1
-      INDLLD= 2*N+1
-      INDIN1 = 3*N + 1
-      INDIN2 = 4*N + 1
-      INDWRK = 5*N + 1
-      MINWSIZE = 12 * N
+      INDLD = N+1;
+      INDLLD= 2*N+1;
+      INDIN1 = 3*N + 1;
+      INDIN2 = 4*N + 1;
+      INDWRK = 5*N + 1;
+      MINWSIZE = 12 * N;
 
       for (I = 1; I <= MINWSIZE; I++) { // 5
-         WORK( I ) = ZERO
+         WORK( I ) = ZERO;
       } // 5
 
       // IWORK(IINDR+1:IINDR+N) hold the twist indices R for the
       // factorization used to compute the FP vector
-      IINDR = 0
+      IINDR = 0;
       // IWORK(IINDC1+1:IINC2+N) are used to store the clusters of the current
       // layer and the one above.
-      IINDC1 = N
-      IINDC2 = 2*N
-      IINDWK = 3*N + 1
+      IINDC1 = N;
+      IINDC2 = 2*N;
+      IINDWK = 3*N + 1;
 
-      MINIWSIZE = 7 * N
+      MINIWSIZE = 7 * N;
       for (I = 1; I <= MINIWSIZE; I++) { // 10
-         IWORK( I ) = 0
+         IWORK( I ) = 0;
       } // 10
 
-      ZUSEDL = 1
+      ZUSEDL = 1;
       if (DOL > 1) {
          // Set lower bound for use of Z
-         ZUSEDL = DOL-1
+         ZUSEDL = DOL-1;
       }
-      ZUSEDU = M
+      ZUSEDU = M;
       if (DOU < M) {
          // Set lower bound for use of Z
-         ZUSEDU = DOU+1
+         ZUSEDU = DOU+1;
       }
       // The width of the part of Z that is used
-      ZUSEDW = ZUSEDU - ZUSEDL + 1
+      ZUSEDW = ZUSEDU - ZUSEDL + 1;
 
        claset('Full', N, ZUSEDW, CZERO, CZERO, Z(1,ZUSEDL), LDZ );
 
-      EPS = SLAMCH( 'Precision' )
-      RQTOL = TWO * EPS
+      EPS = SLAMCH( 'Precision' );
+      RQTOL = TWO * EPS;
 
       // Set expert flags for standard code.
       TRYRQC = true;
@@ -104,8 +104,8 @@
          // Only selected eigenpairs are computed. Since the other evalues
          // are not refined by RQ iteration, bisection has to compute to full
          // accuracy.
-         RTOL1 = FOUR * EPS
-         RTOL2 = FOUR * EPS
+         RTOL1 = FOUR * EPS;
+         RTOL2 = FOUR * EPS;
       }
 
       // The entries WBEGIN:WEND in W, WERR, WGAP correspond to the
@@ -115,58 +115,58 @@
       // are stored in k contiguous columns of Z.
 
       // DONE is the number of eigenvectors already computed
-      DONE = 0
-      IBEGIN = 1
-      WBEGIN = 1
+      DONE = 0;
+      IBEGIN = 1;
+      WBEGIN = 1;
       for (JBLK = 1; JBLK <= IBLOCK( M ); JBLK++) { // 170
-         IEND = ISPLIT( JBLK )
-         SIGMA = L( IEND )
+         IEND = ISPLIT( JBLK );
+         SIGMA = L( IEND );
          // Find the eigenvectors of the submatrix indexed IBEGIN
          // through IEND.
-         WEND = WBEGIN - 1
+         WEND = WBEGIN - 1;
          } // 15
          if ( WEND < M ) {
             if ( IBLOCK( WEND+1 ) == JBLK ) {
-               WEND = WEND + 1
-               GO TO 15
+               WEND = WEND + 1;
+               GO TO 15;
             }
          }
          if ( WEND < WBEGIN ) {
-            IBEGIN = IEND + 1
-            GO TO 170
+            IBEGIN = IEND + 1;
+            GO TO 170;
          } else if ( (WEND < DOL) || (WBEGIN > DOU) ) {
-            IBEGIN = IEND + 1
-            WBEGIN = WEND + 1
-            GO TO 170
+            IBEGIN = IEND + 1;
+            WBEGIN = WEND + 1;
+            GO TO 170;
          }
 
          // Find local spectral diameter of the block
-         GL = GERS( 2*IBEGIN-1 )
-         GU = GERS( 2*IBEGIN )
+         GL = GERS( 2*IBEGIN-1 );
+         GU = GERS( 2*IBEGIN );
          for (I = IBEGIN+1 ; I <= IEND; I++) { // 20
-            GL = MIN( GERS( 2*I-1 ), GL )
-            GU = MAX( GERS( 2*I ), GU )
+            GL = MIN( GERS( 2*I-1 ), GL );
+            GU = MAX( GERS( 2*I ), GU );
          } // 20
-         SPDIAM = GU - GL
+         SPDIAM = GU - GL;
 
          // OLDIEN is the last index of the previous block
-         OLDIEN = IBEGIN - 1
+         OLDIEN = IBEGIN - 1;
          // Calculate the size of the current block
-         IN = IEND - IBEGIN + 1
+         IN = IEND - IBEGIN + 1;
          // The number of eigenvalues in the current block
-         IM = WEND - WBEGIN + 1
+         IM = WEND - WBEGIN + 1;
 
          // This is for a 1x1 block
          if ( IBEGIN == IEND ) {
-            DONE = DONE+1
-            Z( IBEGIN, WBEGIN ) = CMPLX( ONE, ZERO )
-            ISUPPZ( 2*WBEGIN-1 ) = IBEGIN
-            ISUPPZ( 2*WBEGIN ) = IBEGIN
-            W( WBEGIN ) = W( WBEGIN ) + SIGMA
-            WORK( WBEGIN ) = W( WBEGIN )
-            IBEGIN = IEND + 1
-            WBEGIN = WBEGIN + 1
-            GO TO 170
+            DONE = DONE+1;
+            Z( IBEGIN, WBEGIN ) = CMPLX( ONE, ZERO );
+            ISUPPZ( 2*WBEGIN-1 ) = IBEGIN;
+            ISUPPZ( 2*WBEGIN ) = IBEGIN;
+            W( WBEGIN ) = W( WBEGIN ) + SIGMA;
+            WORK( WBEGIN ) = W( WBEGIN );
+            IBEGIN = IEND + 1;
+            WBEGIN = WBEGIN + 1;
+            GO TO 170;
          }
 
          // The desired (shifted) eigenvalues are stored in W(WBEGIN:WEND)
@@ -180,23 +180,23 @@
          // We store in W the eigenvalue approximations w.r.t. the original
          // matrix T.
          for (I = 1; I <= IM; I++) { // 30
-            W(WBEGIN+I-1) = W(WBEGIN+I-1)+SIGMA
+            W(WBEGIN+I-1) = W(WBEGIN+I-1)+SIGMA;
          } // 30
 
 
          // NDEPTH is the current depth of the representation tree
-         NDEPTH = 0
+         NDEPTH = 0;
          // PARITY is either 1 or 0
-         PARITY = 1
+         PARITY = 1;
          // NCLUS is the number of clusters for the next level of the
          // representation tree, we start with NCLUS = 1 for the root
-         NCLUS = 1
-         IWORK( IINDC1+1 ) = 1
-         IWORK( IINDC1+2 ) = IM
+         NCLUS = 1;
+         IWORK( IINDC1+1 ) = 1;
+         IWORK( IINDC1+2 ) = IM;
 
          // IDONE is the number of eigenvectors already computed in the current
          // block
-         IDONE = 0
+         IDONE = 0;
          // loop while( IDONE < IM )
          // generate the representation tree for the current block and
          // compute the eigenvectors
@@ -204,31 +204,31 @@
          if ( IDONE < IM ) {
             // This is a crude protection against infinitely deep trees
             if ( NDEPTH > M ) {
-               INFO = -2
-               RETURN
+               INFO = -2;
+               RETURN;
             }
             // breadth first processing of the current level of the representation
             // tree: OLDNCL = number of clusters on current level
-            OLDNCL = NCLUS
+            OLDNCL = NCLUS;
             // reset NCLUS to count the number of child clusters
-            NCLUS = 0
+            NCLUS = 0;
 
-            PARITY = 1 - PARITY
+            PARITY = 1 - PARITY;
             if ( PARITY == 0 ) {
-               OLDCLS = IINDC1
-               NEWCLS = IINDC2
+               OLDCLS = IINDC1;
+               NEWCLS = IINDC2;
             } else {
-               OLDCLS = IINDC2
-               NEWCLS = IINDC1
+               OLDCLS = IINDC2;
+               NEWCLS = IINDC1;
             }
             // Process the clusters on the current level
             for (I = 1; I <= OLDNCL; I++) { // 150
-               J = OLDCLS + 2*I
+               J = OLDCLS + 2*I;
                // OLDFST, OLDLST = first, last index of current cluster.
                                 // cluster indices start with 1 and are relative
                                 // to WBEGIN when accessing W, WGAP, WERR, Z
-               OLDFST = IWORK( J-1 )
-               OLDLST = IWORK( J )
+               OLDFST = IWORK( J-1 );
+               OLDLST = IWORK( J );
                if ( NDEPTH > 0 ) {
                   // Retrieve relatively robust representation (RRR) of cluster
                   // that has been computed at the previous level
@@ -238,23 +238,23 @@
                   if ((DOL == 1) && (DOU == M)) {
                      // Get representation from location of the leftmost evalue
                      // of the cluster
-                     J = WBEGIN + OLDFST - 1
+                     J = WBEGIN + OLDFST - 1;
                   } else {
                      if (WBEGIN+OLDFST-1 < DOL) {
                         // Get representation from the left end of Z array
-                        J = DOL - 1
+                        J = DOL - 1;
                      } else if (WBEGIN+OLDFST-1 > DOU) {
                         // Get representation from the right end of Z array
-                        J = DOU
+                        J = DOU;
                      } else {
-                        J = WBEGIN + OLDFST - 1
+                        J = WBEGIN + OLDFST - 1;
                      }
                   }
                   for (K = 1; K <= IN - 1; K++) { // 45
-                     D( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J+1 ) )
+                     D( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = REAL( Z( IBEGIN+K-1, J+1 ) );
                   } // 45
-                  D( IEND ) = REAL( Z( IEND, J ) )
-                  SIGMA = REAL( Z( IEND, J+1 ) )
+                  D( IEND ) = REAL( Z( IEND, J ) );
+                  SIGMA = REAL( Z( IEND, J+1 ) );
 
                   // Set the corresponding entries in Z to zero
                   claset('Full', IN, 2, CZERO, CZERO, Z( IBEGIN, J), LDZ );
@@ -262,26 +262,26 @@
 
                // Compute DL and DLL of current RRR
                for (J = IBEGIN; J <= IEND-1; J++) { // 50
-                  TMP = D( J )*L( J )
-                  WORK( INDLD-1+J ) = TMP
-                  WORK( INDLLD-1+J ) = TMP*L( J )
+                  TMP = D( J )*L( J );
+                  WORK( INDLD-1+J ) = TMP;
+                  WORK( INDLLD-1+J ) = TMP*L( J );
                } // 50
 
                if ( NDEPTH > 0 ) {
                   // P and Q are index of the first and last eigenvalue to compute
                   // within the current block
-                  P = INDEXW( WBEGIN-1+OLDFST )
-                  Q = INDEXW( WBEGIN-1+OLDLST )
+                  P = INDEXW( WBEGIN-1+OLDFST );
+                  Q = INDEXW( WBEGIN-1+OLDLST );
                   // Offset for the arrays WORK, WGAP and WERR, i.e., the P-OFFSET
                   // through the Q-OFFSET elements of these arrays are to be used.
                    // OFFSET = P-OLDFST
-                  OFFSET = INDEXW( WBEGIN ) - 1
+                  OFFSET = INDEXW( WBEGIN ) - 1;
                   // perform limited bisection (if necessary) to get approximate
                   // eigenvalues to the precision needed.
                   slarrb(IN, D( IBEGIN ), WORK(INDLLD+IBEGIN-1), P, Q, RTOL1, RTOL2, OFFSET, WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                   if ( IINFO != 0 ) {
-                     INFO = -1
-                     RETURN
+                     INFO = -1;
+                     RETURN;
                   }
                   // We also recompute the extremal gaps. W holds all eigenvalues
                   // of the unshifted matrix and must be used for computation
@@ -291,53 +291,53 @@
                   // However, we only allow the gaps to become greater since
                   // this is what should happen when we decrease WERR
                   if ( OLDFST > 1) {
-                     WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
+                     WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) );
                   }
                   if ( WBEGIN + OLDLST -1 < WEND ) {
-                     WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
+                     WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) );
                   }
                   // Each time the eigenvalues in WORK get refined, we store
                   // the newly found approximation with all shifts applied in W
                   for (J = OLDFST; J <= OLDLST; J++) { // 53
-                     W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA
+                     W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA;
                   } // 53
                }
 
                // Process the current node.
-               NEWFST = OLDFST
+               NEWFST = OLDFST;
                for (J = OLDFST; J <= OLDLST; J++) { // 140
                   if ( J == OLDLST ) {
                      // we are at the right end of the cluster, this is also the
                      // boundary of the child cluster
-                     NEWLST = J
+                     NEWLST = J;
                   } else if ( WGAP( WBEGIN + J -1) >= MINRGP* ABS( WORK(WBEGIN + J -1) ) ) {
                      // the right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
-                     NEWLST = J
+                     NEWLST = J;
                    } else {
                      // inside a child cluster, the relative gap is not
                      // big enough.
-                     GOTO 140
+                     GOTO 140;
                   }
 
                   // Compute size of child cluster found
-                  NEWSIZ = NEWLST - NEWFST + 1
+                  NEWSIZ = NEWLST - NEWFST + 1;
 
                   // NEWFTT is the place in Z where the new RRR or the computed
                   // eigenvector is to be stored
                   if ((DOL == 1) && (DOU == M)) {
                      // Store representation at location of the leftmost evalue
                      // of the cluster
-                     NEWFTT = WBEGIN + NEWFST - 1
+                     NEWFTT = WBEGIN + NEWFST - 1;
                   } else {
                      if (WBEGIN+NEWFST-1 < DOL) {
                         // Store representation at the left end of Z array
-                        NEWFTT = DOL - 1
+                        NEWFTT = DOL - 1;
                      } else if (WBEGIN+NEWFST-1 > DOU) {
                         // Store representation at the right end of Z array
-                        NEWFTT = DOU
+                        NEWFTT = DOU;
                      } else {
-                        NEWFTT = WBEGIN + NEWFST - 1
+                        NEWFTT = WBEGIN + NEWFST - 1;
                      }
                   }
 
@@ -357,11 +357,11 @@
                      // in W might be of the same order so that gaps are not
                      // exhibited correctly for very close eigenvalues.
                      if ( NEWFST == 1 ) {
-                        LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL )
+                        LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL );
                     } else {
-                        LGAP = WGAP( WBEGIN+NEWFST-2 )
+                        LGAP = WGAP( WBEGIN+NEWFST-2 );
                      }
-                     RGAP = WGAP( WBEGIN+NEWLST-1 )
+                     RGAP = WGAP( WBEGIN+NEWLST-1 );
 
                      // Compute left- and rightmost eigenvalue of child
                      // to high precision in order to shift as close
@@ -370,11 +370,11 @@
 
                      for (K = 1; K <= 2; K++) { // 55
                         if (K == 1) {
-                           P = INDEXW( WBEGIN-1+NEWFST )
+                           P = INDEXW( WBEGIN-1+NEWFST );
                         } else {
-                           P = INDEXW( WBEGIN-1+NEWLST )
+                           P = INDEXW( WBEGIN-1+NEWLST );
                         }
-                        OFFSET = INDEXW( WBEGIN ) - 1
+                        OFFSET = INDEXW( WBEGIN ) - 1;
                         slarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
                      } // 55
 
@@ -386,8 +386,8 @@
                         // eigenvalues of the child, but then the representation
                         // tree could be different from the one when nothing is
                         // skipped. For this reason we skip at this place.
-                        IDONE = IDONE + NEWLST - NEWFST + 1
-                        GOTO 139
+                        IDONE = IDONE + NEWLST - NEWFST + 1;
+                        GOTO 139;
                      }
 
                      // Compute RRR of child cluster.
@@ -399,20 +399,20 @@
                      // the new RRR directly into Z and needs an intermediate
                      // workspace
                      for (K = 1; K <= IN-1; K++) { // 56
-                        Z( IBEGIN+K-1, NEWFTT ) = CMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = CMPLX( WORK( INDIN2+K-1 ), ZERO )
+                        Z( IBEGIN+K-1, NEWFTT ) = CMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = CMPLX( WORK( INDIN2+K-1 ), ZERO );
                      } // 56
-                     Z( IEND, NEWFTT ) = CMPLX( WORK( INDIN1+IN-1 ), ZERO )
+                     Z( IEND, NEWFTT ) = CMPLX( WORK( INDIN1+IN-1 ), ZERO );
                      if ( IINFO == 0 ) {
                         // a new RRR for the cluster was found by SLARRF
                         // update shift and store it
-                        SSIGMA = SIGMA + TAU
-                        Z( IEND, NEWFTT+1 ) = CMPLX( SSIGMA, ZERO )
+                        SSIGMA = SIGMA + TAU;
+                        Z( IEND, NEWFTT+1 ) = CMPLX( SSIGMA, ZERO );
                         // WORK() are the midpoints and WERR() the semi-width
                         // Note that the entries in W are unchanged.
                         for (K = NEWFST; K <= NEWLST; K++) { // 116
-                           FUDGE = THREE*EPS*ABS(WORK(WBEGIN+K-1))                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*ABS(WORK(WBEGIN+K-1))
+                           FUDGE = THREE*EPS*ABS(WORK(WBEGIN+K-1))                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*ABS(WORK(WBEGIN+K-1));
                            // Fudge errors
-                           WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE
+                           WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE;
                            // Gaps are not fudged. Provided that WERR is small
                            // when eigenvalues are close, a zero gap indicates
                            // that a new representation is needed for resolving
@@ -422,38 +422,38 @@
                            // on the orthogonality of the computed eigenvectors.
                         } // 116
 
-                        NCLUS = NCLUS + 1
-                        K = NEWCLS + 2*NCLUS
-                        IWORK( K-1 ) = NEWFST
-                        IWORK( K ) = NEWLST
+                        NCLUS = NCLUS + 1;
+                        K = NEWCLS + 2*NCLUS;
+                        IWORK( K-1 ) = NEWFST;
+                        IWORK( K ) = NEWLST;
                      } else {
-                        INFO = -2
-                        RETURN
+                        INFO = -2;
+                        RETURN;
                      }
                   } else {
 
                      // Compute eigenvector of singleton
 
-                     ITER = 0
+                     ITER = 0;
 
-                     TOL = FOUR * LOG(REAL(IN)) * EPS
+                     TOL = FOUR * LOG(REAL(IN)) * EPS;
 
-                     K = NEWFST
-                     WINDEX = WBEGIN + K - 1
-                     WINDMN = MAX(WINDEX - 1,1)
-                     WINDPL = MIN(WINDEX + 1,M)
-                     LAMBDA = WORK( WINDEX )
-                     DONE = DONE + 1
+                     K = NEWFST;
+                     WINDEX = WBEGIN + K - 1;
+                     WINDMN = MAX(WINDEX - 1,1);
+                     WINDPL = MIN(WINDEX + 1,M);
+                     LAMBDA = WORK( WINDEX );
+                     DONE = DONE + 1;
                      // Check if eigenvector computation is to be skipped
                      if ((WINDEX < DOL) || (WINDEX > DOU)) {
                         ESKIP = true;
-                        GOTO 125
+                        GOTO 125;
                      } else {
                         ESKIP = false;
                      }
-                     LEFT = WORK( WINDEX ) - WERR( WINDEX )
-                     RIGHT = WORK( WINDEX ) + WERR( WINDEX )
-                     INDEIG = INDEXW( WINDEX )
+                     LEFT = WORK( WINDEX ) - WERR( WINDEX );
+                     RIGHT = WORK( WINDEX ) + WERR( WINDEX );
+                     INDEIG = INDEXW( WINDEX );
                      // Note that since we compute the eigenpairs for a child,
                      // all eigenvalue approximations are w.r.t the same shift.
                      // In this case, the entries in WORK should be used for
@@ -468,9 +468,9 @@
                         // can lead to an overestimation of the left gap and
                         // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small left gap.
-                        LGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
+                        LGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT));
                      } else {
-                        LGAP = WGAP(WINDMN)
+                        LGAP = WGAP(WINDMN);
                      }
                      if ( K == IM) {
                         // In the case RANGE='I' and with not much initial
@@ -478,28 +478,28 @@
                         // can lead to an overestimation of the right gap and
                         // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small right gap.
-                        RGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
+                        RGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT));
                      } else {
-                        RGAP = WGAP(WINDEX)
+                        RGAP = WGAP(WINDEX);
                      }
-                     GAP = MIN( LGAP, RGAP )
+                     GAP = MIN( LGAP, RGAP );
                      if (( K == 1) || (K == IM)) {
                         // The eigenvector support can become wrong
                         // because significant entries could be cut off due to a
                         // large GAPTOL parameter in LAR1V. Prevent this.
-                        GAPTOL = ZERO
+                        GAPTOL = ZERO;
                      } else {
-                        GAPTOL = GAP * EPS
+                        GAPTOL = GAP * EPS;
                      }
-                     ISUPMN = IN
-                     ISUPMX = 1
+                     ISUPMN = IN;
+                     ISUPMX = 1;
                      // Update WGAP so that it holds the minimum gap
                      // to the left or the right. This is crucial in the
                      // case where bisection is used to ensure that the
                      // eigenvalue is refined up to the required precision.
                      // The correct value is restored afterwards.
-                     SAVGAP = WGAP(WINDEX)
-                     WGAP(WINDEX) = GAP
+                     SAVGAP = WGAP(WINDEX);
+                     WGAP(WINDEX) = GAP;
                      // We want to use the Rayleigh Quotient Correction
                      // as often as possible since it converges quadratically
                      // when we are close enough to the desired eigenvalue.
@@ -509,36 +509,36 @@
                      USEDBS = false;
                      USEDRQ = false;
                      // Bisection is initially turned off unless it is forced
-                     NEEDBS = !TRYRQC
+                     NEEDBS = !TRYRQC;
                      } // 120
                      // Check if bisection should be used to refine eigenvalue
                      if (NEEDBS) {
                         // Take the bisection as new iterate
                         USEDBS = true;
-                        ITMP1 = IWORK( IINDR+WINDEX )
-                        OFFSET = INDEXW( WBEGIN ) - 1
+                        ITMP1 = IWORK( IINDR+WINDEX );
+                        OFFSET = INDEXW( WBEGIN ) - 1;
                         slarrb(IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO );
                         if ( IINFO != 0 ) {
-                           INFO = -3
-                           RETURN
+                           INFO = -3;
+                           RETURN;
                         }
-                        LAMBDA = WORK( WINDEX )
+                        LAMBDA = WORK( WINDEX );
                         // Reset twist index from inaccurate LAMBDA to
                         // force computation of true MINGMA
-                        IWORK( IINDR+WINDEX ) = 0
+                        IWORK( IINDR+WINDEX ) = 0;
                      }
                      // Given LAMBDA, compute the eigenvector.
                      clar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), !USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                      if (ITER == 0) {
-                        BSTRES = RESID
-                        BSTW = LAMBDA
+                        BSTRES = RESID;
+                        BSTW = LAMBDA;
                      } else if (RESID < BSTRES) {
-                        BSTRES = RESID
-                        BSTW = LAMBDA
+                        BSTRES = RESID;
+                        BSTW = LAMBDA;
                      }
-                     ISUPMN = MIN(ISUPMN,ISUPPZ( 2*WINDEX-1 ))
-                     ISUPMX = MAX(ISUPMX,ISUPPZ( 2*WINDEX ))
-                     ITER = ITER + 1
+                     ISUPMN = MIN(ISUPMN,ISUPPZ( 2*WINDEX-1 ));
+                     ISUPMX = MAX(ISUPMX,ISUPPZ( 2*WINDEX ));
+                     ITER = ITER + 1;
 
                      // sin alpha <= |resid|/gap
                      // Note that both the residual and the gap are
@@ -555,10 +555,10 @@
                         // towards a neighbor. -> protection with bisection
                         if (INDEIG <= NEGCNT) {
                            // The wanted eigenvalue lies to the left
-                           SGNDEF = -ONE
+                           SGNDEF = -ONE;
                         } else {
                            // The wanted eigenvalue lies to the right
-                           SGNDEF = ONE
+                           SGNDEF = ONE;
                         }
                         // We only use the RQCORR if it improves the
                         // the iterate reasonably.
@@ -568,7 +568,7 @@
                            if (SGNDEF == ONE) {
                               // The current LAMBDA is on the left of the true
                               // eigenvalue
-                              LEFT = LAMBDA
+                              LEFT = LAMBDA;
                               // We prefer to assume that the error estimate
                               // is correct. We could make the interval not
                               // as a bracket but to be modified if the RQCORR
@@ -578,17 +578,17 @@
                            } else {
                               // The current LAMBDA is on the right of the true
                               // eigenvalue
-                              RIGHT = LAMBDA
+                              RIGHT = LAMBDA;
                               // See comment about assuming the error estimate is
                               // correct above.
                                // LEFT = MIN(LEFT, LAMBDA + RQCORR)
                            }
-                           WORK( WINDEX ) = HALF * (RIGHT + LEFT)
+                           WORK( WINDEX ) = HALF * (RIGHT + LEFT);
                            // Take RQCORR since it has the correct sign and
                            // improves the iterate reasonably
-                           LAMBDA = LAMBDA + RQCORR
+                           LAMBDA = LAMBDA + RQCORR;
                            // Update width of error interval
-                           WERR( WINDEX ) = HALF * (RIGHT-LEFT)
+                           WERR( WINDEX ) = HALF * (RIGHT-LEFT);
                         } else {
                            NEEDBS = true;
                         }
@@ -596,52 +596,52 @@
                               // The eigenvalue is computed to bisection accuracy
                               // compute eigenvector and stop
                            USEDBS = true;
-                           GOTO 120
+                           GOTO 120;
                         } else if ( ITER < MAXITR ) {
-                           GOTO 120
+                           GOTO 120;
                         } else if ( ITER == MAXITR ) {
                            NEEDBS = true;
-                           GOTO 120
+                           GOTO 120;
                         } else {
-                           INFO = 5
-                           RETURN
+                           INFO = 5;
+                           RETURN;
                         }
                      } else {
                         STP2II = false;
         if (USEDRQ && USEDBS && BSTRES <= RESID) {
-                           LAMBDA = BSTW
+                           LAMBDA = BSTW;
                            STP2II = true;
                         }
                         if (STP2II) {
                            // improve error angle by second step
                            clar1v(IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), !USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) );
                         }
-                        WORK( WINDEX ) = LAMBDA
+                        WORK( WINDEX ) = LAMBDA;
                      }
 
                      // Compute FP-vector support w.r.t. whole matrix
 
-                     ISUPPZ( 2*WINDEX-1 ) = ISUPPZ( 2*WINDEX-1 )+OLDIEN
-                     ISUPPZ( 2*WINDEX ) = ISUPPZ( 2*WINDEX )+OLDIEN
-                     ZFROM = ISUPPZ( 2*WINDEX-1 )
-                     ZTO = ISUPPZ( 2*WINDEX )
-                     ISUPMN = ISUPMN + OLDIEN
-                     ISUPMX = ISUPMX + OLDIEN
+                     ISUPPZ( 2*WINDEX-1 ) = ISUPPZ( 2*WINDEX-1 )+OLDIEN;
+                     ISUPPZ( 2*WINDEX ) = ISUPPZ( 2*WINDEX )+OLDIEN;
+                     ZFROM = ISUPPZ( 2*WINDEX-1 );
+                     ZTO = ISUPPZ( 2*WINDEX );
+                     ISUPMN = ISUPMN + OLDIEN;
+                     ISUPMX = ISUPMX + OLDIEN;
                      // Ensure vector is ok if support in the RQI has changed
                      if (ISUPMN < ZFROM) {
                         for (II = ISUPMN; II <= ZFROM-1; II++) { // 122
-                           Z( II, WINDEX ) = ZERO
+                           Z( II, WINDEX ) = ZERO;
                         } // 122
                      }
                      if (ISUPMX > ZTO) {
                         for (II = ZTO+1; II <= ISUPMX; II++) { // 123
-                           Z( II, WINDEX ) = ZERO
+                           Z( II, WINDEX ) = ZERO;
                         } // 123
                      }
                      csscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );
                      } // 125
                      // Update W
-                     W( WINDEX ) = LAMBDA+SIGMA
+                     W( WINDEX ) = LAMBDA+SIGMA;
                      // Recompute the gaps on the left and right
                      // But only allow them to become larger and not
                      // smaller (which can only happen through "bad"
@@ -650,30 +650,30 @@
                      // to WERR being too crude.)
                      if ( !ESKIP) {
                         if ( K > 1) {
-                           WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
+                           WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) );
                         }
                         if ( WINDEX < WEND ) {
-                           WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) )
+                           WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) );
                         }
                      }
-                     IDONE = IDONE + 1
+                     IDONE = IDONE + 1;
                   }
                   // here ends the code for the current child
 
                   } // 139
                   // Proceed to any remaining child nodes
-                  NEWFST = J + 1
+                  NEWFST = J + 1;
                } // 140
             } // 150
-            NDEPTH = NDEPTH + 1
-            GO TO 40
+            NDEPTH = NDEPTH + 1;
+            GO TO 40;
          }
-         IBEGIN = IEND + 1
-         WBEGIN = WEND + 1
+         IBEGIN = IEND + 1;
+         WBEGIN = WEND + 1;
       } // 170
 
 
-      RETURN
+      RETURN;
 
       // End of CLARRV
 

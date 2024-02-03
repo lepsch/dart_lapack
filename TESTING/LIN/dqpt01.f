@@ -37,34 +37,34 @@
       // ..
       // .. Executable Statements ..
 
-      DQPT01 = ZERO
+      DQPT01 = ZERO;
 
       // Test if there is enough workspace
 
       if ( LWORK < M*N+N ) {
          xerbla('DQPT01', 10 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
+      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
 
       for (J = 1; J <= K; J++) {
 
          // Copy the upper triangular part of the factor R stored
          // in AF(1:K,1:K) into the work array WORK.
 
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = AF( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = AF( I, J );
          }
 
          // Zero out the elements below the diagonal in the work array.
 
          for (I = J + 1; I <= M; I++) {
-            WORK( ( J-1 )*M+I ) = ZERO
+            WORK( ( J-1 )*M+I ) = ZERO;
          }
       }
 
@@ -86,9 +86,9 @@
          daxpy(M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA
+      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
-      RETURN
+      RETURN;
 
       // End of DQPT01
 

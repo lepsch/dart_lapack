@@ -1,4 +1,4 @@
-      SUBROUTINE SPOTF2( UPLO, N, A, LDA, INFO )
+      SUBROUTINE SPOTF2( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,23 +9,23 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * )
+      REAL               A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J;
-      REAL               AJJ
+      REAL               AJJ;
       // ..
       // .. External Functions ..
       bool               LSAME, SISNAN;
-      REAL               SDOT
+      REAL               SDOT;
       // EXTERNAL LSAME, SDOT, SISNAN
       // ..
       // .. External Subroutines ..
@@ -38,18 +38,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('SPOTF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -64,13 +64,13 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = A( J, J ) - SDOT( J-1, A( 1, J ), 1, A( 1, J ), 1 )
+            AJJ = A( J, J ) - SDOT( J-1, A( 1, J ), 1, A( 1, J ), 1 );
             if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
-               A( J, J ) = AJJ
-               GO TO 30
+               A( J, J ) = AJJ;
+               GO TO 30;
             }
-            AJJ = SQRT( AJJ )
-            A( J, J ) = AJJ
+            AJJ = SQRT( AJJ );
+            A( J, J ) = AJJ;
 
             // Compute elements J+1:N of row J.
 
@@ -87,13 +87,13 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = A( J, J ) - SDOT( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA )
+            AJJ = A( J, J ) - SDOT( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA );
             if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
-               A( J, J ) = AJJ
-               GO TO 30
+               A( J, J ) = AJJ;
+               GO TO 30;
             }
-            AJJ = SQRT( AJJ )
-            A( J, J ) = AJJ
+            AJJ = SQRT( AJJ );
+            A( J, J ) = AJJ;
 
             // Compute elements J+1:N of column J.
 
@@ -103,13 +103,13 @@
             }
          } // 20
       }
-      GO TO 40
+      GO TO 40;
 
       } // 30
-      INFO = J
+      INFO = J;
 
       } // 40
-      RETURN
+      RETURN;
 
       // End of SPOTF2
 

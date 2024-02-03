@@ -24,7 +24,7 @@
       // .. Executable Statements ..
 
       LSAMEN = false;
-      IF( LEN( CA ) < N || LEN( CB ) < N ) GO TO 20
+      IF( LEN( CA ) < N || LEN( CB ) < N ) GO TO 20;
 
       // Do for each character in the two strings.
 
@@ -32,13 +32,13 @@
 
          // Test if the characters are equal using LSAME.
 
-         IF( !LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
+         IF( !LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20;
 
       } // 10
       LSAMEN = true;
 
       } // 20
-      RETURN
+      RETURN;
 
       // End of LSAMEN
 

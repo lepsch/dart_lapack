@@ -8,31 +8,31 @@
       int     M, N, LDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A( LDA, * )
+      COMPLEX*16 A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int     I, K;
-      COMPLEX*16 AII
+      COMPLEX*16 AII;
       // ..
       // .. Intrinsics ..
       // INTRINSIC MIN, DBLE, DIMAG
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N )
+      K = MIN( M, N );
       for (I = 1; I <= K; I++) {
-         AII = A( I, I )
+         AII = A( I, I );
          if ( DBLE( AII ) < ZERO || DIMAG( AII ) != ZERO ) {
             ZGENND = false;
-            RETURN
+            RETURN;
          }
       }
       ZGENND = true;
-      RETURN
+      RETURN;
       }

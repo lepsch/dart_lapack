@@ -1,4 +1,4 @@
-      SUBROUTINE CTRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, W, M, S, SEP, WORK, LWORK, INFO )
+      SUBROUTINE CTRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, W, M, S, SEP, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,31 +7,31 @@
       // .. Scalar Arguments ..
       String             COMPQ, JOB;
       int                INFO, LDQ, LDT, LWORK, M, N;
-      REAL               S, SEP
+      REAL               S, SEP;
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
-      COMPLEX            Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * )
+      COMPLEX            Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WANTBH, WANTQ, WANTS, WANTSP;
       int                IERR, K, KASE, KS, LWMIN, N1, N2, NN;
-      REAL               EST, RNORM, SCALE
+      REAL               EST, RNORM, SCALE;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
-      REAL               RWORK( 1 )
+      REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGE, SROUNDUP_LWORK
+      REAL               CLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, CLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -44,71 +44,71 @@
 
       // Decode and test the input parameters.
 
-      WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) || WANTBH
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH
-      WANTQ = LSAME( COMPQ, 'V' )
+      WANTBH = LSAME( JOB, 'B' );
+      WANTS = LSAME( JOB, 'E' ) || WANTBH;
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
+      WANTQ = LSAME( COMPQ, 'V' );
 
       // Set M to the number of selected eigenvalues.
 
-      M = 0
+      M = 0;
       for (K = 1; K <= N; K++) { // 10
-         IF( SELECT( K ) ) M = M + 1
+         IF( SELECT( K ) ) M = M + 1;
       } // 10
 
-      N1 = M
-      N2 = N - M
-      NN = N1*N2
+      N1 = M;
+      N2 = N - M;
+      NN = N1*N2;
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
 
       if ( WANTSP ) {
-         LWMIN = MAX( 1, 2*NN )
+         LWMIN = MAX( 1, 2*NN );
       } else if ( LSAME( JOB, 'N' ) ) {
-         LWMIN = 1
+         LWMIN = 1;
       } else if ( LSAME( JOB, 'E' ) ) {
-         LWMIN = MAX( 1, NN )
+         LWMIN = MAX( 1, NN );
       }
 
       if ( !LSAME( JOB, 'N' ) && !WANTS && !WANTSP ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -14
+         INFO = -14;
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       }
 
       if ( INFO != 0 ) {
          xerbla('CTRSEN', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == N || M == 0 ) {
          if (WANTS) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK );
-         GO TO 40
+         GO TO 40;
       }
 
       // Collect the selected eigenvalues at the top left corner of T.
 
-      KS = 0
+      KS = 0;
       for (K = 1; K <= N; K++) { // 20
          if ( SELECT( K ) ) {
-            KS = KS + 1
+            KS = KS + 1;
 
             // Swap the K-th eigenvalue to position KS.
 
@@ -128,11 +128,11 @@
          // Estimate the reciprocal of the condition number of the cluster
          // of eigenvalues.
 
-         RNORM = CLANGE( 'F', N1, N2, WORK, N1, RWORK )
+         RNORM = CLANGE( 'F', N1, N2, WORK, N1, RWORK );
          if ( RNORM == ZERO ) {
-            S = ONE
+            S = ONE;
          } else {
-            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
+            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) );
          }
       }
 
@@ -140,8 +140,8 @@
 
          // Estimate sep(T11,T22).
 
-         EST = ZERO
-         KASE = 0
+         EST = ZERO;
+         KASE = 0;
          } // 30
          clacn2(NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -156,10 +156,10 @@
 
                ctrsyl('C', 'C', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR );
             }
-            GO TO 30
+            GO TO 30;
          }
 
-         SEP = SCALE / EST
+         SEP = SCALE / EST;
       }
 
       } // 40
@@ -167,12 +167,12 @@
       // Copy reordered eigenvalues to W.
 
       for (K = 1; K <= N; K++) { // 50
-         W( K ) = T( K, K )
+         W( K ) = T( K, K );
       } // 50
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN
+      RETURN;
 
       // End of CTRSEN
 

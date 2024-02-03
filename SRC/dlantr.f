@@ -36,42 +36,42 @@
       // .. Executable Statements ..
 
       if ( MIN( M, N ) == 0 ) {
-         VALUE = ZERO
+         VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
          if ( LSAME( DIAG, 'U' ) ) {
-            VALUE = ONE
+            VALUE = ONE;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
-                  DO 10 I = 1, MIN( M, J-1 )
-                     SUM = ABS( A( I, J ) )
-                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                  DO 10 I = 1, MIN( M, J-1 );
+                     SUM = ABS( A( I, J ) );
+                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 10
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   for (I = J + 1; I <= M; I++) { // 30
-                     SUM = ABS( A( I, J ) )
-                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                     SUM = ABS( A( I, J ) );
+                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 30
                } // 40
             }
          } else {
-            VALUE = ZERO
+            VALUE = ZERO;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
-                  DO 50 I = 1, MIN( M, J )
-                     SUM = ABS( A( I, J ) )
-                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                  DO 50 I = 1, MIN( M, J );
+                     SUM = ABS( A( I, J ) );
+                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 50
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   for (I = J; I <= M; I++) { // 70
-                     SUM = ABS( A( I, J ) )
-                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                     SUM = ABS( A( I, J ) );
+                     IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 70
                } // 80
             }
@@ -80,37 +80,37 @@
 
          // Find norm1(A).
 
-         VALUE = ZERO
-         UDIAG = LSAME( DIAG, 'U' )
+         VALUE = ZERO;
+         UDIAG = LSAME( DIAG, 'U' );
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 110
                if ( ( UDIAG ) && ( J <= M ) ) {
-                  SUM = ONE
+                  SUM = ONE;
                   for (I = 1; I <= J - 1; I++) { // 90
-                     SUM = SUM + ABS( A( I, J ) )
+                     SUM = SUM + ABS( A( I, J ) );
                   } // 90
                } else {
-                  SUM = ZERO
-                  DO 100 I = 1, MIN( M, J )
-                     SUM = SUM + ABS( A( I, J ) )
+                  SUM = ZERO;
+                  DO 100 I = 1, MIN( M, J );
+                     SUM = SUM + ABS( A( I, J ) );
                   } // 100
                }
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 110
          } else {
             for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
-                  SUM = ONE
+                  SUM = ONE;
                   for (I = J + 1; I <= M; I++) { // 120
-                     SUM = SUM + ABS( A( I, J ) )
+                     SUM = SUM + ABS( A( I, J ) );
                   } // 120
                } else {
-                  SUM = ZERO
+                  SUM = ZERO;
                   for (I = J; I <= M; I++) { // 130
-                     SUM = SUM + ABS( A( I, J ) )
+                     SUM = SUM + ABS( A( I, J ) );
                   } // 130
                }
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 140
          }
       } else if ( LSAME( NORM, 'I' ) ) {
@@ -120,51 +120,51 @@
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= M; I++) { // 150
-                  WORK( I ) = ONE
+                  WORK( I ) = ONE;
                } // 150
                for (J = 1; J <= N; J++) { // 170
-                  DO 160 I = 1, MIN( M, J-1 )
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) )
+                  DO 160 I = 1, MIN( M, J-1 );
+                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
                   } // 160
                } // 170
             } else {
                for (I = 1; I <= M; I++) { // 180
-                  WORK( I ) = ZERO
+                  WORK( I ) = ZERO;
                } // 180
                for (J = 1; J <= N; J++) { // 200
-                  DO 190 I = 1, MIN( M, J )
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) )
+                  DO 190 I = 1, MIN( M, J );
+                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
                   } // 190
                } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
-               DO 210 I = 1, MIN( M, N )
-                  WORK( I ) = ONE
+               DO 210 I = 1, MIN( M, N );
+                  WORK( I ) = ONE;
                } // 210
                for (I = N + 1; I <= M; I++) { // 220
-                  WORK( I ) = ZERO
+                  WORK( I ) = ZERO;
                } // 220
                for (J = 1; J <= N; J++) { // 240
                   for (I = J + 1; I <= M; I++) { // 230
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) )
+                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
                   } // 230
                } // 240
             } else {
                for (I = 1; I <= M; I++) { // 250
-                  WORK( I ) = ZERO
+                  WORK( I ) = ZERO;
                } // 250
                for (J = 1; J <= N; J++) { // 270
                   for (I = J; I <= M; I++) { // 260
-                     WORK( I ) = WORK( I ) + ABS( A( I, J ) )
+                     WORK( I ) = WORK( I ) + ABS( A( I, J ) );
                   } // 260
                } // 270
             }
          }
-         VALUE = ZERO
+         VALUE = ZERO;
          for (I = 1; I <= M; I++) { // 280
-            SUM = WORK( I )
-            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+            SUM = WORK( I );
+            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 280
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
@@ -172,38 +172,38 @@
 
          if ( LSAME( UPLO, 'U' ) ) {
             if ( LSAME( DIAG, 'U' ) ) {
-               SCALE = ONE
-               SUM = MIN( M, N )
+               SCALE = ONE;
+               SUM = MIN( M, N );
                for (J = 2; J <= N; J++) { // 290
                   dlassq(MIN( M, J-1 ), A( 1, J ), 1, SCALE, SUM );
                } // 290
             } else {
-               SCALE = ZERO
-               SUM = ONE
+               SCALE = ZERO;
+               SUM = ONE;
                for (J = 1; J <= N; J++) { // 300
                   dlassq(MIN( M, J ), A( 1, J ), 1, SCALE, SUM );
                } // 300
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
-               SCALE = ONE
-               SUM = MIN( M, N )
+               SCALE = ONE;
+               SUM = MIN( M, N );
                for (J = 1; J <= N; J++) { // 310
                   dlassq(M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM );
                } // 310
             } else {
-               SCALE = ZERO
-               SUM = ONE
+               SCALE = ZERO;
+               SUM = ONE;
                for (J = 1; J <= N; J++) { // 320
                   dlassq(M-J+1, A( J, J ), 1, SCALE, SUM );
                } // 320
             }
          }
-         VALUE = SCALE*SQRT( SUM )
+         VALUE = SCALE*SQRT( SUM );
       }
 
-      DLANTR = VALUE
-      RETURN
+      DLANTR = VALUE;
+      RETURN;
 
       // End of DLANTR
 

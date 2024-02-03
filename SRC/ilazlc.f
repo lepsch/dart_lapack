@@ -8,13 +8,13 @@
       int                M, N, LDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16       ZERO
+      COMPLEX*16       ZERO;
       const     ZERO = (0.0, 0.0) ;
       // ..
       // .. Local Scalars ..
@@ -24,16 +24,16 @@
 
       // Quick test for the common case where one corner is non-zero.
       if ( N == 0 ) {
-         ILAZLC = N
+         ILAZLC = N;
       } else if ( A(1, N) != ZERO || A(M, N) != ZERO ) {
-         ILAZLC = N
+         ILAZLC = N;
       } else {
       // Now scan each column from the end, returning with the first non-zero.
-         DO ILAZLC = N, 1, -1
+         DO ILAZLC = N, 1, -1;
             for (I = 1; I <= M; I++) {
-               IF( A(I, ILAZLC) != ZERO ) RETURN
+               IF( A(I, ILAZLC) != ZERO ) RETURN;
             }
          }
       }
-      RETURN
+      RETURN;
       }

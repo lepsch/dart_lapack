@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPTRI( UPLO, DIAG, N, AP, INFO )
+      SUBROUTINE ZTPTRI( UPLO, DIAG, N, AP, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AP( * )
+      COMPLEX*16         AP( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO
+      COMPLEX*16         ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT, UPPER;
       int                J, JC, JCLAST, JJ;
-      COMPLEX*16         AJJ
+      COMPLEX*16         AJJ;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -34,71 +34,71 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      NOUNIT = LSAME( DIAG, 'N' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       }
       if ( INFO != 0 ) {
          xerbla('ZTPTRI', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Check for singularity if non-unit.
 
       if ( NOUNIT ) {
          if ( UPPER ) {
-            JJ = 0
+            JJ = 0;
             for (INFO = 1; INFO <= N; INFO++) { // 10
-               JJ = JJ + INFO
-               IF( AP( JJ ) == ZERO ) RETURN
+               JJ = JJ + INFO;
+               IF( AP( JJ ) == ZERO ) RETURN;
             } // 10
          } else {
-            JJ = 1
+            JJ = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               IF( AP( JJ ) == ZERO ) RETURN
-               JJ = JJ + N - INFO + 1
+               IF( AP( JJ ) == ZERO ) RETURN;
+               JJ = JJ + N - INFO + 1;
             } // 20
          }
-         INFO = 0
+         INFO = 0;
       }
 
       if ( UPPER ) {
 
          // Compute inverse of upper triangular matrix.
 
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 30
             if ( NOUNIT ) {
-               AP( JC+J-1 ) = ONE / AP( JC+J-1 )
-               AJJ = -AP( JC+J-1 )
+               AP( JC+J-1 ) = ONE / AP( JC+J-1 );
+               AJJ = -AP( JC+J-1 );
             } else {
-               AJJ = -ONE
+               AJJ = -ONE;
             }
 
             // Compute elements 1:j-1 of j-th column.
 
             ztpmv('Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 );
             zscal(J-1, AJJ, AP( JC ), 1 );
-            JC = JC + J
+            JC = JC + J;
          } // 30
 
       } else {
 
          // Compute inverse of lower triangular matrix.
 
-         JC = N*( N+1 ) / 2
-         DO 40 J = N, 1, -1
+         JC = N*( N+1 ) / 2;
+         DO 40 J = N, 1, -1;
             if ( NOUNIT ) {
-               AP( JC ) = ONE / AP( JC )
-               AJJ = -AP( JC )
+               AP( JC ) = ONE / AP( JC );
+               AJJ = -AP( JC );
             } else {
-               AJJ = -ONE
+               AJJ = -ONE;
             }
             if ( J < N ) {
 
@@ -107,12 +107,12 @@
                ztpmv('Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 );
                zscal(N-J, AJJ, AP( JC+1 ), 1 );
             }
-            JCLAST = JC
-            JC = JC - N + J - 2
+            JCLAST = JC;
+            JC = JC - N + J - 2;
          } // 40
       }
 
-      RETURN
+      RETURN;
 
       // End of ZTPTRI
 

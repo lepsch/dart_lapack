@@ -1,4 +1,4 @@
-      SUBROUTINE CLAHEF_RK( UPLO, N, NB, KB, A, LDA, E, IPIV, W, LDW, INFO )
+      SUBROUTINE CLAHEF_RK( UPLO, N, NB, KB, A, LDA, E, IPIV, W, LDW, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,29 +10,29 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), W( LDW, * ), E( * )
+      COMPLEX            A( LDA, * ), W( LDW, * ), E( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN
+      REAL               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX            CONE, CZERO
+      COMPLEX            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               DONE;
       int                IMAX, ITEMP, II, J, JB, JJ, JMAX, K, KK, KKW, KP, KSTEP, KW, P;
       REAL               ABSAKK, ALPHA, COLMAX, STEMP, R1, ROWMAX, T, SFMIN;
-      COMPLEX            D11, D21, D22, Z
+      COMPLEX            D11, D21, D22, Z;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, ICAMAX, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -42,22 +42,22 @@
       // INTRINSIC ABS, CONJG, AIMAG, MAX, MIN, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) )
+      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) );
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
+      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
 
       // Compute machine safe minimum
 
-      SFMIN = SLAMCH( 'S' )
+      SFMIN = SLAMCH( 'S' );
 
       if ( LSAME( UPLO, 'U' ) ) {
 
@@ -68,47 +68,47 @@
          // Initialize the first entry of array E, where superdiagonal
          // elements of D are stored
 
-         E( 1 ) = CZERO
+         E( 1 ) = CZERO;
 
          // K is the main loop index, decreasing from N in steps of 1 or 2
 
-         K = N
+         K = N;
          } // 10
 
          // KW is the column of W which corresponds to column K of A
 
-         KW = NB + K - N
+         KW = NB + K - N;
 
          // Exit from loop
 
-         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30
+         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
 
-         KSTEP = 1
-         P = K
+         KSTEP = 1;
+         P = K;
 
          // Copy column K of A to column KW of W and update it
 
          if (K > 1) CALL CCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
-         W( K, KW ) = REAL( A( K, K ) )
+         W( K, KW ) = REAL( A( K, K ) );
          if ( K < N ) {
             cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
-            W( K, KW ) = REAL( W( K, KW ) )
+            W( K, KW ) = REAL( W( K, KW ) );
          }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( W( K, KW ) ) )
+         ABSAKK = ABS( REAL( W( K, KW ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
          if ( K > 1 ) {
-            IMAX = ICAMAX( K-1, W( 1, KW ), 1 )
-            COLMAX = CABS1( W( IMAX, KW ) )
+            IMAX = ICAMAX( K-1, W( 1, KW ), 1 );
+            COLMAX = CABS1( W( IMAX, KW ) );
          } else {
-            COLMAX = ZERO
+            COLMAX = ZERO;
          }
 
          if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
@@ -116,8 +116,8 @@
             // Column K is zero or underflow: set INFO and continue
 
             if (INFO == 0) INFO = K;
-            KP = K
-            A( K, K ) = REAL( W( K, KW ) )
+            KP = K;
+            A( K, K ) = REAL( W( K, KW ) );
             if (K > 1) CALL CCOPY( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
 
             // Set E( K ) to zero
@@ -137,7 +137,7 @@
 
                // no interchange, use 1-by-1 pivot block
 
-               KP = K
+               KP = K;
 
             } else {
 
@@ -153,14 +153,14 @@
                   // Copy column IMAX to column KW-1 of W and update it
 
                   if (IMAX > 1) CALL CCOPY( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
-                  W( IMAX, KW-1 ) = REAL( A( IMAX, IMAX ) )
+                  W( IMAX, KW-1 ) = REAL( A( IMAX, IMAX ) );
 
                   ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
                   clacgv(K-IMAX, W( IMAX+1, KW-1 ), 1 );
 
                   if ( K < N ) {
                      cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, CONE, W( 1, KW-1 ), 1 );
-                     W( IMAX, KW-1 ) = REAL( W( IMAX, KW-1 ) )
+                     W( IMAX, KW-1 ) = REAL( W( IMAX, KW-1 ) );
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -168,18 +168,18 @@
                   // Determine both ROWMAX and JMAX.
 
                   if ( IMAX != K ) {
-                     JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
-                     ROWMAX = CABS1( W( JMAX, KW-1 ) )
+                     JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 );
+                     ROWMAX = CABS1( W( JMAX, KW-1 ) );
                   } else {
-                     ROWMAX = ZERO
+                     ROWMAX = ZERO;
                   }
 
                   if ( IMAX > 1 ) {
-                     ITEMP = ICAMAX( IMAX-1, W( 1, KW-1 ), 1 )
-                     STEMP = CABS1( W( ITEMP, KW-1 ) )
+                     ITEMP = ICAMAX( IMAX-1, W( 1, KW-1 ), 1 );
+                     STEMP = CABS1( W( ITEMP, KW-1 ) );
                      if ( STEMP > ROWMAX ) {
-                        ROWMAX = STEMP
-                        JMAX = ITEMP
+                        ROWMAX = STEMP;
+                        JMAX = ITEMP;
                      }
                   }
 
@@ -193,7 +193,7 @@
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
 
-                     KP = IMAX
+                     KP = IMAX;
 
                      // copy column KW-1 of W to column KW of W
 
@@ -210,8 +210,8 @@
                      // interchange rows and columns K-1 and IMAX,
                      // use 2-by-2 pivot block
 
-                     KP = IMAX
-                     KSTEP = 2
+                     KP = IMAX;
+                     KSTEP = 2;
                      DONE = true;
 
                   // Case(4)
@@ -219,9 +219,9 @@
 
                      // Pivot not found: set params and repeat
 
-                     P = IMAX
-                     COLMAX = ROWMAX
-                     IMAX = JMAX
+                     P = IMAX;
+                     COLMAX = ROWMAX;
+                     IMAX = JMAX;
 
                      // Copy updated JMAXth (next IMAXth) column to Kth of W
 
@@ -242,11 +242,11 @@
 
             // KK is the column of A where pivoting step stopped
 
-            KK = K - KSTEP + 1
+            KK = K - KSTEP + 1;
 
             // KKW is the column of W which corresponds to column KK of A
 
-            KKW = NB + KK - N
+            KKW = NB + KK - N;
 
             // Interchange rows and columns P and K.
             // Updated column P is already stored in column KW of W.
@@ -258,7 +258,7 @@
                // K and K-1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A( P, P ) = REAL( A( K, K ) )
+               A( P, P ) = REAL( A( K, K ) );
                ccopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                clacgv(K-1-P, A( P, P+1 ), LDA );
                if (P > 1) CALL CCOPY( P-1, A( 1, K ), 1, A( 1, P ), 1 );
@@ -282,7 +282,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A( KP, KP ) = REAL( A( KK, KK ) )
+               A( KP, KP ) = REAL( A( KK, KK ) );
                ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
                if (KP > 1) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
@@ -323,13 +323,13 @@
 
                   // Handle division by a small number
 
-                  T = REAL( A( K, K ) )
+                  T = REAL( A( K, K ) );
                   if ( ABS( T ) >= SFMIN ) {
-                     R1 = ONE / T
+                     R1 = ONE / T;
                      csscal(K-1, R1, A( 1, K ), 1 );
                   } else {
                      for (II = 1; II <= K-1; II++) { // 14
-                        A( II, K ) = A( II, K ) / T
+                        A( II, K ) = A( II, K ) / T;
                      } // 14
                   }
 
@@ -339,7 +339,7 @@
 
                   // Store the superdiagonal element of D in array E
 
-                  E( K ) = CZERO
+                  E( K ) = CZERO;
 
                }
 
@@ -407,17 +407,17 @@
                    // (b) (D22*D11 - 1) != 0, since from (a),
                        // both |D11| < 1, |D22| < 1, hence |D22*D11| << 1.)
 
-                  D21 = W( K-1, KW )
-                  D11 = W( K, KW ) / CONJG( D21 )
-                  D22 = W( K-1, KW-1 ) / D21
-                  T = ONE / ( REAL( D11*D22 )-ONE )
+                  D21 = W( K-1, KW );
+                  D11 = W( K, KW ) / CONJG( D21 );
+                  D22 = W( K-1, KW-1 ) / D21;
+                  T = ONE / ( REAL( D11*D22 )-ONE );
 
                   // Update elements in columns A(k-1) and A(k) as
                   // dot products of rows of ( W(kw-1) W(kw) ) and columns
                   // of D**(-1)
 
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A( J, K-1 ) = T*( ( D11*W( J, KW-1 )-W( J, KW ) ) / D21 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / CONJG( D21 ) )
+                     A( J, K-1 ) = T*( ( D11*W( J, KW-1 )-W( J, KW ) ) / D21 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / CONJG( D21 ) );
                   } // 20
                }
 
@@ -425,11 +425,11 @@
                // copy superdiagonal element of D(K) to E(K) and
                // ZERO out superdiagonal entry of A
 
-               A( K-1, K-1 ) = W( K-1, KW-1 )
-               A( K-1, K ) = CZERO
-               A( K, K ) = W( K, KW )
-               E( K ) = W( K-1, KW )
-               E( K-1 ) = CZERO
+               A( K-1, K-1 ) = W( K-1, KW-1 );
+               A( K-1, K ) = CZERO;
+               A( K, K ) = W( K, KW );
+               E( K ) = W( K-1, KW );
+               E( K-1 ) = CZERO;
 
                // (2) Conjugate columns W(kw) and W(kw-1)
 
@@ -445,16 +445,16 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP
+            IPIV( K ) = KP;
          } else {
-            IPIV( K ) = -P
-            IPIV( K-1 ) = -KP
+            IPIV( K ) = -P;
+            IPIV( K-1 ) = -KP;
          }
 
          // Decrease K and return to the start of the main loop
 
-         K = K - KSTEP
-         GO TO 10
+         K = K - KSTEP;
+         GO TO 10;
 
          } // 30
 
@@ -465,15 +465,15 @@
          // computing blocks of NB columns at a time (note that conjg(W) is
          // actually stored)
 
-         DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB
-            JB = MIN( NB, K-J+1 )
+         DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB;
+            JB = MIN( NB, K-J+1 );
 
             // Update the upper triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 40
-               A( JJ, JJ ) = REAL( A( JJ, JJ ) )
+               A( JJ, JJ ) = REAL( A( JJ, JJ ) );
                cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-               A( JJ, JJ ) = REAL( A( JJ, JJ ) )
+               A( JJ, JJ ) = REAL( A( JJ, JJ ) );
             } // 40
 
             // Update the rectangular superdiagonal block
@@ -483,7 +483,7 @@
 
          // Set KB to the number of columns factorized
 
-         KB = N - K
+         KB = N - K;
 
       } else {
 
@@ -493,43 +493,43 @@
 
          // Initialize the unused last entry of the subdiagonal array E.
 
-         E( N ) = CZERO
+         E( N ) = CZERO;
 
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
-         K = 1
+         K = 1;
          } // 70
 
          // Exit from loop
 
-         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90
+         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90;
 
-         KSTEP = 1
-         P = K
+         KSTEP = 1;
+         P = K;
 
          // Copy column K of A to column K of W and update column K of W
 
-         W( K, K ) = REAL( A( K, K ) )
+         W( K, K ) = REAL( A( K, K ) );
          if (K < N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K > 1 ) {
             cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
-            W( K, K ) = REAL( W( K, K ) )
+            W( K, K ) = REAL( W( K, K ) );
          }
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = ABS( REAL( W( K, K ) ) )
+         ABSAKK = ABS( REAL( W( K, K ) ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
          if ( K < N ) {
-            IMAX = K + ICAMAX( N-K, W( K+1, K ), 1 )
-            COLMAX = CABS1( W( IMAX, K ) )
+            IMAX = K + ICAMAX( N-K, W( K+1, K ), 1 );
+            COLMAX = CABS1( W( IMAX, K ) );
          } else {
-            COLMAX = ZERO
+            COLMAX = ZERO;
          }
 
          if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
@@ -537,8 +537,8 @@
             // Column K is zero or underflow: set INFO and continue
 
             if (INFO == 0) INFO = K;
-            KP = K
-            A( K, K ) = REAL( W( K, K ) )
+            KP = K;
+            A( K, K ) = REAL( W( K, K ) );
             if (K < N) CALL CCOPY( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
 
             // Set E( K ) to zero
@@ -559,7 +559,7 @@
 
                // no interchange, use 1-by-1 pivot block
 
-               KP = K
+               KP = K;
 
             } else {
 
@@ -576,13 +576,13 @@
 
                   ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1);
                   clacgv(IMAX-K, W( K, K+1 ), 1 );
-                  W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) )
+                  W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) );
 
                   if (IMAX < N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
 
                   if ( K > 1 ) {
                      cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
-                     W( IMAX, K+1 ) = REAL( W( IMAX, K+1 ) )
+                     W( IMAX, K+1 ) = REAL( W( IMAX, K+1 ) );
                   }
 
                   // JMAX is the column-index of the largest off-diagonal
@@ -590,18 +590,18 @@
                   // Determine both ROWMAX and JMAX.
 
                   if ( IMAX != K ) {
-                     JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 )
-                     ROWMAX = CABS1( W( JMAX, K+1 ) )
+                     JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 );
+                     ROWMAX = CABS1( W( JMAX, K+1 ) );
                   } else {
-                     ROWMAX = ZERO
+                     ROWMAX = ZERO;
                   }
 
                   if ( IMAX < N ) {
-                     ITEMP = IMAX + ICAMAX( N-IMAX, W( IMAX+1, K+1 ), 1)
-                     STEMP = CABS1( W( ITEMP, K+1 ) )
+                     ITEMP = IMAX + ICAMAX( N-IMAX, W( IMAX+1, K+1 ), 1);
+                     STEMP = CABS1( W( ITEMP, K+1 ) );
                      if ( STEMP > ROWMAX ) {
-                        ROWMAX = STEMP
-                        JMAX = ITEMP
+                        ROWMAX = STEMP;
+                        JMAX = ITEMP;
                      }
                   }
 
@@ -615,7 +615,7 @@
                      // interchange rows and columns K and IMAX,
                      // use 1-by-1 pivot block
 
-                     KP = IMAX
+                     KP = IMAX;
 
                      // copy column K+1 of W to column K of W
 
@@ -632,8 +632,8 @@
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
 
-                     KP = IMAX
-                     KSTEP = 2
+                     KP = IMAX;
+                     KSTEP = 2;
                      DONE = true;
 
                   // Case(4)
@@ -641,9 +641,9 @@
 
                      // Pivot not found: set params and repeat
 
-                     P = IMAX
-                     COLMAX = ROWMAX
-                     IMAX = JMAX
+                     P = IMAX;
+                     COLMAX = ROWMAX;
+                     IMAX = JMAX;
 
                      // Copy updated JMAXth (next IMAXth) column to Kth of W
 
@@ -664,7 +664,7 @@
 
             // KK is the column of A where pivoting step stopped
 
-            KK = K + KSTEP - 1
+            KK = K + KSTEP - 1;
 
             // Interchange rows and columns P and K (only for 2-by-2 pivot).
             // Updated column P is already stored in column K of W.
@@ -676,7 +676,7 @@
                // K and K+1 of A for 2-by-2 pivot, since these columns
                // will be later overwritten.
 
-               A( P, P ) = REAL( A( K, K ) )
+               A( P, P ) = REAL( A( K, K ) );
                ccopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                clacgv(P-K-1, A( P, K+1 ), LDA );
                if (P < N) CALL CCOPY( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
@@ -700,7 +700,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A( KP, KP ) = REAL( A( KK, KK ) )
+               A( KP, KP ) = REAL( A( KK, KK ) );
                ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
                if (KP < N) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
@@ -741,13 +741,13 @@
 
                   // Handle division by a small number
 
-                  T = REAL( A( K, K ) )
+                  T = REAL( A( K, K ) );
                   if ( ABS( T ) >= SFMIN ) {
-                     R1 = ONE / T
+                     R1 = ONE / T;
                      csscal(N-K, R1, A( K+1, K ), 1 );
                   } else {
                      for (II = K + 1; II <= N; II++) { // 74
-                        A( II, K ) = A( II, K ) / T
+                        A( II, K ) = A( II, K ) / T;
                      } // 74
                   }
 
@@ -757,7 +757,7 @@
 
                   // Store the subdiagonal element of D in array E
 
-                  E( K ) = CZERO
+                  E( K ) = CZERO;
 
                }
 
@@ -825,17 +825,17 @@
                    // (b) (D22*D11 - 1) != 0, since from (a),
                        // both |D11| < 1, |D22| < 1, hence |D22*D11| << 1.)
 
-                  D21 = W( K+1, K )
-                  D11 = W( K+1, K+1 ) / D21
-                  D22 = W( K, K ) / CONJG( D21 )
-                  T = ONE / ( REAL( D11*D22 )-ONE )
+                  D21 = W( K+1, K );
+                  D11 = W( K+1, K+1 ) / D21;
+                  D22 = W( K, K ) / CONJG( D21 );
+                  T = ONE / ( REAL( D11*D22 )-ONE );
 
                   // Update elements in columns A(k) and A(k+1) as
                   // dot products of rows of ( W(k) W(k+1) ) and columns
                   // of D**(-1)
 
                   for (J = K + 2; J <= N; J++) { // 80
-                     A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / CONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 )
+                     A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / CONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 );
                   } // 80
                }
 
@@ -843,11 +843,11 @@
                // copy subdiagonal element of D(K) to E(K) and
                // ZERO out subdiagonal entry of A
 
-               A( K, K ) = W( K, K )
-               A( K+1, K ) = CZERO
-               A( K+1, K+1 ) = W( K+1, K+1 )
-               E( K ) = W( K+1, K )
-               E( K+1 ) = CZERO
+               A( K, K ) = W( K, K );
+               A( K+1, K ) = CZERO;
+               A( K+1, K+1 ) = W( K+1, K+1 );
+               E( K ) = W( K+1, K );
+               E( K+1 ) = CZERO;
 
                // (2) Conjugate columns W(k) and W(k+1)
 
@@ -863,16 +863,16 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP
+            IPIV( K ) = KP;
          } else {
-            IPIV( K ) = -P
-            IPIV( K+1 ) = -KP
+            IPIV( K ) = -P;
+            IPIV( K+1 ) = -KP;
          }
 
          // Increase K and return to the start of the main loop
 
-         K = K + KSTEP
-         GO TO 70
+         K = K + KSTEP;
+         GO TO 70;
 
          } // 90
 
@@ -883,15 +883,15 @@
          // computing blocks of NB columns at a time (note that conjg(W) is
          // actually stored)
 
-         DO 110 J = K, N, NB
-            JB = MIN( NB, N-J+1 )
+         DO 110 J = K, N, NB;
+            JB = MIN( NB, N-J+1 );
 
             // Update the lower triangle of the diagonal block
 
             for (JJ = J; JJ <= J + JB - 1; JJ++) { // 100
-               A( JJ, JJ ) = REAL( A( JJ, JJ ) )
+               A( JJ, JJ ) = REAL( A( JJ, JJ ) );
                cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-               A( JJ, JJ ) = REAL( A( JJ, JJ ) )
+               A( JJ, JJ ) = REAL( A( JJ, JJ ) );
             } // 100
 
             // Update the rectangular subdiagonal block
@@ -901,10 +901,10 @@
 
          // Set KB to the number of columns factorized
 
-         KB = K - 1
+         KB = K - 1;
 
       }
-      RETURN
+      RETURN;
 
       // End of CLAHEF_RK
 

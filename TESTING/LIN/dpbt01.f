@@ -1,4 +1,4 @@
-      SUBROUTINE DPBT01( UPLO, N, KD, A, LDA, AFAC, LDAFAC, RWORK, RESID )
+      SUBROUTINE DPBT01( UPLO, N, KD, A, LDA, AFAC, LDAFAC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,30 +40,30 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = DLANSB( '1', UPLO, N, KD, A, LDA, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = DLANSB( '1', UPLO, N, KD, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS
-         RETURN
+         RESID = ONE / EPS;
+         RETURN;
       }
 
       // Compute the product U'*U, overwriting U.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 10 K = N, 1, -1
-            KC = MAX( 1, KD+2-K )
-            KLEN = KD + 1 - KC
+         DO 10 K = N, 1, -1;
+            KC = MAX( 1, KD+2-K );
+            KLEN = KD + 1 - KC;
 
             // Compute the (K,K) element of the result.
 
-            T = DDOT( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 )
-            AFAC( KD+1, K ) = T
+            T = DDOT( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 );
+            AFAC( KD+1, K ) = T;
 
             // Compute the rest of column K.
 
@@ -74,8 +74,8 @@
       // UPLO = 'L':  Compute the product L*L', overwriting L.
 
       } else {
-         DO 20 K = N, 1, -1
-            KLEN = MIN( KD, N-K )
+         DO 20 K = N, 1, -1;
+            KLEN = MIN( KD, N-K );
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
@@ -84,7 +84,7 @@
 
             // Scale column K by the diagonal element.
 
-            T = AFAC( 1, K )
+            T = AFAC( 1, K );
             dscal(KLEN+1, T, AFAC( 1, K ), 1 );
 
          } // 20
@@ -94,27 +94,27 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 40
-            MU = MAX( 1, KD+2-J )
+            MU = MAX( 1, KD+2-J );
             for (I = MU; I <= KD + 1; I++) { // 30
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 30
          } // 40
       } else {
          for (J = 1; J <= N; J++) { // 60
-            ML = MIN( KD+1, N-J+1 )
+            ML = MIN( KD+1, N-J+1 );
             for (I = 1; I <= ML; I++) { // 50
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 50
          } // 60
       }
 
       // Compute norm( L*L' - A ) / ( N * norm(A) * EPS )
 
-      RESID = DLANSB( 'I', UPLO, N, KD, AFAC, LDAFAC, RWORK )
+      RESID = DLANSB( 'I', UPLO, N, KD, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
+      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of DPBT01
 

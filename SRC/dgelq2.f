@@ -1,4 +1,4 @@
-      SUBROUTINE DGELQ2( M, N, A, LDA, TAU, WORK, INFO )
+      SUBROUTINE DGELQ2( M, N, A, LDA, TAU, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,20 +31,20 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DGELQ2', -INFO );
-         RETURN
+         RETURN;
       }
 
-      K = MIN( M, N )
+      K = MIN( M, N );
 
       for (I = 1; I <= K; I++) { // 10
 
@@ -55,13 +55,13 @@
 
             // Apply H(i) to A(i+1:m,i:n) from the right
 
-            AII = A( I, I )
-            A( I, I ) = ONE
+            AII = A( I, I );
+            A( I, I ) = ONE;
             dlarf('Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK );
-            A( I, I ) = AII
+            A( I, I ) = AII;
          }
       } // 10
-      RETURN
+      RETURN;
 
       // End of DGELQ2
 

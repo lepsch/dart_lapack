@@ -1,4 +1,4 @@
-      SUBROUTINE CUNCSD2BY1( JOBU1, JOBU2, JOBV1T, M, P, Q, X11, LDX11, X21, LDX21, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
+      SUBROUTINE CUNCSD2BY1( JOBU1, JOBU2, JOBV1T, M, P, Q, X11, LDX11, X21, LDX21, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +10,16 @@
       int                LRWORK, LRWORKMIN, LRWORKOPT;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK(*)
-      REAL               THETA(*)
-      COMPLEX            U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*)
+      REAL               RWORK(*);
+      REAL               THETA(*);
+      COMPLEX            U1(LDU1,*), U2(LDU2,*), V1T(LDV1T,*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       int                IWORK(*);
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO
+      COMPLEX            ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
@@ -27,15 +27,15 @@
       bool               LQUERY, WANTU1, WANTU2, WANTV1T;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 )
-      COMPLEX            CDUM( 1, 1 )
+      REAL               DUM( 1 );
+      COMPLEX            CDUM( 1, 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CBBCSD, CCOPY, CLACPY, CLAPMR, CLAPMT, CUNBDB1, CUNBDB2, CUNBDB3, CUNBDB4, CUNGLQ, CUNGQR, XERBLA
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Function ..
@@ -45,31 +45,31 @@
 
       // Test input arguments
 
-      INFO = 0
-      WANTU1 = LSAME( JOBU1, 'Y' )
-      WANTU2 = LSAME( JOBU2, 'Y' )
-      WANTV1T = LSAME( JOBV1T, 'Y' )
-      LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 )
+      INFO = 0;
+      WANTU1 = LSAME( JOBU1, 'Y' );
+      WANTU2 = LSAME( JOBU2, 'Y' );
+      WANTV1T = LSAME( JOBV1T, 'Y' );
+      LQUERY = ( LWORK == -1 ) || ( LRWORK == -1 );
 
       if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( P < 0 || P > M ) {
-         INFO = -5
+         INFO = -5;
       } else if ( Q < 0 || Q > M ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDX11 < MAX( 1, P ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDX21 < MAX( 1, M-P ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( WANTU1 && LDU1 < MAX( 1, P ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( WANTU2 && LDU2 < MAX( 1, M - P ) ) {
-         INFO = -15
+         INFO = -15;
       } else if ( WANTV1T && LDV1T < MAX( 1, Q ) ) {
-         INFO = -17
+         INFO = -17;
       }
 
-      R = MIN( P, M-P, Q, M-Q )
+      R = MIN( P, M-P, Q, M-Q );
 
       // Compute workspace
 
@@ -105,127 +105,127 @@
       // |------------------|
 
       if ( INFO == 0 ) {
-         IPHI = 2
-         IB11D = IPHI + MAX( 1, R-1 )
-         IB11E = IB11D + MAX( 1, R )
-         IB12D = IB11E + MAX( 1, R - 1 )
-         IB12E = IB12D + MAX( 1, R )
-         IB21D = IB12E + MAX( 1, R - 1 )
-         IB21E = IB21D + MAX( 1, R )
-         IB22D = IB21E + MAX( 1, R - 1 )
-         IB22E = IB22D + MAX( 1, R )
-         IBBCSD = IB22E + MAX( 1, R - 1 )
-         ITAUP1 = 2
-         ITAUP2 = ITAUP1 + MAX( 1, P )
-         ITAUQ1 = ITAUP2 + MAX( 1, M-P )
-         IORBDB = ITAUQ1 + MAX( 1, Q )
-         IORGQR = ITAUQ1 + MAX( 1, Q )
-         IORGLQ = ITAUQ1 + MAX( 1, Q )
-         LORGQRMIN = 1
-         LORGQROPT = 1
-         LORGLQMIN = 1
-         LORGLQOPT = 1
+         IPHI = 2;
+         IB11D = IPHI + MAX( 1, R-1 );
+         IB11E = IB11D + MAX( 1, R );
+         IB12D = IB11E + MAX( 1, R - 1 );
+         IB12E = IB12D + MAX( 1, R );
+         IB21D = IB12E + MAX( 1, R - 1 );
+         IB21E = IB21D + MAX( 1, R );
+         IB22D = IB21E + MAX( 1, R - 1 );
+         IB22E = IB22D + MAX( 1, R );
+         IBBCSD = IB22E + MAX( 1, R - 1 );
+         ITAUP1 = 2;
+         ITAUP2 = ITAUP1 + MAX( 1, P );
+         ITAUQ1 = ITAUP2 + MAX( 1, M-P );
+         IORBDB = ITAUQ1 + MAX( 1, Q );
+         IORGQR = ITAUQ1 + MAX( 1, Q );
+         IORGLQ = ITAUQ1 + MAX( 1, Q );
+         LORGQRMIN = 1;
+         LORGQROPT = 1;
+         LORGLQMIN = 1;
+         LORGLQOPT = 1;
          if ( R == Q ) {
             cunbdb1(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, WORK, -1, CHILDINFO );
-            LORBDB = INT( WORK(1) )
+            LORBDB = INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                cungqr(P, P, Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, P );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                cungqr(M-P, M-P, Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, M-P );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                cunglq(Q-1, Q-1, Q-1, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q-1 )
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
+               LORGLQMIN = MAX( LORGLQMIN, Q-1 );
+               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
             }
             cbbcsd(JOBU1, JOBU2, JOBV1T, 'N', 'N', M, P, Q, THETA, DUM(1), U1, LDU1, U2, LDU2, V1T, LDV1T, CDUM, 1, DUM, DUM, DUM, DUM, DUM, DUM, DUM, DUM, RWORK(1), -1, CHILDINFO );
-            LBBCSD = INT( RWORK(1) )
+            LBBCSD = INT( RWORK(1) );
          } else if ( R == P ) {
             cunbdb2(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO );
-            LORBDB = INT( WORK(1) )
+            LORBDB = INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                cungqr(P-1, P-1, P-1, U1(2,2), LDU1, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P-1 )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, P-1 );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                cungqr(M-P, M-P, Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, M-P );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                cunglq(Q, Q, R, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q )
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
+               LORGLQMIN = MAX( LORGLQMIN, Q );
+               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
             }
             cbbcsd(JOBV1T, 'N', JOBU1, JOBU2, 'T', M, Q, P, THETA, DUM, V1T, LDV1T, CDUM, 1, U1, LDU1, U2, LDU2, DUM, DUM, DUM, DUM, DUM, DUM, DUM, DUM, RWORK(1), -1, CHILDINFO );
-            LBBCSD = INT( RWORK(1) )
+            LBBCSD = INT( RWORK(1) );
          } else if ( R == M-P ) {
             cunbdb3(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO );
-            LORBDB = INT( WORK(1) )
+            LORBDB = INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                cungqr(P, P, Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, P );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                cungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P-1 )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, M-P-1 );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                cunglq(Q, Q, R, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q )
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
+               LORGLQMIN = MAX( LORGLQMIN, Q );
+               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
             }
             cbbcsd('N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, DUM, CDUM, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, DUM, DUM, DUM, DUM, DUM, DUM, DUM, DUM, RWORK(1), -1, CHILDINFO );
-            LBBCSD = INT( RWORK(1) )
+            LBBCSD = INT( RWORK(1) );
          } else {
             cunbdb4(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO );
-            LORBDB = M + INT( WORK(1) )
+            LORBDB = M + INT( WORK(1) );
             if ( WANTU1 && P > 0 ) {
                cungqr(P, P, M-Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, P )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, P );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTU2 && M-P > 0 ) {
                cungqr(M-P, M-P, M-Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
-               LORGQRMIN = MAX( LORGQRMIN, M-P )
-               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
+               LORGQRMIN = MAX( LORGQRMIN, M-P );
+               LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) );
             }
             if ( WANTV1T && Q > 0 ) {
                cunglq(Q, Q, Q, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
-               LORGLQMIN = MAX( LORGLQMIN, Q )
-               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
+               LORGLQMIN = MAX( LORGLQMIN, Q );
+               LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) );
             }
             cbbcsd(JOBU2, JOBU1, 'N', JOBV1T, 'N', M, M-P, M-Q, THETA, DUM, U2, LDU2, U1, LDU1, CDUM, 1, V1T, LDV1T, DUM, DUM, DUM, DUM, DUM, DUM, DUM, DUM, RWORK(1), -1, CHILDINFO );
-            LBBCSD = INT( RWORK(1) )
+            LBBCSD = INT( RWORK(1) );
          }
-         LRWORKMIN = IBBCSD+LBBCSD-1
-         LRWORKOPT = LRWORKMIN
-         RWORK(1) = LRWORKOPT
-         LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1 )
-         WORK(1) = SROUNDUP_LWORK(LWORKOPT)
+         LRWORKMIN = IBBCSD+LBBCSD-1;
+         LRWORKOPT = LRWORKMIN;
+         RWORK(1) = LRWORKOPT;
+         LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1 );
+         WORK(1) = SROUNDUP_LWORK(LWORKOPT);
          if ( LWORK < LWORKMIN && !LQUERY ) {
-            INFO = -19
+            INFO = -19;
          }
          if ( LRWORK < LRWORKMIN && !LQUERY ) {
-            INFO = -21
+            INFO = -21;
          }
       }
       if ( INFO != 0 ) {
          xerbla('CUNCSD2BY1', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
-      LORGQR = LWORK-IORGQR+1
-      LORGLQ = LWORK-IORGLQ+1
+      LORGQR = LWORK-IORGQR+1;
+      LORGLQ = LWORK-IORGLQ+1;
 
       // Handle four cases separately: R = Q, R = P, R = M-P, and R = M-Q,
       // in which R = MIN(P,M-P,Q,M-Q)
@@ -249,10 +249,10 @@
             cungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T && Q > 0 ) {
-            V1T(1,1) = ONE
+            V1T(1,1) = ONE;
             for (J = 2; J <= Q; J++) {
-               V1T(1,J) = ZERO
-               V1T(J,1) = ZERO
+               V1T(1,J) = ZERO;
+               V1T(J,1) = ZERO;
             }
             clacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T );
             cunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
@@ -267,10 +267,10 @@
 
          if ( Q > 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
-               IWORK(I) = M - P - Q + I
+               IWORK(I) = M - P - Q + I;
             }
             for (I = Q + 1; I <= M - P; I++) {
-               IWORK(I) = I - Q
+               IWORK(I) = I - Q;
             }
             clapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
@@ -285,10 +285,10 @@
          // Accumulate Householder reflectors
 
          if ( WANTU1 && P > 0 ) {
-            U1(1,1) = ONE
+            U1(1,1) = ONE;
             for (J = 2; J <= P; J++) {
-               U1(1,J) = ZERO
-               U1(J,1) = ZERO
+               U1(1,J) = ZERO;
+               U1(J,1) = ZERO;
             }
             clacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             cungqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -311,10 +311,10 @@
 
          if ( Q > 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
-               IWORK(I) = M - P - Q + I
+               IWORK(I) = M - P - Q + I;
             }
             for (I = Q + 1; I <= M - P; I++) {
-               IWORK(I) = I - Q
+               IWORK(I) = I - Q;
             }
             clapmt( false , M-P, M-P, U2, LDU2, IWORK );
          }
@@ -333,10 +333,10 @@
             cungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 && M-P > 0 ) {
-            U2(1,1) = ONE
+            U2(1,1) = ONE;
             for (J = 2; J <= M-P; J++) {
-               U2(1,J) = ZERO
-               U2(J,1) = ZERO
+               U2(1,J) = ZERO;
+               U2(J,1) = ZERO;
             }
             clacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             cungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -355,10 +355,10 @@
 
          if ( Q > R ) {
             for (I = 1; I <= R; I++) {
-               IWORK(I) = Q - R + I
+               IWORK(I) = Q - R + I;
             }
             for (I = R + 1; I <= Q; I++) {
-               IWORK(I) = I - R
+               IWORK(I) = I - R;
             }
             if ( WANTU1 ) {
                clapmt( false , P, Q, U1, LDU1, IWORK );
@@ -384,14 +384,14 @@
          if ( WANTU1 && P > 0 ) {
             ccopy(P, WORK(IORBDB), 1, U1, 1 );
             for (J = 2; J <= P; J++) {
-               U1(1,J) = ZERO
+               U1(1,J) = ZERO;
             }
             clacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             cungqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 && M-P > 0 ) {
             for (J = 2; J <= M-P; J++) {
-               U2(1,J) = ZERO
+               U2(1,J) = ZERO;
             }
             clacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             cungqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
@@ -412,10 +412,10 @@
 
          if ( P > R ) {
             for (I = 1; I <= R; I++) {
-               IWORK(I) = P - R + I
+               IWORK(I) = P - R + I;
             }
             for (I = R + 1; I <= P; I++) {
-               IWORK(I) = I - R
+               IWORK(I) = I - R;
             }
             if ( WANTU1 ) {
                clapmt( false , P, P, U1, LDU1, IWORK );
@@ -426,7 +426,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of CUNCSD2BY1
 

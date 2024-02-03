@@ -1,4 +1,4 @@
-      SUBROUTINE ZHESV_RK( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE ZHESV_RK( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), E( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), E( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -33,37 +33,37 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -11
+         INFO = -11;
       }
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {
-            LWKOPT = 1
+            LWKOPT = 1;
          } else {
             zhetrf_rk(UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO );
-            LWKOPT = INT( DBLE( WORK( 1 ) ) )
+            LWKOPT = INT( DBLE( WORK( 1 ) ) );
          }
-         WORK( 1 ) = LWKOPT
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHESV_RK ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Compute the factorization A = P*U*D*(U**H)*(P**T) or
@@ -79,9 +79,9 @@
 
       }
 
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of ZHESV_RK
 

@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16 Z
+      COMPLEX*16 Z;
       // ..
       // ..
 *  =====================================================================
@@ -13,8 +13,8 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS,DBLE,DIMAG
 
-      DCABS1 = ABS(DBLE(Z)) + ABS(DIMAG(Z))
-      RETURN
+      DCABS1 = ABS(DBLE(Z)) + ABS(DIMAG(Z));
+      RETURN;
 
       // End of DCABS1
 

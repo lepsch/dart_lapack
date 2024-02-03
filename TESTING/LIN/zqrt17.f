@@ -9,7 +9,7 @@
       int                IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -38,37 +38,37 @@
       // ..
       // .. Executable Statements ..
 
-      ZQRT17 = ZERO
+      ZQRT17 = ZERO;
 
       if ( LSAME( TRANS, 'N' ) ) {
-         NROWS = M
-         NCOLS = N
+         NROWS = M;
+         NCOLS = N;
       } else if ( LSAME( TRANS, 'C' ) ) {
-         NROWS = N
-         NCOLS = M
+         NROWS = N;
+         NCOLS = M;
       } else {
          xerbla('ZQRT17', 1 );
-         RETURN
+         RETURN;
       }
 
       if ( LWORK < NCOLS*NRHS ) {
          xerbla('ZQRT17', 13 );
-         RETURN
+         RETURN;
       }
 
       if (M <= 0 || N <= 0 || NRHS <= 0) RETURN;
 
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK )
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
-      ISCL = 0
+      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
+      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      ISCL = 0;
 
       // compute residual and scale it
 
       zlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
       zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, DCMPLX( -ONE ), A, LDA, X, LDX, DCMPLX( ONE ), C, LDB );
-      NORMRS = ZLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
+      NORMRS = ZLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK );
       if ( NORMRS > SMLNUM ) {
-         ISCL = 1
+         ISCL = 1;
          zlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }
 
@@ -78,20 +78,20 @@
 
       // compute and properly scale error
 
-      ERR = ZLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
+      ERR = ZLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK );
       if (NORMA != ZERO) ERR = ERR / NORMA;
 
       if (ISCL == 1) ERR = ERR*NORMRS;
 
       if ( IRESID == 1 ) {
-         NORMB = ZLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
+         NORMB = ZLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK );
          if (NORMB != ZERO) ERR = ERR / NORMB;
       } else {
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) )
-      RETURN
+      ZQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) );
+      RETURN;
 
       // End of ZQRT17
 

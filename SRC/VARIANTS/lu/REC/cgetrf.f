@@ -1,4 +1,4 @@
-      SUBROUTINE CGETRF( M, N, A, LDA, IPIV, INFO )
+      SUBROUTINE CGETRF( M, N, A, LDA, IPIV, INFO );
 
 *  -- LAPACK computational routine (version 3.X) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,26 +9,26 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * )
+      COMPLEX            A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, NEGONE
-      REAL               ZERO
+      COMPLEX            ONE, NEGONE;
+      REAL               ZERO;
       const              ONE = (1.0, 0.0) ;
       const              NEGONE = (-1.0, 0.0) ;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               SFMIN, PIVMAG
-      COMPLEX            TMP
+      REAL               SFMIN, PIVMAG;
+      COMPLEX            TMP;
       int                I, J, JP, NSTEP, NTOPIV, NPIVED, KAHEAD;
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       int                ICAMAX;
       bool               SISNAN;
       // EXTERNAL SLAMCH, ICAMAX, SISNAN
@@ -43,17 +43,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('CGETRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,31 +62,31 @@
 
       // Compute machine safe minimum
 
-      SFMIN = SLAMCH( 'S' )
+      SFMIN = SLAMCH( 'S' );
 
-      NSTEP = MIN( M, N )
+      NSTEP = MIN( M, N );
       for (J = 1; J <= NSTEP; J++) {
-         KAHEAD = IAND( J, -J )
-         KSTART = J + 1 - KAHEAD
-         KCOLS = MIN( KAHEAD, M-J )
+         KAHEAD = IAND( J, -J );
+         KSTART = J + 1 - KAHEAD;
+         KCOLS = MIN( KAHEAD, M-J );
 
          // Find pivot.
 
-         JP = J - 1 + ICAMAX( M-J+1, A( J, J ), 1 )
-         IPIV( J ) = JP
+         JP = J - 1 + ICAMAX( M-J+1, A( J, J ), 1 );
+         IPIV( J ) = JP;
 
          // Permute just this column.
          if (JP != J) {
-            TMP = A( J, J )
-            A( J, J ) = A( JP, J )
-            A( JP, J ) = TMP
+            TMP = A( J, J );
+            A( J, J ) = A( JP, J );
+            A( JP, J ) = TMP;
          }
 
          // Apply pending permutations to L
-         NTOPIV = 1
-         IPIVSTART = J
-         JPIVSTART = J - NTOPIV
-         DO WHILE ( NTOPIV < KAHEAD )
+         NTOPIV = 1;
+         IPIVSTART = J;
+         JPIVSTART = J - NTOPIV;
+         DO WHILE ( NTOPIV < KAHEAD );
             claswp(NTOPIV, A( 1, JPIVSTART ), LDA, IPIVSTART, J, IPIV, 1 );
             IPIVSTART = IPIVSTART - NTOPIV;
             NTOPIV = NTOPIV * 2;
@@ -97,17 +97,17 @@
          claswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
 
          // Factor the current column
-         PIVMAG = ABS( A( J, J ) )
+         PIVMAG = ABS( A( J, J ) );
          if ( PIVMAG != ZERO && !SISNAN( PIVMAG ) ) {
                if ( PIVMAG >= SFMIN ) {
                   cscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) {
-                    A( J+I, J ) = A( J+I, J ) / A( J, J )
+                    A( J+I, J ) = A( J+I, J ) / A( J, J );
                  }
                }
          } else if ( PIVMAG == ZERO && INFO == 0 ) {
-            INFO = J
+            INFO = J;
          }
 
          // Solve for U block.
@@ -117,12 +117,12 @@
       }
 
       // Handle pivot permutations on the way out of the recursion
-      NPIVED = IAND( NSTEP, -NSTEP )
-      J = NSTEP - NPIVED
-      DO WHILE ( J > 0 )
-         NTOPIV = IAND( J, -J )
+      NPIVED = IAND( NSTEP, -NSTEP );
+      J = NSTEP - NPIVED;
+      DO WHILE ( J > 0 );
+         NTOPIV = IAND( J, -J );
          claswp(NTOPIV, A( 1, J-NTOPIV+1 ), LDA, J+1, NSTEP, IPIV, 1 );
-         J = J - NTOPIV
+         J = J - NTOPIV;
       }
 
       // If short and wide, handle the rest of the columns.
@@ -131,7 +131,7 @@
          ctrsm('Left', 'Lower', 'No transpose', 'Unit', M, N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA );
       }
 
-      RETURN
+      RETURN;
 
       // End of CGETRF
 

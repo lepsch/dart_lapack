@@ -1,6 +1,6 @@
-      SUBROUTINE DSBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE DSBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,33 +41,33 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KD < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KD+1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9
+         INFO = -9;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LWMIN = 1
-            WORK( 1 ) = LWMIN
+            LWMIN = 1;
+            WORK( 1 ) = LWMIN;
          } else {
-            IB    = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )
-            LWMIN = N + LHTRD + LWTRD
-            WORK( 1 )  = LWMIN
+            IB    = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 );
+            LWMIN = N + LHTRD + LWTRD;
+            WORK( 1 )  = LWMIN;
          }
 
          if (LWORK < LWMIN && !LQUERY) INFO = -11;
@@ -75,9 +75,9 @@
 
       if ( INFO != 0 ) {
          xerbla('DSBEV_2STAGE ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -86,33 +86,33 @@
 
       if ( N == 1 ) {
          if ( LOWER ) {
-            W( 1 ) = AB( 1, 1 )
+            W( 1 ) = AB( 1, 1 );
          } else {
-            W( 1 ) = AB( KD+1, 1 )
+            W( 1 ) = AB( KD+1, 1 );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS    = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN   = SQRT( SMLNUM )
-      RMAX   = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS    = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN   = SQRT( SMLNUM );
+      RMAX   = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK )
-      ISCALE = 0
+      ANRM = DLANSB( 'M', UPLO, N, KD, AB, LDAB, WORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          if ( LOWER ) {
@@ -124,10 +124,10 @@
 
       // Call DSYTRD_SB2ST to reduce symmetric band matrix to tridiagonal form.
 
-      INDE    = 1
-      INDHOUS = INDE + N
-      INDWRK  = INDHOUS + LHTRD
-      LLWORK  = LWORK - INDWRK + 1
+      INDE    = 1;
+      INDHOUS = INDE + N;
+      INDWRK  = INDHOUS + LHTRD;
+      LLWORK  = LWORK - INDWRK + 1;
 
       dsytrd_sb2st("N", JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
@@ -143,18 +143,18 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWMIN
+      WORK( 1 ) = LWMIN;
 
-      RETURN
+      RETURN;
 
       // End of DSBEV_2STAGE
 

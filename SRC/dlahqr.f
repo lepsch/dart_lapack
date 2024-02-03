@@ -1,5 +1,5 @@
-      SUBROUTINE DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO )
-      IMPLICIT NONE
+      SUBROUTINE DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,50 +42,50 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
       if (N == 0) RETURN;
       if ( ILO == IHI ) {
-         WR( ILO ) = H( ILO, ILO )
-         WI( ILO ) = ZERO
-         RETURN
+         WR( ILO ) = H( ILO, ILO );
+         WI( ILO ) = ZERO;
+         RETURN;
       }
 
       // ==== clear out the trash ====
       for (J = ILO; J <= IHI - 3; J++) { // 10
-         H( J+2, J ) = ZERO
-         H( J+3, J ) = ZERO
+         H( J+2, J ) = ZERO;
+         H( J+3, J ) = ZERO;
       } // 10
       if (ILO <= IHI-2) H( IHI, IHI-2 ) = ZERO;
 
-      NH = IHI - ILO + 1
-      NZ = IHIZ - ILOZ + 1
+      NH = IHI - ILO + 1;
+      NZ = IHIZ - ILOZ + 1;
 
       // Set machine-dependent constants for the stopping criterion.
 
-      SAFMIN = DLAMCH( 'SAFE MINIMUM' )
-      SAFMAX = ONE / SAFMIN
-      ULP = DLAMCH( 'PRECISION' )
-      SMLNUM = SAFMIN*( DBLE( NH ) / ULP )
+      SAFMIN = DLAMCH( 'SAFE MINIMUM' );
+      SAFMAX = ONE / SAFMIN;
+      ULP = DLAMCH( 'PRECISION' );
+      SMLNUM = SAFMIN*( DBLE( NH ) / ULP );
 
       // I1 and I2 are the indices of the first row and last column of H
       // to which transformations must be applied. If eigenvalues only are
       // being computed, I1 and I2 are set inside the main loop.
 
       if ( WANTT ) {
-         I1 = 1
-         I2 = N
+         I1 = 1;
+         I2 = N;
       }
 
       // ITMAX is the total number of QR iterations allowed.
 
-      ITMAX = 30 * MAX( 10, NH )
+      ITMAX = 30 * MAX( 10, NH );
 
       // KDEFL counts the number of iterations since a deflation
 
-      KDEFL = 0
+      KDEFL = 0;
 
       // The main loop begins here. I is the loop index and decreases from
       // IHI to ILO in steps of 1 or 2. Each iteration of the loop works
@@ -93,9 +93,9 @@
       // Eigenvalues I+1 to IHI have already converged. Either L = ILO or
       // H(L,L-1) is negligible so that the matrix splits.
 
-      I = IHI
+      I = IHI;
       } // 20
-      L = ILO
+      L = ILO;
       if (I < ILO) GO TO 160;
 
       // Perform QR iterations on rows and columns ILO to I until a
@@ -106,9 +106,9 @@
 
          // Look for a single small subdiagonal element.
 
-         DO 30 K = I, L + 1, -1
-            IF( ABS( H( K, K-1 ) ) <= SMLNUM ) GO TO 40
-            TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
+         DO 30 K = I, L + 1, -1;
+            IF( ABS( H( K, K-1 ) ) <= SMLNUM ) GO TO 40;
+            TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) );
             if ( TST == ZERO ) {
                if (K-2 >= ILO) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1 <= IHI ) TST = TST + ABS( H( K+1, K ) );
             }
@@ -117,122 +117,122 @@
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some cases.  ====
             if ( ABS( H( K, K-1 ) ) <= ULP*TST ) {
-               AB = MAX( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) )
-               BA = MIN( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) )
-               AA = MAX( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )
-               S = AA + AB
-               IF( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40
+               AB = MAX( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
+               BA = MIN( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) );
+               AA = MAX( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) );
+               S = AA + AB;
+               IF( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40;
             }
          } // 30
          } // 40
-         L = K
+         L = K;
          if ( L > ILO ) {
 
             // H(L,L-1) is negligible
 
-            H( L, L-1 ) = ZERO
+            H( L, L-1 ) = ZERO;
          }
 
          // Exit from loop if a submatrix of order 1 or 2 has split off.
 
          if (L >= I-1) GO TO 150;
-         KDEFL = KDEFL + 1
+         KDEFL = KDEFL + 1;
 
          // Now the active submatrix is in rows and columns L to I. If
          // eigenvalues only are being computed, only the active submatrix
          // need be transformed.
 
          if ( !WANTT ) {
-            I1 = L
-            I2 = I
+            I1 = L;
+            I2 = I;
          }
 
          if ( MOD(KDEFL,2*KEXSH) == 0 ) {
 
             // Exceptional shift.
 
-            S = ABS( H( I, I-1 ) ) + ABS( H( I-1, I-2 ) )
-            H11 = DAT1*S + H( I, I )
-            H12 = DAT2*S
-            H21 = S
-            H22 = H11
+            S = ABS( H( I, I-1 ) ) + ABS( H( I-1, I-2 ) );
+            H11 = DAT1*S + H( I, I );
+            H12 = DAT2*S;
+            H21 = S;
+            H22 = H11;
          } else if ( MOD(KDEFL,KEXSH) == 0 ) {
 
             // Exceptional shift.
 
-            S = ABS( H( L+1, L ) ) + ABS( H( L+2, L+1 ) )
-            H11 = DAT1*S + H( L, L )
-            H12 = DAT2*S
-            H21 = S
-            H22 = H11
+            S = ABS( H( L+1, L ) ) + ABS( H( L+2, L+1 ) );
+            H11 = DAT1*S + H( L, L );
+            H12 = DAT2*S;
+            H21 = S;
+            H22 = H11;
          } else {
 
             // Prepare to use Francis' double shift
             // (i.e. 2nd degree generalized Rayleigh quotient)
 
-            H11 = H( I-1, I-1 )
-            H21 = H( I, I-1 )
-            H12 = H( I-1, I )
-            H22 = H( I, I )
+            H11 = H( I-1, I-1 );
+            H21 = H( I, I-1 );
+            H12 = H( I-1, I );
+            H22 = H( I, I );
          }
-         S = ABS( H11 ) + ABS( H12 ) + ABS( H21 ) + ABS( H22 )
+         S = ABS( H11 ) + ABS( H12 ) + ABS( H21 ) + ABS( H22 );
          if ( S == ZERO ) {
-            RT1R = ZERO
-            RT1I = ZERO
-            RT2R = ZERO
-            RT2I = ZERO
+            RT1R = ZERO;
+            RT1I = ZERO;
+            RT2R = ZERO;
+            RT2I = ZERO;
          } else {
-            H11 = H11 / S
-            H21 = H21 / S
-            H12 = H12 / S
-            H22 = H22 / S
-            TR = ( H11+H22 ) / TWO
-            DET = ( H11-TR )*( H22-TR ) - H12*H21
-            RTDISC = SQRT( ABS( DET ) )
+            H11 = H11 / S;
+            H21 = H21 / S;
+            H12 = H12 / S;
+            H22 = H22 / S;
+            TR = ( H11+H22 ) / TWO;
+            DET = ( H11-TR )*( H22-TR ) - H12*H21;
+            RTDISC = SQRT( ABS( DET ) );
             if ( DET >= ZERO ) {
 
                // ==== complex conjugate shifts ====
 
-               RT1R = TR*S
-               RT2R = RT1R
-               RT1I = RTDISC*S
-               RT2I = -RT1I
+               RT1R = TR*S;
+               RT2R = RT1R;
+               RT1I = RTDISC*S;
+               RT2I = -RT1I;
             } else {
 
                // ==== real shifts (use only one of them)  ====
 
-               RT1R = TR + RTDISC
-               RT2R = TR - RTDISC
+               RT1R = TR + RTDISC;
+               RT2R = TR - RTDISC;
                if ( ABS( RT1R-H22 ) <= ABS( RT2R-H22 ) ) {
-                  RT1R = RT1R*S
-                  RT2R = RT1R
+                  RT1R = RT1R*S;
+                  RT2R = RT1R;
                } else {
-                  RT2R = RT2R*S
-                  RT1R = RT2R
+                  RT2R = RT2R*S;
+                  RT1R = RT2R;
                }
-               RT1I = ZERO
-               RT2I = ZERO
+               RT1I = ZERO;
+               RT2I = ZERO;
             }
          }
 
          // Look for two consecutive small subdiagonal elements.
 
-         DO 50 M = I - 2, L, -1
+         DO 50 M = I - 2, L, -1;
             // Determine the effect of starting the double-shift QR
             // iteration at row M, and see if this would make H(M,M-1)
             // negligible.  (The following uses scaling to avoid
             // overflows and most underflows.)
 
-            H21S = H( M+1, M )
-            S = ABS( H( M, M )-RT2R ) + ABS( RT2I ) + ABS( H21S )
-            H21S = H( M+1, M ) / S
-            V( 1 ) = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )* ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S )
-            V( 2 ) = H21S*( H( M, M )+H( M+1, M+1 )-RT1R-RT2R )
-            V( 3 ) = H21S*H( M+2, M+1 )
-            S = ABS( V( 1 ) ) + ABS( V( 2 ) ) + ABS( V( 3 ) )
-            V( 1 ) = V( 1 ) / S
-            V( 2 ) = V( 2 ) / S
-            V( 3 ) = V( 3 ) / S
+            H21S = H( M+1, M );
+            S = ABS( H( M, M )-RT2R ) + ABS( RT2I ) + ABS( H21S );
+            H21S = H( M+1, M ) / S;
+            V( 1 ) = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )* ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S );
+            V( 2 ) = H21S*( H( M, M )+H( M+1, M+1 )-RT1R-RT2R );
+            V( 3 ) = H21S*H( M+2, M+1 );
+            S = ABS( V( 1 ) ) + ABS( V( 2 ) ) + ABS( V( 3 ) );
+            V( 1 ) = V( 1 ) / S;
+            V( 2 ) = V( 2 ) / S;
+            V( 3 ) = V( 3 ) / S;
             if (M == L) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ) <= ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60;
          } // 50
          } // 60
@@ -250,44 +250,44 @@
             // chases the bulge one step toward the bottom of the active
             // submatrix. NR is the order of G.
 
-            NR = MIN( 3, I-K+1 )
+            NR = MIN( 3, I-K+1 );
             if (K > M) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 );
             dlarfg(NR, V( 1 ), V( 2 ), 1, T1 );
             if ( K > M ) {
-               H( K, K-1 ) = V( 1 )
-               H( K+1, K-1 ) = ZERO
+               H( K, K-1 ) = V( 1 );
+               H( K+1, K-1 ) = ZERO;
                if (K < I-1) H( K+2, K-1 ) = ZERO;
             } else if ( M > L ) {
                 // ==== Use the following instead of
                 // .    H( K, K-1 ) = -H( K, K-1 ) to
                 // .    avoid a bug when v(2) and v(3)
                 // .    underflow. ====
-               H( K, K-1 ) = H( K, K-1 )*( ONE-T1 )
+               H( K, K-1 ) = H( K, K-1 )*( ONE-T1 );
             }
-            V2 = V( 2 )
-            T2 = T1*V2
+            V2 = V( 2 );
+            T2 = T1*V2;
             if ( NR == 3 ) {
-               V3 = V( 3 )
-               T3 = T1*V3
+               V3 = V( 3 );
+               T3 = T1*V3;
 
                // Apply G from the left to transform the rows of the matrix
                // in columns K to I2.
 
                for (J = K; J <= I2; J++) { // 70
-                  SUM = H( K, J ) + V2*H( K+1, J ) + V3*H( K+2, J )
-                  H( K, J ) = H( K, J ) - SUM*T1
-                  H( K+1, J ) = H( K+1, J ) - SUM*T2
-                  H( K+2, J ) = H( K+2, J ) - SUM*T3
+                  SUM = H( K, J ) + V2*H( K+1, J ) + V3*H( K+2, J );
+                  H( K, J ) = H( K, J ) - SUM*T1;
+                  H( K+1, J ) = H( K+1, J ) - SUM*T2;
+                  H( K+2, J ) = H( K+2, J ) - SUM*T3;
                } // 70
 
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
 
-               DO 80 J = I1, MIN( K+3, I )
-                  SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 )
-                  H( J, K ) = H( J, K ) - SUM*T1
-                  H( J, K+1 ) = H( J, K+1 ) - SUM*T2
-                  H( J, K+2 ) = H( J, K+2 ) - SUM*T3
+               DO 80 J = I1, MIN( K+3, I );
+                  SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 );
+                  H( J, K ) = H( J, K ) - SUM*T1;
+                  H( J, K+1 ) = H( J, K+1 ) - SUM*T2;
+                  H( J, K+2 ) = H( J, K+2 ) - SUM*T3;
                } // 80
 
                if ( WANTZ ) {
@@ -295,10 +295,10 @@
                   // Accumulate transformations in the matrix Z
 
                   for (J = ILOZ; J <= IHIZ; J++) { // 90
-                     SUM = Z( J, K ) + V2*Z( J, K+1 ) + V3*Z( J, K+2 )
-                     Z( J, K ) = Z( J, K ) - SUM*T1
-                     Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
-                     Z( J, K+2 ) = Z( J, K+2 ) - SUM*T3
+                     SUM = Z( J, K ) + V2*Z( J, K+1 ) + V3*Z( J, K+2 );
+                     Z( J, K ) = Z( J, K ) - SUM*T1;
+                     Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2;
+                     Z( J, K+2 ) = Z( J, K+2 ) - SUM*T3;
                   } // 90
                }
             } else if ( NR == 2 ) {
@@ -307,18 +307,18 @@
                // in columns K to I2.
 
                for (J = K; J <= I2; J++) { // 100
-                  SUM = H( K, J ) + V2*H( K+1, J )
-                  H( K, J ) = H( K, J ) - SUM*T1
-                  H( K+1, J ) = H( K+1, J ) - SUM*T2
+                  SUM = H( K, J ) + V2*H( K+1, J );
+                  H( K, J ) = H( K, J ) - SUM*T1;
+                  H( K+1, J ) = H( K+1, J ) - SUM*T2;
                } // 100
 
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
 
                for (J = I1; J <= I; J++) { // 110
-                  SUM = H( J, K ) + V2*H( J, K+1 )
-                  H( J, K ) = H( J, K ) - SUM*T1
-                  H( J, K+1 ) = H( J, K+1 ) - SUM*T2
+                  SUM = H( J, K ) + V2*H( J, K+1 );
+                  H( J, K ) = H( J, K ) - SUM*T1;
+                  H( J, K+1 ) = H( J, K+1 ) - SUM*T2;
                } // 110
 
                if ( WANTZ ) {
@@ -326,9 +326,9 @@
                   // Accumulate transformations in the matrix Z
 
                   for (J = ILOZ; J <= IHIZ; J++) { // 120
-                     SUM = Z( J, K ) + V2*Z( J, K+1 )
-                     Z( J, K ) = Z( J, K ) - SUM*T1
-                     Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
+                     SUM = Z( J, K ) + V2*Z( J, K+1 );
+                     Z( J, K ) = Z( J, K ) - SUM*T1;
+                     Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2;
                   } // 120
                }
             }
@@ -338,8 +338,8 @@
 
       // Failure to converge in remaining number of iterations
 
-      INFO = I
-      RETURN
+      INFO = I;
+      RETURN;
 
       } // 150
 
@@ -347,8 +347,8 @@
 
          // H(I,I-1) is negligible: one eigenvalue has converged.
 
-         WR( I ) = H( I, I )
-         WI( I ) = ZERO
+         WR( I ) = H( I, I );
+         WI( I ) = ZERO;
       } else if ( L == I-1 ) {
 
          // H(I-1,I-2) is negligible: a pair of eigenvalues have converged.
@@ -373,15 +373,15 @@
          }
       }
       // reset deflation counter
-      KDEFL = 0
+      KDEFL = 0;
 
       // return to start of the main loop with new value of I.
 
-      I = L - 1
-      GO TO 20
+      I = L - 1;
+      GO TO 20;
 
       } // 160
-      RETURN
+      RETURN;
 
       // End of DLAHQR
 

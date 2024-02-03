@@ -1,10 +1,10 @@
-      SUBROUTINE CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -12,12 +12,12 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -37,39 +37,39 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( MIN( N, NRHS ) == 0 ) {
-         LWKMIN = 1
+         LWKMIN = 1;
       } else {
-         LWKMIN = 3*N-2
+         LWKMIN = 3*N-2;
       }
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('CHETRS_AA', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWKMIN )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKMIN );
+         RETURN;
       }
 
       // Quick return if possible
 
-      IF( MIN( N, NRHS ) == 0 ) RETURN
+      IF( MIN( N, NRHS ) == 0 ) RETURN;
 
       if ( UPPER ) {
 
@@ -81,11 +81,11 @@
 
             // Pivot, P**T * B -> B
 
-            K = 1
-            DO WHILE ( K <= N )
-               KP = IPIV( K )
+            K = 1;
+            DO WHILE ( K <= N );
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-               K = K + 1
+               K = K + 1;
             }
 
             // Compute U**H \ B -> B    [ (U**H \P**T * B) ]
@@ -115,11 +115,11 @@
 
             // Pivot, P * B  -> B [ P * (U \ (T \ (U**H \P**T * B) )) ]
 
-            K = N
-            DO WHILE ( K >= 1 )
-               KP = IPIV( K )
+            K = N;
+            DO WHILE ( K >= 1 );
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-               K = K - 1
+               K = K - 1;
             }
          }
 
@@ -133,11 +133,11 @@
 
             // Pivot, P**T * B -> B
 
-            K = 1
-            DO WHILE ( K <= N )
-               KP = IPIV( K )
+            K = 1;
+            DO WHILE ( K <= N );
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-               K = K + 1
+               K = K + 1;
             }
 
             // Compute L \ B -> B    [ (L \P**T * B) ]
@@ -167,17 +167,17 @@
 
             // Pivot, P * B -> B  [ P * (L**H \ (T \ (L \P**T * B) )) ]
 
-            K = N
-            DO WHILE ( K >= 1 )
-               KP = IPIV( K )
+            K = N;
+            DO WHILE ( K >= 1 );
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-               K = K - 1
+               K = K - 1;
             }
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CHETRS_AA
 

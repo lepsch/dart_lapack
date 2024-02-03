@@ -1,4 +1,4 @@
-      SUBROUTINE DGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB, BETA,C,LDC)
+      SUBROUTINE DGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB, BETA,C,LDC);
 
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -39,47 +39,47 @@
       // transposed and set  NROWA and NROWB  as the number of rows of  A
       // and  B  respectively.
 
-      NOTA = LSAME(TRANSA,'N')
-      NOTB = LSAME(TRANSB,'N')
+      NOTA = LSAME(TRANSA,'N');
+      NOTB = LSAME(TRANSB,'N');
       if (NOTA) {
-          NROWA = M
+          NROWA = M;
       } else {
-          NROWA = K
+          NROWA = K;
       }
       if (NOTB) {
-          NROWB = K
+          NROWB = K;
       } else {
-          NROWB = N
+          NROWB = N;
       }
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if (( !NOTA) && ( !LSAME(TRANSA,'C')) && ( !LSAME(TRANSA,'T'))) {
-          INFO = 1
+          INFO = 1;
       } else if (( !NOTB) && ( !LSAME(TRANSB,'C')) && ( !LSAME(TRANSB,'T'))) {
-          INFO = 2
+          INFO = 2;
       } else if (M < 0) {
-          INFO = 3
+          INFO = 3;
       } else if (N < 0) {
-          INFO = 4
+          INFO = 4;
       } else if (K < 0) {
-          INFO = 5
+          INFO = 5;
       } else if (LDA < MAX(1,NROWA)) {
-          INFO = 8
+          INFO = 8;
       } else if (LDB < MAX(1,NROWB)) {
-          INFO = 10
+          INFO = 10;
       } else if (LDC < MAX(1,M)) {
-          INFO = 13
+          INFO = 13;
       }
       if (INFO != 0) {
           xerbla('DGEMM ',INFO);
-          RETURN
+          RETURN;
       }
 
       // Quick return if possible.
 
-      IF ((M == 0) || (N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN
+      IF ((M == 0) || (N == 0) || (((ALPHA == ZERO) || (K == 0)) && (BETA == ONE))) RETURN;
 
       // And if  alpha == zero.
 
@@ -87,17 +87,17 @@
           if (BETA == ZERO) {
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
-                      C(I,J) = ZERO
+                      C(I,J) = ZERO;
                   } // 10
               } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   for (I = 1; I <= M; I++) { // 30
-                      C(I,J) = BETA*C(I,J)
+                      C(I,J) = BETA*C(I,J);
                   } // 30
               } // 40
           }
-          RETURN
+          RETURN;
       }
 
       // Start the operations.
@@ -110,17 +110,17 @@
               for (J = 1; J <= N; J++) { // 90
                   if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 50
-                          C(I,J) = ZERO
+                          C(I,J) = ZERO;
                       } // 50
                   } else if (BETA != ONE) {
                       for (I = 1; I <= M; I++) { // 60
-                          C(I,J) = BETA*C(I,J)
+                          C(I,J) = BETA*C(I,J);
                       } // 60
                   }
                   for (L = 1; L <= K; L++) { // 80
-                      TEMP = ALPHA*B(L,J)
+                      TEMP = ALPHA*B(L,J);
                       for (I = 1; I <= M; I++) { // 70
-                          C(I,J) = C(I,J) + TEMP*A(I,L)
+                          C(I,J) = C(I,J) + TEMP*A(I,L);
                       } // 70
                   } // 80
               } // 90
@@ -130,14 +130,14 @@
 
               for (J = 1; J <= N; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
-                      TEMP = ZERO
+                      TEMP = ZERO;
                       for (L = 1; L <= K; L++) { // 100
-                          TEMP = TEMP + A(L,I)*B(L,J)
+                          TEMP = TEMP + A(L,I)*B(L,J);
                       } // 100
                       if (BETA == ZERO) {
-                          C(I,J) = ALPHA*TEMP
+                          C(I,J) = ALPHA*TEMP;
                       } else {
-                          C(I,J) = ALPHA*TEMP + BETA*C(I,J)
+                          C(I,J) = ALPHA*TEMP + BETA*C(I,J);
                       }
                   } // 110
               } // 120
@@ -150,17 +150,17 @@
               for (J = 1; J <= N; J++) { // 170
                   if (BETA == ZERO) {
                       for (I = 1; I <= M; I++) { // 130
-                          C(I,J) = ZERO
+                          C(I,J) = ZERO;
                       } // 130
                   } else if (BETA != ONE) {
                       for (I = 1; I <= M; I++) { // 140
-                          C(I,J) = BETA*C(I,J)
+                          C(I,J) = BETA*C(I,J);
                       } // 140
                   }
                   for (L = 1; L <= K; L++) { // 160
-                      TEMP = ALPHA*B(J,L)
+                      TEMP = ALPHA*B(J,L);
                       for (I = 1; I <= M; I++) { // 150
-                          C(I,J) = C(I,J) + TEMP*A(I,L)
+                          C(I,J) = C(I,J) + TEMP*A(I,L);
                       } // 150
                   } // 160
               } // 170
@@ -170,21 +170,21 @@
 
               for (J = 1; J <= N; J++) { // 200
                   for (I = 1; I <= M; I++) { // 190
-                      TEMP = ZERO
+                      TEMP = ZERO;
                       for (L = 1; L <= K; L++) { // 180
-                          TEMP = TEMP + A(L,I)*B(J,L)
+                          TEMP = TEMP + A(L,I)*B(J,L);
                       } // 180
                       if (BETA == ZERO) {
-                          C(I,J) = ALPHA*TEMP
+                          C(I,J) = ALPHA*TEMP;
                       } else {
-                          C(I,J) = ALPHA*TEMP + BETA*C(I,J)
+                          C(I,J) = ALPHA*TEMP + BETA*C(I,J);
                       }
                   } // 190
               } // 200
           }
       }
 
-      RETURN
+      RETURN;
 
       // End of DGEMM
 

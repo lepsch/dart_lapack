@@ -1,4 +1,4 @@
-      SUBROUTINE SLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+      SUBROUTINE SLAQSY( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             EQUED, UPLO;
       int                LDA, N;
-      REAL               AMAX, SCOND
+      REAL               AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * )
+      REAL               A( LDA, * ), S( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, THRESH
+      REAL               ONE, THRESH;
       const              ONE = 1.0, THRESH = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               CJ, LARGE, SMALL
+      REAL               CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. Executable Statements ..
@@ -33,20 +33,20 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         EQUED = 'N'
-         RETURN
+         EQUED = 'N';
+         RETURN;
       }
 
       // Initialize LARGE and SMALL.
 
-      SMALL = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
-      LARGE = ONE / SMALL
+      SMALL = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' );
+      LARGE = ONE / SMALL;
 
       if ( SCOND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
 
          // No equilibration
 
-         EQUED = 'N'
+         EQUED = 'N';
       } else {
 
          // Replace A by diag(S) * A * diag(S).
@@ -56,9 +56,9 @@
             // Upper triangle of A is stored.
 
             for (J = 1; J <= N; J++) { // 20
-               CJ = S( J )
+               CJ = S( J );
                for (I = 1; I <= J; I++) { // 10
-                  A( I, J ) = CJ*S( I )*A( I, J )
+                  A( I, J ) = CJ*S( I )*A( I, J );
                } // 10
             } // 20
          } else {
@@ -66,16 +66,16 @@
             // Lower triangle of A is stored.
 
             for (J = 1; J <= N; J++) { // 40
-               CJ = S( J )
+               CJ = S( J );
                for (I = J; I <= N; I++) { // 30
-                  A( I, J ) = CJ*S( I )*A( I, J )
+                  A( I, J ) = CJ*S( I )*A( I, J );
                } // 30
             } // 40
          }
-         EQUED = 'Y'
+         EQUED = 'Y';
       }
 
-      RETURN
+      RETURN;
 
       // End of SLAQSY
 

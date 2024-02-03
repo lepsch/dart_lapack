@@ -1,4 +1,4 @@
-      SUBROUTINE CPOT01( UPLO, N, A, LDA, AFAC, LDAFAC, RWORK, RESID )
+      SUBROUTINE CPOT01( UPLO, N, A, LDA, AFAC, LDAFAC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,28 +7,28 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ANORM, EPS, TR
-      COMPLEX            TC
+      REAL               ANORM, EPS, TR;
+      COMPLEX            TC;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANHE, SLAMCH
-      COMPLEX            CDOTC
+      REAL               CLANHE, SLAMCH;
+      COMPLEX            CDOTC;
       // EXTERNAL LSAME, CLANHE, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..
@@ -42,17 +42,17 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS
-         RETURN
+         RESID = ONE / EPS;
+         RETURN;
       }
 
       // Check the imaginary parts of the diagonal elements and return with
@@ -60,20 +60,20 @@
 
       for (J = 1; J <= N; J++) { // 10
          if ( AIMAG( AFAC( J, J ) ) != ZERO ) {
-            RESID = ONE / EPS
-            RETURN
+            RESID = ONE / EPS;
+            RETURN;
          }
       } // 10
 
       // Compute the product U**H * U, overwriting U.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 K = N, 1, -1
+         DO 20 K = N, 1, -1;
 
             // Compute the (K,K) element of the result.
 
-            TR = REAL( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) )
-            AFAC( K, K ) = TR
+            TR = REAL( CDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
+            AFAC( K, K ) = TR;
 
             // Compute the rest of column K.
 
@@ -84,7 +84,7 @@
       // Compute the product L * L**H, overwriting L.
 
       } else {
-         DO 30 K = N, 1, -1
+         DO 30 K = N, 1, -1;
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
@@ -93,7 +93,7 @@
 
             // Scale column K by the diagonal element.
 
-            TC = AFAC( K, K )
+            TC = AFAC( K, K );
             cscal(N-K+1, TC, AFAC( K, K ), 1 );
 
          } // 30
@@ -104,26 +104,26 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= J - 1; I++) { // 40
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 40
-            AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
+            AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) );
          } // 50
       } else {
          for (J = 1; J <= N; J++) { // 70
-            AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
+            AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) );
             for (I = J + 1; I <= N; I++) { // 60
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 60
          } // 70
       }
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
-      RESID = CLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK )
+      RESID = CLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
+      RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of CPOT01
 

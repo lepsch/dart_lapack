@@ -27,7 +27,7 @@ void main() {
       String             INTSTR;
       String             ALINE;
       int                I, IC, J, K, LA, LAFAC, LDA, NB, NM, NMATS, NN, NNB, NNB2, NNS, NRHS, NTYPES, NRANK, VERS_MAJOR, VERS_MINOR, VERS_PATCH;
-      REAL               EPS, S1, S2, THREQ, THRESH
+      REAL               EPS, S1, S2, THREQ, THRESH;
       // ..
       // .. Local Arrays ..
       bool               DOTYPE( MATMAX );
@@ -35,13 +35,13 @@ void main() {
       // ..
       // .. Allocatable Arrays ..
       int     AllocateStatus;
-      REAL, DIMENSION(:), ALLOCATABLE :: RWORK, S
-      REAL, DIMENSION(:), ALLOCATABLE :: E
-      REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
+      REAL, DIMENSION(:), ALLOCATABLE :: RWORK, S;
+      REAL, DIMENSION(:), ALLOCATABLE :: E;
+      REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
       // ..
       // .. External Functions ..
       bool               LSAME, LSAMEN;
-      REAL               SECOND, SLAMCH
+      REAL               SECOND, SLAMCH;
       // EXTERNAL LSAME, LSAMEN, SECOND, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -61,57 +61,57 @@ void main() {
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               THREQ / 2.0 / , INTSTR / '0123456789' /
+      DATA               THREQ / 2.0 / , INTSTR / '0123456789' /;
       // ..
       // .. Allocate memory dynamically ..
 
-      ALLOCATE ( A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus )
+      ALLOCATE ( A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( B( NMAX*MAXRHS, 4 ), STAT = AllocateStatus )
+      ALLOCATE ( B( NMAX*MAXRHS, 4 ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( WORK( NMAX, 3*NMAX+MAXRHS+30 ), STAT = AllocateStatus )
+      ALLOCATE ( WORK( NMAX, 3*NMAX+MAXRHS+30 ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( E( NMAX ), STAT = AllocateStatus )
+      ALLOCATE ( E( NMAX ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( S( 2*NMAX ), STAT = AllocateStatus )
+      ALLOCATE ( S( 2*NMAX ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus )
+      ALLOCATE ( RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       // ..
       // .. Executable Statements ..
 
-      S1 = SECOND( )
-      LDA = NMAX
+      S1 = SECOND( );
+      LDA = NMAX;
       FATAL = false;
 
       // Read a dummy line.
 
-      READ( NIN, FMT = * )
+      READ( NIN, FMT = * );
 
       // Report values of parameters.
 
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      WRITE( NOUT, FMT = 9994 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
 
       // Read the values of M
 
-      READ( NIN, FMT = * )NM
+      READ( NIN, FMT = * )NM;
       if ( NM < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NM ', NM, 1
-         NM = 0
+         WRITE( NOUT, FMT = 9996 )' NM ', NM, 1;
+         NM = 0;
          FATAL = true;
       } else if ( NM > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN
-         NM = 0
+         WRITE( NOUT, FMT = 9995 )' NM ', NM, MAXIN;
+         NM = 0;
          FATAL = true;
       }
-      READ( NIN, FMT = * )( MVAL( I ), I = 1, NM )
+      READ( NIN, FMT = * )( MVAL( I ), I = 1, NM );
       for (I = 1; I <= NM; I++) { // 10
          if ( MVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0
+            WRITE( NOUT, FMT = 9996 )' M  ', MVAL( I ), 0;
             FATAL = true;
          } else if ( MVAL( I ) > NMAX ) {
-            WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
+            WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX;
             FATAL = true;
          }
       } // 10
@@ -119,23 +119,23 @@ void main() {
 
       // Read the values of N
 
-      READ( NIN, FMT = * )NN
+      READ( NIN, FMT = * )NN;
       if ( NN < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NN ', NN, 1
-         NN = 0
+         WRITE( NOUT, FMT = 9996 )' NN ', NN, 1;
+         NN = 0;
          FATAL = true;
       } else if ( NN > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN
-         NN = 0
+         WRITE( NOUT, FMT = 9995 )' NN ', NN, MAXIN;
+         NN = 0;
          FATAL = true;
       }
-      READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
+      READ( NIN, FMT = * )( NVAL( I ), I = 1, NN );
       for (I = 1; I <= NN; I++) { // 20
          if ( NVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0
+            WRITE( NOUT, FMT = 9996 )' N  ', NVAL( I ), 0;
             FATAL = true;
          } else if ( NVAL( I ) > NMAX ) {
-            WRITE( NOUT, FMT = 9995 )' N  ', NVAL( I ), NMAX
+            WRITE( NOUT, FMT = 9995 )' N  ', NVAL( I ), NMAX;
             FATAL = true;
          }
       } // 20
@@ -143,23 +143,23 @@ void main() {
 
       // Read the values of NRHS
 
-      READ( NIN, FMT = * )NNS
+      READ( NIN, FMT = * )NNS;
       if ( NNS < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1
-         NNS = 0
+         WRITE( NOUT, FMT = 9996 )' NNS', NNS, 1;
+         NNS = 0;
          FATAL = true;
       } else if ( NNS > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN
-         NNS = 0
+         WRITE( NOUT, FMT = 9995 )' NNS', NNS, MAXIN;
+         NNS = 0;
          FATAL = true;
       }
-      READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS )
+      READ( NIN, FMT = * )( NSVAL( I ), I = 1, NNS );
       for (I = 1; I <= NNS; I++) { // 30
          if ( NSVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0
+            WRITE( NOUT, FMT = 9996 )'NRHS', NSVAL( I ), 0;
             FATAL = true;
          } else if ( NSVAL( I ) > MAXRHS ) {
-            WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
+            WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS;
             FATAL = true;
          }
       } // 30
@@ -167,20 +167,20 @@ void main() {
 
       // Read the values of NB
 
-      READ( NIN, FMT = * )NNB
+      READ( NIN, FMT = * )NNB;
       if ( NNB < 1 ) {
-         WRITE( NOUT, FMT = 9996 )'NNB ', NNB, 1
-         NNB = 0
+         WRITE( NOUT, FMT = 9996 )'NNB ', NNB, 1;
+         NNB = 0;
          FATAL = true;
       } else if ( NNB > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )'NNB ', NNB, MAXIN
-         NNB = 0
+         WRITE( NOUT, FMT = 9995 )'NNB ', NNB, MAXIN;
+         NNB = 0;
          FATAL = true;
       }
-      READ( NIN, FMT = * )( NBVAL( I ), I = 1, NNB )
+      READ( NIN, FMT = * )( NBVAL( I ), I = 1, NNB );
       for (I = 1; I <= NNB; I++) { // 40
          if ( NBVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0
+            WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0;
             FATAL = true;
          }
       } // 40
@@ -188,22 +188,22 @@ void main() {
 
       // Set NBVAL2 to be the set of unique values of NB
 
-      NNB2 = 0
+      NNB2 = 0;
       for (I = 1; I <= NNB; I++) { // 60
-         NB = NBVAL( I )
+         NB = NBVAL( I );
          for (J = 1; J <= NNB2; J++) { // 50
-            IF( NB == NBVAL2( J ) ) GO TO 60
+            IF( NB == NBVAL2( J ) ) GO TO 60;
          } // 50
-         NNB2 = NNB2 + 1
-         NBVAL2( NNB2 ) = NB
+         NNB2 = NNB2 + 1;
+         NBVAL2( NNB2 ) = NB;
       } // 60
 
       // Read the values of NX
 
-      READ( NIN, FMT = * )( NXVAL( I ), I = 1, NNB )
+      READ( NIN, FMT = * )( NXVAL( I ), I = 1, NNB );
       for (I = 1; I <= NNB; I++) { // 70
          if ( NXVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0
+            WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0;
             FATAL = true;
          }
       } // 70
@@ -211,23 +211,23 @@ void main() {
 
       // Read the values of RANKVAL
 
-      READ( NIN, FMT = * )NRANK
+      READ( NIN, FMT = * )NRANK;
       if ( NN < 1 ) {
-         WRITE( NOUT, FMT = 9996 )' NRANK ', NRANK, 1
-         NRANK = 0
+         WRITE( NOUT, FMT = 9996 )' NRANK ', NRANK, 1;
+         NRANK = 0;
          FATAL = true;
       } else if ( NN > MAXIN ) {
-         WRITE( NOUT, FMT = 9995 )' NRANK ', NRANK, MAXIN
-         NRANK = 0
+         WRITE( NOUT, FMT = 9995 )' NRANK ', NRANK, MAXIN;
+         NRANK = 0;
          FATAL = true;
       }
-      READ( NIN, FMT = * )( RANKVAL( I ), I = 1, NRANK )
+      READ( NIN, FMT = * )( RANKVAL( I ), I = 1, NRANK );
       for (I = 1; I <= NRANK; I++) {
          if ( RANKVAL( I ) < 0 ) {
-            WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0
+            WRITE( NOUT, FMT = 9996 )' RANK  ', RANKVAL( I ), 0;
             FATAL = true;
          } else if ( RANKVAL( I ) > 100 ) {
-            WRITE( NOUT, FMT = 9995 )' RANK  ', RANKVAL( I ), 100
+            WRITE( NOUT, FMT = 9995 )' RANK  ', RANKVAL( I ), 100;
             FATAL = true;
          }
       }
@@ -235,229 +235,229 @@ void main() {
 
       // Read the threshold value for the test ratios.
 
-      READ( NIN, FMT = * )THRESH
-      WRITE( NOUT, FMT = 9992 )THRESH
+      READ( NIN, FMT = * )THRESH;
+      WRITE( NOUT, FMT = 9992 )THRESH;
 
       // Read the flag that indicates whether to test the LAPACK routines.
 
-      READ( NIN, FMT = * )TSTCHK
+      READ( NIN, FMT = * )TSTCHK;
 
       // Read the flag that indicates whether to test the driver routines.
 
-      READ( NIN, FMT = * )TSTDRV
+      READ( NIN, FMT = * )TSTDRV;
 
       // Read the flag that indicates whether to test the error exits.
 
-      READ( NIN, FMT = * )TSTERR
+      READ( NIN, FMT = * )TSTERR;
 
       if ( FATAL ) {
-         WRITE( NOUT, FMT = 9999 )
-         STOP
+         WRITE( NOUT, FMT = 9999 );
+         STOP;
       }
 
       // Calculate and print the machine dependent constants.
 
-      EPS = SLAMCH( 'Underflow threshold' )
-      WRITE( NOUT, FMT = 9991 )'underflow', EPS
-      EPS = SLAMCH( 'Overflow threshold' )
-      WRITE( NOUT, FMT = 9991 )'overflow ', EPS
-      EPS = SLAMCH( 'Epsilon' )
-      WRITE( NOUT, FMT = 9991 )'precision', EPS
-      WRITE( NOUT, FMT = * )
+      EPS = SLAMCH( 'Underflow threshold' );
+      WRITE( NOUT, FMT = 9991 )'underflow', EPS;
+      EPS = SLAMCH( 'Overflow threshold' );
+      WRITE( NOUT, FMT = 9991 )'overflow ', EPS;
+      EPS = SLAMCH( 'Epsilon' );
+      WRITE( NOUT, FMT = 9991 )'precision', EPS;
+      WRITE( NOUT, FMT = * );
 
       } // 80
 
       // Read a test path and the number of matrix types to use.
 
-      READ( NIN, FMT = '(A72)', END = 140 )ALINE
-      PATH = ALINE( 1: 3 )
-      NMATS = MATMAX
-      I = 3
+      READ( NIN, FMT = '(A72)', END = 140 )ALINE;
+      PATH = ALINE( 1: 3 );
+      NMATS = MATMAX;
+      I = 3;
       } // 90
-      I = I + 1
+      I = I + 1;
       if ( I > 72 ) {
-         NMATS = MATMAX
-         GO TO 130
+         NMATS = MATMAX;
+         GO TO 130;
       }
-      IF( ALINE( I: I ) == ' ' ) GO TO 90
-      NMATS = 0
+      IF( ALINE( I: I ) == ' ' ) GO TO 90;
+      NMATS = 0;
       } // 100
-      C1 = ALINE( I: I )
+      C1 = ALINE( I: I );
       for (K = 1; K <= 10; K++) { // 110
          if ( C1 == INTSTR( K: K ) ) {
-            IC = K - 1
-            GO TO 120
+            IC = K - 1;
+            GO TO 120;
          }
       } // 110
-      GO TO 130
+      GO TO 130;
       } // 120
-      NMATS = NMATS*10 + IC
-      I = I + 1
+      NMATS = NMATS*10 + IC;
+      I = I + 1;
       if (I > 72) GO TO 130;
-      GO TO 100
+      GO TO 100;
       } // 130
-      C1 = PATH( 1: 1 )
-      C2 = PATH( 2: 3 )
-      NRHS = NSVAL( 1 )
+      C1 = PATH( 1: 1 );
+      C2 = PATH( 2: 3 );
+      NRHS = NSVAL( 1 );
 
       // Check first character for correct precision.
 
       if ( !LSAME( C1, 'Single precision' ) ) {
-         WRITE( NOUT, FMT = 9990 )PATH
+         WRITE( NOUT, FMT = 9990 )PATH;
 
       } else if ( NMATS <= 0 ) {
 
          // Check for a positive number of tests requested.
 
-         WRITE( NOUT, FMT = 9989 )PATH
+         WRITE( NOUT, FMT = 9989 )PATH;
 
       } else if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // GE:  general matrices
 
-         NTYPES = 11
+         NTYPES = 11;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkge(DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvge(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'GB' ) ) {
 
          // GB:  general banded matrices
 
-         LA = ( 2*KDMAX+1 )*NMAX
-         LAFAC = ( 3*KDMAX+1 )*NMAX
-         NTYPES = 8
+         LA = ( 2*KDMAX+1 )*NMAX;
+         LAFAC = ( 3*KDMAX+1 )*NMAX;
+         NTYPES = 8;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkgb(DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvgb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, A( 1, 6 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'GT' ) ) {
 
          // GT:  general tridiagonal matrices
 
-         NTYPES = 12
+         NTYPES = 12;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkgt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvgt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'PO' ) ) {
 
          // PO:  positive definite matrices
 
-         NTYPES = 9
+         NTYPES = 9;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkpo(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvpo(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'PS' ) ) {
 
          // PS:  positive semi-definite matrices
 
-         NTYPES = 9
+         NTYPES = 9;
 
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkps(DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), PIV, WORK, RWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'PP' ) ) {
 
          // PP:  positive definite packed matrices
 
-         NTYPES = 9
+         NTYPES = 9;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkpp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvpp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
          // PB:  positive definite banded matrices
 
-         NTYPES = 8
+         NTYPES = 8;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkpb(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvpb(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // PT:  positive definite tridiagonal matrices
 
-         NTYPES = 12
+         NTYPES = 12;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkpt(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvpt(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'SY' ) ) {
@@ -465,19 +465,19 @@ void main() {
          // SY:  symmetric indefinite matrices,
               // with partial (Bunch-Kaufman) pivoting algorithm
 
-         NTYPES = 10
+         NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schksy(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvsy(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'SR' ) ) {
@@ -485,19 +485,19 @@ void main() {
          // SR:  symmetric indefinite matrices,
               // with bounded Bunch-Kaufman (rook) pivoting algorithm
 
-         NTYPES = 10
+         NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schksy_rook(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvsy_rook(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'SK' ) ) {
@@ -506,19 +506,19 @@ void main() {
               // with bounded Bunch-Kaufman (rook) pivoting algorithm,
               // different matrix storage format than SR path version.
 
-         NTYPES = 10
+         NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schksy_rk(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvsy_rk(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'SA' ) ) {
@@ -526,19 +526,19 @@ void main() {
          // SA:  symmetric indefinite matrices,
               // with partial (Aasen's) pivoting algorithm
 
-         NTYPES = 10
+         NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schksy_aa(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvsy_aa(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
         } else {
-           WRITE( NOUT, FMT = 9988 )PATH
+           WRITE( NOUT, FMT = 9988 )PATH;
         }
 
       } else if ( LSAMEN( 2, C2, 'S2' ) ) {
@@ -546,19 +546,19 @@ void main() {
          // SA:  symmetric indefinite matrices,
               // with partial (Aasen's) pivoting algorithm
 
-         NTYPES = 10
+         NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schksy_aa_2stage(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvsy_aa_2stage(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
         } else {
-           WRITE( NOUT, FMT = 9988 )PATH
+           WRITE( NOUT, FMT = 9988 )PATH;
         }
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
@@ -566,162 +566,162 @@ void main() {
          // SP:  symmetric indefinite packed matrices,
               // with partial (Bunch-Kaufman) pivoting algorithm
 
-         NTYPES = 10
+         NTYPES = 10;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schksp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
          if ( TSTDRV ) {
             sdrvsp(DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'TR' ) ) {
 
          // TR:  triangular matrices
 
-         NTYPES = 18
+         NTYPES = 18;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schktr(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'TP' ) ) {
 
          // TP:  triangular packed matrices
 
-         NTYPES = 18
+         NTYPES = 18;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schktp(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
          // TB:  triangular banded matrices
 
-         NTYPES = 17
+         NTYPES = 17;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schktb(DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'QR' ) ) {
 
          // QR:  QR factorization
 
-         NTYPES = 8
+         NTYPES = 8;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkqr(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'LQ' ) ) {
 
          // LQ:  LQ factorization
 
-         NTYPES = 8
+         NTYPES = 8;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schklq(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'QL' ) ) {
 
          // QL:  QL factorization
 
-         NTYPES = 8
+         NTYPES = 8;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkql(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'RQ' ) ) {
 
          // RQ:  RQ factorization
 
-         NTYPES = 8
+         NTYPES = 8;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkrq(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'QP' ) ) {
 
          // QP:  QR factorization with pivoting
 
-         NTYPES = 6
+         NTYPES = 6;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkq3(DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'QK' ) ) {
 
          // QK: truncated QR factorization with pivoting
 
-         NTYPES = 19
+         NTYPES = 19;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schkqp3rk(DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, IWORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'TZ' ) ) {
 
          // TZ:  Trapezoidal matrix
 
-         NTYPES = 3
+         NTYPES = 3;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTCHK ) {
             schktz(DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 3 ), WORK, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'LS' ) ) {
 
          // LS:  Least squares drivers
 
-         NTYPES = 6
+         NTYPES = 6;
          alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
          if ( TSTDRV ) {
             sdrvls(DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), RWORK, RWORK( NMAX+1 ), NOUT );
          } else {
-            WRITE( NOUT, FMT = 9988 )PATH
+            WRITE( NOUT, FMT = 9988 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'EQ' ) ) {
@@ -732,7 +732,7 @@ void main() {
          if ( TSTCHK ) {
             schkeq(THREQ, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'QT' ) ) {
@@ -742,7 +742,7 @@ void main() {
          if ( TSTCHK ) {
             schkqrt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'QX' ) ) {
@@ -752,7 +752,7 @@ void main() {
          if ( TSTCHK ) {
             schkqrtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'TQ' ) ) {
@@ -762,7 +762,7 @@ void main() {
          if ( TSTCHK ) {
             schklqt(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'XQ' ) ) {
@@ -772,7 +772,7 @@ void main() {
          if ( TSTCHK ) {
             schklqtp(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'TS' ) ) {
@@ -782,7 +782,7 @@ void main() {
          if ( TSTCHK ) {
             schktsqr(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 )PATH
+            WRITE( NOUT, FMT = 9989 )PATH;
          }
 
       } else if ( LSAMEN( 2, C2, 'HH' ) ) {
@@ -792,45 +792,45 @@ void main() {
          if ( TSTCHK ) {
             schkorhr_col(THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
          } else {
-            WRITE( NOUT, FMT = 9989 ) PATH
+            WRITE( NOUT, FMT = 9989 ) PATH;
          }
 
       } else {
 
-         WRITE( NOUT, FMT = 9990 )PATH
+         WRITE( NOUT, FMT = 9990 )PATH;
       }
 
       // Go back to get another input line.
 
-      GO TO 80
+      GO TO 80;
 
       // Branch to this line when the last record is read.
 
       } // 140
-      CLOSE ( NIN )
-      S2 = SECOND( )
-      WRITE( NOUT, FMT = 9998 )
-      WRITE( NOUT, FMT = 9997 )S2 - S1
+      CLOSE ( NIN );
+      S2 = SECOND( );
+      WRITE( NOUT, FMT = 9998 );
+      WRITE( NOUT, FMT = 9997 )S2 - S1;
 
-      DEALLOCATE (A, STAT = AllocateStatus)
-      DEALLOCATE (B, STAT = AllocateStatus)
-      DEALLOCATE (E, STAT = AllocateStatus)
-      DEALLOCATE (S, STAT = AllocateStatus)
-      DEALLOCATE (WORK, STAT = AllocateStatus)
-      DEALLOCATE (RWORK,  STAT = AllocateStatus)
+      DEALLOCATE (A, STAT = AllocateStatus);
+      DEALLOCATE (B, STAT = AllocateStatus);
+      DEALLOCATE (E, STAT = AllocateStatus);
+      DEALLOCATE (S, STAT = AllocateStatus);
+      DEALLOCATE (WORK, STAT = AllocateStatus);
+      DEALLOCATE (RWORK,  STAT = AllocateStatus);
 
- 9999 FORMAT( / ' Execution not attempted due to input errors' )
- 9998 FORMAT( / ' End of tests' )
- 9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / )
+ 9999 FORMAT( / ' Execution not attempted due to input errors' );
+ 9998 FORMAT( / ' End of tests' );
+ 9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / );
  9996 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be >=', I6 )
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
- 9994 FORMAT( ' Tests of the REAL LAPACK routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' )
- 9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 )
- 9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / )
- 9991 FORMAT( ' Relative machine ', A, ' is taken to be', E16.6 )
- 9990 FORMAT( / 1X, A3, ':  Unrecognized path name' )
- 9989 FORMAT( / 1X, A3, ' routines were not tested' )
- 9988 FORMAT( / 1X, A3, ' driver routines were not tested' )
+ 9994 FORMAT( ' Tests of the REAL LAPACK routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
+ 9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 );
+ 9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
+ 9991 FORMAT( ' Relative machine ', A, ' is taken to be', E16.6 );
+ 9990 FORMAT( / 1X, A3, ':  Unrecognized path name' );
+ 9989 FORMAT( / 1X, A3, ' routines were not tested' );
+ 9988 FORMAT( / 1X, A3, ' driver routines were not tested' );
 
       // End of SCHKAA
 

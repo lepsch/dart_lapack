@@ -1,4 +1,4 @@
-      SUBROUTINE CPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID )
+      SUBROUTINE CPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,28 +7,28 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDWORK, N;
-      REAL               RCOND, RESID
+      REAL               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * )
-      COMPLEX            A( * ), AINV( * ), WORK( LDWORK, * )
+      REAL               RWORK( * );
+      COMPLEX            A( * ), AINV( * ), WORK( LDWORK, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, JJ;
-      REAL               AINVNM, ANORM, EPS
+      REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGE, CLANHP, SLAMCH
+      REAL               CLANGE, CLANHP, SLAMCH;
       // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -42,22 +42,22 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RCOND = ONE
-         RESID = ZERO
-         RETURN
+         RCOND = ONE;
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANHP( '1', UPLO, N, A, RWORK )
-      AINVNM = CLANHP( '1', UPLO, N, AINV, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANHP( '1', UPLO, N, A, RWORK );
+      AINVNM = CLANHP( '1', UPLO, N, AINV, RWORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO
-         RESID = ONE / EPS
-         RETURN
+         RCOND = ZERO;
+         RESID = ONE / EPS;
+         RETURN;
       }
-      RCOND = ( ONE/ANORM ) / AINVNM
+      RCOND = ( ONE/ANORM ) / AINVNM;
 
       // UPLO = 'U':
       // Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
@@ -68,17 +68,17 @@
 
          // Copy AINV
 
-         JJ = 1
+         JJ = 1;
          for (J = 1; J <= N - 1; J++) { // 20
             ccopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             for (I = 1; I <= J - 1; I++) { // 10
-               WORK( J, I+1 ) = CONJG( AINV( JJ+I-1 ) )
+               WORK( J, I+1 ) = CONJG( AINV( JJ+I-1 ) );
             } // 10
-            JJ = JJ + J
+            JJ = JJ + J;
          } // 20
-         JJ = ( ( N-1 )*N ) / 2 + 1
+         JJ = ( ( N-1 )*N ) / 2 + 1;
          for (I = 1; I <= N - 1; I++) { // 30
-            WORK( N, I+1 ) = CONJG( AINV( JJ+I-1 ) )
+            WORK( N, I+1 ) = CONJG( AINV( JJ+I-1 ) );
          } // 30
 
          // Multiply by A
@@ -97,20 +97,20 @@
          // Copy AINV
 
          for (I = 1; I <= N - 1; I++) { // 50
-            WORK( 1, I ) = CONJG( AINV( I+1 ) )
+            WORK( 1, I ) = CONJG( AINV( I+1 ) );
          } // 50
-         JJ = N + 1
+         JJ = N + 1;
          for (J = 2; J <= N; J++) { // 70
             ccopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             for (I = 1; I <= N - J; I++) { // 60
-               WORK( J, J+I-1 ) = CONJG( AINV( JJ+I ) )
+               WORK( J, J+I-1 ) = CONJG( AINV( JJ+I ) );
             } // 60
-            JJ = JJ + N - J + 1
+            JJ = JJ + N - J + 1;
          } // 70
 
          // Multiply by A
 
-         DO 80 J = N, 2, -1
+         DO 80 J = N, 2, -1;
             chpmv('Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 );
          } // 80
          chpmv('Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 );
@@ -120,16 +120,16 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 90
-         WORK( I, I ) = WORK( I, I ) + CONE
+         WORK( I, I ) = WORK( I, I ) + CONE;
       } // 90
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = CLANGE( '1', N, N, WORK, LDWORK, RWORK )
+      RESID = CLANGE( '1', N, N, WORK, LDWORK, RWORK );
 
-      RESID = ( ( RESID*RCOND )/EPS ) / REAL( N )
+      RESID = ( ( RESID*RCOND )/EPS ) / REAL( N );
 
-      RETURN
+      RETURN;
 
       // End of CPPT03
 

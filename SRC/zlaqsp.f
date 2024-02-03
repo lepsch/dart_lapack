@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAQSP( UPLO, N, AP, S, SCOND, AMAX, EQUED )
+      SUBROUTINE ZLAQSP( UPLO, N, AP, S, SCOND, AMAX, EQUED );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             S( * );
-      COMPLEX*16         AP( * )
+      COMPLEX*16         AP( * );
       // ..
 
 *  =====================================================================
@@ -34,20 +34,20 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         EQUED = 'N'
-         RETURN
+         EQUED = 'N';
+         RETURN;
       }
 
       // Initialize LARGE and SMALL.
 
-      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
-      LARGE = ONE / SMALL
+      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      LARGE = ONE / SMALL;
 
       if ( SCOND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
 
          // No equilibration
 
-         EQUED = 'N'
+         EQUED = 'N';
       } else {
 
          // Replace A by diag(S) * A * diag(S).
@@ -56,31 +56,31 @@
 
             // Upper triangle of A is stored.
 
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 20
-               CJ = S( J )
+               CJ = S( J );
                for (I = 1; I <= J; I++) { // 10
-                  AP( JC+I-1 ) = CJ*S( I )*AP( JC+I-1 )
+                  AP( JC+I-1 ) = CJ*S( I )*AP( JC+I-1 );
                } // 10
-               JC = JC + J
+               JC = JC + J;
             } // 20
          } else {
 
             // Lower triangle of A is stored.
 
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 40
-               CJ = S( J )
+               CJ = S( J );
                for (I = J; I <= N; I++) { // 30
-                  AP( JC+I-J ) = CJ*S( I )*AP( JC+I-J )
+                  AP( JC+I-J ) = CJ*S( I )*AP( JC+I-J );
                } // 30
-               JC = JC + N - J + 1
+               JC = JC + N - J + 1;
             } // 40
          }
-         EQUED = 'Y'
+         EQUED = 'Y';
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLAQSP
 

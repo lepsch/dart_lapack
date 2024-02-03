@@ -1,4 +1,4 @@
-      SUBROUTINE ZDRVHE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE ZDRVHE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
+      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
@@ -58,73 +58,73 @@
       // INTRINSIC DCMPLX, MAX, MIN
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Z'
-      PATH( 2: 3 ) = 'HE'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Z';
+      PATH( 2: 3 ) = 'HE';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
-      LWORK = MAX( 2*NMAX, NMAX*NRHS )
+      LWORK = MAX( 2*NMAX, NMAX*NRHS );
 
       // Test the error exits
 
       if (TSTERR) CALL ZERRVX( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
-      NB = 1
-      NBMIN = 2
+      NB = 1;
+      NBMIN = 2;
       xlaenv(1, NB );
       xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 170
+            IF( !DOTYPE( IMAT ) ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6
+            ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               UPLO = UPLOS( IUPLO )
+               UPLO = UPLOS( IUPLO );
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS'
+               SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
                if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 160
+                  GO TO 160;
                }
 
                // For types 3-6, zero one or more rows and columns of the
@@ -132,11 +132,11 @@
 
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
-                     IZERO = 1
+                     IZERO = 1;
                   } else if ( IMAT == 4 ) {
-                     IZERO = N
+                     IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1
+                     IZERO = N / 2 + 1;
                   }
 
                   if ( IMAT < 6 ) {
@@ -144,54 +144,54 @@
                      // Set row and column IZERO to zero.
 
                      if ( IUPLO == 1 ) {
-                        IOFF = ( IZERO-1 )*LDA
+                        IOFF = ( IZERO-1 )*LDA;
                         for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A( IOFF+I ) = ZERO
+                           A( IOFF+I ) = ZERO;
                         } // 20
-                        IOFF = IOFF + IZERO
+                        IOFF = IOFF + IZERO;
                         for (I = IZERO; I <= N; I++) { // 30
-                           A( IOFF ) = ZERO
-                           IOFF = IOFF + LDA
+                           A( IOFF ) = ZERO;
+                           IOFF = IOFF + LDA;
                         } // 30
                      } else {
-                        IOFF = IZERO
+                        IOFF = IZERO;
                         for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A( IOFF ) = ZERO
-                           IOFF = IOFF + LDA
+                           A( IOFF ) = ZERO;
+                           IOFF = IOFF + LDA;
                         } // 40
-                        IOFF = IOFF - IZERO
+                        IOFF = IOFF - IZERO;
                         for (I = IZERO; I <= N; I++) { // 50
-                           A( IOFF+I ) = ZERO
+                           A( IOFF+I ) = ZERO;
                         } // 50
                      }
                   } else {
-                     IOFF = 0
+                     IOFF = 0;
                      if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
                         for (J = 1; J <= N; J++) { // 70
-                           I2 = MIN( J, IZERO )
+                           I2 = MIN( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 60
-                           IOFF = IOFF + LDA
+                           IOFF = IOFF + LDA;
                         } // 70
                      } else {
 
                         // Set the last IZERO rows and columns to zero.
 
                         for (J = 1; J <= N; J++) { // 90
-                           I1 = MAX( J, IZERO )
+                           I1 = MAX( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 80
-                           IOFF = IOFF + LDA
+                           IOFF = IOFF + LDA;
                         } // 90
                      }
                   }
                } else {
-                  IZERO = 0
+                  IZERO = 0;
                }
 
                // Set the imaginary part of the diagonals.
@@ -202,20 +202,20 @@
 
                   // Do first for FACT = 'F', then for other values.
 
-                  FACT = FACTS( IFACT )
+                  FACT = FACTS( IFACT );
 
                   // Compute the condition number for comparison with
                   // the value returned by ZHESVX.
 
                   if ( ZEROT ) {
                      if (IFACT == 1) GO TO 150;
-                     RCONDC = ZERO
+                     RCONDC = ZERO;
 
                   } else if ( IFACT == 1 ) {
 
                      // Compute the 1-norm of A.
 
-                     ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
+                     ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
 
                      // Factor the matrix A.
 
@@ -225,24 +225,24 @@
                      // Compute inv(A) and take its norm.
 
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     LWORK = (N+NB+1)*(NB+3)
+                     LWORK = (N+NB+1)*(NB+3);
                      zhetri2(UPLO, N, AINV, LDA, IWORK, WORK, LWORK, INFO );
-                     AINVNM = ZLANHE( '1', UPLO, N, AINV, LDA, RWORK )
+                     AINVNM = ZLANHE( '1', UPLO, N, AINV, LDA, RWORK );
 
                      // Compute the 1-norm condition number of A.
 
                      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                        RCONDC = ONE
+                        RCONDC = ONE;
                      } else {
-                        RCONDC = ( ONE / ANORM ) / AINVNM
+                        RCONDC = ( ONE / ANORM ) / AINVNM;
                      }
                   }
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'ZLARHS'
+                  SRNAMT = 'ZLARHS';
                   zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                  XTYPE = 'C'
+                  XTYPE = 'C';
 
                   // --- Test ZHESV  ---
 
@@ -252,23 +252,23 @@
 
                      // Factor the matrix and solve the system using ZHESV.
 
-                     SRNAMT = 'ZHESV '
+                     SRNAMT = 'ZHESV ';
                      zhesv(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
 
-                     K = IZERO
+                     K = IZERO;
                      if ( K > 0 ) {
                         } // 100
                         if ( IWORK( K ) < 0 ) {
                            if ( IWORK( K ) != -K ) {
-                              K = -IWORK( K )
-                              GO TO 100
+                              K = -IWORK( K );
+                              GO TO 100;
                            }
                         } else if ( IWORK( K ) != K ) {
-                           K = IWORK( K )
-                           GO TO 100
+                           K = IWORK( K );
+                           GO TO 100;
                         }
                      }
 
@@ -276,9 +276,9 @@
 
                      if ( INFO != K ) {
                         alaerh(PATH, 'ZHESV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 120
+                        GO TO 120;
                      } else if ( INFO != 0 ) {
-                        GO TO 120
+                        GO TO 120;
                      }
 
                      // Reconstruct matrix from factors and compute
@@ -294,7 +294,7 @@
                      // Check solution from generated exact solution.
 
                      zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                     NT = 3
+                     NT = 3;
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -302,10 +302,10 @@
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'ZHESV ', UPLO, N, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 110
-                     NRUN = NRUN + NT
+                     NRUN = NRUN + NT;
                      } // 120
                   }
 
@@ -317,23 +317,23 @@
                   // Solve the system and compute the condition number and
                   // error bounds using ZHESVX.
 
-                  SRNAMT = 'ZHESVX'
+                  SRNAMT = 'ZHESVX';
                   zhesvx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, LWORK, RWORK( 2*NRHS+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
 
-                  K = IZERO
+                  K = IZERO;
                   if ( K > 0 ) {
                      } // 130
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
-                           K = -IWORK( K )
-                           GO TO 130
+                           K = -IWORK( K );
+                           GO TO 130;
                         }
                      } else if ( IWORK( K ) != K ) {
-                        K = IWORK( K )
-                        GO TO 130
+                        K = IWORK( K );
+                        GO TO 130;
                      }
                   }
 
@@ -341,7 +341,7 @@
 
                   if ( INFO != K ) {
                      alaerh(PATH, 'ZHESVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 150
+                     GO TO 150;
                   }
 
                   if ( INFO == 0 ) {
@@ -351,9 +351,9 @@
                         // residual.
 
                         zhet01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
-                        K1 = 1
+                        K1 = 1;
                      } else {
-                        K1 = 2
+                        K1 = 2;
                      }
 
                      // Compute residual of the computed solution.
@@ -369,13 +369,13 @@
 
                      zpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                   } else {
-                     K1 = 6
+                     K1 = 6;
                   }
 
                   // Compare RCOND from ZHESVX with the computed value
                   // in RCONDC.
 
-                  RESULT( 6 ) = DGET06( RCOND, RCONDC )
+                  RESULT( 6 ) = DGET06( RCOND, RCONDC );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -383,10 +383,10 @@
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'ZHESVX', FACT, UPLO, N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 140
-                  NRUN = NRUN + 7 - K1
+                  NRUN = NRUN + 7 - K1;
 
                   // --- Test ZHESVXX ---
 
@@ -398,25 +398,25 @@
                   // Solve the system and compute the condition number
                   // and error bounds using ZHESVXX.
 
-                  SRNAMT = 'ZHESVXX'
-                  N_ERR_BNDS = 3
-                  EQUED = 'N'
+                  SRNAMT = 'ZHESVXX';
+                  N_ERR_BNDS = 3;
+                  EQUED = 'N';
                   zhesvxx(FACT, UPLO, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, WORK( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK(2*NRHS+1), INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
 
-                  K = IZERO
+                  K = IZERO;
                   if ( K > 0 ) {
                      } // 135
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
-                           K = -IWORK( K )
-                           GO TO 135
+                           K = -IWORK( K );
+                           GO TO 135;
                         }
                      } else if ( IWORK( K ) != K ) {
-                        K = IWORK( K )
-                        GO TO 135
+                        K = IWORK( K );
+                        GO TO 135;
                      }
                   }
 
@@ -424,7 +424,7 @@
 
                   if ( INFO != K && INFO <= N) {
                      alaerh(PATH, 'ZHESVXX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 150
+                     GO TO 150;
                   }
 
                   if ( INFO == 0 ) {
@@ -434,16 +434,16 @@
                   // residual.
 
                         zhet01(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK(2*NRHS+1), RESULT( 1 ) );
-                        K1 = 1
+                        K1 = 1;
                      } else {
-                        K1 = 2
+                        K1 = 2;
                      }
 
                   // Compute residual of the computed solution.
 
                      zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      zpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
-                     RESULT( 2 ) = 0.0
+                     RESULT( 2 ) = 0.0;
 
                   // Check solution from generated exact solution.
 
@@ -453,13 +453,13 @@
 
                      zpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                   } else {
-                     K1 = 6
+                     K1 = 6;
                   }
 
                   // Compare RCOND from ZHESVXX with the computed value
                   // in RCONDC.
 
-                  RESULT( 6 ) = DGET06( RCOND, RCONDC )
+                  RESULT( 6 ) = DGET06( RCOND, RCONDC );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -467,10 +467,10 @@
                   for (K = K1; K <= 6; K++) { // 85
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'ZHESVXX', FACT, UPLO, N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 85
-                  NRUN = NRUN + 7 - K1
+                  NRUN = NRUN + 7 - K1;
 
                } // 150
 
@@ -487,9 +487,9 @@
 
       zebchvxx(THRESH, PATH);
 
- 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
- 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
-      RETURN
+ 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+ 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+      RETURN;
 
       // End of ZDRVHEX
 

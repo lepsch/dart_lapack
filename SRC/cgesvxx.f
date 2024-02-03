@@ -1,4 +1,4 @@
-      SUBROUTINE CGESVXX( FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
+      SUBROUTINE CGESVXX( FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND, RPVGRW
+      REAL               RCOND, RPVGRW;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
+      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * );
       // ..
 
 *  ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
@@ -29,12 +29,12 @@
       // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       int                INFEQU, J;
-      REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
+      REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM;
       // ..
       // .. External Functions ..
       // EXTERNAL LSAME, SLAMCH, CLA_GERPVGRW
       bool               LSAME;
-      REAL               SLAMCH, CLA_GERPVGRW
+      REAL               SLAMCH, CLA_GERPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEEQUB, CGETRF, CGETRS, CLACPY, CLAQGE, XERBLA, CLASCL2, CGERFSX
@@ -44,86 +44,86 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      EQUIL = LSAME( FACT, 'E' )
-      NOTRAN = LSAME( TRANS, 'N' )
-      SMLNUM = SLAMCH( 'Safe minimum' )
-      BIGNUM = ONE / SMLNUM
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      EQUIL = LSAME( FACT, 'E' );
+      NOTRAN = LSAME( TRANS, 'N' );
+      SMLNUM = SLAMCH( 'Safe minimum' );
+      BIGNUM = ONE / SMLNUM;
       if ( NOFACT || EQUIL ) {
-         EQUED = 'N'
+         EQUED = 'N';
          ROWEQU = false;
          COLEQU = false;
       } else {
-         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
-         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
+         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
+         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
       }
 
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in CGERFSX.
 
-      RPVGRW = ZERO
+      RPVGRW = ZERO;
 
       // Test the input parameters.  PARAMS is not tested until CGERFSX.
 
       if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
-         INFO = -10
+         INFO = -10;
       } else {
          if ( ROWEQU ) {
-            RCMIN = BIGNUM
-            RCMAX = ZERO
+            RCMIN = BIGNUM;
+            RCMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               RCMIN = MIN( RCMIN, R( J ) )
-               RCMAX = MAX( RCMAX, R( J ) )
+               RCMIN = MIN( RCMIN, R( J ) );
+               RCMAX = MAX( RCMAX, R( J ) );
             } // 10
             if ( RCMIN <= ZERO ) {
-               INFO = -11
+               INFO = -11;
             } else if ( N > 0 ) {
-               ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
+               ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
             } else {
-               ROWCND = ONE
+               ROWCND = ONE;
             }
          }
          if ( COLEQU && INFO == 0 ) {
-            RCMIN = BIGNUM
-            RCMAX = ZERO
+            RCMIN = BIGNUM;
+            RCMAX = ZERO;
             for (J = 1; J <= N; J++) { // 20
-               RCMIN = MIN( RCMIN, C( J ) )
-               RCMAX = MAX( RCMAX, C( J ) )
+               RCMIN = MIN( RCMIN, C( J ) );
+               RCMAX = MAX( RCMAX, C( J ) );
             } // 20
             if ( RCMIN <= ZERO ) {
-               INFO = -12
+               INFO = -12;
             } else if ( N > 0 ) {
-               COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
+               COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
             } else {
-               COLCND = ONE
+               COLCND = ONE;
             }
          }
          if ( INFO == 0 ) {
             if ( LDB < MAX( 1, N ) ) {
-               INFO = -14
+               INFO = -14;
             } else if ( LDX < MAX( 1, N ) ) {
-               INFO = -16
+               INFO = -16;
             }
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CGESVXX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( EQUIL ) {
@@ -136,20 +136,20 @@
       // Equilibrate the matrix.
 
             claqge(N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
-            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
+            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
+            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
          }
 
       // If the scaling factors are not applied, set them to 1.0.
 
          if ( !ROWEQU ) {
             for (J = 1; J <= N; J++) {
-               R( J ) = 1.0
+               R( J ) = 1.0;
             }
          }
          if ( !COLEQU ) {
             for (J = 1; J <= N; J++) {
-               C( J ) = 1.0
+               C( J ) = 1.0;
             }
          }
       }
@@ -177,14 +177,14 @@
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
 
-            RPVGRW = CLA_GERPVGRW( N, INFO, A, LDA, AF, LDAF )
-            RETURN
+            RPVGRW = CLA_GERPVGRW( N, INFO, A, LDA, AF, LDAF );
+            RETURN;
          }
       }
 
       // Compute the reciprocal pivot growth factor RPVGRW.
 
-      RPVGRW = CLA_GERPVGRW( N, N, A, LDA, AF, LDAF )
+      RPVGRW = CLA_GERPVGRW( N, N, A, LDA, AF, LDAF );
 
       // Compute the solution matrix X.
 
@@ -204,7 +204,7 @@
          clascl2(N, NRHS, R, X, LDX );
       }
 
-      RETURN
+      RETURN;
 
       // End of CGESVXX
 

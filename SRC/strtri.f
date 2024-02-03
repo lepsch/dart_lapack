@@ -1,4 +1,4 @@
-      SUBROUTINE STRTRI( UPLO, DIAG, N, A, LDA, INFO )
+      SUBROUTINE STRTRI( UPLO, DIAG, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * )
+      REAL               A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -37,21 +37,21 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      NOUNIT = LSAME( DIAG, 'N' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       }
       if ( INFO != 0 ) {
          xerbla('STRTRI', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,14 +62,14 @@
 
       if ( NOUNIT ) {
          for (INFO = 1; INFO <= N; INFO++) { // 10
-            IF( A( INFO, INFO ) == ZERO ) RETURN
+            IF( A( INFO, INFO ) == ZERO ) RETURN;
          } // 10
-         INFO = 0
+         INFO = 0;
       }
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'STRTRI', UPLO // DIAG, N, -1, -1, -1 )
+      NB = ILAENV( 1, 'STRTRI', UPLO // DIAG, N, -1, -1, -1 );
       if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
@@ -83,8 +83,8 @@
 
             // Compute inverse of upper triangular matrix
 
-            DO 20 J = 1, N, NB
-               JB = MIN( NB, N-J+1 )
+            DO 20 J = 1, N, NB;
+               JB = MIN( NB, N-J+1 );
 
                // Compute rows 1:j-1 of current block column
 
@@ -99,9 +99,9 @@
 
             // Compute inverse of lower triangular matrix
 
-            NN = ( ( N-1 ) / NB )*NB + 1
-            DO 30 J = NN, 1, -NB
-               JB = MIN( NB, N-J+1 )
+            NN = ( ( N-1 ) / NB )*NB + 1;
+            DO 30 J = NN, 1, -NB;
+               JB = MIN( NB, N-J+1 );
                if ( J+JB <= N ) {
 
                   // Compute rows j+jb:n of current block column
@@ -117,7 +117,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of STRTRI
 

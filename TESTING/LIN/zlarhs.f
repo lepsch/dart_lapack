@@ -1,4 +1,4 @@
-      SUBROUTINE ZLARHS( PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, ISEED, INFO )
+      SUBROUTINE ZLARHS( PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, ISEED, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,13 +11,13 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO
+      COMPLEX*16         ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -40,54 +40,54 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      C1 = PATH( 1: 1 )
-      C2 = PATH( 2: 3 )
-      TRAN = LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' )
-      NOTRAN = !TRAN
-      GEN = LSAME( PATH( 2: 2 ), 'G' )
-      QRS = LSAME( PATH( 2: 2 ), 'Q' ) || LSAME( PATH( 3: 3 ), 'Q' )
-      SYM = LSAME( PATH( 2: 2 ), 'P' ) || LSAME( PATH( 2: 2 ), 'S' ) || LSAME( PATH( 2: 2 ), 'H' )
-      TRI = LSAME( PATH( 2: 2 ), 'T' )
-      BAND = LSAME( PATH( 3: 3 ), 'B' )
+      INFO = 0;
+      C1 = PATH( 1: 1 );
+      C2 = PATH( 2: 3 );
+      TRAN = LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' );
+      NOTRAN = !TRAN;
+      GEN = LSAME( PATH( 2: 2 ), 'G' );
+      QRS = LSAME( PATH( 2: 2 ), 'Q' ) || LSAME( PATH( 3: 3 ), 'Q' );
+      SYM = LSAME( PATH( 2: 2 ), 'P' ) || LSAME( PATH( 2: 2 ), 'S' ) || LSAME( PATH( 2: 2 ), 'H' );
+      TRI = LSAME( PATH( 2: 2 ), 'T' );
+      BAND = LSAME( PATH( 3: 3 ), 'B' );
       if ( !LSAME( C1, 'Zomplex precision' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSAME( XTYPE, 'N' ) || LSAME( XTYPE, 'C' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ( SYM || TRI ) && !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ( GEN || QRS ) && !( TRAN || LSAME( TRANS, 'N' ) ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( M < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( N < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( BAND && KL < 0 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( BAND && KU < 0 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( NRHS < 0 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( ( !BAND && LDA < MAX( 1, M ) ) || ( BAND && ( SYM || TRI ) && LDA < KL+1 ) || ( BAND && GEN && LDA < KL+KU+1 ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( ( NOTRAN && LDX < MAX( 1, N ) ) || ( TRAN && LDX < MAX( 1, M ) ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( ( NOTRAN && LDB < MAX( 1, M ) ) || ( TRAN && LDB < MAX( 1, N ) ) ) {
-         INFO = -15
+         INFO = -15;
       }
       if ( INFO != 0 ) {
          xerbla('ZLARHS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize X to NRHS random vectors unless XTYPE = 'C'.
 
       if ( TRAN ) {
-         NX = M
-         MB = N
+         NX = M;
+         MB = N;
       } else {
-         NX = N
-         MB = M
+         NX = N;
+         MB = M;
       }
       if ( !LSAME( XTYPE, 'C' ) ) {
          for (J = 1; J <= NRHS; J++) { // 10
@@ -164,9 +164,9 @@
 
          zlacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU == 2 ) {
-            DIAG = 'U'
+            DIAG = 'U';
          } else {
-            DIAG = 'N'
+            DIAG = 'N';
          }
          ztrmm('Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB );
 
@@ -176,9 +176,9 @@
 
          zlacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU == 2 ) {
-            DIAG = 'U'
+            DIAG = 'U';
          } else {
-            DIAG = 'N'
+            DIAG = 'N';
          }
          for (J = 1; J <= NRHS; J++) { // 70
             ztpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
@@ -190,9 +190,9 @@
 
          zlacpy('Full', N, NRHS, X, LDX, B, LDB );
          if ( KU == 2 ) {
-            DIAG = 'U'
+            DIAG = 'U';
          } else {
-            DIAG = 'N'
+            DIAG = 'N';
          }
          for (J = 1; J <= NRHS; J++) { // 80
             ztbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
@@ -202,11 +202,11 @@
 
          // If none of the above, set INFO = -1 and return
 
-         INFO = -1
+         INFO = -1;
          xerbla('ZLARHS', -INFO );
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLARHS
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPT01( UPLO, DIAG, N, AP, AINVP, RCOND, RWORK, RESID )
+      SUBROUTINE ZTPT01( UPLO, DIAG, N, AP, AINVP, RCOND, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         AINVP( * ), AP( * )
+      COMPLEX*16         AINVP( * ), AP( * );
       // ..
 
 *  =====================================================================
@@ -41,28 +41,28 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RCOND = ONE
-         RESID = ZERO
-         RETURN
+         RCOND = ONE;
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = ZLANTP( '1', UPLO, DIAG, N, AP, RWORK )
-      AINVNM = ZLANTP( '1', UPLO, DIAG, N, AINVP, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = ZLANTP( '1', UPLO, DIAG, N, AP, RWORK );
+      AINVNM = ZLANTP( '1', UPLO, DIAG, N, AINVP, RWORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO
-         RESID = ONE / EPS
-         RETURN
+         RCOND = ZERO;
+         RESID = ONE / EPS;
+         RETURN;
       }
-      RCOND = ( ONE / ANORM ) / AINVNM
+      RCOND = ( ONE / ANORM ) / AINVNM;
 
       // Compute A * AINV, overwriting AINV.
 
-      UNITD = LSAME( DIAG, 'U' )
+      UNITD = LSAME( DIAG, 'U' );
       if ( LSAME( UPLO, 'U' ) ) {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 10
             if (UNITD) AINVP( JC+J-1 ) = ONE;
 
@@ -72,11 +72,11 @@
 
             // Subtract 1 from the diagonal to form A*AINV - I.
 
-            AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE
-            JC = JC + J
+            AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE;
+            JC = JC + J;
          } // 10
       } else {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 20
             if (UNITD) AINVP( JC ) = ONE;
 
@@ -86,18 +86,18 @@
 
             // Subtract 1 from the diagonal to form A*AINV - I.
 
-            AINVP( JC ) = AINVP( JC ) - ONE
-            JC = JC + N - J + 1
+            AINVP( JC ) = AINVP( JC ) - ONE;
+            JC = JC + N - J + 1;
          } // 20
       }
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = ZLANTP( '1', UPLO, 'Non-unit', N, AINVP, RWORK )
+      RESID = ZLANTP( '1', UPLO, 'Non-unit', N, AINVP, RWORK );
 
-      RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS
+      RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of ZTPT01
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DGEEQU( M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFO )
+      SUBROUTINE DGEEQU( M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,56 +36,56 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DGEEQU', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         ROWCND = ONE
-         COLCND = ONE
-         AMAX = ZERO
-         RETURN
+         ROWCND = ONE;
+         COLCND = ONE;
+         AMAX = ZERO;
+         RETURN;
       }
 
       // Get machine constants.
 
-      SMLNUM = DLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = DLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
 
       // Compute row scale factors.
 
       for (I = 1; I <= M; I++) { // 10
-         R( I ) = ZERO
+         R( I ) = ZERO;
       } // 10
 
       // Find the maximum element in each row.
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            R( I ) = MAX( R( I ), ABS( A( I, J ) ) )
+            R( I ) = MAX( R( I ), ABS( A( I, J ) ) );
          } // 20
       } // 30
 
       // Find the maximum and minimum scale factors.
 
-      RCMIN = BIGNUM
-      RCMAX = ZERO
+      RCMIN = BIGNUM;
+      RCMAX = ZERO;
       for (I = 1; I <= M; I++) { // 40
-         RCMAX = MAX( RCMAX, R( I ) )
-         RCMIN = MIN( RCMIN, R( I ) )
+         RCMAX = MAX( RCMAX, R( I ) );
+         RCMIN = MIN( RCMIN, R( I ) );
       } // 40
-      AMAX = RCMAX
+      AMAX = RCMAX;
 
       if ( RCMIN == ZERO ) {
 
@@ -93,8 +93,8 @@
 
          for (I = 1; I <= M; I++) { // 50
             if ( R( I ) == ZERO ) {
-               INFO = I
-               RETURN
+               INFO = I;
+               RETURN;
             }
          } // 50
       } else {
@@ -102,18 +102,18 @@
          // Invert the scale factors.
 
          for (I = 1; I <= M; I++) { // 60
-            R( I ) = ONE / MIN( MAX( R( I ), SMLNUM ), BIGNUM )
+            R( I ) = ONE / MIN( MAX( R( I ), SMLNUM ), BIGNUM );
          } // 60
 
          // Compute ROWCND = min(R(I)) / max(R(I))
 
-         ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
+         ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
       }
 
       // Compute column scale factors
 
       for (J = 1; J <= N; J++) { // 70
-         C( J ) = ZERO
+         C( J ) = ZERO;
       } // 70
 
       // Find the maximum element in each column,
@@ -121,17 +121,17 @@
 
       for (J = 1; J <= N; J++) { // 90
          for (I = 1; I <= M; I++) { // 80
-            C( J ) = MAX( C( J ), ABS( A( I, J ) )*R( I ) )
+            C( J ) = MAX( C( J ), ABS( A( I, J ) )*R( I ) );
          } // 80
       } // 90
 
       // Find the maximum and minimum scale factors.
 
-      RCMIN = BIGNUM
-      RCMAX = ZERO
+      RCMIN = BIGNUM;
+      RCMAX = ZERO;
       for (J = 1; J <= N; J++) { // 100
-         RCMIN = MIN( RCMIN, C( J ) )
-         RCMAX = MAX( RCMAX, C( J ) )
+         RCMIN = MIN( RCMIN, C( J ) );
+         RCMAX = MAX( RCMAX, C( J ) );
       } // 100
 
       if ( RCMIN == ZERO ) {
@@ -140,8 +140,8 @@
 
          for (J = 1; J <= N; J++) { // 110
             if ( C( J ) == ZERO ) {
-               INFO = M + J
-               RETURN
+               INFO = M + J;
+               RETURN;
             }
          } // 110
       } else {
@@ -149,15 +149,15 @@
          // Invert the scale factors.
 
          for (J = 1; J <= N; J++) { // 120
-            C( J ) = ONE / MIN( MAX( C( J ), SMLNUM ), BIGNUM )
+            C( J ) = ONE / MIN( MAX( C( J ), SMLNUM ), BIGNUM );
          } // 120
 
          // Compute COLCND = min(C(J)) / max(C(J))
 
-         COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
+         COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
       }
 
-      RETURN
+      RETURN;
 
       // End of DGEEQU
 

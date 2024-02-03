@@ -1,4 +1,4 @@
-      SUBROUTINE DORG2R( M, N, K, A, LDA, TAU, WORK, INFO )
+      SUBROUTINE DORG2R( M, N, K, A, LDA, TAU, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,19 +30,19 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || N > M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( K < 0 || K > N ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       }
       if ( INFO != 0 ) {
          xerbla('DORG2R', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -53,29 +53,29 @@
 
       for (J = K + 1; J <= N; J++) { // 20
          for (L = 1; L <= M; L++) { // 10
-            A( L, J ) = ZERO
+            A( L, J ) = ZERO;
          } // 10
-         A( J, J ) = ONE
+         A( J, J ) = ONE;
       } // 20
 
-      DO 40 I = K, 1, -1
+      DO 40 I = K, 1, -1;
 
          // Apply H(i) to A(i:m,i:n) from the left
 
          if ( I < N ) {
-            A( I, I ) = ONE
+            A( I, I ) = ONE;
             dlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
          if (I < M) CALL DSCAL( M-I, -TAU( I ), A( I+1, I ), 1 );
-         A( I, I ) = ONE - TAU( I )
+         A( I, I ) = ONE - TAU( I );
 
          // Set A(1:i-1,i) to zero
 
          for (L = 1; L <= I - 1; L++) { // 30
-            A( L, I ) = ZERO
+            A( L, I ) = ZERO;
          } // 30
       } // 40
-      RETURN
+      RETURN;
 
       // End of DORG2R
 

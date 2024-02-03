@@ -1,4 +1,4 @@
-      SUBROUTINE ALASUM( TYPE, NOUT, NFAIL, NRUN, NERRS )
+      SUBROUTINE ALASUM( TYPE, NOUT, NFAIL, NRUN, NERRS );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,18 +14,18 @@
       // .. Executable Statements ..
 
       if ( NFAIL > 0 ) {
-         WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN
+         WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN;
       } else {
-         WRITE( NOUT, FMT = 9998 )TYPE, NRUN
+         WRITE( NOUT, FMT = 9998 )TYPE, NRUN;
       }
       if ( NERRS > 0 ) {
-         WRITE( NOUT, FMT = 9997 )NERRS
+         WRITE( NOUT, FMT = 9997 )NERRS;
       }
 
- 9999 FORMAT( 1X, A3, ': ', I6, ' out of ', I6, ' tests failed to pass the threshold' )
- 9998 FORMAT( /1X, 'All tests for ', A3, ' routines passed the threshold ( ', I6, ' tests run)' )
- 9997 FORMAT( 6X, I6, ' error messages recorded' )
-      RETURN
+ 9999 FORMAT( 1X, A3, ': ', I6, ' out of ', I6, ' tests failed to pass the threshold' );
+ 9998 FORMAT( /1X, 'All tests for ', A3, ' routines passed the threshold ( ', I6, ' tests run)' );
+ 9997 FORMAT( 6X, I6, ' error messages recorded' );
+      RETURN;
 
       // End of ALASUM
 

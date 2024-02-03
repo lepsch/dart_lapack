@@ -1,4 +1,4 @@
-      SUBROUTINE DGET52( LEFT, N, A, LDA, B, LDB, E, LDE, ALPHAR, ALPHAI, BETA, WORK, RESULT )
+      SUBROUTINE DGET52( LEFT, N, A, LDA, B, LDB, E, LDE, ALPHAR, ALPHAI, BETA, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,29 +36,29 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO
-      RESULT( 2 ) = ZERO
+      RESULT( 1 ) = ZERO;
+      RESULT( 2 ) = ZERO;
       if (N <= 0) RETURN;
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      SAFMAX = ONE / SAFMIN
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFMAX = ONE / SAFMIN;
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
 
       if ( LEFT ) {
-         TRANS = 'T'
-         NORMAB = 'I'
+         TRANS = 'T';
+         NORMAB = 'I';
       } else {
-         TRANS = 'N'
-         NORMAB = 'O'
+         TRANS = 'N';
+         NORMAB = 'O';
       }
 
       // Norm of A, B, and E:
 
-      ANORM = MAX( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN )
-      BNORM = MAX( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN )
-      ENORM = MAX( DLANGE( 'O', N, N, E, LDE, WORK ), ULP )
-      ALFMAX = SAFMAX / MAX( ONE, BNORM )
-      BETMAX = SAFMAX / MAX( ONE, ANORM )
+      ANORM = MAX( DLANGE( NORMAB, N, N, A, LDA, WORK ), SAFMIN );
+      BNORM = MAX( DLANGE( NORMAB, N, N, B, LDB, WORK ), SAFMIN );
+      ENORM = MAX( DLANGE( 'O', N, N, E, LDE, WORK ), ULP );
+      ALFMAX = SAFMAX / MAX( ONE, BNORM );
+      BETMAX = SAFMAX / MAX( ONE, ANORM );
 
       // Compute error matrix.
       // Column i = ( b(i) A - a(i) B ) E(i) / max( |a(i) B|, |b(i) A| )
@@ -71,22 +71,22 @@
 
             ILCPLX = false;
          } else {
-            SALFR = ALPHAR( JVEC )
-            SALFI = ALPHAI( JVEC )
-            SBETA = BETA( JVEC )
+            SALFR = ALPHAR( JVEC );
+            SALFI = ALPHAI( JVEC );
+            SBETA = BETA( JVEC );
             if ( SALFI == ZERO ) {
 
                // Real eigenvalue and -vector
 
-               ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) )
+               ABMAX = MAX( ABS( SALFR ), ABS( SBETA ) );
                if ( ABS( SALFR ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
-                  SCALE = ONE / MAX( ABMAX, SAFMIN )
-                  SALFR = SCALE*SALFR
-                  SBETA = SCALE*SBETA
+                  SCALE = ONE / MAX( ABMAX, SAFMIN );
+                  SALFR = SCALE*SALFR;
+                  SBETA = SCALE*SBETA;
                }
-               SCALE = ONE / MAX( ABS( SALFR )*BNORM, ABS( SBETA )*ANORM, SAFMIN )
-               ACOEF = SCALE*SBETA
-               BCOEFR = SCALE*SALFR
+               SCALE = ONE / MAX( ABS( SALFR )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
+               ACOEF = SCALE*SBETA;
+               BCOEFR = SCALE*SALFR;
                dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 );
                dgemv(TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 );
             } else {
@@ -95,22 +95,22 @@
 
                ILCPLX = true;
                if ( JVEC == N ) {
-                  RESULT( 1 ) = TEN / ULP
-                  RETURN
+                  RESULT( 1 ) = TEN / ULP;
+                  RETURN;
                }
-               ABMAX = MAX( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) )
+               ABMAX = MAX( ABS( SALFR )+ABS( SALFI ), ABS( SBETA ) );
                if ( ABS( SALFR )+ABS( SALFI ) > ALFMAX || ABS( SBETA ) > BETMAX || ABMAX < ONE ) {
-                  SCALE = ONE / MAX( ABMAX, SAFMIN )
-                  SALFR = SCALE*SALFR
-                  SALFI = SCALE*SALFI
-                  SBETA = SCALE*SBETA
+                  SCALE = ONE / MAX( ABMAX, SAFMIN );
+                  SALFR = SCALE*SALFR;
+                  SALFI = SCALE*SALFI;
+                  SBETA = SCALE*SBETA;
                }
-               SCALE = ONE / MAX( ( ABS( SALFR )+ABS( SALFI ) )*BNORM, ABS( SBETA )*ANORM, SAFMIN )
-               ACOEF = SCALE*SBETA
-               BCOEFR = SCALE*SALFR
-               BCOEFI = SCALE*SALFI
+               SCALE = ONE / MAX( ( ABS( SALFR )+ABS( SALFI ) )*BNORM, ABS( SBETA )*ANORM, SAFMIN );
+               ACOEF = SCALE*SBETA;
+               BCOEFR = SCALE*SALFR;
+               BCOEFI = SCALE*SALFI;
                if ( LEFT ) {
-                  BCOEFI = -BCOEFI
+                  BCOEFI = -BCOEFI;
                }
 
                dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 );
@@ -124,41 +124,41 @@
          }
       } // 10
 
-      ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM
+      ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM;
 
       // Compute RESULT(1)
 
-      RESULT( 1 ) = ERRNRM / ULP
+      RESULT( 1 ) = ERRNRM / ULP;
 
       // Normalization of E:
 
-      ENRMER = ZERO
+      ENRMER = ZERO;
       ILCPLX = false;
       for (JVEC = 1; JVEC <= N; JVEC++) { // 40
          if ( ILCPLX ) {
             ILCPLX = false;
          } else {
-            TEMP1 = ZERO
+            TEMP1 = ZERO;
             if ( ALPHAI( JVEC ) == ZERO ) {
                for (J = 1; J <= N; J++) { // 20
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
+                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) );
                } // 20
-               ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
+               ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) );
             } else {
                ILCPLX = true;
                for (J = 1; J <= N; J++) { // 30
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
+                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) );
                } // 30
-               ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
+               ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) );
             }
          }
       } // 40
 
       // Compute RESULT(2) : the normalization error in E.
 
-      RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP )
+      RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP );
 
-      RETURN
+      RETURN;
 
       // End of DGET52
 

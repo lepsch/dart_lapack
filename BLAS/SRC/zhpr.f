@@ -1,4 +1,4 @@
-      SUBROUTINE ZHPR(UPLO,N,ALPHA,X,INCX,AP)
+      SUBROUTINE ZHPR(UPLO,N,ALPHA,X,INCX,AP);
 
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -10,17 +10,17 @@
       String    UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 AP(*),X(*)
+      COMPLEX*16 AP(*),X(*);
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16 ZERO
+      COMPLEX*16 ZERO;
       const     ZERO= (0.0,0.0);
       // ..
       // .. Local Scalars ..
-      COMPLEX*16 TEMP
+      COMPLEX*16 TEMP;
       int     I,INFO,IX,J,JX,K,KK,KX;
       // ..
       // .. External Functions ..
@@ -36,35 +36,35 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME(UPLO,'U') && !LSAME(UPLO,'L')) {
-          INFO = 1
+          INFO = 1;
       } else if (N < 0) {
-          INFO = 2
+          INFO = 2;
       } else if (INCX == 0) {
-          INFO = 5
+          INFO = 5;
       }
       if (INFO != 0) {
           xerbla('ZHPR  ',INFO);
-          RETURN
+          RETURN;
       }
 
       // Quick return if possible.
 
-      IF ((N == 0) || (ALPHA == DBLE(ZERO))) RETURN
+      IF ((N == 0) || (ALPHA == DBLE(ZERO))) RETURN;
 
       // Set the start point in X if the increment is not unity.
 
       if (INCX <= 0) {
-          KX = 1 - (N-1)*INCX
+          KX = 1 - (N-1)*INCX;
       } else if (INCX != 1) {
-          KX = 1
+          KX = 1;
       }
 
       // Start the operations. In this version the elements of the array AP
       // are accessed sequentially with one pass through AP.
 
-      KK = 1
+      KK = 1;
       if (LSAME(UPLO,'U')) {
 
          // Form  A  when upper triangle is stored in AP.
@@ -72,34 +72,34 @@
           if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 20
                   if (X(J) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(J))
-                      K = KK
+                      TEMP = ALPHA*DCONJG(X(J));
+                      K = KK;
                       for (I = 1; I <= J - 1; I++) { // 10
-                          AP(K) = AP(K) + X(I)*TEMP
-                          K = K + 1
+                          AP(K) = AP(K) + X(I)*TEMP;
+                          K = K + 1;
                       } // 10
-                      AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(J)*TEMP)
+                      AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(J)*TEMP);
                   } else {
-                      AP(KK+J-1) = DBLE(AP(KK+J-1))
+                      AP(KK+J-1) = DBLE(AP(KK+J-1));
                   }
-                  KK = KK + J
+                  KK = KK + J;
               } // 20
           } else {
-              JX = KX
+              JX = KX;
               for (J = 1; J <= N; J++) { // 40
                   if (X(JX) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(JX))
-                      IX = KX
+                      TEMP = ALPHA*DCONJG(X(JX));
+                      IX = KX;
                       for (K = KK; K <= KK + J - 2; K++) { // 30
-                          AP(K) = AP(K) + X(IX)*TEMP
-                          IX = IX + INCX
+                          AP(K) = AP(K) + X(IX)*TEMP;
+                          IX = IX + INCX;
                       } // 30
-                      AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(JX)*TEMP)
+                      AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(JX)*TEMP);
                   } else {
-                      AP(KK+J-1) = DBLE(AP(KK+J-1))
+                      AP(KK+J-1) = DBLE(AP(KK+J-1));
                   }
-                  JX = JX + INCX
-                  KK = KK + J
+                  JX = JX + INCX;
+                  KK = KK + J;
               } // 40
           }
       } else {
@@ -109,39 +109,39 @@
           if (INCX == 1) {
               for (J = 1; J <= N; J++) { // 60
                   if (X(J) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(J))
-                      AP(KK) = DBLE(AP(KK)) + DBLE(TEMP*X(J))
-                      K = KK + 1
+                      TEMP = ALPHA*DCONJG(X(J));
+                      AP(KK) = DBLE(AP(KK)) + DBLE(TEMP*X(J));
+                      K = KK + 1;
                       for (I = J + 1; I <= N; I++) { // 50
-                          AP(K) = AP(K) + X(I)*TEMP
-                          K = K + 1
+                          AP(K) = AP(K) + X(I)*TEMP;
+                          K = K + 1;
                       } // 50
                   } else {
-                      AP(KK) = DBLE(AP(KK))
+                      AP(KK) = DBLE(AP(KK));
                   }
-                  KK = KK + N - J + 1
+                  KK = KK + N - J + 1;
               } // 60
           } else {
-              JX = KX
+              JX = KX;
               for (J = 1; J <= N; J++) { // 80
                   if (X(JX) != ZERO) {
-                      TEMP = ALPHA*DCONJG(X(JX))
-                      AP(KK) = DBLE(AP(KK)) + DBLE(TEMP*X(JX))
-                      IX = JX
+                      TEMP = ALPHA*DCONJG(X(JX));
+                      AP(KK) = DBLE(AP(KK)) + DBLE(TEMP*X(JX));
+                      IX = JX;
                       for (K = KK + 1; K <= KK + N - J; K++) { // 70
-                          IX = IX + INCX
-                          AP(K) = AP(K) + X(IX)*TEMP
+                          IX = IX + INCX;
+                          AP(K) = AP(K) + X(IX)*TEMP;
                       } // 70
                   } else {
-                      AP(KK) = DBLE(AP(KK))
+                      AP(KK) = DBLE(AP(KK));
                   }
-                  JX = JX + INCX
-                  KK = KK + N - J + 1
+                  JX = JX + INCX;
+                  KK = KK + N - J + 1;
               } // 80
           }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZHPR
 

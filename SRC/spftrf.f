@@ -1,4 +1,4 @@
-      SUBROUTINE SPFTRF( TRANSR, UPLO, N, A, INFO )
+      SUBROUTINE SPFTRF( TRANSR, UPLO, N, A, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,12 +9,12 @@
       int                N, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               A( 0: * )
+      REAL               A( 0: * );
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -35,19 +35,19 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NORMALTRANSR = LSAME( TRANSR, 'N' )
-      LOWER = LSAME( UPLO, 'L' )
+      INFO = 0;
+      NORMALTRANSR = LSAME( TRANSR, 'N' );
+      LOWER = LSAME( UPLO, 'L' );
       if ( !NORMALTRANSR && !LSAME( TRANSR, 'T' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       }
       if ( INFO != 0 ) {
          xerbla('SPFTRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
       // If N is even, set K = N/2 and NISODD = false;
 
       if ( MOD( N, 2 ) == 0 ) {
-         K = N / 2
+         K = N / 2;
          NISODD = false;
       } else {
          NISODD = true;
@@ -67,11 +67,11 @@
       // Set N1 and N2 depending on LOWER
 
       if ( LOWER ) {
-         N2 = N / 2
-         N1 = N - N2
+         N2 = N / 2;
+         N1 = N - N2;
       } else {
-         N1 = N / 2
-         N2 = N - N1
+         N1 = N / 2;
+         N2 = N - N1;
       }
 
       // start execution: there are eight cases
@@ -218,7 +218,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of SPFTRF
 

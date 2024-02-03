@@ -1,5 +1,5 @@
-      SUBROUTINE SGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE SGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,11 +7,11 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, KF, KMAX, LDA, LWORK, M, N, NRHS;
-      REAL               ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL
+      REAL               ABSTOL,  MAXC2NRMK, RELMAXC2NRMK, RELTOL;
       // ..
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
-      REAL               A( LDA, * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -19,13 +19,13 @@
       // .. Parameters ..
       int                INB, INBMIN, IXOVER;
       const              INB = 1, INBMIN = 2, IXOVER = 3 ;
-      REAL               ZERO, ONE, TWO
+      REAL               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, DONE;
       int                IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX;
-      REAL               EPS, HUGEVAL, MAXC2NRM, SAFMIN
+      REAL               EPS, HUGEVAL, MAXC2NRM, SAFMIN;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAQP2RK, SLAQP3RK, XERBLA
@@ -33,7 +33,7 @@
       // .. External Functions ..
       bool               SISNAN;
       int                ISAMAX, ILAENV;
-      REAL               SLAMCH, SNRM2, SROUNDUP_LWORK
+      REAL               SLAMCH, SNRM2, SROUNDUP_LWORK;
       // EXTERNAL SISNAN, SLAMCH, SNRM2, ISAMAX, ILAENV, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
@@ -44,22 +44,22 @@
       // Test input arguments
       // ====================
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KMAX < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( SISNAN( ABSTOL ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( SISNAN( RELTOL ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -8
+         INFO = -8;
       }
 
       // If the input parameters M, N, NRHS, KMAX, LDA are valid:
@@ -73,10 +73,10 @@
       // code.
 
       if ( INFO == 0 ) {
-         MINMN = MIN( M, N )
+         MINMN = MIN( M, N );
          if ( MINMN == 0 ) {
-            IWS = 1
-            LWKOPT = 1
+            IWS = 1;
+            LWKOPT = 1;
          } else {
 
             // Minimal workspace size in case of using only unblocked
@@ -88,11 +88,11 @@
                // elementary reflector from the left.
             // TOTAL_WORK_SIZE = 3*N + NRHS - 1
 
-            IWS = 3*N + NRHS - 1
+            IWS = 3*N + NRHS - 1;
 
             // Assign to NB optimal block size.
 
-            NB = ILAENV( INB, 'SGEQP3RK', ' ', M, N, -1, -1 )
+            NB = ILAENV( INB, 'SGEQP3RK', ' ', M, N, -1, -1 );
 
             // A formula for the optimal workspace size in case of using
             // both unblocked BLAS 2 in SLAQP2RK and blocked BLAS 3 code
@@ -109,12 +109,12 @@
             // Sizes (2) and ((3) + (4)) should intersect, therefore
             // TOTAL_WORK_SIZE = 2*N + NB*( N+NRHS+1 ), given NBMIN=2.
 
-            LWKOPT = 2*N + NB*( N+NRHS+1 )
+            LWKOPT = 2*N + NB*( N+NRHS+1 );
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
          if ( ( LWORK < IWS ) && !LQUERY ) {
-            INFO = -15
+            INFO = -15;
          }
       }
 
@@ -123,19 +123,19 @@
 
       if ( INFO != 0 ) {
          xerbla('SGEQP3RK', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible for M=0 or N=0.
 
       if ( MINMN == 0 ) {
-         K = 0
-         MAXC2NRMK = ZERO
-         RELMAXC2NRMK = ZERO
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         K = 0;
+         MAXC2NRMK = ZERO;
+         RELMAXC2NRMK = ZERO;
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
       }
 
       // ==================================================================
@@ -143,7 +143,7 @@
       // Initialize column pivot array JPIV.
 
       for (J = 1; J <= N; J++) {
-         JPIV( J ) = J
+         JPIV( J ) = J;
       }
 
       // ==================================================================
@@ -157,8 +157,8 @@
          // computation; initialize the values of complete columns 2-norms.
 
       for (J = 1; J <= N; J++) {
-         WORK( J ) = SNRM2( M, A( 1, J ), 1 )
-         WORK( N+J ) = WORK( J )
+         WORK( J ) = SNRM2( M, A( 1, J ), 1 );
+         WORK( N+J ) = WORK( J );
       }
 
       // ==================================================================
@@ -166,8 +166,8 @@
       // Compute the pivot column index and the maximum column 2-norm
       // for the whole original matrix stored in A(1:M,1:N).
 
-      KP1 = ISAMAX( N, WORK( 1 ), 1 )
-      MAXC2NRM = WORK( KP1 )
+      KP1 = ISAMAX( N, WORK( 1 ), 1 );
+      MAXC2NRM = WORK( KP1 );
 
       // ==================================================================.
 
@@ -177,18 +177,18 @@
          // to the column number where the first NaN is found and return
          // from the routine.
 
-         K = 0
-         INFO = KP1
+         K = 0;
+         INFO = KP1;
 
          // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
 
-         MAXC2NRMK = MAXC2NRM
-         RELMAXC2NRMK = MAXC2NRM
+         MAXC2NRMK = MAXC2NRM;
+         RELMAXC2NRMK = MAXC2NRM;
 
          // Array TAU is not set and contains undefined elements.
 
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
       }
 
       // ===================================================================
@@ -198,22 +198,22 @@
          // Check is the matrix A is a zero matrix, set array TAU and
          // return from the routine.
 
-         K = 0
-         MAXC2NRMK = ZERO
-         RELMAXC2NRMK = ZERO
+         K = 0;
+         MAXC2NRMK = ZERO;
+         RELMAXC2NRMK = ZERO;
 
          for (J = 1; J <= MINMN; J++) {
-            TAU( J ) = ZERO
+            TAU( J ) = ZERO;
          }
 
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
 
       }
 
       // ===================================================================
 
-      HUGEVAL = SLAMCH( 'Overflow' )
+      HUGEVAL = SLAMCH( 'Overflow' );
 
       if ( MAXC2NRM > HUGEVAL ) {
 
@@ -221,7 +221,7 @@
          // to the column number, where the first +/-Inf  is found plus N,
          // and continue the computation.
 
-         INFO = N + KP1
+         INFO = N + KP1;
 
       }
 
@@ -231,31 +231,31 @@
       // stopping criterion is satisfied, i.e. KMAX = 0.
 
       if ( KMAX == 0 ) {
-         K = 0
-         MAXC2NRMK = MAXC2NRM
-         RELMAXC2NRMK = ONE
+         K = 0;
+         MAXC2NRMK = MAXC2NRM;
+         RELMAXC2NRMK = ONE;
          for (J = 1; J <= MINMN; J++) {
-            TAU( J ) = ZERO
+            TAU( J ) = ZERO;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
       }
 
       // ==================================================================
 
-      EPS = SLAMCH('Epsilon')
+      EPS = SLAMCH('Epsilon');
 
       // Adjust ABSTOL
 
       if ( ABSTOL >= ZERO ) {
-         SAFMIN = SLAMCH('Safe minimum')
-         ABSTOL = MAX( ABSTOL, TWO*SAFMIN )
+         SAFMIN = SLAMCH('Safe minimum');
+         ABSTOL = MAX( ABSTOL, TWO*SAFMIN );
       }
 
       // Adjust RELTOL
 
       if ( RELTOL >= ZERO ) {
-         RELTOL = MAX( RELTOL, EPS )
+         RELTOL = MAX( RELTOL, EPS );
       }
 
       // ===================================================================
@@ -263,7 +263,7 @@
       // JMAX is the maximum index of the column to be factorized,
       // which is also limited by the first stopping criterion KMAX.
 
-      JMAX = MIN( KMAX, MINMN )
+      JMAX = MIN( KMAX, MINMN );
 
       // ===================================================================
 
@@ -274,16 +274,16 @@
 
       if ( MAXC2NRM <= ABSTOL || ONE <= RELTOL ) {
 
-         K = 0
-         MAXC2NRMK = MAXC2NRM
-         RELMAXC2NRMK = ONE
+         K = 0;
+         MAXC2NRMK = MAXC2NRM;
+         RELMAXC2NRMK = ONE;
 
          for (J = 1; J <= MINMN; J++) {
-            TAU( J ) = ZERO
+            TAU( J ) = ZERO;
          }
 
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
       }
 
       // ==================================================================
@@ -292,15 +292,15 @@
 
       // Determine the block size.
 
-      NBMIN = 2
-      NX = 0
+      NBMIN = 2;
+      NX = 0;
 
       if ( ( NB > 1 ) && ( NB < MINMN ) ) {
 
          // Determine when to cross over from blocked to unblocked code.
          // (for N less than NX, unblocked code should be used).
 
-         NX = MAX( 0, ILAENV( IXOVER, 'SGEQP3RK', ' ', M, N, -1, -1 ))
+         NX = MAX( 0, ILAENV( IXOVER, 'SGEQP3RK', ' ', M, N, -1, -1 ));
 
          if ( NX < MINMN ) {
 
@@ -312,8 +312,8 @@
                // is currently stored in NB.
                // Reduce NB and determine the minimum value of NB.
 
-               NB = ( LWORK-2*N ) / ( N+1 )
-               NBMIN = MAX( 2, ILAENV( INBMIN, 'SGEQP3RK', ' ', M, N, -1, -1 ) )
+               NB = ( LWORK-2*N ) / ( N+1 );
+               NBMIN = MAX( 2, ILAENV( INBMIN, 'SGEQP3RK', ' ', M, N, -1, -1 ) );
 
             }
          }
@@ -329,7 +329,7 @@
 
       // J is the column index.
 
-      J = 1
+      J = 1;
 
       // (1) Use blocked code initially.
 
@@ -337,7 +337,7 @@
       // blocked code is used, is also limited by the first stopping
       // criterion KMAX.
 
-      JMAXB = MIN( KMAX, MINMN - NX )
+      JMAXB = MIN( KMAX, MINMN - NX );
 
       if ( NB >= NBMIN && NB < JMAX && JMAXB > 0 ) {
 
@@ -351,11 +351,11 @@
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
 
-         DO WHILE( J <= JMAXB )
+         DO WHILE( J <= JMAXB );
 
-            JB = MIN( NB, JMAXB-J+1 )
-            N_SUB = N-J+1
-            IOFFSET = J-1
+            JB = MIN( NB, JMAXB-J+1 );
+            N_SUB = N-J+1;
+            IOFFSET = J-1;
 
             // Factorize JB columns among the columns A(J:N).
 
@@ -364,7 +364,7 @@
             // Set INFO on the first occurence of Inf.
 
             if ( IINFO > N_SUB && INFO == 0 ) {
-               INFO = 2*IOFFSET + IINFO
+               INFO = 2*IOFFSET + IINFO;
             }
 
             if ( DONE ) {
@@ -382,24 +382,24 @@
                        // 2) The remaining TAUs are set to ZERO by the
                           // block factorization routine.
 
-               K = IOFFSET + JBF
+               K = IOFFSET + JBF;
 
                // Set INFO on the first occurrence of NaN, NaN takes
                // prcedence over Inf.
 
                if ( IINFO <= N_SUB && IINFO > 0 ) {
-                  INFO = IOFFSET + IINFO
+                  INFO = IOFFSET + IINFO;
                }
 
                // Return from the routine.
 
-               WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+               WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-               RETURN
+               RETURN;
 
             }
 
-            J = J + JBF
+            J = J + JBF;
 
          }
 
@@ -416,8 +416,8 @@
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
 
-         N_SUB = N-J+1
-         IOFFSET = J-1
+         N_SUB = N-J+1;
+         IOFFSET = J-1;
 
          slaqp2rk(M, N_SUB, NRHS, IOFFSET, JMAX-J+1, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, KF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), IINFO );
 
@@ -430,7 +430,7 @@
             // b) MAXC2NRMK and RELMAXC2NRMK are returned by the
                // unblocked factorization routine above.
 
-         K = J - 1 + KF
+         K = J - 1 + KF;
 
          // Set INFO on the first exception occurence.
 
@@ -438,9 +438,9 @@
          // (NaN takes precedence over Inf).
 
          if ( IINFO > N_SUB && INFO == 0 ) {
-            INFO = 2*IOFFSET + IINFO
+            INFO = 2*IOFFSET + IINFO;
          } else if ( IINFO <= N_SUB && IINFO > 0 ) {
-            INFO = IOFFSET + IINFO
+            INFO = IOFFSET + IINFO;
          }
 
       } else {
@@ -450,7 +450,7 @@
          // Set the number of factorized columns if the unblocked routine
          // was not called.
 
-            K = JMAX
+            K = JMAX;
 
          // If there exits a residual matrix after the blocked code:
             // 1) compute the values of MAXC2NRMK, RELMAXC2NRMK of the
@@ -458,16 +458,16 @@
             // 2) Set TAU(K+1:MINMN) to ZERO.
 
          if ( K < MINMN ) {
-            JMAXC2NRM = K + ISAMAX( N-K, WORK( K+1 ), 1 )
-            MAXC2NRMK = WORK( JMAXC2NRM )
+            JMAXC2NRM = K + ISAMAX( N-K, WORK( K+1 ), 1 );
+            MAXC2NRMK = WORK( JMAXC2NRM );
             if ( K == 0 ) {
-               RELMAXC2NRMK = ONE
+               RELMAXC2NRMK = ONE;
             } else {
-               RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
+               RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM;
             }
 
             for (J = K + 1; J <= MINMN; J++) {
-               TAU( J ) = ZERO
+               TAU( J ) = ZERO;
             }
 
          }
@@ -476,9 +476,9 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN
+      RETURN;
 
       // End of SGEQP3RK
 

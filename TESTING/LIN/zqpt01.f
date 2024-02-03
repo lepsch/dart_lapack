@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -37,27 +37,27 @@
       // ..
       // .. Executable Statements ..
 
-      ZQPT01 = ZERO
+      ZQPT01 = ZERO;
 
       // Test if there is enough workspace
 
       if ( LWORK < M*N+N ) {
          xerbla('ZQPT01', 10 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK )
+      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
 
       for (J = 1; J <= K; J++) {
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = AF( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = AF( I, J );
          }
          for (I = J + 1; I <= M; I++) {
-            WORK( ( J-1 )*M+I ) = ZERO
+            WORK( ( J-1 )*M+I ) = ZERO;
          }
       }
       for (J = K + 1; J <= N; J++) {
@@ -73,9 +73,9 @@
          zaxpy(M, DCMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA
+      ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA;
 
-      RETURN
+      RETURN;
 
       // End of ZQPT01
 

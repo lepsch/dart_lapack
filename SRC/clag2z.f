@@ -1,4 +1,4 @@
-      SUBROUTINE CLAG2Z( M, N, SA, LDSA, A, LDA, INFO )
+      SUBROUTINE CLAG2Z( M, N, SA, LDSA, A, LDA, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,8 +8,8 @@
       int                INFO, LDA, LDSA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            SA( LDSA, * )
-      COMPLEX*16         A( LDA, * )
+      COMPLEX            SA( LDSA, * );
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
@@ -19,13 +19,13 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            A( I, J ) = SA( I, J )
+            A( I, J ) = SA( I, J );
          } // 10
       } // 20
-      RETURN
+      RETURN;
 
       // End of CLAG2Z
 

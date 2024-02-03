@@ -1,4 +1,4 @@
-      SUBROUTINE DLQT01( M, N, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DLQT01( M, N, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,8 +41,8 @@
       // ..
       // .. Executable Statements ..
 
-      MINMN = MIN( M, N )
-      EPS = DLAMCH( 'Epsilon' )
+      MINMN = MIN( M, N );
+      EPS = DLAMCH( 'Epsilon' );
 
       // Copy the matrix A to the array AF.
 
@@ -50,7 +50,7 @@
 
       // Factorize the matrix A in the array AF.
 
-      SRNAMT = 'DGELQF'
+      SRNAMT = 'DGELQF';
       dgelqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
@@ -60,7 +60,7 @@
 
       // Generate the n-by-n matrix Q
 
-      SRNAMT = 'DORGLQ'
+      SRNAMT = 'DORGLQ';
       dorglq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L
@@ -74,12 +74,12 @@
 
       // Compute norm( L - Q'*A ) / ( N * norm(A) * EPS ) .
 
-      ANORM = DLANGE( '1', M, N, A, LDA, RWORK )
-      RESID = DLANGE( '1', M, N, L, LDA, RWORK )
+      ANORM = DLANGE( '1', M, N, A, LDA, RWORK );
+      RESID = DLANGE( '1', M, N, L, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -89,11 +89,11 @@
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      RESID = DLANSY( '1', 'Upper', N, L, LDA, RWORK )
+      RESID = DLANSY( '1', 'Upper', N, L, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of DLQT01
 

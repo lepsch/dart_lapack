@@ -1,4 +1,4 @@
-      SUBROUTINE DGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,10 +35,10 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
-      UNFL = DLAMCH( 'Safe minimum' )
-      ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      EPS = DLAMCH( 'Epsilon' );
+      UNFL = DLAMCH( 'Safe minimum' );
+      ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
@@ -62,17 +62,17 @@
 
       dgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 );
 
-      DNORM = DASUM( N, DF, 1 )
-      XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 )
-      YNORM = ANORM + BNORM
+      DNORM = DASUM( N, DF, 1 );
+      XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 );
+      YNORM = ANORM + BNORM;
 
       if ( XNORM <= ZERO ) {
-         RESULT = ZERO
+         RESULT = ZERO;
       } else {
-         RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS
+         RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of DGLMTS
 

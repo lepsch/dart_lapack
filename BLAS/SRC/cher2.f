@@ -1,26 +1,26 @@
-      SUBROUTINE CHER2(UPLO,N,ALPHA,X,INCX,Y,INCY,A,LDA)
+      SUBROUTINE CHER2(UPLO,N,ALPHA,X,INCX,Y,INCY,A,LDA);
 
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX ALPHA
+      COMPLEX ALPHA;
       int     INCX,INCY,LDA,N;
       String    UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX A(LDA,*),X(*),Y(*)
+      COMPLEX A(LDA,*),X(*),Y(*);
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX ZERO
+      COMPLEX ZERO;
       const     ZERO= (0.0,0.0);
       // ..
       // .. Local Scalars ..
-      COMPLEX TEMP1,TEMP2
+      COMPLEX TEMP1,TEMP2;
       int     I,INFO,IX,IY,J,JX,JY,KX,KY;
       // ..
       // .. External Functions ..
@@ -36,43 +36,43 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME(UPLO,'U') && !LSAME(UPLO,'L')) {
-          INFO = 1
+          INFO = 1;
       } else if (N < 0) {
-          INFO = 2
+          INFO = 2;
       } else if (INCX == 0) {
-          INFO = 5
+          INFO = 5;
       } else if (INCY == 0) {
-          INFO = 7
+          INFO = 7;
       } else if (LDA < MAX(1,N)) {
-          INFO = 9
+          INFO = 9;
       }
       if (INFO != 0) {
           xerbla('CHER2 ',INFO);
-          RETURN
+          RETURN;
       }
 
       // Quick return if possible.
 
-      IF ((N == 0) || (ALPHA == ZERO)) RETURN
+      IF ((N == 0) || (ALPHA == ZERO)) RETURN;
 
       // Set up the start points in X and Y if the increments are not both
       // unity.
 
       if ((INCX != 1) || (INCY != 1)) {
           if (INCX > 0) {
-              KX = 1
+              KX = 1;
           } else {
-              KX = 1 - (N-1)*INCX
+              KX = 1 - (N-1)*INCX;
           }
           if (INCY > 0) {
-              KY = 1
+              KY = 1;
           } else {
-              KY = 1 - (N-1)*INCY
+              KY = 1 - (N-1)*INCY;
           }
-          JX = KX
-          JY = KY
+          JX = KX;
+          JY = KY;
       }
 
       // Start the operations. In this version the elements of A are
@@ -86,34 +86,34 @@
           if ((INCX == 1) && (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 20
                   if ((X(J) != ZERO) || (Y(J) != ZERO)) {
-                      TEMP1 = ALPHA*CONJG(Y(J))
-                      TEMP2 = CONJG(ALPHA*X(J))
+                      TEMP1 = ALPHA*CONJG(Y(J));
+                      TEMP2 = CONJG(ALPHA*X(J));
                       for (I = 1; I <= J - 1; I++) { // 10
-                          A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
+                          A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
                       } // 10
-                      A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
+                      A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2);
                   } else {
-                      A(J,J) = REAL(A(J,J))
+                      A(J,J) = REAL(A(J,J));
                   }
               } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
-                      TEMP1 = ALPHA*CONJG(Y(JY))
-                      TEMP2 = CONJG(ALPHA*X(JX))
-                      IX = KX
-                      IY = KY
+                      TEMP1 = ALPHA*CONJG(Y(JY));
+                      TEMP2 = CONJG(ALPHA*X(JX));
+                      IX = KX;
+                      IY = KY;
                       for (I = 1; I <= J - 1; I++) { // 30
-                          A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
-                          IX = IX + INCX
-                          IY = IY + INCY
+                          A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
+                          IX = IX + INCX;
+                          IY = IY + INCY;
                       } // 30
-                      A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
+                      A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2);
                   } else {
-                      A(J,J) = REAL(A(J,J))
+                      A(J,J) = REAL(A(J,J));
                   }
-                  JX = JX + INCX
-                  JY = JY + INCY
+                  JX = JX + INCX;
+                  JY = JY + INCY;
               } // 40
           }
       } else {
@@ -123,39 +123,39 @@
           if ((INCX == 1) && (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 60
                   if ((X(J) != ZERO) || (Y(J) != ZERO)) {
-                      TEMP1 = ALPHA*CONJG(Y(J))
-                      TEMP2 = CONJG(ALPHA*X(J))
-                      A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
+                      TEMP1 = ALPHA*CONJG(Y(J));
+                      TEMP2 = CONJG(ALPHA*X(J));
+                      A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2);
                       for (I = J + 1; I <= N; I++) { // 50
-                          A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
+                          A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2;
                       } // 50
                   } else {
-                      A(J,J) = REAL(A(J,J))
+                      A(J,J) = REAL(A(J,J));
                   }
               } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   if ((X(JX) != ZERO) || (Y(JY) != ZERO)) {
-                      TEMP1 = ALPHA*CONJG(Y(JY))
-                      TEMP2 = CONJG(ALPHA*X(JX))
-                      A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
-                      IX = JX
-                      IY = JY
+                      TEMP1 = ALPHA*CONJG(Y(JY));
+                      TEMP2 = CONJG(ALPHA*X(JX));
+                      A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2);
+                      IX = JX;
+                      IY = JY;
                       for (I = J + 1; I <= N; I++) { // 70
-                          IX = IX + INCX
-                          IY = IY + INCY
-                          A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
+                          IX = IX + INCX;
+                          IY = IY + INCY;
+                          A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2;
                       } // 70
                   } else {
-                      A(J,J) = REAL(A(J,J))
+                      A(J,J) = REAL(A(J,J));
                   }
-                  JX = JX + INCX
-                  JY = JY + INCY
+                  JX = JX + INCX;
+                  JY = JY + INCY;
               } // 80
           }
       }
 
-      RETURN
+      RETURN;
 
       // End of CHER2
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZCOPY(N,ZX,INCX,ZY,INCY)
+      SUBROUTINE ZCOPY(N,ZX,INCX,ZY,INCY);
 
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*),ZY(*)
+      COMPLEX*16 ZX(*),ZY(*);
       // ..
 
 *  =====================================================================
@@ -22,24 +22,24 @@
          // code for both increments equal to 1
 
          for (I = 1; I <= N; I++) {
-          ZY(I) = ZX(I)
+          ZY(I) = ZX(I);
          }
       } else {
 
          // code for unequal increments or equal increments
            // not equal to 1
 
-         IX = 1
-         IY = 1
+         IX = 1;
+         IY = 1;
          if (INCX < 0) IX = (-N+1)*INCX + 1;
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
-            ZY(IY) = ZX(IX)
-            IX = IX + INCX
-            IY = IY + INCY
+            ZY(IY) = ZX(IX);
+            IX = IX + INCX;
+            IY = IY + INCY;
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZCOPY
 

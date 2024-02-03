@@ -1,4 +1,4 @@
-      SUBROUTINE CHPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO )
+      SUBROUTINE CHPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,14 +9,14 @@
       int                INFO, LDZ, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * )
-      COMPLEX            AP( * ), WORK( * ), Z( LDZ, * )
+      REAL               RWORK( * ), W( * );
+      COMPLEX            AP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANHP, SLAMCH
+      REAL               CLANHP, SLAMCH;
       // EXTERNAL LSAME, CLANHP, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -39,22 +39,22 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
+      WANTZ = LSAME( JOBZ, 'V' );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO != 0 ) {
          xerbla('CHPEV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,31 +62,31 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = REAL( AP( 1 ) )
-         RWORK( 1 ) = 1
+         W( 1 ) = REAL( AP( 1 ) );
+         RWORK( 1 ) = 1;
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = CLANHP( 'M', UPLO, N, AP, RWORK )
-      ISCALE = 0
+      ANRM = CLANHP( 'M', UPLO, N, AP, RWORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          csscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
@@ -94,8 +94,8 @@
 
       // Call CHPTRD to reduce Hermitian packed matrix to tridiagonal form.
 
-      INDE = 1
-      INDTAU = 1
+      INDE = 1;
+      INDTAU = 1;
       chptrd(UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
@@ -104,9 +104,9 @@
       if ( !WANTZ ) {
          ssterf(N, W, RWORK( INDE ), INFO );
       } else {
-         INDWRK = INDTAU + N
+         INDWRK = INDTAU + N;
          cupgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
-         INDRWK = INDE + N
+         INDRWK = INDE + N;
          csteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO );
       }
 
@@ -114,14 +114,14 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      RETURN
+      RETURN;
 
       // End of CHPEV
 

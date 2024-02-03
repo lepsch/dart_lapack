@@ -1,4 +1,4 @@
-      SUBROUTINE ZSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT )
+      SUBROUTINE ZSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
-      COMPLEX*16         U( LDU, * ), WORK( * )
+      COMPLEX*16         U( LDU, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -38,12 +38,12 @@
 
       // 1)      Constants
 
-      RESULT( 1 ) = ZERO
-      RESULT( 2 ) = ZERO
+      RESULT( 1 ) = ZERO;
+      RESULT( 2 ) = ZERO;
       if (N <= 0) RETURN;
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      ULP = DLAMCH( 'Precision' )
+      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = DLAMCH( 'Precision' );
 
       // Do Test 1
 
@@ -51,19 +51,19 @@
 
       zlaset('Full', N, N, CZERO, CZERO, WORK, N );
 
-      ANORM = ZERO
-      TEMP1 = ZERO
+      ANORM = ZERO;
+      TEMP1 = ZERO;
 
       for (J = 1; J <= N - 1; J++) { // 10
-         WORK( ( N+1 )*( J-1 )+1 ) = AD( J )
-         WORK( ( N+1 )*( J-1 )+2 ) = AE( J )
-         TEMP2 = ABS( AE( J ) )
-         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 )
-         TEMP1 = TEMP2
+         WORK( ( N+1 )*( J-1 )+1 ) = AD( J );
+         WORK( ( N+1 )*( J-1 )+2 ) = AE( J );
+         TEMP2 = ABS( AE( J ) );
+         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 );
+         TEMP1 = TEMP2;
       } // 10
 
-      WORK( N**2 ) = AD( N )
-      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL )
+      WORK( N**2 ) = AD( N );
+      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL );
 
       // Norm of A - USU*
 
@@ -77,15 +77,15 @@
          } // 30
       }
 
-      WNORM = ZLANHE( '1', 'L', N, WORK, N, RWORK )
+      WNORM = ZLANHE( '1', 'L', N, WORK, N, RWORK );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
+            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
+            RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
          }
       }
 
@@ -96,12 +96,12 @@
       zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       for (J = 1; J <= N; J++) { // 40
-         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
+         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 40
 
-      RESULT( 2 ) = MIN( DBLE( N ), ZLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( DBLE( N ), ZLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
-      RETURN
+      RETURN;
 
       // End of ZSTT21
 

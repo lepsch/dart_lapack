@@ -1,4 +1,4 @@
-      SUBROUTINE DLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
+      SUBROUTINE DLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -33,9 +33,9 @@
          // Form matrix C = A*adj(B) = ( a b )
                                     // ( 0 d )
 
-         A = A1*B3
-         D = A3*B1
-         B = A2*B1 - A1*B2
+         A = A1*B3;
+         D = A3*B1;
+         B = A2*B1 - A1*B2;
 
          // The SVD of real 2-by-2 triangular C
 
@@ -49,14 +49,14 @@
             // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
             // and (1,2) element of |U|**T *|A| and |V|**T *|B|.
 
-            UA11R = CSL*A1
-            UA12 = CSL*A2 + SNL*A3
+            UA11R = CSL*A1;
+            UA12 = CSL*A2 + SNL*A3;
 
-            VB11R = CSR*B1
-            VB12 = CSR*B2 + SNR*B3
+            VB11R = CSR*B1;
+            VB12 = CSR*B2 + SNR*B3;
 
-            AUA12 = ABS( CSL )*ABS( A2 ) + ABS( SNL )*ABS( A3 )
-            AVB12 = ABS( CSR )*ABS( B2 ) + ABS( SNR )*ABS( B3 )
+            AUA12 = ABS( CSL )*ABS( A2 ) + ABS( SNL )*ABS( A3 );
+            AVB12 = ABS( CSR )*ABS( B2 ) + ABS( SNR )*ABS( B3 );
 
             // zero (1,2) elements of U**T *A and V**T *B
 
@@ -70,24 +70,24 @@
                dlartg(-VB11R, VB12, CSQ, SNQ, R );
             }
 
-            CSU = CSL
-            SNU = -SNL
-            CSV = CSR
-            SNV = -SNR
+            CSU = CSL;
+            SNU = -SNL;
+            CSV = CSR;
+            SNV = -SNR;
 
          } else {
 
             // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
             // and (2,2) element of |U|**T *|A| and |V|**T *|B|.
 
-            UA21 = -SNL*A1
-            UA22 = -SNL*A2 + CSL*A3
+            UA21 = -SNL*A1;
+            UA22 = -SNL*A2 + CSL*A3;
 
-            VB21 = -SNR*B1
-            VB22 = -SNR*B2 + CSR*B3
+            VB21 = -SNR*B1;
+            VB22 = -SNR*B2 + CSR*B3;
 
-            AUA22 = ABS( SNL )*ABS( A2 ) + ABS( CSL )*ABS( A3 )
-            AVB22 = ABS( SNR )*ABS( B2 ) + ABS( CSR )*ABS( B3 )
+            AUA22 = ABS( SNL )*ABS( A2 ) + ABS( CSL )*ABS( A3 );
+            AVB22 = ABS( SNR )*ABS( B2 ) + ABS( CSR )*ABS( B3 );
 
             // zero (2,2) elements of U**T*A and V**T*B, and then swap.
 
@@ -101,10 +101,10 @@
                dlartg(-VB21, VB22, CSQ, SNQ, R );
             }
 
-            CSU = SNL
-            SNU = CSL
-            CSV = SNR
-            SNV = CSR
+            CSU = SNL;
+            SNU = CSL;
+            CSV = SNR;
+            SNV = CSR;
 
          }
 
@@ -115,9 +115,9 @@
          // Form matrix C = A*adj(B) = ( a 0 )
                                     // ( c d )
 
-         A = A1*B3
-         D = A3*B1
-         C = A2*B3 - A3*B2
+         A = A1*B3;
+         D = A3*B1;
+         C = A2*B3 - A3*B2;
 
          // The SVD of real 2-by-2 triangular C
 
@@ -131,14 +131,14 @@
             // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
             // and (2,1) element of |U|**T *|A| and |V|**T *|B|.
 
-            UA21 = -SNR*A1 + CSR*A2
-            UA22R = CSR*A3
+            UA21 = -SNR*A1 + CSR*A2;
+            UA22R = CSR*A3;
 
-            VB21 = -SNL*B1 + CSL*B2
-            VB22R = CSL*B3
+            VB21 = -SNL*B1 + CSL*B2;
+            VB22R = CSL*B3;
 
-            AUA21 = ABS( SNR )*ABS( A1 ) + ABS( CSR )*ABS( A2 )
-            AVB21 = ABS( SNL )*ABS( B1 ) + ABS( CSL )*ABS( B2 )
+            AUA21 = ABS( SNR )*ABS( A1 ) + ABS( CSR )*ABS( A2 );
+            AVB21 = ABS( SNL )*ABS( B1 ) + ABS( CSL )*ABS( B2 );
 
             // zero (2,1) elements of U**T *A and V**T *B.
 
@@ -152,24 +152,24 @@
                dlartg(VB22R, VB21, CSQ, SNQ, R );
             }
 
-            CSU = CSR
-            SNU = -SNR
-            CSV = CSL
-            SNV = -SNL
+            CSU = CSR;
+            SNU = -SNR;
+            CSV = CSL;
+            SNV = -SNL;
 
          } else {
 
             // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
             // and (1,1) element of |U|**T *|A| and |V|**T *|B|.
 
-            UA11 = CSR*A1 + SNR*A2
-            UA12 = SNR*A3
+            UA11 = CSR*A1 + SNR*A2;
+            UA12 = SNR*A3;
 
-            VB11 = CSL*B1 + SNL*B2
-            VB12 = SNL*B3
+            VB11 = CSL*B1 + SNL*B2;
+            VB12 = SNL*B3;
 
-            AUA11 = ABS( CSR )*ABS( A1 ) + ABS( SNR )*ABS( A2 )
-            AVB11 = ABS( CSL )*ABS( B1 ) + ABS( SNL )*ABS( B2 )
+            AUA11 = ABS( CSR )*ABS( A1 ) + ABS( SNR )*ABS( A2 );
+            AVB11 = ABS( CSL )*ABS( B1 ) + ABS( SNL )*ABS( B2 );
 
             // zero (1,1) elements of U**T*A and V**T*B, and then swap.
 
@@ -183,16 +183,16 @@
                dlartg(VB12, VB11, CSQ, SNQ, R );
             }
 
-            CSU = SNR
-            SNU = CSR
-            CSV = SNL
-            SNV = CSL
+            CSU = SNR;
+            SNU = CSR;
+            CSV = SNL;
+            SNV = CSL;
 
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DLAGS2
 

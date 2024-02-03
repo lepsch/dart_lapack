@@ -1,4 +1,4 @@
-      SUBROUTINE DGETRF ( M, N, A, LDA, IPIV, INFO)
+      SUBROUTINE DGETRF ( M, N, A, LDA, IPIV, INFO);
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,17 +35,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DGETRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -54,7 +54,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 )
+      NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 );
       if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
@@ -64,8 +64,8 @@
 
          // Use blocked code.
 
-         DO 20 J = 1, MIN( M, N ), NB
-            JB = MIN( MIN( M, N )-J+1, NB )
+         DO 20 J = 1, MIN( M, N ), NB;
+            JB = MIN( MIN( M, N )-J+1, NB );
 
             // Update current block.
 
@@ -80,8 +80,8 @@
             // Adjust INFO and the pivot indices.
 
             if (INFO == 0 && IINFO > 0) INFO = IINFO + J - 1;
-            DO 10 I = J, MIN( M, J+JB-1 )
-               IPIV( I ) = J - 1 + IPIV( I )
+            DO 10 I = J, MIN( M, J+JB-1 );
+               IPIV( I ) = J - 1 + IPIV( I );
             } // 10
 
             // Apply interchanges to column 1:J-1
@@ -104,7 +104,7 @@
          } // 20
 
       }
-      RETURN
+      RETURN;
 
       // End of DGETRF
 

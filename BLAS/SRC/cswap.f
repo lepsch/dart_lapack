@@ -1,4 +1,4 @@
-      SUBROUTINE CSWAP(N,CX,INCX,CY,INCY)
+      SUBROUTINE CSWAP(N,CX,INCX,CY,INCY);
 
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX CX(*),CY(*)
+      COMPLEX CX(*),CY(*);
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
-      COMPLEX CTEMP
+      COMPLEX CTEMP;
       int     I,IX,IY;
       // ..
       if (N <= 0) RETURN;
@@ -22,28 +22,28 @@
 
         // code for both increments equal to 1
          for (I = 1; I <= N; I++) {
-            CTEMP = CX(I)
-            CX(I) = CY(I)
-            CY(I) = CTEMP
+            CTEMP = CX(I);
+            CX(I) = CY(I);
+            CY(I) = CTEMP;
          }
       } else {
 
         // code for unequal increments or equal increments not equal
           // to 1
 
-         IX = 1
-         IY = 1
+         IX = 1;
+         IY = 1;
          if (INCX < 0) IX = (-N+1)*INCX + 1;
          if (INCY < 0) IY = (-N+1)*INCY + 1;
          for (I = 1; I <= N; I++) {
-            CTEMP = CX(IX)
-            CX(IX) = CY(IY)
-            CY(IY) = CTEMP
-            IX = IX + INCX
-            IY = IY + INCY
+            CTEMP = CX(IX);
+            CX(IX) = CY(IY);
+            CY(IY) = CTEMP;
+            IX = IX + INCX;
+            IY = IY + INCY;
          }
       }
-      RETURN
+      RETURN;
 
       // End of CSWAP
 

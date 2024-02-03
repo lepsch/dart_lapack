@@ -1,4 +1,4 @@
-      SUBROUTINE ZHPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZHPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
-      COMPLEX*16         AP( * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         AP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -42,54 +42,54 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSAME( UPLO, 'L' ) || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LWMIN = 1
-            LIWMIN = 1
-            LRWMIN = 1
+            LWMIN = 1;
+            LIWMIN = 1;
+            LRWMIN = 1;
          } else {
             if ( WANTZ ) {
-               LWMIN = 2*N
-               LRWMIN = 1 + 5*N + 2*N**2
-               LIWMIN = 3 + 5*N
+               LWMIN = 2*N;
+               LRWMIN = 1 + 5*N + 2*N**2;
+               LIWMIN = 3 + 5*N;
             } else {
-               LWMIN = N
-               LRWMIN = N
-               LIWMIN = 1
+               LWMIN = N;
+               LRWMIN = N;
+               LIWMIN = 1;
             }
          }
-         WORK( 1 ) = LWMIN
-         RWORK( 1 ) = LRWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = LWMIN;
+         RWORK( 1 ) = LRWMIN;
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -9
+            INFO = -9;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHPEVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -97,30 +97,30 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = DBLE( AP( 1 ) )
+         W( 1 ) = DBLE( AP( 1 ) );
          if (WANTZ) Z( 1, 1 ) = CONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = ZLANHP( 'M', UPLO, N, AP, RWORK )
-      ISCALE = 0
+      ANRM = ZLANHP( 'M', UPLO, N, AP, RWORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          zdscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
@@ -128,12 +128,12 @@
 
       // Call ZHPTRD to reduce Hermitian packed matrix to tridiagonal form.
 
-      INDE = 1
-      INDTAU = 1
-      INDRWK = INDE + N
-      INDWRK = INDTAU + N
-      LLWRK = LWORK - INDWRK + 1
-      LLRWK = LRWORK - INDRWK + 1
+      INDE = 1;
+      INDTAU = 1;
+      INDRWK = INDE + N;
+      INDWRK = INDTAU + N;
+      LLWRK = LWORK - INDWRK + 1;
+      LLRWK = LRWORK - INDRWK + 1;
       zhptrd(UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
@@ -150,17 +150,17 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      WORK( 1 ) = LWMIN
-      RWORK( 1 ) = LRWMIN
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = LWMIN;
+      RWORK( 1 ) = LRWMIN;
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of ZHPEVD
 

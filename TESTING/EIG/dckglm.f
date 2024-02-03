@@ -1,4 +1,4 @@
-      SUBROUTINE DCKGLM( NN, MVAL, PVAL, NVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, X, WORK, RWORK, NIN, NOUT, INFO )
+      SUBROUTINE DCKGLM( NN, MVAL, PVAL, NVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, X, WORK, RWORK, NIN, NOUT, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -43,28 +43,28 @@
 
       // Initialize constants.
 
-      PATH( 1: 3 ) = 'GLM'
-      INFO = 0
-      NRUN = 0
-      NFAIL = 0
+      PATH( 1: 3 ) = 'GLM';
+      INFO = 0;
+      NRUN = 0;
+      NFAIL = 0;
       FIRSTT = true;
       alareq(PATH, NMATS, DOTYPE, NTYPES, NIN, NOUT );
-      LDA = NMAX
-      LDB = NMAX
-      LWORK = NMAX*NMAX
+      LDA = NMAX;
+      LDB = NMAX;
+      LWORK = NMAX*NMAX;
 
       // Check for valid input values.
 
       for (IK = 1; IK <= NN; IK++) { // 10
-         M = MVAL( IK )
-         P = PVAL( IK )
-         N = NVAL( IK )
+         M = MVAL( IK );
+         P = PVAL( IK );
+         N = NVAL( IK );
          if ( M > N || N > M+P ) {
             if ( FIRSTT ) {
-               WRITE( NOUT, FMT = * )
+               WRITE( NOUT, FMT = * );
                FIRSTT = false;
             }
-            WRITE( NOUT, FMT = 9997 )M, P, N
+            WRITE( NOUT, FMT = 9997 )M, P, N;
          }
       } // 10
       FIRSTT = true;
@@ -72,16 +72,16 @@
       // Do for each value of M in MVAL.
 
       for (IK = 1; IK <= NN; IK++) { // 40
-         M = MVAL( IK )
-         P = PVAL( IK )
-         N = NVAL( IK )
+         M = MVAL( IK );
+         P = PVAL( IK );
+         N = NVAL( IK );
          if (M > N || N > M+P) GO TO 40;
 
          for (IMAT = 1; IMAT <= NTYPES; IMAT++) { // 30
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 30
+            IF( !DOTYPE( IMAT ) ) GO TO 30;
 
             // Set up parameters with DLATB9 and generate test
             // matrices A and B with DLATMS.
@@ -90,22 +90,22 @@
 
             dlatms(N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9999 )IINFO
-               INFO = ABS( IINFO )
-               GO TO 30
+               WRITE( NOUT, FMT = 9999 )IINFO;
+               INFO = ABS( IINFO );
+               GO TO 30;
             }
 
             dlatms(N, P, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9999 )IINFO
-               INFO = ABS( IINFO )
-               GO TO 30
+               WRITE( NOUT, FMT = 9999 )IINFO;
+               INFO = ABS( IINFO );
+               GO TO 30;
             }
 
             // Generate random left hand side vector of GLM
 
             for (I = 1; I <= N; I++) { // 20
-               X( I ) = DLARND( 2, ISEED )
+               X( I ) = DLARND( 2, ISEED );
             } // 20
 
             dglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID );
@@ -118,10 +118,10 @@
                   FIRSTT = false;
                   alahdg(NOUT, PATH );
                }
-               WRITE( NOUT, FMT = 9998 )N, M, P, IMAT, 1, RESID
-               NFAIL = NFAIL + 1
+               WRITE( NOUT, FMT = 9998 )N, M, P, IMAT, 1, RESID;
+               NFAIL = NFAIL + 1;
             }
-            NRUN = NRUN + 1
+            NRUN = NRUN + 1;
 
          } // 30
       } // 40
@@ -130,10 +130,10 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, 0 );
 
- 9999 FORMAT( ' DLATMS in DCKGLM INFO = ', I5 )
- 9998 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )
+ 9999 FORMAT( ' DLATMS in DCKGLM INFO = ', I5 );
+ 9998 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
  9997 FORMAT( ' *** Invalid input  for GLM:  M = ', I6, ', P = ', I6, ', N = ', I6, ';', / '     must satisfy M <= N <= M+P  ', '(this set of values will be skipped)' )
-      RETURN
+      RETURN;
 
       // End of DCKGLM
 

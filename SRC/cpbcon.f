@@ -1,4 +1,4 @@
-      SUBROUTINE CPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, RWORK, INFO )
+      SUBROUTINE CPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INFO, KD, LDAB, N;
-      REAL               ANORM, RCOND
+      REAL               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * )
-      COMPLEX            AB( LDAB, * ), WORK( * )
+      REAL               RWORK( * );
+      COMPLEX            AB( LDAB, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       String             NORMIN;
       int                IX, KASE;
-      REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM
-      COMPLEX            ZDUM
+      REAL               AINVNM, SCALE, SCALEL, SCALEU, SMLNUM;
+      COMPLEX            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -33,7 +33,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ICAMAX;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, ICAMAX, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -43,49 +43,49 @@
       // INTRINSIC ABS, AIMAG, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KD < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDAB < KD+1 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( ANORM < ZERO ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('CPBCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM == ZERO ) {
-         RETURN
+         RETURN;
       }
 
-      SMLNUM = SLAMCH( 'Safe minimum' )
+      SMLNUM = SLAMCH( 'Safe minimum' );
 
       // Estimate the 1-norm of the inverse.
 
-      KASE = 0
-      NORMIN = 'N'
+      KASE = 0;
+      NORMIN = 'N';
       } // 10
       clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -94,7 +94,7 @@
             // Multiply by inv(U**H).
 
             clatbs('Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO );
-            NORMIN = 'Y'
+            NORMIN = 'Y';
 
             // Multiply by inv(U).
 
@@ -104,7 +104,7 @@
             // Multiply by inv(L).
 
             clatbs('Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO );
-            NORMIN = 'Y'
+            NORMIN = 'Y';
 
             // Multiply by inv(L**H).
 
@@ -113,13 +113,13 @@
 
          // Multiply by 1/SCALE if doing so will not cause overflow.
 
-         SCALE = SCALEL*SCALEU
+         SCALE = SCALEL*SCALEU;
          if ( SCALE != ONE ) {
-            IX = ICAMAX( N, WORK, 1 )
-            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
+            IX = ICAMAX( N, WORK, 1 );
+            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
             csrscl(N, SCALE, WORK, 1 );
          }
-         GO TO 10
+         GO TO 10;
       }
 
       // Compute the estimate of the reciprocal condition number.
@@ -128,7 +128,7 @@
 
       } // 20
 
-      RETURN
+      RETURN;
 
       // End of CPBCON
 

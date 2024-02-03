@@ -1,4 +1,4 @@
-      SUBROUTINE DLARTGS( X, Y, SIGMA, CS, SN )
+      SUBROUTINE DLARTGS( X, Y, SIGMA, CS, SN );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,33 +25,33 @@
       // EXTERNAL DLAMCH
       // .. Executable Statements ..
 
-      THRESH = DLAMCH('E')
+      THRESH = DLAMCH('E');
 
       // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
       // factor.
 
       if ( (SIGMA == ZERO && ABS(X) < THRESH) || (ABS(X) == SIGMA && Y == ZERO) ) {
-         Z = ZERO
-         W = ZERO
+         Z = ZERO;
+         W = ZERO;
       } else if ( SIGMA == ZERO ) {
          if ( X >= ZERO ) {
-            Z = X
-            W = Y
+            Z = X;
+            W = Y;
          } else {
-            Z = -X
-            W = -Y
+            Z = -X;
+            W = -Y;
          }
       } else if ( ABS(X) < THRESH ) {
-         Z = -SIGMA*SIGMA
-         W = ZERO
+         Z = -SIGMA*SIGMA;
+         W = ZERO;
       } else {
          if ( X >= ZERO ) {
-            S = ONE
+            S = ONE;
          } else {
-            S = NEGONE
+            S = NEGONE;
          }
-         Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X)
-         W = S * Y
+         Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X);
+         W = S * Y;
       }
 
       // Generate the rotation.
@@ -61,7 +61,7 @@
 
       dlartgp(W, Z, SN, CS, R );
 
-      RETURN
+      RETURN;
 
       // End DLARTGS
 

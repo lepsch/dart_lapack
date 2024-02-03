@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKTB( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AB, AINV, B, X, XACT, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKTB( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AB, AINV, B, X, XACT, WORK, RWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         AB( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
+      COMPLEX*16         AB( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
@@ -60,81 +60,81 @@
       // INTRINSIC DCMPLX, MAX, MIN
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' / , TRANSS / 'N', 'T', 'C' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' / , TRANSS / 'N', 'T', 'C' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision'
-      PATH( 2: 3 ) = 'TB'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Zomplex precision';
+      PATH( 2: 3 ) = 'TB';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL ZERRTR( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 140
 
          // Do for each value of N in NVAL
 
-         N = NVAL( IN )
-         LDA = MAX( 1, N )
-         XTYPE = 'N'
-         NIMAT = NTYPE1
-         NIMAT2 = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( 1, N );
+         XTYPE = 'N';
+         NIMAT = NTYPE1;
+         NIMAT2 = NTYPES;
          if ( N <= 0 ) {
-            NIMAT = 1
-            NIMAT2 = NTYPE1 + 1
+            NIMAT = 1;
+            NIMAT2 = NTYPE1 + 1;
          }
 
-         NK = MIN( N+1, 4 )
+         NK = MIN( N+1, 4 );
          for (IK = 1; IK <= NK; IK++) { // 130
 
             // Do for KD = 0, N, (3N-1)/4, and (N+1)/4. This order makes
             // it easier to skip redundant values for small values of N.
 
             if ( IK == 1 ) {
-               KD = 0
+               KD = 0;
             } else if ( IK == 2 ) {
-               KD = MAX( N, 0 )
+               KD = MAX( N, 0 );
             } else if ( IK == 3 ) {
-               KD = ( 3*N-1 ) / 4
+               KD = ( 3*N-1 ) / 4;
             } else if ( IK == 4 ) {
-               KD = ( N+1 ) / 4
+               KD = ( N+1 ) / 4;
             }
-            LDAB = KD + 1
+            LDAB = KD + 1;
 
             for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 90
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( !DOTYPE( IMAT ) ) GO TO 90
+               IF( !DOTYPE( IMAT ) ) GO TO 90;
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80
 
                   // Do first for UPLO = 'U', then for UPLO = 'L'
 
-                  UPLO = UPLOS( IUPLO )
+                  UPLO = UPLOS( IUPLO );
 
                   // Call ZLATTB to generate a triangular test matrix.
 
-                  SRNAMT = 'ZLATTB'
+                  SRNAMT = 'ZLATTB';
                   zlattb(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, KD, AB, LDAB, X, WORK, RWORK, INFO );
 
                   // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
                   if ( LSAME( DIAG, 'N' ) ) {
-                     IDIAG = 1
+                     IDIAG = 1;
                   } else {
-                     IDIAG = 2
+                     IDIAG = 2;
                   }
 
                   // Form the inverse of A so we can get a good estimate
@@ -153,48 +153,48 @@
 
                   // Compute the 1-norm condition number of A.
 
-                  ANORM = ZLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = ZLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK )
+                  ANORM = ZLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = ZLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK );
                   if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                     RCONDO = ONE
+                     RCONDO = ONE;
                   } else {
-                     RCONDO = ( ONE / ANORM ) / AINVNM
+                     RCONDO = ( ONE / ANORM ) / AINVNM;
                   }
 
                   // Compute the infinity-norm condition number of A.
 
-                  ANORM = ZLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = ZLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
+                  ANORM = ZLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = ZLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK );
                   if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                     RCONDI = ONE
+                     RCONDI = ONE;
                   } else {
-                     RCONDI = ( ONE / ANORM ) / AINVNM
+                     RCONDI = ( ONE / ANORM ) / AINVNM;
                   }
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 60
-                     NRHS = NSVAL( IRHS )
-                     XTYPE = 'N'
+                     NRHS = NSVAL( IRHS );
+                     XTYPE = 'N';
 
                      for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 50
 
                      // Do for op(A) = A, A**T, or A**H.
 
-                        TRANS = TRANSS( ITRAN )
+                        TRANS = TRANSS( ITRAN );
                         if ( ITRAN == 1 ) {
-                           NORM = 'O'
-                           RCONDC = RCONDO
+                           NORM = 'O';
+                           RCONDC = RCONDO;
                         } else {
-                           NORM = 'I'
-                           RCONDC = RCONDI
+                           NORM = 'I';
+                           RCONDC = RCONDI;
                         }
 
 *+    TEST 1
                      // Solve and compute residual for op(A)*x = b.
 
-                        SRNAMT = 'ZLARHS'
+                        SRNAMT = 'ZLARHS';
                         zlarhs(PATH, XTYPE, UPLO, TRANS, N, N, KD, IDIAG, NRHS, AB, LDAB, XACT, LDA, B, LDA, ISEED, INFO );
-                        XTYPE = 'C'
+                        XTYPE = 'C';
                         zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'ZTBTRS'
+                        SRNAMT = 'ZTBTRS';
                         ztbtrs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, INFO );
 
                      // Check error code from ZTBTRS.
@@ -212,7 +212,7 @@
                      // Use iterative refinement to improve the solution
                      // and compute error bounds.
 
-                        SRNAMT = 'ZTBRFS'
+                        SRNAMT = 'ZTBRFS';
                         ztbrfs(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check error code from ZTBRFS.
@@ -228,10 +228,10 @@
                         for (K = 1; K <= 5; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1
+                              NFAIL = NFAIL + 1;
                            }
                         } // 40
-                        NRUN = NRUN + 5
+                        NRUN = NRUN + 5;
                      } // 50
                   } // 60
 
@@ -240,13 +240,13 @@
 
                   for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 70
                      if ( ITRAN == 1 ) {
-                        NORM = 'O'
-                        RCONDC = RCONDO
+                        NORM = 'O';
+                        RCONDC = RCONDO;
                      } else {
-                        NORM = 'I'
-                        RCONDC = RCONDI
+                        NORM = 'I';
+                        RCONDC = RCONDI;
                      }
-                     SRNAMT = 'ZTBCON'
+                     SRNAMT = 'ZTBCON';
                      ztbcon(NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, RWORK, INFO );
 
                      // Check error code from ZTBCON.
@@ -259,9 +259,9 @@
 
                      if ( RESULT( 6 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 ) 'ZTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
-                     NRUN = NRUN + 1
+                     NRUN = NRUN + 1;
                   } // 70
                } // 80
             } // 90
@@ -272,28 +272,28 @@
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( !DOTYPE( IMAT ) ) GO TO 120
+               IF( !DOTYPE( IMAT ) ) GO TO 120;
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
 
                   // Do first for UPLO = 'U', then for UPLO = 'L'
 
-                  UPLO = UPLOS( IUPLO )
+                  UPLO = UPLOS( IUPLO );
                   for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 100
 
                      // Do for op(A) = A, A**T, and A**H.
 
-                     TRANS = TRANSS( ITRAN )
+                     TRANS = TRANSS( ITRAN );
 
                      // Call ZLATTB to generate a triangular test matrix.
 
-                     SRNAMT = 'ZLATTB'
+                     SRNAMT = 'ZLATTB';
                      zlattb(IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, X, WORK, RWORK, INFO );
 
 *+    TEST 7
                      // Solve the system op(A)*x = b
 
-                     SRNAMT = 'ZLATBS'
+                     SRNAMT = 'ZLATBS';
                      zcopy(N, X, 1, B, 1 );
                      zlatbs(UPLO, TRANS, DIAG, 'N', N, KD, AB, LDAB, B, SCALE, RWORK, INFO );
 
@@ -320,13 +320,13 @@
 
                      if ( RESULT( 7 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'ZLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                      if ( RESULT( 8 ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'ZLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
-                     NRUN = NRUN + 2
+                     NRUN = NRUN + 2;
                   } // 100
                } // 110
             } // 120
@@ -337,10 +337,10 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 )
- 9998 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ',', I5, ',  ... ), type ', I2, ', test(', I2, ')=', G12.5 )
- 9997 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ',', I5, ', ...  ),  type ', I2, ', test(', I1, ')=', G12.5 )
-      RETURN
+ 9999 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I5, ', type ', I2, ', test(', I2, ')=', G12.5 );
+ 9998 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ',', I5, ',  ... ), type ', I2, ', test(', I2, ')=', G12.5 );
+ 9997 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ',', I5, ', ...  ),  type ', I2, ', test(', I1, ')=', G12.5 );
+      RETURN;
 
       // End of ZCHKTB
 

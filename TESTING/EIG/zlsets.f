@@ -1,4 +1,4 @@
-      SUBROUTINE ZLSETS( M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZLSETS( M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
 *  ====================================================================
 
       double             RESULT( 2 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), WORK( LWORK ), X( * )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), WORK( LWORK ), X( * );
       // ..
       // .. Local Scalars ..
       int                INFO;
@@ -46,7 +46,7 @@
 
       zget02('No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) );
 
-      RETURN
+      RETURN;
 
       // End of ZLSETS
 

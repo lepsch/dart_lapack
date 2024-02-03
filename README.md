@@ -91,8 +91,19 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/  
 
 ### Comma
 ```
-^(\s+[^/\s](.(?!(CONTINUE|\{|\}|;)))*)$
+^(\s+[^/\s}](.(?!(CONTINUE|\{|\}|;)))*)$
 $1;
+```
+
+Remove artifact
+```
+^(\s+\});+$
+$1
+```
+
+```
+^(\s+\} // \d+);$
+$1
 ```
 
 ### ELSE -> } else {

@@ -1,4 +1,4 @@
-      SUBROUTINE DCHKBB( NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, A, LDA, AB, LDAB, BD, BE, Q, LDQ, P, LDP, C, LDC, CC, WORK, LWORK, RESULT, INFO )
+      SUBROUTINE DCHKBB( NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, A, LDA, AB, LDAB, BD, BE, Q, LDQ, P, LDP, C, LDC, CC, WORK, LWORK, RESULT, INFO );
 
 *  -- LAPACK test routine (input) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,72 +41,72 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
       // ..
       // .. Data statements ..
-      DATA               KTYPE / 1, 2, 5*4, 5*6, 3*9 /
-      DATA               KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /
+      DATA               KTYPE / 1, 2, 5*4, 5*6, 3*9 /;
+      DATA               KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3 /;
+      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /;
       // ..
       // .. Executable Statements ..
 
       // Check for errors
 
-      NTESTT = 0
-      INFO = 0
+      NTESTT = 0;
+      INFO = 0;
 
       // Important constants
 
       BADMM = false;
       BADNN = false;
-      MMAX = 1
-      NMAX = 1
-      MNMAX = 1
+      MMAX = 1;
+      NMAX = 1;
+      MNMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         MMAX = MAX( MMAX, MVAL( J ) )
+         MMAX = MAX( MMAX, MVAL( J ) );
          IF( MVAL( J ) < 0 ) BADMM = true;
-         NMAX = MAX( NMAX, NVAL( J ) )
+         NMAX = MAX( NMAX, NVAL( J ) );
          IF( NVAL( J ) < 0 ) BADNN = true;
-         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
+         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
       } // 10
 
       BADNNB = false;
-      KMAX = 0
+      KMAX = 0;
       for (J = 1; J <= NWDTHS; J++) { // 20
-         KMAX = MAX( KMAX, KK( J ) )
+         KMAX = MAX( KMAX, KK( J ) );
          IF( KK( J ) < 0 ) BADNNB = true;
       } // 20
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADMM ) {
-         INFO = -2
+         INFO = -2;
       } else if ( BADNN ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NWDTHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( BADNNB ) {
-         INFO = -5
+         INFO = -5;
       } else if ( NTYPES < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( NRHS < 0 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDA < NMAX ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDAB < 2*KMAX+1 ) {
-         INFO = -15
+         INFO = -15;
       } else if ( LDQ < NMAX ) {
-         INFO = -19
+         INFO = -19;
       } else if ( LDP < NMAX ) {
-         INFO = -21
+         INFO = -21;
       } else if ( LDC < NMAX ) {
-         INFO = -23
+         INFO = -23;
       } else if ( ( MAX( LDA, NMAX )+1 )*NMAX > LWORK ) {
-         INFO = -26
+         INFO = -26;
       }
 
       if ( INFO != 0 ) {
          xerbla('DCHKBB', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -115,43 +115,43 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      OVFL = ONE / UNFL
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
-      ULPINV = ONE / ULP
-      RTUNFL = SQRT( UNFL )
-      RTOVFL = SQRT( OVFL )
+      UNFL = DLAMCH( 'Safe minimum' );
+      OVFL = ONE / UNFL;
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULPINV = ONE / ULP;
+      RTUNFL = SQRT( UNFL );
+      RTOVFL = SQRT( OVFL );
 
       // Loop over sizes, widths, types
 
-      NERRS = 0
-      NMATS = 0
+      NERRS = 0;
+      NMATS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 160
-         M = MVAL( JSIZE )
-         N = NVAL( JSIZE )
-         MNMIN = MIN( M, N )
-         AMNINV = ONE / DBLE( MAX( 1, M, N ) )
+         M = MVAL( JSIZE );
+         N = NVAL( JSIZE );
+         MNMIN = MIN( M, N );
+         AMNINV = ONE / DBLE( MAX( 1, M, N ) );
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 150
-            K = KK( JWIDTH )
+            K = KK( JWIDTH );
             if (K >= M && K >= N) GO TO 150;
-            KL = MAX( 0, MIN( M-1, K ) )
-            KU = MAX( 0, MIN( N-1, K ) )
+            KL = MAX( 0, MIN( M-1, K ) );
+            KU = MAX( 0, MIN( N-1, K ) );
 
             if ( NSIZES != 1 ) {
-               MTYPES = MIN( MAXTYP, NTYPES )
+               MTYPES = MIN( MAXTYP, NTYPES );
             } else {
-               MTYPES = MIN( MAXTYP+1, NTYPES )
+               MTYPES = MIN( MAXTYP+1, NTYPES );
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 140
-               IF( !DOTYPE( JTYPE ) ) GO TO 140
-               NMATS = NMATS + 1
-               NTEST = 0
+               IF( !DOTYPE( JTYPE ) ) GO TO 140;
+               NMATS = NMATS + 1;
+               NTEST = 0;
 
                for (J = 1; J <= 4; J++) { // 30
-                  IOLDSD( J ) = ISEED( J )
+                  IOLDSD( J ) = ISEED( J );
                } // 30
 
                // Compute "A".
@@ -171,45 +171,45 @@
 
                if (MTYPES > MAXTYP) GO TO 90;
 
-               ITYPE = KTYPE( JTYPE )
-               IMODE = KMODE( JTYPE )
+               ITYPE = KTYPE( JTYPE );
+               IMODE = KMODE( JTYPE );
 
                // Compute norm
 
-               GO TO ( 40, 50, 60 )KMAGN( JTYPE )
+               GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
                } // 40
-               ANORM = ONE
-               GO TO 70
+               ANORM = ONE;
+               GO TO 70;
 
                } // 50
-               ANORM = ( RTOVFL*ULP )*AMNINV
-               GO TO 70
+               ANORM = ( RTOVFL*ULP )*AMNINV;
+               GO TO 70;
 
                } // 60
-               ANORM = RTUNFL*MAX( M, N )*ULPINV
-               GO TO 70
+               ANORM = RTUNFL*MAX( M, N )*ULPINV;
+               GO TO 70;
 
                } // 70
 
                dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                dlaset('Full', LDAB, N, ZERO, ZERO, AB, LDAB );
-               IINFO = 0
-               COND = ULPINV
+               IINFO = 0;
+               COND = ULPINV;
 
                // Special Matrices -- Identity & Jordan block
 
                   // Zero
 
                if ( ITYPE == 1 ) {
-                  IINFO = 0
+                  IINFO = 0;
 
                } else if ( ITYPE == 2 ) {
 
                   // Identity
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                     A( JCOL, JCOL ) = ANORM
+                     A( JCOL, JCOL ) = ANORM;
                   } // 80
 
                } else if ( ITYPE == 4 ) {
@@ -232,7 +232,7 @@
 
                } else {
 
-                  IINFO = 1
+                  IINFO = 1;
                }
 
                // Generate Right-Hand Side
@@ -240,9 +240,9 @@
                dlatmr(M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO );
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                } // 90
@@ -250,8 +250,8 @@
                // Copy A to band storage.
 
                for (J = 1; J <= N; J++) { // 110
-                  DO 100 I = MAX( 1, J-KU ), MIN( M, J+KL )
-                     AB( KU+1+I-J, J ) = A( I, J )
+                  DO 100 I = MAX( 1, J-KU ), MIN( M, J+KL );
+                     AB( KU+1+I-J, J ) = A( I, J );
                   } // 100
                } // 110
 
@@ -264,13 +264,13 @@
                dgbbrd('B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, IINFO );
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'DGBBRD', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
+                  WRITE( NOUNIT, FMT = 9999 )'DGBBRD', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN
+                     RETURN;
                   } else {
-                     RESULT( 1 ) = ULPINV
-                     GO TO 120
+                     RESULT( 1 ) = ULPINV;
+                     GO TO 120;
                   }
                }
 
@@ -286,17 +286,17 @@
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
-               NTEST = 4
+               NTEST = 4;
                } // 120
-               NTESTT = NTESTT + NTEST
+               NTESTT = NTESTT + NTEST;
 
                // Print out tests which fail.
 
                for (JR = 1; JR <= NTEST; JR++) { // 130
                   if ( RESULT( JR ) >= THRESH ) {
                      if (NERRS == 0) CALL DLAHD2( NOUNIT, 'DBB' );
-                     NERRS = NERRS + 1
-                     WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )
+                     NERRS = NERRS + 1;
+                     WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR );
                   }
                } // 130
 
@@ -307,10 +307,10 @@
       // Summary
 
       dlasum('DBB', NOUNIT, NERRS, NTESTT );
-      RETURN
+      RETURN;
 
- 9999 FORMAT( ' DCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=', I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(', 3( I5, ',' ), I5, ')' )
- 9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
+ 9999 FORMAT( ' DCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=', I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(', 3( I5, ',' ), I5, ')' );
+ 9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
 
       // End of DCHKBB
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DDRVSX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RESULT, WORK, LWORK, IWORK, BWORK, INFO )
+      SUBROUTINE DDRVSX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RESULT, WORK, LWORK, IWORK, BWORK, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -53,21 +53,21 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. Data statements ..
-      DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
-      DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
+      DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /;
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /;
+      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /;
+      DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /;
       // ..
       // .. Executable Statements ..
 
       PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'SX'
+      PATH( 2: 3 ) = 'SX';
 
       // Check for errors
 
-      NTESTT = 0
-      NTESTF = 0
-      INFO = 0
+      NTESTT = 0;
+      NTESTF = 0;
+      INFO = 0;
 
       // Important constants
 
@@ -76,37 +76,37 @@
       // 12 is the largest dimension in the input file of precomputed
       // problems
 
-      NMAX = 12
+      NMAX = 12;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) )
+         NMAX = MAX( NMAX, NN( J ) );
          IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADNN ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NTYPES < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( THRESH < ZERO ) {
-         INFO = -6
+         INFO = -6;
       } else if ( NIUNIT <= 0 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( NOUNIT <= 0 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDA < 1 || LDA < NMAX ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDVS < 1 || LDVS < NMAX ) {
-         INFO = -20
+         INFO = -20;
       } else if ( MAX( 3*NMAX, 2*NMAX**2 ) > LWORK ) {
-         INFO = -24
+         INFO = -24;
       }
 
       if ( INFO != 0 ) {
          xerbla('DDRVSX', -INFO );
-         RETURN
+         RETURN;
       }
 
       // If nothing to do check on NIUNIT
@@ -115,32 +115,32 @@
 
       // More Important constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      OVFL = ONE / UNFL
-      ULP = DLAMCH( 'Precision' )
-      ULPINV = ONE / ULP
-      RTULP = SQRT( ULP )
-      RTULPI = ONE / RTULP
+      UNFL = DLAMCH( 'Safe minimum' );
+      OVFL = ONE / UNFL;
+      ULP = DLAMCH( 'Precision' );
+      ULPINV = ONE / ULP;
+      RTULP = SQRT( ULP );
+      RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
 
-      NERRS = 0
+      NERRS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 140
-         N = NN( JSIZE )
+         N = NN( JSIZE );
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES )
+            MTYPES = MIN( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES )
+            MTYPES = MIN( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 130
-            IF( !DOTYPE( JTYPE ) ) GO TO 130
+            IF( !DOTYPE( JTYPE ) ) GO TO 130;
 
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J )
+               IOLDSD( J ) = ISEED( J );
             } // 20
 
             // Compute "A"
@@ -161,44 +161,44 @@
 
             if (MTYPES > MAXTYP) GO TO 90;
 
-            ITYPE = KTYPE( JTYPE )
-            IMODE = KMODE( JTYPE )
+            ITYPE = KTYPE( JTYPE );
+            IMODE = KMODE( JTYPE );
 
             // Compute norm
 
-            GO TO ( 30, 40, 50 )KMAGN( JTYPE )
+            GO TO ( 30, 40, 50 )KMAGN( JTYPE );
 
             } // 30
-            ANORM = ONE
-            GO TO 60
+            ANORM = ONE;
+            GO TO 60;
 
             } // 40
-            ANORM = OVFL*ULP
-            GO TO 60
+            ANORM = OVFL*ULP;
+            GO TO 60;
 
             } // 50
-            ANORM = UNFL*ULPINV
-            GO TO 60
+            ANORM = UNFL*ULPINV;
+            GO TO 60;
 
             } // 60
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-            IINFO = 0
-            COND = ULPINV
+            IINFO = 0;
+            COND = ULPINV;
 
             // Special Matrices -- Identity & Jordan block
 
                // Zero
 
             if ( ITYPE == 1 ) {
-               IINFO = 0
+               IINFO = 0;
 
             } else if ( ITYPE == 2 ) {
 
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                } // 70
 
             } else if ( ITYPE == 3 ) {
@@ -206,7 +206,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 80
 
@@ -227,14 +227,14 @@
                // General, eigenvalues specified
 
                if ( KCONDS( JTYPE ) == 1 ) {
-                  CONDS = ONE
+                  CONDS = ONE;
                } else if ( KCONDS( JTYPE ) == 2 ) {
-                  CONDS = RTULPI
+                  CONDS = RTULPI;
                } else {
-                  CONDS = ZERO
+                  CONDS = ZERO;
                }
 
-               ADUMMA( 1 ) = ' '
+               ADUMMA( 1 ) = ' ';
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
@@ -269,13 +269,13 @@
 
             } else {
 
-               IINFO = 1
+               IINFO = 1;
             }
 
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9991 )'Generator', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               RETURN
+               WRITE( NOUNIT, FMT = 9991 )'Generator', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               RETURN;
             }
 
             } // 90
@@ -284,41 +284,41 @@
 
             for (IWK = 1; IWK <= 2; IWK++) { // 120
                if ( IWK == 1 ) {
-                  NNWORK = 3*N
+                  NNWORK = 3*N;
                } else {
-                  NNWORK = MAX( 3*N, 2*N*N )
+                  NNWORK = MAX( 3*N, 2*N*N );
                }
-               NNWORK = MAX( NNWORK, 1 )
+               NNWORK = MAX( NNWORK, 1 );
 
                dget24( false , JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, WORK, NNWORK, IWORK, BWORK, INFO );
 
                // Check for RESULT(j) > THRESH
 
-               NTEST = 0
-               NFAIL = 0
+               NTEST = 0;
+               NFAIL = 0;
                for (J = 1; J <= 15; J++) { // 100
-                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1
+                  IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
                } // 100
 
                if (NFAIL > 0) NTESTF = NTESTF + 1;
                if ( NTESTF == 1 ) {
-                  WRITE( NOUNIT, FMT = 9999 )PATH
-                  WRITE( NOUNIT, FMT = 9998 )
-                  WRITE( NOUNIT, FMT = 9997 )
-                  WRITE( NOUNIT, FMT = 9996 )
-                  WRITE( NOUNIT, FMT = 9995 )THRESH
-                  WRITE( NOUNIT, FMT = 9994 )
-                  NTESTF = 2
+                  WRITE( NOUNIT, FMT = 9999 )PATH;
+                  WRITE( NOUNIT, FMT = 9998 );
+                  WRITE( NOUNIT, FMT = 9997 );
+                  WRITE( NOUNIT, FMT = 9996 );
+                  WRITE( NOUNIT, FMT = 9995 )THRESH;
+                  WRITE( NOUNIT, FMT = 9994 );
+                  NTESTF = 2;
                }
 
                for (J = 1; J <= 15; J++) { // 110
                   if ( RESULT( J ) >= THRESH ) {
-                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
+                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J );
                   }
                } // 110
 
-               NERRS = NERRS + NFAIL
-               NTESTT = NTESTT + NTEST
+               NERRS = NERRS + NFAIL;
+               NTESTT = NTESTT + NTEST;
 
             } // 120
          } // 130
@@ -329,65 +329,65 @@
       // Read in data from file to check accuracy of condition estimation
       // Read input data until N=0
 
-      JTYPE = 0
+      JTYPE = 0;
       } // 160
-      READ( NIUNIT, FMT = *, END = 200 )N, NSLCT
+      READ( NIUNIT, FMT = *, END = 200 )N, NSLCT;
       if (N == 0) GO TO 200;
-      JTYPE = JTYPE + 1
-      ISEED( 1 ) = JTYPE
+      JTYPE = JTYPE + 1;
+      ISEED( 1 ) = JTYPE;
       if (NSLCT > 0) READ( NIUNIT, FMT = * )( ISLCT( I ), I = 1, NSLCT );
       for (I = 1; I <= N; I++) { // 170
-         READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N )
+         READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N );
       } // 170
-      READ( NIUNIT, FMT = * )RCDEIN, RCDVIN
+      READ( NIUNIT, FMT = * )RCDEIN, RCDVIN;
 
       dget24( true , 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, WR, WI, WRT, WIT, WRTMP, WITMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, RESULT, WORK, LWORK, IWORK, BWORK, INFO );
 
       // Check for RESULT(j) > THRESH
 
-      NTEST = 0
-      NFAIL = 0
+      NTEST = 0;
+      NFAIL = 0;
       for (J = 1; J <= 17; J++) { // 180
-         IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1          IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1
+         IF( RESULT( J ) >= ZERO ) NTEST = NTEST + 1          IF( RESULT( J ) >= THRESH ) NFAIL = NFAIL + 1;
       } // 180
 
       if (NFAIL > 0) NTESTF = NTESTF + 1;
       if ( NTESTF == 1 ) {
-         WRITE( NOUNIT, FMT = 9999 )PATH
-         WRITE( NOUNIT, FMT = 9998 )
-         WRITE( NOUNIT, FMT = 9997 )
-         WRITE( NOUNIT, FMT = 9996 )
-         WRITE( NOUNIT, FMT = 9995 )THRESH
-         WRITE( NOUNIT, FMT = 9994 )
-         NTESTF = 2
+         WRITE( NOUNIT, FMT = 9999 )PATH;
+         WRITE( NOUNIT, FMT = 9998 );
+         WRITE( NOUNIT, FMT = 9997 );
+         WRITE( NOUNIT, FMT = 9996 );
+         WRITE( NOUNIT, FMT = 9995 )THRESH;
+         WRITE( NOUNIT, FMT = 9994 );
+         NTESTF = 2;
       }
       for (J = 1; J <= 17; J++) { // 190
          if ( RESULT( J ) >= THRESH ) {
-            WRITE( NOUNIT, FMT = 9992 )N, JTYPE, J, RESULT( J )
+            WRITE( NOUNIT, FMT = 9992 )N, JTYPE, J, RESULT( J );
          }
       } // 190
 
-      NERRS = NERRS + NFAIL
-      NTESTT = NTESTT + NTEST
-      GO TO 160
+      NERRS = NERRS + NFAIL;
+      NTESTT = NTESTT + NTEST;
+      GO TO 160;
       } // 200
 
       // Summary
 
       dlasum(PATH, NOUNIT, NERRS, NTESTT );
 
- 9999 FORMAT( / 1X, A3, ' -- Real Schur Form Decomposition Expert ', 'Driver', / ' Matrix types (see DDRVSX for details):' )
+ 9999 FORMAT( / 1X, A3, ' -- Real Schur Form Decomposition Expert ', 'Driver', / ' Matrix types (see DDRVSX for details):' );
 
- 9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ', '           ', '  5=Diagonal: geometr. spaced entries.', / '  2=Identity matrix.                    ', '  6=Diagona', 'l: clustered entries.', / '  3=Transposed Jordan block.  ', '          ', '  7=Diagonal: large, evenly spaced.', / '  ', '4=Diagonal: evenly spaced entries.    ', '  8=Diagonal: s', 'mall, evenly spaced.' )
- 9997 FORMAT( ' Dense, Non-Symmetric Matrices:', / '  9=Well-cond., ev', 'enly spaced eigenvals.', ' 14=Ill-cond., geomet. spaced e', 'igenals.', / ' 10=Well-cond., geom. spaced eigenvals. ', ' 15=Ill-conditioned, clustered e.vals.', / ' 11=Well-cond', 'itioned, clustered e.vals. ', ' 16=Ill-cond., random comp', 'lex ', / ' 12=Well-cond., random complex ', '         ', ' 17=Ill-cond., large rand. complx ', / ' 13=Ill-condi', 'tioned, evenly spaced.     ', ' 18=Ill-cond., small rand.', ' complx ' )
- 9996 FORMAT( ' 19=Matrix with random O(1) entries.    ', ' 21=Matrix ', 'with small random entries.', / ' 20=Matrix with large ran', 'dom entries.   ', / )
- 9995 FORMAT( ' Tests performed with test threshold =', F8.2, / ' ( A denotes A on input and T denotes A on output)', / / ' 1 = 0 if T in Schur form (no sort), ', '  1/ulp otherwise', / ' 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)', / ' 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) ', / ' 4 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (no sort),', '  1/ulp otherwise', / ' 5 = 0 if T same no matter if VS computed (no sort),', '  1/ulp otherwise', / ' 6 = 0 if WR, WI same no matter if VS computed (no sort)', ',  1/ulp otherwise' )
- 9994 FORMAT( ' 7 = 0 if T in Schur form (sort), ', '  1/ulp otherwise', / ' 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)', / ' 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) ', / ' 10 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (sort),', '  1/ulp otherwise', / ' 11 = 0 if T same no matter what else computed (sort),', '  1/ulp otherwise', / ' 12 = 0 if WR, WI same no matter what else computed ', '(sort), 1/ulp otherwise', / ' 13 = 0 if sorting successful, 1/ulp otherwise', / ' 14 = 0 if RCONDE same no matter what else computed,', ' 1/ulp otherwise', / ' 15 = 0 if RCONDv same no matter what else computed,', ' 1/ulp otherwise', / ' 16 = | RCONDE - RCONDE(precomputed) | / cond(RCONDE),', / ' 17 = | RCONDV - RCONDV(precomputed) | / cond(RCONDV),' )
- 9993 FORMAT( ' N=', I5, ', IWK=', I2, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
- 9992 FORMAT( ' N=', I5, ', input example =', I3, ',  test(', I2, ')=', G10.3 )
- 9991 FORMAT( ' DDRVSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ', '           ', '  5=Diagonal: geometr. spaced entries.', / '  2=Identity matrix.                    ', '  6=Diagona', 'l: clustered entries.', / '  3=Transposed Jordan block.  ', '          ', '  7=Diagonal: large, evenly spaced.', / '  ', '4=Diagonal: evenly spaced entries.    ', '  8=Diagonal: s', 'mall, evenly spaced.' );
+ 9997 FORMAT( ' Dense, Non-Symmetric Matrices:', / '  9=Well-cond., ev', 'enly spaced eigenvals.', ' 14=Ill-cond., geomet. spaced e', 'igenals.', / ' 10=Well-cond., geom. spaced eigenvals. ', ' 15=Ill-conditioned, clustered e.vals.', / ' 11=Well-cond', 'itioned, clustered e.vals. ', ' 16=Ill-cond., random comp', 'lex ', / ' 12=Well-cond., random complex ', '         ', ' 17=Ill-cond., large rand. complx ', / ' 13=Ill-condi', 'tioned, evenly spaced.     ', ' 18=Ill-cond., small rand.', ' complx ' );
+ 9996 FORMAT( ' 19=Matrix with random O(1) entries.    ', ' 21=Matrix ', 'with small random entries.', / ' 20=Matrix with large ran', 'dom entries.   ', / );
+ 9995 FORMAT( ' Tests performed with test threshold =', F8.2, / ' ( A denotes A on input and T denotes A on output)', / / ' 1 = 0 if T in Schur form (no sort), ', '  1/ulp otherwise', / ' 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)', / ' 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) ', / ' 4 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (no sort),', '  1/ulp otherwise', / ' 5 = 0 if T same no matter if VS computed (no sort),', '  1/ulp otherwise', / ' 6 = 0 if WR, WI same no matter if VS computed (no sort)', ',  1/ulp otherwise' );
+ 9994 FORMAT( ' 7 = 0 if T in Schur form (sort), ', '  1/ulp otherwise', / ' 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)', / ' 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) ', / ' 10 = 0 if WR+sqrt(-1)*WI are eigenvalues of T (sort),', '  1/ulp otherwise', / ' 11 = 0 if T same no matter what else computed (sort),', '  1/ulp otherwise', / ' 12 = 0 if WR, WI same no matter what else computed ', '(sort), 1/ulp otherwise', / ' 13 = 0 if sorting successful, 1/ulp otherwise', / ' 14 = 0 if RCONDE same no matter what else computed,', ' 1/ulp otherwise', / ' 15 = 0 if RCONDv same no matter what else computed,', ' 1/ulp otherwise', / ' 16 = | RCONDE - RCONDE(precomputed) | / cond(RCONDE),', / ' 17 = | RCONDV - RCONDV(precomputed) | / cond(RCONDV),' );
+ 9993 FORMAT( ' N=', I5, ', IWK=', I2, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
+ 9992 FORMAT( ' N=', I5, ', input example =', I3, ',  test(', I2, ')=', G10.3 );
+ 9991 FORMAT( ' DDRVSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
-      RETURN
+      RETURN;
 
       // End of DDRVSX
 

@@ -1,4 +1,4 @@
-      REAL             FUNCTION SQRT12( M, N, A, LDA, S, WORK, LWORK )
+      REAL             FUNCTION SQRT12( M, N, A, LDA, S, WORK, LWORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,21 +8,21 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * ), WORK( LWORK )
+      REAL               A( LDA, * ), S( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, ISCL, J, MN;
-      REAL               ANRM, BIGNUM, NRMSVL, SMLNUM
+      REAL               ANRM, BIGNUM, NRMSVL, SMLNUM;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE, SNRM2
+      REAL               SASUM, SLAMCH, SLANGE, SNRM2;
       // EXTERNAL SASUM, SLAMCH, SLANGE, SNRM2
       // ..
       // .. External Subroutines ..
@@ -32,56 +32,56 @@
       // INTRINSIC MAX, MIN, REAL
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1 )
+      REAL               DUMMY( 1 );
       // ..
       // .. Executable Statements ..
 
-      SQRT12 = ZERO
+      SQRT12 = ZERO;
 
       // Test that enough workspace is supplied
 
       if ( LWORK < MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
          xerbla('SQRT12', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      MN = MIN( M, N )
+      MN = MIN( M, N );
       if (MN <= ZERO) RETURN;
 
-      NRMSVL = SNRM2( MN, S, 1 )
+      NRMSVL = SNRM2( MN, S, 1 );
 
       // Copy upper triangle of A into work
 
       slaset('Full', M, N, ZERO, ZERO, WORK, M );
       for (J = 1; J <= N; J++) {
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = A( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }
 
       // Get machine parameters
 
-      SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'P' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'P' );
+      BIGNUM = ONE / SMLNUM;
 
       // Scale work if max entry outside range [SMLNUM,BIGNUM]
 
-      ANRM = SLANGE( 'M', M, N, WORK, M, DUMMY )
-      ISCL = 0
+      ANRM = SLANGE( 'M', M, N, WORK, M, DUMMY );
+      ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
-         ISCL = 1
+         ISCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO );
-         ISCL = 1
+         ISCL = 1;
       }
 
       if ( ANRM != ZERO ) {
@@ -103,16 +103,16 @@
       } else {
 
          for (I = 1; I <= MN; I++) {
-            WORK( M*N+I ) = ZERO
+            WORK( M*N+I ) = ZERO;
          }
       }
 
       // Compare s and singular values of work
 
       saxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
-      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL != ZERO ) SQRT12 = SQRT12 / NRMSVL
+      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL != ZERO ) SQRT12 = SQRT12 / NRMSVL;
 
-      RETURN
+      RETURN;
 
       // End of SQRT12
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
+      SUBROUTINE ZHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), E( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), E( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -34,31 +34,31 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
 
       // Determine the block size
 
-      NB = MAX( 1, ILAENV( 1, 'ZHETRI_3', UPLO, N, -1, -1, -1 ) )
-      LWKOPT = ( N+NB+1 ) * ( NB+3 )
+      NB = MAX( 1, ILAENV( 1, 'ZHETRI_3', UPLO, N, -1, -1, -1 ) );
+      LWKOPT = ( N+NB+1 ) * ( NB+3 );
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < LWKOPT && !LQUERY ) {
-         INFO = -8
+         INFO = -8;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHETRI_3', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         WORK( 1 ) = LWKOPT
-         RETURN
+         WORK( 1 ) = LWKOPT;
+         RETURN;
       }
 
       // Quick return if possible
@@ -67,9 +67,9 @@
 
       zhetri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of ZHETRI_3
 

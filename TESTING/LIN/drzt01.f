@@ -36,25 +36,25 @@
       // ..
       // .. Executable Statements ..
 
-      DRZT01 = ZERO
+      DRZT01 = ZERO;
 
       if ( LWORK < M*N+M ) {
          xerbla('DRZT01', 8 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
+      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
 
       // Copy upper triangle R
 
       dlaset('Full', M, N, ZERO, ZERO, WORK, M );
       for (J = 1; J <= M; J++) { // 20
          for (I = 1; I <= J; I++) { // 10
-            WORK( ( J-1 )*M+I ) = AF( I, J )
+            WORK( ( J-1 )*M+I ) = AF( I, J );
          } // 10
       } // 20
 
@@ -68,12 +68,12 @@
          daxpy(M, -ONE, A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
       } // 30
 
-      DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK )
+      DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK );
 
-      DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
+      DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
       if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
 
-      RETURN
+      RETURN;
 
       // End of DRZT01
 

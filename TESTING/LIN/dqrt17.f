@@ -38,39 +38,39 @@
       // ..
       // .. Executable Statements ..
 
-      DQRT17 = ZERO
+      DQRT17 = ZERO;
 
       if ( LSAME( TRANS, 'N' ) ) {
-         NROWS = M
-         NCOLS = N
+         NROWS = M;
+         NCOLS = N;
       } else if ( LSAME( TRANS, 'T' ) ) {
-         NROWS = N
-         NCOLS = M
+         NROWS = N;
+         NCOLS = M;
       } else {
          xerbla('DQRT17', 1 );
-         RETURN
+         RETURN;
       }
 
       if ( LWORK < NCOLS*NRHS ) {
          xerbla('DQRT17', 13 );
-         RETURN
+         RETURN;
       }
 
       if ( M <= 0 || N <= 0 || NRHS <= 0 ) {
-         RETURN
+         RETURN;
       }
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
-      ISCL = 0
+      NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK );
+      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      ISCL = 0;
 
       // compute residual and scale it
 
       dlacpy('All', NROWS, NRHS, B, LDB, C, LDB );
       dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB );
-      NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
+      NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK );
       if ( NORMRS > SMLNUM ) {
-         ISCL = 1
+         ISCL = 1;
          dlascl('General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO );
       }
 
@@ -80,20 +80,20 @@
 
       // compute and properly scale error
 
-      ERR = DLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
+      ERR = DLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK );
       if (NORMA != ZERO) ERR = ERR / NORMA;
 
       if (ISCL == 1) ERR = ERR*NORMRS;
 
       if ( IRESID == 1 ) {
-         NORMB = DLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
+         NORMB = DLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK );
          if (NORMB != ZERO) ERR = ERR / NORMB;
       } else {
          if (NORMRS != ZERO) ERR = ERR / NORMRS;
       }
 
-      DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) )
-      RETURN
+      DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) );
+      RETURN;
 
       // End of DQRT17
 

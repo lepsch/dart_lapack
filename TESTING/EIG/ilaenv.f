@@ -25,7 +25,7 @@
       // COMMON / CLAENV / IPARMS
       // ..
       // .. Save statement ..
-      SAVE               / CLAENV /
+      SAVE               / CLAENV /;
       // ..
       // .. Executable Statements ..
 
@@ -33,28 +33,28 @@
 
          // Return a value from the common block.
 
-         ILAENV = IPARMS( ISPEC )
+         ILAENV = IPARMS( ISPEC );
 
       } else if ( ISPEC == 6 ) {
 
          // Compute SVD crossover point.
 
-         ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6 )
+         ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6 );
 
       } else if ( ISPEC >= 7 && ISPEC <= 9 ) {
 
          // Return a value from the common block.
 
-         ILAENV = IPARMS( ISPEC )
+         ILAENV = IPARMS( ISPEC );
 
       } else if ( ISPEC == 10 ) {
 
          // IEEE NaN arithmetic can be trusted not to trap
 
          // ILAENV = 0
-         ILAENV = 1
+         ILAENV = 1;
          if ( ILAENV == 1 ) {
-            ILAENV = IEEECK( 1, 0.0, 1.0 )
+            ILAENV = IEEECK( 1, 0.0, 1.0 );
          }
 
       } else if ( ISPEC == 11 ) {
@@ -62,16 +62,16 @@
          // Infinity arithmetic can be trusted not to trap
 
          // ILAENV = 0
-         ILAENV = 1
+         ILAENV = 1;
          if ( ILAENV == 1 ) {
-            ILAENV = IEEECK( 0, 0.0, 1.0 )
+            ILAENV = IEEECK( 0, 0.0, 1.0 );
          }
 
       } else if (( ISPEC >= 12 ) && (ISPEC <= 16)) {
 
       // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
 
-         ILAENV = IPARMS( ISPEC )
+         ILAENV = IPARMS( ISPEC );
           // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
           // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 
@@ -80,19 +80,19 @@
       // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 
          if ( ISPEC == 17 ) {
-             ILAENV = IPARMS( 1 )
+             ILAENV = IPARMS( 1 );
          } else {
-             ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
+             ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
          }
 
       } else {
 
          // Invalid value for ISPEC
 
-         ILAENV = -1
+         ILAENV = -1;
       }
 
-      RETURN
+      RETURN;
 
       // End of ILAENV
 
@@ -118,7 +118,7 @@
       // COMMON / CLAENV / IPARMS
       // ..
       // .. Save statement ..
-      SAVE               / CLAENV /
+      SAVE               / CLAENV /;
       // ..
       // .. Executable Statements ..
 
@@ -127,20 +127,20 @@
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
          if ( ISPEC == 1 ) {
-             ILAENV2STAGE = IPARMS( 1 )
+             ILAENV2STAGE = IPARMS( 1 );
          } else {
-             IISPEC = 16 + ISPEC
-             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
+             IISPEC = 16 + ISPEC;
+             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 );
          }
 
       } else {
 
          // Invalid value for ISPEC
 
-         ILAENV2STAGE = -1
+         ILAENV2STAGE = -1;
       }
 
-      RETURN
+      RETURN;
 
       // End of ILAENV2STAGE
 
@@ -151,7 +151,7 @@
       const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 ;
       int                NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP;
       const              NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 ;
-      REAL               TWO
+      REAL               TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Scalar Arguments ..
@@ -169,10 +169,10 @@
 
          // ==== Set the number simultaneous shifts ====
 
-         NH = IHI - ILO + 1
-         NS = 2
+         NH = IHI - ILO + 1;
+         NS = 2;
          if (NH >= 30) NS = 4          IF( NH >= 60 ) NS = 10          IF( NH >= 150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH >= 590 ) NS = 64          IF( NH >= 3000 ) NS = 128          IF( NH >= 6000 ) NS = 256;
-         NS = MAX( 2, NS-MOD( NS, 2 ) )
+         NS = MAX( 2, NS-MOD( NS, 2 ) );
       }
 
       if ( ISPEC == INMIN ) {
@@ -182,7 +182,7 @@
          // .     to LAHQR, the classic double shift algorithm.
          // .     This must be at least 11. ====
 
-         IPARMQ = NMIN
+         IPARMQ = NMIN;
 
       } else if ( ISPEC == INIBL ) {
 
@@ -190,22 +190,22 @@
          // .    whenever aggressive early deflation finds
          // .    at least (NIBBLE*(window size)/100) deflations. ====
 
-         IPARMQ = NIBBLE
+         IPARMQ = NIBBLE;
 
       } else if ( ISPEC == ISHFTS ) {
 
          // ==== NSHFTS: The number of simultaneous shifts =====
 
-         IPARMQ = NS
+         IPARMQ = NS;
 
       } else if ( ISPEC == INWIN ) {
 
          // ==== NW: deflation window size.  ====
 
          if ( NH <= KNWSWP ) {
-            IPARMQ = NS
+            IPARMQ = NS;
          } else {
-            IPARMQ = 3*NS / 2
+            IPARMQ = 3*NS / 2;
          }
 
       } else if ( ISPEC == IACC22 ) {
@@ -217,12 +217,12 @@
          // .     by making this choice dependent also upon the
          // .     NH=IHI-ILO+1.
 
-         IPARMQ = 0
+         IPARMQ = 0;
          if (NS >= KACMIN) IPARMQ = 1          IF( NS >= K22MIN ) IPARMQ = 2;
 
       } else {
          // ===== invalid value of ispec =====
-         IPARMQ = -1
+         IPARMQ = -1;
 
       }
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYCON_ROOK( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO )
+      SUBROUTINE ZSYCON_ROOK( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16            CZERO
+      COMPLEX*16            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -44,30 +44,30 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( ANORM < ZERO ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('ZSYCON_ROOK', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM <= ZERO ) {
-         RETURN
+         RETURN;
       }
 
       // Check that the diagonal matrix D is nonsingular.
@@ -76,21 +76,21 @@
 
          // Upper triangular storage: examine D from bottom to top
 
-         DO 10 I = N, 1, -1
-            IF( IPIV( I ) > 0 && A( I, I ) == CZERO ) RETURN
+         DO 10 I = N, 1, -1;
+            IF( IPIV( I ) > 0 && A( I, I ) == CZERO ) RETURN;
          } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (I = 1; I <= N; I++) { // 20
-            IF( IPIV( I ) > 0 && A( I, I ) == CZERO ) RETURN
+            IF( IPIV( I ) > 0 && A( I, I ) == CZERO ) RETURN;
          } // 20
       }
 
       // Estimate the 1-norm of the inverse.
 
-      KASE = 0
+      KASE = 0;
       } // 30
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -98,14 +98,14 @@
          // Multiply by inv(L*D*L**T) or inv(U*D*U**T).
 
          zsytrs_rook(UPLO, N, 1, A, LDA, IPIV, WORK, N, INFO );
-         GO TO 30
+         GO TO 30;
       }
 
       // Compute the estimate of the reciprocal condition number.
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      RETURN
+      RETURN;
 
       // End of ZSYCON_ROOK
 

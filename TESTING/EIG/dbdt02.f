@@ -1,4 +1,4 @@
-      SUBROUTINE DBDT02( M, N, B, LDB, C, LDC, U, LDU, WORK, RESID )
+      SUBROUTINE DBDT02( M, N, B, LDB, C, LDC, U, LDU, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,37 +36,37 @@
 
       // Quick return if possible
 
-      RESID = ZERO
+      RESID = ZERO;
       if (M <= 0 || N <= 0) RETURN;
-      REALMN = DBLE( MAX( M, N ) )
-      EPS = DLAMCH( 'Precision' )
+      REALMN = DBLE( MAX( M, N ) );
+      EPS = DLAMCH( 'Precision' );
 
       // Compute norm(B - U * C)
 
       for (J = 1; J <= N; J++) { // 10
          dcopy(M, B( 1, J ), 1, WORK, 1 );
          dgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
-         RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
+         RESID = MAX( RESID, DASUM( M, WORK, 1 ) );
       } // 10
 
       // Compute norm of B.
 
-      BNORM = DLANGE( '1', M, N, B, LDB, WORK )
+      BNORM = DLANGE( '1', M, N, B, LDB, WORK );
 
       if ( BNORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM >= RESID ) {
-            RESID = ( RESID / BNORM ) / ( REALMN*EPS )
+            RESID = ( RESID / BNORM ) / ( REALMN*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS )
+               RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS );
             } else {
-               RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS )
+               RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS );
             }
          }
       }
-      RETURN
+      RETURN;
 
       // End of DBDT02
 

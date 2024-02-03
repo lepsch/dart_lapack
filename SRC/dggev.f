@@ -1,4 +1,4 @@
-      SUBROUTINE DGGEV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
+      SUBROUTINE DGGEV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -44,46 +44,46 @@
       // Decode the input arguments
 
       if ( LSAME( JOBVL, 'N' ) ) {
-         IJOBVL = 1
+         IJOBVL = 1;
          ILVL = false;
       } else if ( LSAME( JOBVL, 'V' ) ) {
-         IJOBVL = 2
+         IJOBVL = 2;
          ILVL = true;
       } else {
-         IJOBVL = -1
+         IJOBVL = -1;
          ILVL = false;
       }
 
       if ( LSAME( JOBVR, 'N' ) ) {
-         IJOBVR = 1
+         IJOBVR = 1;
          ILVR = false;
       } else if ( LSAME( JOBVR, 'V' ) ) {
-         IJOBVR = 2
+         IJOBVR = 2;
          ILVR = true;
       } else {
-         IJOBVR = -1
+         IJOBVR = -1;
          ILVR = false;
       }
-      ILV = ILVL || ILVR
+      ILV = ILVL || ILVR;
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( IJOBVL <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IJOBVR <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
-         INFO = -14
+         INFO = -14;
       }
 
       // Compute workspace
@@ -95,21 +95,21 @@
         // computed assuming ILO = 1 and IHI = N, the worst case.)
 
       if ( INFO == 0 ) {
-         MINWRK = MAX( 1, 8*N )
-         MAXWRK = MAX( 1, N*( 7 + ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) ) )
+         MINWRK = MAX( 1, 8*N );
+         MAXWRK = MAX( 1, N*( 7 + ILAENV( 1, 'DGEQRF', ' ', N, 1, N, 0 ) ) )          MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'DORMQR', ' ', N, 1, N, 0 ) ) );
          if ( ILVL ) {
-            MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'DORGQR', ' ', N, 1, N, -1 ) ) )
+            MAXWRK = MAX( MAXWRK, N*( 7 + ILAENV( 1, 'DORGQR', ' ', N, 1, N, -1 ) ) );
          }
-         WORK( 1 ) = MAXWRK
+         WORK( 1 ) = MAXWRK;
 
          if (LWORK < MINWRK && !LQUERY) INFO = -16;
       }
 
       if ( INFO != 0 ) {
          xerbla('DGGEV ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -118,34 +118,34 @@
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SQRT( SMLNUM ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SQRT( SMLNUM ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
+      ANRM = DLANGE( 'M', N, N, A, LDA, WORK );
       ILASCL = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ANRMTO = SMLNUM
+         ANRMTO = SMLNUM;
          ILASCL = true;
       } else if ( ANRM > BIGNUM ) {
-         ANRMTO = BIGNUM
+         ANRMTO = BIGNUM;
          ILASCL = true;
       }
       if (ILASCL) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
+      BNRM = DLANGE( 'M', N, N, B, LDB, WORK );
       ILBSCL = false;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
-         BNRMTO = SMLNUM
+         BNRMTO = SMLNUM;
          ILBSCL = true;
       } else if ( BNRM > BIGNUM ) {
-         BNRMTO = BIGNUM
+         BNRMTO = BIGNUM;
          ILBSCL = true;
       }
       if (ILBSCL) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
@@ -153,22 +153,22 @@
       // Permute the matrices A, B to isolate eigenvalues if possible
       // (Workspace: need 6*N)
 
-      ILEFT = 1
-      IRIGHT = N + 1
-      IWRK = IRIGHT + N
+      ILEFT = 1;
+      IRIGHT = N + 1;
+      IWRK = IRIGHT + N;
       dggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
       // (Workspace: need N, prefer N*NB)
 
-      IROWS = IHI + 1 - ILO
+      IROWS = IHI + 1 - ILO;
       if ( ILV ) {
-         ICOLS = N + 1 - ILO
+         ICOLS = N + 1 - ILO;
       } else {
-         ICOLS = IROWS
+         ICOLS = IROWS;
       }
-      ITAU = IWRK
-      IWRK = ITAU + IROWS
+      ITAU = IWRK;
+      IWRK = ITAU + IROWS;
       dgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
@@ -207,22 +207,22 @@
       // Schur forms and Schur vectors)
       // (Workspace: need N)
 
-      IWRK = ITAU
+      IWRK = ITAU;
       if ( ILV ) {
-         CHTEMP = 'S'
+         CHTEMP = 'S';
       } else {
-         CHTEMP = 'E'
+         CHTEMP = 'E';
       }
       dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR );
       if ( IERR != 0 ) {
          if ( IERR > 0 && IERR <= N ) {
-            INFO = IERR
+            INFO = IERR;
          } else if ( IERR > N && IERR <= 2*N ) {
-            INFO = IERR - N
+            INFO = IERR - N;
          } else {
-            INFO = N + 1
+            INFO = N + 1;
          }
-         GO TO 110
+         GO TO 110;
       }
 
       // Compute Eigenvectors
@@ -231,17 +231,17 @@
       if ( ILV ) {
          if ( ILVL ) {
             if ( ILVR ) {
-               CHTEMP = 'B'
+               CHTEMP = 'B';
             } else {
-               CHTEMP = 'L'
+               CHTEMP = 'L';
             }
          } else {
-            CHTEMP = 'R'
+            CHTEMP = 'R';
          }
          dtgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR );
          if ( IERR != 0 ) {
-            INFO = N + 2
-            GO TO 110
+            INFO = N + 2;
+            GO TO 110;
          }
 
          // Undo balancing on VL and VR and normalization
@@ -250,27 +250,27 @@
          if ( ILVL ) {
             dggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IERR );
             for (JC = 1; JC <= N; JC++) { // 50
-               IF( ALPHAI( JC ) < ZERO ) GO TO 50
-               TEMP = ZERO
+               IF( ALPHAI( JC ) < ZERO ) GO TO 50;
+               TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
+                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) );
                   } // 10
                } else {
                   for (JR = 1; JR <= N; JR++) { // 20
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
+                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
                   } // 20
                }
                if (TEMP < SMLNUM) GO TO 50;
-               TEMP = ONE / TEMP
+               TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
-                     VL( JR, JC ) = VL( JR, JC )*TEMP
+                     VL( JR, JC ) = VL( JR, JC )*TEMP;
                   } // 30
                } else {
                   for (JR = 1; JR <= N; JR++) { // 40
-                     VL( JR, JC ) = VL( JR, JC )*TEMP
-                     VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
+                     VL( JR, JC ) = VL( JR, JC )*TEMP;
+                     VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP;
                   } // 40
                }
             } // 50
@@ -278,27 +278,27 @@
          if ( ILVR ) {
             dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
             for (JC = 1; JC <= N; JC++) { // 100
-               IF( ALPHAI( JC ) < ZERO ) GO TO 100
-               TEMP = ZERO
+               IF( ALPHAI( JC ) < ZERO ) GO TO 100;
+               TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
+                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) );
                   } // 60
                } else {
                   for (JR = 1; JR <= N; JR++) { // 70
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
+                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
                   } // 70
                }
                if (TEMP < SMLNUM) GO TO 100;
-               TEMP = ONE / TEMP
+               TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
-                     VR( JR, JC ) = VR( JR, JC )*TEMP
+                     VR( JR, JC ) = VR( JR, JC )*TEMP;
                   } // 80
                } else {
                   for (JR = 1; JR <= N; JR++) { // 90
-                     VR( JR, JC ) = VR( JR, JC )*TEMP
-                     VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
+                     VR( JR, JC ) = VR( JR, JC )*TEMP;
+                     VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP;
                   } // 90
                }
             } // 100
@@ -321,8 +321,8 @@
          dlascl('G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
       }
 
-      WORK( 1 ) = MAXWRK
-      RETURN
+      WORK( 1 ) = MAXWRK;
+      RETURN;
 
       // End of DGGEV
 

@@ -5,12 +5,12 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL, INTENT(IN) :: SIN1, SIN2
+      REAL, INTENT(IN) :: SIN1, SIN2;
       // ..
 
 *  =====================================================================
 
 *  .. Executable Statements ..
-      SLAISNAN = (SIN1 != SIN2)
-      RETURN
+      SLAISNAN = (SIN1 != SIN2);
+      RETURN;
       }

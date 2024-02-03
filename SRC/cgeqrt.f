@@ -1,4 +1,4 @@
-      SUBROUTINE CGEQRT( M, N, NB, A, LDA, T, LDT, WORK, INFO )
+      SUBROUTINE CGEQRT( M, N, NB, A, LDA, T, LDT, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int     INFO, LDA, LDT, M, N, NB;
       // ..
       // .. Array Arguments ..
-      COMPLEX A( LDA, * ), T( LDT, * ), WORK( * )
+      COMPLEX A( LDA, * ), T( LDT, * ), WORK( * );
       // ..
 
 * =====================================================================
@@ -26,32 +26,32 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NB < 1 || ( NB > MIN(M,N) && MIN(M,N) > 0 ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDT < NB ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('CGEQRT', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      K = MIN( M, N )
+      K = MIN( M, N );
       if (K == 0) RETURN;
 
       // Blocked loop of length K
 
-      DO I = 1, K,  NB
-         IB = MIN( K-I+1, NB )
+      DO I = 1, K,  NB;
+         IB = MIN( K-I+1, NB );
 
       // Compute the QR factorization of the current block A(I:M,I:I+IB-1)
 
@@ -67,7 +67,7 @@
             clarfb('L', 'C', 'F', 'C', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I, I+IB ), LDA, WORK , N-I-IB+1 );
          }
       }
-      RETURN
+      RETURN;
 
       // End of CGEQRT
 

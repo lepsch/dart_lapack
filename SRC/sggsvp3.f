@@ -1,25 +1,25 @@
-      SUBROUTINE SGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, TAU, WORK, LWORK, INFO )
+      SUBROUTINE SGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK;
-      REAL               TOLA, TOLB
+      REAL               TOLA, TOLB;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      REAL               A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       // .. External Functions ..
       bool               LSAME;
       // EXTERNAL LSAME
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -42,74 +42,74 @@
 
       // Test the input parameters
 
-      WANTU = LSAME( JOBU, 'U' )
-      WANTV = LSAME( JOBV, 'V' )
-      WANTQ = LSAME( JOBQ, 'Q' )
+      WANTU = LSAME( JOBU, 'U' );
+      WANTV = LSAME( JOBV, 'V' );
+      WANTQ = LSAME( JOBQ, 'Q' );
       FORWRD = true;
-      LQUERY = ( LWORK == -1 )
-      LWKOPT = 1
+      LQUERY = ( LWORK == -1 );
+      LWKOPT = 1;
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTU || LSAME( JOBU, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTV || LSAME( JOBV, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( P < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( N < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, P ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
-         INFO = -16
+         INFO = -16;
       } else if ( LDV < 1 || ( WANTV && LDV < P ) ) {
-         INFO = -18
+         INFO = -18;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -20
+         INFO = -20;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -24
+         INFO = -24;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
          sgeqp3(P, N, B, LDB, IWORK, TAU, WORK, -1, INFO );
-         LWKOPT = INT( WORK ( 1 ) )
+         LWKOPT = INT( WORK ( 1 ) );
          if ( WANTV ) {
-            LWKOPT = MAX( LWKOPT, P )
+            LWKOPT = MAX( LWKOPT, P );
          }
-         LWKOPT = MAX( LWKOPT, MIN( N, P ) )
-         LWKOPT = MAX( LWKOPT, M )
+         LWKOPT = MAX( LWKOPT, MIN( N, P ) );
+         LWKOPT = MAX( LWKOPT, M );
          if ( WANTQ ) {
-            LWKOPT = MAX( LWKOPT, N )
+            LWKOPT = MAX( LWKOPT, N );
          }
          sgeqp3(M, N, A, LDA, IWORK, TAU, WORK, -1, INFO );
-         LWKOPT = MAX( LWKOPT, INT( WORK ( 1 ) ) )
-         LWKOPT = MAX( 1, LWKOPT )
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+         LWKOPT = MAX( LWKOPT, INT( WORK ( 1 ) ) );
+         LWKOPT = MAX( 1, LWKOPT );
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
          xerbla('SGGSVP3', -INFO );
-         RETURN
+         RETURN;
       }
       if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
                                             // (  0   0  )
 
       for (I = 1; I <= N; I++) { // 10
-         IWORK( I ) = 0
+         IWORK( I ) = 0;
       } // 10
       sgeqp3(P, N, B, LDB, IWORK, TAU, WORK, LWORK, INFO );
 
@@ -119,9 +119,9 @@
 
       // Determine the effective rank of matrix B.
 
-      L = 0
-      DO 20 I = 1, MIN( P, N )
-         IF( ABS( B( I, I ) ) > TOLB ) L = L + 1
+      L = 0;
+      DO 20 I = 1, MIN( P, N );
+         IF( ABS( B( I, I ) ) > TOLB ) L = L + 1;
       } // 20
 
       if ( WANTV ) {
@@ -137,7 +137,7 @@
 
       for (J = 1; J <= L - 1; J++) { // 40
          for (I = J + 1; I <= L; I++) { // 30
-            B( I, J ) = ZERO
+            B( I, J ) = ZERO;
          } // 30
       } // 40
       if (P > L) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
@@ -172,7 +172,7 @@
          slaset('Full', L, N-L, ZERO, ZERO, B, LDB );
          for (J = N - L + 1; J <= N; J++) { // 60
             for (I = J - N + L + 1; I <= L; I++) { // 50
-               B( I, J ) = ZERO
+               B( I, J ) = ZERO;
             } // 50
          } // 60
 
@@ -187,15 +187,15 @@
                        // (  0   0  )
 
       for (I = 1; I <= N - L; I++) { // 70
-         IWORK( I ) = 0
+         IWORK( I ) = 0;
       } // 70
       sgeqp3(M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, INFO );
 
       // Determine the effective rank of A11
 
-      K = 0
-      DO 80 I = 1, MIN( M, N-L )
-         IF( ABS( A( I, I ) ) > TOLA ) K = K + 1
+      K = 0;
+      DO 80 I = 1, MIN( M, N-L );
+         IF( ABS( A( I, I ) ) > TOLA ) K = K + 1;
       } // 80
 
       // Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
@@ -223,7 +223,7 @@
 
       for (J = 1; J <= K - 1; J++) { // 100
          for (I = J + 1; I <= K; I++) { // 90
-            A( I, J ) = ZERO
+            A( I, J ) = ZERO;
          } // 90
       } // 100
       if (M > K) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
@@ -246,7 +246,7 @@
          slaset('Full', K, N-L-K, ZERO, ZERO, A, LDA );
          for (J = N - L - K + 1; J <= N - L; J++) { // 120
             for (I = J - N + L + K + 1; I <= K; I++) { // 110
-               A( I, J ) = ZERO
+               A( I, J ) = ZERO;
             } // 110
          } // 120
 
@@ -269,14 +269,14 @@
 
          for (J = N - L + 1; J <= N; J++) { // 140
             for (I = J - N + K + L + 1; I <= M; I++) { // 130
-               A( I, J ) = ZERO
+               A( I, J ) = ZERO;
             } // 130
          } // 140
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      RETURN;
 
       // End of SGGSVP3
 

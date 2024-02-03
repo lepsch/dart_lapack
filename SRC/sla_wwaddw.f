@@ -1,4 +1,4 @@
-      SUBROUTINE SLA_WWADDW( N, X, Y, W )
+      SUBROUTINE SLA_WWADDW( N, X, Y, W );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,24 +8,24 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      REAL               X( * ), Y( * ), W( * )
+      REAL               X( * ), Y( * ), W( * );
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
-      REAL               S
+      REAL               S;
       int                I;
       // ..
       // .. Executable Statements ..
 
       for (I = 1; I <= N; I++) { // 10
-        S = X(I) + W(I)
-        S = (S + S) - S
-        Y(I) = ((X(I) - S) + W(I)) + Y(I)
-        X(I) = S
+        S = X(I) + W(I);
+        S = (S + S) - S;
+        Y(I) = ((X(I) - S) + W(I)) + Y(I);
+        X(I) = S;
       } // 10
-      RETURN
+      RETURN;
 
       // End of SLA_WWADDW
 

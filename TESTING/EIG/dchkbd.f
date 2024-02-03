@@ -1,4 +1,4 @@
-      SUBROUTINE DCHKBD( NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, A, LDA, BD, BE, S1, S2, X, LDX, Y, Z, Q, LDQ, PT, LDPT, U, VT, WORK, LWORK, IWORK, NOUT, INFO )
+      SUBROUTINE DCHKBD( NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, A, LDA, BD, BE, S1, S2, X, LDX, Y, Z, Q, LDQ, PT, LDPT, U, VT, WORK, LWORK, IWORK, NOUT, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -53,102 +53,102 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA            KTYPE / 1, 2, 5*4, 5*6, 3*9, 10 /
-      DATA            KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3, 0 /
-      DATA            KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 0 /
+      DATA            KTYPE / 1, 2, 5*4, 5*6, 3*9, 10 /;
+      DATA            KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3, 0 /;
+      DATA            KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 0 /;
       // ..
       // .. Executable Statements ..
 
       // Check for errors
 
-      INFO = 0
+      INFO = 0;
 
       BADMM = false;
       BADNN = false;
-      MMAX = 1
-      NMAX = 1
-      MNMAX = 1
-      MINWRK = 1
+      MMAX = 1;
+      NMAX = 1;
+      MNMAX = 1;
+      MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         MMAX = MAX( MMAX, MVAL( J ) )
+         MMAX = MAX( MMAX, MVAL( J ) );
          IF( MVAL( J ) < 0 ) BADMM = true;
-         NMAX = MAX( NMAX, NVAL( J ) )
+         NMAX = MAX( NMAX, NVAL( J ) );
          IF( NVAL( J ) < 0 ) BADNN = true;
-         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
-         MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) )
+         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
+         MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) );
       } // 10
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADMM ) {
-         INFO = -2
+         INFO = -2;
       } else if ( BADNN ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NTYPES < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRHS < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MMAX ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDX < MMAX ) {
-         INFO = -17
+         INFO = -17;
       } else if ( LDQ < MMAX ) {
-         INFO = -21
+         INFO = -21;
       } else if ( LDPT < MNMAX ) {
-         INFO = -23
+         INFO = -23;
       } else if ( MINWRK > LWORK ) {
-         INFO = -27
+         INFO = -27;
       }
 
       if ( INFO != 0 ) {
          xerbla('DCHKBD', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize constants
 
       PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'BD'
-      NFAIL = 0
-      NTEST = 0
-      UNFL = DLAMCH( 'Safe minimum' )
-      OVFL = DLAMCH( 'Overflow' )
-      ULP = DLAMCH( 'Precision' )
-      ULPINV = ONE / ULP
-      LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) )
-      RTUNFL = SQRT( UNFL )
-      RTOVFL = SQRT( OVFL )
-      INFOT = 0
-      ABSTOL = 2*UNFL
+      PATH( 2: 3 ) = 'BD';
+      NFAIL = 0;
+      NTEST = 0;
+      UNFL = DLAMCH( 'Safe minimum' );
+      OVFL = DLAMCH( 'Overflow' );
+      ULP = DLAMCH( 'Precision' );
+      ULPINV = ONE / ULP;
+      LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) );
+      RTUNFL = SQRT( UNFL );
+      RTOVFL = SQRT( OVFL );
+      INFOT = 0;
+      ABSTOL = 2*UNFL;
 
       // Loop over sizes, types
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 300
-         M = MVAL( JSIZE )
-         N = NVAL( JSIZE )
-         MNMIN = MIN( M, N )
-         AMNINV = ONE / MAX( M, N, 1 )
+         M = MVAL( JSIZE );
+         N = NVAL( JSIZE );
+         MNMIN = MIN( M, N );
+         AMNINV = ONE / MAX( M, N, 1 );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES )
+            MTYPES = MIN( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES )
+            MTYPES = MIN( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 290
-            IF( !DOTYPE( JTYPE ) ) GO TO 290
+            IF( !DOTYPE( JTYPE ) ) GO TO 290;
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J )
+               IOLDSD( J ) = ISEED( J );
             } // 20
 
             for (J = 1; J <= 34; J++) { // 30
-               RESULT( J ) = -ONE
+               RESULT( J ) = -ONE;
             } // 30
 
-            UPLO = ' '
+            UPLO = ' ';
 
             // Compute "A"
 
@@ -168,44 +168,44 @@
 
             if (MTYPES > MAXTYP) GO TO 100;
 
-            ITYPE = KTYPE( JTYPE )
-            IMODE = KMODE( JTYPE )
+            ITYPE = KTYPE( JTYPE );
+            IMODE = KMODE( JTYPE );
 
             // Compute norm
 
-            GO TO ( 40, 50, 60 )KMAGN( JTYPE )
+            GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
             } // 40
-            ANORM = ONE
-            GO TO 70
+            ANORM = ONE;
+            GO TO 70;
 
             } // 50
-            ANORM = ( RTOVFL*ULP )*AMNINV
-            GO TO 70
+            ANORM = ( RTOVFL*ULP )*AMNINV;
+            GO TO 70;
 
             } // 60
-            ANORM = RTUNFL*MAX( M, N )*ULPINV
-            GO TO 70
+            ANORM = RTUNFL*MAX( M, N )*ULPINV;
+            GO TO 70;
 
             } // 70
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-            IINFO = 0
-            COND = ULPINV
+            IINFO = 0;
+            COND = ULPINV;
 
             BIDIAG = false;
             if ( ITYPE == 1 ) {
 
                // Zero matrix
 
-               IINFO = 0
+               IINFO = 0;
 
             } else if ( ITYPE == 2 ) {
 
                // Identity
 
                for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -248,21 +248,21 @@
 
                // Bidiagonal, random entries
 
-               TEMP1 = -TWO*LOG( ULP )
+               TEMP1 = -TWO*LOG( ULP );
                for (J = 1; J <= MNMIN; J++) { // 90
-                  BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
+                  BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) );
                   if (J < MNMIN) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) );
                } // 90
 
-               IINFO = 0
+               IINFO = 0;
                BIDIAG = true;
                if ( M >= N ) {
-                  UPLO = 'U'
+                  UPLO = 'U';
                } else {
-                  UPLO = 'L'
+                  UPLO = 'L';
                }
             } else {
-               IINFO = 1
+               IINFO = 1;
             }
 
             if ( IINFO == 0 ) {
@@ -279,9 +279,9 @@
             // Error Exit
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               RETURN
+               WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               RETURN;
             }
 
             } // 100
@@ -299,30 +299,30 @@
                // Check error code from DGEBRD.
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUT, FMT = 9998 )'DGEBRD', IINFO, M, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUT, FMT = 9998 )'DGEBRD', IINFO, M, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                dlacpy(' ', M, N, Q, LDQ, PT, LDPT );
                if ( M >= N ) {
-                  UPLO = 'U'
+                  UPLO = 'U';
                } else {
-                  UPLO = 'L'
+                  UPLO = 'L';
                }
 
                // Generate Q
 
-               MQ = M
+               MQ = M;
                if (NRHS <= 0) MQ = MNMIN;
                dorgbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from DORGBR.
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUT, FMT = 9998 )'DORGBR(Q)', IINFO, M, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUT, FMT = 9998 )'DORGBR(Q)', IINFO, M, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                // Generate P'
@@ -332,9 +332,9 @@
                // Check error code from DORGBR.
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUT, FMT = 9998 )'DORGBR(P)', IINFO, M, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUT, FMT = 9998 )'DORGBR(P)', IINFO, M, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
@@ -364,13 +364,13 @@
             // Check error code from DBDSQR.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 4 ) = ULPINV
-                  GO TO 270
+                  RESULT( 4 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -385,13 +385,13 @@
             // Check error code from DBDSQR.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 9 ) = ULPINV
-                  GO TO 270
+                  RESULT( 9 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -408,38 +408,38 @@
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
 
-            RESULT( 8 ) = ZERO
+            RESULT( 8 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
             } // 110
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV
+               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
             }
 
             // Test 9:  Compare DBDSQR with and without singular vectors
 
-            TEMP2 = ZERO
+            TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) )
-               TEMP2 = MAX( TEMP1, TEMP2 )
+               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) );
+               TEMP2 = MAX( TEMP1, TEMP2 );
             } // 120
 
-            RESULT( 9 ) = TEMP2
+            RESULT( 9 ) = TEMP2;
 
             // Test 10:  Sturm sequence test of singular values
                       // Go up by factors of two until it succeeds
 
-            TEMP1 = THRESH*( HALF-ULP )
+            TEMP1 = THRESH*( HALF-ULP );
 
             for (J = 0; J <= LOG2UI; J++) { // 130
                 // CALL DSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
                if (IINFO == 0) GO TO 140;
-               TEMP1 = TEMP1*TWO
+               TEMP1 = TEMP1*TWO;
             } // 130
 
             } // 140
-            RESULT( 10 ) = TEMP1
+            RESULT( 10 ) = TEMP1;
 
             // Use DBDSQR to form the decomposition A := (QU) S (VT PT)
             // from the bidiagonal form A := Q B PT.
@@ -474,13 +474,13 @@
             // Check error code from DBDSDC.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSDC(vects)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSDC(vects)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 15 ) = ULPINV
-                  GO TO 270
+                  RESULT( 15 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -495,13 +495,13 @@
             // Check error code from DBDSDC.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSDC(values)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSDC(values)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 18 ) = ULPINV
-                  GO TO 270
+                  RESULT( 18 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -516,24 +516,24 @@
             // Test 18:  Check that the singular values are sorted in
                       // non-increasing order and are non-negative
 
-            RESULT( 18 ) = ZERO
+            RESULT( 18 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 150
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 18 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 18 ) = ULPINV;
             } // 150
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV
+               IF( S1( MNMIN ) < ZERO ) RESULT( 18 ) = ULPINV;
             }
 
             // Test 19:  Compare DBDSQR with and without singular vectors
 
-            TEMP2 = ZERO
+            TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 160
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
-               TEMP2 = MAX( TEMP1, TEMP2 )
+               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP2 = MAX( TEMP1, TEMP2 );
             } // 160
 
-            RESULT( 19 ) = TEMP2
+            RESULT( 19 ) = TEMP2;
 
 
             // Use DBDSVDX to compute the SVD of the bidiagonal matrix B:
@@ -543,16 +543,16 @@
                // =================================
                // Matrix types temporarily disabled
                // =================================
-               RESULT( 20:34 ) = ZERO
-               GO TO 270
+               RESULT( 20:34 ) = ZERO;
+               GO TO 270;
             }
 
-            IWBS = 1
-            IWBD = IWBS + MNMIN
-            IWBE = IWBD + MNMIN
-            IWBZ = IWBE + MNMIN
-            IWWORK = IWBZ + 2*MNMIN*(MNMIN+1)
-            MNMIN2 = MAX( 1,MNMIN*2 )
+            IWBS = 1;
+            IWBD = IWBS + MNMIN;
+            IWBE = IWBD + MNMIN;
+            IWBZ = IWBE + MNMIN;
+            IWWORK = IWBZ + 2*MNMIN*(MNMIN+1);
+            MNMIN2 = MAX( 1,MNMIN*2 );
 
             dcopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
             if (MNMIN > 0) CALL DCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
@@ -562,22 +562,22 @@
             // Check error code from DBDSVDX.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,A)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,A)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 20 ) = ULPINV
-                  GO TO 270
+                  RESULT( 20 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
-            J = IWBZ
+            J = IWBZ;
             for (I = 1; I <= NS1; I++) { // 170
                dcopy(MNMIN, WORK( J ), 1, U( 1,I ), 1 );
-               J = J + MNMIN
+               J = J + MNMIN;
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
-               J = J + MNMIN
+               J = J + MNMIN;
             } // 170
 
             // Use DBDSVDX to compute only the singular values of the
@@ -587,8 +587,8 @@
                // =================================
                // Matrix types temporarily disabled
                // =================================
-               RESULT( 24 ) = ZERO
-               GO TO 270
+               RESULT( 24 ) = ZERO;
+               GO TO 270;
             }
 
             dcopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
@@ -599,13 +599,13 @@
             // Check error code from DBDSVDX.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,A)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,A)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 24 ) = ULPINV
-                  GO TO 270
+                  RESULT( 24 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -624,39 +624,39 @@
             dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 21 ) );
             dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 22) );
 
-            RESULT( 23 ) = ZERO
+            RESULT( 23 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 180
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 23 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 23 ) = ULPINV;
             } // 180
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 23 ) = ULPINV
+               IF( S1( MNMIN ) < ZERO ) RESULT( 23 ) = ULPINV;
             }
 
-            TEMP2 = ZERO
+            TEMP2 = ZERO;
             for (J = 1; J <= MNMIN; J++) { // 190
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
-               TEMP2 = MAX( TEMP1, TEMP2 )
+               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP2 = MAX( TEMP1, TEMP2 );
             } // 190
-            RESULT( 24 ) = TEMP2
-            ANORM = S1( 1 )
+            RESULT( 24 ) = TEMP2;
+            ANORM = S1( 1 );
 
             // Use DBDSVDX with RANGE='I': choose random values for IL and
             // IU, and ask for the IL-th through IU-th singular values
             // and corresponding vectors.
 
             for (I = 1; I <= 4; I++) { // 200
-               ISEED2( I ) = ISEED( I )
+               ISEED2( I ) = ISEED( I );
             } // 200
             if ( MNMIN <= 1 ) {
-               IL = 1
-               IU = MNMIN
+               IL = 1;
+               IU = MNMIN;
             } else {
-               IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) )
-               IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) )
+               IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
+               IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) );
                if ( IU < IL ) {
-                  ITEMP = IU
-                  IU = IL
-                  IL = ITEMP
+                  ITEMP = IU;
+                  IU = IL;
+                  IL = ITEMP;
                }
             }
 
@@ -668,22 +668,22 @@
             // Check error code from DBDSVDX.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,I)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,I)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 25 ) = ULPINV
-                  GO TO 270
+                  RESULT( 25 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
-            J = IWBZ
+            J = IWBZ;
             for (I = 1; I <= NS1; I++) { // 210
                dcopy(MNMIN, WORK( J ), 1, U( 1,I ), 1 );
-               J = J + MNMIN
+               J = J + MNMIN;
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
-               J = J + MNMIN
+               J = J + MNMIN;
             } // 210
 
             // Use DBDSVDX to compute only the singular values of the
@@ -697,13 +697,13 @@
             // Check error code from DBDSVDX.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,I)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,I)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 29 ) = ULPINV
-                  GO TO 270
+                  RESULT( 29 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -718,20 +718,20 @@
             dort01('Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 26 ) );
             dort01('Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 27 ) );
 
-            RESULT( 28 ) = ZERO
+            RESULT( 28 ) = ZERO;
             for (I = 1; I <= NS1 - 1; I++) { // 220
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV;
             } // 220
             if ( NS1 >= 1 ) {
-               IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV
+               IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV;
             }
 
-            TEMP2 = ZERO
+            TEMP2 = ZERO;
             for (J = 1; J <= NS1; J++) { // 230
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
-               TEMP2 = MAX( TEMP1, TEMP2 )
+               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP2 = MAX( TEMP1, TEMP2 );
             } // 230
-            RESULT( 29 ) = TEMP2
+            RESULT( 29 ) = TEMP2;
 
             // Use DBDSVDX with RANGE='V': determine the values VL and VU
             // of the IL-th and IU-th singular values and ask for all
@@ -741,21 +741,21 @@
 
             if ( MNMIN > 0 ) {
                if ( IL != 1 ) {
-                  VU = S1( IL ) + MAX( HALF*ABS( S1( IL )-S1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
+                  VU = S1( IL ) + MAX( HALF*ABS( S1( IL )-S1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL );
                } else {
-                  VU = S1( 1 ) + MAX( HALF*ABS( S1( MNMIN )-S1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
+                  VU = S1( 1 ) + MAX( HALF*ABS( S1( MNMIN )-S1( 1 ) ), ULP*ANORM, TWO*RTUNFL );
                }
                if ( IU != NS1 ) {
-                  VL = S1( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( IU+1 )-S1( IU ) ) )
+                  VL = S1( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( IU+1 )-S1( IU ) ) );
                } else {
-                  VL = S1( NS1 ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( MNMIN )-S1( 1 ) ) )
+                  VL = S1( NS1 ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( MNMIN )-S1( 1 ) ) );
                }
-               VL = MAX( VL,ZERO )
-               VU = MAX( VU,ZERO )
+               VL = MAX( VL,ZERO );
+               VU = MAX( VU,ZERO );
                if (VL >= VU) VU = MAX( VU*2, VU+VL+HALF );
             } else {
-               VL = ZERO
-               VU = ONE
+               VL = ZERO;
+               VU = ONE;
             }
 
             dcopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
@@ -766,22 +766,22 @@
             // Check error code from DBDSVDX.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,V)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSVDX(vects,V)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 30 ) = ULPINV
-                  GO TO 270
+                  RESULT( 30 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
-            J = IWBZ
+            J = IWBZ;
             for (I = 1; I <= NS1; I++) { // 240
                dcopy(MNMIN, WORK( J ), 1, U( 1,I ), 1 );
-               J = J + MNMIN
+               J = J + MNMIN;
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
-               J = J + MNMIN
+               J = J + MNMIN;
             } // 240
 
             // Use DBDSVDX to compute only the singular values of the
@@ -795,13 +795,13 @@
             // Check error code from DBDSVDX.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,V)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'DBDSVDX(values,V)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 34 ) = ULPINV
-                  GO TO 270
+                  RESULT( 34 ) = ULPINV;
+                  GO TO 270;
                }
             }
 
@@ -816,20 +816,20 @@
             dort01('Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 31 ) );
             dort01('Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 32 ) );
 
-            RESULT( 33 ) = ZERO
+            RESULT( 33 ) = ZERO;
             for (I = 1; I <= NS1 - 1; I++) { // 250
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 28 ) = ULPINV;
             } // 250
             if ( NS1 >= 1 ) {
-               IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV
+               IF( S1( NS1 ) < ZERO ) RESULT( 28 ) = ULPINV;
             }
 
-            TEMP2 = ZERO
+            TEMP2 = ZERO;
             for (J = 1; J <= NS1; J++) { // 260
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
-               TEMP2 = MAX( TEMP1, TEMP2 )
+               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) );
+               TEMP2 = MAX( TEMP1, TEMP2 );
             } // 260
-            RESULT( 34 ) = TEMP2
+            RESULT( 34 ) = TEMP2;
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -838,13 +838,13 @@
             for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ) >= THRESH ) {
                   if (NFAIL == 0) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
-                  NFAIL = NFAIL + 1
+                  NFAIL = NFAIL + 1;
                }
             } // 280
             if ( !BIDIAG ) {
-               NTEST = NTEST + 34
+               NTEST = NTEST + 34;
             } else {
-               NTEST = NTEST + 30
+               NTEST = NTEST + 30;
             }
 
          } // 290
@@ -854,11 +854,11 @@
 
       alasum(PATH, NOUT, NFAIL, NTEST, 0 );
 
-      RETURN
+      RETURN;
 
       // End of DCHKBD
 
- 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 )
- 9998 FORMAT( ' DCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 );
+ 9998 FORMAT( ' DCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
       }

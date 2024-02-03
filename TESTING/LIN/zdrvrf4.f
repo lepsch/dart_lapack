@@ -1,4 +1,4 @@
-      SUBROUTINE ZDRVRF4( NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A, LDA, D_WORK_ZLANGE )
+      SUBROUTINE ZDRVRF4( NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A, LDA, D_WORK_ZLANGE );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       double             D_WORK_ZLANGE( * );
-      COMPLEX*16         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * )
+      COMPLEX*16         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
       // ..
 
 *  =====================================================================
@@ -34,7 +34,7 @@
       // ..
       // .. External Functions ..
       double             DLAMCH, DLARND, ZLANGE;
-      COMPLEX*16         ZLARND
+      COMPLEX*16         ZLARND;
       // EXTERNAL DLAMCH, DLARND, ZLANGE, ZLARND
       // ..
       // .. External Subroutines ..
@@ -50,57 +50,57 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS  / 'U', 'L' /
-      DATA               FORMS  / 'N', 'C' /
-      DATA               TRANSS / 'N', 'C' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS  / 'U', 'L' /;
+      DATA               FORMS  / 'N', 'C' /;
+      DATA               TRANSS / 'N', 'C' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0
-      NFAIL = 0
-      INFO = 0
+      NRUN = 0;
+      NFAIL = 0;
+      INFO = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
-      EPS = DLAMCH( 'Precision' )
+      EPS = DLAMCH( 'Precision' );
 
       for (IIN = 1; IIN <= NN; IIN++) { // 150
 
-         N = NVAL( IIN )
+         N = NVAL( IIN );
 
          for (IIK = 1; IIK <= NN; IIK++) { // 140
 
-            K = NVAL( IIN )
+            K = NVAL( IIN );
 
             for (IFORM = 1; IFORM <= 2; IFORM++) { // 130
 
-               CFORM = FORMS( IFORM )
+               CFORM = FORMS( IFORM );
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
 
-                  UPLO = UPLOS( IUPLO )
+                  UPLO = UPLOS( IUPLO );
 
                   for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 110
 
-                     TRANS = TRANSS( ITRANS )
+                     TRANS = TRANSS( ITRANS );
 
                      for (IALPHA = 1; IALPHA <= 4; IALPHA++) { // 100
 
                         if ( IALPHA == 1) {
-                           ALPHA = ZERO
-                           BETA = ZERO
+                           ALPHA = ZERO;
+                           BETA = ZERO;
                         } else if ( IALPHA == 2) {
-                           ALPHA = ONE
-                           BETA = ZERO
+                           ALPHA = ONE;
+                           BETA = ZERO;
                         } else if ( IALPHA == 3) {
-                           ALPHA = ZERO
-                           BETA = ONE
+                           ALPHA = ZERO;
+                           BETA = ONE;
                         } else {
-                           ALPHA = DLARND( 2, ISEED )
-                           BETA = DLARND( 2, ISEED )
+                           ALPHA = DLARND( 2, ISEED );
+                           BETA = DLARND( 2, ISEED );
                         }
 
                         // All the parameters are set:
@@ -108,7 +108,7 @@
                            // ALPHA, and BETA
                         // READY TO TEST!
 
-                        NRUN = NRUN + 1
+                        NRUN = NRUN + 1;
 
                         if ( ITRANS == 1 ) {
 
@@ -116,11 +116,11 @@
 
                            for (J = 1; J <= K; J++) {
                               for (I = 1; I <= N; I++) {
-                                 A( I, J) = ZLARND( 4, ISEED )
+                                 A( I, J) = ZLARND( 4, ISEED );
                               }
                            }
 
-                           NORMA = ZLANGE( 'I', N, K, A, LDA, D_WORK_ZLANGE )
+                           NORMA = ZLANGE( 'I', N, K, A, LDA, D_WORK_ZLANGE );
 
                         } else {
 
@@ -128,11 +128,11 @@
 
                            for (J = 1; J <= N; J++) {
                               for (I = 1; I <= K; I++) {
-                                 A( I, J) = ZLARND( 4, ISEED )
+                                 A( I, J) = ZLARND( 4, ISEED );
                               }
                            }
 
-                           NORMA = ZLANGE( 'I', K, N, A, LDA, D_WORK_ZLANGE )
+                           NORMA = ZLANGE( 'I', K, N, A, LDA, D_WORK_ZLANGE );
 
                         }
 
@@ -144,39 +144,39 @@
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1( I, J) = ZLARND( 4, ISEED )
-                              C2(I,J) = C1(I,J)
+                              C1( I, J) = ZLARND( 4, ISEED );
+                              C2(I,J) = C1(I,J);
                            }
                         }
 
                         // (See comment later on for why we use ZLANGE and
                         // not ZLANHE for C1.)
 
-                        NORMC = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )
+                        NORMC = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE );
 
-                        SRNAMT = 'ZTRTTF'
+                        SRNAMT = 'ZTRTTF';
                         ztrttf(CFORM, UPLO, N, C1, LDC, CRF, INFO );
 
                         // call zherk the BLAS routine -> gives C1
 
-                        SRNAMT = 'ZHERK '
+                        SRNAMT = 'ZHERK ';
                         zherk(UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC );
 
                         // call zhfrk the RFP routine -> gives CRF
 
-                        SRNAMT = 'ZHFRK '
+                        SRNAMT = 'ZHFRK ';
                         zhfrk(CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF );
 
                         // convert CRF in full format -> gives C2
 
-                        SRNAMT = 'ZTFTTR'
+                        SRNAMT = 'ZTFTTR';
                         ztfttr(CFORM, UPLO, N, CRF, C2, LDC, INFO );
 
                         // compare C1 and C2
 
                         for (J = 1; J <= N; J++) {
                            for (I = 1; I <= N; I++) {
-                              C1(I,J) = C1(I,J)-C2(I,J)
+                              C1(I,J) = C1(I,J)-C2(I,J);
                            }
                         }
 
@@ -185,15 +185,15 @@
                         // supposed to be unchanged and the diagonal that
                         // is supposed to be real -> ZLANGE
 
-                        RESULT(1) = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )                         RESULT(1) = RESULT(1) / MAX( DABS( ALPHA ) * NORMA * NORMA + DABS( BETA ) * NORMC, ONE ) / MAX( N , 1 ) / EPS
+                        RESULT(1) = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )                         RESULT(1) = RESULT(1) / MAX( DABS( ALPHA ) * NORMA * NORMA + DABS( BETA ) * NORMC, ONE ) / MAX( N , 1 ) / EPS;
 
                         if ( RESULT(1) >= THRESH ) {
                            if ( NFAIL == 0 ) {
-                              WRITE( NOUT, * )
-                              WRITE( NOUT, FMT = 9999 )
+                              WRITE( NOUT, * );
+                              WRITE( NOUT, FMT = 9999 );
                            }
-                           WRITE( NOUT, FMT = 9997 ) 'ZHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1)
-                           NFAIL = NFAIL + 1
+                           WRITE( NOUT, FMT = 9997 ) 'ZHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1);
+                           NFAIL = NFAIL + 1;
                         }
 
                      } // 100
@@ -206,17 +206,17 @@
       // Print a summary of the results.
 
       if ( NFAIL == 0 ) {
-         WRITE( NOUT, FMT = 9996 ) 'ZHFRK', NRUN
+         WRITE( NOUT, FMT = 9996 ) 'ZHFRK', NRUN;
       } else {
-         WRITE( NOUT, FMT = 9995 ) 'ZHFRK', NFAIL, NRUN
+         WRITE( NOUT, FMT = 9995 ) 'ZHFRK', NFAIL, NRUN;
       }
 
- 9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing ZHFRK ***')
- 9997 FORMAT( 1X, '     Failure in ',A5,', CFORM=''',A1,''',', ' UPLO=''',A1,''',',' TRANS=''',A1,''',', ' N=',I3,', K =', I3, ', test=',G12.5)
- 9996 FORMAT( 1X, 'All tests for ',A5,' auxiliary routine passed the ', 'threshold ( ',I6,' tests run)')
- 9995 FORMAT( 1X, A6, ' auxiliary routine: ',I6,' out of ',I6, ' tests failed to pass the threshold')
+ 9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing ZHFRK ***');
+ 9997 FORMAT( 1X, '     Failure in ',A5,', CFORM=''',A1,''',', ' UPLO=''',A1,''',',' TRANS=''',A1,''',', ' N=',I3,', K =', I3, ', test=',G12.5);
+ 9996 FORMAT( 1X, 'All tests for ',A5,' auxiliary routine passed the ', 'threshold ( ',I6,' tests run)');
+ 9995 FORMAT( 1X, A6, ' auxiliary routine: ',I6,' out of ',I6, ' tests failed to pass the threshold');
 
-      RETURN
+      RETURN;
 
       // End of ZDRVRF4
 

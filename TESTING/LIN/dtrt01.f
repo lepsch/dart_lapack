@@ -1,4 +1,4 @@
-      SUBROUTINE DTRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND, WORK, RESID )
+      SUBROUTINE DTRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,28 +39,28 @@
       // Quick exit if N = 0
 
       if ( N <= 0 ) {
-         RCOND = ONE
-         RESID = ZERO
-         RETURN
+         RCOND = ONE;
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = DLANTR( '1', UPLO, DIAG, N, N, A, LDA, WORK )
-      AINVNM = DLANTR( '1', UPLO, DIAG, N, N, AINV, LDAINV, WORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = DLANTR( '1', UPLO, DIAG, N, N, A, LDA, WORK );
+      AINVNM = DLANTR( '1', UPLO, DIAG, N, N, AINV, LDAINV, WORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO
-         RESID = ONE / EPS
-         RETURN
+         RCOND = ZERO;
+         RESID = ONE / EPS;
+         RETURN;
       }
-      RCOND = ( ONE / ANORM ) / AINVNM
+      RCOND = ( ONE / ANORM ) / AINVNM;
 
       // Set the diagonal of AINV to 1 if AINV has unit diagonal.
 
       if ( LSAME( DIAG, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            AINV( J, J ) = ONE
+            AINV( J, J ) = ONE;
          } // 10
       }
 
@@ -79,16 +79,16 @@
       // Subtract 1 from each diagonal element to form A*AINV - I.
 
       for (J = 1; J <= N; J++) { // 40
-         AINV( J, J ) = AINV( J, J ) - ONE
+         AINV( J, J ) = AINV( J, J ) - ONE;
       } // 40
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = DLANTR( '1', UPLO, 'Non-unit', N, N, AINV, LDAINV, WORK )
+      RESID = DLANTR( '1', UPLO, 'Non-unit', N, N, AINV, LDAINV, WORK );
 
-      RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS
+      RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of DTRT01
 

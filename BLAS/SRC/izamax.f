@@ -8,7 +8,7 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*)
+      COMPLEX*16 ZX(*);
       // ..
 
 *  =====================================================================
@@ -21,37 +21,37 @@
       double           DCABS1;
       // EXTERNAL DCABS1
       // ..
-      IZAMAX = 0
+      IZAMAX = 0;
       if (N < 1 || INCX <= 0) RETURN;
-      IZAMAX = 1
+      IZAMAX = 1;
       if (N == 1) RETURN;
       if (INCX == 1) {
 
          // code for increment equal to 1
 
-         DMAX = DCABS1(ZX(1))
+         DMAX = DCABS1(ZX(1));
          for (I = 2; I <= N; I++) {
             if (DCABS1(ZX(I)) > DMAX) {
-               IZAMAX = I
-               DMAX = DCABS1(ZX(I))
+               IZAMAX = I;
+               DMAX = DCABS1(ZX(I));
             }
          }
       } else {
 
          // code for increment not equal to 1
 
-         IX = 1
-         DMAX = DCABS1(ZX(1))
-         IX = IX + INCX
+         IX = 1;
+         DMAX = DCABS1(ZX(1));
+         IX = IX + INCX;
          for (I = 2; I <= N; I++) {
             if (DCABS1(ZX(IX)) > DMAX) {
-               IZAMAX = I
-               DMAX = DCABS1(ZX(IX))
+               IZAMAX = I;
+               DMAX = DCABS1(ZX(IX));
             }
-            IX = IX + INCX
+            IX = IX + INCX;
          }
       }
-      RETURN
+      RETURN;
 
       // End of IZAMAX
 

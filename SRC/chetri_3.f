@@ -1,4 +1,4 @@
-      SUBROUTINE CHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
+      SUBROUTINE CHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), E( * ), WORK( * )
+      COMPLEX            A( LDA, * ), E( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -22,7 +22,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -35,35 +35,35 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
 
       // Determine the block size
 
       if ( N == 0 ) {
-         LWKOPT = 1
+         LWKOPT = 1;
       } else {
-         NB = MAX( 1, ILAENV( 1, 'CHETRI_3', UPLO, N, -1, -1, -1 ) )
-         LWKOPT = ( N+NB+1 ) * ( NB+3 )
+         NB = MAX( 1, ILAENV( 1, 'CHETRI_3', UPLO, N, -1, -1, -1 ) );
+         LWKOPT = ( N+NB+1 ) * ( NB+3 );
       }
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < LWKOPT && !LQUERY ) {
-         INFO = -8
+         INFO = -8;
       }
 
       if ( INFO != 0 ) {
          xerbla('CHETRI_3', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -72,9 +72,9 @@
 
       chetri_3x(UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN
+      RETURN;
 
       // End of CHETRI_3
 

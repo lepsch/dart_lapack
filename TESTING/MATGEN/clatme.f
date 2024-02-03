@@ -1,4 +1,4 @@
-      SUBROUTINE CLATME( N, DIST, ISEED, D, MODE, COND, DMAX, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, A, LDA, WORK, INFO )
+      SUBROUTINE CLATME( N, DIST, ISEED, D, MODE, COND, DMAX, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, A, LDA, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,40 +7,40 @@
       // .. Scalar Arguments ..
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
-      REAL               ANORM, COND, CONDS
-      COMPLEX            DMAX
+      REAL               ANORM, COND, CONDS;
+      COMPLEX            DMAX;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               DS( * )
-      COMPLEX            A( LDA, * ), D( * ), WORK( * )
+      REAL               DS( * );
+      COMPLEX            A( LDA, * ), D( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
-      COMPLEX            CZERO
+      COMPLEX            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR;
-      REAL               RALPHA, TEMP
-      COMPLEX            ALPHA, TAU, XNORMS
+      REAL               RALPHA, TEMP;
+      COMPLEX            ALPHA, TAU, XNORMS;
       // ..
       // .. Local Arrays ..
-      REAL               TEMPA( 1 )
+      REAL               TEMPA( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGE
-      COMPLEX            CLARND
+      REAL               CLANGE;
+      COMPLEX            CLARND;
       // EXTERNAL LSAME, CLANGE, CLARND
       // ..
       // .. External Subroutines ..
@@ -54,7 +54,7 @@
       // 1)      Decode and Test the input parameters.
               // Initialize flags & seed.
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
@@ -63,45 +63,45 @@
       // Decode DIST
 
       if ( LSAME( DIST, 'U' ) ) {
-         IDIST = 1
+         IDIST = 1;
       } else if ( LSAME( DIST, 'S' ) ) {
-         IDIST = 2
+         IDIST = 2;
       } else if ( LSAME( DIST, 'N' ) ) {
-         IDIST = 3
+         IDIST = 3;
       } else if ( LSAME( DIST, 'D' ) ) {
-         IDIST = 4
+         IDIST = 4;
       } else {
-         IDIST = -1
+         IDIST = -1;
       }
 
       // Decode RSIGN
 
       if ( LSAME( RSIGN, 'T' ) ) {
-         IRSIGN = 1
+         IRSIGN = 1;
       } else if ( LSAME( RSIGN, 'F' ) ) {
-         IRSIGN = 0
+         IRSIGN = 0;
       } else {
-         IRSIGN = -1
+         IRSIGN = -1;
       }
 
       // Decode UPPER
 
       if ( LSAME( UPPER, 'T' ) ) {
-         IUPPER = 1
+         IUPPER = 1;
       } else if ( LSAME( UPPER, 'F' ) ) {
-         IUPPER = 0
+         IUPPER = 0;
       } else {
-         IUPPER = -1
+         IUPPER = -1;
       }
 
       // Decode SIM
 
       if ( LSAME( SIM, 'T' ) ) {
-         ISIM = 1
+         ISIM = 1;
       } else if ( LSAME( SIM, 'F' ) ) {
-         ISIM = 0
+         ISIM = 0;
       } else {
-         ISIM = -1
+         ISIM = -1;
       }
 
       // Check DS, if MODES=0 and ISIM=1
@@ -116,45 +116,45 @@
       // Set INFO if an error
 
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IDIST == -1 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ABS( MODE ) > 6 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
-         INFO = -6
+         INFO = -6;
       } else if ( IRSIGN == -1 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( IUPPER == -1 ) {
-         INFO = -10
+         INFO = -10;
       } else if ( ISIM == -1 ) {
-         INFO = -11
+         INFO = -11;
       } else if ( BADS ) {
-         INFO = -12
+         INFO = -12;
       } else if ( ISIM == 1 && ABS( MODES ) > 5 ) {
-         INFO = -13
+         INFO = -13;
       } else if ( ISIM == 1 && MODES != 0 && CONDS < ONE ) {
-         INFO = -14
+         INFO = -14;
       } else if ( KL < 1 ) {
-         INFO = -15
+         INFO = -15;
       } else if ( KU < 1 || ( KU < N-1 && KL < N-1 ) ) {
-         INFO = -16
+         INFO = -16;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -19
+         INFO = -19;
       }
 
       if ( INFO != 0 ) {
          xerbla('CLATME', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
+         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
       } // 20
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up diagonal of A
 
@@ -162,23 +162,23 @@
 
       clatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO != 0 ) {
-         INFO = 1
-         RETURN
+         INFO = 1;
+         RETURN;
       }
       if ( MODE != 0 && ABS( MODE ) != 6 ) {
 
          // Scale by DMAX
 
-         TEMP = ABS( D( 1 ) )
+         TEMP = ABS( D( 1 ) );
          for (I = 2; I <= N; I++) { // 30
-            TEMP = MAX( TEMP, ABS( D( I ) ) )
+            TEMP = MAX( TEMP, ABS( D( I ) ) );
          } // 30
 
          if ( TEMP > ZERO ) {
-            ALPHA = DMAX / TEMP
+            ALPHA = DMAX / TEMP;
          } else {
-            INFO = 2
-            RETURN
+            INFO = 2;
+            RETURN;
          }
 
          cscal(N, ALPHA, D, 1 );
@@ -210,16 +210,16 @@
 
          slatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO != 0 ) {
-            INFO = 3
-            RETURN
+            INFO = 3;
+            RETURN;
          }
 
          // Multiply by V and V'
 
          clarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO != 0 ) {
-            INFO = 4
-            RETURN
+            INFO = 4;
+            RETURN;
          }
 
          // Multiply by S and (1/S)
@@ -229,8 +229,8 @@
             if ( DS( J ) != ZERO ) {
                csscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
-               INFO = 5
-               RETURN
+               INFO = 5;
+               RETURN;
             }
          } // 50
 
@@ -238,8 +238,8 @@
 
          clarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO != 0 ) {
-            INFO = 4
-            RETURN
+            INFO = 4;
+            RETURN;
          }
       }
 
@@ -250,16 +250,16 @@
          // Reduce bandwidth -- kill column
 
          for (JCR = KL + 1; JCR <= N - 1; JCR++) { // 60
-            IC = JCR - KL
-            IROWS = N + 1 - JCR
-            ICOLS = N + KL - JCR
+            IC = JCR - KL;
+            IROWS = N + 1 - JCR;
+            ICOLS = N + KL - JCR;
 
             ccopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
-            XNORMS = WORK( 1 )
+            XNORMS = WORK( 1 );
             clarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
-            TAU = CONJG( TAU )
-            WORK( 1 ) = CONE
-            ALPHA = CLARND( 5, ISEED )
+            TAU = CONJG( TAU );
+            WORK( 1 ) = CONE;
+            ALPHA = CLARND( 5, ISEED );
 
             cgemv('C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 );
             cgerc(IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
@@ -267,7 +267,7 @@
             cgemv('N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 );
             cgerc(N, IROWS, -CONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
-            A( JCR, IC ) = XNORMS
+            A( JCR, IC ) = XNORMS;
             claset('Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA );
 
             cscal(ICOLS+1, ALPHA, A( JCR, IC ), LDA );
@@ -278,17 +278,17 @@
          // Reduce upper bandwidth -- kill a row at a time.
 
          for (JCR = KU + 1; JCR <= N - 1; JCR++) { // 70
-            IR = JCR - KU
-            IROWS = N + KU - JCR
-            ICOLS = N + 1 - JCR
+            IR = JCR - KU;
+            IROWS = N + KU - JCR;
+            ICOLS = N + 1 - JCR;
 
             ccopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
-            XNORMS = WORK( 1 )
+            XNORMS = WORK( 1 );
             clarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
-            TAU = CONJG( TAU )
-            WORK( 1 ) = CONE
+            TAU = CONJG( TAU );
+            WORK( 1 ) = CONE;
             clacgv(ICOLS-1, WORK( 2 ), 1 );
-            ALPHA = CLARND( 5, ISEED )
+            ALPHA = CLARND( 5, ISEED );
 
             cgemv('N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 );
             cgerc(IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
@@ -296,7 +296,7 @@
             cgemv('C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 );
             cgerc(ICOLS, N, -CONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
-            A( IR, JCR ) = XNORMS
+            A( IR, JCR ) = XNORMS;
             claset('Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA );
 
             cscal(IROWS+1, ALPHA, A( IR, JCR ), 1 );
@@ -307,16 +307,16 @@
       // Scale the matrix to have norm ANORM
 
       if ( ANORM >= ZERO ) {
-         TEMP = CLANGE( 'M', N, N, A, LDA, TEMPA )
+         TEMP = CLANGE( 'M', N, N, A, LDA, TEMPA );
          if ( TEMP > ZERO ) {
-            RALPHA = ANORM / TEMP
+            RALPHA = ANORM / TEMP;
             for (J = 1; J <= N; J++) { // 80
                csscal(N, RALPHA, A( 1, J ), 1 );
             } // 80
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of CLATME
 

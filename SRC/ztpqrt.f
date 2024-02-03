@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO )
+      SUBROUTINE ZTPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int     INFO, LDA, LDB, LDT, N, M, L, NB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
+      COMPLEX*16 A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * );
       // ..
 
 * =====================================================================
@@ -24,41 +24,41 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( L < 0 || (L > MIN(M,N) && MIN(M,N) >= 0)) {
-         INFO = -3
+         INFO = -3;
       } else if ( NB < 1 || (NB > N && N > 0)) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, M ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDT < NB ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('ZTPQRT', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M == 0 || N == 0) RETURN;
 
-      DO I = 1, N, NB
+      DO I = 1, N, NB;
 
       // Compute the QR factorization of the current block
 
-         IB = MIN( N-I+1, NB )
-         MB = MIN( M-L+I+IB-1, M )
+         IB = MIN( N-I+1, NB );
+         MB = MIN( M-L+I+IB-1, M );
          if ( I >= L ) {
-            LB = 0
+            LB = 0;
          } else {
-            LB = MB-M+L-I+1
+            LB = MB-M+L-I+1;
          }
 
          ztpqrt2(MB, IB, LB, A(I,I), LDA, B( 1, I ), LDB, T(1, I ), LDT, IINFO );
@@ -69,7 +69,7 @@
             ztprfb('L', 'C', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB );
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZTPQRT
 

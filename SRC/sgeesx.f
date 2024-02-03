@@ -1,4 +1,4 @@
-      SUBROUTINE SGEESX( JOBVS, SORT, SELECT, SENSE, N, A, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, INFO )
+      SUBROUTINE SGEESX( JOBVS, SORT, SELECT, SENSE, N, A, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       String             JOBVS, SENSE, SORT;
       int                INFO, LDA, LDVS, LIWORK, LWORK, N, SDIM;
-      REAL               RCONDE, RCONDV
+      REAL               RCONDE, RCONDV;
       // ..
       // .. Array Arguments ..
       bool               BWORK( * );
       int                IWORK( * );
-      REAL               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * )
+      REAL               A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * );
       // ..
       // .. Function Arguments ..
       bool               SELECT;
@@ -22,16 +22,16 @@
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS;
       int                HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, LWRK, LIWRK, MAXWRK, MINWRK;
-      REAL               ANRM, BIGNUM, CSCALE, EPS, SMLNUM
+      REAL               ANRM, BIGNUM, CSCALE, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 )
+      REAL               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLASCL, SORGHR, SSWAP, STRSEN, XERBLA
@@ -39,7 +39,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
@@ -49,27 +49,27 @@
 
       // Test the input arguments
 
-      INFO = 0
-      WANTVS = LSAME( JOBVS, 'V' )
-      WANTST = LSAME( SORT, 'S' )
-      WANTSN = LSAME( SENSE, 'N' )
-      WANTSE = LSAME( SENSE, 'E' )
-      WANTSV = LSAME( SENSE, 'V' )
-      WANTSB = LSAME( SENSE, 'B' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      INFO = 0;
+      WANTVS = LSAME( JOBVS, 'V' );
+      WANTST = LSAME( SORT, 'S' );
+      WANTSN = LSAME( SENSE, 'N' );
+      WANTSE = LSAME( SENSE, 'E' );
+      WANTSV = LSAME( SENSE, 'V' );
+      WANTSB = LSAME( SENSE, 'B' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
       if ( ( !WANTVS ) && ( !LSAME( JOBVS, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( WANTSN || WANTSE || WANTSV || WANTSB ) || ( !WANTST && !WANTSN ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
-         INFO = -12
+         INFO = -12;
       }
 
       // Compute workspace
@@ -87,82 +87,82 @@
         // in the code.)
 
       if ( INFO == 0 ) {
-         LIWRK = 1
+         LIWRK = 1;
          if ( N == 0 ) {
-            MINWRK = 1
-            LWRK = 1
+            MINWRK = 1;
+            LWRK = 1;
          } else {
-            MAXWRK = 2*N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 )
-            MINWRK = 3*N
+            MAXWRK = 2*N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 );
+            MINWRK = 3*N;
 
             shseqr('S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL );
-            HSWORK = INT( WORK( 1 ) )
+            HSWORK = INT( WORK( 1 ) );
 
             if ( !WANTVS ) {
-               MAXWRK = MAX( MAXWRK, N + HSWORK )
+               MAXWRK = MAX( MAXWRK, N + HSWORK );
             } else {
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )
-               MAXWRK = MAX( MAXWRK, N + HSWORK )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = MAX( MAXWRK, N + HSWORK );
             }
-            LWRK = MAXWRK
+            LWRK = MAXWRK;
             if ( !WANTSN) LWRK = MAX( LWRK, N + ( N*N )/2 )             IF( WANTSV || WANTSB ) LIWRK = ( N*N )/4;
          }
-         IWORK( 1 ) = LIWRK
-         WORK( 1 ) = SROUNDUP_LWORK(LWRK)
+         IWORK( 1 ) = LIWRK;
+         WORK( 1 ) = SROUNDUP_LWORK(LWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -16
+            INFO = -16;
          } else if ( LIWORK < 1 && !LQUERY ) {
-            INFO = -18
+            INFO = -18;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('SGEESX', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         SDIM = 0
-         RETURN
+         SDIM = 0;
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SQRT( SMLNUM ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SQRT( SMLNUM ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = SLANGE( 'M', N, N, A, LDA, DUM )
+      ANRM = SLANGE( 'M', N, N, A, LDA, DUM );
       SCALEA = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
-         CSCALE = SMLNUM
+         CSCALE = SMLNUM;
       } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
-         CSCALE = BIGNUM
+         CSCALE = BIGNUM;
       }
       if (SCALEA) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (RWorkspace: need N)
 
-      IBAL = 1
+      IBAL = 1;
       sgebal('P', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR );
 
       // Reduce to upper Hessenberg form
       // (RWorkspace: need 3*N, prefer 2*N+N*NB)
 
-      ITAU = N + IBAL
-      IWRK = N + ITAU
+      ITAU = N + IBAL;
+      IWRK = N + ITAU;
       sgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVS ) {
@@ -177,13 +177,13 @@
          sorghr(N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
       }
 
-      SDIM = 0
+      SDIM = 0;
 
       // Perform QR iteration, accumulating Schur vectors in VS if desired
       // (RWorkspace: need N+1, prefer N+HSWORK (see comments) )
 
-      IWRK = ITAU
-      CALL SHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL
+      IWRK = ITAU;
+      CALL SHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL;
 
       // Sort eigenvalues if desired
 
@@ -193,7 +193,7 @@
             slascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
          }
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELECT( WR( I ), WI( I ) )
+            BWORK( I ) = SELECT( WR( I ), WI( I ) );
          } // 10
 
          // Reorder eigenvalues, transform Schur vectors, and compute
@@ -209,17 +209,17 @@
 
             // Not enough real workspace
 
-            INFO = -16
+            INFO = -16;
          } else if ( ICOND == -17 ) {
 
             // Not enough integer workspace
 
-            INFO = -18
+            INFO = -18;
          } else if ( ICOND > 0 ) {
 
             // STRSEN failed to reorder or to restore standard Schur form
 
-            INFO = ICOND + N
+            INFO = ICOND + N;
          }
       }
 
@@ -238,9 +238,9 @@
          slascl('H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          scopy(N, A, LDA+1, WR, 1 );
          if ( ( WANTSV || WANTSB ) && INFO == 0 ) {
-            DUM( 1 ) = RCONDV
+            DUM( 1 ) = RCONDV;
             slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
-            RCONDV = DUM( 1 )
+            RCONDV = DUM( 1 );
          }
          if ( CSCALE == SMLNUM ) {
 
@@ -249,36 +249,36 @@
             // underflows.
 
             if ( IEVAL > 0 ) {
-               I1 = IEVAL + 1
-               I2 = IHI - 1
+               I1 = IEVAL + 1;
+               I2 = IHI - 1;
                slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
             } else if ( WANTST ) {
-               I1 = 1
-               I2 = N - 1
+               I1 = 1;
+               I2 = N - 1;
             } else {
-               I1 = ILO
-               I2 = IHI - 1
+               I1 = ILO;
+               I2 = IHI - 1;
             }
-            INXT = I1 - 1
+            INXT = I1 - 1;
             for (I = I1; I <= I2; I++) { // 20
                if (I < INXT) GO TO 20;
                if ( WI( I ) == ZERO ) {
-                  INXT = I + 1
+                  INXT = I + 1;
                } else {
                   if ( A( I+1, I ) == ZERO ) {
-                     WI( I ) = ZERO
-                     WI( I+1 ) = ZERO
+                     WI( I ) = ZERO;
+                     WI( I+1 ) = ZERO;
                   } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
-                     WI( I ) = ZERO
-                     WI( I+1 ) = ZERO
+                     WI( I ) = ZERO;
+                     WI( I+1 ) = ZERO;
                      if (I > 1) CALL SSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N > I+1 ) CALL SSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                        sswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }
-                     A( I, I+1 ) = A( I+1, I )
-                     A( I+1, I ) = ZERO
+                     A( I, I+1 ) = A( I+1, I );
+                     A( I+1, I ) = ZERO;
                   }
-                  INXT = I + 2
+                  INXT = I + 2;
                }
             } // 20
          }
@@ -291,44 +291,44 @@
 
          LASTSL = true;
          LST2SL = true;
-         SDIM = 0
-         IP = 0
+         SDIM = 0;
+         IP = 0;
          for (I = 1; I <= N; I++) { // 30
-            CURSL = SELECT( WR( I ), WI( I ) )
+            CURSL = SELECT( WR( I ), WI( I ) );
             if ( WI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
-               IP = 0
+               IP = 0;
                if (CURSL && !LASTSL) INFO = N + 2;
             } else {
                if ( IP == 1 ) {
 
                   // Last eigenvalue of conjugate pair
 
-                  CURSL = CURSL || LASTSL
-                  LASTSL = CURSL
+                  CURSL = CURSL || LASTSL;
+                  LASTSL = CURSL;
                   if (CURSL) SDIM = SDIM + 2;
-                  IP = -1
+                  IP = -1;
                   if (CURSL && !LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair
 
-                  IP = 1
+                  IP = 1;
                }
             }
-            LST2SL = LASTSL
-            LASTSL = CURSL
+            LST2SL = LASTSL;
+            LASTSL = CURSL;
          } // 30
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
+      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
       if ( WANTSV || WANTSB ) {
-         IWORK( 1 ) = SDIM*(N-SDIM)
+         IWORK( 1 ) = SDIM*(N-SDIM);
       } else {
-         IWORK( 1 ) = 1
+         IWORK( 1 ) = 1;
       }
 
-      RETURN
+      RETURN;
 
       // End of SGEESX
 

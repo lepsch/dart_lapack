@@ -1,4 +1,4 @@
-      SUBROUTINE CGEBRD( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, LWORK, INFO )
+      SUBROUTINE CGEBRD( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +8,14 @@
       int                INFO, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * )
-      COMPLEX            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * )
+      REAL               D( * ), E( * );
+      COMPLEX            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -30,81 +30,81 @@
       // ..
       // .. External Functions ..
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
-      INFO = 0
-      MINMN = MIN( M, N )
+      INFO = 0;
+      MINMN = MIN( M, N );
       if ( MINMN == 0 ) {
-         LWKMIN = 1
-         LWKOPT = 1
+         LWKMIN = 1;
+         LWKOPT = 1;
       } else {
-         LWKMIN = MAX( M, N )
-         NB = MAX( 1, ILAENV( 1, 'CGEBRD', ' ', M, N, -1, -1 ) )
-         LWKOPT = ( M+N )*NB
+         LWKMIN = MAX( M, N );
+         NB = MAX( 1, ILAENV( 1, 'CGEBRD', ' ', M, N, -1, -1 ) );
+         LWKOPT = ( M+N )*NB;
       }
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-      LQUERY = ( LWORK == -1 )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO < 0 ) {
          xerbla('CGEBRD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
-      WS = MAX( M, N )
-      LDWRKX = M
-      LDWRKY = N
+      WS = MAX( M, N );
+      LDWRKX = M;
+      LDWRKY = N;
 
       if ( NB > 1 && NB < MINMN ) {
 
          // Set the crossover point NX.
 
-         NX = MAX( NB, ILAENV( 3, 'CGEBRD', ' ', M, N, -1, -1 ) )
+         NX = MAX( NB, ILAENV( 3, 'CGEBRD', ' ', M, N, -1, -1 ) );
 
          // Determine when to switch from blocked to unblocked code.
 
          if ( NX < MINMN ) {
-            WS = LWKOPT
+            WS = LWKOPT;
             if ( LWORK < WS ) {
 
                // Not enough work space for the optimal NB, consider using
                // a smaller block size.
 
-               NBMIN = ILAENV( 2, 'CGEBRD', ' ', M, N, -1, -1 )
+               NBMIN = ILAENV( 2, 'CGEBRD', ' ', M, N, -1, -1 );
                if ( LWORK >= ( M+N )*NBMIN ) {
-                  NB = LWORK / ( M+N )
+                  NB = LWORK / ( M+N );
                } else {
-                  NB = 1
-                  NX = MINMN
+                  NB = 1;
+                  NX = MINMN;
                }
             }
          }
       } else {
-         NX = MINMN
+         NX = MINMN;
       }
 
-      DO 30 I = 1, MINMN - NX, NB
+      DO 30 I = 1, MINMN - NX, NB;
 
          // Reduce rows and columns i:i+ib-1 to bidiagonal form and return
          // the matrices X and Y which are needed to update the unreduced
@@ -122,13 +122,13 @@
 
          if ( M >= N ) {
             for (J = I; J <= I + NB - 1; J++) { // 10
-               A( J, J ) = D( J )
-               A( J, J+1 ) = E( J )
+               A( J, J ) = D( J );
+               A( J, J+1 ) = E( J );
             } // 10
          } else {
             for (J = I; J <= I + NB - 1; J++) { // 20
-               A( J, J ) = D( J )
-               A( J+1, J ) = E( J )
+               A( J, J ) = D( J );
+               A( J+1, J ) = E( J );
             } // 20
          }
       } // 30
@@ -136,8 +136,8 @@
       // Use unblocked code to reduce the remainder of the matrix
 
       cgebd2(M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, IINFO );
-      WORK( 1 ) = SROUNDUP_LWORK( WS )
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK( WS );
+      RETURN;
 
       // End of CGEBRD
 

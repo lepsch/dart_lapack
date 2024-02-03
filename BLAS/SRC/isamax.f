@@ -8,49 +8,49 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*)
+      REAL SX(*);
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
-      REAL SMAX
+      REAL SMAX;
       int     I,IX;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
       // ..
-      ISAMAX = 0
+      ISAMAX = 0;
       if (N < 1 || INCX <= 0) RETURN;
-      ISAMAX = 1
+      ISAMAX = 1;
       if (N == 1) RETURN;
       if (INCX == 1) {
 
          // code for increment equal to 1
 
-         SMAX = ABS(SX(1))
+         SMAX = ABS(SX(1));
          for (I = 2; I <= N; I++) {
             if (ABS(SX(I)) > SMAX) {
-               ISAMAX = I
-               SMAX = ABS(SX(I))
+               ISAMAX = I;
+               SMAX = ABS(SX(I));
             }
          }
       } else {
 
          // code for increment not equal to 1
 
-         IX = 1
-         SMAX = ABS(SX(1))
-         IX = IX + INCX
+         IX = 1;
+         SMAX = ABS(SX(1));
+         IX = IX + INCX;
          for (I = 2; I <= N; I++) {
             if (ABS(SX(IX)) > SMAX) {
-               ISAMAX = I
-               SMAX = ABS(SX(IX))
+               ISAMAX = I;
+               SMAX = ABS(SX(IX));
             }
-            IX = IX + INCX
+            IX = IX + INCX;
          }
       }
-      RETURN
+      RETURN;
 
       // End of ISAMAX
 

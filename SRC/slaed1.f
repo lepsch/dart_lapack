@@ -1,4 +1,4 @@
-      SUBROUTINE SLAED1( N, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK, IWORK, INFO )
+      SUBROUTINE SLAED1( N, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                CUTPNT, INFO, LDQ, N;
-      REAL               RHO
+      REAL               RHO;
       // ..
       // .. Array Arguments ..
       int                INDXQ( * ), IWORK( * );
-      REAL               D( * ), Q( LDQ, * ), WORK( * )
+      REAL               D( * ), Q( LDQ, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -28,18 +28,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
 
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( LDQ < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( MIN( 1, N / 2 ) > CUTPNT || ( N / 2 ) < CUTPNT ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('SLAED1', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -50,22 +50,22 @@
       // the portion of the workspace
       // used by a particular array in SLAED2 and SLAED3.
 
-      IZ = 1
-      IDLMDA = IZ + N
-      IW = IDLMDA + N
-      IQ2 = IW + N
+      IZ = 1;
+      IDLMDA = IZ + N;
+      IW = IDLMDA + N;
+      IQ2 = IW + N;
 
-      INDX = 1
-      INDXC = INDX + N
-      COLTYP = INDXC + N
-      INDXP = COLTYP + N
+      INDX = 1;
+      INDXC = INDX + N;
+      COLTYP = INDXC + N;
+      INDXP = COLTYP + N;
 
 
       // Form the z-vector which consists of the last row of Q_1 and the
       // first row of Q_2.
 
       scopy(CUTPNT, Q( CUTPNT, 1 ), LDQ, WORK( IZ ), 1 );
-      CPP1 = CUTPNT + 1
+      CPP1 = CUTPNT + 1;
       scopy(N-CUTPNT, Q( CPP1, CPP1 ), LDQ, WORK( IZ+CUTPNT ), 1 );
 
       // Deflate eigenvalues.
@@ -83,17 +83,17 @@
 
       // Prepare the INDXQ sorting permutation.
 
-         N1 = K
-         N2 = N - K
+         N1 = K;
+         N2 = N - K;
          slamrg(N1, N2, D, 1, -1, INDXQ );
       } else {
          for (I = 1; I <= N; I++) { // 10
-            INDXQ( I ) = I
+            INDXQ( I ) = I;
          } // 10
       }
 
       } // 20
-      RETURN
+      RETURN;
 
       // End of SLAED1
 

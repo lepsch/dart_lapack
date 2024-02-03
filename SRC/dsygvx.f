@@ -1,4 +1,4 @@
-      SUBROUTINE DSYGVX( ITYPE, JOBZ, RANGE, UPLO, N, A, LDA, B, LDB, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSYGVX( ITYPE, JOBZ, RANGE, UPLO, N, A, LDA, B, LDB, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,76 +40,76 @@
 
       // Test the input parameters.
 
-      UPPER = LSAME( UPLO, 'U' )
-      WANTZ = LSAME( JOBZ, 'V' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
-      LQUERY = ( LWORK == -1 )
+      UPPER = LSAME( UPLO, 'U' );
+      WANTZ = LSAME( JOBZ, 'V' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
-               INFO = -12
+               INFO = -12;
             } else if ( IU < MIN( N, IL ) || IU > N ) {
-               INFO = -13
+               INFO = -13;
             }
          }
       }
       if (INFO == 0) {
          if (LDZ < 1 || (WANTZ && LDZ < N)) {
-            INFO = -18
+            INFO = -18;
          }
       }
 
       if ( INFO == 0 ) {
-         LWKMIN = MAX( 1, 8*N )
-         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 )
-         LWKOPT = MAX( LWKMIN, ( NB + 3 )*N )
-         WORK( 1 ) = LWKOPT
+         LWKMIN = MAX( 1, 8*N );
+         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
+         LWKOPT = MAX( LWKMIN, ( NB + 3 )*N );
+         WORK( 1 ) = LWKOPT;
 
          if ( LWORK < LWKMIN && !LQUERY ) {
-            INFO = -20
+            INFO = -20;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DSYGVX', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if ( N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Form a Cholesky factorization of B.
 
       dpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -128,9 +128,9 @@
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
 
             if ( UPPER ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'T'
+               TRANS = 'T';
             }
 
             dtrsm('Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ );
@@ -141,9 +141,9 @@
             // backtransform eigenvectors: x = L*y or U**T*y
 
             if ( UPPER ) {
-               TRANS = 'T'
+               TRANS = 'T';
             } else {
-               TRANS = 'N'
+               TRANS = 'N';
             }
 
             dtrmm('Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ );
@@ -152,9 +152,9 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of DSYGVX
 

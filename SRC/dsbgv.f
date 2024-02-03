@@ -1,4 +1,4 @@
-      SUBROUTINE DSBGV( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, INFO )
+      SUBROUTINE DSBGV( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,30 +30,30 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KA < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KB < 0 || KB > KA ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < KA+1 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDBB < KB+1 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -12
+         INFO = -12;
       }
       if ( INFO != 0 ) {
          xerbla('DSBGV', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -64,22 +64,22 @@
 
       dpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem.
 
-      INDE = 1
-      INDWRK = INDE + N
+      INDE = 1;
+      INDWRK = INDE + N;
       dsbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK( INDWRK ), IINFO );
 
       // Reduce to tridiagonal form.
 
       if ( WANTZ ) {
-         VECT = 'U'
+         VECT = 'U';
       } else {
-         VECT = 'N'
+         VECT = 'N';
       }
       dsbtrd(VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO );
 
@@ -90,7 +90,7 @@
       } else {
          dsteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO );
       }
-      RETURN
+      RETURN;
 
       // End of DSBGV
 

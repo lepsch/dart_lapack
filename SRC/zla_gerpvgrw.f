@@ -8,7 +8,7 @@
       int                N, NCOLS, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * );
       // ..
 
 *  =====================================================================
@@ -16,7 +16,7 @@
       // .. Local Scalars ..
       int                I, J;
       double             AMAX, UMAX, RPVGRW;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN, ABS, REAL, DIMAG
@@ -25,7 +25,7 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
@@ -35,16 +35,16 @@
          AMAX = 0.0;
          UMAX = 0.0;
          for (I = 1; I <= N; I++) {
-            AMAX = MAX( CABS1( A( I, J ) ), AMAX )
+            AMAX = MAX( CABS1( A( I, J ) ), AMAX );
          }
          for (I = 1; I <= J; I++) {
-            UMAX = MAX( CABS1( AF( I, J ) ), UMAX )
+            UMAX = MAX( CABS1( AF( I, J ) ), UMAX );
          }
          if ( UMAX /= 0.0 ) {
-            RPVGRW = MIN( AMAX / UMAX, RPVGRW )
+            RPVGRW = MIN( AMAX / UMAX, RPVGRW );
          }
       }
-      ZLA_GERPVGRW = RPVGRW
+      ZLA_GERPVGRW = RPVGRW;
 
       // End of ZLA_GERPVGRW
 

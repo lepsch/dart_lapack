@@ -26,22 +26,22 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
       if ( RCOND > ZERO ) {
          if ( RCONDC > ZERO ) {
-            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS )
+            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS );
          } else {
-            RAT = RCOND / EPS
+            RAT = RCOND / EPS;
          }
       } else {
          if ( RCONDC > ZERO ) {
-            RAT = RCONDC / EPS
+            RAT = RCONDC / EPS;
          } else {
-            RAT = ZERO
+            RAT = ZERO;
          }
       }
-      DGET06 = RAT
-      RETURN
+      DGET06 = RAT;
+      RETURN;
 
       // End of DGET06
 

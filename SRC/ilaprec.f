@@ -20,17 +20,17 @@
       // ..
       // .. Executable Statements ..
       if ( LSAME( PREC, 'S' ) ) {
-         ILAPREC = BLAS_PREC_SINGLE
+         ILAPREC = BLAS_PREC_SINGLE;
       } else if ( LSAME( PREC, 'D' ) ) {
-         ILAPREC = BLAS_PREC_DOUBLE
+         ILAPREC = BLAS_PREC_DOUBLE;
       } else if ( LSAME( PREC, 'I' ) ) {
-         ILAPREC = BLAS_PREC_INDIGENOUS
+         ILAPREC = BLAS_PREC_INDIGENOUS;
       } else if ( LSAME( PREC, 'X' ) || LSAME( PREC, 'E' ) ) {
-         ILAPREC = BLAS_PREC_EXTRA
+         ILAPREC = BLAS_PREC_EXTRA;
       } else {
-         ILAPREC = -1
+         ILAPREC = -1;
       }
-      RETURN
+      RETURN;
 
       // End of ILAPREC
 

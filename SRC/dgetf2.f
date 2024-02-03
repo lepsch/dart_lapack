@@ -1,4 +1,4 @@
-      SUBROUTINE DGETF2( M, N, A, LDA, IPIV, INFO )
+      SUBROUTINE DGETF2( M, N, A, LDA, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,17 +37,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DGETF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -56,14 +56,14 @@
 
       // Compute machine safe minimum
 
-      SFMIN = DLAMCH('S')
+      SFMIN = DLAMCH('S');
 
-      DO 10 J = 1, MIN( M, N )
+      DO 10 J = 1, MIN( M, N );
 
          // Find pivot and test for singularity.
 
-         JP = J - 1 + IDAMAX( M-J+1, A( J, J ), 1 )
-         IPIV( J ) = JP
+         JP = J - 1 + IDAMAX( M-J+1, A( J, J ), 1 );
+         IPIV( J ) = JP;
          if ( A( JP, J ) != ZERO ) {
 
             // Apply the interchange to columns 1:N.
@@ -77,14 +77,14 @@
                   dscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
                  for (I = 1; I <= M-J; I++) { // 20
-                    A( J+I, J ) = A( J+I, J ) / A( J, J )
+                    A( J+I, J ) = A( J+I, J ) / A( J, J );
                  } // 20
                }
             }
 
          } else if ( INFO == 0 ) {
 
-            INFO = J
+            INFO = J;
          }
 
          if ( J < MIN( M, N ) ) {
@@ -94,7 +94,7 @@
             dger(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
       } // 10
-      RETURN
+      RETURN;
 
       // End of DGETF2
 

@@ -1,39 +1,39 @@
-      SUBROUTINE SLATRS3( UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE SLATRS3( UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO );
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             DIAG, TRANS, NORMIN, UPLO;
       int                INFO, LDA, LWORK, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * )
+      REAL               A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                NBMAX, NBMIN, NBRHS, NRHSMIN;
       const              NRHSMIN = 2, NBRHS = 32 ;
       const              NBMIN = 8, NBMAX = 64 ;
       // ..
       // .. Local Arrays ..
-      REAL               W( NBMAX ), XNRM( NBRHS )
+      REAL               W( NBMAX ), XNRM( NBRHS );
       // ..
       // .. Local Scalars ..
       bool               LQUERY, NOTRAN, NOUNIT, UPPER;
       int                AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN;
-      REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX
+      REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH, SLANGE, SLARMM
+      REAL               SLAMCH, SLANGE, SLARMM;
       // EXTERNAL ILAENV, LSAME, SLAMCH, SLANGE, SLARMM
       // ..
       // .. External Subroutines ..
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL SLATRS, SSCAL, SROUNDUP_LWORK, XERBLA
       // ..
       // .. Intrinsic Functions ..
@@ -41,18 +41,18 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      NOTRAN = LSAME( TRANS, 'N' )
-      NOUNIT = LSAME( DIAG, 'N' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      NOTRAN = LSAME( TRANS, 'N' );
+      NOUNIT = LSAME( DIAG, 'N' );
+      LQUERY = ( LWORK == -1 );
 
       // Partition A and X into blocks.
 
-      NB = MAX( 8, ILAENV( 1, 'SLATRS', '', N, N, -1, -1 ) )
-      NB = MIN( NBMAX, NB )
-      NBA = MAX( 1, (N + NB - 1) / NB )
-      NBX = MAX( 1, (NRHS + NBRHS - 1) / NBRHS )
+      NB = MAX( 8, ILAENV( 1, 'SLATRS', '', N, N, -1, -1 ) );
+      NB = MIN( NBMAX, NB );
+      NBA = MAX( 1, (N + NB - 1) / NB );
+      NBX = MAX( 1, (NRHS + NBRHS - 1) / NBRHS );
 
       // Compute the workspace
 
@@ -63,66 +63,66 @@
       // segment associated with the I-th block row and the KK-th vector
       // in the block column.
 
-      LSCALE = NBA * MAX( NBA, MIN( NRHS, NBRHS ) )
-      LDS = NBA
+      LSCALE = NBA * MAX( NBA, MIN( NRHS, NBRHS ) );
+      LDS = NBA;
 
       // The second part stores upper bounds of the triangular A. There are
       // a total of NBA x NBA blocks, of which only the upper triangular
       // part or the lower triangular part is referenced. The upper bound of
       // the block A( I, J ) is stored as WORK( AWRK + I + J * NBA ).
 
-      LANRM = NBA * NBA
-      AWRK = LSCALE
+      LANRM = NBA * NBA;
+      AWRK = LSCALE;
 
       if ( MIN( N, NRHS ) == 0 ) {
-         LWMIN = 1
+         LWMIN = 1;
       } else {
-         LWMIN = LSCALE + LANRM
+         LWMIN = LSCALE + LANRM;
       }
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
+      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
 
       // Test the input parameters.
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( !LSAME( NORMIN, 'Y' ) && !LSAME( NORMIN, 'N' ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( NRHS < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( !LQUERY && LWORK < LWMIN ) {
-         INFO = -14
+         INFO = -14;
       }
       if ( INFO != 0 ) {
          xerbla('SLATRS3', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Initialize scaling factors
 
       for (KK = 1; KK <= NRHS; KK++) {
-         SCALE( KK ) = ONE
+         SCALE( KK ) = ONE;
       }
 
       // Quick return if possible
 
-      IF( MIN( N, NRHS ) == 0 ) RETURN
+      IF( MIN( N, NRHS ) == 0 ) RETURN;
 
       // Determine machine dependent constant to control overflow.
 
-      BIGNUM = SLAMCH( 'Overflow' )
-      SMLNUM = SLAMCH( 'Safe Minimum' )
+      BIGNUM = SLAMCH( 'Overflow' );
+      SMLNUM = SLAMCH( 'Safe Minimum' );
 
       // Use unblocked code for small problems
 
@@ -131,37 +131,37 @@
          for (K = 2; K <= NRHS; K++) {
             slatrs(UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          }
-         RETURN
+         RETURN;
       }
 
       // Compute norms of blocks of A excluding diagonal blocks and find
       // the block with the largest norm TMAX.
 
-      TMAX = ZERO
+      TMAX = ZERO;
       for (J = 1; J <= NBA; J++) {
-         J1 = (J-1)*NB + 1
-         J2 = MIN( J*NB, N ) + 1
+         J1 = (J-1)*NB + 1;
+         J2 = MIN( J*NB, N ) + 1;
          if ( UPPER ) {
-            IFIRST = 1
-            ILAST = J - 1
+            IFIRST = 1;
+            ILAST = J - 1;
          } else {
-            IFIRST = J + 1
-            ILAST = NBA
+            IFIRST = J + 1;
+            ILAST = NBA;
          }
          for (I = IFIRST; I <= ILAST; I++) {
-            I1 = (I-1)*NB + 1
-            I2 = MIN( I*NB, N ) + 1
+            I1 = (I-1)*NB + 1;
+            I2 = MIN( I*NB, N ) + 1;
 
             // Compute upper bound of A( I1:I2-1, J1:J2-1 ).
 
             if ( NOTRAN ) {
-               ANRM = SLANGE( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W )
-               WORK( AWRK + I+(J-1)*NBA ) = ANRM
+               ANRM = SLANGE( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
+               WORK( AWRK + I+(J-1)*NBA ) = ANRM;
             } else {
-               ANRM = SLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W )
-               WORK( AWRK + J+(I-1)*NBA ) = ANRM
+               ANRM = SLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W );
+               WORK( AWRK + J+(I-1)*NBA ) = ANRM;
             }
-            TMAX = MAX( TMAX, ANRM )
+            TMAX = MAX( TMAX, ANRM );
          }
       }
 
@@ -177,7 +177,7 @@
          for (K = 1; K <= NRHS; K++) {
             slatrs(UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO );
          }
-         RETURN
+         RETURN;
       }
 
       // Every right-hand side requires workspace to store NBA local scale
@@ -190,14 +190,14 @@
          // K1: column index of the first column in X( J, K )
          // K2: column index of the first column in X( J, K+1 )
          // so the K2 - K1 is the column count of the block X( J, K )
-         K1 = (K-1)*NBRHS + 1
-         K2 = MIN( K*NBRHS, NRHS ) + 1
+         K1 = (K-1)*NBRHS + 1;
+         K2 = MIN( K*NBRHS, NRHS ) + 1;
 
          // Initialize local scaling factors of current block column X( J, K )
 
          for (KK = 1; KK <= K2 - K1; KK++) {
             for (I = 1; I <= NBA; I++) {
-               WORK( I+KK*LDS ) = ONE
+               WORK( I+KK*LDS ) = ONE;
             }
          }
 
@@ -206,42 +206,42 @@
             // Solve A * X(:, K1:K2-1) = B * diag(scale(K1:K2-1))
 
             if ( UPPER ) {
-               JFIRST = NBA
-               JLAST = 1
-               JINC = -1
+               JFIRST = NBA;
+               JLAST = 1;
+               JINC = -1;
             } else {
-               JFIRST = 1
-               JLAST = NBA
-               JINC = 1
+               JFIRST = 1;
+               JLAST = NBA;
+               JINC = 1;
             }
          } else {
 
             // Solve A**T * X(:, K1:K2-1) = B * diag(scale(K1:K2-1))
 
             if ( UPPER ) {
-               JFIRST = 1
-               JLAST = NBA
-               JINC = 1
+               JFIRST = 1;
+               JLAST = NBA;
+               JINC = 1;
             } else {
-               JFIRST = NBA
-               JLAST = 1
-               JINC = -1
+               JFIRST = NBA;
+               JLAST = 1;
+               JINC = -1;
             }
          }
 
-         DO J = JFIRST, JLAST, JINC
+         DO J = JFIRST, JLAST, JINC;
             // J1: row index of the first row in A( J, J )
             // J2: row index of the first row in A( J+1, J+1 )
             // so that J2 - J1 is the row count of the block A( J, J )
-            J1 = (J-1)*NB + 1
-            J2 = MIN( J*NB, N ) + 1
+            J1 = (J-1)*NB + 1;
+            J2 = MIN( J*NB, N ) + 1;
 
             // Solve op(A( J, J )) * X( J, RHS ) = SCALOC * B( J, RHS )
             // for all right-hand sides in the current block column,
             // one RHS at a time.
 
             for (KK = 1; KK <= K2-K1; KK++) {
-               RHS = K1 + KK - 1
+               RHS = K1 + KK - 1;
                if ( KK == 1 ) {
                   slatrs(UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO );
                } else {
@@ -250,25 +250,25 @@
                // Find largest absolute value entry in the vector segment
                // X( J1:J2-1, RHS ) as an upper bound for the worst case
                // growth in the linear updates.
-               XNRM( KK ) = SLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W )
+               XNRM( KK ) = SLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W );
 
                if ( SCALOC == ZERO ) {
                   // LATRS found that A is singular through A(j,j) = 0.
                   // Reset the computation x(1:n) = 0, x(j) = 1, SCALE = 0
                   // and compute A*x = 0 (or A**T*x = 0). Note that
                   // X(J1:J2-1, KK) is set by LATRS.
-                  SCALE( RHS ) = ZERO
+                  SCALE( RHS ) = ZERO;
                   for (II = 1; II <= J1-1; II++) {
-                     X( II, KK ) = ZERO
+                     X( II, KK ) = ZERO;
                   }
                   for (II = J2; II <= N; II++) {
-                     X( II, KK ) = ZERO
+                     X( II, KK ) = ZERO;
                   }
                   // Discard the local scale factors.
                   for (II = 1; II <= NBA; II++) {
-                     WORK( II+KK*LDS ) = ONE
+                     WORK( II+KK*LDS ) = ONE;
                   }
-                  SCALOC = ONE
+                  SCALOC = ONE;
                } else if ( SCALOC*WORK( J+KK*LDS ) == ZERO ) {
                   // LATRS computed a valid scale factor, but combined with
                   // the current scaling the solution does not have a
@@ -276,68 +276,68 @@
 
                   // Set WORK( J+KK*LDS ) to smallest valid scale
                   // factor and increase SCALOC accordingly.
-                  SCAL = WORK( J+KK*LDS ) / SMLNUM
-                  SCALOC = SCALOC * SCAL
-                  WORK( J+KK*LDS ) = SMLNUM
+                  SCAL = WORK( J+KK*LDS ) / SMLNUM;
+                  SCALOC = SCALOC * SCAL;
+                  WORK( J+KK*LDS ) = SMLNUM;
                   // If LATRS overestimated the growth, x may be
                   // rescaled to preserve a valid combined scale
                   // factor WORK( J, KK ) > 0.
-                  RSCAL = ONE / SCALOC
+                  RSCAL = ONE / SCALOC;
                   if ( XNRM( KK )*RSCAL <= BIGNUM ) {
-                     XNRM( KK ) = XNRM( KK ) * RSCAL
+                     XNRM( KK ) = XNRM( KK ) * RSCAL;
                      sscal(J2-J1, RSCAL, X( J1, RHS ), 1 );
-                     SCALOC = ONE
+                     SCALOC = ONE;
                   } else {
                      // The system op(A) * x = b is badly scaled and its
                      // solution cannot be represented as (1/scale) * x.
                      // Set x to zero. This approach deviates from LATRS
                      // where a completely meaningless non-zero vector
                      // is returned that is not a solution to op(A) * x = b.
-                     SCALE( RHS ) = ZERO
+                     SCALE( RHS ) = ZERO;
                      for (II = 1; II <= N; II++) {
-                        X( II, KK ) = ZERO
+                        X( II, KK ) = ZERO;
                      }
                      // Discard the local scale factors.
                      for (II = 1; II <= NBA; II++) {
-                        WORK( II+KK*LDS ) = ONE
+                        WORK( II+KK*LDS ) = ONE;
                      }
-                     SCALOC = ONE
+                     SCALOC = ONE;
                   }
                }
-               SCALOC = SCALOC * WORK( J+KK*LDS )
-               WORK( J+KK*LDS ) = SCALOC
+               SCALOC = SCALOC * WORK( J+KK*LDS );
+               WORK( J+KK*LDS ) = SCALOC;
             }
 
             // Linear block updates
 
             if ( NOTRAN ) {
                if ( UPPER ) {
-                  IFIRST = J - 1
-                  ILAST = 1
-                  IINC = -1
+                  IFIRST = J - 1;
+                  ILAST = 1;
+                  IINC = -1;
                } else {
-                  IFIRST = J + 1
-                  ILAST = NBA
-                  IINC = 1
+                  IFIRST = J + 1;
+                  ILAST = NBA;
+                  IINC = 1;
                }
             } else {
                if ( UPPER ) {
-                  IFIRST = J + 1
-                  ILAST = NBA
-                  IINC = 1
+                  IFIRST = J + 1;
+                  ILAST = NBA;
+                  IINC = 1;
                } else {
-                  IFIRST = J - 1
-                  ILAST = 1
-                  IINC = -1
+                  IFIRST = J - 1;
+                  ILAST = 1;
+                  IINC = -1;
                }
             }
 
-            DO I = IFIRST, ILAST, IINC
+            DO I = IFIRST, ILAST, IINC;
                // I1: row index of the first column in X( I, K )
                // I2: row index of the first column in X( I+1, K )
                // so the I2 - I1 is the row count of the block X( I, K )
-               I1 = (I-1)*NB + 1
-               I2 = MIN( I*NB, N ) + 1
+               I1 = (I-1)*NB + 1;
+               I2 = MIN( I*NB, N ) + 1;
 
                // Prepare the linear update to be executed with GEMM.
                // For each column, compute a consistent scaling, a
@@ -346,32 +346,32 @@
                // the linear update is safely executed.
 
                for (KK = 1; KK <= K2-K1; KK++) {
-                  RHS = K1 + KK - 1
+                  RHS = K1 + KK - 1;
                   // Compute consistent scaling
-                  SCAMIN = MIN( WORK( I+KK*LDS), WORK( J+KK*LDS ) )
+                  SCAMIN = MIN( WORK( I+KK*LDS), WORK( J+KK*LDS ) );
 
                   // Compute scaling factor to survive the linear update
                   // simulating consistent scaling.
 
-                  BNRM = SLANGE( 'I', I2-I1, 1, X( I1, RHS ), LDX, W )
-                  BNRM = BNRM*( SCAMIN / WORK( I+KK*LDS ) )
-                  XNRM( KK ) = XNRM( KK )*(SCAMIN / WORK( J+KK*LDS ))
-                  ANRM = WORK( AWRK + I+(J-1)*NBA )
-                  SCALOC = SLARMM( ANRM, XNRM( KK ), BNRM )
+                  BNRM = SLANGE( 'I', I2-I1, 1, X( I1, RHS ), LDX, W );
+                  BNRM = BNRM*( SCAMIN / WORK( I+KK*LDS ) );
+                  XNRM( KK ) = XNRM( KK )*(SCAMIN / WORK( J+KK*LDS ));
+                  ANRM = WORK( AWRK + I+(J-1)*NBA );
+                  SCALOC = SLARMM( ANRM, XNRM( KK ), BNRM );
 
                   // Simultaneously apply the robust update factor and the
                   // consistency scaling factor to B( I, KK ) and B( J, KK ).
 
-                  SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC
+                  SCAL = ( SCAMIN / WORK( I+KK*LDS) )*SCALOC;
                   if ( SCAL != ONE ) {
                      sscal(I2-I1, SCAL, X( I1, RHS ), 1 );
-                     WORK( I+KK*LDS ) = SCAMIN*SCALOC
+                     WORK( I+KK*LDS ) = SCAMIN*SCALOC;
                   }
 
-                  SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC
+                  SCAL = ( SCAMIN / WORK( J+KK*LDS ) )*SCALOC;
                   if ( SCAL != ONE ) {
                      sscal(J2-J1, SCAL, X( J1, RHS ), 1 );
-                     WORK( J+KK*LDS ) = SCAMIN*SCALOC
+                     WORK( J+KK*LDS ) = SCAMIN*SCALOC;
                   }
                }
 
@@ -392,29 +392,29 @@
          // Reduce local scaling factors
 
          for (KK = 1; KK <= K2-K1; KK++) {
-            RHS = K1 + KK - 1
+            RHS = K1 + KK - 1;
             for (I = 1; I <= NBA; I++) {
-               SCALE( RHS ) = MIN( SCALE( RHS ), WORK( I+KK*LDS ) )
+               SCALE( RHS ) = MIN( SCALE( RHS ), WORK( I+KK*LDS ) );
             }
          }
 
          // Realize consistent scaling
 
          for (KK = 1; KK <= K2-K1; KK++) {
-            RHS = K1 + KK - 1
+            RHS = K1 + KK - 1;
             if ( SCALE( RHS ) != ONE && SCALE( RHS ) != ZERO ) {
                for (I = 1; I <= NBA; I++) {
-                  I1 = (I-1)*NB + 1
-                  I2 = MIN( I*NB, N ) + 1
-                  SCAL = SCALE( RHS ) / WORK( I+KK*LDS )
+                  I1 = (I-1)*NB + 1;
+                  I2 = MIN( I*NB, N ) + 1;
+                  SCAL = SCALE( RHS ) / WORK( I+KK*LDS );
                   if (SCAL != ONE) CALL SSCAL( I2-I1, SCAL, X( I1, RHS ), 1 );
                }
             }
          }
       }
-      RETURN
+      RETURN;
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
+      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
 
       // End of SLATRS3
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
+      SUBROUTINE CTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,31 +7,31 @@
       // .. Scalar Arguments ..
       String             TRANA, TRANB;
       int                INFO, ISGN, LDA, LDB, LDC, M, N;
-      REAL               SCALE
+      REAL               SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB;
       int                J, K, L;
-      REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM
-      COMPLEX            A11, SUML, SUMR, VEC, X11
+      REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
+      COMPLEX            A11, SUML, SUMR, VEC, X11;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 )
+      REAL               DUM( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGE, SLAMCH
-      COMPLEX            CDOTC, CDOTU, CLADIV
+      REAL               CLANGE, SLAMCH;
+      COMPLEX            CDOTC, CDOTU, CLADIV;
       // EXTERNAL LSAME, CLANGE, SLAMCH, CDOTC, CDOTU, CLADIV
       // ..
       // .. External Subroutines ..
@@ -44,46 +44,46 @@
 
       // Decode and Test input parameters
 
-      NOTRNA = LSAME( TRANA, 'N' )
-      NOTRNB = LSAME( TRANB, 'N' )
+      NOTRNA = LSAME( TRANA, 'N' );
+      NOTRNB = LSAME( TRANB, 'N' );
 
-      INFO = 0
+      INFO = 0;
       if ( !NOTRNA && !LSAME( TRANA, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRNB && !LSAME( TRANB, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ISGN != 1 && ISGN != -1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDC < MAX( 1, M ) ) {
-         INFO = -11
+         INFO = -11;
       }
       if ( INFO != 0 ) {
          xerbla('CTRSYL', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      SCALE = ONE
+      SCALE = ONE;
       if (M == 0 || N == 0) RETURN;
 
       // Set constants to control overflow
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SMLNUM*REAL( M*N ) / EPS
-      BIGNUM = ONE / SMLNUM
-      SMIN = MAX( SMLNUM, EPS*CLANGE( 'M', M, M, A, LDA, DUM ), EPS*CLANGE( 'M', N, N, B, LDB, DUM ) )
-      SGN = ISGN
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SMLNUM*REAL( M*N ) / EPS;
+      BIGNUM = ONE / SMLNUM;
+      SMIN = MAX( SMLNUM, EPS*CLANGE( 'M', M, M, A, LDA, DUM ), EPS*CLANGE( 'M', N, N, B, LDB, DUM ) );
+      SGN = ISGN;
 
       if ( NOTRNA && NOTRNB ) {
 
@@ -100,33 +100,33 @@
                    // I=K+1                      J=1
 
          for (L = 1; L <= N; L++) { // 30
-            DO 20 K = M, 1, -1
+            DO 20 K = M, 1, -1;
 
-               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )
-               SUMR = CDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 )
-               VEC = C( K, L ) - ( SUML+SGN*SUMR )
+               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 );
+               SUMR = CDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
+               VEC = C( K, L ) - ( SUML+SGN*SUMR );
 
-               SCALOC = ONE
-               A11 = A( K, K ) + SGN*B( L, L )
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = A( K, K ) + SGN*B( L, L );
+               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
+               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
-               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
+               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 10
                      csscal(M, SCALOC, C( 1, J ), 1 );
                   } // 10
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 20
          } // 30
@@ -148,32 +148,32 @@
          for (L = 1; L <= N; L++) { // 60
             for (K = 1; K <= M; K++) { // 50
 
-               SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
-               SUMR = CDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 )
-               VEC = C( K, L ) - ( SUML+SGN*SUMR )
+               SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
+               SUMR = CDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
+               VEC = C( K, L ) - ( SUML+SGN*SUMR );
 
-               SCALOC = ONE
-               A11 = CONJG( A( K, K ) ) + SGN*B( L, L )
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = CONJG( A( K, K ) ) + SGN*B( L, L );
+               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
+               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
-               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
+               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 40
                      csscal(M, SCALOC, C( 1, J ), 1 );
                   } // 40
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 50
          } // 60
@@ -195,35 +195,35 @@
                       // ISGN*SUM [X(K,J)*B**H(L,J)].
                            // J=L+1
 
-         DO 90 L = N, 1, -1
+         DO 90 L = N, 1, -1;
             for (K = 1; K <= M; K++) { // 80
 
-               SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
-               SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
-               VEC = C( K, L ) - ( SUML+SGN*CONJG( SUMR ) )
+               SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
+               SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB );
+               VEC = C( K, L ) - ( SUML+SGN*CONJG( SUMR ) );
 
-               SCALOC = ONE
-               A11 = CONJG( A( K, K )+SGN*B( L, L ) )
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = CONJG( A( K, K )+SGN*B( L, L ) );
+               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
+               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
-               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
+               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 70
                      csscal(M, SCALOC, C( 1, J ), 1 );
                   } // 70
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 80
          } // 90
@@ -242,41 +242,41 @@
            // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
                    // I=K+1                      J=L+1
 
-         DO 120 L = N, 1, -1
-            DO 110 K = M, 1, -1
+         DO 120 L = N, 1, -1;
+            DO 110 K = M, 1, -1;
 
-               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )                SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
-               VEC = C( K, L ) - ( SUML+SGN*CONJG( SUMR ) )
+               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )                SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB );
+               VEC = C( K, L ) - ( SUML+SGN*CONJG( SUMR ) );
 
-               SCALOC = ONE
-               A11 = A( K, K ) + SGN*CONJG( B( L, L ) )
-               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = A( K, K ) + SGN*CONJG( B( L, L ) );
+               DA11 = ABS( REAL( A11 ) ) + ABS( AIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
+               DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
-               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
+               X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 100
                      csscal(M, SCALOC, C( 1, J ), 1 );
                   } // 100
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 110
          } // 120
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CTRSYL
 

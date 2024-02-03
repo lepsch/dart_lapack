@@ -1,4 +1,4 @@
-      SUBROUTINE XERBLA_ARRAY(SRNAME_ARRAY, SRNAME_LEN, INFO)
+      SUBROUTINE XERBLA_ARRAY(SRNAME_ARRAY, SRNAME_LEN, INFO);
 
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -27,14 +27,14 @@
       // EXTERNAL XERBLA
       // ..
       // .. Executable Statements ..
-      SRNAME = ' '
-      DO I = 1, MIN( SRNAME_LEN, LEN( SRNAME ) )
-         SRNAME( I:I ) = SRNAME_ARRAY( I )
+      SRNAME = ' ';
+      DO I = 1, MIN( SRNAME_LEN, LEN( SRNAME ) );
+         SRNAME( I:I ) = SRNAME_ARRAY( I );
       }
 
       xerbla(SRNAME, INFO );
 
-      RETURN
+      RETURN;
 
       // End of XERBLA_ARRAY
 

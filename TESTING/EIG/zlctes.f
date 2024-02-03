@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         D, Z
+      COMPLEX*16         D, Z;
       // ..
 
 *  =====================================================================
@@ -14,7 +14,7 @@
 
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO
+      COMPLEX*16         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,19 +26,19 @@
       // .. Executable Statements ..
 
       if ( D == CZERO ) {
-         ZLCTES = ( DBLE( Z ) < ZERO )
+         ZLCTES = ( DBLE( Z ) < ZERO );
       } else {
          if ( DBLE( Z ) == ZERO || DBLE( D ) == ZERO ) {
-            ZLCTES = ( SIGN( ONE, DIMAG( Z ) ) != SIGN( ONE, DIMAG( D ) ) )
+            ZLCTES = ( SIGN( ONE, DIMAG( Z ) ) != SIGN( ONE, DIMAG( D ) ) );
          } else if ( DIMAG( Z ) == ZERO || DIMAG( D ) == ZERO ) {
-            ZLCTES = ( SIGN( ONE, DBLE( Z ) ) != SIGN( ONE, DBLE( D ) ) )
+            ZLCTES = ( SIGN( ONE, DBLE( Z ) ) != SIGN( ONE, DBLE( D ) ) );
          } else {
-            ZMAX = MAX( ABS( DBLE( Z ) ), ABS( DIMAG( Z ) ) )
-            ZLCTES = ( ( DBLE( Z ) / ZMAX )*DBLE( D )+ ( DIMAG( Z ) / ZMAX )*DIMAG( D ) < ZERO )
+            ZMAX = MAX( ABS( DBLE( Z ) ), ABS( DIMAG( Z ) ) );
+            ZLCTES = ( ( DBLE( Z ) / ZMAX )*DBLE( D )+ ( DIMAG( Z ) / ZMAX )*DIMAG( D ) < ZERO );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLCTES
 

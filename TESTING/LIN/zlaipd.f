@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAIPD( N, A, INDA, VINDA )
+      SUBROUTINE ZLAIPD( N, A, INDA, VINDA );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int                INDA, N, VINDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( * )
+      COMPLEX*16         A( * );
       // ..
 
 *  =====================================================================
@@ -26,13 +26,13 @@
       // ..
       // .. Executable Statements ..
 
-      BIGNUM = DLAMCH( 'Epsilon' ) / DLAMCH( 'Safe minimum' )
-      IA = 1
-      IXA = INDA
+      BIGNUM = DLAMCH( 'Epsilon' ) / DLAMCH( 'Safe minimum' );
+      IA = 1;
+      IXA = INDA;
       for (I = 1; I <= N; I++) { // 10
-         A( IA ) = DCMPLX( DBLE( A( IA ) ), BIGNUM )
-         IA = IA + IXA
-         IXA = IXA + VINDA
+         A( IA ) = DCMPLX( DBLE( A( IA ) ), BIGNUM );
+         IA = IA + IXA;
+         IXA = IXA + VINDA;
       } // 10
-      RETURN
+      RETURN;
       }

@@ -1,4 +1,4 @@
-      SUBROUTINE ZTGSEN( IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, M, PL, PR, DIF, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZTGSEN( IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, M, PL, PR, DIF, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       bool               SELECT( * );
       int                IWORK( * );
       double             DIF( * );
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -28,7 +28,7 @@
       bool               LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;
       int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2;
       double             DSCALE, DSUM, RDSCAL, SAFMIN;
-      COMPLEX*16         TEMP1, TEMP2
+      COMPLEX*16         TEMP1, TEMP2;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -47,109 +47,109 @@
 
       // Decode and test the input parameters
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
       if ( IJOB < 0 || IJOB > 5 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -15
+         INFO = -15;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZTGSEN', -INFO );
-         RETURN
+         RETURN;
       }
 
-      IERR = 0
+      IERR = 0;
 
-      WANTP = IJOB == 1 || IJOB >= 4
-      WANTD1 = IJOB == 2 || IJOB == 4
-      WANTD2 = IJOB == 3 || IJOB == 5
-      WANTD = WANTD1 || WANTD2
+      WANTP = IJOB == 1 || IJOB >= 4;
+      WANTD1 = IJOB == 2 || IJOB == 4;
+      WANTD2 = IJOB == 3 || IJOB == 5;
+      WANTD = WANTD1 || WANTD2;
 
       // Set M to the dimension of the specified pair of deflating
       // subspaces.
 
-      M = 0
+      M = 0;
       if ( !LQUERY || IJOB != 0 ) {
       for (K = 1; K <= N; K++) { // 10
-         ALPHA( K ) = A( K, K )
-         BETA( K ) = B( K, K )
+         ALPHA( K ) = A( K, K );
+         BETA( K ) = B( K, K );
          if ( K < N ) {
-            IF( SELECT( K ) ) M = M + 1
+            IF( SELECT( K ) ) M = M + 1;
          } else {
-            IF( SELECT( N ) ) M = M + 1
+            IF( SELECT( N ) ) M = M + 1;
          }
       } // 10
       }
 
       if ( IJOB == 1 || IJOB == 2 || IJOB == 4 ) {
-         LWMIN = MAX( 1, 2*M*( N-M ) )
-         LIWMIN = MAX( 1, N+2 )
+         LWMIN = MAX( 1, 2*M*( N-M ) );
+         LIWMIN = MAX( 1, N+2 );
       } else if ( IJOB == 3 || IJOB == 5 ) {
-         LWMIN = MAX( 1, 4*M*( N-M ) )
-         LIWMIN = MAX( 1, 2*M*( N-M ), N+2 )
+         LWMIN = MAX( 1, 4*M*( N-M ) );
+         LIWMIN = MAX( 1, 2*M*( N-M ), N+2 );
       } else {
-         LWMIN = 1
-         LIWMIN = 1
+         LWMIN = 1;
+         LIWMIN = 1;
       }
 
-      WORK( 1 ) = LWMIN
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = LWMIN;
+      IWORK( 1 ) = LIWMIN;
 
       if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -21
+         INFO = -21;
       } else if ( LIWORK < LIWMIN && !LQUERY ) {
-         INFO = -23
+         INFO = -23;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZTGSEN', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
       if ( M == N || M == 0 ) {
          if ( WANTP ) {
-            PL = ONE
-            PR = ONE
+            PL = ONE;
+            PR = ONE;
          }
          if ( WANTD ) {
-            DSCALE = ZERO
-            DSUM = ONE
+            DSCALE = ZERO;
+            DSUM = ONE;
             for (I = 1; I <= N; I++) { // 20
                zlassq(N, A( 1, I ), 1, DSCALE, DSUM );
                zlassq(N, B( 1, I ), 1, DSCALE, DSUM );
             } // 20
-            DIF( 1 ) = DSCALE*SQRT( DSUM )
-            DIF( 2 ) = DIF( 1 )
+            DIF( 1 ) = DSCALE*SQRT( DSUM );
+            DIF( 2 ) = DIF( 1 );
          }
-         GO TO 70
+         GO TO 70;
       }
 
       // Get machine constant
 
-      SAFMIN = DLAMCH( 'S' )
+      SAFMIN = DLAMCH( 'S' );
 
       // Collect the selected blocks at the top-left corner of (A, B).
 
-      KS = 0
+      KS = 0;
       for (K = 1; K <= N; K++) { // 30
-         SWAP = SELECT( K )
+         SWAP = SELECT( K );
          if ( SWAP ) {
-            KS = KS + 1
+            KS = KS + 1;
 
             // Swap the K-th block to position KS. Compute unitary Q
             // and Z that will swap adjacent diagonal blocks in (A, B).
@@ -160,16 +160,16 @@
 
                // Swap is rejected: exit.
 
-               INFO = 1
+               INFO = 1;
                if ( WANTP ) {
-                  PL = ZERO
-                  PR = ZERO
+                  PL = ZERO;
+                  PR = ZERO;
                }
                if ( WANTD ) {
-                  DIF( 1 ) = ZERO
-                  DIF( 2 ) = ZERO
+                  DIF( 1 ) = ZERO;
+                  DIF( 2 ) = ZERO;
                }
-               GO TO 70
+               GO TO 70;
             }
          }
       } // 30
@@ -179,34 +179,34 @@
                     // A11 * R - L * A22 = A12
                     // B11 * R - L * B22 = B12
 
-         N1 = M
-         N2 = N - M
-         I = N1 + 1
+         N1 = M;
+         N2 = N - M;
+         I = N1 + 1;
          zlacpy('Full', N1, N2, A( 1, I ), LDA, WORK, N1 );
          zlacpy('Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 );
-         IJB = 0
+         IJB = 0;
          ztgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
 
          // Estimate the reciprocal of norms of "projections" onto
          // left and right eigenspaces
 
-         RDSCAL = ZERO
-         DSUM = ONE
+         RDSCAL = ZERO;
+         DSUM = ONE;
          zlassq(N1*N2, WORK, 1, RDSCAL, DSUM );
-         PL = RDSCAL*SQRT( DSUM )
+         PL = RDSCAL*SQRT( DSUM );
          if ( PL == ZERO ) {
-            PL = ONE
+            PL = ONE;
          } else {
-            PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) )
+            PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) );
          }
-         RDSCAL = ZERO
-         DSUM = ONE
+         RDSCAL = ZERO;
+         DSUM = ONE;
          zlassq(N1*N2, WORK( N1*N2+1 ), 1, RDSCAL, DSUM );
-         PR = RDSCAL*SQRT( DSUM )
+         PR = RDSCAL*SQRT( DSUM );
          if ( PR == ZERO ) {
-            PR = ONE
+            PR = ONE;
          } else {
-            PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) )
+            PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) );
          }
       }
       if ( WANTD ) {
@@ -214,10 +214,10 @@
          // Compute estimates Difu and Difl.
 
          if ( WANTD1 ) {
-            N1 = M
-            N2 = N - M
-            I = N1 + 1
-            IJB = IDIFJB
+            N1 = M;
+            N2 = N - M;
+            I = N1 + 1;
+            IJB = IDIFJB;
 
             // Frobenius norm-based Difu estimate.
 
@@ -233,12 +233,12 @@
             // generalized Sylvester equation or a transposed variant
             // is solved.
 
-            KASE = 0
-            N1 = M
-            N2 = N - M
-            I = N1 + 1
-            IJB = 0
-            MN2 = 2*N1*N2
+            KASE = 0;
+            N1 = M;
+            N2 = N - M;
+            I = N1 + 1;
+            IJB = 0;
+            MN2 = 2*N1*N2;
 
             // 1-norm-based estimate of Difu.
 
@@ -256,9 +256,9 @@
 
                   ztgsyl('C', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                }
-               GO TO 40
+               GO TO 40;
             }
-            DIF( 1 ) = DSCALE / DIF( 1 )
+            DIF( 1 ) = DSCALE / DIF( 1 );
 
             // 1-norm-based estimate of Difl.
 
@@ -276,9 +276,9 @@
 
                   ztgsyl('C', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
                }
-               GO TO 50
+               GO TO 50;
             }
-            DIF( 2 ) = DSCALE / DIF( 2 )
+            DIF( 2 ) = DSCALE / DIF( 2 );
          }
       }
 
@@ -287,29 +287,29 @@
       // eigenvalues of reordered pair (A, B)
 
       for (K = 1; K <= N; K++) { // 60
-         DSCALE = ABS( B( K, K ) )
+         DSCALE = ABS( B( K, K ) );
          if ( DSCALE > SAFMIN ) {
-            TEMP1 = DCONJG( B( K, K ) / DSCALE )
-            TEMP2 = B( K, K ) / DSCALE
-            B( K, K ) = DSCALE
+            TEMP1 = DCONJG( B( K, K ) / DSCALE );
+            TEMP2 = B( K, K ) / DSCALE;
+            B( K, K ) = DSCALE;
             zscal(N-K, TEMP1, B( K, K+1 ), LDB );
             zscal(N-K+1, TEMP1, A( K, K ), LDA );
             if (WANTQ) CALL ZSCAL( N, TEMP2, Q( 1, K ), 1 );
          } else {
-            B( K, K ) = DCMPLX( ZERO, ZERO )
+            B( K, K ) = DCMPLX( ZERO, ZERO );
          }
 
-         ALPHA( K ) = A( K, K )
-         BETA( K ) = B( K, K )
+         ALPHA( K ) = A( K, K );
+         BETA( K ) = B( K, K );
 
       } // 60
 
       } // 70
 
-      WORK( 1 ) = LWMIN
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = LWMIN;
+      IWORK( 1 ) = LIWMIN;
 
-      RETURN
+      RETURN;
 
       // End of ZTGSEN
 

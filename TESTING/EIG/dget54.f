@@ -1,4 +1,4 @@
-      SUBROUTINE DGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT )
+      SUBROUTINE DGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,19 +36,19 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT = ZERO
+      RESULT = ZERO;
       if (N <= 0) RETURN;
 
       // Constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
+      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
 
       // compute the norm of (A,B)
 
       dlacpy('Full', N, N, A, LDA, WORK, N );
       dlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = MAX( DLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL )
+      ABNORM = MAX( DLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
@@ -66,19 +66,19 @@
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 
-      WNORM = DLANGE( '1', N, 2*N, WORK, N, DUM )
+      WNORM = DLANGE( '1', N, 2*N, WORK, N, DUM );
 
       if ( ABNORM > WNORM ) {
-         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
+         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );
       } else {
          if ( ABNORM < ONE ) {
-            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP )
+            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
          } else {
-            RESULT = MIN( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP )
+            RESULT = MIN( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DGET54
 

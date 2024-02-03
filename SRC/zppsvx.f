@@ -1,4 +1,4 @@
-      SUBROUTINE ZPPSVX( FACT, UPLO, N, NRHS, AP, AFP, EQUED, S, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZPPSVX( FACT, UPLO, N, NRHS, AP, AFP, EQUED, S, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             BERR( * ), FERR( * ), RWORK( * ), S( * );
-      COMPLEX*16         AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      COMPLEX*16         AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -38,58 +38,58 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      EQUIL = LSAME( FACT, 'E' )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      EQUIL = LSAME( FACT, 'E' );
       if ( NOFACT || EQUIL ) {
-         EQUED = 'N'
+         EQUED = 'N';
          RCEQU = false;
       } else {
-         RCEQU = LSAME( EQUED, 'Y' )
-         SMLNUM = DLAMCH( 'Safe minimum' )
-         BIGNUM = ONE / SMLNUM
+         RCEQU = LSAME( EQUED, 'Y' );
+         SMLNUM = DLAMCH( 'Safe minimum' );
+         BIGNUM = ONE / SMLNUM;
       }
 
       // Test the input parameters.
 
       if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LSAME( FACT, 'F' ) && !( RCEQU || LSAME( EQUED, 'N' ) ) ) {
-         INFO = -7
+         INFO = -7;
       } else {
          if ( RCEQU ) {
-            SMIN = BIGNUM
-            SMAX = ZERO
+            SMIN = BIGNUM;
+            SMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               SMIN = MIN( SMIN, S( J ) )
-               SMAX = MAX( SMAX, S( J ) )
+               SMIN = MIN( SMIN, S( J ) );
+               SMAX = MAX( SMAX, S( J ) );
             } // 10
             if ( SMIN <= ZERO ) {
-               INFO = -8
+               INFO = -8;
             } else if ( N > 0 ) {
-               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
+               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM );
             } else {
-               SCOND = ONE
+               SCOND = ONE;
             }
          }
          if ( INFO == 0 ) {
             if ( LDB < MAX( 1, N ) ) {
-               INFO = -10
+               INFO = -10;
             } else if ( LDX < MAX( 1, N ) ) {
-               INFO = -12
+               INFO = -12;
             }
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('ZPPSVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( EQUIL ) {
@@ -102,7 +102,7 @@
             // Equilibrate the matrix.
 
             zlaqhp(UPLO, N, AP, S, SCOND, AMAX, EQUED );
-            RCEQU = LSAME( EQUED, 'Y' )
+            RCEQU = LSAME( EQUED, 'Y' );
          }
       }
 
@@ -111,7 +111,7 @@
       if ( RCEQU ) {
          for (J = 1; J <= NRHS; J++) { // 30
             for (I = 1; I <= N; I++) { // 20
-               B( I, J ) = S( I )*B( I, J )
+               B( I, J ) = S( I )*B( I, J );
             } // 20
          } // 30
       }
@@ -126,14 +126,14 @@
          // Return if INFO is non-zero.
 
          if ( INFO > 0 ) {
-            RCOND = ZERO
-            RETURN
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
       // Compute the norm of the matrix A.
 
-      ANORM = ZLANHP( 'I', UPLO, N, AP, RWORK )
+      ANORM = ZLANHP( 'I', UPLO, N, AP, RWORK );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -155,19 +155,19 @@
       if ( RCEQU ) {
          for (J = 1; J <= NRHS; J++) { // 50
             for (I = 1; I <= N; I++) { // 40
-               X( I, J ) = S( I )*X( I, J )
+               X( I, J ) = S( I )*X( I, J );
             } // 40
          } // 50
          for (J = 1; J <= NRHS; J++) { // 60
-            FERR( J ) = FERR( J ) / SCOND
+            FERR( J ) = FERR( J ) / SCOND;
          } // 60
       }
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RETURN
+      RETURN;
 
       // End of ZPPSVX
 

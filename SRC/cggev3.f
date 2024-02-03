@@ -1,4 +1,4 @@
-      SUBROUTINE CGGEV3( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, INFO )
+      SUBROUTINE CGGEV3( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY;
       String             CHTEMP;
       int                ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKOPT, LWKMIN;
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
-      COMPLEX            X
+      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP;
+      COMPLEX            X;
       // ..
       // .. Local Arrays ..
       bool               LDUMMA( 1 );
@@ -36,102 +36,102 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGE, SLAMCH, SROUNDUP_LWORK
+      REAL               CLANGE, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL LSAME, CLANGE, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               ABS1
+      REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
+      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) );
       // ..
       // .. Executable Statements ..
 
       // Decode the input arguments
 
       if ( LSAME( JOBVL, 'N' ) ) {
-         IJOBVL = 1
+         IJOBVL = 1;
          ILVL = false;
       } else if ( LSAME( JOBVL, 'V' ) ) {
-         IJOBVL = 2
+         IJOBVL = 2;
          ILVL = true;
       } else {
-         IJOBVL = -1
+         IJOBVL = -1;
          ILVL = false;
       }
 
       if ( LSAME( JOBVR, 'N' ) ) {
-         IJOBVR = 1
+         IJOBVR = 1;
          ILVR = false;
       } else if ( LSAME( JOBVR, 'V' ) ) {
-         IJOBVR = 2
+         IJOBVR = 2;
          ILVR = true;
       } else {
-         IJOBVR = -1
+         IJOBVR = -1;
          ILVR = false;
       }
-      ILV = ILVL || ILVR
+      ILV = ILVL || ILVR;
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
-      LWKMIN = MAX( 1, 2*N )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
+      LWKMIN = MAX( 1, 2*N );
       if ( IJOBVL <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IJOBVR <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -15
+         INFO = -15;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
          cgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
-         LWKOPT = MAX( LWKMIN, N+INT( WORK( 1 ) ) )
+         LWKOPT = MAX( LWKMIN, N+INT( WORK( 1 ) ) );
          cunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
-         LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
+         LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) );
          if ( ILVL ) {
             cungqr(N, N, N, VL, LDVL, WORK, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) );
          }
          if ( ILV ) {
             cgghd3(JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) );
             claqz0('S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1, RWORK, 0, IERR );
-            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) );
          } else {
             cgghd3('N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) );
             claqz0('E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1, RWORK, 0, IERR );
-            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
-            WORK( 1 ) = 1
+            WORK( 1 ) = 1;
          } else {
-            WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+            WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CGGEV3 ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -140,55 +140,55 @@
 
       // Get machine constants
 
-      EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
-      SMLNUM = SLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SQRT( SMLNUM ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'E' )*SLAMCH( 'B' );
+      SMLNUM = SLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SQRT( SMLNUM ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
+      ANRM = CLANGE( 'M', N, N, A, LDA, RWORK );
       ILASCL = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ANRMTO = SMLNUM
+         ANRMTO = SMLNUM;
          ILASCL = true;
       } else if ( ANRM > BIGNUM ) {
-         ANRMTO = BIGNUM
+         ANRMTO = BIGNUM;
          ILASCL = true;
       }
       if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
+      BNRM = CLANGE( 'M', N, N, B, LDB, RWORK );
       ILBSCL = false;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
-         BNRMTO = SMLNUM
+         BNRMTO = SMLNUM;
          ILBSCL = true;
       } else if ( BNRM > BIGNUM ) {
-         BNRMTO = BIGNUM
+         BNRMTO = BIGNUM;
          ILBSCL = true;
       }
       if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrices A, B to isolate eigenvalues if possible
 
-      ILEFT = 1
-      IRIGHT = N + 1
-      IRWRK = IRIGHT + N
+      ILEFT = 1;
+      IRIGHT = N + 1;
+      IRWRK = IRIGHT + N;
       cggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
 
-      IROWS = IHI + 1 - ILO
+      IROWS = IHI + 1 - ILO;
       if ( ILV ) {
-         ICOLS = N + 1 - ILO
+         ICOLS = N + 1 - ILO;
       } else {
-         ICOLS = IROWS
+         ICOLS = IROWS;
       }
-      ITAU = 1
-      IWRK = ITAU + IROWS
+      ITAU = 1;
+      IWRK = ITAU + IROWS;
       cgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
@@ -223,22 +223,22 @@
       // Perform QZ algorithm (Compute eigenvalues, and optionally, the
       // Schur form and Schur vectors)
 
-      IWRK = ITAU
+      IWRK = ITAU;
       if ( ILV ) {
-         CHTEMP = 'S'
+         CHTEMP = 'S';
       } else {
-         CHTEMP = 'E'
+         CHTEMP = 'E';
       }
       claqz0(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR );
       if ( IERR != 0 ) {
          if ( IERR > 0 && IERR <= N ) {
-            INFO = IERR
+            INFO = IERR;
          } else if ( IERR > N && IERR <= 2*N ) {
-            INFO = IERR - N
+            INFO = IERR - N;
          } else {
-            INFO = N + 1
+            INFO = N + 1;
          }
-         GO TO 70
+         GO TO 70;
       }
 
       // Compute Eigenvectors
@@ -246,18 +246,18 @@
       if ( ILV ) {
          if ( ILVL ) {
             if ( ILVR ) {
-               CHTEMP = 'B'
+               CHTEMP = 'B';
             } else {
-               CHTEMP = 'L'
+               CHTEMP = 'L';
             }
          } else {
-            CHTEMP = 'R'
+            CHTEMP = 'R';
          }
 
          ctgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK( IRWRK ), IERR );
          if ( IERR != 0 ) {
-            INFO = N + 2
-            GO TO 70
+            INFO = N + 2;
+            GO TO 70;
          }
 
          // Undo balancing on VL and VR and normalization
@@ -265,28 +265,28 @@
          if ( ILVL ) {
             cggbak('P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR );
             for (JC = 1; JC <= N; JC++) { // 30
-               TEMP = ZERO
+               TEMP = ZERO;
                for (JR = 1; JR <= N; JR++) { // 10
-                  TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
+                  TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) );
                } // 10
                if (TEMP < SMLNUM) GO TO 30;
-               TEMP = ONE / TEMP
+               TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 20
-                  VL( JR, JC ) = VL( JR, JC )*TEMP
+                  VL( JR, JC ) = VL( JR, JC )*TEMP;
                } // 20
             } // 30
          }
          if ( ILVR ) {
             cggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IERR );
             for (JC = 1; JC <= N; JC++) { // 60
-               TEMP = ZERO
+               TEMP = ZERO;
                for (JR = 1; JR <= N; JR++) { // 40
-                  TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
+                  TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) );
                } // 40
                if (TEMP < SMLNUM) GO TO 60;
-               TEMP = ONE / TEMP
+               TEMP = ONE / TEMP;
                for (JR = 1; JR <= N; JR++) { // 50
-                  VR( JR, JC ) = VR( JR, JC )*TEMP
+                  VR( JR, JC ) = VR( JR, JC )*TEMP;
                } // 50
             } // 60
          }
@@ -300,8 +300,8 @@
 
       if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+      RETURN;
 
       // End of CGGEV3
 

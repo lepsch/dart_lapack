@@ -1,4 +1,4 @@
-      SUBROUTINE ZBDT03( UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK, RESID )
+      SUBROUTINE ZBDT03( UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), S( * );
-      COMPLEX*16         U( LDU, * ), VT( LDVT, * ), WORK( * )
+      COMPLEX*16         U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 * ======================================================================
@@ -40,12 +40,12 @@
 
       // Quick return if possible
 
-      RESID = ZERO
+      RESID = ZERO;
       if (N <= 0) RETURN;
 
       // Compute B - U * S * V' one column at a time.
 
-      BNORM = ZERO
+      BNORM = ZERO;
       if ( KD >= 1 ) {
 
          // B is bidiagonal.
@@ -56,17 +56,17 @@
 
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= N; I++) { // 10
-                  WORK( N+I ) = S( I )*VT( I, J )
+                  WORK( N+I ) = S( I )*VT( I, J );
                } // 10
                zgemv('No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 );
-               WORK( J ) = WORK( J ) + D( J )
+               WORK( J ) = WORK( J ) + D( J );
                if ( J > 1 ) {
-                  WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
-                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) )
+                  WORK( J-1 ) = WORK( J-1 ) + E( J-1 );
+                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) );
                } else {
-                  BNORM = MAX( BNORM, ABS( D( J ) ) )
+                  BNORM = MAX( BNORM, ABS( D( J ) ) );
                }
-               RESID = MAX( RESID, DZASUM( N, WORK, 1 ) )
+               RESID = MAX( RESID, DZASUM( N, WORK, 1 ) );
             } // 20
          } else {
 
@@ -74,17 +74,17 @@
 
             for (J = 1; J <= N; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
-                  WORK( N+I ) = S( I )*VT( I, J )
+                  WORK( N+I ) = S( I )*VT( I, J );
                } // 30
                zgemv('No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 );
-               WORK( J ) = WORK( J ) + D( J )
+               WORK( J ) = WORK( J ) + D( J );
                if ( J < N ) {
-                  WORK( J+1 ) = WORK( J+1 ) + E( J )
-                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) )
+                  WORK( J+1 ) = WORK( J+1 ) + E( J );
+                  BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) );
                } else {
-                  BNORM = MAX( BNORM, ABS( D( J ) ) )
+                  BNORM = MAX( BNORM, ABS( D( J ) ) );
                }
-               RESID = MAX( RESID, DZASUM( N, WORK, 1 ) )
+               RESID = MAX( RESID, DZASUM( N, WORK, 1 ) );
             } // 40
          }
       } else {
@@ -93,35 +93,35 @@
 
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
-               WORK( N+I ) = S( I )*VT( I, J )
+               WORK( N+I ) = S( I )*VT( I, J );
             } // 50
             zgemv('No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 );
-            WORK( J ) = WORK( J ) + D( J )
-            RESID = MAX( RESID, DZASUM( N, WORK, 1 ) )
+            WORK( J ) = WORK( J ) + D( J );
+            RESID = MAX( RESID, DZASUM( N, WORK, 1 ) );
          } // 60
-         J = IDAMAX( N, D, 1 )
-         BNORM = ABS( D( J ) )
+         J = IDAMAX( N, D, 1 );
+         BNORM = ABS( D( J ) );
       }
 
       // Compute norm(B - U * S * V') / ( n * norm(B) * EPS )
 
-      EPS = DLAMCH( 'Precision' )
+      EPS = DLAMCH( 'Precision' );
 
       if ( BNORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM >= RESID ) {
-            RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
+            RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS );
          } else {
             if ( BNORM < ONE ) {
-               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
+               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS );
             } else {
-               RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
+               RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS );
             }
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZBDT03
 

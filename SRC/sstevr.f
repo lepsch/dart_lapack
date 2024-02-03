@@ -1,4 +1,4 @@
-      SUBROUTINE SSTEVR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE SSTEVR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,17 +7,17 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
-      REAL               ABSTOL, VL, VU
+      REAL               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * )
+      REAL               D( * ), E( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO
+      REAL               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH, SLANST, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANST, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -43,111 +43,111 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'SSTEVR', 'N', 1, 2, 3, 4 )
+      IEEEOK = ILAENV( 10, 'SSTEVR', 'N', 1, 2, 3, 4 );
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
+      WANTZ = LSAME( JOBZ, 'V' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
 
-      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) )
-      LWMIN = MAX( 1, 20*N )
-      LIWMIN = MAX(1, 10*N )
+      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) );
+      LWMIN = MAX( 1, 20*N );
+      LIWMIN = MAX(1, 10*N );
 
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -7;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
-               INFO = -8
+               INFO = -8;
             } else if ( IU < MIN( N, IL ) || IU > N ) {
-               INFO = -9
+               INFO = -9;
             }
          }
       }
       if ( INFO == 0 ) {
          if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-            INFO = -14
+            INFO = -14;
          }
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -17
+            INFO = -17;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -19
+            INFO = -19;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('SSTEVR', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
-            M = 1
-            W( 1 ) = D( 1 )
+            M = 1;
+            W( 1 ) = D( 1 );
          } else {
             if ( VL < D( 1 ) && VU >= D( 1 ) ) {
-               M = 1
-               W( 1 ) = D( 1 )
+               M = 1;
+               W( 1 ) = D( 1 );
             }
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
 
 
       // Scale matrix to allowable range, if necessary.
 
-      ISCALE = 0
+      ISCALE = 0;
       if ( VALEIG ) {
-         VLL = VL
-         VUU = VU
+         VLL = VL;
+         VUU = VU;
       }
 
-      TNRM = SLANST( 'M', N, D, E )
+      TNRM = SLANST( 'M', N, D, E );
       if ( TNRM > ZERO && TNRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / TNRM
+         ISCALE = 1;
+         SIGMA = RMIN / TNRM;
       } else if ( TNRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / TNRM
+         ISCALE = 1;
+         SIGMA = RMAX / TNRM;
       }
       if ( ISCALE == 1 ) {
          sscal(N, SIGMA, D, 1 );
          sscal(N-1, SIGMA, E( 1 ), 1 );
          if ( VALEIG ) {
-            VLL = VL*SIGMA
-            VUU = VU*SIGMA
+            VLL = VL*SIGMA;
+            VUU = VU*SIGMA;
          }
       }
 
@@ -156,17 +156,17 @@
 
       // IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in SSTEBZ and
       // stores the block indices of each of the M<=N eigenvalues.
-      INDIBL = 1
+      INDIBL = 1;
       // IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in SSTEBZ and
       // stores the starting and finishing indices of each block.
-      INDISP = INDIBL + N
+      INDISP = INDIBL + N;
       // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
       // that corresponding to eigenvectors that fail to converge in
       // SSTEIN.  This information is discarded; if any fail, the driver
       // returns INFO > 0.
-      INDIFL = INDISP + N
+      INDIFL = INDISP + N;
       // INDIWO is the offset of the remaining integer workspace.
-      INDIWO = INDISP + N
+      INDIWO = INDISP + N;
 
       // If all eigenvalues are desired, then
       // call SSTERF or SSTEMR.  If this fails for some eigenvalue, then
@@ -195,18 +195,18 @@
 
          }
          if ( INFO == 0 ) {
-            M = N
-            GO TO 10
+            M = N;
+            GO TO 10;
          }
-         INFO = 0
+         INFO = 0;
       }
 
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, SSTEIN.
 
       if ( WANTZ ) {
-         ORDER = 'B'
+         ORDER = 'B';
       } else {
-         ORDER = 'E'
+         ORDER = 'E';
       }
        sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK, IWORK( INDIWO ), INFO );
 
@@ -219,9 +219,9 @@
       } // 10
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = M
+            IMAX = M;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
@@ -231,18 +231,18 @@
 
       if ( WANTZ ) {
          for (J = 1; J <= M - 1; J++) { // 30
-            I = 0
-            TMP1 = W( J )
+            I = 0;
+            TMP1 = W( J );
             for (JJ = J + 1; JJ <= M; JJ++) { // 20
                if ( W( JJ ) < TMP1 ) {
-                  I = JJ
-                  TMP1 = W( JJ )
+                  I = JJ;
+                  TMP1 = W( JJ );
                }
             } // 20
 
             if ( I != 0 ) {
-               W( I ) = W( J )
-               W( J ) = TMP1
+               W( I ) = W( J );
+               W( J ) = TMP1;
                sswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
          } // 30
@@ -252,9 +252,9 @@
        // IF (wantz && INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002
 
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of SSTEVR
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CSTEGR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CSTEGR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE;
       int                IL, INFO, IU, LDZ, LIWORK, LWORK, M, N;
-      REAL             ABSTOL, VL, VU
+      REAL             ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * )
-      COMPLEX            Z( LDZ, * )
+      REAL               D( * ), E( * ), W( * ), WORK( * );
+      COMPLEX            Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -24,7 +24,7 @@
       // EXTERNAL CSTEMR
       // ..
       // .. Executable Statements ..
-      INFO = 0
+      INFO = 0;
       TRYRAC = false;
        cstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO );
 

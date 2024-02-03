@@ -1,4 +1,4 @@
-      SUBROUTINE ZERRTZ( PATH, NUNIT )
+      SUBROUTINE ZERRTZ( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,7 +20,7 @@
       int                INFO;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         A( NMAX, NMAX ), TAU( NMAX ), W( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;
@@ -43,37 +43,37 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      C2 = PATH( 2: 3 )
-      A( 1, 1 ) = DCMPLX( 1.0, -1.0 )
-      A( 1, 2 ) = DCMPLX( 2.0, -2.0 )
-      A( 2, 2 ) = DCMPLX( 3.0, -3.0 )
-      A( 2, 1 ) = DCMPLX( 4.0, -4.0 )
-      W( 1 ) = DCMPLX( 0.0, 0.0 )
-      W( 2 ) = DCMPLX( 0.0, 0.0 )
+      NOUT = NUNIT;
+      C2 = PATH( 2: 3 );
+      A( 1, 1 ) = DCMPLX( 1.0, -1.0 );
+      A( 1, 2 ) = DCMPLX( 2.0, -2.0 );
+      A( 2, 2 ) = DCMPLX( 3.0, -3.0 );
+      A( 2, 1 ) = DCMPLX( 4.0, -4.0 );
+      W( 1 ) = DCMPLX( 0.0, 0.0 );
+      W( 2 ) = DCMPLX( 0.0, 0.0 );
       OK = true;
 
       // Test error exits for the trapezoidal routines.
-      WRITE( NOUT, FMT = * )
+      WRITE( NOUT, FMT = * );
       if ( LSAMEN( 2, C2, 'TZ' ) ) {
 
 
          // ZTZRZF
 
-         SRNAMT = 'ZTZRZF'
-         INFOT = 1
+         SRNAMT = 'ZTZRZF';
+         INFOT = 1;
          ztzrzf(-1, 0, A, 1, TAU, W, 1, INFO );
          chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ztzrzf(1, 0, A, 1, TAU, W, 1, INFO );
          chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ztzrzf(2, 2, A, 1, TAU, W, 1, INFO );
          chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ztzrzf(2, 2, A, 2, TAU, W, 0, INFO );
          chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ztzrzf(2, 3, A, 2, TAU, W, 1, INFO );
          chkxer('ZTZRZF', INFOT, NOUT, LERR, OK );
       }
@@ -82,7 +82,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of ZERRTZ
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CLA_HERFSX_EXTENDED( PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO )
+      SUBROUTINE CLA_HERFSX_EXTENDED( PREC_TYPE, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,11 +8,11 @@
       int                INFO, LDA, LDAF, LDB, LDY, N, NRHS, PREC_TYPE, N_NORMS, ITHRESH;
       String             UPLO;
       bool               COLEQU, IGNORE_CWISE;
-      REAL               RTHRESH, DZ_UB
+      REAL               RTHRESH, DZ_UB;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
+      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), Y( LDY, * ), RES( * ), DY( * ), Y_TAIL( * )       REAL               C( * ), AYB( * ), RCOND, BERR_OUT( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 *  =====================================================================
@@ -21,7 +21,7 @@
       int                UPLO2, CNT, I, J, X_STATE, Z_STATE, Y_PREC_STATE;
       REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC, UPPER;
-      COMPLEX            ZDUM
+      COMPLEX            ZDUM;
       // ..
       // .. Parameters ..
       int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y;
@@ -47,74 +47,74 @@
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CHETRS, CHEMV, BLAS_CHEMV_X, BLAS_CHEMV2_X, CLA_HEAMV, CLA_WWADDW, CLA_LIN_BERR
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, AIMAG, MAX, MIN
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDY < MAX( 1, N ) ) {
-         INFO = -15
+         INFO = -15;
       }
       if ( INFO != 0 ) {
          xerbla('CLA_HERFSX_EXTENDED', -INFO );
-         RETURN
+         RETURN;
       }
-      EPS = SLAMCH( 'Epsilon' )
-      HUGEVAL = SLAMCH( 'Overflow' )
+      EPS = SLAMCH( 'Epsilon' );
+      HUGEVAL = SLAMCH( 'Overflow' );
       // Force HUGEVAL to Inf
-      HUGEVAL = HUGEVAL * HUGEVAL
+      HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = REAL( N ) * EPS
+      INCR_THRESH = REAL( N ) * EPS;
 
       if ( LSAME ( UPLO, 'L' ) ) {
-         UPLO2 = ILAUPLO( 'L' )
+         UPLO2 = ILAUPLO( 'L' );
       } else {
-         UPLO2 = ILAUPLO( 'U' )
+         UPLO2 = ILAUPLO( 'U' );
       }
 
       for (J = 1; J <= NRHS; J++) {
-         Y_PREC_STATE = EXTRA_RESIDUAL
+         Y_PREC_STATE = EXTRA_RESIDUAL;
          if ( Y_PREC_STATE == EXTRA_Y ) {
             for (I = 1; I <= N; I++) {
-               Y_TAIL( I ) = 0.0
+               Y_TAIL( I ) = 0.0;
             }
          }
 
-         DXRAT = 0.0
-         DXRATMAX = 0.0
-         DZRAT = 0.0
-         DZRATMAX = 0.0
-         FINAL_DX_X = HUGEVAL
-         FINAL_DZ_Z = HUGEVAL
-         PREVNORMDX = HUGEVAL
-         PREV_DZ_Z = HUGEVAL
-         DZ_Z = HUGEVAL
-         DX_X = HUGEVAL
+         DXRAT = 0.0;
+         DXRATMAX = 0.0;
+         DZRAT = 0.0;
+         DZRATMAX = 0.0;
+         FINAL_DX_X = HUGEVAL;
+         FINAL_DZ_Z = HUGEVAL;
+         PREVNORMDX = HUGEVAL;
+         PREV_DZ_Z = HUGEVAL;
+         DZ_Z = HUGEVAL;
+         DX_X = HUGEVAL;
 
-         X_STATE = WORKING_STATE
-         Z_STATE = UNSTABLE_STATE
+         X_STATE = WORKING_STATE;
+         Z_STATE = UNSTABLE_STATE;
          INCR_PREC = false;
 
          for (CNT = 1; CNT <= ITHRESH; CNT++) {
@@ -137,45 +137,45 @@
 
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 
-            NORMX = 0.0
-            NORMY = 0.0
-            NORMDX = 0.0
-            DZ_Z = 0.0
-            YMIN = HUGEVAL
+            NORMX = 0.0;
+            NORMY = 0.0;
+            NORMDX = 0.0;
+            DZ_Z = 0.0;
+            YMIN = HUGEVAL;
 
             for (I = 1; I <= N; I++) {
-               YK = CABS1( Y( I, J ) )
-               DYK = CABS1( DY( I ) )
+               YK = CABS1( Y( I, J ) );
+               DYK = CABS1( DY( I ) );
 
                if (YK != 0.0) {
-                  DZ_Z = MAX( DZ_Z, DYK / YK )
+                  DZ_Z = MAX( DZ_Z, DYK / YK );
                } else if ( DYK != 0.0 ) {
-                  DZ_Z = HUGEVAL
+                  DZ_Z = HUGEVAL;
                }
 
-               YMIN = MIN( YMIN, YK )
+               YMIN = MIN( YMIN, YK );
 
-               NORMY = MAX( NORMY, YK )
+               NORMY = MAX( NORMY, YK );
 
                if ( COLEQU ) {
-                  NORMX = MAX( NORMX, YK * C( I ) )
-                  NORMDX = MAX( NORMDX, DYK * C( I ) )
+                  NORMX = MAX( NORMX, YK * C( I ) );
+                  NORMDX = MAX( NORMDX, DYK * C( I ) );
                } else {
-                  NORMX = NORMY
-                  NORMDX = MAX( NORMDX, DYK )
+                  NORMX = NORMY;
+                  NORMDX = MAX( NORMDX, DYK );
                }
             }
 
             if ( NORMX != 0.0 ) {
-               DX_X = NORMDX / NORMX
+               DX_X = NORMDX / NORMX;
             } else if ( NORMDX == 0.0 ) {
-               DX_X = 0.0
+               DX_X = 0.0;
             } else {
-               DX_X = HUGEVAL
+               DX_X = HUGEVAL;
             }
 
-            DXRAT = NORMDX / PREVNORMDX
-            DZRAT = DZ_Z / PREV_DZ_Z
+            DXRAT = NORMDX / PREVNORMDX;
+            DZRAT = DZ_Z / PREV_DZ_Z;
 
           // Check termination criteria.
 
@@ -183,12 +183,12 @@
              if (X_STATE == NOPROG_STATE && DXRAT <= RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
                if ( DX_X <= EPS ) {
-                  X_STATE = CONV_STATE
+                  X_STATE = CONV_STATE;
                } else if ( DXRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
-                     X_STATE = NOPROG_STATE
+                     X_STATE = NOPROG_STATE;
                   }
                } else {
                   if (DXRAT > DXRATMAX) DXRATMAX = DXRAT;
@@ -198,34 +198,34 @@
              if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z <= EPS ) {
-                  Z_STATE = CONV_STATE
+                  Z_STATE = CONV_STATE;
                } else if ( DZ_Z > DZ_UB ) {
-                  Z_STATE = UNSTABLE_STATE
-                  DZRATMAX = 0.0
-                  FINAL_DZ_Z = HUGEVAL
+                  Z_STATE = UNSTABLE_STATE;
+                  DZRATMAX = 0.0;
+                  FINAL_DZ_Z = HUGEVAL;
                } else if ( DZRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
-                     Z_STATE = NOPROG_STATE
+                     Z_STATE = NOPROG_STATE;
                   }
                } else {
                   if (DZRAT > DZRATMAX) DZRATMAX = DZRAT;
                }
                if (Z_STATE > WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
-             IF ( X_STATE != WORKING_STATE && ( IGNORE_CWISE || Z_STATE != WORKING_STATE ) ) GOTO 666
+             IF ( X_STATE != WORKING_STATE && ( IGNORE_CWISE || Z_STATE != WORKING_STATE ) ) GOTO 666;
 
             if ( INCR_PREC ) {
                INCR_PREC = false;
-               Y_PREC_STATE = Y_PREC_STATE + 1
+               Y_PREC_STATE = Y_PREC_STATE + 1;
                for (I = 1; I <= N; I++) {
-                  Y_TAIL( I ) = 0.0
+                  Y_TAIL( I ) = 0.0;
                }
             }
 
-            PREVNORMDX = NORMDX
-            PREV_DZ_Z = DZ_Z
+            PREVNORMDX = NORMDX;
+            PREV_DZ_Z = DZ_Z;
 
             // Update solution.
 
@@ -247,10 +247,10 @@
       // Compute error bounds.
 
          if ( N_NORMS >= 1 ) {
-            ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
+            ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX);
          }
          if (N_NORMS >= 2) {
-            ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
+            ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX);
          }
 
       // Compute componentwise relative backward error from formula
@@ -265,7 +265,7 @@
          chemv(UPLO, N, CMPLX(-1.0), A, LDA, Y(1,J), 1, CMPLX(1.0), RES, 1 );
 
          for (I = 1; I <= N; I++) {
-            AYB( I ) = CABS1( B( I, J ) )
+            AYB( I ) = CABS1( B( I, J ) );
          }
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
@@ -278,7 +278,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CLA_HERFSX_EXTENDED
 

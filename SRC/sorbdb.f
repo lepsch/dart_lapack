@@ -1,4 +1,4 @@
-      SUBROUTINE SORBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, PHI, TAUP1, TAUP2, TAUQ1, TAUQ2, WORK, LWORK, INFO )
+      SUBROUTINE SORBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, PHI, TAUP1, TAUP2, TAUQ1, TAUQ2, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,28 +9,28 @@
       int                INFO, LDX11, LDX12, LDX21, LDX22, LWORK, M, P, Q;
       // ..
       // .. Array Arguments ..
-      REAL               PHI( * ), THETA( * )
-      REAL               TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * )
+      REAL               PHI( * ), THETA( * );
+      REAL               TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 
 *  ====================================================================
 
       // .. Parameters ..
-      REAL               REALONE
+      REAL               REALONE;
       const              REALONE = 1.0 ;
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               COLMAJOR, LQUERY;
       int                I, LWORKMIN, LWORKOPT;
-      REAL               Z1, Z2, Z3, Z4
+      REAL               Z1, Z2, Z3, Z4;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SLARF, SLARFGP, SSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SNRM2
+      REAL               SNRM2;
       bool               LSAME;
       // EXTERNAL SNRM2, LSAME
       // ..
@@ -41,60 +41,60 @@
 
       // Test input arguments
 
-      INFO = 0
-      COLMAJOR = !LSAME( TRANS, 'T' )
+      INFO = 0;
+      COLMAJOR = !LSAME( TRANS, 'T' );
       if ( !LSAME( SIGNS, 'O' ) ) {
-         Z1 = REALONE
-         Z2 = REALONE
-         Z3 = REALONE
-         Z4 = REALONE
+         Z1 = REALONE;
+         Z2 = REALONE;
+         Z3 = REALONE;
+         Z4 = REALONE;
       } else {
-         Z1 = REALONE
-         Z2 = -REALONE
-         Z3 = REALONE
-         Z4 = -REALONE
+         Z1 = REALONE;
+         Z2 = -REALONE;
+         Z3 = REALONE;
+         Z4 = -REALONE;
       }
-      LQUERY = LWORK == -1
+      LQUERY = LWORK == -1;
 
       if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( P < 0 || P > M ) {
-         INFO = -4
+         INFO = -4;
       } else if ( Q < 0 || Q > P || Q > M-P || Q > M-Q ) {
-         INFO = -5
+         INFO = -5;
       } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( COLMAJOR && LDX12 < MAX( 1, P ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
-         INFO = -13
+         INFO = -13;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
-         LWORKOPT = M - Q
-         LWORKMIN = M - Q
-         WORK(1) = LWORKOPT
+         LWORKOPT = M - Q;
+         LWORKMIN = M - Q;
+         WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
-            INFO = -21
+            INFO = -21;
          }
       }
       if ( INFO != 0 ) {
          xerbla('xORBDB', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Handle column-major and row-major separately
@@ -118,20 +118,20 @@
                saxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
-            THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), 1 ), SNRM2( P-I+1, X11(I,I), 1 ) )
+            THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), 1 ), SNRM2( P-I+1, X11(I,I), 1 ) );
 
             if ( P > I ) {
                slarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
             } else if ( P == I ) {
                slarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
-            X11(I,I) = ONE
+            X11(I,I) = ONE;
             if ( M-P > I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P == I ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
-            X21(I,I) = ONE
+            X21(I,I) = ONE;
 
             if ( Q > I ) {
                slarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK );
@@ -161,7 +161,7 @@
                } else {
                   slarfgp(Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) );
                }
-               X11(I,I+1) = ONE
+               X11(I,I+1) = ONE;
             }
             if ( Q+I-1 < M ) {
                if ( M-Q == I ) {
@@ -170,7 +170,7 @@
                   slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
                }
             }
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( I < Q ) {
                slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -195,7 +195,7 @@
             } else {
                slarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
             }
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( P > I ) {
                slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -214,7 +214,7 @@
             } else {
                slarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
             }
-            X22(Q+I,P+I) = ONE
+            X22(Q+I,P+I) = ONE;
             if ( I < M-P-Q ) {
                slarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
             }
@@ -240,16 +240,16 @@
                saxpy(M-P-I+1, -Z2*Z3*Z4*SIN(PHI(I-1)), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
-            THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), LDX21 ), SNRM2( P-I+1, X11(I,I), LDX11 ) )
+            THETA(I) = ATAN2( SNRM2( M-P-I+1, X21(I,I), LDX21 ), SNRM2( P-I+1, X11(I,I), LDX11 ) );
 
             slarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
-            X11(I,I) = ONE
+            X11(I,I) = ONE;
             if ( I == M-P ) {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
                slarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
             }
-            X21(I,I) = ONE
+            X21(I,I) = ONE;
 
             if ( Q > I ) {
                slarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
@@ -279,14 +279,14 @@
                } else {
                   slarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
                }
-               X11(I+1,I) = ONE
+               X11(I+1,I) = ONE;
             }
             if ( M-Q > I ) {
                slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
             } else {
                slarfgp(M-Q-I+1, X12(I,I), X12(I,I), 1, TAUQ2(I) );
             }
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( I < Q ) {
                slarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -305,7 +305,7 @@
 
             sscal(M-Q-I+1, -Z1*Z4, X12(I,I), 1 );
             slarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( P > I ) {
                slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
@@ -321,10 +321,10 @@
             sscal(M-P-Q-I+1, Z2*Z4, X22(P+I,Q+I), 1 );
             if ( M-P-Q == I ) {
                slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I,Q+I), 1, TAUQ2(P+I) );
-               X22(P+I,Q+I) = ONE
+               X22(P+I,Q+I) = ONE;
             } else {
                slarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
-               X22(P+I,Q+I) = ONE
+               X22(P+I,Q+I) = ONE;
                slarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, TAUQ2(P+I), X22(P+I,Q+I+1), LDX22, WORK );
             }
 
@@ -333,7 +333,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of SORBDB
 

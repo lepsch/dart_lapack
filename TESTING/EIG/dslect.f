@@ -35,19 +35,19 @@
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         DSLECT = ( ZR < ZERO )
+         DSLECT = ( ZR < ZERO );
       } else {
-         RMIN = DLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )
-         DSLECT = SELVAL( 1 )
+         RMIN = DLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) );
+         DSLECT = SELVAL( 1 );
          for (I = 2; I <= SELDIM; I++) { // 10
-            X = DLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) )
+            X = DLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) );
             if ( X <= RMIN ) {
-               RMIN = X
-               DSLECT = SELVAL( I )
+               RMIN = X;
+               DSLECT = SELVAL( I );
             }
          } // 10
       }
-      RETURN
+      RETURN;
 
       // End of DSLECT
 

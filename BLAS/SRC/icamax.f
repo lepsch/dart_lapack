@@ -8,50 +8,50 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX CX(*)
+      COMPLEX CX(*);
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
-      REAL SMAX
+      REAL SMAX;
       int     I,IX;
       // ..
       // .. External Functions ..
-      REAL SCABS1
+      REAL SCABS1;
       // EXTERNAL SCABS1
       // ..
-      ICAMAX = 0
+      ICAMAX = 0;
       if (N < 1 || INCX <= 0) RETURN;
-      ICAMAX = 1
+      ICAMAX = 1;
       if (N == 1) RETURN;
       if (INCX == 1) {
 
          // code for increment equal to 1
 
-         SMAX = SCABS1(CX(1))
+         SMAX = SCABS1(CX(1));
          for (I = 2; I <= N; I++) {
             if (SCABS1(CX(I)) > SMAX) {
-               ICAMAX = I
-               SMAX = SCABS1(CX(I))
+               ICAMAX = I;
+               SMAX = SCABS1(CX(I));
             }
          }
       } else {
 
          // code for increment not equal to 1
 
-         IX = 1
-         SMAX = SCABS1(CX(1))
-         IX = IX + INCX
+         IX = 1;
+         SMAX = SCABS1(CX(1));
+         IX = IX + INCX;
          for (I = 2; I <= N; I++) {
             if (SCABS1(CX(IX)) > SMAX) {
-               ICAMAX = I
-               SMAX = SCABS1(CX(IX))
+               ICAMAX = I;
+               SMAX = SCABS1(CX(IX));
             }
-            IX = IX + INCX
+            IX = IX + INCX;
          }
       }
-      RETURN
+      RETURN;
 
       // End of ICAMAX
 

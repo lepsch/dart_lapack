@@ -1,15 +1,15 @@
-      SUBROUTINE SSCAL(N,SA,SX,INCX)
+      SUBROUTINE SSCAL(N,SA,SX,INCX);
 
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL SA
+      REAL SA;
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*)
+      REAL SX(*);
       // ..
 
 *  =====================================================================
@@ -18,7 +18,7 @@
       int     I,M,MP1,NINCX;
       // ..
       // .. Parameters ..
-      REAL ONE
+      REAL ONE;
       const     ONE=1.0;
       // ..
       // .. Intrinsic Functions ..
@@ -32,31 +32,31 @@
 
          // clean-up loop
 
-         M = MOD(N,5)
+         M = MOD(N,5);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
-               SX(I) = SA*SX(I)
+               SX(I) = SA*SX(I);
             }
             if (N < 5) RETURN;
          }
-         MP1 = M + 1
-         DO I = MP1,N,5
-            SX(I) = SA*SX(I)
-            SX(I+1) = SA*SX(I+1)
-            SX(I+2) = SA*SX(I+2)
-            SX(I+3) = SA*SX(I+3)
-            SX(I+4) = SA*SX(I+4)
+         MP1 = M + 1;
+         DO I = MP1,N,5;
+            SX(I) = SA*SX(I);
+            SX(I+1) = SA*SX(I+1);
+            SX(I+2) = SA*SX(I+2);
+            SX(I+3) = SA*SX(I+3);
+            SX(I+4) = SA*SX(I+4);
          }
       } else {
 
          // code for increment not equal to 1
 
-         NINCX = N*INCX
-         DO I = 1,NINCX,INCX
-            SX(I) = SA*SX(I)
+         NINCX = N*INCX;
+         DO I = 1,NINCX,INCX;
+            SX(I) = SA*SX(I);
          }
       }
-      RETURN
+      RETURN;
 
       // End of SSCAL
 

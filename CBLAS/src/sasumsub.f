@@ -1,10 +1,10 @@
-      subroutine sasumsub(n,x,incx,asum)
+      subroutine sasumsub(n,x,incx,asum);
 
       // external sasum
-      real sasum,asum
+      real sasum,asum;
       int     n,incx;
-      real x(*)
+      real x(*);
 
-      asum=sasum(n,x,incx)
-      return
-      end
+      asum=sasum(n,x,incx);
+      return;
+      end;

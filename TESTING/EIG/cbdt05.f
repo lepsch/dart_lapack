@@ -1,4 +1,4 @@
-      SUBROUTINE CBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID )
+      SUBROUTINE CBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,32 +6,32 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDU, LDVT, M, N, NS;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               S( * )
-      COMPLEX            A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * )
+      REAL               S( * );
+      COMPLEX            A( LDA, * ), U( * ), VT( LDVT, * ), WORK( * );
       // ..
 
 * ======================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 )
+      REAL               DUM( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
-      REAL               SASUM, SCASUM, SLAMCH, CLANGE
+      REAL               SASUM, SCASUM, SLAMCH, CLANGE;
       // EXTERNAL LSAME, ISAMAX, SASUM, SCASUM, SLAMCH, CLANGE
       // ..
       // .. External Subroutines ..
@@ -44,11 +44,11 @@
 
       // Quick return if possible.
 
-      RESID = ZERO
-      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN
+      RESID = ZERO;
+      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN;
 
-      EPS = SLAMCH( 'Precision' )
-      ANORM = CLANGE( 'M', M, N, A, LDA, DUM )
+      EPS = SLAMCH( 'Precision' );
+      ANORM = CLANGE( 'M', M, N, A, LDA, DUM );
 
       // Compute U' * A * V.
 
@@ -56,28 +56,28 @@
 
       // norm(S - U' * B * V)
 
-      J = 0
+      J = 0;
       for (I = 1; I <= NS; I++) { // 10
-         WORK( J+I ) =  WORK( J+I ) + CMPLX( S( I ), ZERO )
-         RESID = MAX( RESID, SCASUM( NS, WORK( J+1 ), 1 ) )
-         J = J + NS
+         WORK( J+I ) =  WORK( J+I ) + CMPLX( S( I ), ZERO );
+         RESID = MAX( RESID, SCASUM( NS, WORK( J+1 ), 1 ) );
+         J = J + NS;
       } // 10
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM >= RESID ) {
-            RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
+            RESID = ( RESID / ANORM ) / ( REAL( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS )
+               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS )
+               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS );
             }
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of CBDT05
 

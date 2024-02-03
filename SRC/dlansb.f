@@ -35,24 +35,24 @@
       // .. Executable Statements ..
 
       if ( N == 0 ) {
-         VALUE = ZERO
+         VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = MAX( K+2-J, 1 ), K + 1
-                  SUM = ABS( AB( I, J ) )
-                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               DO 10 I = MAX( K+2-J, 1 ), K + 1;
+                  SUM = ABS( AB( I, J ) );
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
-               DO 30 I = 1, MIN( N+1-J, K+1 )
-                  SUM = ABS( AB( I, J ) )
-                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               DO 30 I = 1, MIN( N+1-J, K+1 );
+                  SUM = ABS( AB( I, J ) );
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
          }
@@ -60,65 +60,65 @@
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
-               SUM = ZERO
-               L = K + 1 - J
-               DO 50 I = MAX( 1, J-K ), J - 1
-                  ABSA = ABS( AB( L+I, J ) )
-                  SUM = SUM + ABSA
-                  WORK( I ) = WORK( I ) + ABSA
+               SUM = ZERO;
+               L = K + 1 - J;
+               DO 50 I = MAX( 1, J-K ), J - 1;
+                  ABSA = ABS( AB( L+I, J ) );
+                  SUM = SUM + ABSA;
+                  WORK( I ) = WORK( I ) + ABSA;
                } // 50
-               WORK( J ) = SUM + ABS( AB( K+1, J ) )
+               WORK( J ) = SUM + ABS( AB( K+1, J ) );
             } // 60
             for (I = 1; I <= N; I++) { // 70
-               SUM = WORK( I )
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               SUM = WORK( I );
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WORK( I ) = ZERO
+               WORK( I ) = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( AB( 1, J ) )
-               L = 1 - J
-               DO 90 I = J + 1, MIN( N, J+K )
-                  ABSA = ABS( AB( L+I, J ) )
-                  SUM = SUM + ABSA
-                  WORK( I ) = WORK( I ) + ABSA
+               SUM = WORK( J ) + ABS( AB( 1, J ) );
+               L = 1 - J;
+               DO 90 I = J + 1, MIN( N, J+K );
+                  ABSA = ABS( AB( L+I, J ) );
+                  SUM = SUM + ABSA;
+                  WORK( I ) = WORK( I ) + ABSA;
                } // 90
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         SCALE = ZERO
-         SUM = ONE
+         SCALE = ZERO;
+         SUM = ONE;
          if ( K > 0 ) {
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 2; J <= N; J++) { // 110
                   dlassq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
                } // 110
-               L = K + 1
+               L = K + 1;
             } else {
                for (J = 1; J <= N - 1; J++) { // 120
                   dlassq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
                } // 120
-               L = 1
+               L = 1;
             }
-            SUM = 2*SUM
+            SUM = 2*SUM;
          } else {
-            L = 1
+            L = 1;
          }
          dlassq(N, AB( L, 1 ), LDAB, SCALE, SUM );
-         VALUE = SCALE*SQRT( SUM )
+         VALUE = SCALE*SQRT( SUM );
       }
 
-      DLANSB = VALUE
-      RETURN
+      DLANSB = VALUE;
+      RETURN;
 
       // End of DLANSB
 

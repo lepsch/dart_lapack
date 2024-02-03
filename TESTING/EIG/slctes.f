@@ -5,13 +5,13 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               D, ZI, ZR
+      REAL               D, ZI, ZR;
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Intrinsic Functions ..
@@ -20,12 +20,12 @@
       // .. Executable Statements ..
 
       if ( D == ZERO ) {
-         SLCTES = ( ZR < ZERO )
+         SLCTES = ( ZR < ZERO );
       } else {
-         SLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) )
+         SLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) );
       }
 
-      RETURN
+      RETURN;
 
       // End of SLCTES
 

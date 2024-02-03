@@ -1,4 +1,4 @@
-      SUBROUTINE SGETRF( M, N, A, LDA, IPIV, INFO )
+      SUBROUTINE SGETRF( M, N, A, LDA, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * )
+      REAL               A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -35,17 +35,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('SGETRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -54,7 +54,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'SGETRF', ' ', M, N, -1, -1 )
+      NB = ILAENV( 1, 'SGETRF', ' ', M, N, -1, -1 );
       if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
@@ -64,8 +64,8 @@
 
          // Use blocked code.
 
-         DO 20 J = 1, MIN( M, N ), NB
-            JB = MIN( MIN( M, N )-J+1, NB )
+         DO 20 J = 1, MIN( M, N ), NB;
+            JB = MIN( MIN( M, N )-J+1, NB );
 
             // Factor diagonal and subdiagonal blocks and test for exact
             // singularity.
@@ -75,8 +75,8 @@
             // Adjust INFO and the pivot indices.
 
             if (INFO == 0 && IINFO > 0) INFO = IINFO + J - 1;
-            DO 10 I = J, MIN( M, J+JB-1 )
-               IPIV( I ) = J - 1 + IPIV( I )
+            DO 10 I = J, MIN( M, J+JB-1 );
+               IPIV( I ) = J - 1 + IPIV( I );
             } // 10
 
             // Apply interchanges to columns 1:J-1.
@@ -101,7 +101,7 @@
             }
          } // 20
       }
-      RETURN
+      RETURN;
 
       // End of SGETRF
 

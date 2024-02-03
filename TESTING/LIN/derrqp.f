@@ -1,4 +1,4 @@
-      SUBROUTINE DERRQP( PATH, NUNIT )
+      SUBROUTINE DERRQP( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,10 +41,10 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
-      C2 = PATH( 2: 3 )
-      LW = 3*NMAX + 1
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
+      C2 = PATH( 2: 3 );
+      LW = 3*NMAX + 1;
       A( 1, 1 ) = 1.0;
       A( 1, 2 ) = 2.0;
       A( 2, 2 ) = 3.0;
@@ -57,17 +57,17 @@
 
          // DGEQP3
 
-         SRNAMT = 'DGEQP3'
-         INFOT = 1
+         SRNAMT = 'DGEQP3';
+         INFOT = 1;
          dgeqp3(-1, 0, A, 1, IP, TAU, W, LW, INFO );
          chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          dgeqp3(1, -1, A, 1, IP, TAU, W, LW, INFO );
          chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          dgeqp3(2, 3, A, 1, IP, TAU, W, LW, INFO );
          chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          dgeqp3(2, 2, A, 2, IP, TAU, W, LW-10, INFO );
          chkxer('DGEQP3', INFOT, NOUT, LERR, OK );
       }
@@ -76,7 +76,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of DERRQP
 

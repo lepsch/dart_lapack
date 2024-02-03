@@ -1,4 +1,4 @@
-      SUBROUTINE SLATRZ( M, N, L, A, LDA, TAU, WORK )
+      SUBROUTINE SLATRZ( M, N, L, A, LDA, TAU, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                L, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -30,15 +30,15 @@
       // Quick return if possible
 
       if ( M == 0 ) {
-         RETURN
+         RETURN;
       } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = ZERO
+            TAU( I ) = ZERO;
          } // 10
-         RETURN
+         RETURN;
       }
 
-      DO 20 I = M, 1, -1
+      DO 20 I = M, 1, -1;
 
          // Generate elementary reflector H(i) to annihilate
          // [ A(i,i) A(i,n-l+1:n) ]
@@ -51,7 +51,7 @@
 
       } // 20
 
-      RETURN
+      RETURN;
 
       // End of SLATRZ
 

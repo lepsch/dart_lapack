@@ -1,4 +1,4 @@
-      SUBROUTINE CSRSCL( N, SA, SX, INCX )
+      SUBROUTINE CSRSCL( N, SA, SX, INCX );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      REAL               SA
+      REAL               SA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            SX( * )
+      COMPLEX            SX( * );
       // ..
 
 * =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               DONE;
-      REAL               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM
+      REAL               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -40,36 +40,36 @@
 
       // Get machine parameters
 
-      SMLNUM = SLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = SLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
 
       // Initialize the denominator to SA and the numerator to 1.
 
-      CDEN = SA
-      CNUM = ONE
+      CDEN = SA;
+      CNUM = ONE;
 
       } // 10
-      CDEN1 = CDEN*SMLNUM
-      CNUM1 = CNUM / BIGNUM
+      CDEN1 = CDEN*SMLNUM;
+      CNUM1 = CNUM / BIGNUM;
       if ( ABS( CDEN1 ) > ABS( CNUM ) && CNUM != ZERO ) {
 
          // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 
-         MUL = SMLNUM
+         MUL = SMLNUM;
          DONE = false;
-         CDEN = CDEN1
+         CDEN = CDEN1;
       } else if ( ABS( CNUM1 ) > ABS( CDEN ) ) {
 
          // Pre-multiply X by BIGNUM if CDEN is small compared to CNUM.
 
-         MUL = BIGNUM
+         MUL = BIGNUM;
          DONE = false;
-         CNUM = CNUM1
+         CNUM = CNUM1;
       } else {
 
          // Multiply X by CNUM / CDEN and return.
 
-         MUL = CNUM / CDEN
+         MUL = CNUM / CDEN;
          DONE = true;
       }
 
@@ -79,7 +79,7 @@
 
       if ( !DONE) GO TO 10;
 
-      RETURN
+      RETURN;
 
       // End of CSRSCL
 

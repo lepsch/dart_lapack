@@ -1,4 +1,4 @@
-      SUBROUTINE DTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO )
+      SUBROUTINE DTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,40 +45,40 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
+      NOUNIT = LSAME( DIAG, 'N' );
 
       if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('DTRCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       }
 
-      RCOND = ZERO
-      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( 1, N ) )
+      RCOND = ZERO;
+      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( 1, N ) );
 
       // Compute the norm of the triangular matrix A.
 
-      ANORM = DLANTR( NORM, UPLO, DIAG, N, N, A, LDA, WORK )
+      ANORM = DLANTR( NORM, UPLO, DIAG, N, N, A, LDA, WORK );
 
       // Continue only if ANORM > 0.
 
@@ -86,14 +86,14 @@
 
          // Estimate the norm of the inverse of A.
 
-         AINVNM = ZERO
-         NORMIN = 'N'
+         AINVNM = ZERO;
+         NORMIN = 'N';
          if ( ONENRM ) {
-            KASE1 = 1
+            KASE1 = 1;
          } else {
-            KASE1 = 2
+            KASE1 = 2;
          }
-         KASE = 0
+         KASE = 0;
          } // 10
          dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -108,17 +108,17 @@
 
                dlatrs(UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO );
             }
-            NORMIN = 'Y'
+            NORMIN = 'Y';
 
             // Multiply by 1/SCALE if doing so will not cause overflow.
 
             if ( SCALE != ONE ) {
-               IX = IDAMAX( N, WORK, 1 )
-               XNORM = ABS( WORK( IX ) )
+               IX = IDAMAX( N, WORK, 1 );
+               XNORM = ABS( WORK( IX ) );
                if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                drscl(N, SCALE, WORK, 1 );
             }
-            GO TO 10
+            GO TO 10;
          }
 
          // Compute the estimate of the reciprocal condition number.
@@ -127,7 +127,7 @@
       }
 
       } // 20
-      RETURN
+      RETURN;
 
       // End of DTRCON
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKPS( DOTYPE, NN, NVAL, NNB, NBVAL, NRANK, RANKVAL, THRESH, TSTERR, NMAX, A, AFAC, PERM, PIV, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKPS( DOTYPE, NN, NVAL, NNB, NBVAL, NRANK, RANKVAL, THRESH, TSTERR, NMAX, A, AFAC, PERM, PIV, WORK, RWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       bool               TSTERR;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( * ), AFAC( * ), PERM( * ), WORK( * )
+      COMPLEX*16         A( * ), AFAC( * ), PERM( * ), WORK( * );
       double             RWORK( * );
       int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * );
       bool               DOTYPE( * );
@@ -50,41 +50,41 @@
       // INTRINSIC DBLE, MAX, CEILING
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex Precision'
-      PATH( 2: 3 ) = 'PS'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Zomplex Precision';
+      PATH( 2: 3 ) = 'PS';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 100
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 100
 
       // Test the error exits
 
       if (TSTERR) CALL ZERRPS( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 150
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
-         IZERO = 0
+         IZERO = 0;
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 140
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 140
+            IF( !DOTYPE( IMAT ) ) GO TO 140;
 
                // Do for each value of RANK in RANKVAL
 
@@ -93,53 +93,53 @@
                // Only repeat test 3 to 5 for different ranks
                // Other tests use full rank
 
-               IF( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130
+               IF( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130;
 
-               RANK = CEILING( ( N * DBLE( RANKVAL( IRANK ) ) ) / 100.0 )
+               RANK = CEILING( ( N * DBLE( RANKVAL( IRANK ) ) ) / 100.0 );
 
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
-                  UPLO = UPLOS( IUPLO )
+                  UPLO = UPLOS( IUPLO );
 
                // Set up parameters with ZLATB5 and generate a test matrix
                // with ZLATMT.
 
                   zlatb5(PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'ZLATMT'
+                  SRNAMT = 'ZLATMT';
                   zlatmt(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, RANK, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMT.
 
                   if ( INFO != 0 ) {
                     alaerh(PATH, 'ZLATMT', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 120
+                     GO TO 120;
                   }
 
                // Do for each value of NB in NBVAL
 
                   for (INB = 1; INB <= NNB; INB++) { // 110
-                     NB = NBVAL( INB )
+                     NB = NBVAL( INB );
                      xlaenv(1, NB );
 
                   // Compute the pivoted L*L' or U'*U factorization
                   // of the matrix.
 
                      zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
-                     SRNAMT = 'ZPSTRF'
+                     SRNAMT = 'ZPSTRF';
 
                   // Use default tolerance
 
-                     TOL = -ONE
+                     TOL = -ONE;
                      zpstrf(UPLO, N, AFAC, LDA, PIV, COMPRANK, TOL, RWORK, INFO );
 
                   // Check error code from ZPSTRF.
 
                      IF( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
                         alaerh(PATH, 'ZPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 110
+                        GO TO 110;
                      }
 
                   // Skip the test if INFO is not 0.
@@ -156,12 +156,12 @@
                   // the threshold or where computed rank was not RANK.
 
                      if (N == 0) COMPRANK = 0;
-                     RANKDIFF = RANK - COMPRANK
+                     RANKDIFF = RANK - COMPRANK;
                      if ( RESULT >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
-                     NRUN = NRUN + 1
+                     NRUN = NRUN + 1;
                   } // 110
 
                } // 120
@@ -173,8 +173,8 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', RANK =', I3, ', Diff =', I5, ', NB =', I4, ', type ', I2, ', Ratio =', G12.5 )
-      RETURN
+ 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', RANK =', I3, ', Diff =', I5, ', NB =', I4, ', type ', I2, ', Ratio =', G12.5 );
+      RETURN;
 
       // End of ZCHKPS
 

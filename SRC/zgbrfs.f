@@ -1,4 +1,4 @@
-      SUBROUTINE ZGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -21,7 +21,7 @@
       const              ITMAX = 5 ;
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       double             TWO;
       const              TWO = 2.0 ;
@@ -33,7 +33,7 @@
       String             TRANSN, TRANST;
       int                COUNT, I, J, K, KASE, KK, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -53,70 +53,70 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOTRAN = LSAME( TRANS, 'N' );
       if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRHS < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < KL+KU+1 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDAFB < 2*KL+KU+1 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -14
+         INFO = -14;
       }
       if ( INFO != 0 ) {
          xerbla('ZGBRFS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO
-            BERR( J ) = ZERO
+            FERR( J ) = ZERO;
+            BERR( J ) = ZERO;
          } // 10
-         RETURN
+         RETURN;
       }
 
       if ( NOTRAN ) {
-         TRANSN = 'N'
-         TRANST = 'C'
+         TRANSN = 'N';
+         TRANST = 'C';
       } else {
-         TRANSN = 'C'
-         TRANST = 'N'
+         TRANSN = 'C';
+         TRANST = 'N';
       }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
-      NZ = MIN( KL+KU+2, N+1 )
-      EPS = DLAMCH( 'Epsilon' )
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      SAFE1 = NZ*SAFMIN
-      SAFE2 = SAFE1 / EPS
+      NZ = MIN( KL+KU+2, N+1 );
+      EPS = DLAMCH( 'Epsilon' );
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFE1 = NZ*SAFMIN;
+      SAFE2 = SAFE1 / EPS;
 
       // Do for each right hand side
 
       for (J = 1; J <= NRHS; J++) { // 140
 
-         COUNT = 1
-         LSTRES = THREE
+         COUNT = 1;
+         LSTRES = THREE;
          } // 20
 
          // Loop until stopping criterion is satisfied.
@@ -137,38 +137,38 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 30
-            RWORK( I ) = CABS1( B( I, J ) )
+            RWORK( I ) = CABS1( B( I, J ) );
          } // 30
 
          // Compute abs(op(A))*abs(X) + abs(B).
 
          if ( NOTRAN ) {
             for (K = 1; K <= N; K++) { // 50
-               KK = KU + 1 - K
-               XK = CABS1( X( K, J ) )
-               DO 40 I = MAX( 1, K-KU ), MIN( N, K+KL )
-                  RWORK( I ) = RWORK( I ) + CABS1( AB( KK+I, K ) )*XK
+               KK = KU + 1 - K;
+               XK = CABS1( X( K, J ) );
+               DO 40 I = MAX( 1, K-KU ), MIN( N, K+KL );
+                  RWORK( I ) = RWORK( I ) + CABS1( AB( KK+I, K ) )*XK;
                } // 40
             } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
-               S = ZERO
-               KK = KU + 1 - K
-               DO 60 I = MAX( 1, K-KU ), MIN( N, K+KL )
-                  S = S + CABS1( AB( KK+I, K ) )*CABS1( X( I, J ) )
+               S = ZERO;
+               KK = KU + 1 - K;
+               DO 60 I = MAX( 1, K-KU ), MIN( N, K+KL );
+                  S = S + CABS1( AB( KK+I, K ) )*CABS1( X( I, J ) );
                } // 60
-               RWORK( K ) = RWORK( K ) + S
+               RWORK( K ) = RWORK( K ) + S;
             } // 70
          }
-         S = ZERO
+         S = ZERO;
          for (I = 1; I <= N; I++) { // 80
             if ( RWORK( I ) > SAFE2 ) {
-               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
+               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) );
             } else {
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 80
-         BERR( J ) = S
+         BERR( J ) = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -182,9 +182,9 @@
 
             zgbtrs(TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             zaxpy(N, CONE, WORK, 1, X( 1, J ), 1 );
-            LSTRES = BERR( J )
-            COUNT = COUNT + 1
-            GO TO 20
+            LSTRES = BERR( J );
+            COUNT = COUNT + 1;
+            GO TO 20;
          }
 
          // Bound error from formula
@@ -211,13 +211,13 @@
 
          for (I = 1; I <= N; I++) { // 90
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 90
 
-         KASE = 0
+         KASE = 0;
          } // 100
          zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -227,31 +227,31 @@
 
                zgbtrs(TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
                for (I = 1; I <= N; I++) { // 110
-                  WORK( I ) = RWORK( I )*WORK( I )
+                  WORK( I ) = RWORK( I )*WORK( I );
                } // 110
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
-                  WORK( I ) = RWORK( I )*WORK( I )
+                  WORK( I ) = RWORK( I )*WORK( I );
                } // 120
                zgbtrs(TRANSN, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO );
             }
-            GO TO 100
+            GO TO 100;
          }
 
          // Normalize error.
 
-         LSTRES = ZERO
+         LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 130
-            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
+            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) );
          } // 130
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 140
 
-      RETURN
+      RETURN;
 
       // End of ZGBRFS
 

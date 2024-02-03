@@ -1,4 +1,4 @@
-      SUBROUTINE CLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK )
+      SUBROUTINE CLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, L, LDC, M, N;
-      COMPLEX            TAU
+      COMPLEX            TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX            C( LDC, * ), V( * ), WORK( * )
+      COMPLEX            C( LDC, * ), V( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE, ZERO
+      COMPLEX            ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. External Subroutines ..
@@ -81,7 +81,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CLARZ
 

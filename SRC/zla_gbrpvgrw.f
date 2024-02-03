@@ -8,7 +8,7 @@
       int                N, KL, KU, NCOLS, LDAB, LDAFB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * );
       // ..
 
 *  =====================================================================
@@ -16,7 +16,7 @@
       // .. Local Scalars ..
       int                I, J, KD;
       double             AMAX, UMAX, RPVGRW;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, DIMAG
@@ -25,27 +25,27 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       RPVGRW = 1.0;
 
-      KD = KU + 1
+      KD = KU + 1;
       for (J = 1; J <= NCOLS; J++) {
          AMAX = 0.0;
          UMAX = 0.0;
-         DO I = MAX( J-KU, 1 ), MIN( J+KL, N )
-            AMAX = MAX( CABS1( AB( KD+I-J, J ) ), AMAX )
+         DO I = MAX( J-KU, 1 ), MIN( J+KL, N );
+            AMAX = MAX( CABS1( AB( KD+I-J, J ) ), AMAX );
          }
-         DO I = MAX( J-KU, 1 ), J
-            UMAX = MAX( CABS1( AFB( KD+I-J, J ) ), UMAX )
+         DO I = MAX( J-KU, 1 ), J;
+            UMAX = MAX( CABS1( AFB( KD+I-J, J ) ), UMAX );
          }
          if ( UMAX /= 0.0 ) {
-            RPVGRW = MIN( AMAX / UMAX, RPVGRW )
+            RPVGRW = MIN( AMAX / UMAX, RPVGRW );
          }
       }
-      ZLA_GBRPVGRW = RPVGRW
+      ZLA_GBRPVGRW = RPVGRW;
 
       // End of ZLA_GBRPVGRW
 

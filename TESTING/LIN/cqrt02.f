@@ -1,4 +1,4 @@
-      SUBROUTINE CQRT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CQRT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,24 +8,24 @@
       int                K, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
+      REAL               RESULT( * ), RWORK( * );
+      COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            ROGUE
+      COMPLEX            ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, EPS, RESID
+      REAL               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANSY, SLAMCH
+      REAL               CLANGE, CLANSY, SLAMCH;
       // EXTERNAL CLANGE, CLANSY, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -42,7 +42,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = SLAMCH( 'Epsilon' )
+      EPS = SLAMCH( 'Epsilon' );
 
       // Copy the first k columns of the factorization to the array Q
 
@@ -51,7 +51,7 @@
 
       // Generate the first n columns of the matrix Q
 
-      SRNAMT = 'CUNGQR'
+      SRNAMT = 'CUNGQR';
       cungqr(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R(1:n,1:k)
@@ -65,12 +65,12 @@
 
       // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
-      ANORM = CLANGE( '1', M, K, A, LDA, RWORK )
-      RESID = CLANGE( '1', N, K, R, LDA, RWORK )
+      ANORM = CLANGE( '1', M, K, A, LDA, RWORK );
+      RESID = CLANGE( '1', N, K, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -80,11 +80,11 @@
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 
-      RESID = CLANSY( '1', 'Upper', N, R, LDA, RWORK )
+      RESID = CLANSY( '1', 'Upper', N, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of CQRT02
 

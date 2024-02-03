@@ -1,10 +1,10 @@
-      SUBROUTINE CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO)
+      SUBROUTINE CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO);
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -12,24 +12,24 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), WORK( * )
+      COMPLEX            A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
       // .. Parameters ..
-      COMPLEX            ZERO, ONE
+      COMPLEX            ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
 
       // .. Local Scalars ..
       bool               LQUERY, UPPER;
       int                J, LWKOPT;
       int                NB, MJ, NJ, K1, K2, J1, J2, J3, JB;
-      COMPLEX            ALPHA
+      COMPLEX            ALPHA;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -42,49 +42,49 @@
 
       // Determine the block size
 
-      NB = ILAENV( 1, 'CSYTRF_AA', UPLO, N, -1, -1, -1 )
+      NB = ILAENV( 1, 'CSYTRF_AA', UPLO, N, -1, -1, -1 );
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < MAX( 1, 2*N ) && !LQUERY ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO == 0 ) {
-         LWKOPT = (NB+1)*N
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
+         LWKOPT = (NB+1)*N;
+         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
          xerbla('CSYTRF_AA', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return
 
       if ( N == 0 ) {
-          RETURN
+          RETURN;
       }
-      IPIV( 1 ) = 1
+      IPIV( 1 ) = 1;
       if ( N == 1 ) {
-         RETURN
+         RETURN;
       }
 
       // Adjust block size based on the workspace size
 
       if ( LWORK < ((1+NB)*N) ) {
-         NB = ( LWORK-N ) / N
+         NB = ( LWORK-N ) / N;
       }
 
       if ( UPPER ) {
@@ -101,7 +101,7 @@
          // JB, where JB is the number of columns factorized by CLASYF;
          // JB is either NB, or N-J+1 for the last block
 
-         J = 0
+         J = 0;
          } // 10
          if (J >= N) GO TO 20;
 
@@ -112,9 +112,9 @@
            // explicitly stored, e.g., K1=1 for the first panel, and
            // K1=0 for the rest
 
-         J1 = J + 1
-         JB = MIN( N-J1+1, NB )
-         K1 = MAX(1, J)-J
+         J1 = J + 1;
+         JB = MIN( N-J1+1, NB );
+         K1 = MAX(1, J)-J;
 
          // Panel factorization
 
@@ -122,13 +122,13 @@
 
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
-         DO J2 = J+2, MIN(N, J+JB+1)
-            IPIV( J2 ) = IPIV( J2 ) + J
+         DO J2 = J+2, MIN(N, J+JB+1);
+            IPIV( J2 ) = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                cswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
             }
          }
-         J = J + JB
+         J = J + JB;
 
          // Trailing submatrix update, where
           // the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
@@ -142,8 +142,8 @@
 
                // Merge rank-1 update with BLAS-3 update
 
-               ALPHA = A( J, J+1 )
-               A( J, J+1 ) = ONE
+               ALPHA = A( J, J+1 );
+               A( J, J+1 ) = ONE;
                ccopy(N-J, A( J-1, J+1 ), LDA, WORK( (J+1-J1+1)+JB*N ), 1 );
                cscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -155,27 +155,27 @@
 
                   // Not first panel
 
-                  K2 = 1
+                  K2 = 1;
                } else {
 
                   // First panel
 
-                  K2 = 0
+                  K2 = 0;
 
                   // First update skips the first column
 
-                  JB = JB - 1
+                  JB = JB - 1;
                }
 
-               DO J2 = J+1, N, NB
-                  NJ = MIN( NB, N-J2+1 )
+               DO J2 = J+1, N, NB;
+                  NJ = MIN( NB, N-J2+1 );
 
                   // Update (J2, J2) diagonal block with CGEMV
 
-                  J3 = J2
-                  DO MJ = NJ-1, 1, -1
+                  J3 = J2;
+                  DO MJ = NJ-1, 1, -1;
                      cgemv('No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J1-K2, J3 ), 1, ONE, A( J3, J3 ), LDA );
-                     J3 = J3 + 1
+                     J3 = J3 + 1;
                   }
 
                   // Update off-diagonal block of J2-th block row with CGEMM
@@ -185,14 +185,14 @@
 
                // Recover T( J, J+1 )
 
-               A( J, J+1 ) = ALPHA
+               A( J, J+1 ) = ALPHA;
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)
 
             ccopy(N-J, A( J+1, J+1 ), LDA, WORK( 1 ), 1 );
          }
-         GO TO 10
+         GO TO 10;
       } else {
 
          // .....................................................
@@ -208,7 +208,7 @@
          // JB, where JB is the number of columns factorized by CLASYF;
          // JB is either NB, or N-J+1 for the last block
 
-         J = 0
+         J = 0;
          } // 11
          if (J >= N) GO TO 20;
 
@@ -219,9 +219,9 @@
            // explicitly stored, e.g., K1=1 for the first panel, and
            // K1=0 for the rest
 
-         J1 = J+1
-         JB = MIN( N-J1+1, NB )
-         K1 = MAX(1, J)-J
+         J1 = J+1;
+         JB = MIN( N-J1+1, NB );
+         K1 = MAX(1, J)-J;
 
          // Panel factorization
 
@@ -229,13 +229,13 @@
 
          // Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 
-         DO J2 = J+2, MIN(N, J+JB+1)
-            IPIV( J2 ) = IPIV( J2 ) + J
+         DO J2 = J+2, MIN(N, J+JB+1);
+            IPIV( J2 ) = IPIV( J2 ) + J;
             if ( (J2 != IPIV(J2)) && ((J1-K1) > 2) ) {
                cswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
             }
          }
-         J = J + JB
+         J = J + JB;
 
          // Trailing submatrix update, where
            // A(J2+1, J1-1) stores L(J2+1, J1) and
@@ -249,8 +249,8 @@
 
                // Merge rank-1 update with BLAS-3 update
 
-               ALPHA = A( J+1, J )
-               A( J+1, J ) = ONE
+               ALPHA = A( J+1, J );
+               A( J+1, J ) = ONE;
                ccopy(N-J, A( J+1, J-1 ), 1, WORK( (J+1-J1+1)+JB*N ), 1 );
                cscal(N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 );
 
@@ -262,27 +262,27 @@
 
                   // Not first panel
 
-                  K2 = 1
+                  K2 = 1;
                } else {
 
                   // First panel
 
-                  K2 = 0
+                  K2 = 0;
 
                   // First update skips the first column
 
-                  JB = JB - 1
+                  JB = JB - 1;
                }
 
-               DO J2 = J+1, N, NB
-                  NJ = MIN( NB, N-J2+1 )
+               DO J2 = J+1, N, NB;
+                  NJ = MIN( NB, N-J2+1 );
 
                   // Update (J2, J2) diagonal block with CGEMV
 
-                  J3 = J2
-                  DO MJ = NJ-1, 1, -1
+                  J3 = J2;
+                  DO MJ = NJ-1, 1, -1;
                      cgemv('No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J3, J1-K2 ), LDA, ONE, A( J3, J3 ), 1 );
-                     J3 = J3 + 1
+                     J3 = J3 + 1;
                   }
 
                   // Update off-diagonal block in J2-th block column with CGEMM
@@ -292,19 +292,19 @@
 
                // Recover T( J+1, J )
 
-               A( J+1, J ) = ALPHA
+               A( J+1, J ) = ALPHA;
             }
 
             // WORK(J+1, 1) stores H(J+1, 1)
 
             ccopy(N-J, A( J+1, J+1 ), 1, WORK( 1 ), 1 );
          }
-         GO TO 11
+         GO TO 11;
       }
 
       } // 20
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      RETURN;
 
       // End of CSYTRF_AA
 

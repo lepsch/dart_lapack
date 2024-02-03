@@ -1,4 +1,4 @@
-      SUBROUTINE DLATZM( SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK )
+      SUBROUTINE DLATZM( SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ( MIN( M, N ) == 0 ) || ( TAU == ZERO ) ) RETURN
+      IF( ( MIN( M, N ) == 0 ) || ( TAU == ZERO ) ) RETURN;
 
       if ( LSAME( SIDE, 'L' ) ) {
 
@@ -59,7 +59,7 @@
          dger(M, N-1, -TAU, WORK, 1, V, INCV, C2, LDC );
       }
 
-      RETURN
+      RETURN;
 
       // End of DLATZM
 

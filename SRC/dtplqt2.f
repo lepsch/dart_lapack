@@ -1,4 +1,4 @@
-      SUBROUTINE DTPLQT2( M, N, L, A, LDA, B, LDB, T, LDT, INFO )
+      SUBROUTINE DTPLQT2( M, N, L, A, LDA, B, LDB, T, LDT, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,23 +31,23 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( L < 0 || L > MIN(M,N) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, M ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDT < MAX( 1, M ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('DTPLQT2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -58,22 +58,22 @@
 
          // Generate elementary reflector H(I) to annihilate B(I,:)
 
-         P = N-L+MIN( L, I )
+         P = N-L+MIN( L, I );
          dlarfg(P+1, A( I, I ), B( I, 1 ), LDB, T( 1, I ) );
          if ( I < M ) {
 
             // W(M-I:1) := C(I+1:M,I:N) * C(I,I:N) [use W = T(M,:)]
 
             for (J = 1; J <= M-I; J++) {
-               T( M, J ) = (A( I+J, I ))
+               T( M, J ) = (A( I+J, I ));
             }
             dgemv('N', M-I, P, ONE, B( I+1, 1 ), LDB, B( I, 1 ), LDB, ONE, T( M, 1 ), LDT );
 
             // C(I+1:M,I:N) = C(I+1:M,I:N) + alpha * C(I,I:N)*W(M-1:1)^H
 
-            ALPHA = -(T( 1, I ))
+            ALPHA = -(T( 1, I ));
             for (J = 1; J <= M-I; J++) {
-               A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ))
+               A( I+J, I ) = A( I+J, I ) + ALPHA*(T( M, J ));
             }
             dger(M-I, P, ALPHA,  T( M, 1 ), LDT, B( I, 1 ), LDB, B( I+1, 1 ), LDB );
          }
@@ -83,19 +83,19 @@
 
          // T(I,1:I-1) := C(I:I-1,1:N) * (alpha * C(I,I:N)^H)
 
-         ALPHA = -T( 1, I )
+         ALPHA = -T( 1, I );
 
          for (J = 1; J <= I-1; J++) {
-            T( I, J ) = ZERO
+            T( I, J ) = ZERO;
          }
-         P = MIN( I-1, L )
-         NP = MIN( N-L+1, N )
-         MP = MIN( P+1, M )
+         P = MIN( I-1, L );
+         NP = MIN( N-L+1, N );
+         MP = MIN( P+1, M );
 
          // Triangular part of B2
 
          for (J = 1; J <= P; J++) {
-            T( I, J ) = ALPHA*B( I, N-L+J )
+            T( I, J ) = ALPHA*B( I, N-L+J );
          }
          dtrmv('L', 'N', 'N', P, B( 1, NP ), LDB, T( I, 1 ), LDT );
 
@@ -113,13 +113,13 @@
 
          // T(I,I) = tau(I)
 
-         T( I, I ) = T( 1, I )
-         T( 1, I ) = ZERO
+         T( I, I ) = T( 1, I );
+         T( 1, I ) = ZERO;
       }
       for (I = 1; I <= M; I++) {
          for (J = I+1; J <= M; J++) {
-            T(I,J)=T(J,I)
-            T(J,I)= ZERO
+            T(I,J)=T(J,I);
+            T(J,I)= ZERO;
          }
       }
 

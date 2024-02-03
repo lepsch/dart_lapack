@@ -1,4 +1,4 @@
-      SUBROUTINE DSYTD2( UPLO, N, A, LDA, D, E, TAU, INFO )
+      SUBROUTINE DSYTD2( UPLO, N, A, LDA, D, E, TAU, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,18 +38,18 @@
 
       // Test the input parameters
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DSYTD2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -60,19 +60,19 @@
 
          // Reduce the upper triangle of A
 
-         DO 10 I = N - 1, 1, -1
+         DO 10 I = N - 1, 1, -1;
 
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(1:i-1,i+1)
 
             dlarfg(I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI );
-            E( I ) = A( I, I+1 )
+            E( I ) = A( I, I+1 );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(1:i,1:i)
 
-               A( I, I+1 ) = ONE
+               A( I, I+1 ) = ONE;
 
                // Compute  x := tau * A * v  storing x in TAU(1:i)
 
@@ -80,7 +80,7 @@
 
                // Compute  w := x - 1/2 * tau * (x**T * v) * v
 
-               ALPHA = -HALF*TAUI*DDOT( I, TAU, 1, A( 1, I+1 ), 1 )
+               ALPHA = -HALF*TAUI*DDOT( I, TAU, 1, A( 1, I+1 ), 1 );
                daxpy(I, ALPHA, A( 1, I+1 ), 1, TAU, 1 );
 
                // Apply the transformation as a rank-2 update:
@@ -88,12 +88,12 @@
 
                dsyr2(UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA );
 
-               A( I, I+1 ) = E( I )
+               A( I, I+1 ) = E( I );
             }
-            D( I+1 ) = A( I+1, I+1 )
-            TAU( I ) = TAUI
+            D( I+1 ) = A( I+1, I+1 );
+            TAU( I ) = TAUI;
          } // 10
-         D( 1 ) = A( 1, 1 )
+         D( 1 ) = A( 1, 1 );
       } else {
 
          // Reduce the lower triangle of A
@@ -104,13 +104,13 @@
             // to annihilate A(i+2:n,i)
 
             dlarfg(N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI );
-            E( I ) = A( I+1, I )
+            E( I ) = A( I+1, I );
 
             if ( TAUI != ZERO ) {
 
                // Apply H(i) from both sides to A(i+1:n,i+1:n)
 
-               A( I+1, I ) = ONE
+               A( I+1, I ) = ONE;
 
                // Compute  x := tau * A * v  storing y in TAU(i:n-1)
 
@@ -118,7 +118,7 @@
 
                // Compute  w := x - 1/2 * tau * (x**T * v) * v
 
-               ALPHA = -HALF*TAUI*DDOT( N-I, TAU( I ), 1, A( I+1, I ), 1 )
+               ALPHA = -HALF*TAUI*DDOT( N-I, TAU( I ), 1, A( I+1, I ), 1 );
                daxpy(N-I, ALPHA, A( I+1, I ), 1, TAU( I ), 1 );
 
                // Apply the transformation as a rank-2 update:
@@ -126,15 +126,15 @@
 
                dsyr2(UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA );
 
-               A( I+1, I ) = E( I )
+               A( I+1, I ) = E( I );
             }
-            D( I ) = A( I, I )
-            TAU( I ) = TAUI
+            D( I ) = A( I, I );
+            TAU( I ) = TAUI;
          } // 20
-         D( N ) = A( N, N )
+         D( N ) = A( N, N );
       }
 
-      RETURN
+      RETURN;
 
       // End of DSYTD2
 

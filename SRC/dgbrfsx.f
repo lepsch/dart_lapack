@@ -1,4 +1,4 @@
-      SUBROUTINE DGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
+      SUBROUTINE DGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -64,30 +64,30 @@
 
       // Check the input parameters.
 
-      INFO = 0
-      TRANS_TYPE = ILATRANS( TRANS )
-      REF_TYPE = INT( ITREF_DEFAULT )
+      INFO = 0;
+      TRANS_TYPE = ILATRANS( TRANS );
+      REF_TYPE = INT( ITREF_DEFAULT );
       if ( NPARAMS >= LA_LINRX_ITREF_I ) {
          if ( PARAMS( LA_LINRX_ITREF_I ) < 0.0 ) {
-            PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT
+            PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT;
          } else {
-            REF_TYPE = PARAMS( LA_LINRX_ITREF_I )
+            REF_TYPE = PARAMS( LA_LINRX_ITREF_I );
          }
       }
 
       // Set default parameters.
 
-      ILLRCOND_THRESH = DBLE( N ) * DLAMCH( 'Epsilon' )
-      ITHRESH = INT( ITHRESH_DEFAULT )
-      RTHRESH = RTHRESH_DEFAULT
-      UNSTABLE_THRESH = DZTHRESH_DEFAULT
+      ILLRCOND_THRESH = DBLE( N ) * DLAMCH( 'Epsilon' );
+      ITHRESH = INT( ITHRESH_DEFAULT );
+      RTHRESH = RTHRESH_DEFAULT;
+      UNSTABLE_THRESH = DZTHRESH_DEFAULT;
       IGNORE_CWISE = COMPONENTWISE_DEFAULT == 0.0;
 
       if ( NPARAMS >= LA_LINRX_ITHRESH_I ) {
          if ( PARAMS( LA_LINRX_ITHRESH_I ) < 0.0 ) {
-            PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
+            PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH;
          } else {
-            ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) )
+            ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) );
          }
       }
       if ( NPARAMS >= LA_LINRX_CWISE_I ) {
@@ -102,43 +102,43 @@
          }
       }
       if ( REF_TYPE == 0 || N_ERR_BNDS == 0 ) {
-         N_NORMS = 0
+         N_NORMS = 0;
       } else if ( IGNORE_CWISE ) {
-         N_NORMS = 1
+         N_NORMS = 1;
       } else {
-         N_NORMS = 2
+         N_NORMS = 2;
       }
 
-      NOTRAN = LSAME( TRANS, 'N' )
-      ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
-      COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
+      NOTRAN = LSAME( TRANS, 'N' );
+      ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
+      COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
 
       // Test input parameters.
 
       if ( TRANS_TYPE == -1 ) {
-        INFO = -1
+        INFO = -1;
       } else if ( !ROWEQU && !COLEQU && !LSAME( EQUED, 'N' ) ) {
-        INFO = -2
+        INFO = -2;
       } else if ( N < 0 ) {
-        INFO = -3
+        INFO = -3;
       } else if ( KL < 0 ) {
-        INFO = -4
+        INFO = -4;
       } else if ( KU < 0 ) {
-        INFO = -5
+        INFO = -5;
       } else if ( NRHS < 0 ) {
-        INFO = -6
+        INFO = -6;
       } else if ( LDAB < KL+KU+1 ) {
-        INFO = -8
+        INFO = -8;
       } else if ( LDAFB < 2*KL+KU+1 ) {
-        INFO = -10
+        INFO = -10;
       } else if ( LDB < MAX( 1, N ) ) {
-        INFO = -13
+        INFO = -13;
       } else if ( LDX < MAX( 1, N ) ) {
-        INFO = -15
+        INFO = -15;
       }
       if ( INFO != 0 ) {
         xerbla('DGBRFSX', -INFO );
-        RETURN
+        RETURN;
       }
 
       // Quick return if possible.
@@ -160,7 +160,7 @@
                ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = 1.0;
             }
          }
-         RETURN
+         RETURN;
       }
 
       // Default to failure.
@@ -186,18 +186,18 @@
       // number of A.
 
       if ( NOTRAN ) {
-         NORM = 'I'
+         NORM = 'I';
       } else {
-         NORM = '1'
+         NORM = '1';
       }
-      ANORM = DLANGB( NORM, N, KL, KU, AB, LDAB, WORK )
+      ANORM = DLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
       dgbcon(NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, IWORK, INFO );
 
       // Perform refinement on each right-hand side
 
       if ( REF_TYPE != 0 && INFO == 0 ) {
 
-         PREC_TYPE = ILAPREC( 'E' )
+         PREC_TYPE = ILAPREC( 'E' );
 
          if ( NOTRAN ) {
             dla_gbrfsx_extended(PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK( N+1 ), WORK( 1 ), WORK( 2*N+1 ), WORK( 1 ), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO );
@@ -206,17 +206,17 @@
          }
       }
 
-      ERR_LBND = MAX( 10.0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )
+      ERR_LBND = MAX( 10.0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' );
       if ( N_ERR_BNDS >= 1 && N_NORMS >= 1 ) {
 
       // Compute scaled normwise condition number cond(A*C).
 
          if ( COLEQU && NOTRAN ) {
-            RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, -1, C, INFO, WORK, IWORK )
+            RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, -1, C, INFO, WORK, IWORK );
          } else if ( ROWEQU && !NOTRAN ) {
-            RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, -1, R, INFO, WORK, IWORK )
+            RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, -1, R, INFO, WORK, IWORK );
          } else {
-            RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 0, R, INFO, WORK, IWORK )
+            RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 0, R, INFO, WORK, IWORK );
          }
          for (J = 1; J <= NRHS; J++) {
 
@@ -231,14 +231,14 @@
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0;
                if (INFO <= N) INFO = N + J;
             } else if ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
-               ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND
+               ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND;
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0;
             }
 
       // Save the condition number.
 
             if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
-               ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP
+               ERR_BNDS_NORM( J, LA_LINRX_RCOND_I ) = RCOND_TMP;
             }
 
          }
@@ -254,9 +254,9 @@
       // the inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
 
-         CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
+         CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) );
          for (J = 1; J <= NRHS; J++) {
-            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) THEN                RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 1, X( 1, J ), INFO, WORK, IWORK )
+            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < CWISE_WRONG ) THEN                RCOND_TMP = DLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, 1, X( 1, J ), INFO, WORK, IWORK );
             } else {
                RCOND_TMP = 0.0;
             }
@@ -271,20 +271,20 @@
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0;
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0;
                if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0 && INFO < N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) < ERR_LBND ) {
-               ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
+               ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND;
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0;
             }
 
       // Save the condition number.
 
             if ( N_ERR_BNDS >= LA_LINRX_RCOND_I ) {
-               ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP
+               ERR_BNDS_COMP( J, LA_LINRX_RCOND_I ) = RCOND_TMP;
             }
 
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DGBRFSX
 

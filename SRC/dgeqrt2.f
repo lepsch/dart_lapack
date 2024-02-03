@@ -1,4 +1,4 @@
-      SUBROUTINE DGEQRT2( M, N, A, LDA, T, LDT, INFO )
+      SUBROUTINE DGEQRT2( M, N, A, LDA, T, LDT, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,22 +28,22 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < N ) {
-         INFO = -1
+         INFO = -1;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('DGEQRT2', -INFO );
-         RETURN
+         RETURN;
       }
 
-      K = MIN( M, N )
+      K = MIN( M, N );
 
       for (I = 1; I <= K; I++) {
 
@@ -54,8 +54,8 @@
 
             // Apply H(i) to A(I:M,I+1:N) from the left
 
-            AII = A( I, I )
-            A( I, I ) = ONE
+            AII = A( I, I );
+            A( I, I ) = ONE;
 
             // W(1:N-I) := A(I:M,I+1:N)^H * A(I:M,I) [W = T(:,N)]
 
@@ -63,21 +63,21 @@
 
             // A(I:M,I+1:N) = A(I:m,I+1:N) + alpha*A(I:M,I)*W(1:N-1)^H
 
-            ALPHA = -(T( I, 1 ))
+            ALPHA = -(T( I, 1 ));
             dger(M-I+1, N-I, ALPHA, A( I, I ), 1, T( 1, N ), 1, A( I, I+1 ), LDA );
-            A( I, I ) = AII
+            A( I, I ) = AII;
          }
       }
 
       for (I = 2; I <= N; I++) {
-         AII = A( I, I )
-         A( I, I ) = ONE
+         AII = A( I, I );
+         A( I, I ) = ONE;
 
          // T(1:I-1,I) := alpha * A(I:M,1:I-1)**T * A(I:M,I)
 
-         ALPHA = -T( I, 1 )
+         ALPHA = -T( I, 1 );
          dgemv('T', M-I+1, I-1, ALPHA, A( I, 1 ), LDA, A( I, I ), 1, ZERO, T( 1, I ), 1 );
-         A( I, I ) = AII
+         A( I, I ) = AII;
 
          // T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
 
@@ -85,8 +85,8 @@
 
             // T(I,I) = tau(I)
 
-            T( I, I ) = T( I, 1 )
-            T( I, 1) = ZERO
+            T( I, I ) = T( I, 1 );
+            T( I, 1) = ZERO;
       }
 
 

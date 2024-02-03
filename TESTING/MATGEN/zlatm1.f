@@ -1,4 +1,4 @@
-      SUBROUTINE ZLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, INFO )
+      SUBROUTINE ZLATM1( MODE, COND, IRSIGN, IDIST, ISEED, D, N, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX*16         D( * )
+      COMPLEX*16         D( * );
       // ..
 
 *  =====================================================================
@@ -22,11 +22,11 @@
       // .. Local Scalars ..
       int                I;
       double             ALPHA, TEMP;
-      COMPLEX*16         CTEMP
+      COMPLEX*16         CTEMP;
       // ..
       // .. External Functions ..
       double             DLARAN;
-      COMPLEX*16         ZLARND
+      COMPLEX*16         ZLARND;
       // EXTERNAL DLARAN, ZLARND
       // ..
       // .. External Subroutines ..
@@ -39,7 +39,7 @@
 
       // Decode and Test the input parameters. Initialize flags & seed.
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
@@ -48,78 +48,78 @@
       // Set INFO if an error
 
       if ( MODE < -6 || MODE > 6 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && ( IRSIGN != 0 && IRSIGN != 1 ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND < ONE ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ( MODE == 6 || MODE == -6 ) && ( IDIST < 1 || IDIST > 4 ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZLATM1', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Compute D according to COND and MODE
 
       if ( MODE != 0 ) {
-         GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE )
+         GO TO ( 10, 30, 50, 70, 90, 110 )ABS( MODE );
 
          // One large D value:
 
          } // 10
          for (I = 1; I <= N; I++) { // 20
-            D( I ) = ONE / COND
+            D( I ) = ONE / COND;
          } // 20
-         D( 1 ) = ONE
-         GO TO 120
+         D( 1 ) = ONE;
+         GO TO 120;
 
          // One small D value:
 
          } // 30
          for (I = 1; I <= N; I++) { // 40
-            D( I ) = ONE
+            D( I ) = ONE;
          } // 40
-         D( N ) = ONE / COND
-         GO TO 120
+         D( N ) = ONE / COND;
+         GO TO 120;
 
          // Exponentially distributed D values:
 
          } // 50
-         D( 1 ) = ONE
+         D( 1 ) = ONE;
          if ( N > 1 ) {
-            ALPHA = COND**( -ONE / DBLE( N-1 ) )
+            ALPHA = COND**( -ONE / DBLE( N-1 ) );
             for (I = 2; I <= N; I++) { // 60
-               D( I ) = ALPHA**( I-1 )
+               D( I ) = ALPHA**( I-1 );
             } // 60
          }
-         GO TO 120
+         GO TO 120;
 
          // Arithmetically distributed D values:
 
          } // 70
-         D( 1 ) = ONE
+         D( 1 ) = ONE;
          if ( N > 1 ) {
-            TEMP = ONE / COND
-            ALPHA = ( ONE-TEMP ) / DBLE( N-1 )
+            TEMP = ONE / COND;
+            ALPHA = ( ONE-TEMP ) / DBLE( N-1 );
             for (I = 2; I <= N; I++) { // 80
-               D( I ) = DBLE( N-I )*ALPHA + TEMP
+               D( I ) = DBLE( N-I )*ALPHA + TEMP;
             } // 80
          }
-         GO TO 120
+         GO TO 120;
 
          // Randomly distributed D values on ( 1/COND , 1):
 
          } // 90
-         ALPHA = LOG( ONE / COND )
+         ALPHA = LOG( ONE / COND );
          for (I = 1; I <= N; I++) { // 100
-            D( I ) = EXP( ALPHA*DLARAN( ISEED ) )
+            D( I ) = EXP( ALPHA*DLARAN( ISEED ) );
          } // 100
-         GO TO 120
+         GO TO 120;
 
          // Randomly distributed D values from IDIST
 
@@ -133,8 +133,8 @@
 
          if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 130
-               CTEMP = ZLARND( 3, ISEED )
-               D( I ) = D( I )*( CTEMP / ABS( CTEMP ) )
+               CTEMP = ZLARND( 3, ISEED );
+               D( I ) = D( I )*( CTEMP / ABS( CTEMP ) );
             } // 130
          }
 
@@ -142,15 +142,15 @@
 
          if ( MODE < 0 ) {
             for (I = 1; I <= N / 2; I++) { // 140
-               CTEMP = D( I )
-               D( I ) = D( N+1-I )
-               D( N+1-I ) = CTEMP
+               CTEMP = D( I );
+               D( I ) = D( N+1-I );
+               D( N+1-I ) = CTEMP;
             } // 140
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLATM1
 

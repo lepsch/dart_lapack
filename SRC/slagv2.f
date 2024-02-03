@@ -1,4 +1,4 @@
-      SUBROUTINE SLAGV2( A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, CSL, SNL, CSR, SNR )
+      SUBROUTINE SLAGV2( A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, CSL, SNL, CSR, SNR );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,26 +6,26 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB;
-      REAL               CSL, CSR, SNL, SNR
+      REAL               CSL, CSR, SNL, SNR;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ), B( LDB, * ), BETA( 2 )
+      REAL               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ), B( LDB, * ), BETA( 2 );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2
+      REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLAG2, SLARTG, SLASV2, SROT
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLAPY2
+      REAL               SLAMCH, SLAPY2;
       // EXTERNAL SLAMCH, SLAPY2
       // ..
       // .. Intrinsic Functions ..
@@ -33,61 +33,61 @@
       // ..
       // .. Executable Statements ..
 
-      SAFMIN = SLAMCH( 'S' )
-      ULP = SLAMCH( 'P' )
+      SAFMIN = SLAMCH( 'S' );
+      ULP = SLAMCH( 'P' );
 
       // Scale A
 
-      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
-      ASCALE = ONE / ANORM
-      A( 1, 1 ) = ASCALE*A( 1, 1 )
-      A( 1, 2 ) = ASCALE*A( 1, 2 )
-      A( 2, 1 ) = ASCALE*A( 2, 1 )
-      A( 2, 2 ) = ASCALE*A( 2, 2 )
+      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN );
+      ASCALE = ONE / ANORM;
+      A( 1, 1 ) = ASCALE*A( 1, 1 );
+      A( 1, 2 ) = ASCALE*A( 1, 2 );
+      A( 2, 1 ) = ASCALE*A( 2, 1 );
+      A( 2, 2 ) = ASCALE*A( 2, 2 );
 
       // Scale B
 
-      BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN )
-      BSCALE = ONE / BNORM
-      B( 1, 1 ) = BSCALE*B( 1, 1 )
-      B( 1, 2 ) = BSCALE*B( 1, 2 )
-      B( 2, 2 ) = BSCALE*B( 2, 2 )
+      BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN );
+      BSCALE = ONE / BNORM;
+      B( 1, 1 ) = BSCALE*B( 1, 1 );
+      B( 1, 2 ) = BSCALE*B( 1, 2 );
+      B( 2, 2 ) = BSCALE*B( 2, 2 );
 
       // Check if A can be deflated
 
       if ( ABS( A( 2, 1 ) ) <= ULP ) {
-         CSL = ONE
-         SNL = ZERO
-         CSR = ONE
-         SNR = ZERO
-         A( 2, 1 ) = ZERO
-         B( 2, 1 ) = ZERO
-         WI = ZERO
+         CSL = ONE;
+         SNL = ZERO;
+         CSR = ONE;
+         SNR = ZERO;
+         A( 2, 1 ) = ZERO;
+         B( 2, 1 ) = ZERO;
+         WI = ZERO;
 
       // Check if B is singular
 
       } else if ( ABS( B( 1, 1 ) ) <= ULP ) {
          slartg(A( 1, 1 ), A( 2, 1 ), CSL, SNL, R );
-         CSR = ONE
-         SNR = ZERO
+         CSR = ONE;
+         SNR = ZERO;
          srot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
          srot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
-         A( 2, 1 ) = ZERO
-         B( 1, 1 ) = ZERO
-         B( 2, 1 ) = ZERO
-         WI = ZERO
+         A( 2, 1 ) = ZERO;
+         B( 1, 1 ) = ZERO;
+         B( 2, 1 ) = ZERO;
+         WI = ZERO;
 
       } else if ( ABS( B( 2, 2 ) ) <= ULP ) {
          slartg(A( 2, 2 ), A( 2, 1 ), CSR, SNR, T );
-         SNR = -SNR
+         SNR = -SNR;
          srot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
          srot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
-         CSL = ONE
-         SNL = ZERO
-         A( 2, 1 ) = ZERO
-         B( 2, 1 ) = ZERO
-         B( 2, 2 ) = ZERO
-         WI = ZERO
+         CSL = ONE;
+         SNL = ZERO;
+         A( 2, 1 ) = ZERO;
+         B( 2, 1 ) = ZERO;
+         B( 2, 2 ) = ZERO;
+         WI = ZERO;
 
       } else {
 
@@ -99,12 +99,12 @@
 
             // two real eigenvalues, compute s*A-w*B
 
-            H1 = SCALE1*A( 1, 1 ) - WR1*B( 1, 1 )
-            H2 = SCALE1*A( 1, 2 ) - WR1*B( 1, 2 )
-            H3 = SCALE1*A( 2, 2 ) - WR1*B( 2, 2 )
+            H1 = SCALE1*A( 1, 1 ) - WR1*B( 1, 1 );
+            H2 = SCALE1*A( 1, 2 ) - WR1*B( 1, 2 );
+            H3 = SCALE1*A( 2, 2 ) - WR1*B( 2, 2 );
 
-            RR = SLAPY2( H1, H2 )
-            QQ = SLAPY2( SCALE1*A( 2, 1 ), H3 )
+            RR = SLAPY2( H1, H2 );
+            QQ = SLAPY2( SCALE1*A( 2, 1 ), H3 );
 
             if ( RR > QQ ) {
 
@@ -122,13 +122,13 @@
 
             }
 
-            SNR = -SNR
+            SNR = -SNR;
             srot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
             srot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
 
             // compute inf norms of A and B
 
-            H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
+            H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) );
 
             if ( ( SCALE1*H1 ) >= ABS( WR1 )*H2 ) {
 
@@ -147,8 +147,8 @@
             srot(2, A( 1, 1 ), LDA, A( 2, 1 ), LDA, CSL, SNL );
             srot(2, B( 1, 1 ), LDB, B( 2, 1 ), LDB, CSL, SNL );
 
-            A( 2, 1 ) = ZERO
-            B( 2, 1 ) = ZERO
+            A( 2, 1 ) = ZERO;
+            B( 2, 1 ) = ZERO;
 
          } else {
 
@@ -165,8 +165,8 @@
             srot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );
             srot(2, B( 1, 1 ), 1, B( 1, 2 ), 1, CSR, SNR );
 
-            B( 2, 1 ) = ZERO
-            B( 1, 2 ) = ZERO
+            B( 2, 1 ) = ZERO;
+            B( 1, 2 ) = ZERO;
 
          }
 
@@ -174,32 +174,32 @@
 
       // Unscaling
 
-      A( 1, 1 ) = ANORM*A( 1, 1 )
-      A( 2, 1 ) = ANORM*A( 2, 1 )
-      A( 1, 2 ) = ANORM*A( 1, 2 )
-      A( 2, 2 ) = ANORM*A( 2, 2 )
-      B( 1, 1 ) = BNORM*B( 1, 1 )
-      B( 2, 1 ) = BNORM*B( 2, 1 )
-      B( 1, 2 ) = BNORM*B( 1, 2 )
-      B( 2, 2 ) = BNORM*B( 2, 2 )
+      A( 1, 1 ) = ANORM*A( 1, 1 );
+      A( 2, 1 ) = ANORM*A( 2, 1 );
+      A( 1, 2 ) = ANORM*A( 1, 2 );
+      A( 2, 2 ) = ANORM*A( 2, 2 );
+      B( 1, 1 ) = BNORM*B( 1, 1 );
+      B( 2, 1 ) = BNORM*B( 2, 1 );
+      B( 1, 2 ) = BNORM*B( 1, 2 );
+      B( 2, 2 ) = BNORM*B( 2, 2 );
 
       if ( WI == ZERO ) {
-         ALPHAR( 1 ) = A( 1, 1 )
-         ALPHAR( 2 ) = A( 2, 2 )
-         ALPHAI( 1 ) = ZERO
-         ALPHAI( 2 ) = ZERO
-         BETA( 1 ) = B( 1, 1 )
-         BETA( 2 ) = B( 2, 2 )
+         ALPHAR( 1 ) = A( 1, 1 );
+         ALPHAR( 2 ) = A( 2, 2 );
+         ALPHAI( 1 ) = ZERO;
+         ALPHAI( 2 ) = ZERO;
+         BETA( 1 ) = B( 1, 1 );
+         BETA( 2 ) = B( 2, 2 );
       } else {
-         ALPHAR( 1 ) = ANORM*WR1 / SCALE1 / BNORM
-         ALPHAI( 1 ) = ANORM*WI / SCALE1 / BNORM
-         ALPHAR( 2 ) = ALPHAR( 1 )
-         ALPHAI( 2 ) = -ALPHAI( 1 )
-         BETA( 1 ) = ONE
-         BETA( 2 ) = ONE
+         ALPHAR( 1 ) = ANORM*WR1 / SCALE1 / BNORM;
+         ALPHAI( 1 ) = ANORM*WI / SCALE1 / BNORM;
+         ALPHAR( 2 ) = ALPHAR( 1 );
+         ALPHAI( 2 ) = -ALPHAI( 1 );
+         BETA( 1 ) = ONE;
+         BETA( 2 ) = ONE;
       }
 
-      RETURN
+      RETURN;
 
       // End of SLAGV2
 

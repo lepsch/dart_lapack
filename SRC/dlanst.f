@@ -35,49 +35,49 @@
       // .. Executable Statements ..
 
       if ( N <= 0 ) {
-         ANORM = ZERO
+         ANORM = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         ANORM = ABS( D( N ) )
+         ANORM = ABS( D( N ) );
          for (I = 1; I <= N - 1; I++) { // 10
-            SUM = ABS( D( I ) )
-            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
-            SUM = ABS( E( I ) )
-            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
+            SUM = ABS( D( I ) );
+            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
+            SUM = ABS( E( I ) );
+            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
          } // 10
       } else if ( LSAME( NORM, 'O' ) || NORM == '1' || LSAME( NORM, 'I' ) ) {
 
          // Find norm1(A).
 
          if ( N == 1 ) {
-            ANORM = ABS( D( 1 ) )
+            ANORM = ABS( D( 1 ) );
          } else {
-            ANORM = ABS( D( 1 ) )+ABS( E( 1 ) )
-            SUM = ABS( E( N-1 ) )+ABS( D( N ) )
-            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
+            ANORM = ABS( D( 1 ) )+ABS( E( 1 ) );
+            SUM = ABS( E( N-1 ) )+ABS( D( N ) );
+            IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
             for (I = 2; I <= N - 1; I++) { // 20
-               SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) )
-               IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM
+               SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) );
+               IF( ANORM < SUM || DISNAN( SUM ) ) ANORM = SUM;
             } // 20
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         SCALE = ZERO
-         SUM = ONE
+         SCALE = ZERO;
+         SUM = ONE;
          if ( N > 1 ) {
             dlassq(N-1, E, 1, SCALE, SUM );
-            SUM = 2*SUM
+            SUM = 2*SUM;
          }
          dlassq(N, D, 1, SCALE, SUM );
-         ANORM = SCALE*SQRT( SUM )
+         ANORM = SCALE*SQRT( SUM );
       }
 
-      DLANST = ANORM
-      RETURN
+      DLANST = ANORM;
+      RETURN;
 
       // End of DLANST
 

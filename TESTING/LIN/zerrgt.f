@@ -1,4 +1,4 @@
-      SUBROUTINE ZERRGT( PATH, NUNIT )
+      SUBROUTINE ZERRGT( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -43,9 +43,9 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
-      C2 = PATH( 2: 3 )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
+      C2 = PATH( 2: 3 );
       for (I = 1; I <= NMAX; I++) { // 10
          D( I ) = 1.0;
          E( I ) = 2.0;
@@ -61,56 +61,56 @@
 
          // ZGTTRF
 
-         SRNAMT = 'ZGTTRF'
-         INFOT = 1
+         SRNAMT = 'ZGTTRF';
+         INFOT = 1;
          zgttrf(-1, DL, E, DU, DU2, IP, INFO );
          chkxer('ZGTTRF', INFOT, NOUT, LERR, OK );
 
          // ZGTTRS
 
-         SRNAMT = 'ZGTTRS'
-         INFOT = 1
+         SRNAMT = 'ZGTTRS';
+         INFOT = 1;
          zgttrs('/', 0, 0, DL, E, DU, DU2, IP, X, 1, INFO );
          chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          zgttrs('N', -1, 0, DL, E, DU, DU2, IP, X, 1, INFO );
          chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          zgttrs('N', 0, -1, DL, E, DU, DU2, IP, X, 1, INFO );
          chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          zgttrs('N', 2, 1, DL, E, DU, DU2, IP, X, 1, INFO );
          chkxer('ZGTTRS', INFOT, NOUT, LERR, OK );
 
          // ZGTRFS
 
-         SRNAMT = 'ZGTRFS'
-         INFOT = 1
+         SRNAMT = 'ZGTRFS';
+         INFOT = 1;
          zgtrfs('/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          zgtrfs('N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          zgtrfs('N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 13
+         INFOT = 13;
          zgtrfs('N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 2, R1, R2, W, RW, INFO );
          chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 15
+         INFOT = 15;
          zgtrfs('N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZGTRFS', INFOT, NOUT, LERR, OK );
 
          // ZGTCON
 
-         SRNAMT = 'ZGTCON'
-         INFOT = 1
+         SRNAMT = 'ZGTCON';
+         INFOT = 1;
          zgtcon('/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO );
          chkxer('ZGTCON', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          zgtcon('I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO );
          chkxer('ZGTCON', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          zgtcon('I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO );
          chkxer('ZGTCON', INFOT, NOUT, LERR, OK );
 
@@ -121,53 +121,53 @@
 
          // ZPTTRF
 
-         SRNAMT = 'ZPTTRF'
-         INFOT = 1
+         SRNAMT = 'ZPTTRF';
+         INFOT = 1;
          zpttrf(-1, D, E, INFO );
          chkxer('ZPTTRF', INFOT, NOUT, LERR, OK );
 
          // ZPTTRS
 
-         SRNAMT = 'ZPTTRS'
-         INFOT = 1
+         SRNAMT = 'ZPTTRS';
+         INFOT = 1;
          zpttrs('/', 1, 0, D, E, X, 1, INFO );
          chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          zpttrs('U', -1, 0, D, E, X, 1, INFO );
          chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          zpttrs('U', 0, -1, D, E, X, 1, INFO );
          chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          zpttrs('U', 2, 1, D, E, X, 1, INFO );
          chkxer('ZPTTRS', INFOT, NOUT, LERR, OK );
 
          // ZPTRFS
 
-         SRNAMT = 'ZPTRFS'
-         INFOT = 1
+         SRNAMT = 'ZPTRFS';
+         INFOT = 1;
          zptrfs('/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          zptrfs('U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          zptrfs('U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          zptrfs('U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, RW, INFO );
          chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          zptrfs('U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO );
          chkxer('ZPTRFS', INFOT, NOUT, LERR, OK );
 
          // ZPTCON
 
-         SRNAMT = 'ZPTCON'
-         INFOT = 1
+         SRNAMT = 'ZPTCON';
+         INFOT = 1;
          zptcon(-1, D, E, ANORM, RCOND, RW, INFO );
          chkxer('ZPTCON', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          zptcon(0, D, E, -ANORM, RCOND, RW, INFO );
          chkxer('ZPTCON', INFOT, NOUT, LERR, OK );
       }
@@ -176,7 +176,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of ZERRGT
 

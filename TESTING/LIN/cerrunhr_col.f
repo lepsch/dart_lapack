@@ -1,5 +1,5 @@
-      SUBROUTINE CERRUNHR_COL( PATH, NUNIT )
-      IMPLICIT NONE
+      SUBROUTINE CERRUNHR_COL( PATH, NUNIT );
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,7 +20,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX)
+      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, CUNHR_COL
@@ -39,17 +39,17 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A( I, J ) = CMPLX( 1.0 / REAL( I+J ) )
-            T( I, J ) = CMPLX( 1.0 / REAL( I+J ) )
+            A( I, J ) = CMPLX( 1.0 / REAL( I+J ) );
+            T( I, J ) = CMPLX( 1.0 / REAL( I+J ) );
          }
-         D( J ) = ( 0.0, 0.0 )
+         D( J ) = ( 0.0, 0.0 );
       }
       OK = true;
 
@@ -57,26 +57,26 @@
 
       // CUNHR_COL
 
-      SRNAMT = 'CUNHR_COL'
+      SRNAMT = 'CUNHR_COL';
 
-      INFOT = 1
+      INFOT = 1;
       cunhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 2
+      INFOT = 2;
       cunhr_col(0, -1, 1, A, 1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
       cunhr_col(1, 2, 1, A, 1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 3
+      INFOT = 3;
       cunhr_col(0, 0, -1, A, 1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
       cunhr_col(0, 0, 0, A, 1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 5
+      INFOT = 5;
       cunhr_col(0, 0, 1, A, -1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
@@ -86,7 +86,7 @@
       cunhr_col(2, 0, 1, A, 1, T, 1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 7
+      INFOT = 7;
       cunhr_col(0, 0, 1, A, 1, T, -1, D, INFO );
       chkxer('CUNHR_COL', INFOT, NOUT, LERR, OK );
 
@@ -100,7 +100,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of CERRUNHR_COL
 

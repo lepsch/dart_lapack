@@ -1,4 +1,4 @@
-      SUBROUTINE ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, J1, INFO )
+      SUBROUTINE ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, J1, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, J1, LDA, LDB, LDQ, LDZ, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             TWENTY;
       const              TWENTY = 2.0e+1 ;
@@ -28,10 +28,10 @@
       bool               STRONG, WEAK;
       int                I, M;
       double             CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB;
-      COMPLEX*16         CDUM, F, G, SQ, SZ
+      COMPLEX*16         CDUM, F, G, SQ, SZ;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         S( LDST, LDST ), T( LDST, LDST ), WORK( 8 )
+      COMPLEX*16         S( LDST, LDST ), T( LDST, LDST ), WORK( 8 );
       // ..
       // .. External Functions ..
       double             DLAMCH;
@@ -45,13 +45,13 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
       if (N <= 1) RETURN;
 
-      M = LDST
+      M = LDST;
       WEAK = false;
       STRONG = false;
 
@@ -62,18 +62,18 @@
 
       // Compute the threshold for testing the acceptance of swapping.
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' ) / EPS
-      SCALE = DBLE( CZERO )
-      SUM = DBLE( CONE )
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' ) / EPS;
+      SCALE = DBLE( CZERO );
+      SUM = DBLE( CONE );
       zlacpy('Full', M, M, S, LDST, WORK, M );
       zlacpy('Full', M, M, T, LDST, WORK( M*M+1 ), M );
       zlassq(M*M, WORK, 1, SCALE, SUM );
-      SA = SCALE*SQRT( SUM )
-      SCALE = DBLE( CZERO )
-      SUM = DBLE( CONE )
+      SA = SCALE*SQRT( SUM );
+      SCALE = DBLE( CZERO );
+      SUM = DBLE( CONE );
       zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
-      SB = SCALE*SQRT( SUM )
+      SB = SCALE*SQRT( SUM );
 
       // THRES has been changed from
          // THRESH = MAX( TEN*EPS*SA, SMLNUM )
@@ -83,18 +83,18 @@
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
       // Jim Demmel and Guillaume Revy. See forum post 1783.
 
-      THRESHA = MAX( TWENTY*EPS*SA, SMLNUM )
-      THRESHB = MAX( TWENTY*EPS*SB, SMLNUM )
+      THRESHA = MAX( TWENTY*EPS*SA, SMLNUM );
+      THRESHB = MAX( TWENTY*EPS*SB, SMLNUM );
 
       // Compute unitary QL and RQ that swap 1-by-1 and 1-by-1 blocks
       // using Givens rotations and perform the swap tentatively.
 
-      F = S( 2, 2 )*T( 1, 1 ) - T( 2, 2 )*S( 1, 1 )
-      G = S( 2, 2 )*T( 1, 2 ) - T( 2, 2 )*S( 1, 2 )
-      SA = ABS( S( 2, 2 ) ) * ABS( T( 1, 1 ) )
-      SB = ABS( S( 1, 1 ) ) * ABS( T( 2, 2 ) )
+      F = S( 2, 2 )*T( 1, 1 ) - T( 2, 2 )*S( 1, 1 );
+      G = S( 2, 2 )*T( 1, 2 ) - T( 2, 2 )*S( 1, 2 );
+      SA = ABS( S( 2, 2 ) ) * ABS( T( 1, 1 ) );
+      SB = ABS( S( 1, 1 ) ) * ABS( T( 2, 2 ) );
       zlartg(G, F, CZ, SZ, CDUM );
-      SZ = -SZ
+      SZ = -SZ;
       zrot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, CZ, DCONJG( SZ ) );
       zrot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, DCONJG( SZ ) );
       if ( SA >= SB ) {
@@ -108,7 +108,7 @@
       // Weak stability test: |S21| <= O(EPS F-norm((A)))
                            // and  |T21| <= O(EPS F-norm((B)))
 
-      WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB       IF( !WEAK ) GO TO 20
+      WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB       IF( !WEAK ) GO TO 20;
 
       if ( WANDS ) {
 
@@ -124,20 +124,20 @@
          zrot(2, WORK, 2, WORK( 2 ), 2, CQ, -SQ );
          zrot(2, WORK( 5 ), 2, WORK( 6 ), 2, CQ, -SQ );
          for (I = 1; I <= 2; I++) { // 10
-            WORK( I ) = WORK( I ) - A( J1+I-1, J1 )
-            WORK( I+2 ) = WORK( I+2 ) - A( J1+I-1, J1+1 )
-            WORK( I+4 ) = WORK( I+4 ) - B( J1+I-1, J1 )
-            WORK( I+6 ) = WORK( I+6 ) - B( J1+I-1, J1+1 )
+            WORK( I ) = WORK( I ) - A( J1+I-1, J1 );
+            WORK( I+2 ) = WORK( I+2 ) - A( J1+I-1, J1+1 );
+            WORK( I+4 ) = WORK( I+4 ) - B( J1+I-1, J1 );
+            WORK( I+6 ) = WORK( I+6 ) - B( J1+I-1, J1+1 );
          } // 10
-         SCALE = DBLE( CZERO )
-         SUM = DBLE( CONE )
+         SCALE = DBLE( CZERO );
+         SUM = DBLE( CONE );
          zlassq(M*M, WORK, 1, SCALE, SUM );
-         SA = SCALE*SQRT( SUM )
-         SCALE = DBLE( CZERO )
-         SUM = DBLE( CONE )
+         SA = SCALE*SQRT( SUM );
+         SCALE = DBLE( CZERO );
+         SUM = DBLE( CONE );
          zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
-         SB = SCALE*SQRT( SUM )
-         STRONG = SA <= THRESHA && SB <= THRESHB
+         SB = SCALE*SQRT( SUM );
+         STRONG = SA <= THRESHA && SB <= THRESHB;
          if ( !STRONG) GO TO 20;
       }
 
@@ -150,8 +150,8 @@
 
       // Set  N1 by N2 (2,1) blocks to 0
 
-      A( J1+1, J1 ) = CZERO
-      B( J1+1, J1 ) = CZERO
+      A( J1+1, J1 ) = CZERO;
+      B( J1+1, J1 ) = CZERO;
 
       // Accumulate transformations into Q and Z if requested.
 
@@ -159,13 +159,13 @@
 
       // Exit with INFO = 0 if swap was successfully performed.
 
-      RETURN
+      RETURN;
 
       // Exit with INFO = 1 if swap was rejected.
 
       } // 20
-      INFO = 1
-      RETURN
+      INFO = 1;
+      RETURN;
 
       // End of ZTGEX2
 

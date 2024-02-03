@@ -1,4 +1,4 @@
-      SUBROUTINE ZSTEGR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZSTEGR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
-      COMPLEX*16         Z( LDZ, * )
+      COMPLEX*16         Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -24,7 +24,7 @@
       // EXTERNAL ZSTEMR
       // ..
       // .. Executable Statements ..
-      INFO = 0
+      INFO = 0;
       TRYRAC = false;
        zstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO );
 

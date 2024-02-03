@@ -1,4 +1,4 @@
-      SUBROUTINE DLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, B, WORK, INFO )
+      SUBROUTINE DLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, B, WORK, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,17 +41,17 @@
       // .. Executable Statements ..
 
       PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'TP'
-      UNFL = DLAMCH( 'Safe minimum' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
-      SMLNUM = UNFL
-      BIGNUM = ( ONE-ULP ) / SMLNUM
+      PATH( 2: 3 ) = 'TP';
+      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      SMLNUM = UNFL;
+      BIGNUM = ( ONE-ULP ) / SMLNUM;
       if ( ( IMAT >= 7 && IMAT <= 10 ) || IMAT == 18 ) {
-         DIAG = 'U'
+         DIAG = 'U';
       } else {
-         DIAG = 'N'
+         DIAG = 'N';
       }
-      INFO = 0
+      INFO = 0;
 
       // Quick return if N <= 0.
 
@@ -59,13 +59,13 @@
 
       // Call DLATB4 to set parameters for DLATMS.
 
-      UPPER = LSAME( UPLO, 'U' )
+      UPPER = LSAME( UPLO, 'U' );
       if ( UPPER ) {
          dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
-         PACKIT = 'C'
+         PACKIT = 'C';
       } else {
          dlatb4(PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
-         PACKIT = 'R'
+         PACKIT = 'R';
       }
 
       // IMAT <= 6:  Non-unit triangular matrix
@@ -80,22 +80,22 @@
 
       } else if ( IMAT == 7 ) {
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= J - 1; I++) { // 10
-                  A( JC+I-1 ) = ZERO
+                  A( JC+I-1 ) = ZERO;
                } // 10
-               A( JC+J-1 ) = J
-               JC = JC + J
+               A( JC+J-1 ) = J;
+               JC = JC + J;
             } // 20
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 40
-               A( JC ) = J
+               A( JC ) = J;
                for (I = J + 1; I <= N; I++) { // 30
-                  A( JC+I-J ) = ZERO
+                  A( JC+I-J ) = ZERO;
                } // 30
-               JC = JC + N - J + 1
+               JC = JC + N - J + 1;
             } // 40
          }
 
@@ -107,22 +107,22 @@
 
       } else if ( IMAT <= 10 ) {
          if ( UPPER ) {
-            JC = 0
+            JC = 0;
             for (J = 1; J <= N; J++) { // 60
                for (I = 1; I <= J - 1; I++) { // 50
-                  A( JC+I ) = ZERO
+                  A( JC+I ) = ZERO;
                } // 50
-               A( JC+J ) = J
-               JC = JC + J
+               A( JC+J ) = J;
+               JC = JC + J;
             } // 60
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 80
-               A( JC ) = J
+               A( JC ) = J;
                for (I = J + 1; I <= N; I++) { // 70
-                  A( JC+I-J ) = ZERO
+                  A( JC+I-J ) = ZERO;
                } // 70
-               JC = JC + N - J + 1
+               JC = JC + N - J + 1;
             } // 80
          }
 
@@ -186,48 +186,48 @@
 
          STAR1 = 0.25;
          SFAC = 0.5;
-         PLUS1 = SFAC
-         DO 90 J = 1, N, 2
-            PLUS2 = STAR1 / PLUS1
-            WORK( J ) = PLUS1
-            WORK( N+J ) = STAR1
+         PLUS1 = SFAC;
+         DO 90 J = 1, N, 2;
+            PLUS2 = STAR1 / PLUS1;
+            WORK( J ) = PLUS1;
+            WORK( N+J ) = STAR1;
             if ( J+1 <= N ) {
-               WORK( J+1 ) = PLUS2
-               WORK( N+J+1 ) = ZERO
-               PLUS1 = STAR1 / PLUS2
-               REXP = DLARND( 2, ISEED )
-               STAR1 = STAR1*( SFAC**REXP )
+               WORK( J+1 ) = PLUS2;
+               WORK( N+J+1 ) = ZERO;
+               PLUS1 = STAR1 / PLUS2;
+               REXP = DLARND( 2, ISEED );
+               STAR1 = STAR1*( SFAC**REXP );
                if ( REXP < ZERO ) {
-                  STAR1 = -SFAC**( ONE-REXP )
+                  STAR1 = -SFAC**( ONE-REXP );
                } else {
-                  STAR1 = SFAC**( ONE+REXP )
+                  STAR1 = SFAC**( ONE+REXP );
                }
             }
          } // 90
 
-         X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM )
+         X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM );
          if ( N > 2 ) {
-            Y = SQRT( TWO / DBLE( N-2 ) )*X
+            Y = SQRT( TWO / DBLE( N-2 ) )*X;
          } else {
-            Y = ZERO
+            Y = ZERO;
          }
-         Z = X*X
+         Z = X*X;
 
          if ( UPPER ) {
 
             // Set the upper triangle of A with a unit triangular matrix
             // of known condition number.
 
-            JC = 1
+            JC = 1;
             for (J = 2; J <= N; J++) { // 100
-               A( JC+1 ) = Y
+               A( JC+1 ) = Y;
                if (J > 2) A( JC+J-1 ) = WORK( J-2 )                IF( J > 3 ) A( JC+J-2 ) = WORK( N+J-3 );
-               JC = JC + J
+               JC = JC + J;
             } // 100
-            JC = JC - N
-            A( JC+1 ) = Z
+            JC = JC - N;
+            A( JC+1 ) = Z;
             for (J = 2; J <= N - 1; J++) { // 110
-               A( JC+J ) = Y
+               A( JC+J ) = Y;
             } // 110
          } else {
 
@@ -235,37 +235,37 @@
             // of known condition number.
 
             for (I = 2; I <= N - 1; I++) { // 120
-               A( I ) = Y
+               A( I ) = Y;
             } // 120
-            A( N ) = Z
-            JC = N + 1
+            A( N ) = Z;
+            JC = N + 1;
             for (J = 2; J <= N - 1; J++) { // 130
-               A( JC+1 ) = WORK( J-1 )
+               A( JC+1 ) = WORK( J-1 );
                if (J < N-1) A( JC+2 ) = WORK( N+J-1 );
-               A( JC+N-J ) = Y
-               JC = JC + N - J + 1
+               A( JC+N-J ) = Y;
+               JC = JC + N - J + 1;
             } // 130
          }
 
          // Fill in the zeros using Givens rotations
 
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N - 1; J++) { // 150
-               JCNEXT = JC + J
-               RA = A( JCNEXT+J-1 )
-               RB = TWO
+               JCNEXT = JC + J;
+               RA = A( JCNEXT+J-1 );
+               RB = TWO;
                drotg(RA, RB, C, S );
 
                // Multiply by [ c  s; -s  c] on the left.
 
                if ( N > J+1 ) {
-                  JX = JCNEXT + J
+                  JX = JCNEXT + J;
                   for (I = J + 2; I <= N; I++) { // 140
-                     STEMP = C*A( JX+J ) + S*A( JX+J+1 )
-                     A( JX+J+1 ) = -S*A( JX+J ) + C*A( JX+J+1 )
-                     A( JX+J ) = STEMP
-                     JX = JX + I
+                     STEMP = C*A( JX+J ) + S*A( JX+J+1 );
+                     A( JX+J+1 ) = -S*A( JX+J ) + C*A( JX+J+1 );
+                     A( JX+J ) = STEMP;
+                     JX = JX + I;
                   } // 140
                }
 
@@ -275,15 +275,15 @@
 
                // Negate A(J,J+1).
 
-               A( JCNEXT+J-1 ) = -A( JCNEXT+J-1 )
-               JC = JCNEXT
+               A( JCNEXT+J-1 ) = -A( JCNEXT+J-1 );
+               JC = JCNEXT;
             } // 150
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N - 1; J++) { // 170
-               JCNEXT = JC + N - J + 1
-               RA = A( JC+1 )
-               RB = TWO
+               JCNEXT = JC + N - J + 1;
+               RA = A( JC+1 );
+               RB = TWO;
                drotg(RA, RB, C, S );
 
                // Multiply by [ c -s;  s  c] on the right.
@@ -293,19 +293,19 @@
                // Multiply by [-c  s; -s -c] on the left.
 
                if ( J > 1 ) {
-                  JX = 1
+                  JX = 1;
                   for (I = 1; I <= J - 1; I++) { // 160
-                     STEMP = -C*A( JX+J-I ) + S*A( JX+J-I+1 )
-                     A( JX+J-I+1 ) = -S*A( JX+J-I ) - C*A( JX+J-I+1 )
-                     A( JX+J-I ) = STEMP
-                     JX = JX + N - I + 1
+                     STEMP = -C*A( JX+J-I ) + S*A( JX+J-I+1 );
+                     A( JX+J-I+1 ) = -S*A( JX+J-I ) - C*A( JX+J-I+1 );
+                     A( JX+J-I ) = STEMP;
+                     JX = JX + N - I + 1;
                   } // 160
                }
 
                // Negate A(J+1,J).
 
-               A( JC+1 ) = -A( JC+1 )
-               JC = JCNEXT
+               A( JC+1 ) = -A( JC+1 );
+               JC = JCNEXT;
             } // 170
          }
 
@@ -320,27 +320,27 @@
          // Make the right hand side large so that it requires scaling.
 
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 180
                dlarnv(2, ISEED, J, A( JC ) );
-               A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
-               JC = JC + J
+               A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) );
+               JC = JC + J;
             } // 180
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 190
                dlarnv(2, ISEED, N-J+1, A( JC ) );
-               A( JC ) = SIGN( TWO, A( JC ) )
-               JC = JC + N - J + 1
+               A( JC ) = SIGN( TWO, A( JC ) );
+               JC = JC + N - J + 1;
             } // 190
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
          dlarnv(2, ISEED, N, B );
-         IY = IDAMAX( N, B, 1 )
-         BNORM = ABS( B( IY ) )
-         BSCAL = BIGNUM / MAX( ONE, BNORM )
+         IY = IDAMAX( N, B, 1 );
+         BNORM = ABS( B( IY ) );
+         BSCAL = BIGNUM / MAX( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 12 ) {
@@ -350,25 +350,25 @@
          // In type 12, the offdiagonal elements are small (CNORM(j) < 1).
 
          dlarnv(2, ISEED, N, B );
-         TSCAL = ONE / MAX( ONE, DBLE( N-1 ) )
+         TSCAL = ONE / MAX( ONE, DBLE( N-1 ) );
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 200
                dlarnv(2, ISEED, J-1, A( JC ) );
                dscal(J-1, TSCAL, A( JC ), 1 );
-               A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) )
-               JC = JC + J
+               A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) );
+               JC = JC + J;
             } // 200
-            A( N*( N+1 ) / 2 ) = SMLNUM
+            A( N*( N+1 ) / 2 ) = SMLNUM;
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 210
                dlarnv(2, ISEED, N-J, A( JC+1 ) );
                dscal(N-J, TSCAL, A( JC+1 ), 1 );
-               A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) )
-               JC = JC + N - J + 1
+               A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) );
+               JC = JC + N - J + 1;
             } // 210
-            A( 1 ) = SMLNUM
+            A( 1 ) = SMLNUM;
          }
 
       } else if ( IMAT == 13 ) {
@@ -379,21 +379,21 @@
 
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 220
                dlarnv(2, ISEED, J-1, A( JC ) );
-               A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) )
-               JC = JC + J
+               A( JC+J-1 ) = SIGN( ONE, DLARND( 2, ISEED ) );
+               JC = JC + J;
             } // 220
-            A( N*( N+1 ) / 2 ) = SMLNUM
+            A( N*( N+1 ) / 2 ) = SMLNUM;
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 230
                dlarnv(2, ISEED, N-J, A( JC+1 ) );
-               A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) )
-               JC = JC + N - J + 1
+               A( JC ) = SIGN( ONE, DLARND( 2, ISEED ) );
+               JC = JC + N - J + 1;
             } // 230
-            A( 1 ) = SMLNUM
+            A( 1 ) = SMLNUM;
          }
 
       } else if ( IMAT == 14 ) {
@@ -403,52 +403,52 @@
          // chosen so that the solution does not overflow.
 
          if ( UPPER ) {
-            JCOUNT = 1
-            JC = ( N-1 )*N / 2 + 1
-            DO 250 J = N, 1, -1
+            JCOUNT = 1;
+            JC = ( N-1 )*N / 2 + 1;
+            DO 250 J = N, 1, -1;
                for (I = 1; I <= J - 1; I++) { // 240
-                  A( JC+I-1 ) = ZERO
+                  A( JC+I-1 ) = ZERO;
                } // 240
                if ( JCOUNT <= 2 ) {
-                  A( JC+J-1 ) = SMLNUM
+                  A( JC+J-1 ) = SMLNUM;
                } else {
-                  A( JC+J-1 ) = ONE
+                  A( JC+J-1 ) = ONE;
                }
-               JCOUNT = JCOUNT + 1
+               JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
-               JC = JC - J + 1
+               JC = JC - J + 1;
             } // 250
          } else {
-            JCOUNT = 1
-            JC = 1
+            JCOUNT = 1;
+            JC = 1;
             for (J = 1; J <= N; J++) { // 270
                for (I = J + 1; I <= N; I++) { // 260
-                  A( JC+I-J ) = ZERO
+                  A( JC+I-J ) = ZERO;
                } // 260
                if ( JCOUNT <= 2 ) {
-                  A( JC ) = SMLNUM
+                  A( JC ) = SMLNUM;
                } else {
-                  A( JC ) = ONE
+                  A( JC ) = ONE;
                }
-               JCOUNT = JCOUNT + 1
+               JCOUNT = JCOUNT + 1;
                if (JCOUNT > 4) JCOUNT = 1;
-               JC = JC + N - J + 1
+               JC = JC + N - J + 1;
             } // 270
          }
 
          // Set the right hand side alternately zero and small.
 
          if ( UPPER ) {
-            B( 1 ) = ZERO
-            DO 280 I = N, 2, -2
-               B( I ) = ZERO
-               B( I-1 ) = SMLNUM
+            B( 1 ) = ZERO;
+            DO 280 I = N, 2, -2;
+               B( I ) = ZERO;
+               B( I-1 ) = SMLNUM;
             } // 280
          } else {
-            B( N ) = ZERO
-            DO 290 I = 1, N - 1, 2
-               B( I ) = ZERO
-               B( I+1 ) = SMLNUM
+            B( N ) = ZERO;
+            DO 290 I = 1, N - 1, 2;
+               B( I ) = ZERO;
+               B( I+1 ) = SMLNUM;
             } // 290
          }
 
@@ -458,59 +458,59 @@
          // overflow when dividing by T(j,j).  To control the amount of
          // scaling needed, the matrix is bidiagonal.
 
-         TEXP = ONE / MAX( ONE, DBLE( N-1 ) )
-         TSCAL = SMLNUM**TEXP
+         TEXP = ONE / MAX( ONE, DBLE( N-1 ) );
+         TSCAL = SMLNUM**TEXP;
          dlarnv(2, ISEED, N, B );
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 310
                for (I = 1; I <= J - 2; I++) { // 300
-                  A( JC+I-1 ) = ZERO
+                  A( JC+I-1 ) = ZERO;
                } // 300
                if (J > 1) A( JC+J-2 ) = -ONE;
-               A( JC+J-1 ) = TSCAL
-               JC = JC + J
+               A( JC+J-1 ) = TSCAL;
+               JC = JC + J;
             } // 310
-            B( N ) = ONE
+            B( N ) = ONE;
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 330
                for (I = J + 2; I <= N; I++) { // 320
-                  A( JC+I-J ) = ZERO
+                  A( JC+I-J ) = ZERO;
                } // 320
                if (J < N) A( JC+1 ) = -ONE;
-               A( JC ) = TSCAL
-               JC = JC + N - J + 1
+               A( JC ) = TSCAL;
+               JC = JC + N - J + 1;
             } // 330
-            B( 1 ) = ONE
+            B( 1 ) = ONE;
          }
 
       } else if ( IMAT == 16 ) {
 
          // Type 16:  One zero diagonal element.
 
-         IY = N / 2 + 1
+         IY = N / 2 + 1;
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 340
                dlarnv(2, ISEED, J, A( JC ) );
                if ( J != IY ) {
-                  A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
+                  A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) );
                } else {
-                  A( JC+J-1 ) = ZERO
+                  A( JC+J-1 ) = ZERO;
                }
-               JC = JC + J
+               JC = JC + J;
             } // 340
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 350
                dlarnv(2, ISEED, N-J+1, A( JC ) );
                if ( J != IY ) {
-                  A( JC ) = SIGN( TWO, A( JC ) )
+                  A( JC ) = SIGN( TWO, A( JC ) );
                } else {
-                  A( JC ) = ZERO
+                  A( JC ) = ZERO;
                }
-               JC = JC + N - J + 1
+               JC = JC + N - J + 1;
             } // 350
          }
          dlarnv(2, ISEED, N, B );
@@ -523,40 +523,40 @@
          // matrix is constructed to cause overflow when adding a column in
          // every other step.
 
-         TSCAL = UNFL / ULP
-         TSCAL = ( ONE-ULP ) / TSCAL
+         TSCAL = UNFL / ULP;
+         TSCAL = ( ONE-ULP ) / TSCAL;
          for (J = 1; J <= N*( N+1 ) / 2; J++) { // 360
-            A( J ) = ZERO
+            A( J ) = ZERO;
          } // 360
-         TEXP = ONE
+         TEXP = ONE;
          if ( UPPER ) {
-            JC = ( N-1 )*N / 2 + 1
-            DO 370 J = N, 2, -2
-               A( JC ) = -TSCAL / DBLE( N+1 )
-               A( JC+J-1 ) = ONE
-               B( J ) = TEXP*( ONE-ULP )
-               JC = JC - J + 1
-               A( JC ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 )
-               A( JC+J-2 ) = ONE
-               B( J-1 ) = TEXP*DBLE( N*N+N-1 )
-               TEXP = TEXP*TWO
-               JC = JC - J + 2
+            JC = ( N-1 )*N / 2 + 1;
+            DO 370 J = N, 2, -2;
+               A( JC ) = -TSCAL / DBLE( N+1 );
+               A( JC+J-1 ) = ONE;
+               B( J ) = TEXP*( ONE-ULP );
+               JC = JC - J + 1;
+               A( JC ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               A( JC+J-2 ) = ONE;
+               B( J-1 ) = TEXP*DBLE( N*N+N-1 );
+               TEXP = TEXP*TWO;
+               JC = JC - J + 2;
             } // 370
-            B( 1 ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL
+            B( 1 ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
          } else {
-            JC = 1
-            DO 380 J = 1, N - 1, 2
-               A( JC+N-J ) = -TSCAL / DBLE( N+1 )
-               A( JC ) = ONE
-               B( J ) = TEXP*( ONE-ULP )
-               JC = JC + N - J + 1
-               A( JC+N-J-1 ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 )
-               A( JC ) = ONE
-               B( J+1 ) = TEXP*DBLE( N*N+N-1 )
-               TEXP = TEXP*TWO
-               JC = JC + N - J
+            JC = 1;
+            DO 380 J = 1, N - 1, 2;
+               A( JC+N-J ) = -TSCAL / DBLE( N+1 );
+               A( JC ) = ONE;
+               B( J ) = TEXP*( ONE-ULP );
+               JC = JC + N - J + 1;
+               A( JC+N-J-1 ) = -( TSCAL / DBLE( N+1 ) ) / DBLE( N+2 );
+               A( JC ) = ONE;
+               B( J+1 ) = TEXP*DBLE( N*N+N-1 );
+               TEXP = TEXP*TWO;
+               JC = JC + N - J;
             } // 380
-            B( N ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL
+            B( N ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
          }
 
       } else if ( IMAT == 18 ) {
@@ -566,27 +566,27 @@
          // requires scaling.
 
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 390
                dlarnv(2, ISEED, J-1, A( JC ) );
-               A( JC+J-1 ) = ZERO
-               JC = JC + J
+               A( JC+J-1 ) = ZERO;
+               JC = JC + J;
             } // 390
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 400
                if (J < N) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) );
-               A( JC ) = ZERO
-               JC = JC + N - J + 1
+               A( JC ) = ZERO;
+               JC = JC + N - J + 1;
             } // 400
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
 
          dlarnv(2, ISEED, N, B );
-         IY = IDAMAX( N, B, 1 )
-         BNORM = ABS( B( IY ) )
-         BSCAL = BIGNUM / MAX( ONE, BNORM )
+         IY = IDAMAX( N, B, 1 );
+         BNORM = ABS( B( IY ) );
+         BSCAL = BIGNUM / MAX( ONE, BNORM );
          dscal(N, BSCAL, B, 1 );
 
       } else if ( IMAT == 19 ) {
@@ -595,25 +595,25 @@
          // BIGNUM/(n-1) and BIGNUM so that at least one of the column
          // norms will exceed BIGNUM.
 
-         TLEFT = BIGNUM / MAX( ONE, DBLE( N-1 ) )
-         TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) )
+         TLEFT = BIGNUM / MAX( ONE, DBLE( N-1 ) );
+         TSCAL = BIGNUM*( DBLE( N-1 ) / MAX( ONE, DBLE( N ) ) );
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 420
                dlarnv(2, ISEED, J, A( JC ) );
                for (I = 1; I <= J; I++) { // 410
-                  A( JC+I-1 ) = SIGN( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 )
+                  A( JC+I-1 ) = SIGN( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 );
                } // 410
-               JC = JC + J
+               JC = JC + J;
             } // 420
          } else {
-            JC = 1
+            JC = 1;
             for (J = 1; J <= N; J++) { // 440
                dlarnv(2, ISEED, N-J+1, A( JC ) );
                for (I = J; I <= N; I++) { // 430
-                  A( JC+I-J ) = SIGN( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J )
+                  A( JC+I-J ) = SIGN( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J );
                } // 430
-               JC = JC + N - J + 1
+               JC = JC + N - J + 1;
             } // 440
          }
          dlarnv(2, ISEED, N, B );
@@ -625,37 +625,37 @@
 
       if ( !LSAME( TRANS, 'N' ) ) {
          if ( UPPER ) {
-            JJ = 1
-            JR = N*( N+1 ) / 2
+            JJ = 1;
+            JR = N*( N+1 ) / 2;
             for (J = 1; J <= N / 2; J++) { // 460
-               JL = JJ
+               JL = JJ;
                for (I = J; I <= N - J; I++) { // 450
-                  T = A( JR-I+J )
-                  A( JR-I+J ) = A( JL )
-                  A( JL ) = T
-                  JL = JL + I
+                  T = A( JR-I+J );
+                  A( JR-I+J ) = A( JL );
+                  A( JL ) = T;
+                  JL = JL + I;
                } // 450
-               JJ = JJ + J + 1
-               JR = JR - ( N-J+1 )
+               JJ = JJ + J + 1;
+               JR = JR - ( N-J+1 );
             } // 460
          } else {
-            JL = 1
-            JJ = N*( N+1 ) / 2
+            JL = 1;
+            JJ = N*( N+1 ) / 2;
             for (J = 1; J <= N / 2; J++) { // 480
-               JR = JJ
+               JR = JJ;
                for (I = J; I <= N - J; I++) { // 470
-                  T = A( JL+I-J )
-                  A( JL+I-J ) = A( JR )
-                  A( JR ) = T
-                  JR = JR - I
+                  T = A( JL+I-J );
+                  A( JL+I-J ) = A( JR );
+                  A( JR ) = T;
+                  JR = JR - I;
                } // 470
-               JL = JL + N - J + 1
-               JJ = JJ - J - 1
+               JL = JL + N - J + 1;
+               JJ = JJ - J - 1;
             } // 480
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DLATTP
 

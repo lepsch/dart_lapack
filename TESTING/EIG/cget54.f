@@ -1,4 +1,4 @@
-      SUBROUTINE CGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT )
+      SUBROUTINE CGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,28 +6,28 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LDS, LDT, LDU, LDV, N;
-      REAL               RESULT
+      REAL               RESULT;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      REAL               ABNORM, ULP, UNFL, WNORM
+      REAL               ABNORM, ULP, UNFL, WNORM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 )
+      REAL               DUM( 1 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH
+      REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -38,19 +38,19 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT = ZERO
+      RESULT = ZERO;
       if (N <= 0) RETURN;
 
       // Constants
 
-      UNFL = SLAMCH( 'Safe minimum' )
-      ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
+      UNFL = SLAMCH( 'Safe minimum' );
+      ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
 
       // compute the norm of (A,B)
 
       clacpy('Full', N, N, A, LDA, WORK, N );
       clacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = MAX( CLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL )
+      ABNORM = MAX( CLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
@@ -68,19 +68,19 @@
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 
-      WNORM = CLANGE( '1', N, 2*N, WORK, N, DUM )
+      WNORM = CLANGE( '1', N, 2*N, WORK, N, DUM );
 
       if ( ABNORM > WNORM ) {
-         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
+         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );
       } else {
          if ( ABNORM < ONE ) {
-            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP )
+            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
          } else {
-            RESULT = MIN( WNORM / ABNORM, REAL( 2*N ) ) / ( 2*N*ULP )
+            RESULT = MIN( WNORM / ABNORM, REAL( 2*N ) ) / ( 2*N*ULP );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of CGET54
 

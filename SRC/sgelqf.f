@@ -1,4 +1,4 @@
-      SUBROUTINE SGELQF( M, N, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE SGELQF( M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int                INFO, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -25,67 +25,67 @@
       // ..
       // .. External Functions ..
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
 
       // Test the input arguments
 
-      INFO = 0
-      K = MIN( M, N )
-      NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      K = MIN( M, N );
+      NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 );
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( !LQUERY ) {
-         IF( LWORK <= 0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7
+         IF( LWORK <= 0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('SGELQF', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
          if ( K == 0 ) {
-            LWKOPT = 1
+            LWKOPT = 1;
          } else {
-            LWKOPT = M*NB
+            LWKOPT = M*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( K == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
-      NBMIN = 2
-      NX = 0
-      IWS = M
+      NBMIN = 2;
+      NX = 0;
+      IWS = M;
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'SGELQF', ' ', M, N, -1, -1 ) )
+         NX = MAX( 0, ILAENV( 3, 'SGELQF', ' ', M, N, -1, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            LDWORK = M
-            IWS = LDWORK*NB
+            LDWORK = M;
+            IWS = LDWORK*NB;
             if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
-               NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'SGELQF', ' ', M, N, -1, -1 ) )
+               NB = LWORK / LDWORK;
+               NBMIN = MAX( 2, ILAENV( 2, 'SGELQF', ' ', M, N, -1, -1 ) );
             }
          }
       }
@@ -94,8 +94,8 @@
 
          // Use blocked code initially
 
-         DO 10 I = 1, K - NX, NB
-            IB = MIN( K-I+1, NB )
+         DO 10 I = 1, K - NX, NB;
+            IB = MIN( K-I+1, NB );
 
             // Compute the LQ factorization of the current block
             // A(i:i+ib-1,i:n)
@@ -114,15 +114,15 @@
             }
          } // 10
       } else {
-         I = 1
+         I = 1;
       }
 
       // Use unblocked code to factor the last or only block.
 
       if (I <= K) CALL SGELQ2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK( IWS )
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK( IWS );
+      RETURN;
 
       // End of SGELQF
 

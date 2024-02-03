@@ -1,4 +1,4 @@
-      SUBROUTINE DSGT01( ITYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT )
+      SUBROUTINE DSGT01( ITYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,14 +31,14 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO
+      RESULT( 1 ) = ZERO;
       if (N <= 0) RETURN;
 
-      ULP = DLAMCH( 'Epsilon' )
+      ULP = DLAMCH( 'Epsilon' );
 
       // Compute product of 1-norms of A and Z.
 
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, WORK )* DLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE
+      ANORM = DLANSY( '1', UPLO, N, A, LDA, WORK )* DLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE;
 
       if ( ITYPE == 1 ) {
 
@@ -50,7 +50,7 @@
          } // 10
          dsymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, -ONE, WORK, N );
 
-         RESULT( 1 ) = ( DLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( DLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP );
 
       } else if ( ITYPE == 2 ) {
 
@@ -62,7 +62,7 @@
          } // 20
          dsymm('Left', UPLO, N, M, ONE, A, LDA, WORK, N, -ONE, Z, LDZ );
 
-         RESULT( 1 ) = ( DLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( DLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
 
       } else if ( ITYPE == 3 ) {
 
@@ -74,10 +74,10 @@
          } // 30
          dsymm('Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ );
 
-         RESULT( 1 ) = ( DLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( DLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
       }
 
-      RETURN
+      RETURN;
 
       // End of DSGT01
 

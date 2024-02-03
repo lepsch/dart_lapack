@@ -8,13 +8,13 @@
       int                M, N, LDA;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * )
+      REAL               A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL             ZERO
+      REAL             ZERO;
       const     ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -24,19 +24,19 @@
 
       // Quick test for the common case where one corner is non-zero.
       if ( M == 0 ) {
-         ILASLR = M
+         ILASLR = M;
       } else if ( A(M, 1) != ZERO || A(M, N) != ZERO ) {
-         ILASLR = M
+         ILASLR = M;
       } else {
       // Scan up each column tracking the last zero row seen.
-         ILASLR = 0
+         ILASLR = 0;
          for (J = 1; J <= N; J++) {
-            I=M
-            DO WHILE((A(MAX(I,1),J) == ZERO) && (I >= 1))
-               I=I-1
+            I=M;
+            DO WHILE((A(MAX(I,1),J) == ZERO) && (I >= 1));
+               I=I-1;
             }
-            ILASLR = MAX( ILASLR, I )
+            ILASLR = MAX( ILASLR, I );
          }
       }
-      RETURN
+      RETURN;
       }

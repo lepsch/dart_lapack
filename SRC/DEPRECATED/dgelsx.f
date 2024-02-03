@@ -1,4 +1,4 @@
-      SUBROUTINE DGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, INFO )
+      SUBROUTINE DGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,81 +37,81 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N )
-      ISMIN = MN + 1
-      ISMAX = 2*MN + 1
+      MN = MIN( M, N );
+      ISMIN = MN + 1;
+      ISMAX = 2*MN + 1;
 
       // Test the input arguments.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, M, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO != 0 ) {
          xerbla('DGELSX', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
-         RANK = 0
-         RETURN
+         RANK = 0;
+         RETURN;
       }
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max elements outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
-      IASCL = 0
+      ANRM = DLANGE( 'M', M, N, A, LDA, WORK );
+      IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1
+         IASCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2
+         IASCL = 2;
       } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         RANK = 0
-         GO TO 100
+         RANK = 0;
+         GO TO 100;
       }
 
-      BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
-      IBSCL = 0
+      BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK );
+      IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
-         IBSCL = 1
+         IBSCL = 1;
       } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
-         IBSCL = 2
+         IBSCL = 2;
       }
 
       // Compute QR factorization with column pivoting of A:
@@ -124,35 +124,35 @@
 
       // Determine RANK using incremental condition estimation
 
-      WORK( ISMIN ) = ONE
-      WORK( ISMAX ) = ONE
-      SMAX = ABS( A( 1, 1 ) )
-      SMIN = SMAX
+      WORK( ISMIN ) = ONE;
+      WORK( ISMAX ) = ONE;
+      SMAX = ABS( A( 1, 1 ) );
+      SMIN = SMAX;
       if ( ABS( A( 1, 1 ) ) == ZERO ) {
-         RANK = 0
+         RANK = 0;
          dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         GO TO 100
+         GO TO 100;
       } else {
-         RANK = 1
+         RANK = 1;
       }
 
       } // 10
       if ( RANK < MN ) {
-         I = RANK + 1
+         I = RANK + 1;
          dlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
          dlaic1(IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND <= SMINPR ) {
             for (I = 1; I <= RANK; I++) { // 20
-               WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
-               WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
+               WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 );
+               WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 );
             } // 20
-            WORK( ISMIN+RANK ) = C1
-            WORK( ISMAX+RANK ) = C2
-            SMIN = SMINPR
-            SMAX = SMAXPR
-            RANK = RANK + 1
-            GO TO 10
+            WORK( ISMIN+RANK ) = C1;
+            WORK( ISMAX+RANK ) = C2;
+            SMIN = SMINPR;
+            SMAX = SMAXPR;
+            RANK = RANK + 1;
+            GO TO 10;
          }
       }
 
@@ -178,7 +178,7 @@
 
       for (I = RANK + 1; I <= N; I++) { // 40
          for (J = 1; J <= NRHS; J++) { // 30
-            B( I, J ) = ZERO
+            B( I, J ) = ZERO;
          } // 30
       } // 40
 
@@ -196,23 +196,23 @@
 
       for (J = 1; J <= NRHS; J++) { // 90
          for (I = 1; I <= N; I++) { // 60
-            WORK( 2*MN+I ) = NTDONE
+            WORK( 2*MN+I ) = NTDONE;
          } // 60
          for (I = 1; I <= N; I++) { // 80
             if ( WORK( 2*MN+I ) == NTDONE ) {
                if ( JPVT( I ) != I ) {
-                  K = I
-                  T1 = B( K, J )
-                  T2 = B( JPVT( K ), J )
+                  K = I;
+                  T1 = B( K, J );
+                  T2 = B( JPVT( K ), J );
                   } // 70
-                  B( JPVT( K ), J ) = T1
-                  WORK( 2*MN+K ) = DONE
-                  T1 = T2
-                  K = JPVT( K )
-                  T2 = B( JPVT( K ), J )
-                  IF( JPVT( K ) != I ) GO TO 70
-                  B( I, J ) = T1
-                  WORK( 2*MN+K ) = DONE
+                  B( JPVT( K ), J ) = T1;
+                  WORK( 2*MN+K ) = DONE;
+                  T1 = T2;
+                  K = JPVT( K );
+                  T2 = B( JPVT( K ), J );
+                  IF( JPVT( K ) != I ) GO TO 70;
+                  B( I, J ) = T1;
+                  WORK( 2*MN+K ) = DONE;
                }
             }
          } // 80
@@ -235,7 +235,7 @@
 
       } // 100
 
-      RETURN
+      RETURN;
 
       // End of DGELSX
 

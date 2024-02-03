@@ -1,4 +1,4 @@
-      SUBROUTINE DGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,16 +35,16 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = DLAMCH( 'Precision' )
-      UNFL = DLAMCH( 'Safe minimum' )
+      ULP = DLAMCH( 'Precision' );
+      UNFL = DLAMCH( 'Safe minimum' );
 
       // Copy the matrix A to the array AF.
 
       dlacpy('Full', N, M, A, LDA, AF, LDA );
       dlacpy('Full', N, P, B, LDB, BF, LDB );
 
-      ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      ANORM = MAX( DLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( DLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -87,11 +87,11 @@
 
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
-      RESID = DLANGE( '1', N, M, R, LDA, RWORK )
+      RESID = DLANGE( '1', N, M, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute T*Z - Q'*B
@@ -100,11 +100,11 @@
 
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
-      RESID = DLANGE( '1', N, P, BWK, LDB, RWORK )
+      RESID = DLANGE( '1', N, P, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
+         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP;
       } else {
-         RESULT( 2 ) = ZERO
+         RESULT( 2 ) = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -114,8 +114,8 @@
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', N, R, LDA, RWORK )
-      RESULT( 3 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP
+      RESID = DLANSY( '1', 'Upper', N, R, LDA, RWORK );
+      RESULT( 3 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -124,10 +124,10 @@
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      RESID = DLANSY( '1', 'Upper', P, T, LDB, RWORK )
-      RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP
+      RESID = DLANSY( '1', 'Upper', P, T, LDB, RWORK );
+      RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP;
 
-      RETURN
+      RETURN;
 
       // End of DGQRTS
 

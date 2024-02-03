@@ -1,10 +1,10 @@
-      SUBROUTINE CSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE CSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -12,7 +12,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), TB( * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), TB( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -23,7 +23,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -36,36 +36,36 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      WQUERY = ( LWORK == -1 )
-      TQUERY = ( LTB == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      WQUERY = ( LWORK == -1 );
+      TQUERY = ( LTB == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LTB < ( 4*N ) && !TQUERY ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LWORK < N && !WQUERY ) {
-         INFO = -13
+         INFO = -13;
       }
 
       if ( INFO == 0 ) {
          csytrf_aa_2stage(UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO );
-         LWKOPT = INT( WORK(1) )
+         LWKOPT = INT( WORK(1) );
       }
 
       if ( INFO != 0 ) {
          xerbla('CSYSV_AA_2STAGE', -INFO );
-         RETURN
+         RETURN;
       } else if ( WQUERY || TQUERY ) {
-         RETURN
+         RETURN;
       }
 
 
@@ -80,9 +80,9 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
+      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN
+      RETURN;
 
       // End of CSYSV_AA_2STAGE
 

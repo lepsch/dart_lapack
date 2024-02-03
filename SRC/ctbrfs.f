@@ -1,4 +1,4 @@
-      SUBROUTINE CTBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CTBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       int                INFO, KD, LDAB, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      REAL               BERR( * ), FERR( * ), RWORK( * );
+      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;
       String             TRANSN, TRANST;
       int                I, J, K, KASE, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
-      COMPLEX            ZDUM
+      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
+      COMPLEX            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -39,73 +39,73 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      NOTRAN = LSAME( TRANS, 'N' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      NOTRAN = LSAME( TRANS, 'N' );
+      NOUNIT = LSAME( DIAG, 'N' );
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KD < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( NRHS < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAB < KD+1 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -12
+         INFO = -12;
       }
       if ( INFO != 0 ) {
          xerbla('CTBRFS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO
-            BERR( J ) = ZERO
+            FERR( J ) = ZERO;
+            BERR( J ) = ZERO;
          } // 10
-         RETURN
+         RETURN;
       }
 
       if ( NOTRAN ) {
-         TRANSN = 'N'
-         TRANST = 'C'
+         TRANSN = 'N';
+         TRANST = 'C';
       } else {
-         TRANSN = 'C'
-         TRANST = 'N'
+         TRANSN = 'C';
+         TRANST = 'N';
       }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
-      NZ = KD + 2
-      EPS = SLAMCH( 'Epsilon' )
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      SAFE1 = NZ*SAFMIN
-      SAFE2 = SAFE1 / EPS
+      NZ = KD + 2;
+      EPS = SLAMCH( 'Epsilon' );
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      SAFE1 = NZ*SAFMIN;
+      SAFE2 = SAFE1 / EPS;
 
       // Do for each right hand side
 
@@ -128,7 +128,7 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 20
-            RWORK( I ) = CABS1( B( I, J ) )
+            RWORK( I ) = CABS1( B( I, J ) );
          } // 20
 
          if ( NOTRAN ) {
@@ -138,35 +138,35 @@
             if ( UPPER ) {
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 40
-                     XK = CABS1( X( K, J ) )
-                     DO 30 I = MAX( 1, K-KD ), K
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK
+                     XK = CABS1( X( K, J ) );
+                     DO 30 I = MAX( 1, K-KD ), K;
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
                      } // 30
                   } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
-                     XK = CABS1( X( K, J ) )
-                     DO 50 I = MAX( 1, K-KD ), K - 1
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK
+                     XK = CABS1( X( K, J ) );
+                     DO 50 I = MAX( 1, K-KD ), K - 1;
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK;
                      } // 50
-                     RWORK( K ) = RWORK( K ) + XK
+                     RWORK( K ) = RWORK( K ) + XK;
                   } // 60
                }
             } else {
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 80
-                     XK = CABS1( X( K, J ) )
-                     DO 70 I = K, MIN( N, K+KD )
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK
+                     XK = CABS1( X( K, J ) );
+                     DO 70 I = K, MIN( N, K+KD );
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 70
                   } // 80
                } else {
                   for (K = 1; K <= N; K++) { // 100
-                     XK = CABS1( X( K, J ) )
-                     DO 90 I = K + 1, MIN( N, K+KD )
-                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK
+                     XK = CABS1( X( K, J ) );
+                     DO 90 I = K + 1, MIN( N, K+KD );
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 90
-                     RWORK( K ) = RWORK( K ) + XK
+                     RWORK( K ) = RWORK( K ) + XK;
                   } // 100
                }
             }
@@ -177,50 +177,50 @@
             if ( UPPER ) {
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 120
-                     S = ZERO
-                     DO 110 I = MAX( 1, K-KD ), K
-                        S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) )
+                     S = ZERO;
+                     DO 110 I = MAX( 1, K-KD ), K;
+                        S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 110
-                     RWORK( K ) = RWORK( K ) + S
+                     RWORK( K ) = RWORK( K ) + S;
                   } // 120
                } else {
                   for (K = 1; K <= N; K++) { // 140
-                     S = CABS1( X( K, J ) )
-                     DO 130 I = MAX( 1, K-KD ), K - 1
-                        S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) )
+                     S = CABS1( X( K, J ) );
+                     DO 130 I = MAX( 1, K-KD ), K - 1;
+                        S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 130
-                     RWORK( K ) = RWORK( K ) + S
+                     RWORK( K ) = RWORK( K ) + S;
                   } // 140
                }
             } else {
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 160
-                     S = ZERO
-                     DO 150 I = K, MIN( N, K+KD )
-                        S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) )
+                     S = ZERO;
+                     DO 150 I = K, MIN( N, K+KD );
+                        S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 150
-                     RWORK( K ) = RWORK( K ) + S
+                     RWORK( K ) = RWORK( K ) + S;
                   } // 160
                } else {
                   for (K = 1; K <= N; K++) { // 180
-                     S = CABS1( X( K, J ) )
-                     DO 170 I = K + 1, MIN( N, K+KD )
-                        S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) )
+                     S = CABS1( X( K, J ) );
+                     DO 170 I = K + 1, MIN( N, K+KD );
+                        S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 170
-                     RWORK( K ) = RWORK( K ) + S
+                     RWORK( K ) = RWORK( K ) + S;
                   } // 180
                }
             }
          }
-         S = ZERO
+         S = ZERO;
          for (I = 1; I <= N; I++) { // 190
             if ( RWORK( I ) > SAFE2 ) {
-               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
+               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) );
             } else {
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 190
-         BERR( J ) = S
+         BERR( J ) = S;
 
          // Bound error from formula
 
@@ -246,13 +246,13 @@
 
          for (I = 1; I <= N; I++) { // 200
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 200
 
-         KASE = 0
+         KASE = 0;
          } // 210
          clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -262,31 +262,31 @@
 
                ctbsv(UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 );
                for (I = 1; I <= N; I++) { // 220
-                  WORK( I ) = RWORK( I )*WORK( I )
+                  WORK( I ) = RWORK( I )*WORK( I );
                } // 220
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 230
-                  WORK( I ) = RWORK( I )*WORK( I )
+                  WORK( I ) = RWORK( I )*WORK( I );
                } // 230
                ctbsv(UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 );
             }
-            GO TO 210
+            GO TO 210;
          }
 
          // Normalize error.
 
-         LSTRES = ZERO
+         LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 240
-            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
+            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) );
          } // 240
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 250
 
-      RETURN
+      RETURN;
 
       // End of CTBRFS
 

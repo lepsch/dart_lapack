@@ -1,4 +1,4 @@
-      SUBROUTINE ZGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE ZGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. External Subroutines ..
@@ -27,23 +27,23 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || M > N ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < 1 || LWORK < NRHS && M > 0 && N > 0 ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('ZGERQS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,7 +62,7 @@
 
       zunmrq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
-      RETURN
+      RETURN;
 
       // End of ZGERQS
 

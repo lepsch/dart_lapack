@@ -1,4 +1,4 @@
-      SUBROUTINE DORGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE DORGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,57 +35,57 @@
 
       // Test the input arguments
 
-      INFO = 0
-      NB = ILAENV( 1, 'DORGLQ', ' ', M, N, K, -1 )
-      LWKOPT = MAX( 1, M )*NB
-      WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      NB = ILAENV( 1, 'DORGLQ', ' ', M, N, K, -1 );
+      LWKOPT = MAX( 1, M )*NB;
+      WORK( 1 ) = LWKOPT;
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( K < 0 || K > M ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LWORK < MAX( 1, M ) && !LQUERY ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('DORGLQ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M <= 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
-      NBMIN = 2
-      NX = 0
-      IWS = M
+      NBMIN = 2;
+      NX = 0;
+      IWS = M;
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'DORGLQ', ' ', M, N, K, -1 ) )
+         NX = MAX( 0, ILAENV( 3, 'DORGLQ', ' ', M, N, K, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            LDWORK = M
-            IWS = LDWORK*NB
+            LDWORK = M;
+            IWS = LDWORK*NB;
             if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
-               NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'DORGLQ', ' ', M, N, K, -1 ) )
+               NB = LWORK / LDWORK;
+               NBMIN = MAX( 2, ILAENV( 2, 'DORGLQ', ' ', M, N, K, -1 ) );
             }
          }
       }
@@ -95,18 +95,18 @@
          // Use blocked code after the last block.
          // The first kk rows are handled by the block method.
 
-         KI = ( ( K-NX-1 ) / NB )*NB
-         KK = MIN( K, KI+NB )
+         KI = ( ( K-NX-1 ) / NB )*NB;
+         KK = MIN( K, KI+NB );
 
          // Set A(kk+1:m,1:kk) to zero.
 
          for (J = 1; J <= KK; J++) { // 20
             for (I = KK + 1; I <= M; I++) { // 10
-               A( I, J ) = ZERO
+               A( I, J ) = ZERO;
             } // 10
          } // 20
       } else {
-         KK = 0
+         KK = 0;
       }
 
       // Use unblocked code for the last or only block.
@@ -117,8 +117,8 @@
 
          // Use blocked code
 
-         DO 50 I = KI + 1, 1, -NB
-            IB = MIN( NB, K-I+1 )
+         DO 50 I = KI + 1, 1, -NB;
+            IB = MIN( NB, K-I+1 );
             if ( I+IB <= M ) {
 
                // Form the triangular factor of the block reflector
@@ -139,14 +139,14 @@
 
             for (J = 1; J <= I - 1; J++) { // 40
                for (L = I; L <= I + IB - 1; L++) { // 30
-                  A( L, J ) = ZERO
+                  A( L, J ) = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = IWS
-      RETURN
+      WORK( 1 ) = IWS;
+      RETURN;
 
       // End of DORGLQ
 

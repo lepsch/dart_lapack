@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE CPOTRF2( UPLO, N, A, LDA, INFO )
+      RECURSIVE SUBROUTINE CPOTRF2( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,21 +9,21 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * )
+      COMPLEX            A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = (1.0, 0.0) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                N1, N2, IINFO;
-      REAL               AJJ
+      REAL               AJJ;
       // ..
       // .. External Functions ..
       bool               LSAME, SISNAN;
@@ -39,18 +39,18 @@
 
       // Test the input parameters
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('CPOTRF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -63,28 +63,28 @@
 
          // Test for non-positive-definiteness
 
-         AJJ = REAL( A( 1, 1 ) )
+         AJJ = REAL( A( 1, 1 ) );
          if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
-            INFO = 1
-            RETURN
+            INFO = 1;
+            RETURN;
          }
 
          // Factor
 
-         A( 1, 1 ) = SQRT( AJJ )
+         A( 1, 1 ) = SQRT( AJJ );
 
       // Use recursive code
 
       } else {
-         N1 = N/2
-         N2 = N-N1
+         N1 = N/2;
+         N2 = N-N1;
 
          // Factor A11
 
          cpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO != 0 ) {
-            INFO = IINFO
-            RETURN
+            INFO = IINFO;
+            RETURN;
          }
 
          // Compute the Cholesky factorization A = U**H*U
@@ -102,8 +102,8 @@
             cpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
 
             if ( IINFO != 0 ) {
-               INFO = IINFO + N1
-               RETURN
+               INFO = IINFO + N1;
+               RETURN;
             }
 
          // Compute the Cholesky factorization A = L*L**H
@@ -121,13 +121,13 @@
             cpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
 
             if ( IINFO != 0 ) {
-               INFO = IINFO + N1
-               RETURN
+               INFO = IINFO + N1;
+               RETURN;
             }
 
          }
       }
-      RETURN
+      RETURN;
 
       // End of CPOTRF2
 

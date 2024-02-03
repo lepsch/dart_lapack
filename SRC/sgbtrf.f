@@ -1,4 +1,4 @@
-      SUBROUTINE SGBTRF( M, N, KL, KU, AB, LDAB, IPIV, INFO )
+      SUBROUTINE SGBTRF( M, N, KL, KU, AB, LDAB, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,23 +9,23 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               AB( LDAB, * )
+      REAL               AB( LDAB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NBMAX, LDWORK;
       const              NBMAX = 64, LDWORK = NBMAX+1 ;
       // ..
       // .. Local Scalars ..
       int                I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW;
-      REAL               TEMP
+      REAL               TEMP;
       // ..
       // .. Local Arrays ..
-      REAL               WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX )
+      REAL               WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
       int                ILAENV, ISAMAX;
@@ -42,25 +42,25 @@
       // KV is the number of superdiagonals in the factor U, allowing for
       // fill-in
 
-      KV = KU + KL
+      KV = KU + KL;
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KL+KV+1 ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('SGBTRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -69,12 +69,12 @@
 
       // Determine the block size for this environment
 
-      NB = ILAENV( 1, 'SGBTRF', ' ', M, N, KL, KU )
+      NB = ILAENV( 1, 'SGBTRF', ' ', M, N, KL, KU );
 
       // The block size must not exceed the limit set by the size of the
       // local arrays WORK13 and WORK31.
 
-      NB = MIN( NB, NBMAX )
+      NB = MIN( NB, NBMAX );
 
       if ( NB <= 1 || NB > KL ) {
 
@@ -89,7 +89,7 @@
 
          for (J = 1; J <= NB; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
-               WORK13( I, J ) = ZERO
+               WORK13( I, J ) = ZERO;
             } // 10
          } // 20
 
@@ -97,7 +97,7 @@
 
          for (J = 1; J <= NB; J++) { // 40
             for (I = J + 1; I <= NB; I++) { // 30
-               WORK31( I, J ) = ZERO
+               WORK31( I, J ) = ZERO;
             } // 30
          } // 40
 
@@ -105,19 +105,19 @@
 
          // Set fill-in elements in columns KU+2 to KV to zero
 
-         DO 60 J = KU + 2, MIN( KV, N )
+         DO 60 J = KU + 2, MIN( KV, N );
             for (I = KV - J + 2; I <= KL; I++) { // 50
-               AB( I, J ) = ZERO
+               AB( I, J ) = ZERO;
             } // 50
          } // 60
 
          // JU is the index of the last column affected by the current
          // stage of the factorization
 
-         JU = 1
+         JU = 1;
 
-         DO 180 J = 1, MIN( M, N ), NB
-            JB = MIN( NB, MIN( M, N )-J+1 )
+         DO 180 J = 1, MIN( M, N ), NB;
+            JB = MIN( NB, MIN( M, N )-J+1 );
 
             // The active part of the matrix is partitioned
 
@@ -131,8 +131,8 @@
             // of columns are JB, J2, J3. The superdiagonal elements of A13
             // and the subdiagonal elements of A31 lie outside the band.
 
-            I2 = MIN( KL-JB, M-J-JB+1 )
-            I3 = MIN( JB, M-J-KL+1 )
+            I2 = MIN( KL-JB, M-J-JB+1 );
+            I3 = MIN( JB, M-J-KL+1 );
 
             // J2 and J3 are computed after JU has been updated.
 
@@ -144,18 +144,18 @@
 
                if ( JJ+KV <= N ) {
                   for (I = 1; I <= KL; I++) { // 70
-                     AB( I, JJ+KV ) = ZERO
+                     AB( I, JJ+KV ) = ZERO;
                   } // 70
                }
 
                // Find pivot and test for singularity. KM is the number of
                // subdiagonal elements in the current column.
 
-               KM = MIN( KL, M-JJ )
-               JP = ISAMAX( KM+1, AB( KV+1, JJ ), 1 )
-               IPIV( JJ ) = JP + JJ - J
+               KM = MIN( KL, M-JJ );
+               JP = ISAMAX( KM+1, AB( KV+1, JJ ), 1 );
+               IPIV( JJ ) = JP + JJ - J;
                if ( AB( KV+JP, JJ ) != ZERO ) {
-                  JU = MAX( JU, MIN( JJ+KU+JP-1, N ) )
+                  JU = MAX( JU, MIN( JJ+KU+JP-1, N ) );
                   if ( JP != 1 ) {
 
                      // Apply interchange to columns J to J+JB-1
@@ -181,7 +181,7 @@
                   // the current block. JM is the index of the last column
                   // which needs to be updated.
 
-                  JM = MIN( JU, J+JB-1 )
+                  JM = MIN( JU, J+JB-1 );
                   if (JM > JJ) CALL SGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
                } else {
 
@@ -193,15 +193,15 @@
 
                // Copy current column of A31 into the work array WORK31
 
-               NW = MIN( JJ-J+1, I3 )
+               NW = MIN( JJ-J+1, I3 );
                if (NW > 0) CALL SCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
             } // 80
             if ( J+JB <= N ) {
 
                // Apply the row interchanges to the other blocks.
 
-               J2 = MIN( JU-J+1, KV ) - JB
-               J3 = MAX( 0, JU-J-KV+1 )
+               J2 = MIN( JU-J+1, KV ) - JB;
+               J3 = MAX( 0, JU-J-KV+1 );
 
                // Use SLASWP to apply the row interchanges to A12, A22, and
                // A32.
@@ -211,21 +211,21 @@
                // Adjust the pivot indices.
 
                for (I = J; I <= J + JB - 1; I++) { // 90
-                  IPIV( I ) = IPIV( I ) + J - 1
+                  IPIV( I ) = IPIV( I ) + J - 1;
                } // 90
 
                // Apply the row interchanges to A13, A23, and A33
                // columnwise.
 
-               K2 = J - 1 + JB + J2
+               K2 = J - 1 + JB + J2;
                for (I = 1; I <= J3; I++) { // 110
-                  JJ = K2 + I
+                  JJ = K2 + I;
                   for (II = J + I - 1; II <= J + JB - 1; II++) { // 100
-                     IP = IPIV( II )
+                     IP = IPIV( II );
                      if ( IP != II ) {
-                        TEMP = AB( KV+1+II-JJ, JJ )
-                        AB( KV+1+II-JJ, JJ ) = AB( KV+1+IP-JJ, JJ )
-                        AB( KV+1+IP-JJ, JJ ) = TEMP
+                        TEMP = AB( KV+1+II-JJ, JJ );
+                        AB( KV+1+II-JJ, JJ ) = AB( KV+1+IP-JJ, JJ );
+                        AB( KV+1+IP-JJ, JJ ) = TEMP;
                      }
                   } // 100
                } // 110
@@ -260,7 +260,7 @@
 
                   for (JJ = 1; JJ <= J3; JJ++) { // 130
                      for (II = JJ; II <= JB; II++) { // 120
-                        WORK13( II, JJ ) = AB( II-JJ+1, JJ+J+KV-1 )
+                        WORK13( II, JJ ) = AB( II-JJ+1, JJ+J+KV-1 );
                      } // 120
                   } // 130
 
@@ -286,7 +286,7 @@
 
                   for (JJ = 1; JJ <= J3; JJ++) { // 150
                      for (II = JJ; II <= JB; II++) { // 140
-                        AB( II-JJ+1, JJ+J+KV-1 ) = WORK13( II, JJ )
+                        AB( II-JJ+1, JJ+J+KV-1 ) = WORK13( II, JJ );
                      } // 140
                   } // 150
                }
@@ -295,7 +295,7 @@
                // Adjust the pivot indices.
 
                for (I = J; I <= J + JB - 1; I++) { // 160
-                  IPIV( I ) = IPIV( I ) + J - 1
+                  IPIV( I ) = IPIV( I ) + J - 1;
                } // 160
             }
 
@@ -303,8 +303,8 @@
             // restore the upper triangular form of A31 and copy the upper
             // triangle of A31 back into place
 
-            DO 170 JJ = J + JB - 1, J, -1
-               JP = IPIV( JJ ) - JJ + 1
+            DO 170 JJ = J + JB - 1, J, -1;
+               JP = IPIV( JJ ) - JJ + 1;
                if ( JP != 1 ) {
 
                   // Apply interchange to columns J to JJ-1
@@ -324,13 +324,13 @@
 
                // Copy the current column of A31 back into place
 
-               NW = MIN( I3, JJ-J+1 )
+               NW = MIN( I3, JJ-J+1 );
                if (NW > 0) CALL SCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
             } // 170
          } // 180
       }
 
-      RETURN
+      RETURN;
 
       // End of SGBTRF
 

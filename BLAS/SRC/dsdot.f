@@ -8,7 +8,7 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      REAL SX(*),SY(*)
+      REAL SX(*),SY(*);
       // ..
 
 *  Authors:
@@ -30,25 +30,25 @@
 
       // Code for equal, positive, non-unit increments.
 
-         NS = N*INCX
-         DO I = 1,NS,INCX
-            DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I))
+         NS = N*INCX;
+         DO I = 1,NS,INCX;
+            DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I));
          }
       } else {
 
       // Code for unequal or nonpositive increments.
 
-         KX = 1
-         KY = 1
+         KX = 1;
+         KY = 1;
          if (INCX < 0) KX = 1 + (1-N)*INCX;
          if (INCY < 0) KY = 1 + (1-N)*INCY;
          for (I = 1; I <= N; I++) {
-            DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY))
-            KX = KX + INCX
-            KY = KY + INCY
+            DSDOT = DSDOT + DBLE(SX(KX))*DBLE(SY(KY));
+            KX = KX + INCX;
+            KY = KY + INCY;
          }
       }
-      RETURN
+      RETURN;
 
       // End of DSDOT
 

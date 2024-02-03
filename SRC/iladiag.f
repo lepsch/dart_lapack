@@ -20,13 +20,13 @@
       // ..
       // .. Executable Statements ..
       if ( LSAME( DIAG, 'N' ) ) {
-         ILADIAG = BLAS_NON_UNIT_DIAG
+         ILADIAG = BLAS_NON_UNIT_DIAG;
       } else if ( LSAME( DIAG, 'U' ) ) {
-         ILADIAG = BLAS_UNIT_DIAG
+         ILADIAG = BLAS_UNIT_DIAG;
       } else {
-         ILADIAG = -1
+         ILADIAG = -1;
       }
-      RETURN
+      RETURN;
 
       // End of ILADIAG
 

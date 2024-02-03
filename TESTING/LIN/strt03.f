@@ -1,4 +1,4 @@
-      SUBROUTINE STRT03( UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
+      SUBROUTINE STRT03( UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       String             DIAG, TRANS, UPLO;
       int                LDA, LDB, LDX, N, NRHS;
-      REAL               RESID, SCALE, TSCAL
+      REAL               RESID, SCALE, TSCAL;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), CNORM( * ), WORK( * ), X( LDX, * )
+      REAL               A( LDA, * ), B( LDB, * ), CNORM( * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                IX, J;
-      REAL               BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL
+      REAL               BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, ISAMAX, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -40,43 +40,43 @@
       // Quick exit if N = 0
 
       if ( N <= 0 || NRHS <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
-      EPS = SLAMCH( 'Epsilon' )
-      SMLNUM = SLAMCH( 'Safe minimum' )
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'Epsilon' );
+      SMLNUM = SLAMCH( 'Safe minimum' );
+      BIGNUM = ONE / SMLNUM;
 
       // Compute the norm of the triangular matrix A using the column
       // norms already computed by SLATRS.
 
-      TNORM = ZERO
+      TNORM = ZERO;
       if ( LSAME( DIAG, 'N' ) ) {
          for (J = 1; J <= N; J++) { // 10
-            TNORM = MAX( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) )
+            TNORM = MAX( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) );
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
-            TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
+            TNORM = MAX( TNORM, TSCAL+CNORM( J ) );
          } // 20
       }
 
       // Compute the maximum over the number of right hand sides of
          // norm(op(A)*x - s*b) / ( norm(op(A)) * norm(x) * EPS ).
 
-      RESID = ZERO
+      RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 30
          scopy(N, X( 1, J ), 1, WORK, 1 );
-         IX = ISAMAX( N, WORK, 1 )
-         XNORM = MAX( ONE, ABS( X( IX, J ) ) )
-         XSCAL = ( ONE / XNORM ) / REAL( N )
+         IX = ISAMAX( N, WORK, 1 );
+         XNORM = MAX( ONE, ABS( X( IX, J ) ) );
+         XSCAL = ( ONE / XNORM ) / REAL( N );
          sscal(N, XSCAL, WORK, 1 );
          strmv(UPLO, TRANS, DIAG, N, A, LDA, WORK, 1 );
          saxpy(N, -SCALE*XSCAL, B( 1, J ), 1, WORK, 1 );
-         IX = ISAMAX( N, WORK, 1 )
-         ERR = TSCAL*ABS( WORK( IX ) )
-         IX = ISAMAX( N, X( 1, J ), 1 )
-         XNORM = ABS( X( IX, J ) )
+         IX = ISAMAX( N, WORK, 1 );
+         ERR = TSCAL*ABS( WORK( IX ) );
+         IX = ISAMAX( N, X( 1, J ), 1 );
+         XNORM = ABS( X( IX, J ) );
          if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;
          } else {
@@ -87,10 +87,10 @@
          } else {
             if (ERR > ZERO) ERR = ONE / EPS;
          }
-         RESID = MAX( RESID, ERR )
+         RESID = MAX( RESID, ERR );
       } // 30
 
-      RETURN
+      RETURN;
 
       // End of STRT03
 

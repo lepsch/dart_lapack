@@ -1,4 +1,4 @@
-      SUBROUTINE DSTEIN( N, D, E, M, W, IBLOCK, ISPLIT, Z, LDZ, WORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSTEIN( N, D, E, M, W, IBLOCK, ISPLIT, Z, LDZ, WORK, IWORK, IFAIL, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,26 +42,26 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       for (I = 1; I <= M; I++) { // 10
-         IFAIL( I ) = 0
+         IFAIL( I ) = 0;
       } // 10
 
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 || M > N ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDZ < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else {
          for (J = 2; J <= M; J++) { // 20
             if ( IBLOCK( J ) < IBLOCK( J-1 ) ) {
-               INFO = -6
-               GO TO 30
+               INFO = -6;
+               GO TO 30;
             }
             if ( IBLOCK( J ) == IBLOCK( J-1 ) && W( J ) < W( J-1 ) ) {
-               INFO = -5
-               GO TO 30
+               INFO = -5;
+               GO TO 30;
             }
          } // 20
          } // 30
@@ -69,95 +69,95 @@
 
       if ( INFO != 0 ) {
          xerbla('DSTEIN', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 || M == 0 ) {
-         RETURN
+         RETURN;
       } else if ( N == 1 ) {
-         Z( 1, 1 ) = ONE
-         RETURN
+         Z( 1, 1 ) = ONE;
+         RETURN;
       }
 
       // Get machine constants.
 
-      EPS = DLAMCH( 'Precision' )
+      EPS = DLAMCH( 'Precision' );
 
       // Initialize seed for random number generator DLARNV.
 
       for (I = 1; I <= 4; I++) { // 40
-         ISEED( I ) = 1
+         ISEED( I ) = 1;
       } // 40
 
       // Initialize pointers.
 
-      INDRV1 = 0
-      INDRV2 = INDRV1 + N
-      INDRV3 = INDRV2 + N
-      INDRV4 = INDRV3 + N
-      INDRV5 = INDRV4 + N
+      INDRV1 = 0;
+      INDRV2 = INDRV1 + N;
+      INDRV3 = INDRV2 + N;
+      INDRV4 = INDRV3 + N;
+      INDRV5 = INDRV4 + N;
 
       // Compute eigenvectors of matrix blocks.
 
-      J1 = 1
+      J1 = 1;
       for (NBLK = 1; NBLK <= IBLOCK( M ); NBLK++) { // 160
 
          // Find starting and ending indices of block nblk.
 
          if ( NBLK == 1 ) {
-            B1 = 1
+            B1 = 1;
          } else {
-            B1 = ISPLIT( NBLK-1 ) + 1
+            B1 = ISPLIT( NBLK-1 ) + 1;
          }
-         BN = ISPLIT( NBLK )
-         BLKSIZ = BN - B1 + 1
+         BN = ISPLIT( NBLK );
+         BLKSIZ = BN - B1 + 1;
          if (BLKSIZ == 1) GO TO 60;
-         GPIND = J1
+         GPIND = J1;
 
          // Compute reorthogonalization criterion and stopping criterion.
 
-         ONENRM = ABS( D( B1 ) ) + ABS( E( B1 ) )
-         ONENRM = MAX( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) )
+         ONENRM = ABS( D( B1 ) ) + ABS( E( B1 ) );
+         ONENRM = MAX( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) );
          for (I = B1 + 1; I <= BN - 1; I++) { // 50
-            ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) )
+            ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) );
          } // 50
-         ORTOL = ODM3*ONENRM
+         ORTOL = ODM3*ONENRM;
 
-         DTPCRT = SQRT( ODM1 / BLKSIZ )
+         DTPCRT = SQRT( ODM1 / BLKSIZ );
 
          // Loop through eigenvalues of block nblk.
 
          } // 60
-         JBLK = 0
+         JBLK = 0;
          for (J = J1; J <= M; J++) { // 150
             if ( IBLOCK( J ) != NBLK ) {
-               J1 = J
-               GO TO 160
+               J1 = J;
+               GO TO 160;
             }
-            JBLK = JBLK + 1
-            XJ = W( J )
+            JBLK = JBLK + 1;
+            XJ = W( J );
 
             // Skip all the work if the block size is one.
 
             if ( BLKSIZ == 1 ) {
-               WORK( INDRV1+1 ) = ONE
-               GO TO 120
+               WORK( INDRV1+1 ) = ONE;
+               GO TO 120;
             }
 
             // If eigenvalues j and j-1 are too close, add a relatively
             // small perturbation.
 
             if ( JBLK > 1 ) {
-               EPS1 = ABS( EPS*XJ )
-               PERTOL = TEN*EPS1
-               SEP = XJ - XJM
+               EPS1 = ABS( EPS*XJ );
+               PERTOL = TEN*EPS1;
+               SEP = XJ - XJM;
                if (SEP < PERTOL) XJ = XJM + PERTOL;
             }
 
-            ITS = 0
-            NRMCHK = 0
+            ITS = 0;
+            NRMCHK = 0;
 
             // Get random starting vector.
 
@@ -171,19 +171,19 @@
 
             // Compute LU factors with partial pivoting  ( PT = LU )
 
-            TOL = ZERO
+            TOL = ZERO;
             dlagtf(BLKSIZ, WORK( INDRV4+1 ), XJ, WORK( INDRV2+2 ), WORK( INDRV3+1 ), TOL, WORK( INDRV5+1 ), IWORK, IINFO );
 
             // Update iteration count.
 
             } // 70
-            ITS = ITS + 1
+            ITS = ITS + 1;
             if (ITS > MAXITS) GO TO 100;
 
             // Normalize and scale the righthand side vector Pb.
 
-            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            SCL = BLKSIZ*ONENRM*MAX( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) )
+            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            SCL = BLKSIZ*ONENRM*MAX( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) );
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
 
             // Solve the system LU = Pb.
@@ -204,49 +204,49 @@
             // Check the infinity norm of the iterate.
 
             } // 90
-            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            NRM = ABS( WORK( INDRV1+JMAX ) )
+            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            NRM = ABS( WORK( INDRV1+JMAX ) );
 
             // Continue for additional iterations after norm reaches
             // stopping criterion.
 
             if (NRM < DTPCRT) GO TO 70;
-            NRMCHK = NRMCHK + 1
+            NRMCHK = NRMCHK + 1;
             if (NRMCHK < EXTRA+1) GO TO 70;
 
-            GO TO 110
+            GO TO 110;
 
             // If stopping criterion was not satisfied, update info and
             // store eigenvector number in array ifail.
 
             } // 100
-            INFO = INFO + 1
-            IFAIL( INFO ) = J
+            INFO = INFO + 1;
+            IFAIL( INFO ) = J;
 
             // Accept iterate as jth eigenvector.
 
             } // 110
-            SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            IF( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL
+            SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 );
+            IF( WORK( INDRV1+JMAX ) < ZERO ) SCL = -SCL;
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
             } // 120
             for (I = 1; I <= N; I++) { // 130
-               Z( I, J ) = ZERO
+               Z( I, J ) = ZERO;
             } // 130
             for (I = 1; I <= BLKSIZ; I++) { // 140
-               Z( B1+I-1, J ) = WORK( INDRV1+I )
+               Z( B1+I-1, J ) = WORK( INDRV1+I );
             } // 140
 
             // Save the shift to check eigenvalue spacing at next
             // iteration.
 
-            XJM = XJ
+            XJM = XJ;
 
          } // 150
       } // 160
 
-      RETURN
+      RETURN;
 
       // End of DSTEIN
 

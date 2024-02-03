@@ -1,4 +1,4 @@
-      COMPLEX FUNCTION CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
+      COMPLEX FUNCTION CLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,34 +7,34 @@
       // .. Scalar Arguments ..
 
       int                I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N;
-      REAL               SPARSE
+      REAL               SPARSE;
       // ..
 
       // .. Array Arguments ..
 
       int                ISEED( 4 ), IWORK( * );
-      COMPLEX            D( * ), DL( * ), DR( * )
+      COMPLEX            D( * ), DL( * ), DR( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
 
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CZERO
+      COMPLEX            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
 
       // .. Local Scalars ..
 
-      COMPLEX            CTEMP
+      COMPLEX            CTEMP;
       // ..
 
       // .. External Functions ..
 
-      REAL               SLARAN
-      COMPLEX            CLARND
+      REAL               SLARAN;
+      COMPLEX            CLARND;
       // EXTERNAL SLARAN, CLARND
       // ..
 
@@ -51,66 +51,66 @@
       // Check for I and J in range
 
       if ( I < 1 || I > M || J < 1 || J > N ) {
-         ISUB = I
-         JSUB = J
-         CLATM3 = CZERO
-         RETURN
+         ISUB = I;
+         JSUB = J;
+         CLATM3 = CZERO;
+         RETURN;
       }
 
       // Compute subscripts depending on IPVTNG
 
       if ( IPVTNG == 0 ) {
-         ISUB = I
-         JSUB = J
+         ISUB = I;
+         JSUB = J;
       } else if ( IPVTNG == 1 ) {
-         ISUB = IWORK( I )
-         JSUB = J
+         ISUB = IWORK( I );
+         JSUB = J;
       } else if ( IPVTNG == 2 ) {
-         ISUB = I
-         JSUB = IWORK( J )
+         ISUB = I;
+         JSUB = IWORK( J );
       } else if ( IPVTNG == 3 ) {
-         ISUB = IWORK( I )
-         JSUB = IWORK( J )
+         ISUB = IWORK( I );
+         JSUB = IWORK( J );
       }
 
       // Check for banding
 
       if ( JSUB > ISUB+KU || JSUB < ISUB-KL ) {
-         CLATM3 = CZERO
-         RETURN
+         CLATM3 = CZERO;
+         RETURN;
       }
 
       // Check for sparsity
 
       if ( SPARSE > ZERO ) {
          if ( SLARAN( ISEED ) < SPARSE ) {
-            CLATM3 = CZERO
-            RETURN
+            CLATM3 = CZERO;
+            RETURN;
          }
       }
 
       // Compute entry and grade it according to IGRADE
 
       if ( I == J ) {
-         CTEMP = D( I )
+         CTEMP = D( I );
       } else {
-         CTEMP = CLARND( IDIST, ISEED )
+         CTEMP = CLARND( IDIST, ISEED );
       }
       if ( IGRADE == 1 ) {
-         CTEMP = CTEMP*DL( I )
+         CTEMP = CTEMP*DL( I );
       } else if ( IGRADE == 2 ) {
-         CTEMP = CTEMP*DR( J )
+         CTEMP = CTEMP*DR( J );
       } else if ( IGRADE == 3 ) {
-         CTEMP = CTEMP*DL( I )*DR( J )
+         CTEMP = CTEMP*DL( I )*DR( J );
       } else if ( IGRADE == 4 && I != J ) {
-         CTEMP = CTEMP*DL( I ) / DL( J )
+         CTEMP = CTEMP*DL( I ) / DL( J );
       } else if ( IGRADE == 5 ) {
-         CTEMP = CTEMP*DL( I )*CONJG( DL( J ) )
+         CTEMP = CTEMP*DL( I )*CONJG( DL( J ) );
       } else if ( IGRADE == 6 ) {
-         CTEMP = CTEMP*DL( I )*DL( J )
+         CTEMP = CTEMP*DL( I )*DL( J );
       }
-      CLATM3 = CTEMP
-      RETURN
+      CLATM3 = CTEMP;
+      RETURN;
 
       // End of CLATM3
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CLAUU2( UPLO, N, A, LDA, INFO )
+      SUBROUTINE CLAUU2( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,23 +9,23 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * )
+      COMPLEX            A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I;
-      REAL               AII
+      REAL               AII;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX            CDOTC
+      COMPLEX            CDOTC;
       // EXTERNAL LSAME, CDOTC
       // ..
       // .. External Subroutines ..
@@ -38,18 +38,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('CLAUU2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,9 +61,9 @@
          // Compute the product U * U**H.
 
          for (I = 1; I <= N; I++) { // 10
-            AII = REAL( A( I, I ) )
+            AII = REAL( A( I, I ) );
             if ( I < N ) {
-               A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) )
+               A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
                clacgv(N-I, A( I, I+1 ), LDA );
                cgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, CMPLX( AII ), A( 1, I ), 1 );
                clacgv(N-I, A( I, I+1 ), LDA );
@@ -77,9 +77,9 @@
          // Compute the product L**H * L.
 
          for (I = 1; I <= N; I++) { // 20
-            AII = REAL( A( I, I ) )
+            AII = REAL( A( I, I ) );
             if ( I < N ) {
-               A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) )
+               A( I, I ) = AII*AII + REAL( CDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
                clacgv(I-1, A( I, 1 ), LDA );
                cgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, CMPLX( AII ), A( I, 1 ), LDA );
                clacgv(I-1, A( I, 1 ), LDA );
@@ -89,7 +89,7 @@
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of CLAUU2
 

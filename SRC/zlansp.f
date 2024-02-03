@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             WORK( * );
-      COMPLEX*16         AP( * )
+      COMPLEX*16         AP( * );
       // ..
 
 * =====================================================================
@@ -36,119 +36,119 @@
       // .. Executable Statements ..
 
       if ( N == 0 ) {
-         VALUE = ZERO
+         VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
-            K = 1
+            K = 1;
             for (J = 1; J <= N; J++) { // 20
                for (I = K; I <= K + J - 1; I++) { // 10
-                  SUM = ABS( AP( I ) )
-                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                  SUM = ABS( AP( I ) );
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
-               K = K + J
+               K = K + J;
             } // 20
          } else {
-            K = 1
+            K = 1;
             for (J = 1; J <= N; J++) { // 40
                for (I = K; I <= K + N - J; I++) { // 30
-                  SUM = ABS( AP( I ) )
-                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                  SUM = ABS( AP( I ) );
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 30
-               K = K + N - J + 1
+               K = K + N - J + 1;
             } // 40
          }
       } else if ( ( LSAME( NORM, 'I' ) ) || ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find normI(A) ( = norm1(A), since A is symmetric).
 
-         VALUE = ZERO
-         K = 1
+         VALUE = ZERO;
+         K = 1;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
-               SUM = ZERO
+               SUM = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
-                  ABSA = ABS( AP( K ) )
-                  SUM = SUM + ABSA
-                  WORK( I ) = WORK( I ) + ABSA
-                  K = K + 1
+                  ABSA = ABS( AP( K ) );
+                  SUM = SUM + ABSA;
+                  WORK( I ) = WORK( I ) + ABSA;
+                  K = K + 1;
                } // 50
-               WORK( J ) = SUM + ABS( AP( K ) )
-               K = K + 1
+               WORK( J ) = SUM + ABS( AP( K ) );
+               K = K + 1;
             } // 60
             for (I = 1; I <= N; I++) { // 70
-               SUM = WORK( I )
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               SUM = WORK( I );
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WORK( I ) = ZERO
+               WORK( I ) = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( AP( K ) )
-               K = K + 1
+               SUM = WORK( J ) + ABS( AP( K ) );
+               K = K + 1;
                for (I = J + 1; I <= N; I++) { // 90
-                  ABSA = ABS( AP( K ) )
-                  SUM = SUM + ABSA
-                  WORK( I ) = WORK( I ) + ABSA
-                  K = K + 1
+                  ABSA = ABS( AP( K ) );
+                  SUM = SUM + ABSA;
+                  WORK( I ) = WORK( I ) + ABSA;
+                  K = K + 1;
                } // 90
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         SCALE = ZERO
-         SUM = ONE
-         K = 2
+         SCALE = ZERO;
+         SUM = ONE;
+         K = 2;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 2; J <= N; J++) { // 110
                zlassq(J-1, AP( K ), 1, SCALE, SUM );
-               K = K + J
+               K = K + J;
             } // 110
          } else {
             for (J = 1; J <= N - 1; J++) { // 120
                zlassq(N-J, AP( K ), 1, SCALE, SUM );
-               K = K + N - J + 1
+               K = K + N - J + 1;
             } // 120
          }
-         SUM = 2*SUM
-         K = 1
+         SUM = 2*SUM;
+         K = 1;
          for (I = 1; I <= N; I++) { // 130
             if ( DBLE( AP( K ) ) != ZERO ) {
-               ABSA = ABS( DBLE( AP( K ) ) )
+               ABSA = ABS( DBLE( AP( K ) ) );
                if ( SCALE < ABSA ) {
-                  SUM = ONE + SUM*( SCALE / ABSA )**2
-                  SCALE = ABSA
+                  SUM = ONE + SUM*( SCALE / ABSA )**2;
+                  SCALE = ABSA;
                } else {
-                  SUM = SUM + ( ABSA / SCALE )**2
+                  SUM = SUM + ( ABSA / SCALE )**2;
                }
             }
             if ( DIMAG( AP( K ) ) != ZERO ) {
-               ABSA = ABS( DIMAG( AP( K ) ) )
+               ABSA = ABS( DIMAG( AP( K ) ) );
                if ( SCALE < ABSA ) {
-                  SUM = ONE + SUM*( SCALE / ABSA )**2
-                  SCALE = ABSA
+                  SUM = ONE + SUM*( SCALE / ABSA )**2;
+                  SCALE = ABSA;
                } else {
-                  SUM = SUM + ( ABSA / SCALE )**2
+                  SUM = SUM + ( ABSA / SCALE )**2;
                }
             }
             if ( LSAME( UPLO, 'U' ) ) {
-               K = K + I + 1
+               K = K + I + 1;
             } else {
-               K = K + N - I + 1
+               K = K + N - I + 1;
             }
          } // 130
-         VALUE = SCALE*SQRT( SUM )
+         VALUE = SCALE*SQRT( SUM );
       }
 
-      ZLANSP = VALUE
-      RETURN
+      ZLANSP = VALUE;
+      RETURN;
 
       // End of ZLANSP
 

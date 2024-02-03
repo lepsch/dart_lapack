@@ -1,10 +1,10 @@
-      subroutine dzasumsub(n,x,incx,asum)
+      subroutine dzasumsub(n,x,incx,asum);
 
       // external dzasum
       double           dzasum,asum;
       int     n,incx;
-      double complex x(*)
+      double complex x(*);
 
-      asum=dzasum(n,x,incx)
-      return
-      end
+      asum=dzasum(n,x,incx);
+      return;
+      end;

@@ -1,23 +1,23 @@
-      SUBROUTINE CUNM22( SIDE, TRANS, M, N, N1, N2, Q, LDQ, C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE CUNM22( SIDE, TRANS, M, N, N1, N2, Q, LDQ, C, LDC, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             SIDE, TRANS;
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO;
       // ..
       // .. Array Arguments ..
-      COMPLEX            Q( LDQ, * ), C( LDC, * ), WORK( * )
+      COMPLEX            Q( LDQ, * ), C( LDC, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
 
       // .. Local Scalars ..
@@ -38,81 +38,81 @@
 
       // Test the input arguments
 
-      INFO = 0
-      LEFT = LSAME( SIDE, 'L' )
-      NOTRAN = LSAME( TRANS, 'N' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LEFT = LSAME( SIDE, 'L' );
+      NOTRAN = LSAME( TRANS, 'N' );
+      LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q;
       // NW is the minimum dimension of WORK.
 
       if ( LEFT ) {
-         NQ = M
+         NQ = M;
       } else {
-         NQ = N
+         NQ = N;
       }
-      NW = NQ
+      NW = NQ;
       if (N1 == 0 || N2 == 0) NW = 1;
       if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N1 < 0 || N1+N2 != NQ ) {
-         INFO = -5
+         INFO = -5;
       } else if ( N2 < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDQ < MAX( 1, NQ ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDC < MAX( 1, M ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LWORK < NW && !LQUERY ) {
-         INFO = -12
+         INFO = -12;
       }
 
       if ( INFO == 0 ) {
-         LWKOPT = M*N
-         WORK( 1 ) = CMPLX( LWKOPT )
+         LWKOPT = M*N;
+         WORK( 1 ) = CMPLX( LWKOPT );
       }
 
       if ( INFO != 0 ) {
          xerbla('CUNM22', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
       // Degenerate cases (N1 = 0 or N2 = 0) are handled using CTRMM.
 
       if ( N1 == 0 ) {
          ctrmm(SIDE, 'Upper', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
-         WORK( 1 ) = ONE
-         RETURN
+         WORK( 1 ) = ONE;
+         RETURN;
       } else if ( N2 == 0 ) {
          ctrmm(SIDE, 'Lower', TRANS, 'Non-Unit', M, N, ONE, Q, LDQ, C, LDC );
-         WORK( 1 ) = ONE
-         RETURN
+         WORK( 1 ) = ONE;
+         RETURN;
       }
 
       // Compute the largest chunk size available from the workspace.
 
-      NB = MAX( 1, MIN( LWORK, LWKOPT ) / NQ )
+      NB = MAX( 1, MIN( LWORK, LWKOPT ) / NQ );
 
       if ( LEFT ) {
          if ( NOTRAN ) {
-            DO I = 1, N, NB
-               LEN = MIN( NB, N-I+1 )
-               LDWORK = M
+            DO I = 1, N, NB;
+               LEN = MIN( NB, N-I+1 );
+               LDWORK = M;
 
                // Multiply bottom part of C by Q12.
 
@@ -137,9 +137,9 @@
                clacpy('All', M, LEN, WORK, LDWORK, C( 1, I ), LDC );
             }
          } else {
-            DO I = 1, N, NB
-               LEN = MIN( NB, N-I+1 )
-               LDWORK = M
+            DO I = 1, N, NB;
+               LEN = MIN( NB, N-I+1 );
+               LDWORK = M;
 
                // Multiply bottom part of C by Q21**H.
 
@@ -166,9 +166,9 @@
          }
       } else {
          if ( NOTRAN ) {
-            DO I = 1, M, NB
-               LEN = MIN( NB, M-I+1 )
-               LDWORK = LEN
+            DO I = 1, M, NB;
+               LEN = MIN( NB, M-I+1 );
+               LDWORK = LEN;
 
                // Multiply right part of C by Q21.
 
@@ -193,9 +193,9 @@
                clacpy('All', LEN, N, WORK, LDWORK, C( I, 1 ), LDC );
             }
          } else {
-            DO I = 1, M, NB
-               LEN = MIN( NB, M-I+1 )
-               LDWORK = LEN
+            DO I = 1, M, NB;
+               LEN = MIN( NB, M-I+1 );
+               LDWORK = LEN;
 
                // Multiply right part of C by Q12**H.
 
@@ -222,8 +222,8 @@
          }
       }
 
-      WORK( 1 ) = CMPLX( LWKOPT )
-      RETURN
+      WORK( 1 ) = CMPLX( LWKOPT );
+      RETURN;
 
       // End of CUNM22
 

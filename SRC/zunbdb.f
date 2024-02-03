@@ -1,4 +1,4 @@
-      SUBROUTINE ZUNBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, PHI, TAUP1, TAUP2, TAUQ1, TAUQ2, WORK, LWORK, INFO )
+      SUBROUTINE ZUNBDB( TRANS, SIGNS, M, P, Q, X11, LDX11, X12, LDX12, X21, LDX21, X22, LDX22, THETA, PHI, TAUP1, TAUP2, TAUQ1, TAUQ2, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             PHI( * ), THETA( * );
-      COMPLEX*16         TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * )
+      COMPLEX*16         TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 
 *  ====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             REALONE;
       const              REALONE = 1.0 ;
-      COMPLEX*16         ONE
+      COMPLEX*16         ONE;
       const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..
@@ -44,60 +44,60 @@
 
       // Test input arguments
 
-      INFO = 0
-      COLMAJOR = !LSAME( TRANS, 'T' )
+      INFO = 0;
+      COLMAJOR = !LSAME( TRANS, 'T' );
       if ( !LSAME( SIGNS, 'O' ) ) {
-         Z1 = REALONE
-         Z2 = REALONE
-         Z3 = REALONE
-         Z4 = REALONE
+         Z1 = REALONE;
+         Z2 = REALONE;
+         Z3 = REALONE;
+         Z4 = REALONE;
       } else {
-         Z1 = REALONE
-         Z2 = -REALONE
-         Z3 = REALONE
-         Z4 = -REALONE
+         Z1 = REALONE;
+         Z2 = -REALONE;
+         Z3 = REALONE;
+         Z4 = -REALONE;
       }
-      LQUERY = LWORK == -1
+      LQUERY = LWORK == -1;
 
       if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( P < 0 || P > M ) {
-         INFO = -4
+         INFO = -4;
       } else if ( Q < 0 || Q > P || Q > M-P || Q > M-Q ) {
-         INFO = -5
+         INFO = -5;
       } else if ( COLMAJOR && LDX11 < MAX( 1, P ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( !COLMAJOR && LDX11 < MAX( 1, Q ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( COLMAJOR && LDX12 < MAX( 1, P ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( !COLMAJOR && LDX12 < MAX( 1, M-Q ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( COLMAJOR && LDX21 < MAX( 1, M-P ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( !COLMAJOR && LDX21 < MAX( 1, Q ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( COLMAJOR && LDX22 < MAX( 1, M-P ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( !COLMAJOR && LDX22 < MAX( 1, M-Q ) ) {
-         INFO = -13
+         INFO = -13;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
-         LWORKOPT = M - Q
-         LWORKMIN = M - Q
-         WORK(1) = LWORKOPT
+         LWORKOPT = M - Q;
+         LWORKMIN = M - Q;
+         WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
-            INFO = -21
+            INFO = -21;
          }
       }
       if ( INFO != 0 ) {
          xerbla('xORBDB', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Handle column-major and row-major separately
@@ -121,20 +121,20 @@
                zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0 ), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
-            THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), 1 ), DZNRM2( P-I+1, X11(I,I), 1 ) )
+            THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), 1 ), DZNRM2( P-I+1, X11(I,I), 1 ) );
 
             if ( P > I ) {
                zlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
             } else if ( P == I ) {
                zlarfgp(P-I+1, X11(I,I), X11(I,I), 1, TAUP1(I) );
             }
-            X11(I,I) = ONE
+            X11(I,I) = ONE;
             if ( M-P > I ) {
                zlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
             } else if ( M-P == I ) {
                zlarfgp(M-P-I+1, X21(I,I), X21(I,I), 1, TAUP2(I) );
             }
-            X21(I,I) = ONE
+            X21(I,I) = ONE;
 
             if ( Q > I ) {
                zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK );
@@ -161,7 +161,7 @@
                } else {
                   zlarfgp(Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) );
                }
-               X11(I,I+1) = ONE
+               X11(I,I+1) = ONE;
             }
             if ( M-Q+1 > I ) {
                zlacgv(M-Q-I+1, X12(I,I), LDX12 );
@@ -171,7 +171,7 @@
                   zlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
                }
             }
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( I < Q ) {
                zlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
@@ -200,7 +200,7 @@
             } else {
                zlarfgp(M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) );
             }
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( P > I ) {
                zlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -218,7 +218,7 @@
             zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0 ), X22(Q+I,P+I), LDX22 );
             zlacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
             zlarfgp(M-P-Q-I+1, X22(Q+I,P+I), X22(Q+I,P+I+1), LDX22, TAUQ2(P+I) );
-            X22(Q+I,P+I) = ONE
+            X22(Q+I,P+I) = ONE;
             zlarf('R', M-P-Q-I, M-P-Q-I+1, X22(Q+I,P+I), LDX22, TAUQ2(P+I), X22(Q+I+1,P+I), LDX22, WORK );
 
             zlacgv(M-P-Q-I+1, X22(Q+I,P+I), LDX22 );
@@ -244,19 +244,19 @@
                zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0 ), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
-            THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), LDX21 ), DZNRM2( P-I+1, X11(I,I), LDX11 ) )
+            THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), LDX21 ), DZNRM2( P-I+1, X11(I,I), LDX11 ) );
 
             zlacgv(P-I+1, X11(I,I), LDX11 );
             zlacgv(M-P-I+1, X21(I,I), LDX21 );
 
             zlarfgp(P-I+1, X11(I,I), X11(I,I+1), LDX11, TAUP1(I) );
-            X11(I,I) = ONE
+            X11(I,I) = ONE;
             if ( I == M-P ) {
                zlarfgp(M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) );
             } else {
                zlarfgp(M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) );
             }
-            X21(I,I) = ONE
+            X21(I,I) = ONE;
 
             zlarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
             zlarf('R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK );
@@ -277,10 +277,10 @@
 
             if ( I < Q ) {
                zlarfgp(Q-I, X11(I+1,I), X11(I+2,I), 1, TAUQ1(I) );
-               X11(I+1,I) = ONE
+               X11(I+1,I) = ONE;
             }
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( I < Q ) {
                zlarf('L', Q-I, P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X11(I+1,I+1), LDX11, WORK );
@@ -299,7 +299,7 @@
 
             zscal(M-Q-I+1, DCMPLX( -Z1*Z4, 0.0 ), X12(I,I), 1 );
             zlarfgp(M-Q-I+1, X12(I,I), X12(I+1,I), 1, TAUQ2(I) );
-            X12(I,I) = ONE
+            X12(I,I) = ONE;
 
             if ( P > I ) {
                zlarf('L', M-Q-I+1, P-I, X12(I,I), 1, DCONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );
@@ -314,7 +314,7 @@
 
             zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0 ), X22(P+I,Q+I), 1 );
             zlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
-            X22(P+I,Q+I) = ONE
+            X22(P+I,Q+I) = ONE;
 
             if ( M-P-Q != I ) {
                zlarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, DCONJG(TAUQ2(P+I)), X22(P+I,Q+I+1), LDX22, WORK );
@@ -324,7 +324,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZUNBDB
 

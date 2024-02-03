@@ -1,10 +1,10 @@
-      SUBROUTINE DSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
+      SUBROUTINE DSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -36,24 +36,24 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LTB < ( 4*N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -11
+         INFO = -11;
       }
       if ( INFO != 0 ) {
          xerbla('DSYTRS_AA_2STAGE', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,8 +62,8 @@
 
       // Read NB and compute LDTB
 
-      NB = INT( TB( 1 ) )
-      LDTB = LTB/N
+      NB = INT( TB( 1 ) );
+      LDTB = LTB/N;
 
       if ( UPPER ) {
 
@@ -128,7 +128,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DSYTRS_AA_2STAGE
 

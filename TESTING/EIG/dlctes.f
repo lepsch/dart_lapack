@@ -20,12 +20,12 @@
       // .. Executable Statements ..
 
       if ( D == ZERO ) {
-         DLCTES = ( ZR < ZERO )
+         DLCTES = ( ZR < ZERO );
       } else {
-         DLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) )
+         DLCTES = ( SIGN( ONE, ZR ) != SIGN( ONE, D ) );
       }
 
-      RETURN
+      RETURN;
 
       // End of DLCTES
 

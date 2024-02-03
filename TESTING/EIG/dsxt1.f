@@ -27,26 +27,26 @@
       // ..
       // .. Executable Statements ..
 
-      TEMP1 = ZERO
+      TEMP1 = ZERO;
 
-      J = 1
+      J = 1;
       for (I = 1; I <= N1; I++) { // 20
          } // 10
          if ( D2( J ) < D1( I ) && J < N2 ) {
-            J = J + 1
-            GO TO 10
+            J = J + 1;
+            GO TO 10;
          }
          if ( J == 1 ) {
-            TEMP2 = ABS( D2( J )-D1( I ) )
+            TEMP2 = ABS( D2( J )-D1( I ) );
             if (IJOB == 2) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
          } else {
-            TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
+            TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB == 2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) );
          }
-         TEMP1 = MAX( TEMP1, TEMP2 )
+         TEMP1 = MAX( TEMP1, TEMP2 );
       } // 20
 
-      DSXT1 = TEMP1
-      RETURN
+      DSXT1 = TEMP1;
+      RETURN;
 
       // End of DSXT1
 

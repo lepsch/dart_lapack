@@ -1,4 +1,4 @@
-      SUBROUTINE SGET10( M, N, A, LDA, B, LDB, WORK, RESULT )
+      SUBROUTINE SGET10( M, N, A, LDA, B, LDB, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, M, N;
-      REAL               RESULT
+      REAL               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), WORK( * )
+      REAL               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, EPS, UNFL, WNORM
+      REAL               ANORM, EPS, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE
+      REAL               SASUM, SLAMCH, SLANGE;
       // EXTERNAL SASUM, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
@@ -37,33 +37,33 @@
       // Quick return if possible
 
       if ( M <= 0 || N <= 0 ) {
-         RESULT = ZERO
-         RETURN
+         RESULT = ZERO;
+         RETURN;
       }
 
-      UNFL = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
+      UNFL = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
 
-      WNORM = ZERO
+      WNORM = ZERO;
       for (J = 1; J <= N; J++) { // 10
          scopy(M, A( 1, J ), 1, WORK, 1 );
          saxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
-         WNORM = MAX( WNORM, SASUM( N, WORK, 1 ) )
+         WNORM = MAX( WNORM, SASUM( N, WORK, 1 ) );
       } // 10
 
-      ANORM = MAX( SLANGE( '1', M, N, A, LDA, WORK ), UNFL )
+      ANORM = MAX( SLANGE( '1', M, N, A, LDA, WORK ), UNFL );
 
       if ( ANORM > WNORM ) {
-         RESULT = ( WNORM / ANORM ) / ( M*EPS )
+         RESULT = ( WNORM / ANORM ) / ( M*EPS );
       } else {
          if ( ANORM < ONE ) {
-            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS )
+            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
          } else {
-            RESULT = MIN( WNORM / ANORM, REAL( M ) ) / ( M*EPS )
+            RESULT = MIN( WNORM / ANORM, REAL( M ) ) / ( M*EPS );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of SGET10
 

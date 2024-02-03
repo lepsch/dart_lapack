@@ -1,4 +1,4 @@
-      SUBROUTINE ZHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
+      SUBROUTINE ZHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CONE, HALF
+      COMPLEX*16         CONE, HALF;
       const              CONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -39,22 +39,22 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('ZHEGST', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -63,7 +63,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'ZHEGST', UPLO, N, -1, -1, -1 )
+      NB = ILAENV( 1, 'ZHEGST', UPLO, N, -1, -1, -1 );
 
       if ( NB <= 1 || NB >= N ) {
 
@@ -79,8 +79,8 @@
 
                // Compute inv(U**H)*A*inv(U)
 
-               DO 10 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 10 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the upper triangle of A(k:n,k:n)
 
@@ -97,8 +97,8 @@
 
                // Compute inv(L)*A*inv(L**H)
 
-               DO 20 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 20 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the lower triangle of A(k:n,k:n)
 
@@ -117,8 +117,8 @@
 
                // Compute U*A*U**H
 
-               DO 30 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 30 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
 
@@ -133,8 +133,8 @@
 
                // Compute L**H*A*L
 
-               DO 40 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 40 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
 
@@ -148,7 +148,7 @@
             }
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZHEGST
 

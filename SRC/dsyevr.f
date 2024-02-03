@@ -1,4 +1,4 @@
-      SUBROUTINE DSYEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DSYEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,122 +42,122 @@
 
       // Test the input parameters.
 
-      IEEEOK = ILAENV( 10, 'DSYEVR', 'N', 1, 2, 3, 4 )
+      IEEEOK = ILAENV( 10, 'DSYEVR', 'N', 1, 2, 3, 4 );
 
-      LOWER = LSAME( UPLO, 'L' )
-      WANTZ = LSAME( JOBZ, 'V' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
+      LOWER = LSAME( UPLO, 'L' );
+      WANTZ = LSAME( JOBZ, 'V' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
 
-      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) )
+      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) );
 
       if ( N <= 1 ) {
-         LWMIN  = 1
-         LIWMIN = 1
+         LWMIN  = 1;
+         LIWMIN = 1;
       } else {
-         LWMIN  = 26*N
-         LIWMIN = 10*N
+         LWMIN  = 26*N;
+         LIWMIN = 10*N;
       }
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
-               INFO = -9
+               INFO = -9;
             } else if ( IU < MIN( N, IL ) || IU > N ) {
-               INFO = -10
+               INFO = -10;
             }
          }
       }
       if ( INFO == 0 ) {
          if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-            INFO = -15
+            INFO = -15;
          } else if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -18
+            INFO = -18;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -20
+            INFO = -20;
          }
       }
 
       if ( INFO == 0 ) {
-         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 )
-         NB = MAX( NB, ILAENV( 1, 'DORMTR', UPLO, N, -1, -1, -1 ) )
-         LWKOPT = MAX( ( NB+1 )*N, LWMIN )
-         WORK( 1 ) = LWKOPT
-         IWORK( 1 ) = LIWMIN
+         NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 );
+         NB = MAX( NB, ILAENV( 1, 'DORMTR', UPLO, N, -1, -1, -1 ) );
+         LWKOPT = MAX( ( NB+1 )*N, LWMIN );
+         WORK( 1 ) = LWKOPT;
+         IWORK( 1 ) = LIWMIN;
       }
 
       if ( INFO != 0 ) {
          xerbla('DSYEVR', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if ( N == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
       if ( N == 1 ) {
-         WORK( 1 ) = 1
+         WORK( 1 ) = 1;
          if ( ALLEIG || INDEIG ) {
-            M = 1
-            W( 1 ) = A( 1, 1 )
+            M = 1;
+            W( 1 ) = A( 1, 1 );
          } else {
             if ( VL < A( 1, 1 ) && VU >= A( 1, 1 ) ) {
-               M = 1
-               W( 1 ) = A( 1, 1 )
+               M = 1;
+               W( 1 ) = A( 1, 1 );
             }
          }
          if ( WANTZ ) {
-            Z( 1, 1 ) = ONE
-            ISUPPZ( 1 ) = 1
-            ISUPPZ( 2 ) = 1
+            Z( 1, 1 ) = ONE;
+            ISUPPZ( 1 ) = 1;
+            ISUPPZ( 2 ) = 1;
          }
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
 
       // Scale matrix to allowable range, if necessary.
 
-      ISCALE = 0
-      ABSTLL = ABSTOL
+      ISCALE = 0;
+      ABSTLL = ABSTOL;
       if (VALEIG) {
-         VLL = VL
-         VUU = VU
+         VLL = VL;
+         VUU = VU;
       }
-      ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
+      ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK );
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          if ( LOWER ) {
@@ -171,8 +171,8 @@
          }
          if (ABSTOL > 0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
-            VLL = VL*SIGMA
-            VUU = VU*SIGMA
+            VLL = VL*SIGMA;
+            VUU = VU*SIGMA;
          }
       }
 
@@ -181,36 +181,36 @@
 
       // WORK(INDTAU:INDTAU+N-1) stores the scalar factors of the
       // elementary reflectors used in DSYTRD.
-      INDTAU = 1
+      INDTAU = 1;
       // WORK(INDD:INDD+N-1) stores the tridiagonal's diagonal entries.
-      INDD = INDTAU + N
+      INDD = INDTAU + N;
       // WORK(INDE:INDE+N-1) stores the off-diagonal entries of the
       // tridiagonal matrix from DSYTRD.
-      INDE = INDD + N
+      INDE = INDD + N;
       // WORK(INDDD:INDDD+N-1) is a copy of the diagonal entries over
       // -written by DSTEMR (the DSTERF path copies the diagonal to W).
-      INDDD = INDE + N
+      INDDD = INDE + N;
       // WORK(INDEE:INDEE+N-1) is a copy of the off-diagonal entries over
       // -written while computing the eigenvalues in DSTERF and DSTEMR.
-      INDEE = INDDD + N
+      INDEE = INDDD + N;
       // INDWK is the starting offset of the left-over workspace, and
       // LLWORK is the remaining workspace size.
-      INDWK = INDEE + N
-      LLWORK = LWORK - INDWK + 1
+      INDWK = INDEE + N;
+      LLWORK = LWORK - INDWK + 1;
 
       // IWORK(INDIBL:INDIBL+M-1) corresponds to IBLOCK in DSTEBZ and
       // stores the block indices of each of the M<=N eigenvalues.
-      INDIBL = 1
+      INDIBL = 1;
       // IWORK(INDISP:INDISP+NSPLIT-1) corresponds to ISPLIT in DSTEBZ and
       // stores the starting and finishing indices of each block.
-      INDISP = INDIBL + N
+      INDISP = INDIBL + N;
       // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
       // that corresponding to eigenvectors that fail to converge in
       // DSTEIN.  This information is discarded; if any fail, the driver
       // returns INFO > 0.
-      INDIFL = INDISP + N
+      INDIFL = INDISP + N;
       // INDIWO is the offset of the remaining integer workspace.
-      INDIWO = INDIFL + N
+      INDIWO = INDIFL + N;
 
 
       // Call DSYTRD to reduce symmetric matrix to tridiagonal form.
@@ -242,8 +242,8 @@
          // form to eigenvectors returned by DSTEMR.
 
             if ( WANTZ && INFO == 0 ) {
-               INDWKN = INDE
-               LLWRKN = LWORK - INDWKN + 1
+               INDWKN = INDE;
+               LLWRKN = LWORK - INDWKN + 1;
                dormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
             }
          }
@@ -252,19 +252,19 @@
          if ( INFO == 0 ) {
             // Everything worked.  Skip DSTEBZ/DSTEIN.  IWORK(:) are
             // undefined.
-            M = N
-            GO TO 30
+            M = N;
+            GO TO 30;
          }
-         INFO = 0
+         INFO = 0;
       }
 
       // Otherwise, call DSTEBZ and, if eigenvectors are desired, DSTEIN.
       // Also call DSTEBZ and DSTEIN if DSTEMR fails.
 
       if ( WANTZ ) {
-         ORDER = 'B'
+         ORDER = 'B';
       } else {
-         ORDER = 'E'
+         ORDER = 'E';
       }
        dstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO );
 
@@ -274,8 +274,8 @@
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by DSTEIN.
 
-         INDWKN = INDE
-         LLWRKN = LWORK - INDWKN + 1
+         INDWKN = INDE;
+         LLWRKN = LWORK - INDWKN + 1;
          dormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );
       }
 
@@ -285,9 +285,9 @@
       } // 30
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = M
+            IMAX = M;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
@@ -299,18 +299,18 @@
 
       if ( WANTZ ) {
          for (J = 1; J <= M - 1; J++) { // 50
-            I = 0
-            TMP1 = W( J )
+            I = 0;
+            TMP1 = W( J );
             for (JJ = J + 1; JJ <= M; JJ++) { // 40
                if ( W( JJ ) < TMP1 ) {
-                  I = JJ
-                  TMP1 = W( JJ )
+                  I = JJ;
+                  TMP1 = W( JJ );
                }
             } // 40
 
             if ( I != 0 ) {
-               W( I ) = W( J )
-               W( J ) = TMP1
+               W( I ) = W( J );
+               W( J ) = TMP1;
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
          } // 50
@@ -318,10 +318,10 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWKOPT
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = LWKOPT;
+      IWORK( 1 ) = LIWMIN;
 
-      RETURN
+      RETURN;
 
       // End of DSYEVR
 

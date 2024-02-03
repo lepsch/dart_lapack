@@ -1,4 +1,4 @@
-      SUBROUTINE DLABAD( SMALL, LARGE )
+      SUBROUTINE DLABAD( SMALL, LARGE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,7 +23,7 @@
           // LARGE = SQRT( LARGE )
        // END IF
 
-      RETURN
+      RETURN;
 
       // End of DLABAD
 

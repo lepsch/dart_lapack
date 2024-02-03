@@ -8,7 +8,7 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*)
+      COMPLEX*16 ZX(*);
       // ..
 
 *  =====================================================================
@@ -29,19 +29,19 @@
          // code for increment equal to 1
 
          for (I = 1; I <= N; I++) {
-            STEMP = STEMP + DCABS1(ZX(I))
+            STEMP = STEMP + DCABS1(ZX(I));
          }
       } else {
 
          // code for increment not equal to 1
 
-         NINCX = N*INCX
-         DO I = 1,NINCX,INCX
-            STEMP = STEMP + DCABS1(ZX(I))
+         NINCX = N*INCX;
+         DO I = 1,NINCX,INCX;
+            STEMP = STEMP + DCABS1(ZX(I));
          }
       }
-      DZASUM = STEMP
-      RETURN
+      DZASUM = STEMP;
+      RETURN;
 
       // End of DZASUM
 

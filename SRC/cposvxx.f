@@ -1,4 +1,4 @@
-      SUBROUTINE CPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
+      SUBROUTINE CPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             EQUED, FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS;
-      REAL               RCOND, RPVGRW
+      REAL               RCOND, RPVGRW;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )       REAL               S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
+      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )       REAL               S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 
 *  ==================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       int                FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I;
       int                RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I;
@@ -28,12 +28,12 @@
       // .. Local Scalars ..
       bool               EQUIL, NOFACT, RCEQU;
       int                INFEQU, J;
-      REAL               AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
+      REAL               AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM;
       // ..
       // .. External Functions ..
       // EXTERNAL LSAME, SLAMCH, CLA_PORPVGRW
       bool               LSAME;
-      REAL               SLAMCH, CLA_PORPVGRW
+      REAL               SLAMCH, CLA_PORPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CPOEQUB, CPOTRF, CPOTRS, CLACPY, CLAQHE, XERBLA, CLASCL2, CPORFSX
@@ -43,68 +43,68 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      EQUIL = LSAME( FACT, 'E' )
-      SMLNUM = SLAMCH( 'Safe minimum' )
-      BIGNUM = ONE / SMLNUM
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      EQUIL = LSAME( FACT, 'E' );
+      SMLNUM = SLAMCH( 'Safe minimum' );
+      BIGNUM = ONE / SMLNUM;
       if ( NOFACT || EQUIL ) {
-         EQUED = 'N'
+         EQUED = 'N';
          RCEQU = false;
       } else {
-         RCEQU = LSAME( EQUED, 'Y' )
+         RCEQU = LSAME( EQUED, 'Y' );
       }
 
       // Default is failure.  If an input parameter is wrong or
       // factorization fails, make everything look horrible.  Only the
       // pivot growth is set here, the rest is initialized in CPORFSX.
 
-      RPVGRW = ZERO
+      RPVGRW = ZERO;
 
       // Test the input parameters.  PARAMS is not tested until CPORFSX.
 
       if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LSAME( FACT, 'F' ) && !( RCEQU || LSAME( EQUED, 'N' ) ) ) {
-         INFO = -9
+         INFO = -9;
       } else {
          if ( RCEQU ) {
-            SMIN = BIGNUM
-            SMAX = ZERO
+            SMIN = BIGNUM;
+            SMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               SMIN = MIN( SMIN, S( J ) )
-               SMAX = MAX( SMAX, S( J ) )
+               SMIN = MIN( SMIN, S( J ) );
+               SMAX = MAX( SMAX, S( J ) );
             } // 10
             if ( SMIN <= ZERO ) {
-               INFO = -10
+               INFO = -10;
             } else if ( N > 0 ) {
-               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
+               SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM );
             } else {
-               SCOND = ONE
+               SCOND = ONE;
             }
          }
          if ( INFO == 0 ) {
             if ( LDB < MAX( 1, N ) ) {
-               INFO = -12
+               INFO = -12;
             } else if ( LDX < MAX( 1, N ) ) {
-               INFO = -14
+               INFO = -14;
             }
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CPOSVXX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( EQUIL ) {
@@ -117,7 +117,7 @@
       // Equilibrate the matrix.
 
             claqhe(UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
-            RCEQU = LSAME( EQUED, 'Y' )
+            RCEQU = LSAME( EQUED, 'Y' );
          }
       }
 
@@ -140,14 +140,14 @@
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
 
-            RPVGRW = CLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK )
-            RETURN
+            RPVGRW = CLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK );
+            RETURN;
          }
       }
 
       // Compute the reciprocal pivot growth factor RPVGRW.
 
-      RPVGRW = CLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK )
+      RPVGRW = CLA_PORPVGRW( UPLO, N, A, LDA, AF, LDAF, RWORK );
 
       // Compute the solution matrix X.
 
@@ -166,7 +166,7 @@
          clascl2(N, NRHS, S, X, LDX );
       }
 
-      RETURN
+      RETURN;
 
       // End of CPOSVXX
 

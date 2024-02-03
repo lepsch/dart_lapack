@@ -1,4 +1,4 @@
-      SUBROUTINE DSYSVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK, IWORK, INFO )
+      SUBROUTINE DSYSVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK, IWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,44 +41,44 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      LQUERY = ( LWORK == -1 )
-      LWKMIN = MAX( 1, 3*N )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      LQUERY = ( LWORK == -1 );
+      LWKMIN = MAX( 1, 3*N );
       if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -18
+         INFO = -18;
       }
 
       if ( INFO == 0 ) {
-         LWKOPT = LWKMIN
+         LWKOPT = LWKMIN;
          if ( NOFACT ) {
-            NB = ILAENV( 1, 'DSYTRF', UPLO, N, -1, -1, -1 )
-            LWKOPT = MAX( LWKOPT, N*NB )
+            NB = ILAENV( 1, 'DSYTRF', UPLO, N, -1, -1, -1 );
+            LWKOPT = MAX( LWKOPT, N*NB );
          }
-         WORK( 1 ) = LWKOPT
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('DSYSVX', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       if ( NOFACT ) {
@@ -91,14 +91,14 @@
          // Return if INFO is non-zero.
 
          if ( INFO > 0 ) {
-            RCOND = ZERO
-            RETURN
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
       // Compute the norm of the matrix A.
 
-      ANORM = DLANSY( 'I', UPLO, N, A, LDA, WORK )
+      ANORM = DLANSY( 'I', UPLO, N, A, LDA, WORK );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -116,11 +116,11 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of DSYSVX
 

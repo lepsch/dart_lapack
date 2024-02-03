@@ -1,4 +1,4 @@
-      SUBROUTINE DLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK )
+      SUBROUTINE DLARZ( SIDE, M, N, L, V, INCV, TAU, C, LDC, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -79,7 +79,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DLARZ
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZLQT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZLQT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         ROGUE
+      COMPLEX*16         ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..
@@ -42,7 +42,7 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
 
       // Copy the first k rows of the factorization to the array Q
 
@@ -51,7 +51,7 @@
 
       // Generate the first n columns of the matrix Q
 
-      SRNAMT = 'ZUNGLQ'
+      SRNAMT = 'ZUNGLQ';
       zunglq(M, N, K, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy L(1:k,1:m)
@@ -65,12 +65,12 @@
 
       // Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 
-      ANORM = ZLANGE( '1', K, N, A, LDA, RWORK )
-      RESID = ZLANGE( '1', K, M, L, LDA, RWORK )
+      ANORM = ZLANGE( '1', K, N, A, LDA, RWORK );
+      RESID = ZLANGE( '1', K, M, L, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -80,11 +80,11 @@
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      RESID = ZLANSY( '1', 'Upper', M, L, LDA, RWORK )
+      RESID = ZLANSY( '1', 'Upper', M, L, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of ZLQT02
 

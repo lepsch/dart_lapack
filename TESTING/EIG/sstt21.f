@@ -1,4 +1,4 @@
-      SUBROUTINE SSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RESULT )
+      SUBROUTINE SSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,21 +8,21 @@
       int                KBAND, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * )
+      REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM
+      REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY
+      REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -35,12 +35,12 @@
 
       // 1)      Constants
 
-      RESULT( 1 ) = ZERO
-      RESULT( 2 ) = ZERO
+      RESULT( 1 ) = ZERO;
+      RESULT( 2 ) = ZERO;
       if (N <= 0) RETURN;
 
-      UNFL = SLAMCH( 'Safe minimum' )
-      ULP = SLAMCH( 'Precision' )
+      UNFL = SLAMCH( 'Safe minimum' );
+      ULP = SLAMCH( 'Precision' );
 
       // Do Test 1
 
@@ -48,19 +48,19 @@
 
       slaset('Full', N, N, ZERO, ZERO, WORK, N );
 
-      ANORM = ZERO
-      TEMP1 = ZERO
+      ANORM = ZERO;
+      TEMP1 = ZERO;
 
       for (J = 1; J <= N - 1; J++) { // 10
-         WORK( ( N+1 )*( J-1 )+1 ) = AD( J )
-         WORK( ( N+1 )*( J-1 )+2 ) = AE( J )
-         TEMP2 = ABS( AE( J ) )
-         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 )
-         TEMP1 = TEMP2
+         WORK( ( N+1 )*( J-1 )+1 ) = AD( J );
+         WORK( ( N+1 )*( J-1 )+2 ) = AE( J );
+         TEMP2 = ABS( AE( J ) );
+         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 );
+         TEMP1 = TEMP2;
       } // 10
 
-      WORK( N**2 ) = AD( N )
-      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL )
+      WORK( N**2 ) = AD( N );
+      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL );
 
       // Norm of A - USU'
 
@@ -74,15 +74,15 @@
          } // 30
       }
 
-      WNORM = SLANSY( '1', 'L', N, WORK, N, WORK( N**2+1 ) )
+      WNORM = SLANSY( '1', 'L', N, WORK, N, WORK( N**2+1 ) );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
+            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
+            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
          }
       }
 
@@ -93,12 +93,12 @@
       sgemm('N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N );
 
       for (J = 1; J <= N; J++) { // 40
-         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
+         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE;
       } // 40
 
-      RESULT( 2 ) = MIN( REAL( N ), SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( REAL( N ), SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
 
-      RETURN
+      RETURN;
 
       // End of SSTT21
 

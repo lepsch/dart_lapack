@@ -1,4 +1,4 @@
-      SUBROUTINE ZHBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RWORK, RESULT )
+      SUBROUTINE ZHBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), U( LDU, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), U( LDU, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
@@ -42,22 +42,22 @@
 
       // Constants
 
-      RESULT( 1 ) = ZERO
-      RESULT( 2 ) = ZERO
+      RESULT( 1 ) = ZERO;
+      RESULT( 2 ) = ZERO;
       if (N <= 0) RETURN;
 
-      IKA = MAX( 0, MIN( N-1, KA ) )
+      IKA = MAX( 0, MIN( N-1, KA ) );
 
       if ( LSAME( UPLO, 'U' ) ) {
          LOWER = false;
-         CUPLO = 'U'
+         CUPLO = 'U';
       } else {
          LOWER = true;
-         CUPLO = 'L'
+         CUPLO = 'L';
       }
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
+      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
 
       // Some Error Checks
 
@@ -65,31 +65,31 @@
 
       // Norm of A:
 
-      ANORM = MAX( ZLANHB( '1', CUPLO, N, IKA, A, LDA, RWORK ), UNFL )
+      ANORM = MAX( ZLANHB( '1', CUPLO, N, IKA, A, LDA, RWORK ), UNFL );
 
       // Compute error matrix:    Error = A - U S U**H
 
       // Copy A from SB to SP storage format.
 
-      J = 0
+      J = 0;
       for (JC = 1; JC <= N; JC++) { // 50
          if ( LOWER ) {
-            DO 10 JR = 1, MIN( IKA+1, N+1-JC )
-               J = J + 1
-               WORK( J ) = A( JR, JC )
+            DO 10 JR = 1, MIN( IKA+1, N+1-JC );
+               J = J + 1;
+               WORK( J ) = A( JR, JC );
             } // 10
             for (JR = IKA + 2; JR <= N + 1 - JC; JR++) { // 20
-               J = J + 1
-               WORK( J ) = ZERO
+               J = J + 1;
+               WORK( J ) = ZERO;
             } // 20
          } else {
             for (JR = IKA + 2; JR <= JC; JR++) { // 30
-               J = J + 1
-               WORK( J ) = ZERO
+               J = J + 1;
+               WORK( J ) = ZERO;
             } // 30
-            DO 40 JR = MIN( IKA, JC-1 ), 0, -1
-               J = J + 1
-               WORK( J ) = A( IKA+1-JR, JC )
+            DO 40 JR = MIN( IKA, JC-1 ), 0, -1;
+               J = J + 1;
+               WORK( J ) = A( IKA+1-JR, JC );
             } // 40
          }
       } // 50
@@ -103,15 +103,15 @@
             zhpr2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
          } // 70
       }
-      WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
+      WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
+            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
+            RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
          }
       }
 
@@ -122,12 +122,12 @@
       zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       for (J = 1; J <= N; J++) { // 80
-         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
+         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 80
 
-      RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
 
-      RETURN
+      RETURN;
 
       // End of ZHBT21
 

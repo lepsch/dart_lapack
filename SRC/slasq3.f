@@ -1,4 +1,4 @@
-      SUBROUTINE SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU )
+      SUBROUTINE SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       bool               IEEE;
       int                I0, ITER, N0, NDIV, NFAIL, PP;
-      REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU
+      REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU;
       // ..
       // .. Array Arguments ..
-      REAL               Z( * )
+      REAL               Z( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               CBIAS
+      REAL               CBIAS;
       const              CBIAS = 1.50 ;
-      REAL               ZERO, QURTR, HALF, ONE, TWO, HUNDRD
+      REAL               ZERO, QURTR, HALF, ONE, TWO, HUNDRD;
       const              ZERO = 0.0, QURTR = 0.250, HALF = 0.5, ONE = 1.0, TWO = 2.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       int                IPN4, J4, N0IN, NN, TTYPE;
-      REAL               EPS, S, T, TEMP, TOL, TOL2
+      REAL               EPS, S, T, TEMP, TOL, TOL2;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLASQ4, SLASQ5, SLASQ6
       // ..
       // .. External Function ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       bool               SISNAN;
       // EXTERNAL SISNAN, SLAMCH
       // ..
@@ -38,58 +38,58 @@
       // ..
       // .. Executable Statements ..
 
-      N0IN = N0
-      EPS = SLAMCH( 'Precision' )
-      TOL = EPS*HUNDRD
-      TOL2 = TOL**2
+      N0IN = N0;
+      EPS = SLAMCH( 'Precision' );
+      TOL = EPS*HUNDRD;
+      TOL2 = TOL**2;
 
       // Check for deflation.
 
       } // 10
 
       if (N0 < I0) RETURN       IF( N0 == I0 ) GO TO 20;
-      NN = 4*N0 + PP
-      IF( N0 == ( I0+1 ) ) GO TO 40
+      NN = 4*N0 + PP;
+      IF( N0 == ( I0+1 ) ) GO TO 40;
 
       // Check whether E(N0-1) is negligible, 1 eigenvalue.
 
-      IF( Z( NN-5 ) > TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ) > TOL2*Z( NN-7 ) ) GO TO 30
+      IF( Z( NN-5 ) > TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ) > TOL2*Z( NN-7 ) ) GO TO 30;
 
       } // 20
 
-      Z( 4*N0-3 ) = Z( 4*N0+PP-3 ) + SIGMA
-      N0 = N0 - 1
-      GO TO 10
+      Z( 4*N0-3 ) = Z( 4*N0+PP-3 ) + SIGMA;
+      N0 = N0 - 1;
+      GO TO 10;
 
       // Check  whether E(N0-2) is negligible, 2 eigenvalues.
 
       } // 30
 
-      IF( Z( NN-9 ) > TOL2*SIGMA && Z( NN-2*PP-8 ) > TOL2*Z( NN-11 ) ) GO TO 50
+      IF( Z( NN-9 ) > TOL2*SIGMA && Z( NN-2*PP-8 ) > TOL2*Z( NN-11 ) ) GO TO 50;
 
       } // 40
 
       if ( Z( NN-3 ) > Z( NN-7 ) ) {
-         S = Z( NN-3 )
-         Z( NN-3 ) = Z( NN-7 )
-         Z( NN-7 ) = S
+         S = Z( NN-3 );
+         Z( NN-3 ) = Z( NN-7 );
+         Z( NN-7 ) = S;
       }
-      T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
+      T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) );
       if ( Z( NN-5 ) > Z( NN-3 )*TOL2 && T != ZERO ) {
-         S = Z( NN-3 )*( Z( NN-5 ) / T )
+         S = Z( NN-3 )*( Z( NN-5 ) / T );
          if ( S <= T ) {
-            S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
+            S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) );
          } else {
-            S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
+            S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) );
          }
-         T = Z( NN-7 ) + ( S+Z( NN-5 ) )
-         Z( NN-3 ) = Z( NN-3 )*( Z( NN-7 ) / T )
-         Z( NN-7 ) = T
+         T = Z( NN-7 ) + ( S+Z( NN-5 ) );
+         Z( NN-3 ) = Z( NN-3 )*( Z( NN-7 ) / T );
+         Z( NN-7 ) = T;
       }
-      Z( 4*N0-7 ) = Z( NN-7 ) + SIGMA
-      Z( 4*N0-3 ) = Z( NN-3 ) + SIGMA
-      N0 = N0 - 2
-      GO TO 10
+      Z( 4*N0-7 ) = Z( NN-7 ) + SIGMA;
+      Z( 4*N0-3 ) = Z( NN-3 ) + SIGMA;
+      N0 = N0 - 2;
+      GO TO 10;
 
       } // 50
       if (PP == 2) PP = 0;
@@ -98,29 +98,29 @@
 
       if ( DMIN <= ZERO || N0 < N0IN ) {
          if ( CBIAS*Z( 4*I0+PP-3 ) < Z( 4*N0+PP-3 ) ) {
-            IPN4 = 4*( I0+N0 )
-            DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4
-               TEMP = Z( J4-3 )
-               Z( J4-3 ) = Z( IPN4-J4-3 )
-               Z( IPN4-J4-3 ) = TEMP
-               TEMP = Z( J4-2 )
-               Z( J4-2 ) = Z( IPN4-J4-2 )
-               Z( IPN4-J4-2 ) = TEMP
-               TEMP = Z( J4-1 )
-               Z( J4-1 ) = Z( IPN4-J4-5 )
-               Z( IPN4-J4-5 ) = TEMP
-               TEMP = Z( J4 )
-               Z( J4 ) = Z( IPN4-J4-4 )
-               Z( IPN4-J4-4 ) = TEMP
+            IPN4 = 4*( I0+N0 );
+            DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4;
+               TEMP = Z( J4-3 );
+               Z( J4-3 ) = Z( IPN4-J4-3 );
+               Z( IPN4-J4-3 ) = TEMP;
+               TEMP = Z( J4-2 );
+               Z( J4-2 ) = Z( IPN4-J4-2 );
+               Z( IPN4-J4-2 ) = TEMP;
+               TEMP = Z( J4-1 );
+               Z( J4-1 ) = Z( IPN4-J4-5 );
+               Z( IPN4-J4-5 ) = TEMP;
+               TEMP = Z( J4 );
+               Z( J4 ) = Z( IPN4-J4-4 );
+               Z( IPN4-J4-4 ) = TEMP;
             } // 60
             if ( N0-I0 <= 4 ) {
-               Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 )
-               Z( 4*N0-PP ) = Z( 4*I0-PP )
+               Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 );
+               Z( 4*N0-PP ) = Z( 4*I0-PP );
             }
-            DMIN2 = MIN( DMIN2, Z( 4*N0+PP-1 ) )
-            Z( 4*N0+PP-1 ) = MIN( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = MIN( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) )
-            QMAX = MAX( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) )
-            DMIN = -ZERO
+            DMIN2 = MIN( DMIN2, Z( 4*N0+PP-1 ) );
+            Z( 4*N0+PP-1 ) = MIN( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = MIN( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) );
+            QMAX = MAX( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) );
+            DMIN = -ZERO;
          }
       }
 
@@ -134,8 +134,8 @@
 
       slasq5(I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DN1, DN2, IEEE, EPS );
 
-      NDIV = NDIV + ( N0-I0+2 )
-      ITER = ITER + 1
+      NDIV = NDIV + ( N0-I0+2 );
+      ITER = ITER + 1;
 
       // Check status.
 
@@ -143,76 +143,76 @@
 
          // Success.
 
-         GO TO 90
+         GO TO 90;
 
       } else if ( DMIN < ZERO && DMIN1 > ZERO && Z( 4*( N0-1 )-PP ) < TOL*( SIGMA+DN1 ) && ABS( DN ) < TOL*SIGMA ) {
 
          // Convergence hidden by negative DN.
 
-         Z( 4*( N0-1 )-PP+2 ) = ZERO
-         DMIN = ZERO
-         GO TO 90
+         Z( 4*( N0-1 )-PP+2 ) = ZERO;
+         DMIN = ZERO;
+         GO TO 90;
       } else if ( DMIN < ZERO ) {
 
          // TAU too big. Select new TAU and try again.
 
-         NFAIL = NFAIL + 1
+         NFAIL = NFAIL + 1;
          if ( TTYPE < -22 ) {
 
             // Failed twice. Play it safe.
 
-            TAU = ZERO
+            TAU = ZERO;
          } else if ( DMIN1 > ZERO ) {
 
             // Late failure. Gives excellent shift.
 
-            TAU = ( TAU+DMIN )*( ONE-TWO*EPS )
-            TTYPE = TTYPE - 11
+            TAU = ( TAU+DMIN )*( ONE-TWO*EPS );
+            TTYPE = TTYPE - 11;
          } else {
 
             // Early failure. Divide by 4.
 
-            TAU = QURTR*TAU
-            TTYPE = TTYPE - 12
+            TAU = QURTR*TAU;
+            TTYPE = TTYPE - 12;
          }
-         GO TO 70
+         GO TO 70;
       } else if ( SISNAN( DMIN ) ) {
 
          // NaN.
 
          if ( TAU == ZERO ) {
-            GO TO 80
+            GO TO 80;
          } else {
-            TAU = ZERO
-            GO TO 70
+            TAU = ZERO;
+            GO TO 70;
          }
       } else {
 
          // Possible underflow. Play it safe.
 
-         GO TO 80
+         GO TO 80;
       }
 
       // Risk of underflow.
 
       } // 80
       slasq6(I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DN1, DN2 );
-      NDIV = NDIV + ( N0-I0+2 )
-      ITER = ITER + 1
-      TAU = ZERO
+      NDIV = NDIV + ( N0-I0+2 );
+      ITER = ITER + 1;
+      TAU = ZERO;
 
       } // 90
       if ( TAU < SIGMA ) {
-         DESIG = DESIG + TAU
-         T = SIGMA + DESIG
-         DESIG = DESIG - ( T-SIGMA )
+         DESIG = DESIG + TAU;
+         T = SIGMA + DESIG;
+         DESIG = DESIG - ( T-SIGMA );
       } else {
-         T = SIGMA + TAU
-         DESIG = SIGMA - ( T-TAU ) + DESIG
+         T = SIGMA + TAU;
+         DESIG = SIGMA - ( T-TAU ) + DESIG;
       }
-      SIGMA = T
+      SIGMA = T;
 
-      RETURN
+      RETURN;
 
       // End of SLASQ3
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SPPSV( UPLO, N, NRHS, AP, B, LDB, INFO )
+      SUBROUTINE SPPSV( UPLO, N, NRHS, AP, B, LDB, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), B( LDB, * )
+      REAL               AP( * ), B( LDB, * );
       // ..
 
 *  =====================================================================
@@ -28,19 +28,19 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('SPPSV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Compute the Cholesky factorization A = U**T*U or A = L*L**T.
@@ -53,7 +53,7 @@
          spptrs(UPLO, N, NRHS, AP, B, LDB, INFO );
 
       }
-      RETURN
+      RETURN;
 
       // End of SPPSV
 

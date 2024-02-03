@@ -36,52 +36,52 @@
       // ..
       // .. Executable Statements ..
 
-      DQRT12 = ZERO
+      DQRT12 = ZERO;
 
       // Test that enough workspace is supplied
 
       if ( LWORK < MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) {
          xerbla('DQRT12', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      MN = MIN( M, N )
+      MN = MIN( M, N );
       if (MN <= ZERO) RETURN;
 
-      NRMSVL = DNRM2( MN, S, 1 )
+      NRMSVL = DNRM2( MN, S, 1 );
 
       // Copy upper triangle of A into work
 
       dlaset('Full', M, N, ZERO, ZERO, WORK, M );
       for (J = 1; J <= N; J++) {
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = A( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      BIGNUM = ONE / SMLNUM;
 
       // Scale work if max entry outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, WORK, M, DUMMY )
-      ISCL = 0
+      ANRM = DLANGE( 'M', M, N, WORK, M, DUMMY );
+      ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, WORK, M, INFO );
-         ISCL = 1
+         ISCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, WORK, M, INFO );
-         ISCL = 1
+         ISCL = 1;
       }
 
       if ( ANRM != ZERO ) {
@@ -103,7 +103,7 @@
       } else {
 
          for (I = 1; I <= MN; I++) {
-            WORK( M*N+I ) = ZERO
+            WORK( M*N+I ) = ZERO;
          }
       }
 
@@ -111,11 +111,11 @@
 
       daxpy(MN, -ONE, S, 1, WORK( M*N+1 ), 1 );
 
-      DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * DBLE( MAX( M, N ) ) )
+      DQRT12 = DASUM( MN, WORK( M*N+1 ), 1 ) / ( DLAMCH('Epsilon') * DBLE( MAX( M, N ) ) );
 
       if (NRMSVL != ZERO) DQRT12 = DQRT12 / NRMSVL;
 
-      RETURN
+      RETURN;
 
       // End of DQRT12
 

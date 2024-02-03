@@ -1,4 +1,4 @@
-      SUBROUTINE DORBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO )
+      SUBROUTINE DORBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,40 +37,40 @@
 
       // Test input arguments
 
-      INFO = 0
-      LQUERY = LWORK == -1
+      INFO = 0;
+      LQUERY = LWORK == -1;
 
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( P < Q || M-P < Q ) {
-         INFO = -2
+         INFO = -2;
       } else if ( Q < 0 || M-Q < Q ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDX11 < MAX( 1, P ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDX21 < MAX( 1, M-P ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
-         ILARF = 2
-         LLARF = MAX( P-1, M-P-1, Q-1 )
-         IORBDB5 = 2
-         LORBDB5 = Q-2
-         LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 )
-         LWORKMIN = LWORKOPT
-         WORK(1) = LWORKOPT
+         ILARF = 2;
+         LLARF = MAX( P-1, M-P-1, Q-1 );
+         IORBDB5 = 2;
+         LORBDB5 = Q-2;
+         LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 );
+         LWORKMIN = LWORKOPT;
+         WORK(1) = LWORKOPT;
          if ( LWORK < LWORKMIN && !LQUERY ) {
-           INFO = -14
+           INFO = -14;
          }
       }
       if ( INFO != 0 ) {
          xerbla('DORBDB1', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Reduce columns 1, ..., Q of X11 and X21
@@ -79,28 +79,28 @@
 
          dlarfgp(P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) );
          dlarfgp(M-P-I+1, X21(I,I), X21(I+1,I), 1, TAUP2(I) );
-         THETA(I) = ATAN2( X21(I,I), X11(I,I) )
-         C = COS( THETA(I) )
-         S = SIN( THETA(I) )
-         X11(I,I) = ONE
-         X21(I,I) = ONE
+         THETA(I) = ATAN2( X21(I,I), X11(I,I) );
+         C = COS( THETA(I) );
+         S = SIN( THETA(I) );
+         X11(I,I) = ONE;
+         X21(I,I) = ONE;
          dlarf('L', P-I+1, Q-I, X11(I,I), 1, TAUP1(I), X11(I,I+1), LDX11, WORK(ILARF) );
          dlarf('L', M-P-I+1, Q-I, X21(I,I), 1, TAUP2(I), X21(I,I+1), LDX21, WORK(ILARF) );
 
          if ( I < Q ) {
             drot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
             dlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
-            S = X21(I,I+1)
-            X21(I,I+1) = ONE
+            S = X21(I,I+1);
+            X21(I,I+1) = ONE;
             dlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
             dlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )             C = SQRT( DNRM2( P-I, X11(I+1,I+1), 1 )**2 + DNRM2( M-P-I, X21(I+1,I+1), 1 )**2 );
-            PHI(I) = ATAN2( S, C )
+            PHI(I) = ATAN2( S, C );
             dorbdb5(P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DORBDB1
 

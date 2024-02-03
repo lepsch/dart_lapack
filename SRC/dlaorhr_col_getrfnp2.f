@@ -1,5 +1,5 @@
-      RECURSIVE SUBROUTINE DLAORHR_COL_GETRFNP2( M, N, A, LDA, D, INFO )
-      IMPLICIT NONE
+      RECURSIVE SUBROUTINE DLAORHR_COL_GETRFNP2( M, N, A, LDA, D, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,22 +36,22 @@
 
       // Test the input parameters
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DLAORHR_COL_GETRFNP2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      IF( MIN( M, N ) == 0 ) RETURN
+      IF( MIN( M, N ) == 0 ) RETURN;
 
       if ( M == 1 ) {
 
@@ -60,11 +60,11 @@
 
          // Transfer the sign
 
-         D( 1 ) = -DSIGN( ONE, A( 1, 1 ) )
+         D( 1 ) = -DSIGN( ONE, A( 1, 1 ) );
 
          // Construct the row of U
 
-         A( 1, 1 ) = A( 1, 1 ) - D( 1 )
+         A( 1, 1 ) = A( 1, 1 ) - D( 1 );
 
       } else if ( N == 1 ) {
 
@@ -73,17 +73,17 @@
 
          // Transfer the sign
 
-         D( 1 ) = -DSIGN( ONE, A( 1, 1 ) )
+         D( 1 ) = -DSIGN( ONE, A( 1, 1 ) );
 
          // Construct the row of U
 
-         A( 1, 1 ) = A( 1, 1 ) - D( 1 )
+         A( 1, 1 ) = A( 1, 1 ) - D( 1 );
 
          // Scale the elements 2:M of the column
 
          // Determine machine safe minimum
 
-         SFMIN = DLAMCH('S')
+         SFMIN = DLAMCH('S');
 
          // Construct the subdiagonal elements of L
 
@@ -91,7 +91,7 @@
             dscal(M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 );
          } else {
             for (I = 2; I <= M; I++) {
-               A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
+               A( I, 1 ) = A( I, 1 ) / A( 1, 1 );
             }
          }
 
@@ -99,8 +99,8 @@
 
          // Divide the matrix B into four submatrices
 
-         N1 = MIN( M, N ) / 2
-         N2 = N-N1
+         N1 = MIN( M, N ) / 2;
+         N2 = N-N1;
 
 
          // Factor B11, recursive call
@@ -125,7 +125,7 @@
          dlaorhr_col_getrfnp2(M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO );
 
       }
-      RETURN
+      RETURN;
 
       // End of DLAORHR_COL_GETRFNP2
 

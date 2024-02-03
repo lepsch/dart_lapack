@@ -21,20 +21,20 @@
       // ..
       // .. Executable Statements ..
 
-      GO TO ( 10, 10, 10, 10, 10 )ISPEC
+      GO TO ( 10, 10, 10, 10, 10 )ISPEC;
 
       // Invalid value for ISPEC
 
-      ILAENV2STAGE = -1
-      RETURN
+      ILAENV2STAGE = -1;
+      RETURN;
 
       } // 10
 
       // 2stage eigenvalues and SVD or related subroutines.
 
-      IISPEC = 16 + ISPEC
-      ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
-      RETURN
+      IISPEC = 16 + ISPEC;
+      ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 );
+      RETURN;
 
       // End of ILAENV2STAGE
 

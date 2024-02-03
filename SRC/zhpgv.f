@@ -1,4 +1,4 @@
-      SUBROUTINE ZHPGV( ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, RWORK, INFO )
+      SUBROUTINE ZHPGV( ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * ), W( * );
-      COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -31,24 +31,24 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
 
-      INFO = 0
+      INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('ZHPGV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -59,8 +59,8 @@
 
       zpptrf(UPLO, N, BP, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -72,7 +72,7 @@
 
          // Backtransform eigenvectors to the original problem.
 
-         NEIG = N
+         NEIG = N;
          if (INFO > 0) NEIG = INFO - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
@@ -80,9 +80,9 @@
             // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
 
             if ( UPPER ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'C'
+               TRANS = 'C';
             }
 
             for (J = 1; J <= NEIG; J++) { // 10
@@ -95,9 +95,9 @@
             // backtransform eigenvectors: x = L*y or U**H *y
 
             if ( UPPER ) {
-               TRANS = 'C'
+               TRANS = 'C';
             } else {
-               TRANS = 'N'
+               TRANS = 'N';
             }
 
             for (J = 1; J <= NEIG; J++) { // 20
@@ -105,7 +105,7 @@
             } // 20
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZHPGV
 

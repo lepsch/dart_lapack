@@ -1,4 +1,4 @@
-      SUBROUTINE CLAHRD( N, K, NB, A, LDA, TAU, T, LDT, Y, LDY )
+      SUBROUTINE CLAHRD( N, K, NB, A, LDA, TAU, T, LDT, Y, LDY );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,18 +8,18 @@
       int                K, LDA, LDT, LDY, N, NB;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB )
+      COMPLEX            A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE
+      COMPLEX            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX            EI
+      COMPLEX            EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CGEMV, CLACGV, CLARFG, CSCAL, CTRMV
@@ -74,15 +74,15 @@
             ctrmv('Lower', 'No transpose', 'Unit', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
             caxpy(I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 );
 
-            A( K+I-1, I-1 ) = EI
+            A( K+I-1, I-1 ) = EI;
          }
 
          // Generate the elementary reflector H(i) to annihilate
          // A(k+i+1:n,i)
 
-         EI = A( K+I, I )
+         EI = A( K+I, I );
          clarfg(N-K-I+1, EI, A( MIN( K+I+1, N ), I ), 1, TAU( I ) );
-         A( K+I, I ) = ONE
+         A( K+I, I ) = ONE;
 
          // Compute  Y(1:n,i)
 
@@ -95,12 +95,12 @@
 
          cscal(I-1, -TAU( I ), T( 1, I ), 1 );
          ctrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
-         T( I, I ) = TAU( I )
+         T( I, I ) = TAU( I );
 
       } // 10
-      A( K+NB, NB ) = EI
+      A( K+NB, NB ) = EI;
 
-      RETURN
+      RETURN;
 
       // End of CLAHRD
 

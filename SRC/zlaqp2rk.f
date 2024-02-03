@@ -1,5 +1,5 @@
-      SUBROUTINE ZLAQP2RK( M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE ZLAQP2RK( M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                JPIV( * );
       double             VN1( * ), VN2( * );
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -20,13 +20,13 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT;
       double             HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z;
-      COMPLEX*16         AIKK
+      COMPLEX*16         AIKK;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLARF, ZLARFG, ZSWAP
@@ -44,7 +44,7 @@
 
       // Initialize INFO
 
-      INFO = 0
+      INFO = 0;
 
       // MINMNFACT in the smallest dimension of the submatrix
       // A(IOFFSET+1:M,1:N) to be factorized.
@@ -54,17 +54,17 @@
       // contains the submatrices A(IOFFSET+1:M,1:N) and
       // B(IOFFSET+1:M,1:NRHS) as column blocks.
 
-      MINMNFACT = MIN( M-IOFFSET, N )
-      MINMNUPDT = MIN( M-IOFFSET, N+NRHS )
-      KMAX = MIN( KMAX, MINMNFACT )
-      TOL3Z = SQRT( DLAMCH( 'Epsilon' ) )
-      HUGEVAL = DLAMCH( 'Overflow' )
+      MINMNFACT = MIN( M-IOFFSET, N );
+      MINMNUPDT = MIN( M-IOFFSET, N+NRHS );
+      KMAX = MIN( KMAX, MINMNFACT );
+      TOL3Z = SQRT( DLAMCH( 'Epsilon' ) );
+      HUGEVAL = DLAMCH( 'Overflow' );
 
       // Compute the factorization, KK is the lomn loop index.
 
       for (KK = 1; KK <= KMAX; KK++) {
 
-         I = IOFFSET + KK
+         I = IOFFSET + KK;
 
          if ( I == 1 ) {
 
@@ -74,7 +74,7 @@
             // therefore we use the computed KP1 and MAXC2NRM from the
             // main routine.
 
-            KP = KP1
+            KP = KP1;
 
             // ============================================================
 
@@ -86,14 +86,14 @@
             // of the column with the maximum 2-norm in the
             // submatrix A(I:M,K:N).
 
-            KP = ( KK-1 ) + IDAMAX( N-KK+1, VN1( KK ), 1 )
+            KP = ( KK-1 ) + IDAMAX( N-KK+1, VN1( KK ), 1 );
 
             // Determine the maximum column 2-norm and the relative maximum
             // column 2-norm of the submatrix A(I:M,KK:N) in step KK.
             // RELMAXC2NRMK  will be computed later, after somecondition
             // checks on MAXC2NRMK.
 
-            MAXC2NRMK = VN1( KP )
+            MAXC2NRMK = VN1( KP );
 
             // ============================================================
 
@@ -110,17 +110,17 @@
                // Set K, the number of factorized columns.
                // that are not zero.
 
-                K = KK - 1
-                INFO = K + KP
+                K = KK - 1;
+                INFO = K + KP;
 
                 // Set RELMAXC2NRMK to NaN.
 
-                RELMAXC2NRMK = MAXC2NRMK
+                RELMAXC2NRMK = MAXC2NRMK;
 
                 // Array TAU(K+1:MINMNFACT) is not set and contains
                 // undefined elements.
 
-               RETURN
+               RETURN;
             }
 
             // ============================================================
@@ -137,19 +137,19 @@
                // Set K, the number of factorized columns.
                // that are not zero.
 
-               K = KK - 1
-               RELMAXC2NRMK = ZERO
+               K = KK - 1;
+               RELMAXC2NRMK = ZERO;
 
                // Set TAUs corresponding to the columns that were not
                // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to CZERO.
 
                for (J = KK; J <= MINMNFACT; J++) {
-                  TAU( J ) = CZERO
+                  TAU( J ) = CZERO;
                }
 
                // Return from the routine.
 
-               RETURN
+               RETURN;
 
             }
 
@@ -165,7 +165,7 @@
             // original matrix is checked in the main routine.
 
             if ( INFO == 0 && MAXC2NRMK > HUGEVAL ) {
-               INFO = N + KK - 1 + KP
+               INFO = N + KK - 1 + KP;
             }
 
             // ============================================================
@@ -180,24 +180,24 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
+            RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM;
 
             if ( MAXC2NRMK <= ABSTOL || RELMAXC2NRMK <= RELTOL ) {
 
                // Set K, the number of factorized columns.
 
-               K = KK - 1
+               K = KK - 1;
 
                // Set TAUs corresponding to the columns that were not
                // factorized to ZERO, i.e. set TAU(KK:MINMNFACT) to CZERO.
 
                for (J = KK; J <= MINMNFACT; J++) {
-                  TAU( J ) = CZERO
+                  TAU( J ) = CZERO;
                }
 
                // Return from the routine.
 
-               RETURN
+               RETURN;
 
             }
 
@@ -222,11 +222,11 @@
 
          if ( KP != KK ) {
             zswap(M, A( 1, KP ), 1, A( 1, KK ), 1 );
-            VN1( KP ) = VN1( KK )
-            VN2( KP ) = VN2( KK )
-            ITEMP = JPIV( KP )
-            JPIV( KP ) = JPIV( KK )
-            JPIV( KK ) = ITEMP
+            VN1( KP ) = VN1( KK );
+            VN2( KP ) = VN2( KK );
+            ITEMP = JPIV( KP );
+            JPIV( KP ) = JPIV( KK );
+            JPIV( KK ) = ITEMP;
          }
 
          // Generate elementary reflector H(KK) using the column A(I:M,KK),
@@ -237,7 +237,7 @@
          if ( I < M ) {
             zlarfg(M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) );
          } else {
-            TAU( KK ) = CZERO
+            TAU( KK ) = CZERO;
          }
 
          // Check if TAU(KK) contains NaN, set INFO parameter
@@ -251,26 +251,26 @@
          // by ZLARFG is covered by checking TAU(KK) for NaN.
 
          if ( DISNAN( DBLE( TAU(KK) ) ) ) {
-            TAUNAN = DBLE( TAU(KK) )
+            TAUNAN = DBLE( TAU(KK) );
          } else if ( DISNAN( DIMAG( TAU(KK) ) ) ) {
-            TAUNAN = DIMAG( TAU(KK) )
+            TAUNAN = DIMAG( TAU(KK) );
          } else {
-            TAUNAN = ZERO
+            TAUNAN = ZERO;
          }
 
          if ( DISNAN( TAUNAN ) ) {
-            K = KK - 1
-            INFO = KK
+            K = KK - 1;
+            INFO = KK;
 
             // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
 
-            MAXC2NRMK = TAUNAN
-            RELMAXC2NRMK = TAUNAN
+            MAXC2NRMK = TAUNAN;
+            RELMAXC2NRMK = TAUNAN;
 
             // Array TAU(KK:MINMNFACT) is not set and contains
             // undefined elements, except the first element TAU(KK) = NaN.
 
-            RETURN
+            RETURN;
          }
 
          // Apply H(KK)**H to A(I:M,KK+1:N+NRHS) from the left.
@@ -286,10 +286,10 @@
           // condition is satisfied, not only KK < N+NRHS )
 
          if ( KK < MINMNUPDT ) {
-            AIKK = A( I, KK )
-            A( I, KK ) = CONE
+            AIKK = A( I, KK );
+            A( I, KK ) = CONE;
             zlarf('Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, DCONJG( TAU( KK ) ), A( I, KK+1 ), LDA, WORK( 1 ) );
-            A( I, KK ) = AIKK
+            A( I, KK ) = AIKK;
          }
 
          if ( KK < MINMNFACT ) {
@@ -304,9 +304,9 @@
                   // NOTE: The following lines follow from the analysis in
                   // Lapack Working Note 176.
 
-                  TEMP = ONE - ( ABS( A( I, J ) ) / VN1( J ) )**2
-                  TEMP = MAX( TEMP, ZERO )
-                  TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
+                  TEMP = ONE - ( ABS( A( I, J ) ) / VN1( J ) )**2;
+                  TEMP = MAX( TEMP, ZERO );
+                  TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
 
                      // Compute the column 2-norm for the partial
@@ -314,8 +314,8 @@
                      // and store it in both partial 2-norm vector VN1
                      // and exact column 2-norm vector VN2.
 
-                     VN1( J ) = DZNRM2( M-I, A( I+1, J ), 1 )
-                     VN2( J ) = VN1( J )
+                     VN1( J ) = DZNRM2( M-I, A( I+1, J ), 1 );
+                     VN2( J ) = VN1( J );
 
                   } else {
 
@@ -324,7 +324,7 @@
                      // element A(I,J) and store it in partial
                      // 2-norm vector VN1.
 
-                     VN1( J ) = VN1( J )*SQRT( TEMP )
+                     VN1( J ) = VN1( J )*SQRT( TEMP );
 
                   }
                }
@@ -340,7 +340,7 @@
       // i.e. no condition was triggered to exit the routine.
       // Set the number of factorized columns.
 
-      K = KMAX
+      K = KMAX;
 
       // We reached the end of the loop, i.e. all KMAX columns were
       // factorized, we need to set MAXC2NRMK and RELMAXC2NRMK before
@@ -348,18 +348,18 @@
 
       if ( K < MINMNFACT ) {
 
-         JMAXC2NRM = K + IDAMAX( N-K, VN1( K+1 ), 1 )
-         MAXC2NRMK = VN1( JMAXC2NRM )
+         JMAXC2NRM = K + IDAMAX( N-K, VN1( K+1 ), 1 );
+         MAXC2NRMK = VN1( JMAXC2NRM );
 
          if ( K == 0 ) {
-            RELMAXC2NRMK = ONE
+            RELMAXC2NRMK = ONE;
          } else {
-            RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
+            RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM;
          }
 
       } else {
-         MAXC2NRMK = ZERO
-         RELMAXC2NRMK = ZERO
+         MAXC2NRMK = ZERO;
+         RELMAXC2NRMK = ZERO;
       }
 
       // We reached the end of the loop, i.e. all KMAX columns were
@@ -367,10 +367,10 @@
       // not factorized to ZERO, i.e. TAU(K+1:MINMNFACT) set to CZERO.
 
       for (J = K + 1; J <= MINMNFACT; J++) {
-         TAU( J ) = CZERO
+         TAU( J ) = CZERO;
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLAQP2RK
 

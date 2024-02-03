@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID )
+      SUBROUTINE ZGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * )
+      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 *  =====================================================================
@@ -19,17 +19,17 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, EPS;
-      COMPLEX*16         T
+      COMPLEX*16         T;
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGE;
-      COMPLEX*16         ZDOTU
+      COMPLEX*16         ZDOTU;
       // EXTERNAL DLAMCH, ZLANGE, ZDOTU
       // ..
       // .. External Subroutines ..
@@ -43,27 +43,27 @@
       // Quick exit if M = 0 or N = 0.
 
       if ( M <= 0 || N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = ZLANGE( '1', M, N, A, LDA, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
 
       // Compute the product L*U and overwrite AFAC with the result.
       // A column at a time of the product is obtained, starting with
       // column N.
 
-      DO 10 K = N, 1, -1
+      DO 10 K = N, 1, -1;
          if ( K > M ) {
             ztrmv('Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          } else {
 
             // Compute elements (K+1:M,K)
 
-            T = AFAC( K, K )
+            T = AFAC( K, K );
             if ( K+1 <= M ) {
                zscal(M-K, T, AFAC( K+1, K ), 1 );
                zgemv('No transpose', M-K, K-1, CONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, CONE, AFAC( K+1, K ), 1 );
@@ -71,7 +71,7 @@
 
             // Compute the (K,K) element
 
-            AFAC( K, K ) = T + ZDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 )
+            AFAC( K, K ) = T + ZDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 );
 
             // Compute elements (1:K-1,K)
 
@@ -84,21 +84,21 @@
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+            AFAC( I, J ) = AFAC( I, J ) - A( I, J );
          } // 20
       } // 30
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 
-      RESID = ZLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
+      RESID = ZLANGE( '1', M, N, AFAC, LDAFAC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of ZGET01
 

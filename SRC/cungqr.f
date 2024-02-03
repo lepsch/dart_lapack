@@ -1,4 +1,4 @@
-      SUBROUTINE CUNGQR( M, N, K, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE CUNGQR( M, N, K, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                INFO, K, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
+      COMPLEX            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO
+      COMPLEX            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -29,64 +29,64 @@
       // ..
       // .. External Functions ..
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
 
       // Test the input arguments
 
-      INFO = 0
-      NB = ILAENV( 1, 'CUNGQR', ' ', M, N, K, -1 )
-      LWKOPT = MAX( 1, N )*NB
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      NB = ILAENV( 1, 'CUNGQR', ' ', M, N, K, -1 );
+      LWKOPT = MAX( 1, N )*NB;
+      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || N > M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( K < 0 || K > N ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('CUNGQR', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N <= 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
-      NBMIN = 2
-      NX = 0
-      IWS = N
+      NBMIN = 2;
+      NX = 0;
+      IWS = N;
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'CUNGQR', ' ', M, N, K, -1 ) )
+         NX = MAX( 0, ILAENV( 3, 'CUNGQR', ' ', M, N, K, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            LDWORK = N
-            IWS = LDWORK*NB
+            LDWORK = N;
+            IWS = LDWORK*NB;
             if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
-               NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'CUNGQR', ' ', M, N, K, -1 ) )
+               NB = LWORK / LDWORK;
+               NBMIN = MAX( 2, ILAENV( 2, 'CUNGQR', ' ', M, N, K, -1 ) );
             }
          }
       }
@@ -96,18 +96,18 @@
          // Use blocked code after the last block.
          // The first kk columns are handled by the block method.
 
-         KI = ( ( K-NX-1 ) / NB )*NB
-         KK = MIN( K, KI+NB )
+         KI = ( ( K-NX-1 ) / NB )*NB;
+         KK = MIN( K, KI+NB );
 
          // Set A(1:kk,kk+1:n) to zero.
 
          for (J = KK + 1; J <= N; J++) { // 20
             for (I = 1; I <= KK; I++) { // 10
-               A( I, J ) = ZERO
+               A( I, J ) = ZERO;
             } // 10
          } // 20
       } else {
-         KK = 0
+         KK = 0;
       }
 
       // Use unblocked code for the last or only block.
@@ -118,8 +118,8 @@
 
          // Use blocked code
 
-         DO 50 I = KI + 1, 1, -NB
-            IB = MIN( NB, K-I+1 )
+         DO 50 I = KI + 1, 1, -NB;
+            IB = MIN( NB, K-I+1 );
             if ( I+IB <= N ) {
 
                // Form the triangular factor of the block reflector
@@ -140,14 +140,14 @@
 
             for (J = I; J <= I + IB - 1; J++) { // 40
                for (L = 1; L <= I - 1; L++) { // 30
-                  A( L, J ) = ZERO
+                  A( L, J ) = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(IWS)
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(IWS);
+      RETURN;
 
       // End of CUNGQR
 

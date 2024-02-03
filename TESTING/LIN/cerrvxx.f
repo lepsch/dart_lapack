@@ -1,4 +1,4 @@
-      SUBROUTINE CERRVX( PATH, NUNIT )
+      SUBROUTINE CERRVX( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,19 +14,19 @@
       // .. Parameters ..
       int                NMAX;
       const              NMAX = 4 ;
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             EQ;
       String             C2;
       int                I, INFO, J, N_ERR_BNDS, NPARAMS;
-      REAL               RCOND, RPVGRW, BERR
+      REAL               RCOND, RPVGRW, BERR;
       // ..
       // .. Local Arrays ..
       int                IP( NMAX );
-      REAL               C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
+      REAL               C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
+      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;
@@ -49,127 +49,127 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
-      C2 = PATH( 2: 3 )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
+      C2 = PATH( 2: 3 );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
-            AF( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
+            A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) );
+            AF( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) );
          } // 10
          B( J ) = 0.0;
-         E( J ) = 0E+0
+         E( J ) = 0E+0;
          R1( J ) = 0.0;
          R2( J ) = 0.0;
          W( J ) = 0.0;
          X( J ) = 0.0;
          C( J ) = 0.0;
          R( J ) = 0.0;
-         IP( J ) = J
+         IP( J ) = J;
       } // 20
-      EQ = ' '
+      EQ = ' ';
       OK = true;
 
       if ( LSAMEN( 2, C2, 'GE' ) ) {
 
          // CGESV
 
-         SRNAMT = 'CGESV '
-         INFOT = 1
+         SRNAMT = 'CGESV ';
+         INFOT = 1;
          cgesv(-1, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgesv(0, -1, A, 1, IP, B, 1, INFO );
          chkxer('CGESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgesv(2, 1, A, 1, IP, B, 2, INFO );
          chkxer('CGESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          cgesv(2, 1, A, 2, IP, B, 1, INFO );
          chkxer('CGESV ', INFOT, NOUT, LERR, OK );
 
          // CGESVX
 
-         SRNAMT = 'CGESVX'
-         INFOT = 1
+         SRNAMT = 'CGESVX';
+         INFOT = 1;
          cgesvx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgesvx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cgesvx('N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgesvx('N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cgesvx('N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cgesvx('N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
-         EQ = '/'
+         INFOT = 10;
+         EQ = '/';
          cgesvx('F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
-         EQ = 'R'
+         INFOT = 11;
+         EQ = 'R';
          cgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
-         EQ = 'C'
+         INFOT = 12;
+         EQ = 'C';
          cgesvx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
+         INFOT = 14;
          cgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 16
+         INFOT = 16;
          cgesvx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGESVX', INFOT, NOUT, LERR, OK );
 
          // CGESVXX
 
-         N_ERR_BNDS = 3
-         NPARAMS = 1
-         SRNAMT = 'CGESVXX'
-         INFOT = 1
+         N_ERR_BNDS = 3;
+         NPARAMS = 1;
+         SRNAMT = 'CGESVXX';
+         INFOT = 1;
          cgesvxx('/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgesvxx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cgesvxx('N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgesvxx('N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cgesvxx('N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cgesvxx('N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
-         EQ = '/'
+         INFOT = 10;
+         EQ = '/';
          cgesvxx('F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
-         EQ = 'R'
+         INFOT = 11;
+         EQ = 'R';
          cgesvxx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
-         EQ = 'C'
+         INFOT = 12;
+         EQ = 'C';
          cgesvxx('F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
+         INFOT = 14;
          cgesvxx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 16
+         INFOT = 16;
          cgesvxx('N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGESVXX', INFOT, NOUT, LERR, OK );
 
@@ -177,117 +177,117 @@
 
          // CGBSV
 
-         SRNAMT = 'CGBSV '
-         INFOT = 1
+         SRNAMT = 'CGBSV ';
+         INFOT = 1;
          cgbsv(-1, 0, 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgbsv(1, -1, 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cgbsv(1, 0, -1, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgbsv(0, 0, 0, -1, A, 1, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cgbsv(1, 1, 1, 0, A, 3, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          cgbsv(2, 0, 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('CGBSV ', INFOT, NOUT, LERR, OK );
 
          // CGBSVX
 
-         SRNAMT = 'CGBSVX'
-         INFOT = 1
+         SRNAMT = 'CGBSVX';
+         INFOT = 1;
          cgbsvx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgbsvx('N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cgbsvx('N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgbsvx('N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          cgbsvx('N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cgbsvx('N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cgbsvx('N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          cgbsvx('N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
-         EQ = '/'
+         INFOT = 12;
+         EQ = '/';
          cgbsvx('F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13
-         EQ = 'R'
+         INFOT = 13;
+         EQ = 'R';
          cgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
-         EQ = 'C'
+         INFOT = 14;
+         EQ = 'C';
          cgbsvx('F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 16
+         INFOT = 16;
          cgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 18
+         INFOT = 18;
          cgbsvx('N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGBSVX', INFOT, NOUT, LERR, OK );
 
          // CGBSVXX
 
-         N_ERR_BNDS = 3
-         NPARAMS = 1
-         SRNAMT = 'CGBSVXX'
-         INFOT = 1
+         N_ERR_BNDS = 3;
+         NPARAMS = 1;
+         SRNAMT = 'CGBSVXX';
+         INFOT = 1;
          cgbsvxx('/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgbsvxx('N', '/', 0, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cgbsvxx('N', 'N', -1, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgbsvxx('N', 'N', 2, -1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          cgbsvxx('N', 'N', 2, 1, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cgbsvxx('N', 'N', 0, 1, 1, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cgbsvxx('N', 'N', 2, 1, 1, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          cgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
-         EQ = '/'
+         INFOT = 12;
+         EQ = '/';
          cgbsvxx('F', 'N', 0, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 13
-         EQ = 'R'
+         INFOT = 13;
+         EQ = 'R';
          cgbsvxx('F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
-         EQ = 'C'
+         INFOT = 14;
+         EQ = 'C';
          cgbsvxx('F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 15
+         INFOT = 15;
          cgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 16
+         INFOT = 16;
          cgbsvxx('N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CGBSVXX', INFOT, NOUT, LERR, OK );
 
@@ -295,36 +295,36 @@
 
          // CGTSV
 
-         SRNAMT = 'CGTSV '
-         INFOT = 1
+         SRNAMT = 'CGTSV ';
+         INFOT = 1;
          cgtsv(-1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
          chkxer('CGTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgtsv(0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
          chkxer('CGTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          cgtsv(2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO );
          chkxer('CGTSV ', INFOT, NOUT, LERR, OK );
 
          // CGTSVX
 
-         SRNAMT = 'CGTSVX'
-         INFOT = 1
+         SRNAMT = 'CGTSVX';
+         INFOT = 1;
          cgtsvx('/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cgtsvx('N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cgtsvx('N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cgtsvx('N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
+         INFOT = 14;
          cgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 16
+         INFOT = 16;
          cgtsvx('N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CGTSVX', INFOT, NOUT, LERR, OK );
 
@@ -332,94 +332,94 @@
 
          // CPOSV
 
-         SRNAMT = 'CPOSV '
-         INFOT = 1
+         SRNAMT = 'CPOSV ';
+         INFOT = 1;
          cposv('/', 0, 0, A, 1, B, 1, INFO );
          chkxer('CPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cposv('U', -1, 0, A, 1, B, 1, INFO );
          chkxer('CPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cposv('U', 0, -1, A, 1, B, 1, INFO );
          chkxer('CPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          cposv('U', 2, 0, A, 1, B, 2, INFO );
          chkxer('CPOSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          cposv('U', 2, 0, A, 2, B, 1, INFO );
          chkxer('CPOSV ', INFOT, NOUT, LERR, OK );
 
          // CPOSVX
 
-         SRNAMT = 'CPOSVX'
-         INFOT = 1
+         SRNAMT = 'CPOSVX';
+         INFOT = 1;
          cposvx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cposvx('N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cposvx('N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cposvx('N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cposvx('N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cposvx('N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
-         EQ = '/'
+         INFOT = 9;
+         EQ = '/';
          cposvx('F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
-         EQ = 'Y'
+         INFOT = 10;
+         EQ = 'Y';
          cposvx('F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
+         INFOT = 12;
          cposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
+         INFOT = 14;
          cposvx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPOSVX', INFOT, NOUT, LERR, OK );
 
          // CPOSVXX
 
-         N_ERR_BNDS = 3
-         NPARAMS = 1
-         SRNAMT = 'CPOSVXX'
-         INFOT = 1
+         N_ERR_BNDS = 3;
+         NPARAMS = 1;
+         SRNAMT = 'CPOSVXX';
+         INFOT = 1;
          cposvxx('/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cposvxx('N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cposvxx('N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cposvxx('N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cposvxx('N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cposvxx('N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
-         EQ = '/'
+         INFOT = 9;
+         EQ = '/';
          cposvxx('F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
-         EQ = 'Y'
+         INFOT = 10;
+         EQ = 'Y';
          cposvxx('F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
+         INFOT = 12;
          cposvxx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
+         INFOT = 14;
          cposvxx('N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CPOSVXX', INFOT, NOUT, LERR, OK );
 
@@ -427,47 +427,47 @@
 
          // CPPSV
 
-         SRNAMT = 'CPPSV '
-         INFOT = 1
+         SRNAMT = 'CPPSV ';
+         INFOT = 1;
          cppsv('/', 0, 0, A, B, 1, INFO );
          chkxer('CPPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cppsv('U', -1, 0, A, B, 1, INFO );
          chkxer('CPPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cppsv('U', 0, -1, A, B, 1, INFO );
          chkxer('CPPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cppsv('U', 2, 0, A, B, 1, INFO );
          chkxer('CPPSV ', INFOT, NOUT, LERR, OK );
 
          // CPPSVX
 
-         SRNAMT = 'CPPSVX'
-         INFOT = 1
+         SRNAMT = 'CPPSVX';
+         INFOT = 1;
          cppsvx('/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cppsvx('N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cppsvx('N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cppsvx('N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 7
-         EQ = '/'
+         INFOT = 7;
+         EQ = '/';
          cppsvx('F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
-         EQ = 'Y'
+         INFOT = 8;
+         EQ = 'Y';
          cppsvx('F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          cppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
+         INFOT = 12;
          cppsvx('N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPPSVX', INFOT, NOUT, LERR, OK );
 
@@ -475,62 +475,62 @@
 
          // CPBSV
 
-         SRNAMT = 'CPBSV '
-         INFOT = 1
+         SRNAMT = 'CPBSV ';
+         INFOT = 1;
          cpbsv('/', 0, 0, 0, A, 1, B, 1, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cpbsv('U', -1, 0, 0, A, 1, B, 1, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cpbsv('U', 1, -1, 0, A, 1, B, 1, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cpbsv('U', 0, 0, -1, A, 1, B, 1, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cpbsv('U', 1, 1, 0, A, 1, B, 2, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          cpbsv('U', 2, 0, 0, A, 1, B, 1, INFO );
          chkxer('CPBSV ', INFOT, NOUT, LERR, OK );
 
          // CPBSVX
 
-         SRNAMT = 'CPBSVX'
-         INFOT = 1
+         SRNAMT = 'CPBSVX';
+         INFOT = 1;
          cpbsvx('/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cpbsvx('N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cpbsvx('N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cpbsvx('N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          cpbsvx('N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          cpbsvx('N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          cpbsvx('N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
-         EQ = '/'
+         INFOT = 10;
+         EQ = '/';
          cpbsvx('F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
-         EQ = 'Y'
+         INFOT = 11;
+         EQ = 'Y';
          cpbsvx('F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13
+         INFOT = 13;
          cpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 15
+         INFOT = 15;
          cpbsvx('N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPBSVX', INFOT, NOUT, LERR, OK );
 
@@ -538,33 +538,33 @@
 
          // CPTSV
 
-         SRNAMT = 'CPTSV '
-         INFOT = 1
+         SRNAMT = 'CPTSV ';
+         INFOT = 1;
          cptsv(-1, 0, R, A( 1, 1 ), B, 1, INFO );
          chkxer('CPTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cptsv(0, -1, R, A( 1, 1 ), B, 1, INFO );
          chkxer('CPTSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          cptsv(2, 0, R, A( 1, 1 ), B, 1, INFO );
          chkxer('CPTSV ', INFOT, NOUT, LERR, OK );
 
          // CPTSVX
 
-         SRNAMT = 'CPTSVX'
-         INFOT = 1
+         SRNAMT = 'CPTSVX';
+         INFOT = 1;
          cptsvx('/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cptsvx('N', -1, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cptsvx('N', 0, -1, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          cptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          cptsvx('N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CPTSVX', INFOT, NOUT, LERR, OK );
 
@@ -572,95 +572,95 @@
 
          // CHESV
 
-         SRNAMT = 'CHESV '
-         INFOT = 1
+         SRNAMT = 'CHESV ';
+         INFOT = 1;
          chesv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chesv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chesv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          chesv('U', 2, 0, A, 1, IP, B, 2, W, 1, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          chesv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          chesv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          chesv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CHESV ', INFOT, NOUT, LERR, OK );
 
          // CHESVX
 
-         SRNAMT = 'CHESVX'
-         INFOT = 1
+         SRNAMT = 'CHESVX';
+         INFOT = 1;
          chesvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chesvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chesvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          chesvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          chesvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          chesvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          chesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13
+         INFOT = 13;
          chesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
-         INFOT = 18
+         INFOT = 18;
          chesvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
          chkxer('CHESVX', INFOT, NOUT, LERR, OK );
 
          // CHESVXX
 
-         N_ERR_BNDS = 3
-         NPARAMS = 1
-         SRNAMT = 'CHESVXX'
-         INFOT = 1
+         N_ERR_BNDS = 3;
+         NPARAMS = 1;
+         SRNAMT = 'CHESVXX';
+         INFOT = 1;
          chesvxx('/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chesvxx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chesvxx('N', 'U', -1, 0, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          chesvxx('N', 'U', 0, -1, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          chesvxx('N', 'U', 2, 0, A, 1, AF, 2, IP, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          chesvxx('N', 'U', 2, 0, A, 2, AF, 1, IP, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
-         EQ = '/'
+         INFOT = 9;
+         EQ = '/';
          chesvxx('F', 'U', 0, 0, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
-         EQ = 'Y'
+         INFOT = 10;
+         EQ = 'Y';
          chesvxx('F', 'U', 1, 0, A, 1, AF, 1, IP, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 12
+         INFOT = 12;
          chesvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 14
+         INFOT = 14;
          chesvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CHESVXX', INFOT, NOUT, LERR, OK );
 
@@ -668,23 +668,23 @@
 
          // CHESV_ROOK
 
-         SRNAMT = 'CHESV_ROOK'
-         INFOT = 1
+         SRNAMT = 'CHESV_ROOK';
+         INFOT = 1;
          chesv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chesv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chesv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          chesv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          chesv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          chesv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CHESV_ROOK', INFOT, NOUT, LERR, OK );
 
@@ -700,26 +700,26 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'CHESV_RK'
-         INFOT = 1
+         SRNAMT = 'CHESV_RK';
+         INFOT = 1;
          chesv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chesv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chesv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          chesv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          chesv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          chesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          chesv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('CHESV_RK', INFOT, NOUT, LERR, OK );
 
@@ -727,39 +727,39 @@
 
          // CHPSV
 
-         SRNAMT = 'CHPSV '
-         INFOT = 1
+         SRNAMT = 'CHPSV ';
+         INFOT = 1;
          chpsv('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('CHPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chpsv('U', -1, 0, A, IP, B, 1, INFO );
          chkxer('CHPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chpsv('U', 0, -1, A, IP, B, 1, INFO );
          chkxer('CHPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          chpsv('U', 2, 0, A, IP, B, 1, INFO );
          chkxer('CHPSV ', INFOT, NOUT, LERR, OK );
 
          // CHPSVX
 
-         SRNAMT = 'CHPSVX'
-         INFOT = 1
+         SRNAMT = 'CHPSVX';
+         INFOT = 1;
          chpsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          chpsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          chpsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          chpsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          chpsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          chpsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CHPSVX', INFOT, NOUT, LERR, OK );
 
@@ -767,100 +767,100 @@
 
          // CSYSV
 
-         SRNAMT = 'CSYSV '
-         INFOT = 1
+         SRNAMT = 'CSYSV ';
+         INFOT = 1;
          csysv('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          csysv('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          csysv('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          csysv('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          csysv('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          csysv('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV ', INFOT, NOUT, LERR, OK );
 
          // CSYSVX
 
-         SRNAMT = 'CSYSVX'
-         INFOT = 1
+         SRNAMT = 'CSYSVX';
+         INFOT = 1;
          csysvx('/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          csysvx('N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          csysvx('N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          csysvx('N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          csysvx('N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          csysvx('N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          csysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 13
+         INFOT = 13;
          csysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 18
+         INFOT = 18;
          csysvx('N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO );
          chkxer('CSYSVX', INFOT, NOUT, LERR, OK );
 
          // CSYSVXX
 
-         N_ERR_BNDS = 3
-         NPARAMS = 1
-         SRNAMT = 'CSYSVXX'
-         INFOT = 1
-         EQ = 'N'
+         N_ERR_BNDS = 3;
+         NPARAMS = 1;
+         SRNAMT = 'CSYSVXX';
+         INFOT = 1;
+         EQ = 'N';
          csysvxx('/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          csysvxx('N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,  NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          csysvxx('N', 'U', -1, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
-         EQ = '/'
+         INFOT = 4;
+         EQ = '/';
          csysvxx('N', 'U', 0, -1, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         EQ = 'Y'
-         INFOT = 6
+         EQ = 'Y';
+         INFOT = 6;
          csysvxx('N', 'U', 2, 0, A, 1, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          csysvxx('N', 'U', 2, 0, A, 2, AF, 1, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          csysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, 'A', R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
-         EQ='Y'
+         INFOT = 11;
+         EQ='Y';
          csysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
-         EQ='Y'
-         R(1) = -ONE
+         INFOT = 11;
+         EQ='Y';
+         R(1) = -ONE;
          csysvxx('F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 13
-         EQ = 'N'
+         INFOT = 13;
+         EQ = 'N';
          csysvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
-         INFOT = 15
+         INFOT = 15;
          csysvxx('N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, RW, INFO );
          chkxer('CSYSVXX', INFOT, NOUT, LERR, OK );
 
@@ -868,23 +868,23 @@
 
          // CSYSV_ROOK
 
-         SRNAMT = 'CSYSV_ROOK'
-         INFOT = 1
+         SRNAMT = 'CSYSV_ROOK';
+         INFOT = 1;
          csysv_rook('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          csysv_rook('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          csysv_rook('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          csysv_rook('U', 2, 0, A, 2, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          csysv_rook('U', 0, 0, A, 1, IP, B, 1, W, 0, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          csysv_rook('U', 0, 0, A, 1, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV_ROOK', INFOT, NOUT, LERR, OK );
 
@@ -900,26 +900,26 @@
          // L (or U) is stored in A, diagonal of D is stored on the
          // diagonal of A, subdiagonal of D is stored in a separate array E.
 
-         SRNAMT = 'CSYSV_RK'
-         INFOT = 1
+         SRNAMT = 'CSYSV_RK';
+         INFOT = 1;
          csysv_rk('/', 0, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          csysv_rk('U', -1, 0, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          csysv_rk('U', 0, -1, A, 1, E, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          csysv_rk('U', 2, 0, A, 1, E, IP, B, 2, W, 1, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          csysv_rk('U', 2, 0, A, 2, E, IP, B, 1, W, 1, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          csysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, 0, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          csysv_rk('U', 0, 0, A, 1, E, IP, B, 1, W, -2, INFO );
          chkxer('CSYSV_RK', INFOT, NOUT, LERR, OK );
 
@@ -927,39 +927,39 @@
 
          // CSPSV
 
-         SRNAMT = 'CSPSV '
-         INFOT = 1
+         SRNAMT = 'CSPSV ';
+         INFOT = 1;
          cspsv('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('CSPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cspsv('U', -1, 0, A, IP, B, 1, INFO );
          chkxer('CSPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cspsv('U', 0, -1, A, IP, B, 1, INFO );
          chkxer('CSPSV ', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          cspsv('U', 2, 0, A, IP, B, 1, INFO );
          chkxer('CSPSV ', INFOT, NOUT, LERR, OK );
 
          // CSPSVX
 
-         SRNAMT = 'CSPSVX'
-         INFOT = 1
+         SRNAMT = 'CSPSVX';
+         INFOT = 1;
          cspsvx('/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          cspsvx('N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          cspsvx('N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          cspsvx('N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          cspsvx('N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          cspsvx('N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO );
          chkxer('CSPSVX', INFOT, NOUT, LERR, OK );
       }
@@ -967,15 +967,15 @@
       // Print a summary line.
 
       if ( OK ) {
-         WRITE( NOUT, FMT = 9999 )PATH
+         WRITE( NOUT, FMT = 9999 )PATH;
       } else {
-         WRITE( NOUT, FMT = 9998 )PATH
+         WRITE( NOUT, FMT = 9998 )PATH;
       }
 
- 9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' )
- 9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ', 'exits ***' )
+ 9999 FORMAT( 1X, A3, ' drivers passed the tests of the error exits' );
+ 9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ', 'exits ***' );
 
-      RETURN
+      RETURN;
 
       // End of CERRVXX
 

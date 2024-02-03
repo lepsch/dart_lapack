@@ -1,4 +1,4 @@
-      SUBROUTINE ZGEQR( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO )
+      SUBROUTINE ZGEQR( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int                INFO, LDA, M, N, TSIZE, LWORK;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), T( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), T( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -36,9 +36,9 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
 
-      LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 )
+      LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 );
 
       MINT = false;
       MINW = false;
@@ -50,79 +50,79 @@
       // Determine the block size
 
       if ( MIN ( M, N ) > 0 ) {
-        MB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 1, -1 )
-        NB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 2, -1 )
+        MB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 1, -1 );
+        NB = ILAENV( 1, 'ZGEQR ', ' ', M, N, 2, -1 );
       } else {
-        MB = M
-        NB = 1
+        MB = M;
+        NB = 1;
       }
       if (MB > M || MB <= N) MB = M;
-      IF( NB > MIN( M, N ) || NB < 1 ) NB = 1
-      MINTSZ = N + 5
+      IF( NB > MIN( M, N ) || NB < 1 ) NB = 1;
+      MINTSZ = N + 5;
       if ( MB > N && M > N ) {
         if ( MOD( M - N, MB - N ) == 0 ) {
-          NBLCKS = ( M - N ) / ( MB - N )
+          NBLCKS = ( M - N ) / ( MB - N );
         } else {
-          NBLCKS = ( M - N ) / ( MB - N ) + 1
+          NBLCKS = ( M - N ) / ( MB - N ) + 1;
         }
       } else {
-        NBLCKS = 1
+        NBLCKS = 1;
       }
 
       // Determine if the workspace size satisfies minimal size
 
-      LWMIN = MAX( 1, N )
-      LWREQ = MAX( 1, N*NB )
+      LWMIN = MAX( 1, N );
+      LWREQ = MAX( 1, N*NB );
       LMINWS = false;
       if ( ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) || LWORK < LWREQ ) && ( LWORK >= N ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
         if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) ) {
           LMINWS = true;
-          NB = 1
-          MB = M
+          NB = 1;
+          MB = M;
         }
         if ( LWORK < LWREQ ) {
           LMINWS = true;
-          NB = 1
+          NB = 1;
         }
       }
 
       if ( M < 0 ) {
-        INFO = -1
+        INFO = -1;
       } else if ( N < 0 ) {
-        INFO = -2
+        INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-        INFO = -4
+        INFO = -4;
       } else if ( TSIZE < MAX( 1, NB*N*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
-        INFO = -6
+        INFO = -6;
       } else if ( ( LWORK < LWREQ ) && ( !LQUERY ) && ( !LMINWS ) ) {
-        INFO = -8
+        INFO = -8;
       }
 
       if ( INFO == 0 ) {
         if ( MINT ) {
-          T( 1 ) = MINTSZ
+          T( 1 ) = MINTSZ;
         } else {
-          T( 1 ) = NB*N*NBLCKS + 5
+          T( 1 ) = NB*N*NBLCKS + 5;
         }
-        T( 2 ) = MB
-        T( 3 ) = NB
+        T( 2 ) = MB;
+        T( 3 ) = NB;
         if ( MINW ) {
-          WORK( 1 ) = LWMIN
+          WORK( 1 ) = LWMIN;
         } else {
-          WORK( 1 ) = LWREQ
+          WORK( 1 ) = LWREQ;
         }
       }
       if ( INFO != 0 ) {
         xerbla('ZGEQR', -INFO );
-        RETURN
+        RETURN;
       } else if ( LQUERY ) {
-        RETURN
+        RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-        RETURN
+        RETURN;
       }
 
       // The QR Decomposition
@@ -133,9 +133,9 @@
         zlatsqr(M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = LWREQ
+      WORK( 1 ) = LWREQ;
 
-      RETURN
+      RETURN;
 
       // End of ZGEQR
 

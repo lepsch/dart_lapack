@@ -1,4 +1,4 @@
-      SUBROUTINE DLARNV( IDIST, ISEED, N, X )
+      SUBROUTINE DLARNV( IDIST, ISEED, N, X );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,12 +36,12 @@
       // ..
       // .. Executable Statements ..
 
-      DO 40 IV = 1, N, LV / 2
-         IL = MIN( LV / 2, N-IV+1 )
+      DO 40 IV = 1, N, LV / 2;
+         IL = MIN( LV / 2, N-IV+1 );
          if ( IDIST == 3 ) {
-            IL2 = 2*IL
+            IL2 = 2*IL;
          } else {
-            IL2 = IL
+            IL2 = IL;
          }
 
          // Call DLARUV to generate IL2 numbers from a uniform (0,1)
@@ -54,25 +54,25 @@
             // Copy generated numbers
 
             for (I = 1; I <= IL; I++) { // 10
-               X( IV+I-1 ) = U( I )
+               X( IV+I-1 ) = U( I );
             } // 10
          } else if ( IDIST == 2 ) {
 
             // Convert generated numbers to uniform (-1,1) distribution
 
             for (I = 1; I <= IL; I++) { // 20
-               X( IV+I-1 ) = TWO*U( I ) - ONE
+               X( IV+I-1 ) = TWO*U( I ) - ONE;
             } // 20
          } else if ( IDIST == 3 ) {
 
             // Convert generated numbers to normal (0,1) distribution
 
             for (I = 1; I <= IL; I++) { // 30
-               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) )
+               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) );
             } // 30
          }
       } // 40
-      RETURN
+      RETURN;
 
       // End of DLARNV
 

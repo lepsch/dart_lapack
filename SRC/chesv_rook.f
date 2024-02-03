@@ -1,4 +1,4 @@
-      SUBROUTINE CHESV_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE CHESV_ROOK( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -22,7 +22,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -35,37 +35,37 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {
-            LWKOPT = 1
+            LWKOPT = 1;
          } else {
-            NB = ILAENV( 1, 'CHETRF_ROOK', UPLO, N, -1, -1, -1 )
-            LWKOPT = N*NB
+            NB = ILAENV( 1, 'CHETRF_ROOK', UPLO, N, -1, -1, -1 );
+            LWKOPT = N*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
+         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       }
 
       if ( INFO != 0 ) {
          xerbla('CHESV_ROOK ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Compute the factorization A = U*D*U**H or A = L*D*L**H.
@@ -81,9 +81,9 @@
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
+      WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
-      RETURN
+      RETURN;
 
       // End of CHESV_ROOK
 

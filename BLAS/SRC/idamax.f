@@ -20,37 +20,37 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DABS
       // ..
-      IDAMAX = 0
+      IDAMAX = 0;
       if (N < 1 || INCX <= 0) RETURN;
-      IDAMAX = 1
+      IDAMAX = 1;
       if (N == 1) RETURN;
       if (INCX == 1) {
 
          // code for increment equal to 1
 
-         DMAX = DABS(DX(1))
+         DMAX = DABS(DX(1));
          for (I = 2; I <= N; I++) {
             if (DABS(DX(I)) > DMAX) {
-               IDAMAX = I
-               DMAX = DABS(DX(I))
+               IDAMAX = I;
+               DMAX = DABS(DX(I));
             }
          }
       } else {
 
          // code for increment not equal to 1
 
-         IX = 1
-         DMAX = DABS(DX(1))
-         IX = IX + INCX
+         IX = 1;
+         DMAX = DABS(DX(1));
+         IX = IX + INCX;
          for (I = 2; I <= N; I++) {
             if (DABS(DX(IX)) > DMAX) {
-               IDAMAX = I
-               DMAX = DABS(DX(IX))
+               IDAMAX = I;
+               DMAX = DABS(DX(IX));
             }
-            IX = IX + INCX
+            IX = IX + INCX;
          }
       }
-      RETURN
+      RETURN;
 
       // End of IDAMAX
 

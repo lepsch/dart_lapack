@@ -1,5 +1,5 @@
-      SUBROUTINE SERRORHR_COL( PATH, NUNIT )
-      IMPLICIT NONE
+      SUBROUTINE SERRORHR_COL( PATH, NUNIT );
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,7 +20,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX)
+      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), D(NMAX);
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, SORHR_COL
@@ -39,15 +39,15 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A( I, J ) = 1.0 / REAL( I+J )
-            T( I, J ) = 1.0 / REAL( I+J )
+            A( I, J ) = 1.0 / REAL( I+J );
+            T( I, J ) = 1.0 / REAL( I+J );
          }
          D( J ) = 0.0;
       }
@@ -57,26 +57,26 @@
 
       // SORHR_COL
 
-      SRNAMT = 'SORHR_COL'
+      SRNAMT = 'SORHR_COL';
 
-      INFOT = 1
+      INFOT = 1;
       sorhr_col(-1, 0, 1, A, 1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 2
+      INFOT = 2;
       sorhr_col(0, -1, 1, A, 1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
       sorhr_col(1, 2, 1, A, 1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 3
+      INFOT = 3;
       sorhr_col(0, 0, -1, A, 1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
       sorhr_col(0, 0, 0, A, 1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 5
+      INFOT = 5;
       sorhr_col(0, 0, 1, A, -1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
@@ -86,7 +86,7 @@
       sorhr_col(2, 0, 1, A, 1, T, 1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
-      INFOT = 7
+      INFOT = 7;
       sorhr_col(0, 0, 1, A, 1, T, -1, D, INFO );
       chkxer('SORHR_COL', INFOT, NOUT, LERR, OK );
 
@@ -100,7 +100,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of SERRORHR_COL
 

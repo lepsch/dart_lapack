@@ -24,13 +24,13 @@
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N )
+      K = MIN( M, N );
       for (I = 1; I <= K; I++) {
          if ( A( I, I ) < ZERO ) {
             DGENND = false;
-            RETURN
+            RETURN;
          }
       }
       DGENND = true;
-      RETURN
+      RETURN;
       }

@@ -1,4 +1,4 @@
-      SUBROUTINE DLARFY( UPLO, N, V, INCV, TAU, C, LDC, WORK )
+      SUBROUTINE DLARFY( UPLO, N, V, INCV, TAU, C, LDC, WORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,14 +37,14 @@
 
       dsymv(UPLO, N, ONE, C, LDC, V, INCV, ZERO, WORK, 1 );
 
-      ALPHA = -HALF*TAU*DDOT( N, WORK, 1, V, INCV )
+      ALPHA = -HALF*TAU*DDOT( N, WORK, 1, V, INCV );
       daxpy(N, ALPHA, V, INCV, WORK, 1 );
 
       // C := C - v * w' - w * v'
 
       dsyr2(UPLO, N, -TAU, V, INCV, WORK, 1, C, LDC );
 
-      RETURN
+      RETURN;
 
       // End of DLARFY
 

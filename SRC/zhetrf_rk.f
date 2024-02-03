@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
+      SUBROUTINE ZHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), E( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), E( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -34,45 +34,45 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -8
+         INFO = -8;
       }
 
       if ( INFO == 0 ) {
 
          // Determine the block size
 
-         NB = ILAENV( 1, 'ZHETRF_RK', UPLO, N, -1, -1, -1 )
-         LWKOPT = MAX( 1, N*NB )
-         WORK( 1 ) = LWKOPT
+         NB = ILAENV( 1, 'ZHETRF_RK', UPLO, N, -1, -1, -1 );
+         LWKOPT = MAX( 1, N*NB );
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHETRF_RK', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
-      NBMIN = 2
-      LDWORK = N
+      NBMIN = 2;
+      LDWORK = N;
       if ( NB > 1 && NB < N ) {
-         IWS = LDWORK*NB
+         IWS = LDWORK*NB;
          if ( LWORK < IWS ) {
-            NB = MAX( LWORK / LDWORK, 1 )
-            NBMIN = MAX( 2, ILAENV( 2, 'ZHETRF_RK', UPLO, N, -1, -1, -1 ) )
+            NB = MAX( LWORK / LDWORK, 1 );
+            NBMIN = MAX( 2, ILAENV( 2, 'ZHETRF_RK', UPLO, N, -1, -1, -1 ) );
          }
       } else {
-         IWS = 1
+         IWS = 1;
       }
       if (NB < NBMIN) NB = N;
 
@@ -84,7 +84,7 @@
          // KB, where KB is the number of columns factorized by ZLAHEF_RK;
          // KB is either NB or NB-1, or K for the last block
 
-         K = N
+         K = N;
          } // 10
 
          // If K < 1, exit from loop
@@ -102,7 +102,7 @@
             // Use unblocked code to factorize columns 1:k of A
 
             zhetf2_rk(UPLO, K, A, LDA, E, IPIV, IINFO );
-            KB = K
+            KB = K;
          }
 
          // Set INFO on the first occurrence of a zero pivot
@@ -122,8 +122,8 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          if ( K < N ) {
-            DO I = K, ( K - KB + 1 ), -1
-               IP = ABS( IPIV( I ) )
+            DO I = K, ( K - KB + 1 ), -1;
+               IP = ABS( IPIV( I ) );
                if ( IP != I ) {
                   zswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
                }
@@ -132,8 +132,8 @@
 
          // Decrease K and return to the start of the main loop
 
-         K = K - KB
-         GO TO 10
+         K = K - KB;
+         GO TO 10;
 
          // This label is the exit from main loop over K decreasing
          // from N to 1 in steps of KB
@@ -148,7 +148,7 @@
          // KB, where KB is the number of columns factorized by ZLAHEF_RK;
          // KB is either NB or NB-1, or N-K+1 for the last block
 
-         K = 1
+         K = 1;
          } // 20
 
          // If K > N, exit from loop
@@ -168,7 +168,7 @@
             // Use unblocked code to factorize columns k:n of A
 
             zhetf2_rk(UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO );
-            KB = N - K + 1
+            KB = N - K + 1;
 
          }
 
@@ -180,9 +180,9 @@
 
          for (I = K; I <= K + KB - 1; I++) {
             if ( IPIV( I ) > 0 ) {
-               IPIV( I ) = IPIV( I ) + K - 1
+               IPIV( I ) = IPIV( I ) + K - 1;
             } else {
-               IPIV( I ) = IPIV( I ) - K + 1
+               IPIV( I ) = IPIV( I ) - K + 1;
             }
          }
 
@@ -196,8 +196,8 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          if ( K > 1 ) {
-            DO I = K, ( K + KB - 1 ), 1
-               IP = ABS( IPIV( I ) )
+            DO I = K, ( K + KB - 1 ), 1;
+               IP = ABS( IPIV( I ) );
                if ( IP != I ) {
                   zswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
                }
@@ -206,8 +206,8 @@
 
          // Increase K and return to the start of the main loop
 
-         K = K + KB
-         GO TO 20
+         K = K + KB;
+         GO TO 20;
 
          // This label is the exit from main loop over K increasing
          // from 1 to N in steps of KB
@@ -218,8 +218,8 @@
 
       }
 
-      WORK( 1 ) = LWKOPT
-      RETURN
+      WORK( 1 ) = LWKOPT;
+      RETURN;
 
       // End of ZHETRF_RK
 

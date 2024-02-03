@@ -1,4 +1,4 @@
-      SUBROUTINE CGETRS( TRANS, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+      SUBROUTINE CGETRS( TRANS, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), B( LDB, * )
+      COMPLEX            A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -36,22 +36,22 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOTRAN = LSAME( TRANS, 'N' );
       if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('CGETRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -90,7 +90,7 @@
          claswp(NRHS, B, LDB, 1, N, IPIV, -1 );
       }
 
-      RETURN
+      RETURN;
 
       // End of CGETRS
 

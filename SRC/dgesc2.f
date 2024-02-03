@@ -1,4 +1,4 @@
-      SUBROUTINE DGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE )
+      SUBROUTINE DGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,9 +38,9 @@
 
        // Set constant to control overflow
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Apply permutations IPIV to RHS
 
@@ -50,35 +50,35 @@
 
       for (I = 1; I <= N - 1; I++) { // 20
          for (J = I + 1; J <= N; J++) { // 10
-            RHS( J ) = RHS( J ) - A( J, I )*RHS( I )
+            RHS( J ) = RHS( J ) - A( J, I )*RHS( I );
          } // 10
       } // 20
 
       // Solve for U part
 
-      SCALE = ONE
+      SCALE = ONE;
 
       // Check for scaling
 
-      I = IDAMAX( N, RHS, 1 )
+      I = IDAMAX( N, RHS, 1 );
       if ( TWO*SMLNUM*ABS( RHS( I ) ) > ABS( A( N, N ) ) ) {
-         TEMP = ( ONE / TWO ) / ABS( RHS( I ) )
+         TEMP = ( ONE / TWO ) / ABS( RHS( I ) );
          dscal(N, TEMP, RHS( 1 ), 1 );
-         SCALE = SCALE*TEMP
+         SCALE = SCALE*TEMP;
       }
 
-      DO 40 I = N, 1, -1
-         TEMP = ONE / A( I, I )
-         RHS( I ) = RHS( I )*TEMP
+      DO 40 I = N, 1, -1;
+         TEMP = ONE / A( I, I );
+         RHS( I ) = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30
-            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP )
+            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP );
          } // 30
       } // 40
 
       // Apply permutations JPIV to the solution (RHS)
 
       dlaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      RETURN
+      RETURN;
 
       // End of DGESC2
 

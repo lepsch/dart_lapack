@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE ZGEQRT3( M, N, A, LDA, T, LDT, INFO )
+      RECURSIVE SUBROUTINE ZGEQRT3( M, N, A, LDA, T, LDT, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int       INFO, LDA, M, N, LDT;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16   A( LDA, * ), T( LDT, * )
+      COMPLEX*16   A( LDA, * ), T( LDT, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16   ONE
+      COMPLEX*16   ONE;
       const     ONE = (1.0e+00,0.0e+00) ;
       // ..
       // .. Local Scalars ..
@@ -25,19 +25,19 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < N ) {
-         INFO = -1
+         INFO = -1;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('ZGEQRT3', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( N == 1 ) {
@@ -50,10 +50,10 @@
 
          // Otherwise, split A into blocks...
 
-         N1 = N/2
-         N2 = N-N1
-         J1 = MIN( N1+1, N )
-         I1 = MIN( N+1, M )
+         N1 = N/2;
+         N2 = N-N1;
+         J1 = MIN( N1+1, N );
+         I1 = MIN( N+1, M );
 
          // Compute A(1:M,1:N1) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
 
@@ -63,7 +63,7 @@
 
          for (J = 1; J <= N2; J++) {
             for (I = 1; I <= N1; I++) {
-               T( I, J+N1 ) = A( I, J+N1 )
+               T( I, J+N1 ) = A( I, J+N1 );
             }
          }
          ztrmm('L', 'L', 'C', 'U', N1, N2, ONE, A, LDA, T( 1, J1 ), LDT );
@@ -78,7 +78,7 @@
 
          for (J = 1; J <= N2; J++) {
             for (I = 1; I <= N1; I++) {
-               A( I, J+N1 ) = A( I, J+N1 ) - T( I, J+N1 )
+               A( I, J+N1 ) = A( I, J+N1 ) - T( I, J+N1 );
             }
          }
 
@@ -90,7 +90,7 @@
 
          for (I = 1; I <= N1; I++) {
             for (J = 1; J <= N2; J++) {
-               T( I, J+N1 ) = CONJG(A( J+N1, I ))
+               T( I, J+N1 ) = CONJG(A( J+N1, I ));
             }
          }
 
@@ -107,7 +107,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZGEQRT3
 

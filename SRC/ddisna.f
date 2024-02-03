@@ -1,4 +1,4 @@
-      SUBROUTINE DDISNA( JOB, M, N, D, SEP, INFO )
+      SUBROUTINE DDISNA( JOB, M, N, D, SEP, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,22 +38,22 @@
 
       // Test the input arguments
 
-      INFO = 0
-      EIGEN = LSAME( JOB, 'E' )
-      LEFT = LSAME( JOB, 'L' )
-      RIGHT = LSAME( JOB, 'R' )
-      SING = LEFT || RIGHT
+      INFO = 0;
+      EIGEN = LSAME( JOB, 'E' );
+      LEFT = LSAME( JOB, 'L' );
+      RIGHT = LSAME( JOB, 'R' );
+      SING = LEFT || RIGHT;
       if ( EIGEN ) {
-         K = M
+         K = M;
       } else if ( SING ) {
-         K = MIN( M, N )
+         K = MIN( M, N );
       }
       if ( !EIGEN && !SING ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( K < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else {
          INCR = true;
          DECR = true;
@@ -63,11 +63,11 @@
          if ( SING && K > 0 ) {
             if (INCR) INCR = INCR && ZERO <= D( 1 )             IF( DECR ) DECR = DECR && D( K ) >= ZERO;
          }
-         IF( !( INCR || DECR ) ) INFO = -4
+         IF( !( INCR || DECR ) ) INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DDISNA', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -77,16 +77,16 @@
       // Compute reciprocal condition numbers
 
       if ( K == 1 ) {
-         SEP( 1 ) = DLAMCH( 'O' )
+         SEP( 1 ) = DLAMCH( 'O' );
       } else {
-         OLDGAP = ABS( D( 2 )-D( 1 ) )
-         SEP( 1 ) = OLDGAP
+         OLDGAP = ABS( D( 2 )-D( 1 ) );
+         SEP( 1 ) = OLDGAP;
          for (I = 2; I <= K - 1; I++) { // 20
-            NEWGAP = ABS( D( I+1 )-D( I ) )
-            SEP( I ) = MIN( OLDGAP, NEWGAP )
-            OLDGAP = NEWGAP
+            NEWGAP = ABS( D( I+1 )-D( I ) );
+            SEP( I ) = MIN( OLDGAP, NEWGAP );
+            OLDGAP = NEWGAP;
          } // 20
-         SEP( K ) = OLDGAP
+         SEP( K ) = OLDGAP;
       }
       if ( SING ) {
          if ( ( LEFT && M > N ) || ( RIGHT && M < N ) ) {
@@ -97,19 +97,19 @@
       // Ensure that reciprocal condition numbers are not less than
       // threshold, in order to limit the size of the error bound
 
-      EPS = DLAMCH( 'E' )
-      SAFMIN = DLAMCH( 'S' )
-      ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) )
+      EPS = DLAMCH( 'E' );
+      SAFMIN = DLAMCH( 'S' );
+      ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) );
       if ( ANORM == ZERO ) {
-         THRESH = EPS
+         THRESH = EPS;
       } else {
-         THRESH = MAX( EPS*ANORM, SAFMIN )
+         THRESH = MAX( EPS*ANORM, SAFMIN );
       }
       for (I = 1; I <= K; I++) { // 30
-         SEP( I ) = MAX( SEP( I ), THRESH )
+         SEP( I ) = MAX( SEP( I ), THRESH );
       } // 30
 
-      RETURN
+      RETURN;
 
       // End of DDISNA
 

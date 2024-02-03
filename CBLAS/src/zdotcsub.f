@@ -1,10 +1,10 @@
-      subroutine zdotcsub(n,x,incx,y,incy,dotc)
+      subroutine zdotcsub(n,x,incx,y,incy,dotc);
 
       // external zdotc
-      double complex zdotc,dotc
+      double complex zdotc,dotc;
       int     n,incx,incy;
-      double complex x(*),y(*)
+      double complex x(*),y(*);
 
-      dotc=zdotc(n,x,incx,y,incy)
-      return
-      end
+      dotc=zdotc(n,x,incx,y,incy);
+      return;
+      end;

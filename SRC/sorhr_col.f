@@ -1,5 +1,5 @@
-      SUBROUTINE SORHR_COL( M, N, NB, A, LDA, T, LDT, D, INFO )
-      IMPLICIT NONE
+      SUBROUTINE SORHR_COL( M, N, NB, A, LDA, T, LDT, D, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int               INFO, LDA, LDT, M, N, NB;
       // ..
       // .. Array Arguments ..
-      REAL              A( LDA, * ), D( * ), T( LDT, * )
+      REAL              A( LDA, * ), D( * ), T( LDT, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -31,30 +31,30 @@
 
       // Test the input parameters
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || N > M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NB < 1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDT < MAX( 1, MIN( NB, N ) ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       // Handle error in the input parameters.
 
       if ( INFO != 0 ) {
          xerbla('SORHR_COL', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-         RETURN
+         RETURN;
       }
 
       // On input, the M-by-N matrix A contains the orthogonal
@@ -86,12 +86,12 @@
       // and the array T(1:NB,1:N), JB is the column index of a column
       // block, JNB is the column block size at each step JB.
 
-      NPLUSONE = N + 1
-      DO JB = 1, N, NB
+      NPLUSONE = N + 1;
+      DO JB = 1, N, NB;
 
          // (2-0) Determine the column block size JNB.
 
-         JNB = MIN( NPLUSONE-JB, NB )
+         JNB = MIN( NPLUSONE-JB, NB );
 
          // (2-1) Copy the upper-triangular part of the current JNB-by-JNB
          // diagonal block U(JB) (of the N-by-N matrix U) stored
@@ -99,7 +99,7 @@
          // of the current JNB-by-JNB block T(1:JNB,JB:JB+JNB-1)
          // column-by-column, total JNB*(JNB+1)/2 elements.
 
-         JBTEMP1 = JB - 1
+         JBTEMP1 = JB - 1;
          for (J = JB; J <= JB+JNB-1; J++) {
             scopy(J-JBTEMP1, A( JB, J ), 1, T( 1, J ), 1 );
          }
@@ -157,10 +157,10 @@
 
          // (2-3a) Set the elements to zero.
 
-         JBTEMP2 = JB - 2
+         JBTEMP2 = JB - 2;
          for (J = JB; J <= JB+JNB-2; J++) {
             for (I = J-JBTEMP2; I <= NB; I++) {
-               T( I, J ) = ZERO
+               T( I, J ) = ZERO;
             }
          }
 
@@ -170,7 +170,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of SORHR_COL
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZGEBD2( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO )
+      SUBROUTINE ZGEBD2( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE
+      COMPLEX*16         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX*16         ALPHA
+      COMPLEX*16         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLACGV, ZLARF, ZLARFG
@@ -32,17 +32,17 @@
 
       // Test the input parameters
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO < 0 ) {
          xerbla('ZGEBD2', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( M >= N ) {
@@ -53,15 +53,15 @@
 
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
-            ALPHA = A( I, I )
+            ALPHA = A( I, I );
             zlarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = DBLE( ALPHA )
-            A( I, I ) = ONE
+            D( I ) = DBLE( ALPHA );
+            A( I, I ) = ONE;
 
             // Apply H(i)**H to A(i:m,i+1:n) from the left
 
             if (I < N) CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAUQ( I ) ), A( I, I+1 ), LDA, WORK );
-            A( I, I ) = D( I )
+            A( I, I ) = D( I );
 
             if ( I < N ) {
 
@@ -69,18 +69,18 @@
                // A(i,i+2:n)
 
                zlacgv(N-I, A( I, I+1 ), LDA );
-               ALPHA = A( I, I+1 )
+               ALPHA = A( I, I+1 );
                zlarfg(N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = DBLE( ALPHA )
-               A( I, I+1 ) = ONE
+               E( I ) = DBLE( ALPHA );
+               A( I, I+1 ) = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
                zlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
                zlacgv(N-I, A( I, I+1 ), LDA );
-               A( I, I+1 ) = E( I )
+               A( I, I+1 ) = E( I );
             } else {
-               TAUP( I ) = ZERO
+               TAUP( I ) = ZERO;
             }
          } // 10
       } else {
@@ -92,37 +92,37 @@
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
             zlacgv(N-I+1, A( I, I ), LDA );
-            ALPHA = A( I, I )
+            ALPHA = A( I, I );
             zlarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = DBLE( ALPHA )
-            A( I, I ) = ONE
+            D( I ) = DBLE( ALPHA );
+            A( I, I ) = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
             if (I < M) CALL ZLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
             zlacgv(N-I+1, A( I, I ), LDA );
-            A( I, I ) = D( I )
+            A( I, I ) = D( I );
 
             if ( I < M ) {
 
                // Generate elementary reflector H(i) to annihilate
                // A(i+2:m,i)
 
-               ALPHA = A( I+1, I )
+               ALPHA = A( I+1, I );
                zlarfg(M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = DBLE( ALPHA )
-               A( I+1, I ) = ONE
+               E( I ) = DBLE( ALPHA );
+               A( I+1, I ) = ONE;
 
                // Apply H(i)**H to A(i+1:m,i+1:n) from the left
 
                zlarf('Left', M-I, N-I, A( I+1, I ), 1, DCONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK );
-               A( I+1, I ) = E( I )
+               A( I+1, I ) = E( I );
             } else {
-               TAUQ( I ) = ZERO
+               TAUQ( I ) = ZERO;
             }
          } // 20
       }
-      RETURN
+      RETURN;
 
       // End of ZGEBD2
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SCHKSB2STG( NSIZES, NN, NWDTHS, KK, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, SD, SE, D1, D2, D3, U, LDU, WORK, LWORK, RESULT, INFO )
+      SUBROUTINE SCHKSB2STG( NSIZES, NN, NWDTHS, KK, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, SD, SE, D1, D2, D3, U, LDU, WORK, LWORK, RESULT, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,20 +6,20 @@
 
       // .. Scalar Arguments ..
       int                INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS;
-      REAL               THRESH
+      REAL               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), NN( * );
-      REAL               A( LDA, * ), RESULT( * ), SD( * ), SE( * ), D1( * ), D2( * ), D3( * ), U( LDU, * ), WORK( * )
+      REAL               A( LDA, * ), RESULT( * ), SD( * ), SE( * ), D1( * ), D2( * ), D3( * ), U( LDU, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, TEN
+      REAL               ZERO, ONE, TWO, TEN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
-      REAL               HALF
+      REAL               HALF;
       const              HALF = ONE / TWO ;
       int                MAXTYP;
       const              MAXTYP = 15 ;
@@ -27,13 +27,13 @@
       // .. Local Scalars ..
       bool               BADNN, BADNNB;
       int                I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, LH, LW, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT;
-      REAL               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL
+      REAL               ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -43,57 +43,57 @@
       // INTRINSIC ABS, REAL, MAX, MIN, SQRT
       // ..
       // .. Data statements ..
-      DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8 /
-      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /
+      DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8 /;
+      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3 /;
+      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /;
       // ..
       // .. Executable Statements ..
 
       // Check for errors
 
-      NTESTT = 0
-      INFO = 0
+      NTESTT = 0;
+      INFO = 0;
 
       // Important constants
 
       BADNN = false;
-      NMAX = 1
+      NMAX = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) )
+         NMAX = MAX( NMAX, NN( J ) );
          IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       BADNNB = false;
-      KMAX = 0
+      KMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 20
-         KMAX = MAX( KMAX, KK( J ) )
+         KMAX = MAX( KMAX, KK( J ) );
          IF( KK( J ) < 0 ) BADNNB = true;
       } // 20
-      KMAX = MIN( NMAX-1, KMAX )
+      KMAX = MIN( NMAX-1, KMAX );
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADNN ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NWDTHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( BADNNB ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NTYPES < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < KMAX+1 ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDU < NMAX ) {
-         INFO = -15
+         INFO = -15;
       } else if ( ( MAX( LDA, NMAX )+1 )*NMAX > LWORK ) {
-         INFO = -17
+         INFO = -17;
       }
 
       if ( INFO != 0 ) {
          xerbla('SCHKSB2STG', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -102,40 +102,40 @@
 
       // More Important constants
 
-      UNFL = SLAMCH( 'Safe minimum' )
-      OVFL = ONE / UNFL
-      ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
-      ULPINV = ONE / ULP
-      RTUNFL = SQRT( UNFL )
-      RTOVFL = SQRT( OVFL )
+      UNFL = SLAMCH( 'Safe minimum' );
+      OVFL = ONE / UNFL;
+      ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
+      ULPINV = ONE / ULP;
+      RTUNFL = SQRT( UNFL );
+      RTOVFL = SQRT( OVFL );
 
       // Loop over sizes, types
 
-      NERRS = 0
-      NMATS = 0
+      NERRS = 0;
+      NMATS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 190
-         N = NN( JSIZE )
-         ANINV = ONE / REAL( MAX( 1, N ) )
+         N = NN( JSIZE );
+         ANINV = ONE / REAL( MAX( 1, N ) );
 
          for (JWIDTH = 1; JWIDTH <= NWDTHS; JWIDTH++) { // 180
-            K = KK( JWIDTH )
+            K = KK( JWIDTH );
             if (K > N) GO TO 180;
-            K = MAX( 0, MIN( N-1, K ) )
+            K = MAX( 0, MIN( N-1, K ) );
 
             if ( NSIZES != 1 ) {
-               MTYPES = MIN( MAXTYP, NTYPES )
+               MTYPES = MIN( MAXTYP, NTYPES );
             } else {
-               MTYPES = MIN( MAXTYP+1, NTYPES )
+               MTYPES = MIN( MAXTYP+1, NTYPES );
             }
 
             for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
-               IF( !DOTYPE( JTYPE ) ) GO TO 170
-               NMATS = NMATS + 1
-               NTEST = 0
+               IF( !DOTYPE( JTYPE ) ) GO TO 170;
+               NMATS = NMATS + 1;
+               NTEST = 0;
 
                for (J = 1; J <= 4; J++) { // 30
-                  IOLDSD( J ) = ISEED( J )
+                  IOLDSD( J ) = ISEED( J );
                } // 30
 
                // Compute "A".
@@ -157,33 +157,33 @@
 
                if (MTYPES > MAXTYP) GO TO 100;
 
-               ITYPE = KTYPE( JTYPE )
-               IMODE = KMODE( JTYPE )
+               ITYPE = KTYPE( JTYPE );
+               IMODE = KMODE( JTYPE );
 
                // Compute norm
 
-               GO TO ( 40, 50, 60 )KMAGN( JTYPE )
+               GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
                } // 40
-               ANORM = ONE
-               GO TO 70
+               ANORM = ONE;
+               GO TO 70;
 
                } // 50
-               ANORM = ( RTOVFL*ULP )*ANINV
-               GO TO 70
+               ANORM = ( RTOVFL*ULP )*ANINV;
+               GO TO 70;
 
                } // 60
-               ANORM = RTUNFL*N*ULPINV
-               GO TO 70
+               ANORM = RTUNFL*N*ULPINV;
+               GO TO 70;
 
                } // 70
 
                slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-               IINFO = 0
+               IINFO = 0;
                if ( JTYPE <= 15 ) {
-                  COND = ULPINV
+                  COND = ULPINV;
                } else {
-                  COND = ULPINV*ANINV / TEN
+                  COND = ULPINV*ANINV / TEN;
                }
 
                // Special Matrices -- Identity & Jordan block
@@ -191,14 +191,14 @@
                   // Zero
 
                if ( ITYPE == 1 ) {
-                  IINFO = 0
+                  IINFO = 0;
 
                } else if ( ITYPE == 2 ) {
 
                   // Identity
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                     A( K+1, JCOL ) = ANORM
+                     A( K+1, JCOL ) = ANORM;
                   } // 80
 
                } else if ( ITYPE == 4 ) {
@@ -238,21 +238,21 @@
                   if (N > 1) K = MAX( 1, K );
                   slatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO );
                   for (I = 2; I <= N; I++) { // 90
-                     TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
+                     TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      if ( TEMP1 > HALF ) {
-                        A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
+                        A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) );
                      }
                   } // 90
 
                } else {
 
-                  IINFO = 1
+                  IINFO = 1;
                }
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                } // 100
@@ -261,17 +261,17 @@
 
                slacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
-               NTEST = 1
+               NTEST = 1;
                ssbtrd('V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'SSBTRD(U)', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
+                  WRITE( NOUNIT, FMT = 9999 )'SSBTRD(U)', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN
+                     RETURN;
                   } else {
-                     RESULT( 1 ) = ULPINV
-                     GO TO 150
+                     RESULT( 1 ) = ULPINV;
+                     GO TO 150;
                   }
                }
 
@@ -296,13 +296,13 @@
 
                ssteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
+                  WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN
+                     RETURN;
                   } else {
-                     RESULT( 5 ) = ULPINV
-                     GO TO 150
+                     RESULT( 5 ) = ULPINV;
+                     GO TO 150;
                   }
                }
 
@@ -314,8 +314,8 @@
                slaset('Full', N, 1, ZERO, ZERO, SD, N );
                slaset('Full', N, 1, ZERO, ZERO, SE, N );
                slacpy(' ', K+1, N, A, LDA, U, LDU );
-               LH = MAX(1, 4*N)
-               LW = LWORK - LH
+               LH = MAX(1, 4*N);
+               LW = LWORK - LH;
                ssytrd_sb2st('N', 'N', "U", N, K, U, LDU, SD, SE, WORK, LH, WORK( LH+1 ), LW, IINFO );
 
                // Compute D2 from the SSYTRD_SB2ST Upper case
@@ -325,13 +325,13 @@
 
                ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
+                  WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN
+                     RETURN;
                   } else {
-                     RESULT( 5 ) = ULPINV
-                     GO TO 150
+                     RESULT( 5 ) = ULPINV;
+                     GO TO 150;
                   }
                }
 
@@ -339,13 +339,13 @@
                // Lower-Triangle-Only storage.
 
                for (JC = 1; JC <= N; JC++) { // 120
-                  DO 110 JR = 0, MIN( K, N-JC )
-                     A( JR+1, JC ) = A( K+1-JR, JC+JR )
+                  DO 110 JR = 0, MIN( K, N-JC );
+                     A( JR+1, JC ) = A( K+1-JR, JC+JR );
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
-                  DO 130 JR = MIN( K, N-JC ) + 1, K
-                     A( JR+1, JC ) = ZERO
+                  DO 130 JR = MIN( K, N-JC ) + 1, K;
+                     A( JR+1, JC ) = ZERO;
                   } // 130
                } // 140
 
@@ -353,20 +353,20 @@
 
                slacpy(' ', K+1, N, A, LDA, WORK, LDA );
 
-               NTEST = 3
+               NTEST = 3;
                ssbtrd('V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO );
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'SSBTRD(L)', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
+                  WRITE( NOUNIT, FMT = 9999 )'SSBTRD(L)', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN
+                     RETURN;
                   } else {
-                     RESULT( 3 ) = ULPINV
-                     GO TO 150
+                     RESULT( 3 ) = ULPINV;
+                     GO TO 150;
                   }
                }
-               NTEST = 4
+               NTEST = 4;
 
                // Do tests 3 and 4
 
@@ -380,8 +380,8 @@
                slaset('Full', N, 1, ZERO, ZERO, SD, N );
                slaset('Full', N, 1, ZERO, ZERO, SE, N );
                slacpy(' ', K+1, N, A, LDA, U, LDU );
-               LH = MAX(1, 4*N)
-               LW = LWORK - LH
+               LH = MAX(1, 4*N);
+               LW = LWORK - LH;
                ssytrd_sb2st('N', 'N', "L", N, K, U, LDU, SD, SE, WORK, LH, WORK( LH+1 ), LW, IINFO );
 
                // Compute D3 from the 2-stage Upper case
@@ -391,13 +391,13 @@
 
                ssteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
-                  WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
+                  WRITE( NOUNIT, FMT = 9999 )'SSTEQR(N)', IINFO, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
                   if ( IINFO < 0 ) {
-                     RETURN
+                     RETURN;
                   } else {
-                     RESULT( 6 ) = ULPINV
-                     GO TO 150
+                     RESULT( 6 ) = ULPINV;
+                     GO TO 150;
                   }
                }
 
@@ -405,26 +405,26 @@
                // Do Tests 3 and 4 which are similar to 11 and 12 but with the
                // D1 computed using the standard 1-stage reduction as reference
 
-               NTEST = 6
-               TEMP1 = ZERO
-               TEMP2 = ZERO
-               TEMP3 = ZERO
-               TEMP4 = ZERO
+               NTEST = 6;
+               TEMP1 = ZERO;
+               TEMP2 = ZERO;
+               TEMP3 = ZERO;
+               TEMP4 = ZERO;
 
                for (J = 1; J <= N; J++) { // 151
-                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
-                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
-                  TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
-                  TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) )
+                  TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) );
+                  TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) );
+                  TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) );
+                  TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) );
                } // 151
 
-               RESULT(5) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-               RESULT(6) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
+               RESULT(5) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
+               RESULT(6) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
                } // 150
-               NTESTT = NTESTT + NTEST
+               NTESTT = NTESTT + NTEST;
 
                // Print out tests which fail.
 
@@ -435,14 +435,14 @@
                      // print a header to the data file.
 
                      if ( NERRS == 0 ) {
-                        WRITE( NOUNIT, FMT = 9998 )'SSB'
-                        WRITE( NOUNIT, FMT = 9997 )
-                        WRITE( NOUNIT, FMT = 9996 )
-                        WRITE( NOUNIT, FMT = 9995 )'Symmetric'
-                        WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''', 'transpose', ( '''', J = 1, 6 )
+                        WRITE( NOUNIT, FMT = 9998 )'SSB';
+                        WRITE( NOUNIT, FMT = 9997 );
+                        WRITE( NOUNIT, FMT = 9996 );
+                        WRITE( NOUNIT, FMT = 9995 )'Symmetric';
+                        WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''', 'transpose', ( '''', J = 1, 6 );
                      }
-                     NERRS = NERRS + 1
-                     WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR )
+                     NERRS = NERRS + 1;
+                     WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR );
                   }
                } // 160
 
@@ -453,18 +453,18 @@
       // Summary
 
       slasum('SSB', NOUNIT, NERRS, NTESTT );
-      RETURN
+      RETURN;
 
- 9999 FORMAT( ' SCHKSB2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' SCHKSB2STG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
- 9998 FORMAT( / 1X, A3, ' -- Real Symmetric Banded Tridiagonal Reduction Routines' )
- 9997 FORMAT( ' Matrix types (see SCHKSB2STG for details): ' )
+ 9998 FORMAT( / 1X, A3, ' -- Real Symmetric Banded Tridiagonal Reduction Routines' );
+ 9997 FORMAT( ' Matrix types (see SCHKSB2STG for details): ' );
 
- 9996 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.                        ', '  5=Diagonal: clustered entries.', / '  2=Identity matrix.                    ', '  6=Diagonal: large, evenly spaced.', / '  3=Diagonal: evenly spaced entries.    ', '  7=Diagonal: small, evenly spaced.', / '  4=Diagonal: geometr. spaced entries.' )
- 9995 FORMAT( ' Dense ', A, ' Banded Matrices:', / '  8=Evenly spaced eigenvals.            ', ' 12=Small, evenly spaced eigenvals.', / '  9=Geometrically spaced eigenvals.     ', ' 13=Matrix with random O(1) entries.', / ' 10=Clustered eigenvalues.              ', ' 14=Matrix with large random entries.', / ' 11=Large, evenly spaced eigenvals.     ', ' 15=Matrix with small random entries.' )
+ 9996 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.                        ', '  5=Diagonal: clustered entries.', / '  2=Identity matrix.                    ', '  6=Diagonal: large, evenly spaced.', / '  3=Diagonal: evenly spaced entries.    ', '  7=Diagonal: small, evenly spaced.', / '  4=Diagonal: geometr. spaced entries.' );
+ 9995 FORMAT( ' Dense ', A, ' Banded Matrices:', / '  8=Evenly spaced eigenvals.            ', ' 12=Small, evenly spaced eigenvals.', / '  9=Geometrically spaced eigenvals.     ', ' 13=Matrix with random O(1) entries.', / ' 10=Clustered eigenvalues.              ', ' 14=Matrix with large random entries.', / ' 11=Large, evenly spaced eigenvals.     ', ' 15=Matrix with small random entries.' );
 
- 9994 FORMAT( / ' Tests performed:   (S is Tridiag,  U is ', A, ',', / 20X, A, ' means ', A, '.', / ' UPLO=''U'':', / '  1= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  2= | I - U U', A1, ' | / ( n ulp )', / ' UPLO=''L'':', / '  3= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  4= | I - U U', A1, ' | / ( n ulp )' / ' Eig check:', /'  5= | D1 - D2', '', ' | / ( |D1| ulp )         ', '  6= | D1 - D3', '', ' | / ( |D1| ulp )          ' )
- 9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
+ 9994 FORMAT( / ' Tests performed:   (S is Tridiag,  U is ', A, ',', / 20X, A, ' means ', A, '.', / ' UPLO=''U'':', / '  1= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  2= | I - U U', A1, ' | / ( n ulp )', / ' UPLO=''L'':', / '  3= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  4= | I - U U', A1, ' | / ( n ulp )' / ' Eig check:', /'  5= | D1 - D2', '', ' | / ( |D1| ulp )         ', '  6= | D1 - D3', '', ' | / ( |D1| ulp )          ' );
+ 9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
 
       // End of SCHKSB2STG
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CHEEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CHEEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,27 +10,27 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), W( * )
-      COMPLEX            A( LDA, * ), WORK( * )
+      REAL               RWORK( * ), W( * );
+      COMPLEX            A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, LQUERY, WANTZ;
       int                IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2, INDWRK, ISCALE, LIOPT, LIWMIN, LLRWK, LLWORK, LLWRK2, LOPT, LROPT, LRWMIN, LWMIN;
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
+      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               CLANHE, SLAMCH, SROUNDUP_LWORK
+      REAL               CLANHE, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, CLANHE, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -43,61 +43,61 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LWMIN = 1
-            LRWMIN = 1
-            LIWMIN = 1
-            LOPT = LWMIN
-            LROPT = LRWMIN
-            LIOPT = LIWMIN
+            LWMIN = 1;
+            LRWMIN = 1;
+            LIWMIN = 1;
+            LOPT = LWMIN;
+            LROPT = LRWMIN;
+            LIOPT = LIWMIN;
          } else {
             if ( WANTZ ) {
-               LWMIN = 2*N + N*N
-               LRWMIN = 1 + 5*N + 2*N**2
-               LIWMIN = 3 + 5*N
+               LWMIN = 2*N + N*N;
+               LRWMIN = 1 + 5*N + 2*N**2;
+               LIWMIN = 3 + 5*N;
             } else {
-               LWMIN = N + 1
-               LRWMIN = N
-               LIWMIN = 1
+               LWMIN = N + 1;
+               LRWMIN = N;
+               LIWMIN = 1;
             }
-            LOPT = MAX( LWMIN, N + N*ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 ) )
-            LROPT = LRWMIN
-            LIOPT = LIWMIN
+            LOPT = MAX( LWMIN, N + N*ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 ) );
+            LROPT = LRWMIN;
+            LIOPT = LIWMIN;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LOPT )
-         RWORK( 1 ) = SROUNDUP_LWORK( LROPT )
-         IWORK( 1 ) = LIOPT
+         WORK( 1 ) = SROUNDUP_LWORK( LOPT );
+         RWORK( 1 ) = SROUNDUP_LWORK( LROPT );
+         IWORK( 1 ) = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -8
+            INFO = -8;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -10
+            INFO = -10;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -12
+            INFO = -12;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CHEEVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -105,43 +105,43 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = REAL( A( 1, 1 ) )
+         W( 1 ) = REAL( A( 1, 1 ) );
          if (WANTZ) A( 1, 1 ) = CONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = CLANHE( 'M', UPLO, N, A, LDA, RWORK )
-      ISCALE = 0
+      ANRM = CLANHE( 'M', UPLO, N, A, LDA, RWORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if (ISCALE == 1) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call CHETRD to reduce Hermitian matrix to tridiagonal form.
 
-      INDE = 1
-      INDTAU = 1
-      INDWRK = INDTAU + N
-      INDRWK = INDE + N
-      INDWK2 = INDWRK + N*N
-      LLWORK = LWORK - INDWRK + 1
-      LLWRK2 = LWORK - INDWK2 + 1
-      LLRWK = LRWORK - INDRWK + 1
+      INDE = 1;
+      INDTAU = 1;
+      INDWRK = INDTAU + N;
+      INDRWK = INDE + N;
+      INDWK2 = INDWRK + N*N;
+      LLWORK = LWORK - INDWRK + 1;
+      LLWRK2 = LWORK - INDWK2 + 1;
+      LLRWK = LRWORK - INDRWK + 1;
       chetrd(UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
@@ -162,18 +162,18 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LOPT )
-      RWORK( 1 ) = SROUNDUP_LWORK( LROPT )
-      IWORK( 1 ) = LIOPT
+      WORK( 1 ) = SROUNDUP_LWORK( LOPT );
+      RWORK( 1 ) = SROUNDUP_LWORK( LROPT );
+      IWORK( 1 ) = LIOPT;
 
-      RETURN
+      RETURN;
 
       // End of CHEEVD
 

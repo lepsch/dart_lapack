@@ -1,4 +1,4 @@
-      SUBROUTINE SERRSY( PATH, NUNIT )
+      SUBROUTINE SERRSY( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -18,11 +18,11 @@
       // .. Local Scalars ..
       String             C2;
       int                I, INFO, J;
-      REAL               ANRM, RCOND
+      REAL               ANRM, RCOND;
       // ..
       // .. Local Arrays ..
       int                IP( NMAX ), IW( NMAX );
-      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX )
+      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;
@@ -45,16 +45,16 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
-      C2 = PATH( 2: 3 )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
+      C2 = PATH( 2: 3 );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1. / REAL( I+J )
-            AF( I, J ) = 1. / REAL( I+J )
+            A( I, J ) = 1. / REAL( I+J );
+            AF( I, J ) = 1. / REAL( I+J );
          } // 10
          B( J ) = 0.0;
          E( J ) = 0.0;
@@ -62,11 +62,11 @@
          R2( J ) = 0.0;
          W( J ) = 0.0;
          X( J ) = 0.0;
-         IP( J ) = J
-         IW( J ) = J
+         IP( J ) = J;
+         IW( J ) = J;
       } // 20
-      ANRM = 1.0
-      RCOND = 1.0
+      ANRM = 1.0;
+      RCOND = 1.0;
       OK = true;
 
       if ( LSAMEN( 2, C2, 'SY' ) ) {
@@ -77,132 +77,132 @@
 
          // SSYTRF
 
-         SRNAMT = 'SSYTRF'
-         INFOT = 1
+         SRNAMT = 'SSYTRF';
+         INFOT = 1;
          ssytrf('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrf('U', -1, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytrf('U', 2, A, 1, IP, W, 4, INFO );
          chkxer('SSYTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrf('U', 0, A, 1, IP, W, 0, INFO );
          chkxer('SSYTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrf('U', 0, A, 1, IP, W, -2, INFO );
          chkxer('SSYTRF', INFOT, NOUT, LERR, OK );
 
          // SSYTF2
 
-         SRNAMT = 'SSYTF2'
-         INFOT = 1
+         SRNAMT = 'SSYTF2';
+         INFOT = 1;
          ssytf2('/', 0, A, 1, IP, INFO );
          chkxer('SSYTF2', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytf2('U', -1, A, 1, IP, INFO );
          chkxer('SSYTF2', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytf2('U', 2, A, 1, IP, INFO );
          chkxer('SSYTF2', INFOT, NOUT, LERR, OK );
 
          // SSYTRI
 
-         SRNAMT = 'SSYTRI'
-         INFOT = 1
+         SRNAMT = 'SSYTRI';
+         INFOT = 1;
          ssytri('/', 0, A, 1, IP, W, INFO );
          chkxer('SSYTRI', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytri('U', -1, A, 1, IP, W, INFO );
          chkxer('SSYTRI', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytri('U', 2, A, 1, IP, W, INFO );
          chkxer('SSYTRI', INFOT, NOUT, LERR, OK );
 
          // SSYTRI2
 
-         SRNAMT = 'SSYTRI2'
-         INFOT = 1
+         SRNAMT = 'SSYTRI2';
+         INFOT = 1;
          ssytri2('/', 0, A, 1, IP, W, IW(1), INFO );
          chkxer('SSYTRI2', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytri2('U', -1, A, 1, IP, W, IW(1), INFO );
          chkxer('SSYTRI2', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytri2('U', 2, A, 1, IP, W, IW(1), INFO );
          chkxer('SSYTRI2', INFOT, NOUT, LERR, OK );
 
          // SSYTRI2X
 
-         SRNAMT = 'SSYTRI2X'
-         INFOT = 1
+         SRNAMT = 'SSYTRI2X';
+         INFOT = 1;
          ssytri2x('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRI2X', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytri2x('U', -1, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRI2X', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytri2x('U', 2, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRI2X', INFOT, NOUT, LERR, OK );
 
          // SSYTRS
 
-         SRNAMT = 'SSYTRS'
-         INFOT = 1
+         SRNAMT = 'SSYTRS';
+         INFOT = 1;
          ssytrs('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrs('U', -1, 0, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssytrs('U', 0, -1, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          ssytrs('U', 2, 1, A, 1, IP, B, 2, INFO );
          chkxer('SSYTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytrs('U', 2, 1, A, 2, IP, B, 1, INFO );
          chkxer('SSYTRS', INFOT, NOUT, LERR, OK );
 
          // SSYRFS
 
-         SRNAMT = 'SSYRFS'
-         INFOT = 1
+         SRNAMT = 'SSYRFS';
+         INFOT = 1;
          ssyrfs('/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssyrfs('U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssyrfs('U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          ssyrfs('U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssyrfs('U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          ssyrfs('U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 12
+         INFOT = 12;
          ssyrfs('U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSYRFS', INFOT, NOUT, LERR, OK );
 
          // SSYCON
 
-         SRNAMT = 'SSYCON'
-         INFOT = 1
+         SRNAMT = 'SSYCON';
+         INFOT = 1;
          ssycon('/', 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssycon('U', -1, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssycon('U', 2, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          ssycon('U', 1, A, 1, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('SSYCON', INFOT, NOUT, LERR, OK );
 
@@ -214,81 +214,81 @@
 
          // SSYTRF_ROOK
 
-         SRNAMT = 'SSYTRF_ROOK'
-         INFOT = 1
+         SRNAMT = 'SSYTRF_ROOK';
+         INFOT = 1;
          ssytrf_rook('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrf_rook('U', -1, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytrf_rook('U', 2, A, 1, IP, W, 4, INFO );
          chkxer('SSYTRF_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrf_rook('U', 0, A, 1, IP, W, 0, INFO );
          chkxer('SSYTRF_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrf_rook('U', 0, A, 1, IP, W, -2, INFO );
          chkxer('SSYTRF_ROOK', INFOT, NOUT, LERR, OK );
 
          // SSYTF2_ROOK
 
-         SRNAMT = 'SSYTF2_ROOK'
-         INFOT = 1
+         SRNAMT = 'SSYTF2_ROOK';
+         INFOT = 1;
          ssytf2_rook('/', 0, A, 1, IP, INFO );
          chkxer('SSYTF2_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytf2_rook('U', -1, A, 1, IP, INFO );
          chkxer('SSYTF2_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytf2_rook('U', 2, A, 1, IP, INFO );
          chkxer('SSYTF2_ROOK', INFOT, NOUT, LERR, OK );
 
          // SSYTRI_ROOK
 
-         SRNAMT = 'SSYTRI_ROOK'
-         INFOT = 1
+         SRNAMT = 'SSYTRI_ROOK';
+         INFOT = 1;
          ssytri_rook('/', 0, A, 1, IP, W, INFO );
          chkxer('SSYTRI_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytri_rook('U', -1, A, 1, IP, W, INFO );
          chkxer('SSYTRI_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytri_rook('U', 2, A, 1, IP, W, INFO );
          chkxer('SSYTRI_ROOK', INFOT, NOUT, LERR, OK );
 
          // SSYTRS_ROOK
 
-         SRNAMT = 'SSYTRS_ROOK'
-         INFOT = 1
+         SRNAMT = 'SSYTRS_ROOK';
+         INFOT = 1;
          ssytrs_rook('/', 0, 0, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrs_rook('U', -1, 0, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssytrs_rook('U', 0, -1, A, 1, IP, B, 1, INFO );
          chkxer('SSYTRS_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          ssytrs_rook('U', 2, 1, A, 1, IP, B, 2, INFO );
          chkxer('SSYTRS_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytrs_rook('U', 2, 1, A, 2, IP, B, 1, INFO );
          chkxer('SSYTRS_ROOK', INFOT, NOUT, LERR, OK );
 
          // SSYCON_ROOK
 
-         SRNAMT = 'SSYCON_ROOK'
-         INFOT = 1
+         SRNAMT = 'SSYCON_ROOK';
+         INFOT = 1;
          ssycon_rook('/', 0, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssycon_rook('U', -1, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssycon_rook('U', 2, A, 1, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_ROOK', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          ssycon_rook('U', 1, A, 1, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('SSYCON_ROOK', INFOT, NOUT, LERR, OK );
 
@@ -304,100 +304,100 @@
 
          // SSYTRF_RK
 
-         SRNAMT = 'SSYTRF_RK'
-         INFOT = 1
+         SRNAMT = 'SSYTRF_RK';
+         INFOT = 1;
          ssytrf_rk('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRF_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrf_rk('U', -1, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRF_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytrf_rk('U', 2, A, 1, E, IP, W, 4, INFO );
          chkxer('SSYTRF_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytrf_rk('U', 0, A, 1, E, IP, W, 0, INFO );
          chkxer('SSYTRF_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytrf_rk('U', 0, A, 1, E, IP, W, -2, INFO );
          chkxer('SSYTRF_RK', INFOT, NOUT, LERR, OK );
 
          // SSYTF2_RK
 
-         SRNAMT = 'SSYTF2_RK'
-         INFOT = 1
+         SRNAMT = 'SSYTF2_RK';
+         INFOT = 1;
          ssytf2_rk('/', 0, A, 1, E, IP, INFO );
          chkxer('SSYTF2_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytf2_rk('U', -1, A, 1, E, IP, INFO );
          chkxer('SSYTF2_RK', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytf2_rk('U', 2, A, 1, E, IP, INFO );
          chkxer('SSYTF2_RK', INFOT, NOUT, LERR, OK );
 
          // SSYTRI_3
 
-         SRNAMT = 'SSYTRI_3'
-         INFOT = 1
+         SRNAMT = 'SSYTRI_3';
+         INFOT = 1;
          ssytri_3('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytri_3('U', -1, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytri_3('U', 2, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytri_3('U', 0, A, 1, E, IP, W, 0, INFO );
          chkxer('SSYTRI_3', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytri_3('U', 0, A, 1, E, IP, W, -2, INFO );
          chkxer('SSYTRI_3', INFOT, NOUT, LERR, OK );
 
          // SSYTRI_3X
 
-         SRNAMT = 'SSYTRI_3X'
-         INFOT = 1
+         SRNAMT = 'SSYTRI_3X';
+         INFOT = 1;
          ssytri_3x('/', 0, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3X', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytri_3x('U', -1, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3X', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytri_3x('U', 2, A, 1, E, IP, W, 1, INFO );
          chkxer('SSYTRI_3X', INFOT, NOUT, LERR, OK );
 
          // SSYTRS_3
 
-         SRNAMT = 'SSYTRS_3'
-         INFOT = 1
+         SRNAMT = 'SSYTRS_3';
+         INFOT = 1;
          ssytrs_3('/', 0, 0, A, 1, E, IP, B, 1, INFO );
          chkxer('SSYTRS_3', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrs_3('U', -1, 0, A, 1, E, IP, B, 1, INFO );
          chkxer('SSYTRS_3', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssytrs_3('U', 0, -1, A, 1, E, IP, B, 1, INFO );
          chkxer('SSYTRS_3', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          ssytrs_3('U', 2, 1, A, 1, E, IP, B, 2, INFO );
          chkxer('SSYTRS_3', INFOT, NOUT, LERR, OK );
-         INFOT = 9
+         INFOT = 9;
          ssytrs_3('U', 2, 1, A, 2, E, IP, B, 1, INFO );
          chkxer('SSYTRS_3', INFOT, NOUT, LERR, OK );
 
          // SSYCON_3
 
-         SRNAMT = 'SSYCON_3'
-         INFOT = 1
+         SRNAMT = 'SSYCON_3';
+         INFOT = 1;
          ssycon_3('/', 0, A, 1,  E, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_3', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssycon_3('U', -1, A, 1, E, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_3', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssycon_3('U', 2, A, 1, E, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSYCON_3', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssycon_3('U', 1, A, 1, E, IP, -1.0, RCOND, W, IW, INFO);
          chkxer('SSYCON_3', INFOT, NOUT, LERR, OK );
 
@@ -408,45 +408,45 @@
 
          // SSYTRF_AA
 
-         SRNAMT = 'SSYTRF_AA'
-         INFOT = 1
+         SRNAMT = 'SSYTRF_AA';
+         INFOT = 1;
          ssytrf_aa('/', 0, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrf_aa('U', -1, A, 1, IP, W, 1, INFO );
          chkxer('SSYTRF_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytrf_aa('U', 2, A, 1, IP, W, 4, INFO );
          chkxer('SSYTRF_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrf_aa('U', 0, A, 1, IP, W, 0, INFO );
          chkxer('SSYTRF_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrf_aa('U', 0, A, 1, IP, W, -2, INFO );
          chkxer('SSYTRF_AA', INFOT, NOUT, LERR, OK );
 
          // SSYTRS_AA
 
-         SRNAMT = 'SSYTRS_AA'
-         INFOT = 1
+         SRNAMT = 'SSYTRS_AA';
+         INFOT = 1;
          ssytrs_aa('/', 0, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrs_aa('U', -1, 0, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssytrs_aa('U', 0, -1, A, 1, IP, B, 1, W, 1, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          ssytrs_aa('U', 2, 1, A, 1, IP, B, 2, W, 1, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssytrs_aa('U', 2, 1, A, 2, IP, B, 1, W, 1, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          ssytrs_aa('U', 0, 1, A, 2, IP, B, 1, W, 0, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          ssytrs_aa('U', 0, 1, A, 2, IP, B, 1, W, -2, INFO );
          chkxer('SSYTRS_AA', INFOT, NOUT, LERR, OK );
       } else if ( LSAMEN( 2, C2, 'S2' ) ) {
@@ -456,42 +456,42 @@
 
          // SSYTRF_AA_2STAGE
 
-         SRNAMT = 'SSYTRF_AA_2STAGE'
-         INFOT = 1
+         SRNAMT = 'SSYTRF_AA_2STAGE';
+         INFOT = 1;
          ssytrf_aa_2stage('/', 0, A, 1, A, 1, IP, IP, W, 1, INFO );
          chkxer('SSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrf_aa_2stage('U', -1, A, 1, A, 1, IP, IP, W, 1, INFO );
          chkxer('SSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          ssytrf_aa_2stage('U', 2, A, 1, A, 2, IP, IP, W, 1, INFO );
          chkxer('SSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 6
+         INFOT = 6;
          ssytrf_aa_2stage('U', 2, A, 2, A, 1, IP, IP, W, 1, INFO );
          chkxer('SSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          ssytrf_aa_2stage('U', 2, A, 2, A, 8, IP, IP, W, 0, INFO );
          chkxer('SSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK );
 
          // SSYTRS_AA_2STAGE
 
-         SRNAMT = 'SSYTRS_AA_2STAGE'
-         INFOT = 1
+         SRNAMT = 'SSYTRS_AA_2STAGE';
+         INFOT = 1;
          ssytrs_aa_2stage('/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO );
          chkxer('SSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssytrs_aa_2stage('U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO );
          chkxer('SSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssytrs_aa_2stage('U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO );
          chkxer('SSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          ssytrs_aa_2stage('U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO );
          chkxer('SSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssytrs_aa_2stage('U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO );
          chkxer('SSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK );
-         INFOT = 11
+         INFOT = 11;
          ssytrs_aa_2stage('U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO );
          chkxer('SSYTRS_AA_STAGE', INFOT, NOUT, LERR, OK );
 
@@ -503,69 +503,69 @@
 
          // SSPTRF
 
-         SRNAMT = 'SSPTRF'
-         INFOT = 1
+         SRNAMT = 'SSPTRF';
+         INFOT = 1;
          ssptrf('/', 0, A, IP, INFO );
          chkxer('SSPTRF', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssptrf('U', -1, A, IP, INFO );
          chkxer('SSPTRF', INFOT, NOUT, LERR, OK );
 
          // SSPTRI
 
-         SRNAMT = 'SSPTRI'
-         INFOT = 1
+         SRNAMT = 'SSPTRI';
+         INFOT = 1;
          ssptri('/', 0, A, IP, W, INFO );
          chkxer('SSPTRI', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssptri('U', -1, A, IP, W, INFO );
          chkxer('SSPTRI', INFOT, NOUT, LERR, OK );
 
          // SSPTRS
 
-         SRNAMT = 'SSPTRS'
-         INFOT = 1
+         SRNAMT = 'SSPTRS';
+         INFOT = 1;
          ssptrs('/', 0, 0, A, IP, B, 1, INFO );
          chkxer('SSPTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssptrs('U', -1, 0, A, IP, B, 1, INFO );
          chkxer('SSPTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssptrs('U', 0, -1, A, IP, B, 1, INFO );
          chkxer('SSPTRS', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          ssptrs('U', 2, 1, A, IP, B, 1, INFO );
          chkxer('SSPTRS', INFOT, NOUT, LERR, OK );
 
          // SSPRFS
 
-         SRNAMT = 'SSPRFS'
-         INFOT = 1
+         SRNAMT = 'SSPRFS';
+         INFOT = 1;
          ssprfs('/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSPRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          ssprfs('U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSPRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 3
+         INFOT = 3;
          ssprfs('U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSPRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 8
+         INFOT = 8;
          ssprfs('U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, IW, INFO );
          chkxer('SSPRFS', INFOT, NOUT, LERR, OK );
-         INFOT = 10
+         INFOT = 10;
          ssprfs('U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW, INFO );
          chkxer('SSPRFS', INFOT, NOUT, LERR, OK );
 
          // SSPCON
 
-         SRNAMT = 'SSPCON'
-         INFOT = 1
+         SRNAMT = 'SSPCON';
+         INFOT = 1;
          sspcon('/', 0, A, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSPCON', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          sspcon('U', -1, A, IP, ANRM, RCOND, W, IW, INFO );
          chkxer('SSPCON', INFOT, NOUT, LERR, OK );
-         INFOT = 5
+         INFOT = 5;
          sspcon('U', 1, A, IP, -1.0, RCOND, W, IW, INFO );
          chkxer('SSPCON', INFOT, NOUT, LERR, OK );
       }
@@ -574,7 +574,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of SERRSY
 

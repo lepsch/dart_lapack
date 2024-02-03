@@ -1,8 +1,8 @@
       int     FUNCTION IPARAM2STAGE( ISPEC, NAME, OPTS, NI, NBI, IBI, NXI );
 #if defined(_OPENMP)
-      use omp_lib
+      use omp_lib;
 #endif
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,16 +32,16 @@
       // Invalid value for ISPEC
 
       if ( (ISPEC < 17) || (ISPEC > 21) ) {
-          IPARAM2STAGE = -1
-          RETURN
+          IPARAM2STAGE = -1;
+          RETURN;
       }
 
       // Get the number of threads
 
-      NTHREADS = 1
+      NTHREADS = 1;
 #if defined(_OPENMP)
 !$OMP PARALLEL
-      NTHREADS = OMP_GET_NUM_THREADS()
+      NTHREADS = OMP_GET_NUM_THREADS();
 !$OMP END PARALLEL
 #endif
        // WRITE(*,*) 'IPARAM VOICI NTHREADS ISPEC ',NTHREADS, ISPEC
@@ -50,18 +50,18 @@
 
          // Convert NAME to upper case if the first character is lower case.
 
-         IPARAM2STAGE = -1
-         SUBNAM = NAME
-         IC = ICHAR( SUBNAM( 1: 1 ) )
-         IZ = ICHAR( 'Z' )
+         IPARAM2STAGE = -1;
+         SUBNAM = NAME;
+         IC = ICHAR( SUBNAM( 1: 1 ) );
+         IZ = ICHAR( 'Z' );
          if ( IZ == 90 || IZ == 122 ) {
 
             // ASCII character set
 
             if ( IC >= 97 && IC <= 122 ) {
-               SUBNAM( 1: 1 ) = CHAR( IC-32 )
+               SUBNAM( 1: 1 ) = CHAR( IC-32 );
                for (I = 2; I <= 12; I++) { // 100
-                  IC = ICHAR( SUBNAM( I: I ) )
+                  IC = ICHAR( SUBNAM( I: I ) );
                   if (IC >= 97 && IC <= 122) SUBNAM( I: I ) = CHAR( IC-32 );
                } // 100
             }
@@ -71,10 +71,10 @@
             // EBCDIC character set
 
             if ( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) ) {
-               SUBNAM( 1: 1 ) = CHAR( IC+64 )
+               SUBNAM( 1: 1 ) = CHAR( IC+64 );
                for (I = 2; I <= 12; I++) { // 110
-                  IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+                  IC = ICHAR( SUBNAM( I: I ) );
+                  IF( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 );
                } // 110
             }
 
@@ -83,25 +83,25 @@
             // Prime machines:  ASCII+128
 
             if ( IC >= 225 && IC <= 250 ) {
-               SUBNAM( 1: 1 ) = CHAR( IC-32 )
+               SUBNAM( 1: 1 ) = CHAR( IC-32 );
                for (I = 2; I <= 12; I++) { // 120
-                 IC = ICHAR( SUBNAM( I: I ) )
+                 IC = ICHAR( SUBNAM( I: I ) );
                  if (IC >= 225 && IC <= 250) SUBNAM( I: I ) = CHAR( IC-32 );
                } // 120
             }
          }
 
-         PREC  = SUBNAM( 1: 1 )
-         ALGO  = SUBNAM( 4: 6 )
-         STAG  = SUBNAM( 8:12 )
-         RPREC = PREC == 'S' || PREC == 'D'
-         CPREC = PREC == 'C' || PREC == 'Z'
+         PREC  = SUBNAM( 1: 1 );
+         ALGO  = SUBNAM( 4: 6 );
+         STAG  = SUBNAM( 8:12 );
+         RPREC = PREC == 'S' || PREC == 'D';
+         CPREC = PREC == 'C' || PREC == 'Z';
 
          // Invalid value for PRECISION
 
          if ( !( RPREC || CPREC ) ) {
-             IPARAM2STAGE = -1
-             RETURN
+             IPARAM2STAGE = -1;
+             RETURN;
          }
       }
        // WRITE(*,*),'RPREC,CPREC ',RPREC,CPREC,
@@ -116,27 +116,27 @@
 
          if ( NTHREADS > 4 ) {
             if ( CPREC ) {
-               KD = 128
-               IB = 32
+               KD = 128;
+               IB = 32;
             } else {
-               KD = 160
-               IB = 40
+               KD = 160;
+               IB = 40;
             }
          } else if ( NTHREADS > 1 ) {
             if ( CPREC ) {
-               KD = 64
-               IB = 32
+               KD = 64;
+               IB = 32;
             } else {
-               KD = 64
-               IB = 32
+               KD = 64;
+               IB = 32;
             }
          } else {
             if ( CPREC ) {
-               KD = 16
-               IB = 16
+               KD = 16;
+               IB = 16;
             } else {
-               KD = 32
-               IB = 16
+               KD = 32;
+               IB = 16;
             }
          }
          if (ISPEC == 17) IPARAM2STAGE = KD;
@@ -149,17 +149,17 @@
       // matrix (V,T) of the second stage. should be >= 1.
 
       // Will add the VECT OPTION HERE next release
-         VECT  = OPTS(1:1)
+         VECT  = OPTS(1:1);
          if ( LSAME( VECT, 'N' ) ) {
-            LHOUS = MAX( 1, 4*NI )
+            LHOUS = MAX( 1, 4*NI );
          } else {
             // This is not correct, it need to call the ALGO and the stage2
-            LHOUS = MAX( 1, 4*NI ) + IBI
+            LHOUS = MAX( 1, 4*NI ) + IBI;
          }
          if ( LHOUS >= 0 ) {
-            IPARAM2STAGE = LHOUS
+            IPARAM2STAGE = LHOUS;
          } else {
-            IPARAM2STAGE = -1
+            IPARAM2STAGE = -1;
          }
 
       } else if ( ISPEC == 20 ) {
@@ -177,43 +177,43 @@
                    // = N*KD + N*max(KD+1,FACTOPTNB)
                      // + max(2*KD*KD, KD*NTHREADS)
                      // + (KD+1)*N
-         LWORK        = -1
-         SUBNAM(1:1)  = PREC
-         SUBNAM(2:6)  = 'GEQRF'
-         QROPTNB      = ILAENV( 1, SUBNAM, ' ', NI, NBI, -1, -1 )
-         SUBNAM(2:6)  = 'GELQF'
-         LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 )
+         LWORK        = -1;
+         SUBNAM(1:1)  = PREC;
+         SUBNAM(2:6)  = 'GEQRF';
+         QROPTNB      = ILAENV( 1, SUBNAM, ' ', NI, NBI, -1, -1 );
+         SUBNAM(2:6)  = 'GELQF';
+         LQOPTNB      = ILAENV( 1, SUBNAM, ' ', NBI, NI, -1, -1 );
          // Could be QR or LQ for TRD and the max for BRD
-         FACTOPTNB    = MAX(QROPTNB, LQOPTNB)
+         FACTOPTNB    = MAX(QROPTNB, LQOPTNB);
          if ( ALGO == 'TRD' ) {
             if ( STAG == '2STAG' ) {
-               LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
+               LWORK = NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI;
             } else if ( (STAG == 'HE2HB') || (STAG == 'SY2SB') ) {
-               LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
+               LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI;
             } else if ( (STAG == 'HB2ST') || (STAG == 'SB2ST') ) {
-               LWORK = (2*NBI+1)*NI + NBI*NTHREADS
+               LWORK = (2*NBI+1)*NI + NBI*NTHREADS;
             }
          } else if ( ALGO == 'BRD' ) {
             if ( STAG == '2STAG' ) {
-               LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI
+               LWORK = 2*NI*NBI + NI*MAX(NBI+1,FACTOPTNB) + MAX(2*NBI*NBI, NBI*NTHREADS) + (NBI+1)*NI;
             } else if ( STAG == 'GE2GB' ) {
-               LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI
+               LWORK = NI*NBI + NI*MAX(NBI,FACTOPTNB) + 2*NBI*NBI;
             } else if ( STAG == 'GB2BD' ) {
-               LWORK = (3*NBI+1)*NI + NBI*NTHREADS
+               LWORK = (3*NBI+1)*NI + NBI*NTHREADS;
             }
          }
-         LWORK = MAX ( 1, LWORK )
+         LWORK = MAX ( 1, LWORK );
 
          if ( LWORK > 0 ) {
-            IPARAM2STAGE = LWORK
+            IPARAM2STAGE = LWORK;
          } else {
-            IPARAM2STAGE = -1
+            IPARAM2STAGE = -1;
          }
 
       } else if ( ISPEC == 21 ) {
 
       // ISPEC = 21 for future use
-         IPARAM2STAGE = NXI
+         IPARAM2STAGE = NXI;
       }
 
       // ==== End of IPARAM2STAGE ====

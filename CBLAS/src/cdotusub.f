@@ -1,10 +1,10 @@
-      subroutine cdotusub(n,x,incx,y,incy,dotu)
+      subroutine cdotusub(n,x,incx,y,incy,dotu);
 
       // external cdotu
-      complex cdotu,dotu
+      complex cdotu,dotu;
       int     n,incx,incy;
-      complex x(*),y(*)
+      complex x(*),y(*);
 
-      dotu=cdotu(n,x,incx,y,incy)
-      return
-      end
+      dotu=cdotu(n,x,incx,y,incy);
+      return;
+      end;

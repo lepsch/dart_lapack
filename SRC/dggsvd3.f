@@ -1,4 +1,4 @@
-      SUBROUTINE DGGSVD3( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO )
+      SUBROUTINE DGGSVD3( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,71 +35,71 @@
 
       // Decode and test the input parameters
 
-      WANTU = LSAME( JOBU, 'U' )
-      WANTV = LSAME( JOBV, 'V' )
-      WANTQ = LSAME( JOBQ, 'Q' )
-      LQUERY = ( LWORK == -1 )
-      LWKOPT = 1
+      WANTU = LSAME( JOBU, 'U' );
+      WANTV = LSAME( JOBV, 'V' );
+      WANTQ = LSAME( JOBQ, 'Q' );
+      LQUERY = ( LWORK == -1 );
+      LWKOPT = 1;
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTU || LSAME( JOBU, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTV || LSAME( JOBV, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( P < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDB < MAX( 1, P ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
-         INFO = -16
+         INFO = -16;
       } else if ( LDV < 1 || ( WANTV && LDV < P ) ) {
-         INFO = -18
+         INFO = -18;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -20
+         INFO = -20;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -24
+         INFO = -24;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
          dggsvp3(JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO );
-         LWKOPT = N + INT( WORK( 1 ) )
-         LWKOPT = MAX( 2*N, LWKOPT )
-         LWKOPT = MAX( 1, LWKOPT )
-         WORK( 1 ) = DBLE( LWKOPT )
+         LWKOPT = N + INT( WORK( 1 ) );
+         LWKOPT = MAX( 2*N, LWKOPT );
+         LWKOPT = MAX( 1, LWKOPT );
+         WORK( 1 ) = DBLE( LWKOPT );
       }
 
       if ( INFO != 0 ) {
          xerbla('DGGSVD3', -INFO );
-         RETURN
+         RETURN;
       }
       if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Compute the Frobenius norm of matrices A and B
 
-      ANORM = DLANGE( '1', M, N, A, LDA, WORK )
-      BNORM = DLANGE( '1', P, N, B, LDB, WORK )
+      ANORM = DLANGE( '1', M, N, A, LDA, WORK );
+      BNORM = DLANGE( '1', P, N, B, LDB, WORK );
 
       // Get machine precision and set up threshold for determining
       // the effective numerical rank of the matrices A and B.
 
-      ULP = DLAMCH( 'Precision' )
-      UNFL = DLAMCH( 'Safe Minimum' )
-      TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
-      TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
+      ULP = DLAMCH( 'Precision' );
+      UNFL = DLAMCH( 'Safe Minimum' );
+      TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP;
+      TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP;
 
       // Preprocessing
 
@@ -113,31 +113,31 @@
       // Copy ALPHA to WORK, then sort ALPHA in WORK
 
       dcopy(N, ALPHA, 1, WORK, 1 );
-      IBND = MIN( L, M-K )
+      IBND = MIN( L, M-K );
       for (I = 1; I <= IBND; I++) { // 20
 
          // Scan for largest ALPHA(K+I)
 
-         ISUB = I
-         SMAX = WORK( K+I )
+         ISUB = I;
+         SMAX = WORK( K+I );
          for (J = I + 1; J <= IBND; J++) { // 10
-            TEMP = WORK( K+J )
+            TEMP = WORK( K+J );
             if ( TEMP > SMAX ) {
-               ISUB = J
-               SMAX = TEMP
+               ISUB = J;
+               SMAX = TEMP;
             }
          } // 10
          if ( ISUB != I ) {
-            WORK( K+ISUB ) = WORK( K+I )
-            WORK( K+I ) = SMAX
-            IWORK( K+I ) = K + ISUB
+            WORK( K+ISUB ) = WORK( K+I );
+            WORK( K+I ) = SMAX;
+            IWORK( K+I ) = K + ISUB;
          } else {
-            IWORK( K+I ) = K + I
+            IWORK( K+I ) = K + I;
          }
       } // 20
 
-      WORK( 1 ) = DBLE( LWKOPT )
-      RETURN
+      WORK( 1 ) = DBLE( LWKOPT );
+      RETURN;
 
       // End of DGGSVD3
 

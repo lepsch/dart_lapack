@@ -1,57 +1,57 @@
-      SUBROUTINE SLARTGS( X, Y, SIGMA, CS, SN )
+      SUBROUTINE SLARTGS( X, Y, SIGMA, CS, SN );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL                    CS, SIGMA, SN, X, Y
+      REAL                    CS, SIGMA, SN, X, Y;
       // ..
 
 *  ===================================================================
 
       // .. Parameters ..
-      REAL                    NEGONE, ONE, ZERO
+      REAL                    NEGONE, ONE, ZERO;
       const              NEGONE = -1.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL                    R, S, THRESH, W, Z
+      REAL                    R, S, THRESH, W, Z;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARTGP
       // ..
       // .. External Functions ..
-      REAL                    SLAMCH
+      REAL                    SLAMCH;
       // EXTERNAL SLAMCH
       // .. Executable Statements ..
 
-      THRESH = SLAMCH('E')
+      THRESH = SLAMCH('E');
 
       // Compute the first column of B**T*B - SIGMA^2*I, up to a scale
       // factor.
 
       if ( (SIGMA == ZERO && ABS(X) < THRESH) || (ABS(X) == SIGMA && Y == ZERO) ) {
-         Z = ZERO
-         W = ZERO
+         Z = ZERO;
+         W = ZERO;
       } else if ( SIGMA == ZERO ) {
          if ( X >= ZERO ) {
-            Z = X
-            W = Y
+            Z = X;
+            W = Y;
          } else {
-            Z = -X
-            W = -Y
+            Z = -X;
+            W = -Y;
          }
       } else if ( ABS(X) < THRESH ) {
-         Z = -SIGMA*SIGMA
-         W = ZERO
+         Z = -SIGMA*SIGMA;
+         W = ZERO;
       } else {
          if ( X >= ZERO ) {
-            S = ONE
+            S = ONE;
          } else {
-            S = NEGONE
+            S = NEGONE;
          }
-         Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X)
-         W = S * Y
+         Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X);
+         W = S * Y;
       }
 
       // Generate the rotation.
@@ -61,7 +61,7 @@
 
       slartgp(W, Z, SN, CS, R );
 
-      RETURN
+      RETURN;
 
       // End SLARTGS
 

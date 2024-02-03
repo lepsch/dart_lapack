@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               AI, AR, BETA
+      REAL               AI, AR, BETA;
       // ..
 
 *  =====================================================================
@@ -18,12 +18,12 @@
       // COMMON / MN / M, N, MPLUSN, I, FS
       // ..
       // .. Save statement ..
-      SAVE
+      SAVE;
       // ..
       // .. Executable Statements ..
 
       if ( FS ) {
-         I = I + 1
+         I = I + 1;
          if ( I <= M ) {
             SLCTSX = false;
          } else {
@@ -31,10 +31,10 @@
          }
          if ( I == MPLUSN ) {
             FS = false;
-            I = 0
+            I = 0;
          }
       } else {
-         I = I + 1
+         I = I + 1;
          if ( I <= N ) {
             SLCTSX = true;
          } else {
@@ -42,7 +42,7 @@
          }
          if ( I == MPLUSN ) {
             FS = true;
-            I = 0
+            I = 0;
          }
       }
 
@@ -52,7 +52,7 @@
            // SLCTSX = false;
         // END IF
 
-      RETURN
+      RETURN;
 
       // End of SLCTSX
 

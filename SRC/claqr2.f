@@ -1,4 +1,4 @@
-      SUBROUTINE CLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SH, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK )
+      SUBROUTINE CLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SH, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      COMPLEX            H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * )
+      COMPLEX            H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
       // ..
 
 *  ================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO, ONE
+      COMPLEX            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO, RONE
+      REAL               RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX            BETA, CDUM, S, TAU
-      REAL               FOO, SAFMAX, SAFMIN, SMLNUM, ULP
+      COMPLEX            BETA, CDUM, S, TAU;
+      REAL               FOO, SAFMAX, SAFMIN, SMLNUM, ULP;
       int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -36,82 +36,82 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) )
+      CABS1( CDUM ) = ABS( REAL( CDUM ) ) + ABS( AIMAG( CDUM ) );
       // ..
       // .. Executable Statements ..
 
       // ==== Estimate optimal workspace. ====
 
-      JW = MIN( NW, KBOT-KTOP+1 )
+      JW = MIN( NW, KBOT-KTOP+1 );
       if ( JW <= 2 ) {
-         LWKOPT = 1
+         LWKOPT = 1;
       } else {
 
          // ==== Workspace query call to CGEHRD ====
 
          cgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
-         LWK1 = INT( WORK( 1 ) )
+         LWK1 = INT( WORK( 1 ) );
 
          // ==== Workspace query call to CUNMHR ====
 
          cunmhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
-         LWK2 = INT( WORK( 1 ) )
+         LWK2 = INT( WORK( 1 ) );
 
          // ==== Optimal workspace ====
 
-         LWKOPT = JW + MAX( LWK1, LWK2 )
+         LWKOPT = JW + MAX( LWK1, LWK2 );
       }
 
       // ==== Quick return in case of workspace query. ====
 
       if ( LWORK == -1 ) {
-         WORK( 1 ) = CMPLX( LWKOPT, 0 )
-         RETURN
+         WORK( 1 ) = CMPLX( LWKOPT, 0 );
+         RETURN;
       }
 
       // ==== Nothing to do ...
       // ... for an empty active block ... ====
-      NS = 0
-      ND = 0
-      WORK( 1 ) = ONE
+      NS = 0;
+      ND = 0;
+      WORK( 1 ) = ONE;
       if (KTOP > KBOT) RETURN;
       // ... nor for an empty deflation window. ====
       if (NW < 1) RETURN;
 
       // ==== Machine constants ====
 
-      SAFMIN = SLAMCH( 'SAFE MINIMUM' )
-      SAFMAX = RONE / SAFMIN
-      ULP = SLAMCH( 'PRECISION' )
-      SMLNUM = SAFMIN*( REAL( N ) / ULP )
+      SAFMIN = SLAMCH( 'SAFE MINIMUM' );
+      SAFMAX = RONE / SAFMIN;
+      ULP = SLAMCH( 'PRECISION' );
+      SMLNUM = SAFMIN*( REAL( N ) / ULP );
 
       // ==== Setup deflation window ====
 
-      JW = MIN( NW, KBOT-KTOP+1 )
-      KWTOP = KBOT - JW + 1
+      JW = MIN( NW, KBOT-KTOP+1 );
+      KWTOP = KBOT - JW + 1;
       if ( KWTOP == KTOP ) {
-         S = ZERO
+         S = ZERO;
       } else {
-         S = H( KWTOP, KWTOP-1 )
+         S = H( KWTOP, KWTOP-1 );
       }
 
       if ( KBOT == KWTOP ) {
 
          // ==== 1-by-1 deflation window: not much to do ====
 
-         SH( KWTOP ) = H( KWTOP, KWTOP )
-         NS = 1
-         ND = 0
+         SH( KWTOP ) = H( KWTOP, KWTOP );
+         NS = 1;
+         ND = 0;
          if ( CABS1( S ) <= MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
-            NS = 0
-            ND = 1
+            NS = 0;
+            ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
-         WORK( 1 ) = ONE
-         RETURN
+         WORK( 1 ) = ONE;
+         RETURN;
       }
 
       // ==== Convert to spike-triangular form.  (In case of a
@@ -128,26 +128,26 @@
 
       // ==== Deflation detection loop ====
 
-      NS = JW
-      ILST = INFQR + 1
+      NS = JW;
+      ILST = INFQR + 1;
       for (KNT = INFQR + 1; KNT <= JW; KNT++) { // 10
 
          // ==== Small spike tip deflation test ====
 
-         FOO = CABS1( T( NS, NS ) )
+         FOO = CABS1( T( NS, NS ) );
          if ( FOO == RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
 
             // ==== One more converged eigenvalue ====
 
-            NS = NS - 1
+            NS = NS - 1;
          } else {
 
             // ==== One undeflatable eigenvalue.  Move it up out of the
             // .    way.   (CTREXC can not fail in this case.) ====
 
-            IFST = NS
+            IFST = NS;
             ctrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
-            ILST = ILST + 1
+            ILST = ILST + 1;
          }
       } // 10
 
@@ -161,11 +161,11 @@
          // .    graded matrices.  ====
 
          for (I = INFQR + 1; I <= NS; I++) { // 30
-            IFST = I
+            IFST = I;
             for (J = I + 1; J <= NS; J++) { // 20
-               IF( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J
+               IF( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J;
             } // 20
-            ILST = I
+            ILST = I;
             if (IFST != ILST) CALL CTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
          } // 30
       }
@@ -173,7 +173,7 @@
       // ==== Restore shift/eigenvalue array from T ====
 
       for (I = INFQR + 1; I <= JW; I++) { // 40
-         SH( KWTOP+I-1 ) = T( I, I )
+         SH( KWTOP+I-1 ) = T( I, I );
       } // 40
 
 
@@ -184,11 +184,11 @@
 
             ccopy(NS, V, LDV, WORK, 1 );
             for (I = 1; I <= NS; I++) { // 50
-               WORK( I ) = CONJG( WORK( I ) )
+               WORK( I ) = CONJG( WORK( I ) );
             } // 50
-            BETA = WORK( 1 )
+            BETA = WORK( 1 );
             clarfg(NS, BETA, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE
+            WORK( 1 ) = ONE;
 
             claset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
@@ -213,12 +213,12 @@
          // ==== Update vertical slab in H ====
 
          if ( WANTT ) {
-            LTOP = 1
+            LTOP = 1;
          } else {
-            LTOP = KTOP
+            LTOP = KTOP;
          }
-         DO 60 KROW = LTOP, KWTOP - 1, NV
-            KLN = MIN( NV, KWTOP-KROW )
+         DO 60 KROW = LTOP, KWTOP - 1, NV;
+            KLN = MIN( NV, KWTOP-KROW );
             cgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             clacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
          } // 60
@@ -226,8 +226,8 @@
          // ==== Update horizontal slab in H ====
 
          if ( WANTT ) {
-            DO 70 KCOL = KBOT + 1, N, NH
-               KLN = MIN( NH, N-KCOL+1 )
+            DO 70 KCOL = KBOT + 1, N, NH;
+               KLN = MIN( NH, N-KCOL+1 );
                cgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
                clacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
             } // 70
@@ -236,8 +236,8 @@
          // ==== Update vertical slab in Z ====
 
          if ( WANTZ ) {
-            DO 80 KROW = ILOZ, IHIZ, NV
-               KLN = MIN( NV, IHIZ-KROW+1 )
+            DO 80 KROW = ILOZ, IHIZ, NV;
+               KLN = MIN( NV, IHIZ-KROW+1 );
                cgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
                clacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
             } // 80
@@ -246,7 +246,7 @@
 
       // ==== Return the number of deflations ... ====
 
-      ND = JW - NS
+      ND = JW - NS;
 
       // ==== ... and the number of shifts. (Subtracting
       // .    INFQR from the spike length takes care
@@ -254,11 +254,11 @@
       // .    calculating eigenvalues of the deflation
       // .    window.)  ====
 
-      NS = NS - INFQR
+      NS = NS - INFQR;
 
        // ==== Return optimal workspace. ====
 
-      WORK( 1 ) = CMPLX( LWKOPT, 0 )
+      WORK( 1 ) = CMPLX( LWKOPT, 0 );
 
       // ==== End of CLAQR2 ====
 

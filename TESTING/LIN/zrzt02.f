@@ -8,7 +8,7 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AF( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -35,11 +35,11 @@
       // ..
       // .. Executable Statements ..
 
-      ZRZT02 = ZERO
+      ZRZT02 = ZERO;
 
       if ( LWORK < N*N+N ) {
          xerbla('ZRZT02', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,11 +61,11 @@
       // Q := Q - I
 
       for (I = 1; I <= N; I++) { // 10
-         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE
+         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
-      ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
-      RETURN
+      ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
+      RETURN;
 
       // End of ZRZT02
 

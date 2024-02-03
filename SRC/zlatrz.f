@@ -1,4 +1,4 @@
-      SUBROUTINE ZLATRZ( M, N, L, A, LDA, TAU, WORK )
+      SUBROUTINE ZLATRZ( M, N, L, A, LDA, TAU, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,18 +8,18 @@
       int                L, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO
+      COMPLEX*16         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX*16         ALPHA
+      COMPLEX*16         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLACGV, ZLARFG, ZLARZ
@@ -32,32 +32,32 @@
       // Quick return if possible
 
       if ( M == 0 ) {
-         RETURN
+         RETURN;
       } else if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = ZERO
+            TAU( I ) = ZERO;
          } // 10
-         RETURN
+         RETURN;
       }
 
-      DO 20 I = M, 1, -1
+      DO 20 I = M, 1, -1;
 
          // Generate elementary reflector H(i) to annihilate
          // [ A(i,i) A(i,n-l+1:n) ]
 
          zlacgv(L, A( I, N-L+1 ), LDA );
-         ALPHA = DCONJG( A( I, I ) )
+         ALPHA = DCONJG( A( I, I ) );
          zlarfg(L+1, ALPHA, A( I, N-L+1 ), LDA, TAU( I ) );
-         TAU( I ) = DCONJG( TAU( I ) )
+         TAU( I ) = DCONJG( TAU( I ) );
 
          // Apply H(i) to A(1:i-1,i:n) from the right
 
          zlarz('Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, DCONJG( TAU( I ) ), A( 1, I ), LDA, WORK );
-         A( I, I ) = DCONJG( ALPHA )
+         A( I, I ) = DCONJG( ALPHA );
 
       } // 20
 
-      RETURN
+      RETURN;
 
       // End of ZLATRZ
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 )
+      SUBROUTINE DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -63,34 +63,34 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' /
-      DATA               FORMS / 'N', 'T' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' /;
+      DATA               FORMS / 'N', 'T' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       for (IIN = 1; IIN <= NN; IIN++) { // 130
 
-         N = NVAL( IIN )
-         LDA = MAX( N, 1 )
-         LDB = MAX( N, 1 )
+         N = NVAL( IIN );
+         LDA = MAX( N, 1 );
+         LDB = MAX( N, 1 );
 
          for (IIS = 1; IIS <= NNS; IIS++) { // 980
 
-            NRHS = NSVAL( IIS )
+            NRHS = NSVAL( IIS );
 
             for (IIT = 1; IIT <= NNT; IIT++) { // 120
 
-               IMAT = NTVAL( IIT )
+               IMAT = NTVAL( IIT );
 
                // If N == 0, only consider the first type
 
@@ -104,66 +104,66 @@
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
-                  UPLO = UPLOS( IUPLO )
+                  UPLO = UPLOS( IUPLO );
 
                   // Do first for CFORM = 'N', then for CFORM = 'C'
 
                   for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
-                     CFORM = FORMS( IFORM )
+                     CFORM = FORMS( IFORM );
 
                      // Set up parameters with DLATB4 and generate a test
                      // matrix with DLATMS.
 
                      dlatb4('DPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'DLATMS'
+                     SRNAMT = 'DLATMS';
                      dlatms(N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, D_WORK_DLATMS, INFO );
 
                      // Check error code from DLATMS.
 
                      if ( INFO != 0 ) {
                         alaerh('DPF', 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
-                        GO TO 100
+                        GO TO 100;
                      }
 
                      // For types 3-5, zero one row and column of the matrix to
                      // test that INFO is returned correctly.
 
-                     ZEROT = IMAT >= 3 && IMAT <= 5
+                     ZEROT = IMAT >= 3 && IMAT <= 5;
                      if ( ZEROT ) {
                         if ( IIT == 3 ) {
-                           IZERO = 1
+                           IZERO = 1;
                         } else if ( IIT == 4 ) {
-                           IZERO = N
+                           IZERO = N;
                         } else {
-                           IZERO = N / 2 + 1
+                           IZERO = N / 2 + 1;
                         }
-                        IOFF = ( IZERO-1 )*LDA
+                        IOFF = ( IZERO-1 )*LDA;
 
                         // Set row and column IZERO of A to 0.
 
                         if ( IUPLO == 1 ) {
                            for (I = 1; I <= IZERO - 1; I++) { // 20
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 20
-                           IOFF = IOFF + IZERO
+                           IOFF = IOFF + IZERO;
                            for (I = IZERO; I <= N; I++) { // 30
-                              A( IOFF ) = ZERO
-                              IOFF = IOFF + LDA
+                              A( IOFF ) = ZERO;
+                              IOFF = IOFF + LDA;
                            } // 30
                         } else {
-                           IOFF = IZERO
+                           IOFF = IZERO;
                            for (I = 1; I <= IZERO - 1; I++) { // 40
-                              A( IOFF ) = ZERO
-                              IOFF = IOFF + LDA
+                              A( IOFF ) = ZERO;
+                              IOFF = IOFF + LDA;
                            } // 40
-                           IOFF = IOFF - IZERO
+                           IOFF = IOFF - IZERO;
                            for (I = IZERO; I <= N; I++) { // 50
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 50
                         }
                      } else {
-                        IZERO = 0
+                        IZERO = 0;
                      }
 
                      // Save a copy of the matrix A in ASAV.
@@ -173,12 +173,12 @@
                      // Compute the condition number of A (RCONDC).
 
                      if ( ZEROT ) {
-                        RCONDC = ZERO
+                        RCONDC = ZERO;
                      } else {
 
                         // Compute the 1-norm of A.
 
-                        ANORM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY )
+                        ANORM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
 
                         // Factor the matrix A.
 
@@ -192,8 +192,8 @@
 
                            // Compute the 1-norm condition number of A.
 
-                           AINVNM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY )
-                           RCONDC = ( ONE / ANORM ) / AINVNM
+                           AINVNM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY );
+                           RCONDC = ( ONE / ANORM ) / AINVNM;
 
                            // Restore the matrix A.
 
@@ -204,7 +204,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'DLARHS'
+                     SRNAMT = 'DLARHS';
                      dlarhs('DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
@@ -214,9 +214,9 @@
                      dlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                     SRNAMT = 'DTRTTF'
+                     SRNAMT = 'DTRTTF';
                      dtrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
-                     SRNAMT = 'DPFTRF'
+                     SRNAMT = 'DPFTRF';
                      dpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from DPFTRF.
@@ -228,19 +228,19 @@
                         // complain.
 
                          alaerh('DPF', 'DPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
-                         GO TO 100
+                         GO TO 100;
                       }
 
                      // Skip the tests if INFO is not 0.
 
                      if ( INFO != 0 ) {
-                        GO TO 100
+                        GO TO 100;
                      }
 
-                     SRNAMT = 'DPFTRS'
+                     SRNAMT = 'DPFTRS';
                      dpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
-                     SRNAMT = 'DTFTTR'
+                     SRNAMT = 'DTFTTR';
                      dtfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
@@ -258,10 +258,10 @@
                         dlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                      }
 
-                     SRNAMT = 'DPFTRI'
+                     SRNAMT = 'DPFTRI';
                      dpftri(CFORM, UPLO, N, ARFINV , INFO );
 
-                     SRNAMT = 'DTFTTR'
+                     SRNAMT = 'DTFTTR';
                      dtfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from DPFTRI.
@@ -277,7 +277,7 @@
 
                      // Check solution from generated exact solution.
                       dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
-                     NT = 4
+                     NT = 4;
 
                      // Print information about the tests that did not
                      // pass the threshold.
@@ -285,10 +285,10 @@
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'DPF' )                            WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO, N, IIT, K, RESULT( K );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 60
-                     NRUN = NRUN + NT
+                     NRUN = NRUN + NT;
                   } // 100
                } // 110
             } // 120
@@ -299,9 +299,9 @@
 
       alasvm('DPF', NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
+ 9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 );
 
-      RETURN
+      RETURN;
 
       // End of DDRVRFP
 

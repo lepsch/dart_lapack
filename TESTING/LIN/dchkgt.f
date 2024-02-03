@@ -1,4 +1,4 @@
-      SUBROUTINE DCHKGT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A, AF, B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE DCHKGT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A, AF, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -57,60 +57,60 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 0, 0, 0, 1 / , TRANSS / 'N', 'T', 'C' /
+      DATA               ISEEDY / 0, 0, 0, 1 / , TRANSS / 'N', 'T', 'C' /;
       // ..
       // .. Executable Statements ..
 
       PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'GT'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 2: 3 ) = 'GT';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL DERRGE( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 110
 
          // Do for each value of N in NVAL.
 
-         N = NVAL( IN )
-         M = MAX( N-1, 0 )
-         LDA = MAX( 1, N )
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         M = MAX( N-1, 0 );
+         LDA = MAX( 1, N );
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100;
 
             // Set up parameters with DLATB4.
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT >= 8 && IMAT <= 10
+            ZEROT = IMAT >= 8 && IMAT <= 10;
             if ( IMAT <= 6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
 
-               KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
-               SRNAMT = 'DLATMS'
+               KOFF = MAX( 2-KU, 3-MAX( 1, N ) );
+               SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO );
 
                // Check the error code from DLATMS.
 
                if ( INFO != 0 ) {
                   alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 100
+                  GO TO 100;
                }
-               IZERO = 0
+               IZERO = 0;
 
                if ( N > 1 ) {
                   dcopy(N-1, AF( 4 ), 3, A, 1 );
@@ -134,45 +134,45 @@
                   // elements.
 
                   if ( IZERO == 1 ) {
-                     A( N ) = Z( 2 )
+                     A( N ) = Z( 2 );
                      if (N > 1) A( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
-                     A( 3*N-2 ) = Z( 1 )
-                     A( 2*N-1 ) = Z( 2 )
+                     A( 3*N-2 ) = Z( 1 );
+                     A( 2*N-1 ) = Z( 2 );
                   } else {
-                     A( 2*N-2+IZERO ) = Z( 1 )
-                     A( N-1+IZERO ) = Z( 2 )
-                     A( IZERO ) = Z( 3 )
+                     A( 2*N-2+IZERO ) = Z( 1 );
+                     A( N-1+IZERO ) = Z( 2 );
+                     A( IZERO ) = Z( 3 );
                   }
                }
 
                // If IMAT > 7, set one column of the matrix to 0.
 
                if ( !ZEROT ) {
-                  IZERO = 0
+                  IZERO = 0;
                } else if ( IMAT == 8 ) {
-                  IZERO = 1
-                  Z( 2 ) = A( N )
-                  A( N ) = ZERO
+                  IZERO = 1;
+                  Z( 2 ) = A( N );
+                  A( N ) = ZERO;
                   if ( N > 1 ) {
-                     Z( 3 ) = A( 1 )
-                     A( 1 ) = ZERO
+                     Z( 3 ) = A( 1 );
+                     A( 1 ) = ZERO;
                   }
                } else if ( IMAT == 9 ) {
-                  IZERO = N
-                  Z( 1 ) = A( 3*N-2 )
-                  Z( 2 ) = A( 2*N-1 )
-                  A( 3*N-2 ) = ZERO
-                  A( 2*N-1 ) = ZERO
+                  IZERO = N;
+                  Z( 1 ) = A( 3*N-2 );
+                  Z( 2 ) = A( 2*N-1 );
+                  A( 3*N-2 ) = ZERO;
+                  A( 2*N-1 ) = ZERO;
                } else {
-                  IZERO = ( N+1 ) / 2
+                  IZERO = ( N+1 ) / 2;
                   for (I = IZERO; I <= N - 1; I++) { // 20
-                     A( 2*N-2+I ) = ZERO
-                     A( N-1+I ) = ZERO
-                     A( I ) = ZERO
+                     A( 2*N-2+I ) = ZERO;
+                     A( N-1+I ) = ZERO;
+                     A( I ) = ZERO;
                   } // 20
-                  A( 3*N-2 ) = ZERO
-                  A( 2*N-1 ) = ZERO
+                  A( 3*N-2 ) = ZERO;
+                  A( 2*N-1 ) = ZERO;
                }
             }
 
@@ -181,13 +181,13 @@
                // norm(L*U - A) / (n * norm(A) * EPS )
 
             dcopy(N+2*M, A, 1, AF, 1 );
-            SRNAMT = 'DGTTRF'
+            SRNAMT = 'DGTTRF';
             dgttrf(N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO );
 
             // Check error code from DGTTRF.
 
             if (INFO != IZERO) CALL ALAERH( PATH, 'DGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
-            TRFCON = INFO != 0
+            TRFCON = INFO != 0;
 
             dgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
 
@@ -195,19 +195,19 @@
 
             if ( RESULT( 1 ) >= THRESH ) {
                if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
-               WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
-               NFAIL = NFAIL + 1
+               WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 );
+               NFAIL = NFAIL + 1;
             }
-            NRUN = NRUN + 1
+            NRUN = NRUN + 1;
 
             for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
-               TRANS = TRANSS( ITRAN )
+               TRANS = TRANSS( ITRAN );
                if ( ITRAN == 1 ) {
-                  NORM = 'O'
+                  NORM = 'O';
                } else {
-                  NORM = 'I'
+                  NORM = 'I';
                }
-               ANORM = DLANGT( NORM, N, A, A( M+1 ), A( N+M+1 ) )
+               ANORM = DLANGT( NORM, N, A, A( M+1 ), A( N+M+1 ) );
 
                if ( !TRFCON ) {
 
@@ -215,52 +215,52 @@
                   // or inv(A^T), computing the maximum column sum as we
                   // go.
 
-                  AINVNM = ZERO
+                  AINVNM = ZERO;
                   for (I = 1; I <= N; I++) { // 40
                      for (J = 1; J <= N; J++) { // 30
-                        X( J ) = ZERO
+                        X( J ) = ZERO;
                      } // 30
-                     X( I ) = ONE
+                     X( I ) = ONE;
                      dgttrs(TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
-                     AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
+                     AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) );
                   } // 40
 
                   // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 
                   if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                     RCONDC = ONE
+                     RCONDC = ONE;
                   } else {
-                     RCONDC = ( ONE / ANORM ) / AINVNM
+                     RCONDC = ( ONE / ANORM ) / AINVNM;
                   }
                   if ( ITRAN == 1 ) {
-                     RCONDO = RCONDC
+                     RCONDO = RCONDC;
                   } else {
-                     RCONDI = RCONDC
+                     RCONDI = RCONDC;
                   }
                } else {
-                  RCONDC = ZERO
+                  RCONDC = ZERO;
                }
 
 *+    TEST 7
                // Estimate the reciprocal of the condition number of the
                // matrix.
 
-               SRNAMT = 'DGTCON'
+               SRNAMT = 'DGTCON';
                dgtcon(NORM, N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                // Check error code from DGTCON.
 
                if (INFO != 0) CALL ALAERH( PATH, 'DGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
-               RESULT( 7 ) = DGET06( RCOND, RCONDC )
+               RESULT( 7 ) = DGET06( RCOND, RCONDC );
 
                // Print the test ratio if it is >= THRESH.
 
                if ( RESULT( 7 ) >= THRESH ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
-                  NFAIL = NFAIL + 1
+                  NFAIL = NFAIL + 1;
                }
-               NRUN = NRUN + 1
+               NRUN = NRUN + 1;
             } // 50
 
             // Skip the remaining tests if the matrix is singular.
@@ -268,22 +268,22 @@
             if (TRFCON) GO TO 100;
 
             for (IRHS = 1; IRHS <= NNS; IRHS++) { // 90
-               NRHS = NSVAL( IRHS )
+               NRHS = NSVAL( IRHS );
 
                // Generate NRHS random solution vectors.
 
-               IX = 1
+               IX = 1;
                for (J = 1; J <= NRHS; J++) { // 60
                   dlarnv(2, ISEED, N, XACT( IX ) );
-                  IX = IX + LDA
+                  IX = IX + LDA;
                } // 60
 
                for (ITRAN = 1; ITRAN <= 3; ITRAN++) { // 80
-                  TRANS = TRANSS( ITRAN )
+                  TRANS = TRANSS( ITRAN );
                   if ( ITRAN == 1 ) {
-                     RCONDC = RCONDO
+                     RCONDC = RCONDO;
                   } else {
-                     RCONDC = RCONDI
+                     RCONDC = RCONDI;
                   }
 
                   // Set the right hand side.
@@ -294,7 +294,7 @@
                   // Solve op(A) * X = B and compute the residual.
 
                   dlacpy('Full', N, NRHS, B, LDA, X, LDA );
-                  SRNAMT = 'DGTTRS'
+                  SRNAMT = 'DGTTRS';
                   dgttrs(TRANS, N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
 
                   // Check error code from DGTTRS.
@@ -312,7 +312,7 @@
 *+    TESTS 4, 5, and 6
                   // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'DGTRFS'
+                  SRNAMT = 'DGTRFS';
                   dgtrfs(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from DGTRFS.
@@ -328,10 +328,10 @@
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 70
-                  NRUN = NRUN + 5
+                  NRUN = NRUN + 5;
                } // 80
             } // 90
 
@@ -342,10 +342,10 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 12X, 'N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') = ', G12.5 )
- 9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 )
- 9997 FORMAT( ' NORM =''', A1, ''', N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') = ', G12.5 )
-      RETURN
+ 9999 FORMAT( 12X, 'N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') = ', G12.5 );
+ 9998 FORMAT( ' TRANS=''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') = ', G12.5 );
+ 9997 FORMAT( ' NORM =''', A1, ''', N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') = ', G12.5 );
+      RETURN;
 
       // End of DCHKGT
 

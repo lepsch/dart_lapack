@@ -1,5 +1,5 @@
-      SUBROUTINE DGETSQRHRT( M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE DGETSQRHRT( M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,22 +32,22 @@
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || M < N ) {
-         INFO = -2
+         INFO = -2;
       } else if ( MB1 <= N ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NB1 < 1 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NB2 < 1 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDT < MAX( 1, MIN( NB2, N ) ) ) {
-         INFO = -9
+         INFO = -9;
       } else {
 
          // Test the input LWORK for the dimension of the array WORK.
@@ -58,35 +58,35 @@
          // d) Diagonal D for DORHR_COL.
 
          if ( LWORK < N*N+1 && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          } else {
 
             // Set block size for column blocks
 
-            NB1LOCAL = MIN( NB1, N )
+            NB1LOCAL = MIN( NB1, N );
 
-            NUM_ALL_ROW_BLOCKS = MAX( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) )
+            NUM_ALL_ROW_BLOCKS = MAX( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) );
 
             // Length and leading dimension of WORK array to place
             // T array in TSQR.
 
-            LWT = NUM_ALL_ROW_BLOCKS * N * NB1LOCAL
+            LWT = NUM_ALL_ROW_BLOCKS * N * NB1LOCAL;
 
-            LDWT = NB1LOCAL
+            LDWT = NB1LOCAL;
 
             // Length of TSQR work array
 
-            LW1 = NB1LOCAL * N
+            LW1 = NB1LOCAL * N;
 
             // Length of DORGTSQR_ROW work array.
 
-            LW2 = NB1LOCAL * MAX( NB1LOCAL, ( N - NB1LOCAL ) )
+            LW2 = NB1LOCAL * MAX( NB1LOCAL, ( N - NB1LOCAL ) );
 
-            LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) )
-            LWORKOPT = MAX( 1, LWORKOPT )
+            LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) );
+            LWORKOPT = MAX( 1, LWORKOPT );
 
             if ( LWORK < LWORKOPT && !LQUERY ) {
-               INFO = -11
+               INFO = -11;
             }
 
          }
@@ -96,20 +96,20 @@
 
       if ( INFO != 0 ) {
          xerbla('DGETSQRHRT', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         WORK( 1 ) = DBLE( LWORKOPT )
-         RETURN
+         WORK( 1 ) = DBLE( LWORKOPT );
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-         WORK( 1 ) = DBLE( LWORKOPT )
-         RETURN
+         WORK( 1 ) = DBLE( LWORKOPT );
+         RETURN;
       }
 
-      NB2LOCAL = MIN( NB2, N )
+      NB2LOCAL = MIN( NB2, N );
 
 
       // (1) Perform TSQR-factorization of the M-by-N matrix A.
@@ -151,15 +151,15 @@
       for (I = 1; I <= N; I++) {
          if ( WORK( LWT+N*N+I ) == -ONE ) {
             for (J = I; J <= N; J++) {
-               A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I )
+               A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I );
             }
          } else {
             dcopy(N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA );
          }
       }
 
-      WORK( 1 ) = DBLE( LWORKOPT )
-      RETURN
+      WORK( 1 ) = DBLE( LWORKOPT );
+      RETURN;
 
       // End of DGETSQRHRT
 

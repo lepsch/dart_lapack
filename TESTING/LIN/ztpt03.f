@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPT03( UPLO, TRANS, DIAG, N, NRHS, AP, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
+      SUBROUTINE ZTPT03( UPLO, TRANS, DIAG, N, NRHS, AP, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             CNORM( * );
-      COMPLEX*16         AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      COMPLEX*16         AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -41,11 +41,11 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 || NRHS <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
-      EPS = DLAMCH( 'Epsilon' )
-      SMLNUM = DLAMCH( 'Safe minimum' )
+      EPS = DLAMCH( 'Epsilon' );
+      SMLNUM = DLAMCH( 'Safe minimum' );
 
       // Compute the norm of the triangular matrix A using the column
       // norms already computed by ZLATPS.
@@ -53,40 +53,40 @@
       TNORM = 0.0;
       if ( LSAME( DIAG, 'N' ) ) {
          if ( LSAME( UPLO, 'U' ) ) {
-            JJ = 1
+            JJ = 1;
             for (J = 1; J <= N; J++) { // 10
-               TNORM = MAX( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) )
-               JJ = JJ + J
+               TNORM = MAX( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               JJ = JJ + J;
             } // 10
          } else {
-            JJ = 1
+            JJ = 1;
             for (J = 1; J <= N; J++) { // 20
-               TNORM = MAX( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) )
-               JJ = JJ + N - J + 1
+               TNORM = MAX( TNORM, TSCAL*ABS( AP( JJ ) )+CNORM( J ) );
+               JJ = JJ + N - J + 1;
             } // 20
          }
       } else {
          for (J = 1; J <= N; J++) { // 30
-            TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
+            TNORM = MAX( TNORM, TSCAL+CNORM( J ) );
          } // 30
       }
 
       // Compute the maximum over the number of right hand sides of
          // norm(op(A)*x - s*b) / ( norm(A) * norm(x) * EPS ).
 
-      RESID = ZERO
+      RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 40
          zcopy(N, X( 1, J ), 1, WORK, 1 );
-         IX = IZAMAX( N, WORK, 1 )
-         XNORM = MAX( ONE, ABS( X( IX, J ) ) )
-         XSCAL = ( ONE / XNORM ) / DBLE( N )
+         IX = IZAMAX( N, WORK, 1 );
+         XNORM = MAX( ONE, ABS( X( IX, J ) ) );
+         XSCAL = ( ONE / XNORM ) / DBLE( N );
          zdscal(N, XSCAL, WORK, 1 );
          ztpmv(UPLO, TRANS, DIAG, N, AP, WORK, 1 );
          zaxpy(N, DCMPLX( -SCALE*XSCAL ), B( 1, J ), 1, WORK, 1 );
-         IX = IZAMAX( N, WORK, 1 )
-         ERR = TSCAL*ABS( WORK( IX ) )
-         IX = IZAMAX( N, X( 1, J ), 1 )
-         XNORM = ABS( X( IX, J ) )
+         IX = IZAMAX( N, WORK, 1 );
+         ERR = TSCAL*ABS( WORK( IX ) );
+         IX = IZAMAX( N, X( 1, J ), 1 );
+         XNORM = ABS( X( IX, J ) );
          if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;
          } else {
@@ -97,10 +97,10 @@
          } else {
             if (ERR > ZERO) ERR = ONE / EPS;
          }
-         RESID = MAX( RESID, ERR )
+         RESID = MAX( RESID, ERR );
       } // 40
 
-      RETURN
+      RETURN;
 
       // End of ZTPT03
 

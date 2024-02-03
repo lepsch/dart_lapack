@@ -1,4 +1,4 @@
-      SUBROUTINE SGBTRS( TRANS, N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
+      SUBROUTINE SGBTRS( TRANS, N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               AB( LDAB, * ), B( LDB, * )
+      REAL               AB( LDAB, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -37,34 +37,34 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOTRAN = LSAME( TRANS, 'N' );
       if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRHS < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < ( 2*KL+KU+1 ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('SGBTRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (N == 0 || NRHS == 0) RETURN;
 
-      KD = KU + KL + 1
-      LNOTI = KL > 0
+      KD = KU + KL + 1;
+      LNOTI = KL > 0;
 
       if ( NOTRAN ) {
 
@@ -79,8 +79,8 @@
 
          if ( LNOTI ) {
             for (J = 1; J <= N - 1; J++) { // 10
-               LM = MIN( KL, N-J )
-               L = IPIV( J )
+               LM = MIN( KL, N-J );
+               L = IPIV( J );
                if (L != J) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
                sger(LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
             } // 10
@@ -107,15 +107,15 @@
          // Solve L**T*X = B, overwriting B with X.
 
          if ( LNOTI ) {
-            DO 40 J = N - 1, 1, -1
-               LM = MIN( KL, N-J )
+            DO 40 J = N - 1, 1, -1;
+               LM = MIN( KL, N-J );
                sgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
-               L = IPIV( J )
+               L = IPIV( J );
                if (L != J) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
             } // 40
          }
       }
-      RETURN
+      RETURN;
 
       // End of SGBTRS
 

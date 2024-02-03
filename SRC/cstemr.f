@@ -1,4 +1,4 @@
-      SUBROUTINE CSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,29 +8,29 @@
       String             JOBZ, RANGE;
       bool               TRYRAC;
       int                IL, INFO, IU, LDZ, NZC, LIWORK, LWORK, M, N;
-      REAL             VL, VU
+      REAL             VL, VU;
       // ..
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * )
-      COMPLEX            Z( LDZ, * )
+      REAL               D( * ), E( * ), W( * ), WORK( * );
+      COMPLEX            Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, FOUR, MINRGP
+      REAL               ZERO, ONE, FOUR, MINRGP;
       const              ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 3.0e-3 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
       int                I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND;
-      REAL               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU
+      REAL               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU;
       // ..
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, SLANST, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -45,93 +45,93 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
+      WANTZ = LSAME( JOBZ, 'V' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
 
-      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) )
-      ZQUERY = ( NZC == -1 )
+      LQUERY = ( ( LWORK == -1 ) || ( LIWORK == -1 ) );
+      ZQUERY = ( NZC == -1 );
       LAESWAP = false;
 
       // SSTEMR needs WORK of size 6*N, IWORK of size 3*N.
       // In addition, SLARRE needs WORK of size 6*N, IWORK of size 5*N.
       // Furthermore, CLARRV needs WORK of size 12*N, IWORK of size 7*N.
       if ( WANTZ ) {
-         LWMIN = 18*N
-         LIWMIN = 10*N
+         LWMIN = 18*N;
+         LIWMIN = 10*N;
       } else {
          // need less workspace if only the eigenvalues are wanted
-         LWMIN = 12*N
-         LIWMIN = 8*N
+         LWMIN = 12*N;
+         LIWMIN = 8*N;
       }
 
-      WL = ZERO
-      WU = ZERO
-      IIL = 0
-      IIU = 0
-      NSPLIT = 0
+      WL = ZERO;
+      WU = ZERO;
+      IIL = 0;
+      IIU = 0;
+      NSPLIT = 0;
 
       if ( VALEIG ) {
          // We do not reference VL, VU in the cases RANGE = 'I','A'
          // The interval (WL, WU] contains all the wanted eigenvalues.
          // It is either given by the user or computed in SLARRE.
-         WL = VL
-         WU = VU
+         WL = VL;
+         WU = VU;
       } else if ( INDEIG ) {
          // We do not reference IL, IU in the cases RANGE = 'V','A'
-         IIL = IL
-         IIU = IU
+         IIL = IL;
+         IIU = IU;
       }
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( VALEIG && N > 0 && WU <= WL ) {
-         INFO = -7
+         INFO = -7;
       } else if ( INDEIG && ( IIL < 1 || IIL > N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( INDEIG && ( IIU < IIL || IIU > N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -17
+         INFO = -17;
       } else if ( LIWORK < LIWMIN && !LQUERY ) {
-         INFO = -19
+         INFO = -19;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         IWORK( 1 ) = LIWMIN;
 
          if ( WANTZ && ALLEIG ) {
-            NZCMIN = N
+            NZCMIN = N;
          } else if ( WANTZ && VALEIG ) {
             slarrc('T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO );
          } else if ( WANTZ && INDEIG ) {
-            NZCMIN = IIU-IIL+1
+            NZCMIN = IIU-IIL+1;
          } else {
             // WANTZ == FALSE.
-            NZCMIN = 0
+            NZCMIN = 0;
          }
          if ( ZQUERY && INFO == 0 ) {
-            Z( 1,1 ) = NZCMIN
+            Z( 1,1 ) = NZCMIN;
          } else if ( NZC < NZCMIN && !ZQUERY ) {
-            INFO = -14
+            INFO = -14;
          }
       }
 
@@ -139,32 +139,32 @@
 
          xerbla('CSTEMR', -INFO );
 
-         RETURN
+         RETURN;
       } else if ( LQUERY || ZQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Handle N = 0, 1, and 2 cases immediately
 
-      M = 0
+      M = 0;
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
          if ( ALLEIG || INDEIG ) {
-            M = 1
-            W( 1 ) = D( 1 )
+            M = 1;
+            W( 1 ) = D( 1 );
          } else {
             if ( WL < D( 1 ) && WU >= D( 1 ) ) {
-               M = 1
-               W( 1 ) = D( 1 )
+               M = 1;
+               W( 1 ) = D( 1 );
             }
          }
          if ( WANTZ && ( !ZQUERY) ) {
-            Z( 1, 1 ) = ONE
-            ISUPPZ(1) = 1
-            ISUPPZ(2) = 1
+            Z( 1, 1 ) = ONE;
+            ISUPPZ(1) = 1;
+            ISUPPZ(2) = 1;
          }
-         RETURN
+         RETURN;
       }
 
       if ( N == 2 ) {
@@ -177,60 +177,60 @@
          // the following code requires R1 >= R2. Hence, we correct
          // the order of R1, R2, CS, SN if R1 < R2 before further processing.
          if ( R1 < R2 ) {
-            E(2) = R1
-            R1 = R2
-            R2 = E(2)
+            E(2) = R1;
+            R1 = R2;
+            R2 = E(2);
             LAESWAP = true;
          }
          if ( ALLEIG || (VALEIG && (R2 > WL) && (R2 <= WU)) || (INDEIG && (IIL == 1)) ) {
-            M = M+1
-            W( M ) = R2
+            M = M+1;
+            W( M ) = R2;
             if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
-                  Z( 1, M ) = CS
-                  Z( 2, M ) = SN
+                  Z( 1, M ) = CS;
+                  Z( 2, M ) = SN;
                } else {
-                  Z( 1, M ) = -SN
-                  Z( 2, M ) = CS
+                  Z( 1, M ) = -SN;
+                  Z( 2, M ) = CS;
                }
                // Note: At most one of SN and CS can be zero.
                if (SN != ZERO) {
                   if (CS != ZERO) {
-                     ISUPPZ(2*M-1) = 1
-                     ISUPPZ(2*M) = 2
+                     ISUPPZ(2*M-1) = 1;
+                     ISUPPZ(2*M) = 2;
                   } else {
-                     ISUPPZ(2*M-1) = 1
-                     ISUPPZ(2*M) = 1
+                     ISUPPZ(2*M-1) = 1;
+                     ISUPPZ(2*M) = 1;
                   }
                } else {
-                  ISUPPZ(2*M-1) = 2
-                  ISUPPZ(2*M) = 2
+                  ISUPPZ(2*M-1) = 2;
+                  ISUPPZ(2*M) = 2;
                }
             }
          }
          if ( ALLEIG || (VALEIG && (R1 > WL) && (R1 <= WU)) || (INDEIG && (IIU == 2)) ) {
-            M = M+1
-            W( M ) = R1
+            M = M+1;
+            W( M ) = R1;
             if ( WANTZ && ( !ZQUERY) ) {
                if ( LAESWAP ) {
-                  Z( 1, M ) = -SN
-                  Z( 2, M ) = CS
+                  Z( 1, M ) = -SN;
+                  Z( 2, M ) = CS;
                } else {
-                  Z( 1, M ) = CS
-                  Z( 2, M ) = SN
+                  Z( 1, M ) = CS;
+                  Z( 2, M ) = SN;
                }
                // Note: At most one of SN and CS can be zero.
                if (SN != ZERO) {
                   if (CS != ZERO) {
-                     ISUPPZ(2*M-1) = 1
-                     ISUPPZ(2*M) = 2
+                     ISUPPZ(2*M-1) = 1;
+                     ISUPPZ(2*M) = 2;
                   } else {
-                     ISUPPZ(2*M-1) = 1
-                     ISUPPZ(2*M) = 1
+                     ISUPPZ(2*M-1) = 1;
+                     ISUPPZ(2*M) = 1;
                   }
                } else {
-                  ISUPPZ(2*M-1) = 2
-                  ISUPPZ(2*M) = 2
+                  ISUPPZ(2*M-1) = 2;
+                  ISUPPZ(2*M) = 2;
                }
             }
          }
@@ -238,17 +238,17 @@
 
          // Continue with general N
 
-         INDGRS = 1
-         INDERR = 2*N + 1
-         INDGP = 3*N + 1
-         INDD = 4*N + 1
-         INDE2 = 5*N + 1
-         INDWRK = 6*N + 1
+         INDGRS = 1;
+         INDERR = 2*N + 1;
+         INDGP = 3*N + 1;
+         INDD = 4*N + 1;
+         INDE2 = 5*N + 1;
+         INDWRK = 6*N + 1;
 
-         IINSPL = 1
-         IINDBL = N + 1
-         IINDW = 2*N + 1
-         IINDWK = 3*N + 1
+         IINSPL = 1;
+         IINDBL = N + 1;
+         IINDW = 2*N + 1;
+         IINDWK = 3*N + 1;
 
          // Scale matrix to allowable range, if necessary.
          // The allowable range is related to the PIVMIN parameter; see the
@@ -256,22 +256,22 @@
          // up is heuristic; we expect users' matrices not to be close to the
          // RMAX threshold.
 
-         SCALE = ONE
-         TNRM = SLANST( 'M', N, D, E )
+         SCALE = ONE;
+         TNRM = SLANST( 'M', N, D, E );
          if ( TNRM > ZERO && TNRM < RMIN ) {
-            SCALE = RMIN / TNRM
+            SCALE = RMIN / TNRM;
          } else if ( TNRM > RMAX ) {
-            SCALE = RMAX / TNRM
+            SCALE = RMAX / TNRM;
          }
          if ( SCALE != ONE ) {
             sscal(N, SCALE, D, 1 );
             sscal(N-1, SCALE, E, 1 );
-            TNRM = TNRM*SCALE
+            TNRM = TNRM*SCALE;
             if ( VALEIG ) {
                // If eigenvalues in interval have to be found,
                // scale (WL, WU] accordingly
-               WL = WL*SCALE
-               WU = WU*SCALE
+               WL = WL*SCALE;
+               WU = WU*SCALE;
             }
          }
 
@@ -288,13 +288,13 @@
             slarrr(N, D, E, IINFO );
          } else {
             // The user does not care about relative accurately eigenvalues
-            IINFO = -1
+            IINFO = -1;
          }
          // Set the splitting criterion
          if (IINFO == 0) {
-            THRESH = EPS
+            THRESH = EPS;
          } else {
-            THRESH = -EPS
+            THRESH = -EPS;
             // relative accuracy is desired but T does not guarantee it
             TRYRAC = false;
          }
@@ -305,26 +305,26 @@
          }
          // Store the squares of the offdiagonal values of T
          for (J = 1; J <= N-1; J++) { // 5
-            WORK( INDE2+J-1 ) = E(J)**2
+            WORK( INDE2+J-1 ) = E(J)**2;
       } // 5
 
          // Set the tolerance parameters for bisection
          if ( !WANTZ ) {
             // SLARRE computes the eigenvalues to full precision.
-            RTOL1 = FOUR * EPS
-            RTOL2 = FOUR * EPS
+            RTOL1 = FOUR * EPS;
+            RTOL2 = FOUR * EPS;
          } else {
             // SLARRE computes the eigenvalues to less than full precision.
             // CLARRV will refine the eigenvalue approximations, and we only
             // need less accurate initial bisection in SLARRE.
             // Note: these settings do only affect the subset case and SLARRE
-            RTOL1 = MAX( SQRT(EPS)*5.0e-2, FOUR * EPS )
-            RTOL2 = MAX( SQRT(EPS)*5.0e-3, FOUR * EPS )
+            RTOL1 = MAX( SQRT(EPS)*5.0e-2, FOUR * EPS );
+            RTOL2 = MAX( SQRT(EPS)*5.0e-3, FOUR * EPS );
          }
          slarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO != 0 ) {
-            INFO = 10 + ABS( IINFO )
-            RETURN
+            INFO = 10 + ABS( IINFO );
+            RETURN;
          }
          // Note that if RANGE != 'V', SLARRE computes bounds on the desired
          // part of the spectrum. All desired eigenvalues are contained in
@@ -338,8 +338,8 @@
 
             clarrv(N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
             if ( IINFO != 0 ) {
-               INFO = 20 + ABS( IINFO )
-               RETURN
+               INFO = 20 + ABS( IINFO );
+               RETURN;
             }
          } else {
             // SLARRE computes eigenvalues of the (shifted) root representation
@@ -348,8 +348,8 @@
             // to apply the corresponding shifts from SLARRE to obtain the
             // eigenvalues of the original matrix.
             for (J = 1; J <= M; J++) { // 20
-               ITMP = IWORK( IINDBL+J-1 )
-               W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) )
+               ITMP = IWORK( IINDBL+J-1 );
+               W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) );
          } // 20
          }
 
@@ -357,32 +357,32 @@
          if ( TRYRAC ) {
             // Refine computed eigenvalues so that they are relatively accurate
             // with respect to the original matrix T.
-            IBEGIN = 1
-            WBEGIN = 1
+            IBEGIN = 1;
+            WBEGIN = 1;
             for (JBLK = 1; JBLK <= IWORK( IINDBL+M-1 ); JBLK++) { // 39
-               IEND = IWORK( IINSPL+JBLK-1 )
-               IN = IEND - IBEGIN + 1
-               WEND = WBEGIN - 1
+               IEND = IWORK( IINSPL+JBLK-1 );
+               IN = IEND - IBEGIN + 1;
+               WEND = WBEGIN - 1;
                // check if any eigenvalues have to be refined in this block
             } // 36
                if ( WEND < M ) {
                   if ( IWORK( IINDBL+WEND ) == JBLK ) {
-                     WEND = WEND + 1
-                     GO TO 36
+                     WEND = WEND + 1;
+                     GO TO 36;
                   }
                }
                if ( WEND < WBEGIN ) {
-                  IBEGIN = IEND + 1
-                  GO TO 39
+                  IBEGIN = IEND + 1;
+                  GO TO 39;
                }
 
-               OFFSET = IWORK(IINDW+WBEGIN-1)-1
-               IFIRST = IWORK(IINDW+WBEGIN-1)
-               ILAST = IWORK(IINDW+WEND-1)
-               RTOL2 = FOUR * EPS
+               OFFSET = IWORK(IINDW+WBEGIN-1)-1;
+               IFIRST = IWORK(IINDW+WBEGIN-1);
+               ILAST = IWORK(IINDW+WEND-1);
+               RTOL2 = FOUR * EPS;
                slarrj(IN, WORK(INDD+IBEGIN-1), WORK(INDE2+IBEGIN-1), IFIRST, ILAST, RTOL2, OFFSET, W(WBEGIN), WORK( INDERR+WBEGIN-1 ), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, TNRM, IINFO );
-               IBEGIN = IEND + 1
-               WBEGIN = WEND + 1
+               IBEGIN = IEND + 1;
+               WBEGIN = WEND + 1;
          } // 39
          }
 
@@ -400,30 +400,30 @@
          if ( !WANTZ ) {
             slasrt('I', M, W, IINFO );
             if ( IINFO != 0 ) {
-               INFO = 3
-               RETURN
+               INFO = 3;
+               RETURN;
             }
          } else {
             for (J = 1; J <= M - 1; J++) { // 60
-               I = 0
-               TMP = W( J )
+               I = 0;
+               TMP = W( J );
                for (JJ = J + 1; JJ <= M; JJ++) { // 50
                   if ( W( JJ ) < TMP ) {
-                     I = JJ
-                     TMP = W( JJ )
+                     I = JJ;
+                     TMP = W( JJ );
                   }
                } // 50
                if ( I != 0 ) {
-                  W( I ) = W( J )
-                  W( J ) = TMP
+                  W( I ) = W( J );
+                  W( J ) = TMP;
                   if ( WANTZ ) {
                      cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
-                     ITMP = ISUPPZ( 2*I-1 )
-                     ISUPPZ( 2*I-1 ) = ISUPPZ( 2*J-1 )
-                     ISUPPZ( 2*J-1 ) = ITMP
-                     ITMP = ISUPPZ( 2*I )
-                     ISUPPZ( 2*I ) = ISUPPZ( 2*J )
-                     ISUPPZ( 2*J ) = ITMP
+                     ITMP = ISUPPZ( 2*I-1 );
+                     ISUPPZ( 2*I-1 ) = ISUPPZ( 2*J-1 );
+                     ISUPPZ( 2*J-1 ) = ITMP;
+                     ITMP = ISUPPZ( 2*I );
+                     ISUPPZ( 2*I ) = ISUPPZ( 2*J );
+                     ISUPPZ( 2*J ) = ITMP;
                   }
                }
             } // 60
@@ -431,9 +431,9 @@
       }
 
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of CSTEMR
 

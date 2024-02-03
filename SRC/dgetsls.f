@@ -1,4 +1,4 @@
-      SUBROUTINE DGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE DGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,23 +39,23 @@
 
       // Test the input arguments.
 
-      INFO = 0
-      MAXMN = MAX( M, N )
-      TRAN  = LSAME( TRANS, 'T' )
+      INFO = 0;
+      MAXMN = MAX( M, N );
+      TRAN  = LSAME( TRANS, 'T' );
 
-      LQUERY = ( LWORK == -1 || LWORK == -2 )
+      LQUERY = ( LWORK == -1 || LWORK == -2 );
       if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, M, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
 
       if ( INFO == 0 ) {
@@ -63,114 +63,114 @@
       // Determine the optimum and minimum LWORK
 
        if ( MIN( M, N, NRHS ) == 0 ) {
-         WSIZEM = 1
-         WSIZEO = 1
+         WSIZEM = 1;
+         WSIZEO = 1;
        } else if ( M >= N ) {
          dgeqr(M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 );
-         TSZO = INT( TQ( 1 ) )
-         LWO  = INT( WORKQ( 1 ) )
+         TSZO = INT( TQ( 1 ) );
+         LWO  = INT( WORKQ( 1 ) );
          dgemqr('L', TRANS, M, NRHS, N, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 );
-         LWO  = MAX( LWO, INT( WORKQ( 1 ) ) )
+         LWO  = MAX( LWO, INT( WORKQ( 1 ) ) );
          dgeqr(M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 );
-         TSZM = INT( TQ( 1 ) )
-         LWM  = INT( WORKQ( 1 ) )
+         TSZM = INT( TQ( 1 ) );
+         LWM  = INT( WORKQ( 1 ) );
          dgemqr('L', TRANS, M, NRHS, N, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 );
-         LWM = MAX( LWM, INT( WORKQ( 1 ) ) )
-         WSIZEO = TSZO + LWO
-         WSIZEM = TSZM + LWM
+         LWM = MAX( LWM, INT( WORKQ( 1 ) ) );
+         WSIZEO = TSZO + LWO;
+         WSIZEM = TSZM + LWM;
        } else {
          dgelq(M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 );
-         TSZO = INT( TQ( 1 ) )
-         LWO  = INT( WORKQ( 1 ) )
+         TSZO = INT( TQ( 1 ) );
+         LWO  = INT( WORKQ( 1 ) );
          dgemlq('L', TRANS, N, NRHS, M, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 );
-         LWO  = MAX( LWO, INT( WORKQ( 1 ) ) )
+         LWO  = MAX( LWO, INT( WORKQ( 1 ) ) );
          dgelq(M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 );
-         TSZM = INT( TQ( 1 ) )
-         LWM  = INT( WORKQ( 1 ) )
+         TSZM = INT( TQ( 1 ) );
+         LWM  = INT( WORKQ( 1 ) );
          dgemlq('L', TRANS, N, NRHS, M, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 );
-         LWM  = MAX( LWM, INT( WORKQ( 1 ) ) )
-         WSIZEO = TSZO + LWO
-         WSIZEM = TSZM + LWM
+         LWM  = MAX( LWM, INT( WORKQ( 1 ) ) );
+         WSIZEO = TSZO + LWO;
+         WSIZEM = TSZM + LWM;
        }
 
        if ( ( LWORK < WSIZEM ) && ( !LQUERY ) ) {
-          INFO = -10
+          INFO = -10;
        }
 
-       WORK( 1 ) = DBLE( WSIZEO )
+       WORK( 1 ) = DBLE( WSIZEO );
 
       }
 
       if ( INFO != 0 ) {
         xerbla('DGETSLS', -INFO );
-        RETURN
+        RETURN;
       }
       if ( LQUERY ) {
         if (LWORK == -2) WORK( 1 ) = DBLE( WSIZEM );
-        RETURN
+        RETURN;
       }
       if ( LWORK < WSIZEO ) {
-        LW1 = TSZM
-        LW2 = LWM
+        LW1 = TSZM;
+        LW2 = LWM;
       } else {
-        LW1 = TSZO
-        LW2 = LWO
+        LW1 = TSZO;
+        LW2 = LWO;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
            dlaset('FULL', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-           RETURN
+           RETURN;
       }
 
       // Get machine parameters
 
-       SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
-       BIGNUM = ONE / SMLNUM
+       SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+       BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
-      IASCL = 0
+      ANRM = DLANGE( 'M', M, N, A, LDA, WORK );
+      IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1
+         IASCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2
+         IASCL = 2;
       } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          dlaset('F', MAXMN, NRHS, ZERO, ZERO, B, LDB );
-         GO TO 50
+         GO TO 50;
       }
 
-      BROW = M
+      BROW = M;
       if ( TRAN ) {
-        BROW = N
+        BROW = N;
       }
-      BNRM = DLANGE( 'M', BROW, NRHS, B, LDB, WORK )
-      IBSCL = 0
+      BNRM = DLANGE( 'M', BROW, NRHS, B, LDB, WORK );
+      IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 1
+         IBSCL = 1;
       } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 2
+         IBSCL = 2;
       }
 
       if ( M >= N ) {
@@ -190,9 +190,9 @@
 
           dtrtrs('U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO );
           if ( INFO > 0 ) {
-            RETURN
+            RETURN;
           }
-          SCLLEN = N
+          SCLLEN = N;
         } else {
 
             // Overdetermined system of equations A**T * X = B
@@ -202,14 +202,14 @@
             dtrtrs('U', 'T', 'N', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
             // B(N+1:M,1:NRHS) = ZERO
 
             for (J = 1; J <= NRHS; J++) { // 20
                for (I = N + 1; I <= M; I++) { // 10
-                  B( I, J ) = ZERO
+                  B( I, J ) = ZERO;
                } // 10
             } // 20
 
@@ -217,7 +217,7 @@
 
             dgemqr('L', 'N', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO );
 
-            SCLLEN = M
+            SCLLEN = M;
 
          }
 
@@ -238,14 +238,14 @@
             dtrtrs('L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
             // B(M+1:N,1:NRHS) = 0
 
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = M + 1; I <= N; I++) { // 30
-                  B( I, J ) = ZERO
+                  B( I, J ) = ZERO;
                } // 30
             } // 40
 
@@ -255,7 +255,7 @@
 
             // workspace at least NRHS, optimally NRHS*NB
 
-            SCLLEN = N
+            SCLLEN = N;
 
          } else {
 
@@ -272,10 +272,10 @@
             dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
-            SCLLEN = M
+            SCLLEN = M;
 
          }
 
@@ -295,8 +295,8 @@
       }
 
       } // 50
-      WORK( 1 ) = DBLE( TSZO + LWO )
-      RETURN
+      WORK( 1 ) = DBLE( TSZO + LWO );
+      RETURN;
 
       // End of DGETSLS
 

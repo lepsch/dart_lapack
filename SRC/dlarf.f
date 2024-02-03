@@ -1,4 +1,4 @@
-      SUBROUTINE DLARF( SIDE, M, N, V, INCV, TAU, C, LDC, WORK )
+      SUBROUTINE DLARF( SIDE, M, N, V, INCV, TAU, C, LDC, WORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -33,33 +33,33 @@
       // ..
       // .. Executable Statements ..
 
-      APPLYLEFT = LSAME( SIDE, 'L' )
-      LASTV = 0
-      LASTC = 0
+      APPLYLEFT = LSAME( SIDE, 'L' );
+      LASTV = 0;
+      LASTC = 0;
       if ( TAU != ZERO ) {
       // Set up variables for scanning V.  LASTV begins pointing to the end
       // of V.
          if ( APPLYLEFT ) {
-            LASTV = M
+            LASTV = M;
          } else {
-            LASTV = N
+            LASTV = N;
          }
          if ( INCV > 0 ) {
-            I = 1 + (LASTV-1) * INCV
+            I = 1 + (LASTV-1) * INCV;
          } else {
-            I = 1
+            I = 1;
          }
       // Look for the last non-zero row in V.
-         DO WHILE( LASTV > 0 && V( I ) == ZERO )
-            LASTV = LASTV - 1
-            I = I - INCV
+         DO WHILE( LASTV > 0 && V( I ) == ZERO );
+            LASTV = LASTV - 1;
+            I = I - INCV;
          }
          if ( APPLYLEFT ) {
       // Scan for the last non-zero column in C(1:lastv,:).
-            LASTC = ILADLC(LASTV, N, C, LDC)
+            LASTC = ILADLC(LASTV, N, C, LDC);
          } else {
       // Scan for the last non-zero row in C(:,1:lastv).
-            LASTC = ILADLR(M, LASTV, C, LDC)
+            LASTC = ILADLR(M, LASTV, C, LDC);
          }
       }
       // Note that lastc == 0 renders the BLAS operations null; no special
@@ -93,7 +93,7 @@
             dger(LASTC, LASTV, -TAU, WORK, 1, V, INCV, C, LDC );
          }
       }
-      RETURN
+      RETURN;
 
       // End of DLARF
 

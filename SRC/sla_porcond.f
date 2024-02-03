@@ -1,4 +1,4 @@
-      REAL FUNCTION SLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK )
+      REAL FUNCTION SLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                N, LDA, LDAF, INFO, CMODE;
-      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
+      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * );
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
@@ -17,7 +17,7 @@
 
       // .. Local Scalars ..
       int                KASE, I, J;
-      REAL               AINVNM, TMP
+      REAL               AINVNM, TMP;
       bool               UP;
       // ..
       // .. Array Arguments ..
@@ -35,20 +35,20 @@
       // ..
       // .. Executable Statements ..
 
-      SLA_PORCOND = 0.0
+      SLA_PORCOND = 0.0;
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       }
       if ( INFO != 0 ) {
          xerbla('SLA_PORCOND', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( N == 0 ) {
-         SLA_PORCOND = 1.0
-         RETURN
+         SLA_PORCOND = 1.0;
+         RETURN;
       }
       UP = false;
       IF ( LSAME( UPLO, 'U' ) ) UP = true;
@@ -58,65 +58,65 @@
 
       if ( UP ) {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0
+            TMP = 0.0;
             if ( CMODE == 1 ) {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( J, I ) * C( J ) )
+                  TMP = TMP + ABS( A( J, I ) * C( J ) );
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( I, J ) * C( J ) )
+                  TMP = TMP + ABS( A( I, J ) * C( J ) );
                }
             } else if ( CMODE == 0 ) {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( J, I ) )
+                  TMP = TMP + ABS( A( J, I ) );
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( I, J ) )
+                  TMP = TMP + ABS( A( I, J ) );
                }
             } else {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( J ,I ) / C( J ) )
+                  TMP = TMP + ABS( A( J ,I ) / C( J ) );
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( I, J ) / C( J ) )
+                  TMP = TMP + ABS( A( I, J ) / C( J ) );
                }
             }
-            WORK( 2*N+I ) = TMP
+            WORK( 2*N+I ) = TMP;
          }
       } else {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0
+            TMP = 0.0;
             if ( CMODE == 1 ) {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( I, J ) * C( J ) )
+                  TMP = TMP + ABS( A( I, J ) * C( J ) );
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( J, I ) * C( J ) )
+                  TMP = TMP + ABS( A( J, I ) * C( J ) );
                }
             } else if ( CMODE == 0 ) {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( I, J ) )
+                  TMP = TMP + ABS( A( I, J ) );
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( J, I ) )
+                  TMP = TMP + ABS( A( J, I ) );
                }
             } else {
                for (J = 1; J <= I; J++) {
-                  TMP = TMP + ABS( A( I, J ) / C( J ) )
+                  TMP = TMP + ABS( A( I, J ) / C( J ) );
                }
                for (J = I+1; J <= N; J++) {
-                  TMP = TMP + ABS( A( J, I ) / C( J ) )
+                  TMP = TMP + ABS( A( J, I ) / C( J ) );
                }
             }
-            WORK( 2*N+I ) = TMP
+            WORK( 2*N+I ) = TMP;
          }
       }
 
       // Estimate the norm of inv(op(A)).
 
-      AINVNM = 0.0
+      AINVNM = 0.0;
 
-      KASE = 0
+      KASE = 0;
       } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -125,7 +125,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * WORK( 2*N+I )
+               WORK( I ) = WORK( I ) * WORK( 2*N+I );
             }
 
             if (UP) {
@@ -138,11 +138,11 @@
 
             if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) / C( I )
+                  WORK( I ) = WORK( I ) / C( I );
                }
             } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) * C( I )
+                  WORK( I ) = WORK( I ) * C( I );
                }
             }
          } else {
@@ -151,11 +151,11 @@
 
             if ( CMODE == 1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) / C( I )
+                  WORK( I ) = WORK( I ) / C( I );
                }
             } else if ( CMODE == -1 ) {
                for (I = 1; I <= N; I++) {
-                  WORK( I ) = WORK( I ) * C( I )
+                  WORK( I ) = WORK( I ) * C( I );
                }
             }
 
@@ -168,17 +168,17 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * WORK( 2*N+I )
+               WORK( I ) = WORK( I ) * WORK( 2*N+I );
             }
          }
-         GO TO 10
+         GO TO 10;
       }
 
       // Compute the estimate of the reciprocal condition number.
 
       if (AINVNM != 0.0) SLA_PORCOND = ( 1.0 / AINVNM );
 
-      RETURN
+      RETURN;
 
       // End of SLA_PORCOND
 

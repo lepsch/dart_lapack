@@ -1,4 +1,4 @@
-      SUBROUTINE ZGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( 4 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * );
       // ..
 
 *  =====================================================================
@@ -17,9 +17,9 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         CROGUE
+      COMPLEX*16         CROGUE;
       const              CROGUE = ( -1.0e+10, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -38,16 +38,16 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = DLAMCH( 'Precision' )
-      UNFL = DLAMCH( 'Safe minimum' )
+      ULP = DLAMCH( 'Precision' );
+      UNFL = DLAMCH( 'Safe minimum' );
 
       // Copy the matrix A to the array AF.
 
       zlacpy('Full', N, M, A, LDA, AF, LDA );
       zlacpy('Full', N, P, B, LDB, BF, LDB );
 
-      ANORM = MAX( ZLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( ZLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      ANORM = MAX( ZLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( ZLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -90,11 +90,11 @@
 
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
-      RESID = ZLANGE( '1', N, M, R, LDA, RWORK )
+      RESID = ZLANGE( '1', N, M, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute T*Z - Q'*B
@@ -103,11 +103,11 @@
 
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
-      RESID = ZLANGE( '1', N, P, BWK, LDB, RWORK )
+      RESID = ZLANGE( '1', N, P, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
+         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP;
       } else {
-         RESULT( 2 ) = ZERO
+         RESULT( 2 ) = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -117,8 +117,8 @@
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      RESID = ZLANHE( '1', 'Upper', N, R, LDA, RWORK )
-      RESULT( 3 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP
+      RESID = ZLANHE( '1', 'Upper', N, R, LDA, RWORK );
+      RESULT( 3 ) = ( RESID / DBLE( MAX( 1, N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -127,10 +127,10 @@
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      RESID = ZLANHE( '1', 'Upper', P, T, LDB, RWORK )
-      RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP
+      RESID = ZLANHE( '1', 'Upper', P, T, LDB, RWORK );
+      RESULT( 4 ) = ( RESID / DBLE( MAX( 1, P ) ) ) / ULP;
 
-      RETURN
+      RETURN;
 
       // End of ZGQRTS
 

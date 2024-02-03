@@ -1,5 +1,5 @@
-      SUBROUTINE DGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, INFO )
-      implicit none
+      SUBROUTINE DGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, IWORK, INFO );
+      implicit none;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,27 +45,27 @@
 
       // Test the input arguments
 
-      INFO   = 0
-      MINMN  = MIN( M, N )
-      WNTQA  = LSAME( JOBZ, 'A' )
-      WNTQS  = LSAME( JOBZ, 'S' )
-      WNTQAS = WNTQA || WNTQS
-      WNTQO  = LSAME( JOBZ, 'O' )
-      WNTQN  = LSAME( JOBZ, 'N' )
-      LQUERY = ( LWORK == -1 )
+      INFO   = 0;
+      MINMN  = MIN( M, N );
+      WNTQA  = LSAME( JOBZ, 'A' );
+      WNTQS  = LSAME( JOBZ, 'S' );
+      WNTQAS = WNTQA || WNTQS;
+      WNTQO  = LSAME( JOBZ, 'O' );
+      WNTQN  = LSAME( JOBZ, 'N' );
+      LQUERY = ( LWORK == -1 );
 
       if ( !( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDU < 1 || ( WNTQAS && LDU < M ) || ( WNTQO && M < N && LDU < M ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M >= N && LDVT < N ) ) {
-         INFO = -10
+         INFO = -10;
       }
 
       // Compute workspace
@@ -76,10 +76,10 @@
         // following subroutine, as returned by ILAENV.
 
       if ( INFO == 0 ) {
-         MINWRK = 1
-         MAXWRK = 1
-         BDSPAC = 0
-         MNTHR  = INT( MINMN*11.0 / 6.0 )
+         MINWRK = 1;
+         MAXWRK = 1;
+         BDSPAC = 0;
+         MNTHR  = INT( MINMN*11.0 / 6.0 );
          if ( M >= N && MINMN > 0 ) {
 
             // Compute space needed for DBDSDC
@@ -87,116 +87,116 @@
             if ( WNTQN ) {
                // dbdsdc needs only 4*N (or 6*N for uplo=L for LAPACK <= 3.6)
                // keep 7*N for backwards compatibility.
-               BDSPAC = 7*N
+               BDSPAC = 7*N;
             } else {
-               BDSPAC = 3*N*N + 4*N
+               BDSPAC = 3*N*N + 4*N;
             }
 
             // Compute space preferred for each routine
             dgebrd(M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEBRD_MN = INT( DUM(1) )
+            LWORK_DGEBRD_MN = INT( DUM(1) );
 
             dgebrd(N, N, DUM(1), N, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEBRD_NN = INT( DUM(1) )
+            LWORK_DGEBRD_NN = INT( DUM(1) );
 
             dgeqrf(M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEQRF_MN = INT( DUM(1) )
+            LWORK_DGEQRF_MN = INT( DUM(1) );
 
             dorgbr('Q', N, N, N, DUM(1), N, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGBR_Q_NN = INT( DUM(1) )
+            LWORK_DORGBR_Q_NN = INT( DUM(1) );
 
             dorgqr(M, M, N, DUM(1), M, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGQR_MM = INT( DUM(1) )
+            LWORK_DORGQR_MM = INT( DUM(1) );
 
             dorgqr(M, N, N, DUM(1), M, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGQR_MN = INT( DUM(1) )
+            LWORK_DORGQR_MN = INT( DUM(1) );
 
             dormbr('P', 'R', 'T', N, N, N, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR );
-            LWORK_DORMBR_PRT_NN = INT( DUM(1) )
+            LWORK_DORMBR_PRT_NN = INT( DUM(1) );
 
             dormbr('Q', 'L', 'N', N, N, N, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR );
-            LWORK_DORMBR_QLN_NN = INT( DUM(1) )
+            LWORK_DORMBR_QLN_NN = INT( DUM(1) );
 
             dormbr('Q', 'L', 'N', M, N, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
-            LWORK_DORMBR_QLN_MN = INT( DUM(1) )
+            LWORK_DORMBR_QLN_MN = INT( DUM(1) );
 
             dormbr('Q', 'L', 'N', M, M, N, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
-            LWORK_DORMBR_QLN_MM = INT( DUM(1) )
+            LWORK_DORMBR_QLN_MM = INT( DUM(1) );
 
             if ( M >= MNTHR ) {
                if ( WNTQN ) {
 
                   // Path 1 (M >> N, JOBZ='N')
 
-                  WRKBL = N + LWORK_DGEQRF_MN
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN )
-                  MAXWRK = MAX( WRKBL, BDSPAC + N )
-                  MINWRK = BDSPAC + N
+                  WRKBL = N + LWORK_DGEQRF_MN;
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN );
+                  MAXWRK = MAX( WRKBL, BDSPAC + N );
+                  MINWRK = BDSPAC + N;
                } else if ( WNTQO ) {
 
                   // Path 2 (M >> N, JOBZ='O')
 
-                  WRKBL = N + LWORK_DGEQRF_MN
-                  WRKBL = MAX( WRKBL,   N + LWORK_DORGQR_MN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
-                  WRKBL = MAX( WRKBL, 3*N + BDSPAC )
-                  MAXWRK = WRKBL + 2*N*N
-                  MINWRK = BDSPAC + 2*N*N + 3*N
+                  WRKBL = N + LWORK_DGEQRF_MN;
+                  WRKBL = MAX( WRKBL,   N + LWORK_DORGQR_MN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN );
+                  WRKBL = MAX( WRKBL, 3*N + BDSPAC );
+                  MAXWRK = WRKBL + 2*N*N;
+                  MINWRK = BDSPAC + 2*N*N + 3*N;
                } else if ( WNTQS ) {
 
                   // Path 3 (M >> N, JOBZ='S')
 
-                  WRKBL = N + LWORK_DGEQRF_MN
-                  WRKBL = MAX( WRKBL,   N + LWORK_DORGQR_MN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
-                  WRKBL = MAX( WRKBL, 3*N + BDSPAC )
-                  MAXWRK = WRKBL + N*N
-                  MINWRK = BDSPAC + N*N + 3*N
+                  WRKBL = N + LWORK_DGEQRF_MN;
+                  WRKBL = MAX( WRKBL,   N + LWORK_DORGQR_MN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN );
+                  WRKBL = MAX( WRKBL, 3*N + BDSPAC );
+                  MAXWRK = WRKBL + N*N;
+                  MINWRK = BDSPAC + N*N + 3*N;
                } else if ( WNTQA ) {
 
                   // Path 4 (M >> N, JOBZ='A')
 
-                  WRKBL = N + LWORK_DGEQRF_MN
-                  WRKBL = MAX( WRKBL,   N + LWORK_DORGQR_MM )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
-                  WRKBL = MAX( WRKBL, 3*N + BDSPAC )
-                  MAXWRK = WRKBL + N*N
-                  MINWRK = N*N + MAX( 3*N + BDSPAC, N + M )
+                  WRKBL = N + LWORK_DGEQRF_MN;
+                  WRKBL = MAX( WRKBL,   N + LWORK_DORGQR_MM );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DGEBRD_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN );
+                  WRKBL = MAX( WRKBL, 3*N + BDSPAC );
+                  MAXWRK = WRKBL + N*N;
+                  MINWRK = N*N + MAX( 3*N + BDSPAC, N + M );
                }
             } else {
 
                // Path 5 (M >= N, but not much larger)
 
-               WRKBL = 3*N + LWORK_DGEBRD_MN
+               WRKBL = 3*N + LWORK_DGEBRD_MN;
                if ( WNTQN ) {
                   // Path 5n (M >= N, jobz='N')
-                  MAXWRK = MAX( WRKBL, 3*N + BDSPAC )
-                  MINWRK = 3*N + MAX( M, BDSPAC )
+                  MAXWRK = MAX( WRKBL, 3*N + BDSPAC );
+                  MINWRK = 3*N + MAX( M, BDSPAC );
                } else if ( WNTQO ) {
                   // Path 5o (M >= N, jobz='O')
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MN )
-                  WRKBL = MAX( WRKBL, 3*N + BDSPAC )
-                  MAXWRK = WRKBL + M*N
-                  MINWRK = 3*N + MAX( M, N*N + BDSPAC )
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MN );
+                  WRKBL = MAX( WRKBL, 3*N + BDSPAC );
+                  MAXWRK = WRKBL + M*N;
+                  MINWRK = 3*N + MAX( M, N*N + BDSPAC );
                } else if ( WNTQS ) {
                   // Path 5s (M >= N, jobz='S')
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MN )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
-                  MAXWRK = MAX( WRKBL, 3*N + BDSPAC )
-                  MINWRK = 3*N + MAX( M, BDSPAC )
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MN );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN );
+                  MAXWRK = MAX( WRKBL, 3*N + BDSPAC );
+                  MINWRK = 3*N + MAX( M, BDSPAC );
                } else if ( WNTQA ) {
                   // Path 5a (M >= N, jobz='A')
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN )
-                  MAXWRK = MAX( WRKBL, 3*N + BDSPAC )
-                  MINWRK = 3*N + MAX( M, BDSPAC )
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*N + LWORK_DORMBR_PRT_NN );
+                  MAXWRK = MAX( WRKBL, 3*N + BDSPAC );
+                  MINWRK = 3*N + MAX( M, BDSPAC );
                }
             }
          } else if ( MINMN > 0 ) {
@@ -206,160 +206,160 @@
             if ( WNTQN ) {
                // dbdsdc needs only 4*N (or 6*N for uplo=L for LAPACK <= 3.6)
                // keep 7*N for backwards compatibility.
-               BDSPAC = 7*M
+               BDSPAC = 7*M;
             } else {
-               BDSPAC = 3*M*M + 4*M
+               BDSPAC = 3*M*M + 4*M;
             }
 
             // Compute space preferred for each routine
             dgebrd(M, N, DUM(1), M, DUM(1), DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEBRD_MN = INT( DUM(1) )
+            LWORK_DGEBRD_MN = INT( DUM(1) );
 
             dgebrd(M, M, A, M, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_DGEBRD_MM = INT( DUM(1) )
+            LWORK_DGEBRD_MM = INT( DUM(1) );
 
             dgelqf(M, N, A, M, DUM(1), DUM(1), -1, IERR );
-            LWORK_DGELQF_MN = INT( DUM(1) )
+            LWORK_DGELQF_MN = INT( DUM(1) );
 
             dorglq(N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGLQ_NN = INT( DUM(1) )
+            LWORK_DORGLQ_NN = INT( DUM(1) );
 
             dorglq(M, N, M, A, M, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGLQ_MN = INT( DUM(1) )
+            LWORK_DORGLQ_MN = INT( DUM(1) );
 
             dorgbr('P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
-            LWORK_DORGBR_P_MM = INT( DUM(1) )
+            LWORK_DORGBR_P_MM = INT( DUM(1) );
 
             dormbr('P', 'R', 'T', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
-            LWORK_DORMBR_PRT_MM = INT( DUM(1) )
+            LWORK_DORMBR_PRT_MM = INT( DUM(1) );
 
             dormbr('P', 'R', 'T', M, N, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
-            LWORK_DORMBR_PRT_MN = INT( DUM(1) )
+            LWORK_DORMBR_PRT_MN = INT( DUM(1) );
 
             dormbr('P', 'R', 'T', N, N, M, DUM(1), N, DUM(1), DUM(1), N, DUM(1), -1, IERR );
-            LWORK_DORMBR_PRT_NN = INT( DUM(1) )
+            LWORK_DORMBR_PRT_NN = INT( DUM(1) );
 
             dormbr('Q', 'L', 'N', M, M, M, DUM(1), M, DUM(1), DUM(1), M, DUM(1), -1, IERR );
-            LWORK_DORMBR_QLN_MM = INT( DUM(1) )
+            LWORK_DORMBR_QLN_MM = INT( DUM(1) );
 
             if ( N >= MNTHR ) {
                if ( WNTQN ) {
 
                   // Path 1t (N >> M, JOBZ='N')
 
-                  WRKBL = M + LWORK_DGELQF_MN
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM )
-                  MAXWRK = MAX( WRKBL, BDSPAC + M )
-                  MINWRK = BDSPAC + M
+                  WRKBL = M + LWORK_DGELQF_MN;
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM );
+                  MAXWRK = MAX( WRKBL, BDSPAC + M );
+                  MINWRK = BDSPAC + M;
                } else if ( WNTQO ) {
 
                   // Path 2t (N >> M, JOBZ='O')
 
-                  WRKBL = M + LWORK_DGELQF_MN
-                  WRKBL = MAX( WRKBL,   M + LWORK_DORGLQ_MN )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MM )
-                  WRKBL = MAX( WRKBL, 3*M + BDSPAC )
-                  MAXWRK = WRKBL + 2*M*M
-                  MINWRK = BDSPAC + 2*M*M + 3*M
+                  WRKBL = M + LWORK_DGELQF_MN;
+                  WRKBL = MAX( WRKBL,   M + LWORK_DORGLQ_MN );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MM );
+                  WRKBL = MAX( WRKBL, 3*M + BDSPAC );
+                  MAXWRK = WRKBL + 2*M*M;
+                  MINWRK = BDSPAC + 2*M*M + 3*M;
                } else if ( WNTQS ) {
 
                   // Path 3t (N >> M, JOBZ='S')
 
-                  WRKBL = M + LWORK_DGELQF_MN
-                  WRKBL = MAX( WRKBL,   M + LWORK_DORGLQ_MN )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MM )
-                  WRKBL = MAX( WRKBL, 3*M + BDSPAC )
-                  MAXWRK = WRKBL + M*M
-                  MINWRK = BDSPAC + M*M + 3*M
+                  WRKBL = M + LWORK_DGELQF_MN;
+                  WRKBL = MAX( WRKBL,   M + LWORK_DORGLQ_MN );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MM );
+                  WRKBL = MAX( WRKBL, 3*M + BDSPAC );
+                  MAXWRK = WRKBL + M*M;
+                  MINWRK = BDSPAC + M*M + 3*M;
                } else if ( WNTQA ) {
 
                   // Path 4t (N >> M, JOBZ='A')
 
-                  WRKBL = M + LWORK_DGELQF_MN
-                  WRKBL = MAX( WRKBL,   M + LWORK_DORGLQ_NN )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MM )
-                  WRKBL = MAX( WRKBL, 3*M + BDSPAC )
-                  MAXWRK = WRKBL + M*M
-                  MINWRK = M*M + MAX( 3*M + BDSPAC, M + N )
+                  WRKBL = M + LWORK_DGELQF_MN;
+                  WRKBL = MAX( WRKBL,   M + LWORK_DORGLQ_NN );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DGEBRD_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MM );
+                  WRKBL = MAX( WRKBL, 3*M + BDSPAC );
+                  MAXWRK = WRKBL + M*M;
+                  MINWRK = M*M + MAX( 3*M + BDSPAC, M + N );
                }
             } else {
 
                // Path 5t (N > M, but not much larger)
 
-               WRKBL = 3*M + LWORK_DGEBRD_MN
+               WRKBL = 3*M + LWORK_DGEBRD_MN;
                if ( WNTQN ) {
                   // Path 5tn (N > M, jobz='N')
-                  MAXWRK = MAX( WRKBL, 3*M + BDSPAC )
-                  MINWRK = 3*M + MAX( N, BDSPAC )
+                  MAXWRK = MAX( WRKBL, 3*M + BDSPAC );
+                  MINWRK = 3*M + MAX( N, BDSPAC );
                } else if ( WNTQO ) {
                   // Path 5to (N > M, jobz='O')
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MN )
-                  WRKBL = MAX( WRKBL, 3*M + BDSPAC )
-                  MAXWRK = WRKBL + M*N
-                  MINWRK = 3*M + MAX( N, M*M + BDSPAC )
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MN );
+                  WRKBL = MAX( WRKBL, 3*M + BDSPAC );
+                  MAXWRK = WRKBL + M*N;
+                  MINWRK = 3*M + MAX( N, M*M + BDSPAC );
                } else if ( WNTQS ) {
                   // Path 5ts (N > M, jobz='S')
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MN )
-                  MAXWRK = MAX( WRKBL, 3*M + BDSPAC )
-                  MINWRK = 3*M + MAX( N, BDSPAC )
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_MN );
+                  MAXWRK = MAX( WRKBL, 3*M + BDSPAC );
+                  MINWRK = 3*M + MAX( N, BDSPAC );
                } else if ( WNTQA ) {
                   // Path 5ta (N > M, jobz='A')
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_NN )
-                  MAXWRK = MAX( WRKBL, 3*M + BDSPAC )
-                  MINWRK = 3*M + MAX( N, BDSPAC )
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 3*M + LWORK_DORMBR_PRT_NN );
+                  MAXWRK = MAX( WRKBL, 3*M + BDSPAC );
+                  MINWRK = 3*M + MAX( N, BDSPAC );
                }
             }
          }
 
-         MAXWRK = MAX( MAXWRK, MINWRK )
-         WORK( 1 ) = DROUNDUP_LWORK( MAXWRK )
+         MAXWRK = MAX( MAXWRK, MINWRK );
+         WORK( 1 ) = DROUNDUP_LWORK( MAXWRK );
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -12
+            INFO = -12;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DGESDD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = SQRT( DLAMCH( 'S' ) ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = SQRT( DLAMCH( 'S' ) ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, DUM )
+      ANRM = DLANGE( 'M', M, N, A, LDA, DUM );
       if ( DISNAN( ANRM ) ) {
-          INFO = -4
-          RETURN
+          INFO = -4;
+          RETURN;
       }
-      ISCL = 0
+      ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ISCL = 1
+         ISCL = 1;
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM > BIGNUM ) {
-         ISCL = 1
+         ISCL = 1;
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
@@ -376,8 +376,8 @@
                // Path 1 (M >> N, JOBZ='N')
                // No singular vectors to be computed
 
-               ITAU = 1
-               NWORK = ITAU + N
+               ITAU = 1;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R
                // Workspace: need   N [tau] + N    [work]
@@ -388,17 +388,17 @@
                // Zero out below R
 
                dlaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
-               IE = 1
-               ITAUQ = IE + N
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = 1;
+               ITAUQ = IE + N;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in A
                // Workspace: need   3*N [e, tauq, taup] + N      [work]
                // Workspace: prefer 3*N [e, tauq, taup] + 2*N*NB [work]
 
                dgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               NWORK = IE + N
+               NWORK = IE + N;
 
                // Perform bidiagonal SVD, computing singular values only
                // Workspace: need   N [e] + BDSPAC
@@ -411,17 +411,17 @@
                // N left singular vectors to be overwritten on A and
                // N right singular vectors to be computed in VT
 
-               IR = 1
+               IR = 1;
 
                // WORK(IR) is LDWRKR by N
 
                if ( LWORK >= LDA*N + N*N + 3*N + BDSPAC ) {
-                  LDWRKR = LDA
+                  LDWRKR = LDA;
                } else {
-                  LDWRKR = ( LWORK - N*N - 3*N - BDSPAC ) / N
+                  LDWRKR = ( LWORK - N*N - 3*N - BDSPAC ) / N;
                }
-               ITAU = IR + LDWRKR*N
-               NWORK = ITAU + N
+               ITAU = IR + LDWRKR*N;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R
                // Workspace: need   N*N [R] + N [tau] + N    [work]
@@ -439,10 +439,10 @@
                // Workspace: prefer N*N [R] + N [tau] + N*NB [work]
 
                dorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
-               IE = ITAU
-               ITAUQ = IE + N
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = ITAU;
+               ITAUQ = IE + N;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in WORK(IR)
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N      [work]
@@ -452,8 +452,8 @@
 
                // WORK(IU) is N by N
 
-               IU = NWORK
-               NWORK = IU + N*N
+               IU = NWORK;
+               NWORK = IU + N*N;
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in WORK(IU) and computing right
@@ -475,8 +475,8 @@
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U]
                // Workspace: prefer M*N [R] + 3*N [e, tauq, taup] + N*N [U]
 
-               DO 10 I = 1, M, LDWRKR
-                  CHUNK = MIN( M - I + 1, LDWRKR )
+               DO 10 I = 1, M, LDWRKR;
+                  CHUNK = MIN( M - I + 1, LDWRKR );
                   dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), N, ZERO, WORK( IR ), LDWRKR );
                   dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
                } // 10
@@ -487,13 +487,13 @@
                // N left singular vectors to be computed in U and
                // N right singular vectors to be computed in VT
 
-               IR = 1
+               IR = 1;
 
                // WORK(IR) is N by N
 
-               LDWRKR = N
-               ITAU = IR + LDWRKR*N
-               NWORK = ITAU + N
+               LDWRKR = N;
+               ITAU = IR + LDWRKR*N;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R
                // Workspace: need   N*N [R] + N [tau] + N    [work]
@@ -511,10 +511,10 @@
                // Workspace: prefer N*N [R] + N [tau] + N*NB [work]
 
                dorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
-               IE = ITAU
-               ITAUQ = IE + N
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = ITAU;
+               ITAUQ = IE + N;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in WORK(IR)
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N      [work]
@@ -551,13 +551,13 @@
                // M left singular vectors to be computed in U and
                // N right singular vectors to be computed in VT
 
-               IU = 1
+               IU = 1;
 
                // WORK(IU) is N by N
 
-               LDWRKU = N
-               ITAU = IU + LDWRKU*N
-               NWORK = ITAU + N
+               LDWRKU = N;
+               ITAU = IU + LDWRKU*N;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R, copying result to U
                // Workspace: need   N*N [U] + N [tau] + N    [work]
@@ -574,10 +574,10 @@
                // Produce R in A, zeroing out other entries
 
                dlaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
-               IE = ITAU
-               ITAUQ = IE + N
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = ITAU;
+               ITAUQ = IE + N;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in A
                // Workspace: need   N*N [U] + 3*N [e, tauq, taup] + N      [work]
@@ -619,10 +619,10 @@
             // Path 5 (M >= N, but not much larger)
             // Reduce to bidiagonal form without QR decomposition
 
-            IE = 1
-            ITAUQ = IE + N
-            ITAUP = ITAUQ + N
-            NWORK = ITAUP + N
+            IE = 1;
+            ITAUQ = IE + N;
+            ITAUP = ITAUQ + N;
+            NWORK = ITAUP + N;
 
             // Bidiagonalize A
             // Workspace: need   3*N [e, tauq, taup] + M        [work]
@@ -638,29 +638,29 @@
                dbdsdc('U', 'N', N, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                // Path 5o (M >= N, JOBZ='O')
-               IU = NWORK
+               IU = NWORK;
                if ( LWORK >= M*N + 3*N + BDSPAC ) {
 
                   // WORK( IU ) is M by N
 
-                  LDWRKU = M
-                  NWORK = IU + LDWRKU*N
+                  LDWRKU = M;
+                  NWORK = IU + LDWRKU*N;
                   dlaset('F', M, N, ZERO, ZERO, WORK( IU ), LDWRKU );
                   // IR is unused; silence compile warnings
-                  IR = -1
+                  IR = -1;
                } else {
 
                   // WORK( IU ) is N by N
 
-                  LDWRKU = N
-                  NWORK = IU + LDWRKU*N
+                  LDWRKU = N;
+                  NWORK = IU + LDWRKU*N;
 
                   // WORK(IR) is LDWRKR by N
 
-                  IR = NWORK
-                  LDWRKR = ( LWORK - N*N - 3*N ) / N
+                  IR = NWORK;
+                  LDWRKR = ( LWORK - N*N - 3*N ) / N;
                }
-               NWORK = IU + LDWRKU*N
+               NWORK = IU + LDWRKU*N;
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in WORK(IU) and computing right
@@ -702,8 +702,8 @@
                   // Workspace: need   3*N [e, tauq, taup] + N*N [U] + NB*N [R]
                   // Workspace: prefer 3*N [e, tauq, taup] + N*N [U] + M*N  [R]
 
-                  DO 20 I = 1, M, LDWRKR
-                     CHUNK = MIN( M - I + 1, LDWRKR )
+                  DO 20 I = 1, M, LDWRKR;
+                     CHUNK = MIN( M - I + 1, LDWRKR );
                      dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, ZERO, WORK( IR ), LDWRKR );
                      dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
                   } // 20
@@ -768,8 +768,8 @@
                // Path 1t (N >> M, JOBZ='N')
                // No singular vectors to be computed
 
-               ITAU = 1
-               NWORK = ITAU + M
+               ITAU = 1;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q
                // Workspace: need   M [tau] + M [work]
@@ -780,17 +780,17 @@
                // Zero out above L
 
                dlaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
-               IE = 1
-               ITAUQ = IE + M
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = 1;
+               ITAUQ = IE + M;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in A
                // Workspace: need   3*M [e, tauq, taup] + M      [work]
                // Workspace: prefer 3*M [e, tauq, taup] + 2*M*NB [work]
 
                dgebrd(M, M, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               NWORK = IE + M
+               NWORK = IE + M;
 
                // Perform bidiagonal SVD, computing singular values only
                // Workspace: need   M [e] + BDSPAC
@@ -803,21 +803,21 @@
                // M right singular vectors to be overwritten on A and
                // M left singular vectors to be computed in U
 
-               IVT = 1
+               IVT = 1;
 
                // WORK(IVT) is M by M
                // WORK(IL)  is M by M; it is later resized to M by chunk for gemm
 
-               IL = IVT + M*M
+               IL = IVT + M*M;
                if ( LWORK >= M*N + M*M + 3*M + BDSPAC ) {
-                  LDWRKL = M
-                  CHUNK = N
+                  LDWRKL = M;
+                  CHUNK = N;
                } else {
-                  LDWRKL = M
-                  CHUNK = ( LWORK - M*M ) / M
+                  LDWRKL = M;
+                  CHUNK = ( LWORK - M*M ) / M;
                }
-               ITAU = IL + LDWRKL*M
-               NWORK = ITAU + M
+               ITAU = IL + LDWRKL*M;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q
                // Workspace: need   M*M [VT] + M*M [L] + M [tau] + M    [work]
@@ -835,10 +835,10 @@
                // Workspace: prefer M*M [VT] + M*M [L] + M [tau] + M*NB [work]
 
                dorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
-               IE = ITAU
-               ITAUQ = IE + M
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = ITAU;
+               ITAUQ = IE + M;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in WORK(IL)
                // Workspace: need   M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + M      [work]
@@ -867,8 +867,8 @@
                // Workspace: prefer M*M [VT] + M*N [L]
                // At this point, L is resized as M by chunk.
 
-               DO 30 I = 1, N, CHUNK
-                  BLK = MIN( N - I + 1, CHUNK )
+               DO 30 I = 1, N, CHUNK;
+                  BLK = MIN( N - I + 1, CHUNK );
                   dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL );
                   dlacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
                } // 30
@@ -879,13 +879,13 @@
                // M right singular vectors to be computed in VT and
                // M left singular vectors to be computed in U
 
-               IL = 1
+               IL = 1;
 
                // WORK(IL) is M by M
 
-               LDWRKL = M
-               ITAU = IL + LDWRKL*M
-               NWORK = ITAU + M
+               LDWRKL = M;
+               ITAU = IL + LDWRKL*M;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q
                // Workspace: need   M*M [L] + M [tau] + M    [work]
@@ -903,10 +903,10 @@
                // Workspace: prefer M*M [L] + M [tau] + M*NB [work]
 
                dorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK - NWORK + 1, IERR );
-               IE = ITAU
-               ITAUQ = IE + M
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = ITAU;
+               ITAUQ = IE + M;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in WORK(IU).
                // Workspace: need   M*M [L] + 3*M [e, tauq, taup] + M      [work]
@@ -942,13 +942,13 @@
                // N right singular vectors to be computed in VT and
                // M left singular vectors to be computed in U
 
-               IVT = 1
+               IVT = 1;
 
                // WORK(IVT) is M by M
 
-               LDWKVT = M
-               ITAU = IVT + LDWKVT*M
-               NWORK = ITAU + M
+               LDWKVT = M;
+               ITAU = IVT + LDWKVT*M;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q, copying result to VT
                // Workspace: need   M*M [VT] + M [tau] + M    [work]
@@ -966,10 +966,10 @@
                // Produce L in A, zeroing out other entries
 
                dlaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
-               IE = ITAU
-               ITAUQ = IE + M
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = ITAU;
+               ITAUQ = IE + M;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in A
                // Workspace: need   M*M [VT] + 3*M [e, tauq, taup] + M      [work]
@@ -1011,10 +1011,10 @@
             // Path 5t (N > M, but not much larger)
             // Reduce to bidiagonal form without LQ decomposition
 
-            IE = 1
-            ITAUQ = IE + M
-            ITAUP = ITAUQ + M
-            NWORK = ITAUP + M
+            IE = 1;
+            ITAUQ = IE + M;
+            ITAUP = ITAUQ + M;
+            NWORK = ITAUP + M;
 
             // Bidiagonalize A
             // Workspace: need   3*M [e, tauq, taup] + N        [work]
@@ -1030,26 +1030,26 @@
                dbdsdc('L', 'N', M, S, WORK( IE ), DUM, 1, DUM, 1, DUM, IDUM, WORK( NWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                // Path 5to (N > M, JOBZ='O')
-               LDWKVT = M
-               IVT = NWORK
+               LDWKVT = M;
+               IVT = NWORK;
                if ( LWORK >= M*N + 3*M + BDSPAC ) {
 
                   // WORK( IVT ) is M by N
 
                   dlaset('F', M, N, ZERO, ZERO, WORK( IVT ), LDWKVT );
-                  NWORK = IVT + LDWKVT*N
+                  NWORK = IVT + LDWKVT*N;
                   // IL is unused; silence compile warnings
-                  IL = -1
+                  IL = -1;
                } else {
 
                   // WORK( IVT ) is M by M
 
-                  NWORK = IVT + LDWKVT*M
-                  IL = NWORK
+                  NWORK = IVT + LDWKVT*M;
+                  IL = NWORK;
 
                   // WORK(IL) is M by CHUNK
 
-                  CHUNK = ( LWORK - M*M - 3*M ) / M
+                  CHUNK = ( LWORK - M*M - 3*M ) / M;
                }
 
                // Perform bidiagonal SVD, computing left singular vectors
@@ -1092,8 +1092,8 @@
                   // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + M*NB [L]
                   // Workspace: prefer 3*M [e, tauq, taup] + M*M [VT] + M*N  [L]
 
-                  DO 40 I = 1, N, CHUNK
-                     BLK = MIN( N - I + 1, CHUNK )
+                  DO 40 I = 1, N, CHUNK;
+                     BLK = MIN( N - I + 1, CHUNK );
                      dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), LDWKVT, A( 1, I ), LDA, ZERO, WORK( IL ), M );
                      dlacpy('F', M, BLK, WORK( IL ), M, A( 1, I ), LDA );
                   } // 40
@@ -1154,9 +1154,9 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = DROUNDUP_LWORK( MAXWRK )
+      WORK( 1 ) = DROUNDUP_LWORK( MAXWRK );
 
-      RETURN
+      RETURN;
 
       // End of DGESDD
 

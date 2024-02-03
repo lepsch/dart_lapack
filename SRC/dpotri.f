@@ -1,4 +1,4 @@
-      SUBROUTINE DPOTRI( UPLO, N, A, LDA, INFO )
+      SUBROUTINE DPOTRI( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,17 +28,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DPOTRI', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -54,7 +54,7 @@
 
       dlauum(UPLO, N, A, LDA, INFO );
 
-      RETURN
+      RETURN;
 
       // End of DPOTRI
 

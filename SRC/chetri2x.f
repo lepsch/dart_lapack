@@ -1,4 +1,4 @@
-      SUBROUTINE CHETRI2X( UPLO, N, A, LDA, IPIV, WORK, NB, INFO )
+      SUBROUTINE CHETRI2X( UPLO, N, A, LDA, IPIV, WORK, NB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), WORK( N+NB+1,* )
+      COMPLEX            A( LDA, * ), WORK( N+NB+1,* );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
-      COMPLEX            CONE, ZERO
+      REAL               ONE;
+      COMPLEX            CONE, ZERO;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,9 +26,9 @@
       int                COUNT;
       int                J, U11, INVD;
 
-      COMPLEX   AK, AKKP1, AKP1, D, T
-      COMPLEX   U01_I_J, U01_IP1_J
-      COMPLEX   U11_I_J, U11_IP1_J
+      COMPLEX   AK, AKKP1, AKP1, D, T;
+      COMPLEX   U01_I_J, U01_IP1_J;
+      COMPLEX   U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -45,14 +45,14 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
 
       // Quick return if possible
@@ -60,7 +60,7 @@
 
       if ( INFO != 0 ) {
          xerbla('CHETRI2X', -INFO );
-         RETURN
+         RETURN;
       }
       if (N == 0) RETURN;
 
@@ -75,28 +75,28 @@
 
          // Upper triangular storage: examine D from bottom to top
 
-         DO INFO = N, 1, -1
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
+         DO INFO = N, 1, -1;
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN
+            IF( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) RETURN;
          }
       }
-      INFO = 0
+      INFO = 0;
 
 *  Splitting Workspace
       // U01 is a block (N,NB+1)
       // The first element of U01 is in WORK(1,1)
       // U11 is a block (NB+1,NB+1)
       // The first element of U11 is in WORK(N+1,1)
-      U11 = N
+      U11 = N;
       // INVD is a block (N,2)
       // The first element of INVD is in WORK(1,INVD)
-      INVD = NB+2
+      INVD = NB+2;
 
       if ( UPPER ) {
 
@@ -106,25 +106,25 @@
 
         // inv(D) and inv(D)*inv(U)
 
-        K=1
-        DO WHILE ( K <= N )
+        K=1;
+        DO WHILE ( K <= N );
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
-             WORK(K,INVD) = ONE / REAL ( A( K, K ) )
-             WORK(K,INVD+1) = 0
-            K=K+1
+             WORK(K,INVD) = ONE / REAL ( A( K, K ) );
+             WORK(K,INVD+1) = 0;
+            K=K+1;
          } else {
             // 2 x 2 diagonal NNB
-             T = ABS ( WORK(K+1,1) )
-             AK = REAL ( A( K, K ) ) / T
-             AKP1 = REAL ( A( K+1, K+1 ) ) / T
-             AKKP1 = WORK(K+1,1)  / T
-             D = T*( AK*AKP1-ONE )
-             WORK(K,INVD) = AKP1 / D
-             WORK(K+1,INVD+1) = AK / D
-             WORK(K,INVD+1) = -AKKP1 / D
-             WORK(K+1,INVD) = CONJG (WORK(K,INVD+1) )
-            K=K+2
+             T = ABS ( WORK(K+1,1) );
+             AK = REAL ( A( K, K ) ) / T;
+             AKP1 = REAL ( A( K+1, K+1 ) ) / T;
+             AKKP1 = WORK(K+1,1)  / T;
+             D = T*( AK*AKP1-ONE );
+             WORK(K,INVD) = AKP1 / D;
+             WORK(K+1,INVD+1) = AK / D;
+             WORK(K,INVD+1) = -AKKP1 / D;
+             WORK(K+1,INVD) = CONJG (WORK(K,INVD+1) );
+            K=K+2;
          }
         }
 
@@ -132,78 +132,78 @@
 
         // inv(U**H)*inv(D)*inv(U)
 
-        CUT=N
-        DO WHILE (CUT > 0)
-           NNB=NB
+        CUT=N;
+        DO WHILE (CUT > 0);
+           NNB=NB;
            if (CUT <= NNB) {
-              NNB=CUT
+              NNB=CUT;
            } else {
-              COUNT = 0
+              COUNT = 0;
               // count negative elements,
               for (I = CUT+1-NNB; I <= CUT; I++) {
-                  IF (IPIV(I) < 0) COUNT=COUNT+1
+                  IF (IPIV(I) < 0) COUNT=COUNT+1;
               }
               // need a even number for a clear cut
-              IF (MOD(COUNT,2) == 1) NNB=NNB+1
+              IF (MOD(COUNT,2) == 1) NNB=NNB+1;
            }
 
-           CUT=CUT-NNB
+           CUT=CUT-NNB;
 
            // U01 Block
 
            for (I = 1; I <= CUT; I++) {
              for (J = 1; J <= NNB; J++) {
-              WORK(I,J)=A(I,CUT+J)
+              WORK(I,J)=A(I,CUT+J);
              }
            }
 
            // U11 Block
 
            for (I = 1; I <= NNB; I++) {
-             WORK(U11+I,I)=CONE
+             WORK(U11+I,I)=CONE;
              for (J = 1; J <= I-1; J++) {
-                WORK(U11+I,J)=ZERO
+                WORK(U11+I,J)=ZERO;
              }
              for (J = I+1; J <= NNB; J++) {
-                WORK(U11+I,J)=A(CUT+I,CUT+J)
+                WORK(U11+I,J)=A(CUT+I,CUT+J);
              }
            }
 
            // invD*U01
 
-           I=1
-           DO WHILE (I <= CUT)
+           I=1;
+           DO WHILE (I <= CUT);
              if (IPIV(I) > 0) {
                 for (J = 1; J <= NNB; J++) {
-                    WORK(I,J)=WORK(I,INVD)*WORK(I,J)
+                    WORK(I,J)=WORK(I,INVD)*WORK(I,J);
                 }
-                I=I+1
+                I=I+1;
              } else {
                 for (J = 1; J <= NNB; J++) {
-                   U01_I_J = WORK(I,J)
-                   U01_IP1_J = WORK(I+1,J)
-                   WORK(I,J)=WORK(I,INVD)*U01_I_J+ WORK(I,INVD+1)*U01_IP1_J                    WORK(I+1,J)=WORK(I+1,INVD)*U01_I_J+ WORK(I+1,INVD+1)*U01_IP1_J
+                   U01_I_J = WORK(I,J);
+                   U01_IP1_J = WORK(I+1,J);
+                   WORK(I,J)=WORK(I,INVD)*U01_I_J+ WORK(I,INVD+1)*U01_IP1_J                    WORK(I+1,J)=WORK(I+1,INVD)*U01_I_J+ WORK(I+1,INVD+1)*U01_IP1_J;
                 }
-                I=I+2
+                I=I+2;
              }
            }
 
          // invD1*U11
 
-           I=1
-           DO WHILE (I <= NNB)
+           I=1;
+           DO WHILE (I <= NNB);
              if (IPIV(CUT+I) > 0) {
                 for (J = I; J <= NNB; J++) {
-                    WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
+                    WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J);
                 }
-                I=I+1
+                I=I+1;
              } else {
                 for (J = I; J <= NNB; J++) {
-                   U11_I_J = WORK(U11+I,J)
-                   U11_IP1_J = WORK(U11+I+1,J)
-                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*WORK(U11+I+1,J)                 WORK(U11+I+1,J)=WORK(CUT+I+1,INVD)*U11_I_J+ WORK(CUT+I+1,INVD+1)*U11_IP1_J
+                   U11_I_J = WORK(U11+I,J);
+                   U11_IP1_J = WORK(U11+I+1,J);
+                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*WORK(U11+I+1,J)                 WORK(U11+I+1,J)=WORK(CUT+I+1,INVD)*U11_I_J+ WORK(CUT+I+1,INVD+1)*U11_IP1_J;
                 }
-                I=I+2
+                I=I+2;
              }
            }
 
@@ -213,7 +213,7 @@
 
          for (I = 1; I <= NNB; I++) {
             for (J = I; J <= NNB; J++) {
-              A(CUT+I,CUT+J)=WORK(U11+I,J)
+              A(CUT+I,CUT+J)=WORK(U11+I,J);
             }
          }
 
@@ -225,7 +225,7 @@
 
          for (I = 1; I <= NNB; I++) {
             for (J = I; J <= NNB; J++) {
-              A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J)
+              A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J);
             }
          }
 
@@ -238,7 +238,7 @@
 
          for (I = 1; I <= CUT; I++) {
            for (J = 1; J <= NNB; J++) {
-            A(I,CUT+J)=WORK(I,J)
+            A(I,CUT+J)=WORK(I,J);
            }
          }
 
@@ -248,18 +248,18 @@
 
          // Apply PERMUTATIONS P and P**H: P * inv(U**H)*inv(D)*inv(U) *P**H
 
-            I=1
-            DO WHILE ( I <= N )
+            I=1;
+            DO WHILE ( I <= N );
                if ( IPIV(I) > 0 ) {
-                  IP=IPIV(I)
+                  IP=IPIV(I);
                  if (I < IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
                  if (I > IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
                } else {
-                 IP=-IPIV(I)
-                 I=I+1
-                 IF ( (I-1) < IP) CALL CHESWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) > IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I-1 )
+                 IP=-IPIV(I);
+                 I=I+1;
+                 IF ( (I-1) < IP) CALL CHESWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) > IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I-1 );
               }
-               I=I+1
+               I=I+1;
             }
       } else {
 
@@ -271,25 +271,25 @@
 
         // inv(D) and inv(D)*inv(U)
 
-        K=N
-        DO WHILE ( K >= 1 )
+        K=N;
+        DO WHILE ( K >= 1 );
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal NNB
-             WORK(K,INVD) = ONE / REAL ( A( K, K ) )
-             WORK(K,INVD+1) = 0
-            K=K-1
+             WORK(K,INVD) = ONE / REAL ( A( K, K ) );
+             WORK(K,INVD+1) = 0;
+            K=K-1;
          } else {
             // 2 x 2 diagonal NNB
-             T = ABS ( WORK(K-1,1) )
-             AK = REAL ( A( K-1, K-1 ) ) / T
-             AKP1 = REAL ( A( K, K ) ) / T
-             AKKP1 = WORK(K-1,1) / T
-             D = T*( AK*AKP1-ONE )
-             WORK(K-1,INVD) = AKP1 / D
-             WORK(K,INVD) = AK / D
-             WORK(K,INVD+1) = -AKKP1 / D
-             WORK(K-1,INVD+1) = CONJG (WORK(K,INVD+1) )
-            K=K-2
+             T = ABS ( WORK(K-1,1) );
+             AK = REAL ( A( K-1, K-1 ) ) / T;
+             AKP1 = REAL ( A( K, K ) ) / T;
+             AKKP1 = WORK(K-1,1) / T;
+             D = T*( AK*AKP1-ONE );
+             WORK(K-1,INVD) = AKP1 / D;
+             WORK(K,INVD) = AK / D;
+             WORK(K,INVD+1) = -AKKP1 / D;
+             WORK(K-1,INVD+1) = CONJG (WORK(K,INVD+1) );
+            K=K-2;
          }
         }
 
@@ -297,72 +297,72 @@
 
         // inv(U**H)*inv(D)*inv(U)
 
-        CUT=0
-        DO WHILE (CUT < N)
-           NNB=NB
+        CUT=0;
+        DO WHILE (CUT < N);
+           NNB=NB;
            if (CUT + NNB >= N) {
-              NNB=N-CUT
+              NNB=N-CUT;
            } else {
-              COUNT = 0
+              COUNT = 0;
               // count negative elements,
               for (I = CUT+1; I <= CUT+NNB; I++) {
-                  IF (IPIV(I) < 0) COUNT=COUNT+1
+                  IF (IPIV(I) < 0) COUNT=COUNT+1;
               }
               // need a even number for a clear cut
-              IF (MOD(COUNT,2) == 1) NNB=NNB+1
+              IF (MOD(COUNT,2) == 1) NNB=NNB+1;
            }
        // L21 Block
            for (I = 1; I <= N-CUT-NNB; I++) {
              for (J = 1; J <= NNB; J++) {
-              WORK(I,J)=A(CUT+NNB+I,CUT+J)
+              WORK(I,J)=A(CUT+NNB+I,CUT+J);
              }
            }
       // L11 Block
            for (I = 1; I <= NNB; I++) {
-             WORK(U11+I,I)=CONE
+             WORK(U11+I,I)=CONE;
              for (J = I+1; J <= NNB; J++) {
-                WORK(U11+I,J)=ZERO
+                WORK(U11+I,J)=ZERO;
              }
              for (J = 1; J <= I-1; J++) {
-                WORK(U11+I,J)=A(CUT+I,CUT+J)
+                WORK(U11+I,J)=A(CUT+I,CUT+J);
              }
            }
 
            // invD*L21
 
-           I=N-CUT-NNB
-           DO WHILE (I >= 1)
+           I=N-CUT-NNB;
+           DO WHILE (I >= 1);
              if (IPIV(CUT+NNB+I) > 0) {
                 for (J = 1; J <= NNB; J++) {
-                    WORK(I,J)=WORK(CUT+NNB+I,INVD)*WORK(I,J)
+                    WORK(I,J)=WORK(CUT+NNB+I,INVD)*WORK(I,J);
                 }
-                I=I-1
+                I=I-1;
              } else {
                 for (J = 1; J <= NNB; J++) {
-                   U01_I_J = WORK(I,J)
-                   U01_IP1_J = WORK(I-1,J)
-                   WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+ WORK(CUT+NNB+I,INVD+1)*U01_IP1_J                    WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+ WORK(CUT+NNB+I-1,INVD)*U01_IP1_J
+                   U01_I_J = WORK(I,J);
+                   U01_IP1_J = WORK(I-1,J);
+                   WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+ WORK(CUT+NNB+I,INVD+1)*U01_IP1_J                    WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+ WORK(CUT+NNB+I-1,INVD)*U01_IP1_J;
                 }
-                I=I-2
+                I=I-2;
              }
            }
 
          // invD1*L11
 
-           I=NNB
-           DO WHILE (I >= 1)
+           I=NNB;
+           DO WHILE (I >= 1);
              if (IPIV(CUT+I) > 0) {
                 for (J = 1; J <= NNB; J++) {
-                    WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
+                    WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J);
                 }
-                I=I-1
+                I=I-1;
              } else {
                 for (J = 1; J <= NNB; J++) {
-                   U11_I_J = WORK(U11+I,J)
-                   U11_IP1_J = WORK(U11+I-1,J)
-                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*U11_IP1_J                 WORK(U11+I-1,J)=WORK(CUT+I-1,INVD+1)*U11_I_J+ WORK(CUT+I-1,INVD)*U11_IP1_J
+                   U11_I_J = WORK(U11+I,J);
+                   U11_IP1_J = WORK(U11+I-1,J);
+                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*U11_IP1_J                 WORK(U11+I-1,J)=WORK(CUT+I-1,INVD+1)*U11_I_J+ WORK(CUT+I-1,INVD)*U11_IP1_J;
                 }
-                I=I-2
+                I=I-2;
              }
            }
 
@@ -372,7 +372,7 @@
 
          for (I = 1; I <= NNB; I++) {
             for (J = 1; J <= I; J++) {
-              A(CUT+I,CUT+J)=WORK(U11+I,J)
+              A(CUT+I,CUT+J)=WORK(U11+I,J);
             }
          }
 
@@ -387,7 +387,7 @@
 
          for (I = 1; I <= NNB; I++) {
             for (J = 1; J <= I; J++) {
-              A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J)
+              A(CUT+I,CUT+J)=A(CUT+I,CUT+J)+WORK(U11+I,J);
             }
          }
 
@@ -398,7 +398,7 @@
        // Update L21
          for (I = 1; I <= N-CUT-NNB; I++) {
            for (J = 1; J <= NNB; J++) {
-              A(CUT+NNB+I,CUT+J)=WORK(I,J)
+              A(CUT+NNB+I,CUT+J)=WORK(I,J);
            }
          }
        } else {
@@ -407,35 +407,35 @@
 
          for (I = 1; I <= NNB; I++) {
             for (J = 1; J <= I; J++) {
-              A(CUT+I,CUT+J)=WORK(U11+I,J)
+              A(CUT+I,CUT+J)=WORK(U11+I,J);
             }
          }
        }
 
        // Next Block
 
-           CUT=CUT+NNB
+           CUT=CUT+NNB;
        }
 
          // Apply PERMUTATIONS P and P**H: P * inv(U**H)*inv(D)*inv(U) *P**H
 
-            I=N
-            DO WHILE ( I >= 1 )
+            I=N;
+            DO WHILE ( I >= 1 );
                if ( IPIV(I) > 0 ) {
-                  IP=IPIV(I)
+                  IP=IPIV(I);
                  if (I < IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP  );
                  if (I > IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
                } else {
-                 IP=-IPIV(I)
+                 IP=-IPIV(I);
                  if (I < IP) CALL CHESWAPR( UPLO, N, A, LDA, I ,IP );
                  if (I > IP) CALL CHESWAPR( UPLO, N, A, LDA, IP ,I );
-                 I=I-1
+                 I=I-1;
                }
-               I=I-1
+               I=I-1;
             }
       }
 
-      RETURN
+      RETURN;
 
       // End of CHETRI2X
 

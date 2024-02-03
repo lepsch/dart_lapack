@@ -1,4 +1,4 @@
-      SUBROUTINE DLATRD( UPLO, N, NB, A, LDA, E, TAU, W, LDW )
+      SUBROUTINE DLATRD( UPLO, N, NB, A, LDA, E, TAU, W, LDW );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -43,8 +43,8 @@
 
          // Reduce last NB columns of upper triangle
 
-         DO 10 I = N, N - NB + 1, -1
-            IW = I - N + NB
+         DO 10 I = N, N - NB + 1, -1;
+            IW = I - N + NB;
             if ( I < N ) {
 
                // Update A(1:i,i)
@@ -58,8 +58,8 @@
                // A(1:i-2,i)
 
                dlarfg(I-1, A( I-1, I ), A( 1, I ), 1, TAU( I-1 ) );
-               E( I-1 ) = A( I-1, I )
-               A( I-1, I ) = ONE
+               E( I-1 ) = A( I-1, I );
+               A( I-1, I ) = ONE;
 
                // Compute W(1:i-1,i)
 
@@ -71,7 +71,7 @@
                   dgemv('No transpose', I-1, N-I, -ONE, W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 );
                }
                dscal(I-1, TAU( I-1 ), W( 1, IW ), 1 );
-               ALPHA = -HALF*TAU( I-1 )*DDOT( I-1, W( 1, IW ), 1, A( 1, I ), 1 )
+               ALPHA = -HALF*TAU( I-1 )*DDOT( I-1, W( 1, IW ), 1, A( 1, I ), 1 );
                daxpy(I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 );
             }
 
@@ -92,8 +92,8 @@
                // A(i+2:n,i)
 
                dlarfg(N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAU( I ) );
-               E( I ) = A( I+1, I )
-               A( I+1, I ) = ONE
+               E( I ) = A( I+1, I );
+               A( I+1, I ) = ONE;
 
                // Compute W(i+1:n,i)
 
@@ -103,14 +103,14 @@
                dgemv('Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, W( 1, I ), 1 );
                dgemv('No transpose', N-I, I-1, -ONE, W( I+1, 1 ), LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 );
                dscal(N-I, TAU( I ), W( I+1, I ), 1 );
-               ALPHA = -HALF*TAU( I )*DDOT( N-I, W( I+1, I ), 1, A( I+1, I ), 1 )
+               ALPHA = -HALF*TAU( I )*DDOT( N-I, W( I+1, I ), 1, A( I+1, I ), 1 );
                daxpy(N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 );
             }
 
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of DLATRD
 

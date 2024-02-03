@@ -1,4 +1,4 @@
-      SUBROUTINE DRQT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DRQT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,21 +45,21 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEED / 1988, 1989, 1990, 1991 /
+      DATA               ISEED / 1988, 1989, 1990, 1991 /;
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
-      MINMN = MIN( M, N )
+      EPS = DLAMCH( 'Epsilon' );
+      MINMN = MIN( M, N );
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-         RESULT( 1 ) = ZERO
-         RESULT( 2 ) = ZERO
-         RESULT( 3 ) = ZERO
-         RESULT( 4 ) = ZERO
-         RETURN
+         RESULT( 1 ) = ZERO;
+         RESULT( 2 ) = ZERO;
+         RESULT( 3 ) = ZERO;
+         RESULT( 4 ) = ZERO;
+         RETURN;
       }
 
       // Copy the last k rows of the factorization to the array Q
@@ -69,18 +69,18 @@
 
       // Generate the n-by-n matrix Q
 
-      SRNAMT = 'DORGRQ'
+      SRNAMT = 'DORGRQ';
       dorgrq(N, N, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
          if ( ISIDE == 1 ) {
-            SIDE = 'L'
-            MC = N
-            NC = M
+            SIDE = 'L';
+            MC = N;
+            NC = M;
          } else {
-            SIDE = 'R'
-            MC = M
-            NC = N
+            SIDE = 'R';
+            MC = M;
+            NC = N;
          }
 
          // Generate MC by NC matrix C
@@ -88,14 +88,14 @@
          for (J = 1; J <= NC; J++) { // 10
             dlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
-         CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
+         CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK );
          if (CNORM == 0.0) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS == 1 ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'T'
+               TRANS = 'T';
             }
 
             // Copy C
@@ -104,7 +104,7 @@
 
             // Apply Q or Q' to C
 
-            SRNAMT = 'DORMRQ'
+            SRNAMT = 'DORMRQ';
             if (K > 0) CALL DORMRQ( SIDE, TRANS, MC, NC, K, AF( M-K+1, 1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
@@ -117,13 +117,13 @@
 
             // Compute error in the difference
 
-            RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK )
-            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, N ) )*CNORM*EPS )
+            RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK );
+            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, N ) )*CNORM*EPS );
 
          } // 20
       } // 30
 
-      RETURN
+      RETURN;
 
       // End of DRQT03
 

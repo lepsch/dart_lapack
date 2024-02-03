@@ -1,4 +1,4 @@
-      SUBROUTINE DLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO)
+      SUBROUTINE DLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO);
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,45 +35,45 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if (N < 0 || N > NMAX_APPROX) {
-         INFO = -1
+         INFO = -1;
       } else if (NRHS < 0) {
-         INFO = -2
+         INFO = -2;
       } else if (LDA < N) {
-         INFO = -4
+         INFO = -4;
       } else if (LDX < N) {
-         INFO = -6
+         INFO = -6;
       } else if (LDB < N) {
-         INFO = -8
+         INFO = -8;
       }
       if (INFO < 0) {
          xerbla('DLAHILB', -INFO);
-         RETURN
+         RETURN;
       }
       if (N > NMAX_EXACT) {
-         INFO = 1
+         INFO = 1;
       }
 
       // Compute M = the LCM of the integers [1, 2*N-1].  The largest
       // reasonable N is small enough that integers suffice (up to N = 11).
-      M = 1
+      M = 1;
       for (I = 2; I <= (2*N-1); I++) {
-         TM = M
-         TI = I
-         R = MOD(TM, TI)
-         DO WHILE (R != 0)
-            TM = TI
-            TI = R
-            R = MOD(TM, TI)
+         TM = M;
+         TI = I;
+         R = MOD(TM, TI);
+         DO WHILE (R != 0);
+            TM = TI;
+            TI = R;
+            R = MOD(TM, TI);
          }
-         M = (M / TI) * I
+         M = (M / TI) * I;
       }
 
       // Generate the scaled Hilbert matrix in A
       for (J = 1; J <= N; J++) {
          for (I = 1; I <= N; I++) {
-            A(I, J) = DBLE(M) / (I + J - 1)
+            A(I, J) = DBLE(M) / (I + J - 1);
          }
       }
 
@@ -84,14 +84,14 @@
       // Generate the true solutions in X.  Because B = the first NRHS
       // columns of M*I, the true solutions are just the first NRHS columns
       // of the inverse Hilbert matrix.
-      WORK(1) = N
+      WORK(1) = N;
       for (J = 2; J <= N; J++) {
-         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
+         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1);
       }
 
       for (J = 1; J <= NRHS; J++) {
          for (I = 1; I <= N; I++) {
-            X(I, J) = (WORK(I)*WORK(J)) / (I + J - 1)
+            X(I, J) = (WORK(I)*WORK(J)) / (I + J - 1);
          }
       }
 

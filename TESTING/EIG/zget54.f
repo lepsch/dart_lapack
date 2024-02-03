@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT )
+      SUBROUTINE ZGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       double             RESULT;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -38,19 +38,19 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT = ZERO
+      RESULT = ZERO;
       if (N <= 0) RETURN;
 
       // Constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
+      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
 
       // compute the norm of (A,B)
 
       zlacpy('Full', N, N, A, LDA, WORK, N );
       zlacpy('Full', N, N, B, LDB, WORK( N*N+1 ), N );
-      ABNORM = MAX( ZLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL )
+      ABNORM = MAX( ZLANGE( '1', N, 2*N, WORK, N, DUM ), UNFL );
 
       // Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 
@@ -68,19 +68,19 @@
 
       // Compute norm(W)/ ( ulp*norm((A,B)) )
 
-      WNORM = ZLANGE( '1', N, 2*N, WORK, N, DUM )
+      WNORM = ZLANGE( '1', N, 2*N, WORK, N, DUM );
 
       if ( ABNORM > WNORM ) {
-         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
+         RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP );
       } else {
          if ( ABNORM < ONE ) {
-            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP )
+            RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP );
          } else {
-            RESULT = MIN( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP )
+            RESULT = MIN( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZGET54
 

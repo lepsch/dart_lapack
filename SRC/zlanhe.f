@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             WORK( * );
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 * =====================================================================
@@ -36,28 +36,28 @@
       // .. Executable Statements ..
 
       if ( N == 0 ) {
-         VALUE = ZERO
+         VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= J - 1; I++) { // 10
-                  SUM = ABS( A( I, J ) )
-                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                  SUM = ABS( A( I, J ) );
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
-               SUM = ABS( DBLE( A( J, J ) ) )
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               SUM = ABS( DBLE( A( J, J ) ) );
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
-               SUM = ABS( DBLE( A( J, J ) ) )
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               SUM = ABS( DBLE( A( J, J ) ) );
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                for (I = J + 1; I <= N; I++) { // 30
-                  SUM = ABS( A( I, J ) )
-                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+                  SUM = ABS( A( I, J ) );
+                  IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 30
             } // 40
          }
@@ -65,41 +65,41 @@
 
          // Find normI(A) ( = norm1(A), since A is hermitian).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 60
-               SUM = ZERO
+               SUM = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
-                  ABSA = ABS( A( I, J ) )
-                  SUM = SUM + ABSA
-                  WORK( I ) = WORK( I ) + ABSA
+                  ABSA = ABS( A( I, J ) );
+                  SUM = SUM + ABSA;
+                  WORK( I ) = WORK( I ) + ABSA;
                } // 50
-               WORK( J ) = SUM + ABS( DBLE( A( J, J ) ) )
+               WORK( J ) = SUM + ABS( DBLE( A( J, J ) ) );
             } // 60
             for (I = 1; I <= N; I++) { // 70
-               SUM = WORK( I )
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               SUM = WORK( I );
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
-               WORK( I ) = ZERO
+               WORK( I ) = ZERO;
             } // 80
             for (J = 1; J <= N; J++) { // 100
-               SUM = WORK( J ) + ABS( DBLE( A( J, J ) ) )
+               SUM = WORK( J ) + ABS( DBLE( A( J, J ) ) );
                for (I = J + 1; I <= N; I++) { // 90
-                  ABSA = ABS( A( I, J ) )
-                  SUM = SUM + ABSA
-                  WORK( I ) = WORK( I ) + ABSA
+                  ABSA = ABS( A( I, J ) );
+                  SUM = SUM + ABSA;
+                  WORK( I ) = WORK( I ) + ABSA;
                } // 90
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         SCALE = ZERO
-         SUM = ONE
+         SCALE = ZERO;
+         SUM = ONE;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 2; J <= N; J++) { // 110
                zlassq(J-1, A( 1, J ), 1, SCALE, SUM );
@@ -109,23 +109,23 @@
                zlassq(N-J, A( J+1, J ), 1, SCALE, SUM );
             } // 120
          }
-         SUM = 2*SUM
+         SUM = 2*SUM;
          for (I = 1; I <= N; I++) { // 130
             if ( DBLE( A( I, I ) ) != ZERO ) {
-               ABSA = ABS( DBLE( A( I, I ) ) )
+               ABSA = ABS( DBLE( A( I, I ) ) );
                if ( SCALE < ABSA ) {
-                  SUM = ONE + SUM*( SCALE / ABSA )**2
-                  SCALE = ABSA
+                  SUM = ONE + SUM*( SCALE / ABSA )**2;
+                  SCALE = ABSA;
                } else {
-                  SUM = SUM + ( ABSA / SCALE )**2
+                  SUM = SUM + ( ABSA / SCALE )**2;
                }
             }
          } // 130
-         VALUE = SCALE*SQRT( SUM )
+         VALUE = SCALE*SQRT( SUM );
       }
 
-      ZLANHE = VALUE
-      RETURN
+      ZLANHE = VALUE;
+      RETURN;
 
       // End of ZLANHE
 

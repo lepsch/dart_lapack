@@ -1,4 +1,4 @@
-      SUBROUTINE SLARFGP( N, ALPHA, X, INCX, TAU )
+      SUBROUTINE SLARFGP( N, ALPHA, X, INCX, TAU );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,24 +6,24 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      REAL               ALPHA, TAU
+      REAL               ALPHA, TAU;
       // ..
       // .. Array Arguments ..
-      REAL               X( * )
+      REAL               X( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               TWO, ONE, ZERO
+      REAL               TWO, ONE, ZERO;
       const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                J, KNT;
-      REAL               BETA, BIGNUM, EPS, SAVEALPHA, SMLNUM, XNORM
+      REAL               BETA, BIGNUM, EPS, SAVEALPHA, SMLNUM, XNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLAPY2, SNRM2
+      REAL               SLAMCH, SLAPY2, SNRM2;
       // EXTERNAL SLAMCH, SLAPY2, SNRM2
       // ..
       // .. Intrinsic Functions ..
@@ -35,12 +35,12 @@
       // .. Executable Statements ..
 
       if ( N <= 0 ) {
-         TAU = ZERO
-         RETURN
+         TAU = ZERO;
+         RETURN;
       }
 
-      EPS = SLAMCH( 'Precision' )
-      XNORM = SNRM2( N-1, X, INCX )
+      EPS = SLAMCH( 'Precision' );
+      XNORM = SNRM2( N-1, X, INCX );
 
       if ( XNORM <= EPS*ABS(ALPHA) ) {
 
@@ -50,49 +50,49 @@
             // When TAU == ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
             // to clear it.
-            TAU = ZERO
+            TAU = ZERO;
          } else {
             // However, the application routines rely on explicit
             // zero checks when TAU != ZERO, and we must clear X.
-            TAU = TWO
+            TAU = TWO;
             for (J = 1; J <= N-1; J++) {
-               X( 1 + (J-1)*INCX ) = 0
+               X( 1 + (J-1)*INCX ) = 0;
             }
-            ALPHA = -ALPHA
+            ALPHA = -ALPHA;
          }
       } else {
 
          // general case
 
-         BETA = SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
-         SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'E' )
-         KNT = 0
+         BETA = SIGN( SLAPY2( ALPHA, XNORM ), ALPHA );
+         SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'E' );
+         KNT = 0;
          if ( ABS( BETA ) < SMLNUM ) {
 
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
-            BIGNUM = ONE / SMLNUM
+            BIGNUM = ONE / SMLNUM;
             } // 10
-            KNT = KNT + 1
+            KNT = KNT + 1;
             sscal(N-1, BIGNUM, X, INCX );
-            BETA = BETA*BIGNUM
-            ALPHA = ALPHA*BIGNUM
-            IF( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10
+            BETA = BETA*BIGNUM;
+            ALPHA = ALPHA*BIGNUM;
+            IF( (ABS( BETA ) < SMLNUM) && (KNT < 20) ) GO TO 10;
 
             // New BETA is at most 1, at least SMLNUM
 
-            XNORM = SNRM2( N-1, X, INCX )
-            BETA = SIGN( SLAPY2( ALPHA, XNORM ), ALPHA )
+            XNORM = SNRM2( N-1, X, INCX );
+            BETA = SIGN( SLAPY2( ALPHA, XNORM ), ALPHA );
          }
-         SAVEALPHA = ALPHA
-         ALPHA = ALPHA + BETA
+         SAVEALPHA = ALPHA;
+         ALPHA = ALPHA + BETA;
          if ( BETA < ZERO ) {
-            BETA = -BETA
-            TAU = -ALPHA / BETA
+            BETA = -BETA;
+            TAU = -ALPHA / BETA;
          } else {
-            ALPHA = XNORM * (XNORM/ALPHA)
-            TAU = ALPHA / BETA
-            ALPHA = -ALPHA
+            ALPHA = XNORM * (XNORM/ALPHA);
+            TAU = ALPHA / BETA;
+            ALPHA = -ALPHA;
          }
 
          if ( ABS(TAU) <= SMLNUM ) {
@@ -105,13 +105,13 @@
             // (Thanks Pat. Thanks MathWorks.)
 
             if ( SAVEALPHA >= ZERO ) {
-               TAU = ZERO
+               TAU = ZERO;
             } else {
-               TAU = TWO
+               TAU = TWO;
                for (J = 1; J <= N-1; J++) {
-                  X( 1 + (J-1)*INCX ) = 0
+                  X( 1 + (J-1)*INCX ) = 0;
                }
-               BETA = -SAVEALPHA
+               BETA = -SAVEALPHA;
             }
 
          } else {
@@ -125,12 +125,12 @@
          // If BETA is subnormal, it may lose relative accuracy
 
          for (J = 1; J <= KNT; J++) { // 20
-            BETA = BETA*SMLNUM
+            BETA = BETA*SMLNUM;
          } // 20
-         ALPHA = BETA
+         ALPHA = BETA;
       }
 
-      RETURN
+      RETURN;
 
       // End of SLARFGP
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZQLT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZQLT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( * ), RWORK( * );
-      COMPLEX*16         AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         ROGUE
+      COMPLEX*16         ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..
@@ -46,21 +46,21 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEED / 1988, 1989, 1990, 1991 /
+      DATA               ISEED / 1988, 1989, 1990, 1991 /;
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
-      MINMN = MIN( M, N )
+      EPS = DLAMCH( 'Epsilon' );
+      MINMN = MIN( M, N );
 
       // Quick return if possible
 
       if ( MINMN == 0 ) {
-         RESULT( 1 ) = ZERO
-         RESULT( 2 ) = ZERO
-         RESULT( 3 ) = ZERO
-         RESULT( 4 ) = ZERO
-         RETURN
+         RESULT( 1 ) = ZERO;
+         RESULT( 2 ) = ZERO;
+         RESULT( 3 ) = ZERO;
+         RESULT( 4 ) = ZERO;
+         RETURN;
       }
 
       // Copy the last k columns of the factorization to the array Q
@@ -70,18 +70,18 @@
 
       // Generate the m-by-m matrix Q
 
-      SRNAMT = 'ZUNGQL'
+      SRNAMT = 'ZUNGQL';
       zungql(M, M, K, Q, LDA, TAU( MINMN-K+1 ), WORK, LWORK, INFO );
 
       for (ISIDE = 1; ISIDE <= 2; ISIDE++) { // 30
          if ( ISIDE == 1 ) {
-            SIDE = 'L'
-            MC = M
-            NC = N
+            SIDE = 'L';
+            MC = M;
+            NC = N;
          } else {
-            SIDE = 'R'
-            MC = N
-            NC = M
+            SIDE = 'R';
+            MC = N;
+            NC = M;
          }
 
          // Generate MC by NC matrix C
@@ -89,14 +89,14 @@
          for (J = 1; J <= NC; J++) { // 10
             zlarnv(2, ISEED, MC, C( 1, J ) );
          } // 10
-         CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK )
+         CNORM = ZLANGE( '1', MC, NC, C, LDA, RWORK );
          if (CNORM == ZERO) CNORM = ONE;
 
          for (ITRANS = 1; ITRANS <= 2; ITRANS++) { // 20
             if ( ITRANS == 1 ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'C'
+               TRANS = 'C';
             }
 
             // Copy C
@@ -105,7 +105,7 @@
 
             // Apply Q or Q' to C
 
-            SRNAMT = 'ZUNMQL'
+            SRNAMT = 'ZUNMQL';
             if (K > 0) CALL ZUNMQL( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
@@ -118,13 +118,13 @@
 
             // Compute error in the difference
 
-            RESID = ZLANGE( '1', MC, NC, CC, LDA, RWORK )
-            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, M ) )*CNORM*EPS )
+            RESID = ZLANGE( '1', MC, NC, CC, LDA, RWORK );
+            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, M ) )*CNORM*EPS );
 
          } // 20
       } // 30
 
-      RETURN
+      RETURN;
 
       // End of ZQLT03
 

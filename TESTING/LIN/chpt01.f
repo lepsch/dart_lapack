@@ -1,4 +1,4 @@
-      SUBROUTINE CHPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE CHPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDC, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * )
-      COMPLEX            A( * ), AFAC( * ), C( LDC, * )
+      REAL               RWORK( * );
+      COMPLEX            A( * ), AFAC( * ), C( LDC, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, JC;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANHE, CLANHP, SLAMCH
+      REAL               CLANHE, CLANHP, SLAMCH;
       // EXTERNAL LSAME, CLANHE, CLANHP, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -43,34 +43,34 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANHP( '1', UPLO, N, A, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANHP( '1', UPLO, N, A, RWORK );
 
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
-      JC = 1
+      JC = 1;
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             if ( AIMAG( AFAC( JC ) ) != ZERO ) {
-               RESID = ONE / EPS
-               RETURN
+               RESID = ONE / EPS;
+               RETURN;
             }
-            JC = JC + J + 1
+            JC = JC + J + 1;
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
             if ( AIMAG( AFAC( JC ) ) != ZERO ) {
-               RESID = ONE / EPS
-               RETURN
+               RESID = ONE / EPS;
+               RETURN;
             }
-            JC = JC + N - J + 1
+            JC = JC + N - J + 1;
          } // 20
       }
 
@@ -89,36 +89,36 @@
       // Compute the difference  C - A .
 
       if ( LSAME( UPLO, 'U' ) ) {
-         JC = 0
+         JC = 0;
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J - 1; I++) { // 30
-               C( I, J ) = C( I, J ) - A( JC+I )
+               C( I, J ) = C( I, J ) - A( JC+I );
             } // 30
-            C( J, J ) = C( J, J ) - REAL( A( JC+J ) )
-            JC = JC + J
+            C( J, J ) = C( J, J ) - REAL( A( JC+J ) );
+            JC = JC + J;
          } // 40
       } else {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 60
-            C( J, J ) = C( J, J ) - REAL( A( JC ) )
+            C( J, J ) = C( J, J ) - REAL( A( JC ) );
             for (I = J + 1; I <= N; I++) { // 50
-               C( I, J ) = C( I, J ) - A( JC+I-J )
+               C( I, J ) = C( I, J ) - A( JC+I-J );
             } // 50
-            JC = JC + N - J + 1
+            JC = JC + N - J + 1;
          } // 60
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK )
+      RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of CHPT01
 

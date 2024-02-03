@@ -1,4 +1,4 @@
-      SUBROUTINE SGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, IWORK, INFO )
+      SUBROUTINE SGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, IWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,27 +7,27 @@
       // .. Scalar Arguments ..
       String             FACT, TRANS;
       int                INFO, LDB, LDX, N, NRHS;
-      REAL               RCOND
+      REAL               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IWORK( * );
-      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * )
+      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOFACT, NOTRAN;
       String             NORM;
-      REAL               ANORM
+      REAL               ANORM;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, SLANGT
+      REAL               SLAMCH, SLANGT;
       // EXTERNAL LSAME, SLAMCH, SLANGT
       // ..
       // .. External Subroutines ..
@@ -38,25 +38,25 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      NOTRAN = LSAME( TRANS, 'N' );
       if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -14
+         INFO = -14;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -16
+         INFO = -16;
       }
       if ( INFO != 0 ) {
          xerbla('SGTSVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( NOFACT ) {
@@ -73,19 +73,19 @@
          // Return if INFO is non-zero.
 
          if ( INFO > 0 ) {
-            RCOND = ZERO
-            RETURN
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
       // Compute the norm of the matrix A.
 
       if ( NOTRAN ) {
-         NORM = '1'
+         NORM = '1';
       } else {
-         NORM = 'I'
+         NORM = 'I';
       }
-      ANORM = SLANGT( NORM, N, DL, D, DU )
+      ANORM = SLANGT( NORM, N, DL, D, DU );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -103,9 +103,9 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RETURN
+      RETURN;
 
       // End of SGTSVX
 

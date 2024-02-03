@@ -1,4 +1,4 @@
-      SUBROUTINE DTBT06( RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, WORK, RAT )
+      SUBROUTINE DTBT06( RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, WORK, RAT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,9 +31,9 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
-      RMAX = MAX( RCOND, RCONDC )
-      RMIN = MIN( RCOND, RCONDC )
+      EPS = DLAMCH( 'Epsilon' );
+      RMAX = MAX( RCOND, RCONDC );
+      RMIN = MIN( RCOND, RCONDC );
 
       // Do the easy cases first.
 
@@ -41,19 +41,19 @@
 
          // Invalid value for RCOND or RCONDC, return 1/EPS.
 
-         RAT = ONE / EPS
+         RAT = ONE / EPS;
 
       } else if ( RMIN > ZERO ) {
 
          // Both estimates are positive, return RMAX/RMIN - 1.
 
-         RAT = RMAX / RMIN - ONE
+         RAT = RMAX / RMIN - ONE;
 
       } else if ( RMAX == ZERO ) {
 
          // Both estimates zero.
 
-         RAT = ZERO
+         RAT = ZERO;
 
       } else {
 
@@ -63,14 +63,14 @@
          // estimate multiplied by BIGNUM/TMAX, where TMAX is the maximum
          // element in absolute value in A.
 
-         SMLNUM = DLAMCH( 'Safe minimum' )
-         BIGNUM = ONE / SMLNUM
-         ANORM = DLANTB( 'M', UPLO, DIAG, N, KD, AB, LDAB, WORK )
+         SMLNUM = DLAMCH( 'Safe minimum' );
+         BIGNUM = ONE / SMLNUM;
+         ANORM = DLANTB( 'M', UPLO, DIAG, N, KD, AB, LDAB, WORK );
 
-         RAT = RMAX*( MIN( BIGNUM / MAX( ONE, ANORM ), ONE / EPS ) )
+         RAT = RMAX*( MIN( BIGNUM / MAX( ONE, ANORM ), ONE / EPS ) );
       }
 
-      RETURN
+      RETURN;
 
       // End of DTBT06
 

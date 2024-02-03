@@ -1,4 +1,4 @@
-      SUBROUTINE STRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO )
+      SUBROUTINE STRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             DIAG, NORM, UPLO;
       int                INFO, LDA, N;
-      REAL               RCOND
+      REAL               RCOND;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               A( LDA, * ), WORK( * )
+      REAL               A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT, ONENRM, UPPER;
       String             NORMIN;
       int                IX, KASE, KASE1;
-      REAL               AINVNM, ANORM, SCALE, SMLNUM, XNORM
+      REAL               AINVNM, ANORM, SCALE, SMLNUM, XNORM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -32,7 +32,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
-      REAL               SLAMCH, SLANTR
+      REAL               SLAMCH, SLANTR;
       // EXTERNAL LSAME, ISAMAX, SLAMCH, SLANTR
       // ..
       // .. External Subroutines ..
@@ -45,40 +45,40 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
+      NOUNIT = LSAME( DIAG, 'N' );
 
       if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('STRCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       }
 
-      RCOND = ZERO
-      SMLNUM = SLAMCH( 'Safe minimum' )*REAL( MAX( 1, N ) )
+      RCOND = ZERO;
+      SMLNUM = SLAMCH( 'Safe minimum' )*REAL( MAX( 1, N ) );
 
       // Compute the norm of the triangular matrix A.
 
-      ANORM = SLANTR( NORM, UPLO, DIAG, N, N, A, LDA, WORK )
+      ANORM = SLANTR( NORM, UPLO, DIAG, N, N, A, LDA, WORK );
 
       // Continue only if ANORM > 0.
 
@@ -86,14 +86,14 @@
 
          // Estimate the norm of the inverse of A.
 
-         AINVNM = ZERO
-         NORMIN = 'N'
+         AINVNM = ZERO;
+         NORMIN = 'N';
          if ( ONENRM ) {
-            KASE1 = 1
+            KASE1 = 1;
          } else {
-            KASE1 = 2
+            KASE1 = 2;
          }
-         KASE = 0
+         KASE = 0;
          } // 10
          slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -108,17 +108,17 @@
 
                slatrs(UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO );
             }
-            NORMIN = 'Y'
+            NORMIN = 'Y';
 
             // Multiply by 1/SCALE if doing so will not cause overflow.
 
             if ( SCALE != ONE ) {
-               IX = ISAMAX( N, WORK, 1 )
-               XNORM = ABS( WORK( IX ) )
+               IX = ISAMAX( N, WORK, 1 );
+               XNORM = ABS( WORK( IX ) );
                if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                srscl(N, SCALE, WORK, 1 );
             }
-            GO TO 10
+            GO TO 10;
          }
 
          // Compute the estimate of the reciprocal condition number.
@@ -127,7 +127,7 @@
       }
 
       } // 20
-      RETURN
+      RETURN;
 
       // End of STRCON
 

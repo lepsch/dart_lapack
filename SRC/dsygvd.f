@@ -1,4 +1,4 @@
-      SUBROUTINE DSYGVD( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DSYGVD( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,53 +38,53 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( N <= 1 ) {
-         LIWMIN = 1
-         LWMIN = 1
+         LIWMIN = 1;
+         LWMIN = 1;
       } else if ( WANTZ ) {
-         LIWMIN = 3 + 5*N
-         LWMIN = 1 + 6*N + 2*N**2
+         LIWMIN = 3 + 5*N;
+         LWMIN = 1 + 6*N + 2*N**2;
       } else {
-         LIWMIN = 1
-         LWMIN = 2*N + 1
+         LIWMIN = 1;
+         LWMIN = 2*N + 1;
       }
-      LOPT = LWMIN
-      LIOPT = LIWMIN
+      LOPT = LWMIN;
+      LIOPT = LIWMIN;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LOPT
-         IWORK( 1 ) = LIOPT
+         WORK( 1 ) = LOPT;
+         IWORK( 1 ) = LIOPT;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DSYGVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -95,16 +95,16 @@
 
       dpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
 
       dsygst(ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
       dsyevd(JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO );
-      LOPT = INT( MAX( DBLE( LOPT ), DBLE( WORK( 1 ) ) ) )
-      LIOPT = INT( MAX( DBLE( LIOPT ), DBLE( IWORK( 1 ) ) ) )
+      LOPT = INT( MAX( DBLE( LOPT ), DBLE( WORK( 1 ) ) ) );
+      LIOPT = INT( MAX( DBLE( LIOPT ), DBLE( IWORK( 1 ) ) ) );
 
       if ( WANTZ && INFO == 0 ) {
 
@@ -116,9 +116,9 @@
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
 
             if ( UPPER ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'T'
+               TRANS = 'T';
             }
 
             dtrsm('Left', UPLO, TRANS, 'Non-unit', N, N, ONE, B, LDB, A, LDA );
@@ -129,19 +129,19 @@
             // backtransform eigenvectors: x = L*y or U**T*y
 
             if ( UPPER ) {
-               TRANS = 'T'
+               TRANS = 'T';
             } else {
-               TRANS = 'N'
+               TRANS = 'N';
             }
 
             dtrmm('Left', UPLO, TRANS, 'Non-unit', N, N, ONE, B, LDB, A, LDA );
          }
       }
 
-      WORK( 1 ) = LOPT
-      IWORK( 1 ) = LIOPT
+      WORK( 1 ) = LOPT;
+      IWORK( 1 ) = LIOPT;
 
-      RETURN
+      RETURN;
 
       // End of DSYGVD
 

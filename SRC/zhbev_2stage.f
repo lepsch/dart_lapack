@@ -1,6 +1,6 @@
-      SUBROUTINE ZHBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, INFO )
+      SUBROUTINE ZHBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * ), W( * );
-      COMPLEX*16         AB( LDAB, * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         AB( LDAB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -42,33 +42,33 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KD < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KD+1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9
+         INFO = -9;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LWMIN = 1
-            WORK( 1 ) = LWMIN
+            LWMIN = 1;
+            WORK( 1 ) = LWMIN;
          } else {
-            IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
-            LWMIN = LHTRD + LWTRD
-            WORK( 1 )  = LWMIN
+            IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 );
+            LWMIN = LHTRD + LWTRD;
+            WORK( 1 )  = LWMIN;
          }
 
          if (LWORK < LWMIN && !LQUERY) INFO = -11;
@@ -76,9 +76,9 @@
 
       if ( INFO != 0 ) {
          xerbla('ZHBEV_2STAGE ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -87,33 +87,33 @@
 
       if ( N == 1 ) {
          if ( LOWER ) {
-            W( 1 ) = DBLE( AB( 1, 1 ) )
+            W( 1 ) = DBLE( AB( 1, 1 ) );
          } else {
-            W( 1 ) = DBLE( AB( KD+1, 1 ) )
+            W( 1 ) = DBLE( AB( KD+1, 1 ) );
          }
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS    = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN   = SQRT( SMLNUM )
-      RMAX   = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS    = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN   = SQRT( SMLNUM );
+      RMAX   = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
-      ISCALE = 0
+      ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          if ( LOWER ) {
@@ -125,10 +125,10 @@
 
       // Call ZHBTRD_HB2ST to reduce Hermitian band matrix to tridiagonal form.
 
-      INDE    = 1
-      INDHOUS = 1
-      INDWRK  = INDHOUS + LHTRD
-      LLWORK  = LWORK - INDWRK + 1
+      INDE    = 1;
+      INDHOUS = 1;
+      INDWRK  = INDHOUS + LHTRD;
+      LLWORK  = LWORK - INDWRK + 1;
 
       zhetrd_hb2st("N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
@@ -137,7 +137,7 @@
       if ( !WANTZ ) {
          dsterf(N, W, RWORK( INDE ), INFO );
       } else {
-         INDRWK = INDE + N
+         INDRWK = INDE + N;
          zsteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO );
       }
 
@@ -145,18 +145,18 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = LWMIN
+      WORK( 1 ) = LWMIN;
 
-      RETURN
+      RETURN;
 
       // End of ZHBEV_2STAGE
 

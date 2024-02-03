@@ -1,4 +1,4 @@
-      SUBROUTINE CDRVPP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, NOUT )
+      SUBROUTINE CDRVPP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,19 +7,19 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
-      REAL               THRESH
+      REAL               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                NVAL( * );
-      REAL               RWORK( * ), S( * )
-      COMPLEX            A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
+      REAL               RWORK( * ), S( * );
+      COMPLEX            A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 9 ;
@@ -31,16 +31,16 @@
       String             DIST, EQUED, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, K, K1, KL, KU, LDA, MODE, N, NERRS, NFACT, NFAIL, NIMAT, NPP, NRUN, NT;
-      REAL               AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND
+      REAL               AINVNM, AMAX, ANORM, CNDNUM, RCOND, RCONDC, ROLDC, SCOND;
       // ..
       // .. Local Arrays ..
       String             EQUEDS( 2 ), FACTS( 3 ), PACKS( 2 ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS )
+      REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANHP, SGET06
+      REAL               CLANHP, SGET06;
       // EXTERNAL LSAME, CLANHP, SGET06
       // ..
       // .. External Subroutines ..
@@ -59,68 +59,68 @@
       // INTRINSIC CMPLX, MAX
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N', 'E' / , PACKS / 'C', 'R' / , EQUEDS / 'N', 'Y' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' / , FACTS / 'F', 'N', 'E' / , PACKS / 'C', 'R' / , EQUEDS / 'N', 'Y' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Complex precision'
-      PATH( 2: 3 ) = 'PP'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Complex precision';
+      PATH( 2: 3 ) = 'PP';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL CERRVX( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 140
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         NPP = N*( N+1 ) / 2
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         NPP = N*( N+1 ) / 2;
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 130
+            IF( !DOTYPE( IMAT ) ) GO TO 130;
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 5
+            ZEROT = IMAT >= 3 && IMAT <= 5;
             if (ZEROT && N < IMAT-2) GO TO 130;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 120
-               UPLO = UPLOS( IUPLO )
-               PACKIT = PACKS( IUPLO )
+               UPLO = UPLOS( IUPLO );
+               PACKIT = PACKS( IUPLO );
 
                // Set up parameters with CLATB4 and generate a test matrix
                // with CLATMS.
 
                clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
-               RCONDC = ONE / CNDNUM
+               RCONDC = ONE / CNDNUM;
 
-               SRNAMT = 'CLATMS'
+               SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS.
 
                if ( INFO != 0 ) {
                   alaerh(PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 120
+                  GO TO 120;
                }
 
                // For types 3-5, zero one row and column of the matrix to
@@ -128,38 +128,38 @@
 
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
-                     IZERO = 1
+                     IZERO = 1;
                   } else if ( IMAT == 4 ) {
-                     IZERO = N
+                     IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1
+                     IZERO = N / 2 + 1;
                   }
 
                   // Set row and column IZERO of A to 0.
 
                   if ( IUPLO == 1 ) {
-                     IOFF = ( IZERO-1 )*IZERO / 2
+                     IOFF = ( IZERO-1 )*IZERO / 2;
                      for (I = 1; I <= IZERO - 1; I++) { // 20
-                        A( IOFF+I ) = ZERO
+                        A( IOFF+I ) = ZERO;
                      } // 20
-                     IOFF = IOFF + IZERO
+                     IOFF = IOFF + IZERO;
                      for (I = IZERO; I <= N; I++) { // 30
-                        A( IOFF ) = ZERO
-                        IOFF = IOFF + I
+                        A( IOFF ) = ZERO;
+                        IOFF = IOFF + I;
                      } // 30
                   } else {
-                     IOFF = IZERO
+                     IOFF = IZERO;
                      for (I = 1; I <= IZERO - 1; I++) { // 40
-                        A( IOFF ) = ZERO
-                        IOFF = IOFF + N - I
+                        A( IOFF ) = ZERO;
+                        IOFF = IOFF + N - I;
                      } // 40
-                     IOFF = IOFF - IZERO
+                     IOFF = IOFF - IZERO;
                      for (I = IZERO; I <= N; I++) { // 50
-                        A( IOFF+I ) = ZERO
+                        A( IOFF+I ) = ZERO;
                      } // 50
                   }
                } else {
-                  IZERO = 0
+                  IZERO = 0;
                }
 
                // Set the imaginary part of the diagonals.
@@ -175,22 +175,22 @@
                ccopy(NPP, A, 1, ASAV, 1 );
 
                for (IEQUED = 1; IEQUED <= 2; IEQUED++) { // 110
-                  EQUED = EQUEDS( IEQUED )
+                  EQUED = EQUEDS( IEQUED );
                   if ( IEQUED == 1 ) {
-                     NFACT = 3
+                     NFACT = 3;
                   } else {
-                     NFACT = 1
+                     NFACT = 1;
                   }
 
                   for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 100
-                     FACT = FACTS( IFACT )
-                     PREFAC = LSAME( FACT, 'F' )
-                     NOFACT = LSAME( FACT, 'N' )
-                     EQUIL = LSAME( FACT, 'E' )
+                     FACT = FACTS( IFACT );
+                     PREFAC = LSAME( FACT, 'F' );
+                     NOFACT = LSAME( FACT, 'N' );
+                     EQUIL = LSAME( FACT, 'E' );
 
                      if ( ZEROT ) {
                         if (PREFAC) GO TO 100;
-                        RCONDC = ZERO
+                        RCONDC = ZERO;
 
                      } else if ( !LSAME( FACT, 'N' ) ) {
 
@@ -222,7 +222,7 @@
 
                         // Compute the 1-norm of A.
 
-                        ANORM = CLANHP( '1', UPLO, N, AFAC, RWORK )
+                        ANORM = CLANHP( '1', UPLO, N, AFAC, RWORK );
 
                         // Factor the matrix A.
 
@@ -235,11 +235,11 @@
 
                         // Compute the 1-norm condition number of A.
 
-                        AINVNM = CLANHP( '1', UPLO, N, A, RWORK )
+                        AINVNM = CLANHP( '1', UPLO, N, A, RWORK );
                         if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                           RCONDC = ONE
+                           RCONDC = ONE;
                         } else {
-                           RCONDC = ( ONE / ANORM ) / AINVNM
+                           RCONDC = ( ONE / ANORM ) / AINVNM;
                         }
                      }
 
@@ -249,9 +249,9 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'CLARHS'
+                     SRNAMT = 'CLARHS';
                      clarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                     XTYPE = 'C'
+                     XTYPE = 'C';
                      clacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      if ( NOFACT ) {
@@ -264,16 +264,16 @@
                         ccopy(NPP, A, 1, AFAC, 1 );
                         clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'CPPSV '
+                        SRNAMT = 'CPPSV ';
                         cppsv(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                         // Check error code from CPPSV .
 
                         if ( INFO != IZERO ) {
                            alaerh(PATH, 'CPPSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                           GO TO 70
+                           GO TO 70;
                         } else if ( INFO != 0 ) {
-                           GO TO 70
+                           GO TO 70;
                         }
 
                         // Reconstruct matrix from factors and compute
@@ -289,7 +289,7 @@
                         // Check solution from generated exact solution.
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                        NT = 3
+                        NT = 3;
 
                         // Print information about the tests that did not
                         // pass the threshold.
@@ -297,10 +297,10 @@
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'CPPSV ', UPLO, N, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1
+                              NFAIL = NFAIL + 1;
                            }
                         } // 60
-                        NRUN = NRUN + NT
+                        NRUN = NRUN + NT;
                         } // 70
                      }
 
@@ -319,14 +319,14 @@
                      // Solve the system and compute the condition number
                      // and error bounds using CPPSVX.
 
-                     SRNAMT = 'CPPSVX'
+                     SRNAMT = 'CPPSVX';
                      cppsvx(FACT, UPLO, N, NRHS, A, AFAC, EQUED, S, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                      // Check the error code from CPPSVX.
 
                      if ( INFO != IZERO ) {
                         alaerh(PATH, 'CPPSVX', INFO, IZERO, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 90
+                        GO TO 90;
                      }
 
                      if ( INFO == 0 ) {
@@ -336,9 +336,9 @@
                            // residual.
 
                            cppt01(UPLO, N, A, AFAC, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
-                           K1 = 1
+                           K1 = 1;
                         } else {
-                           K1 = 2
+                           K1 = 2;
                         }
 
                         // Compute residual of the computed solution.
@@ -359,13 +359,13 @@
 
                         cppt05(UPLO, N, NRHS, ASAV, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                      } else {
-                        K1 = 6
+                        K1 = 6;
                      }
 
                      // Compare RCOND from CPPSVX with the computed value
                      // in RCONDC.
 
-                     RESULT( 6 ) = SGET06( RCOND, RCONDC )
+                     RESULT( 6 ) = SGET06( RCOND, RCONDC );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -374,14 +374,14 @@
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
-                              WRITE( NOUT, FMT = 9997 )'CPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
+                              WRITE( NOUT, FMT = 9997 )'CPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
                            } else {
-                              WRITE( NOUT, FMT = 9998 )'CPPSVX', FACT, UPLO, N, IMAT, K, RESULT( K )
+                              WRITE( NOUT, FMT = 9998 )'CPPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                            }
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 80
-                     NRUN = NRUN + 7 - K1
+                     NRUN = NRUN + 7 - K1;
                      } // 90
                   } // 100
                } // 110
@@ -393,10 +393,10 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
- 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
- 9997 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', EQUED=''', A1, ''', type ', I1, ', test(', I1, ')=', G12.5 )
-      RETURN
+ 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 );
+ 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', type ', I1, ', test(', I1, ')=', G12.5 );
+ 9997 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', EQUED=''', A1, ''', type ', I1, ', test(', I1, ')=', G12.5 );
+      RETURN;
 
       // End of CDRVPP
 

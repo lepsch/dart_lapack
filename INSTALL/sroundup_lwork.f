@@ -1,4 +1,4 @@
-      REAL             FUNCTION SROUNDUP_LWORK( LWORK )
+      REAL             FUNCTION SROUNDUP_LWORK( LWORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,14 +15,14 @@
       // ..
       // .. Executable Statements ..
       // ..
-      SROUNDUP_LWORK = REAL( LWORK )
+      SROUNDUP_LWORK = REAL( LWORK );
 
       if ( INT( SROUNDUP_LWORK ) < LWORK ) {
           // Force round up of LWORK
-          SROUNDUP_LWORK = SROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) )
+          SROUNDUP_LWORK = SROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) );
       }
 
-      RETURN
+      RETURN;
 
       // End of SROUNDUP_LWORK
 

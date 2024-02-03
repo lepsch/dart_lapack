@@ -1,4 +1,4 @@
-      SUBROUTINE DGGHRD( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, INFO )
+      SUBROUTINE DGGHRD( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,57 +39,57 @@
 
       if ( LSAME( COMPQ, 'N' ) ) {
          ILQ = false;
-         ICOMPQ = 1
+         ICOMPQ = 1;
       } else if ( LSAME( COMPQ, 'V' ) ) {
          ILQ = true;
-         ICOMPQ = 2
+         ICOMPQ = 2;
       } else if ( LSAME( COMPQ, 'I' ) ) {
          ILQ = true;
-         ICOMPQ = 3
+         ICOMPQ = 3;
       } else {
-         ICOMPQ = 0
+         ICOMPQ = 0;
       }
 
       // Decode COMPZ
 
       if ( LSAME( COMPZ, 'N' ) ) {
          ILZ = false;
-         ICOMPZ = 1
+         ICOMPZ = 1;
       } else if ( LSAME( COMPZ, 'V' ) ) {
          ILZ = true;
-         ICOMPZ = 2
+         ICOMPZ = 2;
       } else if ( LSAME( COMPZ, 'I' ) ) {
          ILZ = true;
-         ICOMPZ = 3
+         ICOMPZ = 3;
       } else {
-         ICOMPZ = 0
+         ICOMPZ = 0;
       }
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( ICOMPQ <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ICOMPZ <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ILO < 1 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( IHI > N || IHI < ILO-1 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( ( ILQ && LDQ < N ) || LDQ < 1 ) {
-         INFO = -11
+         INFO = -11;
       } else if ( ( ILZ && LDZ < N ) || LDZ < 1 ) {
-         INFO = -13
+         INFO = -13;
       }
       if ( INFO != 0 ) {
          xerbla('DGGHRD', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize Q and Z if desired.
@@ -104,7 +104,7 @@
 
       for (JCOL = 1; JCOL <= N - 1; JCOL++) { // 20
          for (JROW = JCOL + 1; JROW <= N; JROW++) { // 10
-            B( JROW, JCOL ) = ZERO
+            B( JROW, JCOL ) = ZERO;
          } // 10
       } // 20
 
@@ -112,27 +112,27 @@
 
       for (JCOL = ILO; JCOL <= IHI - 2; JCOL++) { // 40
 
-         DO 30 JROW = IHI, JCOL + 2, -1
+         DO 30 JROW = IHI, JCOL + 2, -1;
 
             // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 
-            TEMP = A( JROW-1, JCOL )
+            TEMP = A( JROW-1, JCOL );
             dlartg(TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
-            A( JROW, JCOL ) = ZERO
+            A( JROW, JCOL ) = ZERO;
             drot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
             drot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
 
             // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 
-            TEMP = B( JROW, JROW )
+            TEMP = B( JROW, JROW );
             dlartg(TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) );
-            B( JROW, JROW-1 ) = ZERO
+            B( JROW, JROW-1 ) = ZERO;
             drot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             drot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL DROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
          } // 30
       } // 40
 
-      RETURN
+      RETURN;
 
       // End of DGGHRD
 

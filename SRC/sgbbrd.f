@@ -1,4 +1,4 @@
-      SUBROUTINE SGBBRD( VECT, M, N, NCC, KL, KU, AB, LDAB, D, E, Q, LDQ, PT, LDPT, C, LDC, WORK, INFO )
+      SUBROUTINE SGBBRD( VECT, M, N, NCC, KL, KU, AB, LDAB, D, E, Q, LDQ, PT, LDPT, C, LDC, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC;
       // ..
       // .. Array Arguments ..
-      REAL               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * )
+      REAL               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               WANTB, WANTC, WANTPT, WANTQ;
       int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT;
-      REAL               RA, RB, RC, RS
+      REAL               RA, RB, RC, RS;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARGV, SLARTG, SLARTV, SLASET, SROT, XERBLA
@@ -37,36 +37,36 @@
 
       // Test the input parameters
 
-      WANTB = LSAME( VECT, 'B' )
-      WANTQ = LSAME( VECT, 'Q' ) || WANTB
-      WANTPT = LSAME( VECT, 'P' ) || WANTB
-      WANTC = NCC > 0
-      KLU1 = KL + KU + 1
-      INFO = 0
+      WANTB = LSAME( VECT, 'B' );
+      WANTQ = LSAME( VECT, 'Q' ) || WANTB;
+      WANTPT = LSAME( VECT, 'P' ) || WANTB;
+      WANTC = NCC > 0;
+      KLU1 = KL + KU + 1;
+      INFO = 0;
       if ( !WANTQ && !WANTPT && !LSAME( VECT, 'N' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NCC < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KL < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( KU < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAB < KLU1 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDQ < 1 || WANTQ && LDQ < MAX( 1, M ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDPT < 1 || WANTPT && LDPT < MAX( 1, N ) ) {
-         INFO = -14
+         INFO = -14;
       } else if ( LDC < 1 || WANTC && LDC < MAX( 1, M ) ) {
-         INFO = -16
+         INFO = -16;
       }
       if ( INFO != 0 ) {
          xerbla('SGBBRD', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize Q and P**T to the unit matrix, if needed
@@ -77,7 +77,7 @@
 
       if (M == 0 || N == 0) RETURN;
 
-      MINMN = MIN( M, N )
+      MINMN = MIN( M, N );
 
       if ( KL+KU > 1 ) {
 
@@ -86,11 +86,11 @@
          // bidiagonal
 
          if ( KU > 0 ) {
-            ML0 = 1
-            MU0 = 2
+            ML0 = 1;
+            MU0 = 2;
          } else {
-            ML0 = 2
-            MU0 = 1
+            ML0 = 2;
+            MU0 = 1;
          }
 
          // Wherever possible, plane rotations are generated and applied in
@@ -99,25 +99,25 @@
          // The sines of the plane rotations are stored in WORK(1:max(m,n))
          // and the cosines in WORK(max(m,n)+1:2*max(m,n)).
 
-         MN = MAX( M, N )
-         KLM = MIN( M-1, KL )
-         KUN = MIN( N-1, KU )
-         KB = KLM + KUN
-         KB1 = KB + 1
-         INCA = KB1*LDAB
-         NR = 0
-         J1 = KLM + 2
-         J2 = 1 - KUN
+         MN = MAX( M, N );
+         KLM = MIN( M-1, KL );
+         KUN = MIN( N-1, KU );
+         KB = KLM + KUN;
+         KB1 = KB + 1;
+         INCA = KB1*LDAB;
+         NR = 0;
+         J1 = KLM + 2;
+         J2 = 1 - KUN;
 
          for (I = 1; I <= MINMN; I++) { // 90
 
             // Reduce i-th column and i-th row of matrix to bidiagonal form
 
-            ML = KLM + 1
-            MU = KUN + 1
+            ML = KLM + 1;
+            MU = KUN + 1;
             for (KK = 1; KK <= KB; KK++) { // 80
-               J1 = J1 + KB
-               J2 = J2 + KB
+               J1 = J1 + KB;
+               J2 = J2 + KB;
 
                // generate plane rotations to annihilate nonzero elements
                // which have been created below the band
@@ -128,9 +128,9 @@
 
                for (L = 1; L <= KB; L++) { // 10
                   if ( J2-KLM+L-1 > N ) {
-                     NRT = NR - 1
+                     NRT = NR - 1;
                   } else {
-                     NRT = NR
+                     NRT = NR;
                   }
                   if (NRT > 0) CALL SLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, WORK( MN+J1 ), WORK( J1 ), KB1 );
                } // 10
@@ -142,18 +142,18 @@
                      // within the band, and apply rotation from the left
 
                      slartg(AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA );
-                     AB( KU+ML-1, I ) = RA
+                     AB( KU+ML-1, I ) = RA;
                      if (I < N) CALL SROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
                   }
-                  NR = NR + 1
-                  J1 = J1 - KB1
+                  NR = NR + 1;
+                  J1 = J1 - KB1;
                }
 
                if ( WANTQ ) {
 
                   // accumulate product of plane rotations in Q
 
-                  DO 20 J = J1, J2, KB1
+                  DO 20 J = J1, J2, KB1;
                      srot(M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) );
                   } // 20
                }
@@ -162,7 +162,7 @@
 
                   // apply plane rotations to C
 
-                  DO 30 J = J1, J2, KB1
+                  DO 30 J = J1, J2, KB1;
                      srot(NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) );
                   } // 30
                }
@@ -171,17 +171,17 @@
 
                   // adjust J2 to keep within the bounds of the matrix
 
-                  NR = NR - 1
-                  J2 = J2 - KB1
+                  NR = NR - 1;
+                  J2 = J2 - KB1;
                }
 
-               DO 40 J = J1, J2, KB1
+               DO 40 J = J1, J2, KB1;
 
                   // create nonzero element a(j-1,j+ku) above the band
                   // and store it in WORK(n+1:2*n)
 
-                  WORK( J+KUN ) = WORK( J )*AB( 1, J+KUN )
-                  AB( 1, J+KUN ) = WORK( MN+J )*AB( 1, J+KUN )
+                  WORK( J+KUN ) = WORK( J )*AB( 1, J+KUN );
+                  AB( 1, J+KUN ) = WORK( MN+J )*AB( 1, J+KUN );
                } // 40
 
                // generate plane rotations to annihilate nonzero elements
@@ -193,9 +193,9 @@
 
                for (L = 1; L <= KB; L++) { // 50
                   if ( J2+L-1 > M ) {
-                     NRT = NR - 1
+                     NRT = NR - 1;
                   } else {
-                     NRT = NR
+                     NRT = NR;
                   }
                   if (NRT > 0) CALL SLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
@@ -207,18 +207,18 @@
                      // within the band, and apply rotation from the right
 
                      slartg(AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA );
-                     AB( KU-MU+3, I+MU-2 ) = RA
+                     AB( KU-MU+3, I+MU-2 ) = RA;
                      srot(MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) );
                   }
-                  NR = NR + 1
-                  J1 = J1 - KB1
+                  NR = NR + 1;
+                  J1 = J1 - KB1;
                }
 
                if ( WANTPT ) {
 
                   // accumulate product of plane rotations in P**T
 
-                  DO 60 J = J1, J2, KB1
+                  DO 60 J = J1, J2, KB1;
                      srot(N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) );
                   } // 60
                }
@@ -227,23 +227,23 @@
 
                   // adjust J2 to keep within the bounds of the matrix
 
-                  NR = NR - 1
-                  J2 = J2 - KB1
+                  NR = NR - 1;
+                  J2 = J2 - KB1;
                }
 
-               DO 70 J = J1, J2, KB1
+               DO 70 J = J1, J2, KB1;
 
                   // create nonzero element a(j+kl+ku,j+ku-1) below the
                   // band and store it in WORK(1:n)
 
-                  WORK( J+KB ) = WORK( J+KUN )*AB( KLU1, J+KUN )
-                  AB( KLU1, J+KUN ) = WORK( MN+J+KUN )*AB( KLU1, J+KUN )
+                  WORK( J+KB ) = WORK( J+KUN )*AB( KLU1, J+KUN );
+                  AB( KLU1, J+KUN ) = WORK( MN+J+KUN )*AB( KLU1, J+KUN );
                } // 70
 
                if ( ML > ML0 ) {
-                  ML = ML - 1
+                  ML = ML - 1;
                } else {
-                  MU = MU - 1
+                  MU = MU - 1;
                }
             } // 80
          } // 90
@@ -257,12 +257,12 @@
          // plane rotations from the left, storing diagonal elements in D
          // and off-diagonal elements in E
 
-         DO 100 I = 1, MIN( M-1, N )
+         DO 100 I = 1, MIN( M-1, N );
             slartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
-            D( I ) = RA
+            D( I ) = RA;
             if ( I < N ) {
-               E( I ) = RS*AB( 1, I+1 )
-               AB( 1, I+1 ) = RC*AB( 1, I+1 )
+               E( I ) = RS*AB( 1, I+1 );
+               AB( 1, I+1 ) = RC*AB( 1, I+1 );
             }
             if (WANTQ) CALL SROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS )             IF( WANTC ) CALL SROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
@@ -277,13 +277,13 @@
             // right, storing diagonal elements in D and off-diagonal
             // elements in E
 
-            RB = AB( KU, M+1 )
-            DO 110 I = M, 1, -1
+            RB = AB( KU, M+1 );
+            DO 110 I = M, 1, -1;
                slartg(AB( KU+1, I ), RB, RC, RS, RA );
-               D( I ) = RA
+               D( I ) = RA;
                if ( I > 1 ) {
-                  RB = -RS*AB( KU, I )
-                  E( I-1 ) = RC*AB( KU, I )
+                  RB = -RS*AB( KU, I );
+                  E( I-1 ) = RC*AB( KU, I );
                }
                if (WANTPT) CALL SROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, RS );
             } // 110
@@ -292,10 +292,10 @@
             // Copy off-diagonal elements to E and diagonal elements to D
 
             for (I = 1; I <= MINMN - 1; I++) { // 120
-               E( I ) = AB( KU, I+1 )
+               E( I ) = AB( KU, I+1 );
             } // 120
             for (I = 1; I <= MINMN; I++) { // 130
-               D( I ) = AB( KU+1, I )
+               D( I ) = AB( KU+1, I );
             } // 130
          }
       } else {
@@ -304,13 +304,13 @@
          // elements to D.
 
          for (I = 1; I <= MINMN - 1; I++) { // 140
-            E( I ) = ZERO
+            E( I ) = ZERO;
          } // 140
          for (I = 1; I <= MINMN; I++) { // 150
-            D( I ) = AB( 1, I )
+            D( I ) = AB( 1, I );
          } // 150
       }
-      RETURN
+      RETURN;
 
       // End of SGBBRD
 

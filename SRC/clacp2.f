@@ -1,4 +1,4 @@
-      SUBROUTINE CLACP2( UPLO, M, N, A, LDA, B, LDB )
+      SUBROUTINE CLACP2( UPLO, M, N, A, LDA, B, LDB );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +9,8 @@
       int                LDA, LDB, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * )
-      COMPLEX            B( LDB, * )
+      REAL               A( LDA, * );
+      COMPLEX            B( LDB, * );
       // ..
 
 *  =====================================================================
@@ -29,27 +29,27 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = 1, MIN( J, M )
-               B( I, J ) = A( I, J )
+            DO 10 I = 1, MIN( J, M );
+               B( I, J ) = A( I, J );
             } // 10
          } // 20
 
       } else if ( LSAME( UPLO, 'L' ) ) {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= M; I++) { // 30
-               B( I, J ) = A( I, J )
+               B( I, J ) = A( I, J );
             } // 30
          } // 40
 
       } else {
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
-               B( I, J ) = A( I, J )
+               B( I, J ) = A( I, J );
             } // 50
          } // 60
       }
 
-      RETURN
+      RETURN;
 
       // End of CLACP2
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO, PATH)
+      SUBROUTINE ZLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO, PATH);
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int     N, NRHS, LDA, LDX, LDB, INFO;
       // .. Array Arguments ..
       double           WORK(N);
-      COMPLEX*16 A(LDA,N), X(LDX, NRHS), B(LDB, NRHS)
+      COMPLEX*16 A(LDA,N), X(LDX, NRHS), B(LDB, NRHS);
       String      PATH;
       // ..
 
@@ -17,7 +17,7 @@
       int     TM, TI, R;
       int     M;
       int     I, J;
-      COMPLEX*16 TMP
+      COMPLEX*16 TMP;
       String      C2;
       // ..
       // .. Parameters ..
@@ -30,11 +30,11 @@
       const     NMAX_EXACT = 6, NMAX_APPROX = 11, SIZE_D = 8;
 
       // D's are generated from random permutation of those eight elements.
-      COMPLEX*16 D1(8), D2(8), INVD1(8), INVD2(8)
-      DATA D1 /(-1.0,0.0),(0.0,1.0),(-1.0,-1.0), (0.0,-1.0),(1.0,0.0),(-1.0,1.0),(1.0,1.0), (1.0,-1.0)/
-      DATA D2 /(-1.0,0.0),(0.0,-1.0),(-1.0,1.0), (0.0,1.0),(1.0,0.0),(-1.0,-1.0),(1.0,-1.0), (1.0,1.0)/
-      DATA INVD1 /(-1.0,0.0),(0.0,-1.0),(-0.5,0.5), (0.0,1.0),(1.0,0.0),(-0.5,-0.5),(0.5,-0.5), (0.5,0.5)/
-      DATA INVD2 /(-1.0,0.0),(0.0,1.0),(-0.5,-0.5), (0.0,-1.0),(1.0,0.0),(-0.5,0.5),(0.5,0.5), (0.5,-0.5)/
+      COMPLEX*16 D1(8), D2(8), INVD1(8), INVD2(8);
+      DATA D1 /(-1.0,0.0),(0.0,1.0),(-1.0,-1.0), (0.0,-1.0),(1.0,0.0),(-1.0,1.0),(1.0,1.0), (1.0,-1.0)/;
+      DATA D2 /(-1.0,0.0),(0.0,-1.0),(-1.0,1.0), (0.0,1.0),(1.0,0.0),(-1.0,-1.0),(1.0,-1.0), (1.0,1.0)/;
+      DATA INVD1 /(-1.0,0.0),(0.0,-1.0),(-0.5,0.5), (0.0,1.0),(1.0,0.0),(-0.5,-0.5),(0.5,-0.5), (0.5,0.5)/;
+      DATA INVD2 /(-1.0,0.0),(0.0,1.0),(-0.5,-0.5), (0.0,-1.0),(1.0,0.0),(-0.5,0.5),(0.5,0.5), (0.5,-0.5)/;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA
@@ -45,43 +45,43 @@
       bool    LSAMEN;
       // ..
       // .. Executable Statements ..
-      C2 = PATH( 2: 3 )
+      C2 = PATH( 2: 3 );
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if (N < 0 || N > NMAX_APPROX) {
-         INFO = -1
+         INFO = -1;
       } else if (NRHS < 0) {
-         INFO = -2
+         INFO = -2;
       } else if (LDA < N) {
-         INFO = -4
+         INFO = -4;
       } else if (LDX < N) {
-         INFO = -6
+         INFO = -6;
       } else if (LDB < N) {
-         INFO = -8
+         INFO = -8;
       }
       if (INFO < 0) {
          xerbla('ZLAHILB', -INFO);
-         RETURN
+         RETURN;
       }
       if (N > NMAX_EXACT) {
-         INFO = 1
+         INFO = 1;
       }
 
       // Compute M = the LCM of the integers [1, 2*N-1].  The largest
       // reasonable N is small enough that integers suffice (up to N = 11).
-      M = 1
+      M = 1;
       for (I = 2; I <= (2*N-1); I++) {
-         TM = M
-         TI = I
-         R = MOD(TM, TI)
-         DO WHILE (R != 0)
-            TM = TI
-            TI = R
-            R = MOD(TM, TI)
+         TM = M;
+         TI = I;
+         R = MOD(TM, TI);
+         DO WHILE (R != 0);
+            TM = TI;
+            TI = R;
+            R = MOD(TM, TI);
          }
-         M = (M / TI) * I
+         M = (M / TI) * I;
       }
 
       // Generate the scaled Hilbert matrix in A
@@ -90,28 +90,28 @@
       if ( LSAMEN( 2, C2, 'SY' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A(I, J) = D1(MOD(J,SIZE_D)+1) * (DBLE(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1)
+               A(I, J) = D1(MOD(J,SIZE_D)+1) * (DBLE(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A(I, J) = D1(MOD(J,SIZE_D)+1) * (DBLE(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1)
+               A(I, J) = D1(MOD(J,SIZE_D)+1) * (DBLE(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1);
             }
          }
       }
 
       // Generate matrix B as simply the first NRHS columns of M * the
       // identity.
-      TMP = DBLE(M)
+      TMP = DBLE(M);
       zlaset('Full', N, NRHS, (0.0,0.0), TMP, B, LDB);
 
       // Generate the true solutions in X.  Because B = the first NRHS
       // columns of M*I, the true solutions are just the first NRHS columns
       // of the inverse Hilbert matrix.
-      WORK(1) = N
+      WORK(1) = N;
       for (J = 2; J <= N; J++) {
-         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
+         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1);
       }
 
       // If we are testing SY routines,
@@ -119,13 +119,13 @@
       if ( LSAMEN( 2, C2, 'SY' ) ) {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
-               X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
+               X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
-               X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
+               X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1);
             }
          }
       }

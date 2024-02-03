@@ -1,4 +1,4 @@
-      SUBROUTINE SLAED3( K, N, N1, D, Q, LDQ, RHO, DLAMBDA, Q2, INDX, CTOT, W, S, INFO )
+      SUBROUTINE SLAED3( K, N, N1, D, Q, LDQ, RHO, DLAMBDA, Q2, INDX, CTOT, W, S, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,25 +6,25 @@
 
       // .. Scalar Arguments ..
       int                INFO, K, LDQ, N, N1;
-      REAL               RHO
+      REAL               RHO;
       // ..
       // .. Array Arguments ..
       int                CTOT( * ), INDX( * );
-      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * )
+      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, II, IQ2, J, N12, N2, N23;
-      REAL               TEMP
+      REAL               TEMP;
       // ..
       // .. External Functions ..
-      REAL               SNRM2
+      REAL               SNRM2;
       // EXTERNAL SNRM2
       // ..
       // .. External Subroutines ..
@@ -37,18 +37,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
 
       if ( K < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < K ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDQ < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('SLAED3', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -66,14 +66,14 @@
       if (K == 1) GO TO 110;
       if ( K == 2 ) {
          for (J = 1; J <= K; J++) { // 30
-            W( 1 ) = Q( 1, J )
-            W( 2 ) = Q( 2, J )
-            II = INDX( 1 )
-            Q( 1, J ) = W( II )
-            II = INDX( 2 )
-            Q( 2, J ) = W( II )
+            W( 1 ) = Q( 1, J );
+            W( 2 ) = Q( 2, J );
+            II = INDX( 1 );
+            Q( 1, J ) = W( II );
+            II = INDX( 2 );
+            Q( 2, J ) = W( II );
          } // 30
-         GO TO 110
+         GO TO 110;
       }
 
       // Compute updated W.
@@ -85,26 +85,26 @@
       scopy(K, Q, LDQ+1, W, 1 );
       for (J = 1; J <= K; J++) { // 60
          for (I = 1; I <= J - 1; I++) { // 40
-            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
+            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) );
          } // 40
          for (I = J + 1; I <= K; I++) { // 50
-            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
+            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) );
          } // 50
       } // 60
       for (I = 1; I <= K; I++) { // 70
-         W( I ) = SIGN( SQRT( -W( I ) ), S( I ) )
+         W( I ) = SIGN( SQRT( -W( I ) ), S( I ) );
       } // 70
 
       // Compute eigenvectors of the modified rank-1 modification.
 
       for (J = 1; J <= K; J++) { // 100
          for (I = 1; I <= K; I++) { // 80
-            S( I ) = W( I ) / Q( I, J )
+            S( I ) = W( I ) / Q( I, J );
          } // 80
-         TEMP = SNRM2( K, S, 1 )
+         TEMP = SNRM2( K, S, 1 );
          for (I = 1; I <= K; I++) { // 90
-            II = INDX( I )
-            Q( I, J ) = S( II ) / TEMP
+            II = INDX( I );
+            Q( I, J ) = S( II ) / TEMP;
          } // 90
       } // 100
 
@@ -112,12 +112,12 @@
 
       } // 110
 
-      N2 = N - N1
-      N12 = CTOT( 1 ) + CTOT( 2 )
-      N23 = CTOT( 2 ) + CTOT( 3 )
+      N2 = N - N1;
+      N12 = CTOT( 1 ) + CTOT( 2 );
+      N23 = CTOT( 2 ) + CTOT( 3 );
 
       slacpy('A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 );
-      IQ2 = N1*N12 + 1
+      IQ2 = N1*N12 + 1;
       if ( N23 != 0 ) {
          sgemm('N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ );
       } else {
@@ -133,7 +133,7 @@
 
 
       } // 120
-      RETURN
+      RETURN;
 
       // End of SLAED3
 

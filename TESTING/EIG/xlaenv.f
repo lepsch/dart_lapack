@@ -1,4 +1,4 @@
-      SUBROUTINE XLAENV( ISPEC, NVALUE )
+      SUBROUTINE XLAENV( ISPEC, NVALUE );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -17,15 +17,15 @@
       // COMMON / CLAENV / IPARMS
       // ..
       // .. Save statement ..
-      SAVE               / CLAENV /
+      SAVE               / CLAENV /;
       // ..
       // .. Executable Statements ..
 
       if ( ISPEC >= 1 && ISPEC <= 16 ) {
-         IPARMS( ISPEC ) = NVALUE
+         IPARMS( ISPEC ) = NVALUE;
       }
 
-      RETURN
+      RETURN;
 
       // End of XLAENV
 

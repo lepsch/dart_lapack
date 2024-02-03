@@ -1,4 +1,4 @@
-      SUBROUTINE ZLATMS( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX, KL, KU, PACK, A, LDA, WORK, INFO )
+      SUBROUTINE ZLATMS( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX, KL, KU, PACK, A, LDA, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             D( * );
-      COMPLEX*16         A( LDA, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -22,7 +22,7 @@
       const              ZERO = 0.0 ;
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CZERO
+      COMPLEX*16         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       double             TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
@@ -31,12 +31,12 @@
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN, ZSYM;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       double             ALPHA, ANGLE, REALC, TEMP;
-      COMPLEX*16         C, CT, CTEMP, DUMMY, EXTRA, S, ST
+      COMPLEX*16         C, CT, CTEMP, DUMMY, EXTRA, S, ST;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLARND;
-      COMPLEX*16         ZLARND
+      COMPLEX*16         ZLARND;
       // EXTERNAL LSAME, DLARND, ZLARND
       // ..
       // .. External Subroutines ..
@@ -50,7 +50,7 @@
       // 1)      Decode and Test the input parameters.
               // Initialize flags & seed.
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
@@ -59,80 +59,80 @@
       // Decode DIST
 
       if ( LSAME( DIST, 'U' ) ) {
-         IDIST = 1
+         IDIST = 1;
       } else if ( LSAME( DIST, 'S' ) ) {
-         IDIST = 2
+         IDIST = 2;
       } else if ( LSAME( DIST, 'N' ) ) {
-         IDIST = 3
+         IDIST = 3;
       } else {
-         IDIST = -1
+         IDIST = -1;
       }
 
       // Decode SYM
 
       if ( LSAME( SYM, 'N' ) ) {
-         ISYM = 1
-         IRSIGN = 0
+         ISYM = 1;
+         IRSIGN = 0;
          ZSYM = false;
       } else if ( LSAME( SYM, 'P' ) ) {
-         ISYM = 2
-         IRSIGN = 0
+         ISYM = 2;
+         IRSIGN = 0;
          ZSYM = false;
       } else if ( LSAME( SYM, 'S' ) ) {
-         ISYM = 2
-         IRSIGN = 0
+         ISYM = 2;
+         IRSIGN = 0;
          ZSYM = true;
       } else if ( LSAME( SYM, 'H' ) ) {
-         ISYM = 2
-         IRSIGN = 1
+         ISYM = 2;
+         IRSIGN = 1;
          ZSYM = false;
       } else {
-         ISYM = -1
+         ISYM = -1;
       }
 
       // Decode PACK
 
-      ISYMPK = 0
+      ISYMPK = 0;
       if ( LSAME( PACK, 'N' ) ) {
-         IPACK = 0
+         IPACK = 0;
       } else if ( LSAME( PACK, 'U' ) ) {
-         IPACK = 1
-         ISYMPK = 1
+         IPACK = 1;
+         ISYMPK = 1;
       } else if ( LSAME( PACK, 'L' ) ) {
-         IPACK = 2
-         ISYMPK = 1
+         IPACK = 2;
+         ISYMPK = 1;
       } else if ( LSAME( PACK, 'C' ) ) {
-         IPACK = 3
-         ISYMPK = 2
+         IPACK = 3;
+         ISYMPK = 2;
       } else if ( LSAME( PACK, 'R' ) ) {
-         IPACK = 4
-         ISYMPK = 3
+         IPACK = 4;
+         ISYMPK = 3;
       } else if ( LSAME( PACK, 'B' ) ) {
-         IPACK = 5
-         ISYMPK = 3
+         IPACK = 5;
+         ISYMPK = 3;
       } else if ( LSAME( PACK, 'Q' ) ) {
-         IPACK = 6
-         ISYMPK = 2
+         IPACK = 6;
+         ISYMPK = 2;
       } else if ( LSAME( PACK, 'Z' ) ) {
-         IPACK = 7
+         IPACK = 7;
       } else {
-         IPACK = -1
+         IPACK = -1;
       }
 
       // Set certain internal parameters
 
-      MNMIN = MIN( M, N )
-      LLB = MIN( KL, M-1 )
-      UUB = MIN( KU, N-1 )
-      MR = MIN( M, N+LLB )
-      NC = MIN( N, M+UUB )
+      MNMIN = MIN( M, N );
+      LLB = MIN( KL, M-1 );
+      UUB = MIN( KU, N-1 );
+      MR = MIN( M, N+LLB );
+      NC = MIN( N, M+UUB );
 
       if ( IPACK == 5 || IPACK == 6 ) {
-         MINLDA = UUB + 1
+         MINLDA = UUB + 1;
       } else if ( IPACK == 7 ) {
-         MINLDA = LLB + UUB + 1
+         MINLDA = LLB + UUB + 1;
       } else {
-         MINLDA = M
+         MINLDA = M;
       }
 
       // Use Givens rotation method if bandwidth small enough,
@@ -149,41 +149,41 @@
       // Set INFO if an error
 
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M != N && ISYM != 1 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( IDIST == -1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ISYM == -1 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( ABS( MODE ) > 6 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
-         INFO = -8
+         INFO = -8;
       } else if ( KL < 0 ) {
-         INFO = -10
+         INFO = -10;
       } else if ( KU < 0 || ( ISYM != 1 && KL != KU ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( IPACK == -1 || ( ISYMPK == 1 && ISYM == 1 ) || ( ISYMPK == 2 && ISYM == 1 && KL > 0 ) || ( ISYMPK == 3 && ISYM == 1 && KU > 0 ) || ( ISYMPK != 0 && M != N ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDA < MAX( 1, MINLDA ) ) {
-         INFO = -14
+         INFO = -14;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZLATMS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
+         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
       } // 10
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up D  if indicated.
 
@@ -191,8 +191,8 @@
 
       dlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, IINFO );
       if ( IINFO != 0 ) {
-         INFO = 1
-         RETURN
+         INFO = 1;
+         RETURN;
       }
 
       // Choose Top-Down if D is (apparently) increasing,
@@ -208,16 +208,16 @@
 
          // Scale by DMAX
 
-         TEMP = ABS( D( 1 ) )
+         TEMP = ABS( D( 1 ) );
          for (I = 2; I <= MNMIN; I++) { // 20
-            TEMP = MAX( TEMP, ABS( D( I ) ) )
+            TEMP = MAX( TEMP, ABS( D( I ) ) );
          } // 20
 
          if ( TEMP > ZERO ) {
-            ALPHA = DMAX / TEMP
+            ALPHA = DMAX / TEMP;
          } else {
-            INFO = 2
-            RETURN
+            INFO = 2;
+            RETURN;
          }
 
          dscal(MNMIN, ALPHA, D, 1 );
@@ -236,31 +236,31 @@
                 // A( i - ISKEW*j + IOFFST, j )
 
       if ( IPACK > 4 ) {
-         ILDA = LDA - 1
-         ISKEW = 1
+         ILDA = LDA - 1;
+         ISKEW = 1;
          if ( IPACK > 5 ) {
-            IOFFST = UUB + 1
+            IOFFST = UUB + 1;
          } else {
-            IOFFST = 1
+            IOFFST = 1;
          }
       } else {
-         ILDA = LDA
-         ISKEW = 0
-         IOFFST = 0
+         ILDA = LDA;
+         ISKEW = 0;
+         IOFFST = 0;
       }
 
       // IPACKG is the format that the matrix is generated in. If this is
       // different from IPACK, then the matrix must be repacked at the
       // end.  It also signals how to compute the norm, for scaling.
 
-      IPACKG = 0
+      IPACKG = 0;
 
       // Diagonal Matrix -- We are done, unless it
       // is to be stored HP/SP/PP/TP (PACK='R' or 'C')
 
       if ( LLB == 0 && UUB == 0 ) {
          for (J = 1; J <= MNMIN; J++) { // 30
-            A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
+            A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) );
          } // 30
 
          if (IPACK <= 2 || IPACK >= 5) IPACKG = IPACK;
@@ -275,17 +275,17 @@
             // Non-symmetric -- A = U D V
 
             if ( IPACK > 4 ) {
-               IPACKG = IPACK
+               IPACKG = IPACK;
             } else {
-               IPACKG = 0
+               IPACKG = 0;
             }
 
             for (J = 1; J <= MNMIN; J++) { // 40
-               A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) )
+               A( ( 1-ISKEW )*J+IOFFST, J ) = DCMPLX( D( J ) );
             } // 40
 
             if ( TOPDWN ) {
-               JKL = 0
+               JKL = 0;
                for (JKU = 1; JKU <= UUB; JKU++) { // 70
 
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
@@ -293,93 +293,93 @@
                   // Last row actually rotated is M
                   // Last column actually rotated is MIN( M+JKU, N )
 
-                  DO 60 JR = 1, MIN( M+JKU, N ) + JKL - 1
-                     EXTRA = CZERO
-                     ANGLE = TWOPI*DLARND( 1, ISEED )
-                     C = COS( ANGLE )*ZLARND( 5, ISEED )
-                     S = SIN( ANGLE )*ZLARND( 5, ISEED )
-                     ICOL = MAX( 1, JR-JKL )
+                  DO 60 JR = 1, MIN( M+JKU, N ) + JKL - 1;
+                     EXTRA = CZERO;
+                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     C = COS( ANGLE )*ZLARND( 5, ISEED );
+                     S = SIN( ANGLE )*ZLARND( 5, ISEED );
+                     ICOL = MAX( 1, JR-JKL );
                      if ( JR < M ) {
-                        IL = MIN( N, JR+JKU ) + 1 - ICOL
+                        IL = MIN( N, JR+JKU ) + 1 - ICOL;
                         zlarot( true , JR > JKL, false , IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
 
-                     IR = JR
-                     IC = ICOL
-                     DO 50 JCH = JR - JKL, 1, -JKL - JKU
+                     IR = JR;
+                     IC = ICOL;
+                     DO 50 JCH = JR - JKL, 1, -JKL - JKU;
                         if ( IR < M ) {
                            zlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = DCONJG( REALC*DUMMY )
-                           S = DCONJG( -S*DUMMY )
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = DCONJG( REALC*DUMMY );
+                           S = DCONJG( -S*DUMMY );
                         }
-                        IROW = MAX( 1, JCH-JKU )
-                        IL = IR + 2 - IROW
-                        CTEMP = CZERO
-                        ILTEMP = JCH > JKU
+                        IROW = MAX( 1, JCH-JKU );
+                        IL = IR + 2 - IROW;
+                        CTEMP = CZERO;
+                        ILTEMP = JCH > JKU;
                         zlarot( false , ILTEMP, true , IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, CTEMP, EXTRA );
                         if ( ILTEMP ) {
                            zlartg(A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), CTEMP, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = DCONJG( REALC*DUMMY )
-                           S = DCONJG( -S*DUMMY )
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = DCONJG( REALC*DUMMY );
+                           S = DCONJG( -S*DUMMY );
 
-                           ICOL = MAX( 1, JCH-JKU-JKL )
-                           IL = IC + 2 - ICOL
-                           EXTRA = CZERO
+                           ICOL = MAX( 1, JCH-JKU-JKL );
+                           IL = IC + 2 - ICOL;
+                           EXTRA = CZERO;
                            zlarot( true , JCH > JKU+JKL, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP );
-                           IC = ICOL
-                           IR = IROW
+                           IC = ICOL;
+                           IR = IROW;
                         }
                      } // 50
                   } // 60
                } // 70
 
-               JKU = UUB
+               JKU = UUB;
                for (JKL = 1; JKL <= LLB; JKL++) { // 100
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
-                  DO 90 JC = 1, MIN( N+JKL, M ) + JKU - 1
-                     EXTRA = CZERO
-                     ANGLE = TWOPI*DLARND( 1, ISEED )
-                     C = COS( ANGLE )*ZLARND( 5, ISEED )
-                     S = SIN( ANGLE )*ZLARND( 5, ISEED )
-                     IROW = MAX( 1, JC-JKU )
+                  DO 90 JC = 1, MIN( N+JKL, M ) + JKU - 1;
+                     EXTRA = CZERO;
+                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     C = COS( ANGLE )*ZLARND( 5, ISEED );
+                     S = SIN( ANGLE )*ZLARND( 5, ISEED );
+                     IROW = MAX( 1, JC-JKU );
                      if ( JC < N ) {
-                        IL = MIN( M, JC+JKL ) + 1 - IROW
+                        IL = MIN( M, JC+JKL ) + 1 - IROW;
                         zlarot( false , JC > JKU, false , IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY );
                      }
 
                      // Chase "EXTRA" back up
 
-                     IC = JC
-                     IR = IROW
-                     DO 80 JCH = JC - JKU, 1, -JKL - JKU
+                     IC = JC;
+                     IR = IROW;
+                     DO 80 JCH = JC - JKU, 1, -JKL - JKU;
                         if ( IC < N ) {
                            zlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = DCONJG( REALC*DUMMY )
-                           S = DCONJG( -S*DUMMY )
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = DCONJG( REALC*DUMMY );
+                           S = DCONJG( -S*DUMMY );
                         }
-                        ICOL = MAX( 1, JCH-JKL )
-                        IL = IC + 2 - ICOL
-                        CTEMP = CZERO
-                        ILTEMP = JCH > JKL
+                        ICOL = MAX( 1, JCH-JKL );
+                        IL = IC + 2 - ICOL;
+                        CTEMP = CZERO;
+                        ILTEMP = JCH > JKL;
                         zlarot( true , ILTEMP, true , IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
                         if ( ILTEMP ) {
                            zlartg(A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), CTEMP, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = DCONJG( REALC*DUMMY )
-                           S = DCONJG( -S*DUMMY )
-                           IROW = MAX( 1, JCH-JKL-JKU )
-                           IL = IR + 2 - IROW
-                           EXTRA = CZERO
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = DCONJG( REALC*DUMMY );
+                           S = DCONJG( -S*DUMMY );
+                           IROW = MAX( 1, JCH-JKL-JKU );
+                           IL = IR + 2 - IROW;
+                           EXTRA = CZERO;
                            zlarot( false , JCH > JKL+JKU, true , IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP );
-                           IC = ICOL
-                           IR = IROW
+                           IC = ICOL;
+                           IR = IROW;
                         }
                      } // 80
                   } // 90
@@ -389,7 +389,7 @@
 
                // Bottom-Up -- Start at the bottom right.
 
-               JKL = 0
+               JKL = 0;
                for (JKU = 1; JKU <= UUB; JKU++) { // 130
 
                   // Transform from bandwidth JKL, JKU-1 to JKL, JKU
@@ -397,49 +397,49 @@
                   // First row actually rotated is M
                   // First column actually rotated is MIN( M+JKU, N )
 
-                  IENDCH = MIN( M, N+JKL ) - 1
-                  DO 120 JC = MIN( M+JKU, N ) - 1, 1 - JKL, -1
-                     EXTRA = CZERO
-                     ANGLE = TWOPI*DLARND( 1, ISEED )
-                     C = COS( ANGLE )*ZLARND( 5, ISEED )
-                     S = SIN( ANGLE )*ZLARND( 5, ISEED )
-                     IROW = MAX( 1, JC-JKU+1 )
+                  IENDCH = MIN( M, N+JKL ) - 1;
+                  DO 120 JC = MIN( M+JKU, N ) - 1, 1 - JKL, -1;
+                     EXTRA = CZERO;
+                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     C = COS( ANGLE )*ZLARND( 5, ISEED );
+                     S = SIN( ANGLE )*ZLARND( 5, ISEED );
+                     IROW = MAX( 1, JC-JKU+1 );
                      if ( JC > 0 ) {
-                        IL = MIN( M, JC+JKL+1 ) + 1 - IROW
+                        IL = MIN( M, JC+JKL+1 ) + 1 - IROW;
                         zlarot( false , false , JC+JKL < M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
 
-                     IC = JC
-                     DO 110 JCH = JC + JKL, IENDCH, JKL + JKU
-                        ILEXTR = IC > 0
+                     IC = JC;
+                     DO 110 JCH = JC + JKL, IENDCH, JKL + JKU;
+                        ILEXTR = IC > 0;
                         if ( ILEXTR ) {
                            zlartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = REALC*DUMMY
-                           S = S*DUMMY
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = REALC*DUMMY;
+                           S = S*DUMMY;
                         }
-                        IC = MAX( 1, IC )
-                        ICOL = MIN( N-1, JCH+JKU )
-                        ILTEMP = JCH + JKU < N
-                        CTEMP = CZERO
+                        IC = MAX( 1, IC );
+                        ICOL = MIN( N-1, JCH+JKU );
+                        ILTEMP = JCH + JKU < N;
+                        CTEMP = CZERO;
                         zlarot( true , ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, CTEMP );
                         if ( ILTEMP ) {
                            zlartg(A( JCH-ISKEW*ICOL+IOFFST, ICOL ), CTEMP, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = REALC*DUMMY
-                           S = S*DUMMY
-                           IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
-                           EXTRA = CZERO
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = REALC*DUMMY;
+                           S = S*DUMMY;
+                           IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH;
+                           EXTRA = CZERO;
                            zlarot( false , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
-                           IC = ICOL
+                           IC = ICOL;
                         }
                      } // 110
                   } // 120
                } // 130
 
-               JKU = UUB
+               JKU = UUB;
                for (JKL = 1; JKL <= LLB; JKL++) { // 160
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
@@ -447,43 +447,43 @@
                   // First row actually rotated is MIN( N+JKL, M )
                   // First column actually rotated is N
 
-                  IENDCH = MIN( N, M+JKU ) - 1
-                  DO 150 JR = MIN( N+JKL, M ) - 1, 1 - JKU, -1
-                     EXTRA = CZERO
-                     ANGLE = TWOPI*DLARND( 1, ISEED )
-                     C = COS( ANGLE )*ZLARND( 5, ISEED )
-                     S = SIN( ANGLE )*ZLARND( 5, ISEED )
-                     ICOL = MAX( 1, JR-JKL+1 )
+                  IENDCH = MIN( N, M+JKU ) - 1;
+                  DO 150 JR = MIN( N+JKL, M ) - 1, 1 - JKU, -1;
+                     EXTRA = CZERO;
+                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     C = COS( ANGLE )*ZLARND( 5, ISEED );
+                     S = SIN( ANGLE )*ZLARND( 5, ISEED );
+                     ICOL = MAX( 1, JR-JKL+1 );
                      if ( JR > 0 ) {
-                        IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
+                        IL = MIN( N, JR+JKU+1 ) + 1 - ICOL;
                         zlarot( true , false , JR+JKU < N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA );
                      }
 
                      // Chase "EXTRA" back down
 
-                     IR = JR
-                     DO 140 JCH = JR + JKU, IENDCH, JKL + JKU
-                        ILEXTR = IR > 0
+                     IR = JR;
+                     DO 140 JCH = JR + JKU, IENDCH, JKL + JKU;
+                        ILEXTR = IR > 0;
                         if ( ILEXTR ) {
                            zlartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = REALC*DUMMY
-                           S = S*DUMMY
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = REALC*DUMMY;
+                           S = S*DUMMY;
                         }
-                        IR = MAX( 1, IR )
-                        IROW = MIN( M-1, JCH+JKL )
-                        ILTEMP = JCH + JKL < M
-                        CTEMP = CZERO
+                        IR = MAX( 1, IR );
+                        IROW = MIN( M-1, JCH+JKL );
+                        ILTEMP = JCH + JKL < M;
+                        CTEMP = CZERO;
                         zlarot( false , ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, CTEMP );
                         if ( ILTEMP ) {
                            zlartg(A( IROW-ISKEW*JCH+IOFFST, JCH ), CTEMP, REALC, S, DUMMY );
-                           DUMMY = ZLARND( 5, ISEED )
-                           C = REALC*DUMMY
-                           S = S*DUMMY
-                           IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
-                           EXTRA = CZERO
+                           DUMMY = ZLARND( 5, ISEED );
+                           C = REALC*DUMMY;
+                           S = S*DUMMY;
+                           IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH;
+                           EXTRA = CZERO;
                            zlarot( true , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA );
-                           IR = IROW
+                           IR = IROW;
                         }
                      } // 140
                   } // 150
@@ -496,67 +496,67 @@
             // Symmetric -- A = U D U'
             // Hermitian -- A = U D U*
 
-            IPACKG = IPACK
-            IOFFG = IOFFST
+            IPACKG = IPACK;
+            IOFFG = IOFFST;
 
             if ( TOPDWN ) {
 
                // Top-Down -- Generate Upper triangle only
 
                if ( IPACK >= 5 ) {
-                  IPACKG = 6
-                  IOFFG = UUB + 1
+                  IPACKG = 6;
+                  IOFFG = UUB + 1;
                } else {
-                  IPACKG = 1
+                  IPACKG = 1;
                }
 
                for (J = 1; J <= MNMIN; J++) { // 170
-                  A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
+                  A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) );
                } // 170
 
                for (K = 1; K <= UUB; K++) { // 200
                   for (JC = 1; JC <= N - 1; JC++) { // 190
-                     IROW = MAX( 1, JC-K )
-                     IL = MIN( JC+1, K+2 )
-                     EXTRA = CZERO
-                     CTEMP = A( JC-ISKEW*( JC+1 )+IOFFG, JC+1 )
-                     ANGLE = TWOPI*DLARND( 1, ISEED )
-                     C = COS( ANGLE )*ZLARND( 5, ISEED )
-                     S = SIN( ANGLE )*ZLARND( 5, ISEED )
+                     IROW = MAX( 1, JC-K );
+                     IL = MIN( JC+1, K+2 );
+                     EXTRA = CZERO;
+                     CTEMP = A( JC-ISKEW*( JC+1 )+IOFFG, JC+1 );
+                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     C = COS( ANGLE )*ZLARND( 5, ISEED );
+                     S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      if ( ZSYM ) {
-                        CT = C
-                        ST = S
+                        CT = C;
+                        ST = S;
                      } else {
-                        CTEMP = DCONJG( CTEMP )
-                        CT = DCONJG( C )
-                        ST = DCONJG( S )
+                        CTEMP = DCONJG( CTEMP );
+                        CT = DCONJG( C );
+                        ST = DCONJG( S );
                      }
                      zlarot( false , JC > K, true , IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, CTEMP );
                      zlarot( true , true , false , MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
 
-                     ICOL = JC
-                     DO 180 JCH = JC - K, 1, -K
+                     ICOL = JC;
+                     DO 180 JCH = JC - K, 1, -K;
                         zlartg(A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY );
-                        DUMMY = ZLARND( 5, ISEED )
-                        C = DCONJG( REALC*DUMMY )
-                        S = DCONJG( -S*DUMMY )
-                        CTEMP = A( JCH-ISKEW*( JCH+1 )+IOFFG, JCH+1 )
+                        DUMMY = ZLARND( 5, ISEED );
+                        C = DCONJG( REALC*DUMMY );
+                        S = DCONJG( -S*DUMMY );
+                        CTEMP = A( JCH-ISKEW*( JCH+1 )+IOFFG, JCH+1 );
                         if ( ZSYM ) {
-                           CT = C
-                           ST = S
+                           CT = C;
+                           ST = S;
                         } else {
-                           CTEMP = DCONJG( CTEMP )
-                           CT = DCONJG( C )
-                           ST = DCONJG( S )
+                           CTEMP = DCONJG( CTEMP );
+                           CT = DCONJG( C );
+                           ST = DCONJG( S );
                         }
                         zlarot( true , true , true , K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
-                        IROW = MAX( 1, JCH-K )
-                        IL = MIN( JCH+1, K+2 )
-                        EXTRA = CZERO
+                        IROW = MAX( 1, JCH-K );
+                        IL = MIN( JCH+1, K+2 );
+                        EXTRA = CZERO;
                         zlarot( false , JCH > K, true , IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, CTEMP );
-                        ICOL = JCH
+                        ICOL = JCH;
                      } // 180
                   } // 190
                } // 200
@@ -566,28 +566,28 @@
 
                if ( IPACK != IPACKG && IPACK != 3 ) {
                   for (JC = 1; JC <= N; JC++) { // 230
-                     IROW = IOFFST - ISKEW*JC
+                     IROW = IOFFST - ISKEW*JC;
                      if ( ZSYM ) {
-                        DO 210 JR = JC, MIN( N, JC+UUB )
-                           A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
+                        DO 210 JR = JC, MIN( N, JC+UUB );
+                           A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 210
                      } else {
-                        DO 220 JR = JC, MIN( N, JC+UUB )
-                           A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
+                        DO 220 JR = JC, MIN( N, JC+UUB );
+                           A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 220
                      }
                   } // 230
                   if ( IPACK == 5 ) {
                      for (JC = N - UUB + 1; JC <= N; JC++) { // 250
                         for (JR = N + 2 - JC; JR <= UUB + 1; JR++) { // 240
-                           A( JR, JC ) = CZERO
+                           A( JR, JC ) = CZERO;
                         } // 240
                      } // 250
                   }
                   if ( IPACKG == 6 ) {
-                     IPACKG = IPACK
+                     IPACKG = IPACK;
                   } else {
-                     IPACKG = 0
+                     IPACKG = 0;
                   }
                }
             } else {
@@ -595,58 +595,58 @@
                // Bottom-Up -- Generate Lower triangle only
 
                if ( IPACK >= 5 ) {
-                  IPACKG = 5
+                  IPACKG = 5;
                   if (IPACK == 6) IOFFG = 1;
                } else {
-                  IPACKG = 2
+                  IPACKG = 2;
                }
 
                for (J = 1; J <= MNMIN; J++) { // 260
-                  A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) )
+                  A( ( 1-ISKEW )*J+IOFFG, J ) = DCMPLX( D( J ) );
                } // 260
 
                for (K = 1; K <= UUB; K++) { // 290
-                  DO 280 JC = N - 1, 1, -1
-                     IL = MIN( N+1-JC, K+2 )
-                     EXTRA = CZERO
-                     CTEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC )
-                     ANGLE = TWOPI*DLARND( 1, ISEED )
-                     C = COS( ANGLE )*ZLARND( 5, ISEED )
-                     S = SIN( ANGLE )*ZLARND( 5, ISEED )
+                  DO 280 JC = N - 1, 1, -1;
+                     IL = MIN( N+1-JC, K+2 );
+                     EXTRA = CZERO;
+                     CTEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC );
+                     ANGLE = TWOPI*DLARND( 1, ISEED );
+                     C = COS( ANGLE )*ZLARND( 5, ISEED );
+                     S = SIN( ANGLE )*ZLARND( 5, ISEED );
                      if ( ZSYM ) {
-                        CT = C
-                        ST = S
+                        CT = C;
+                        ST = S;
                      } else {
-                        CTEMP = DCONJG( CTEMP )
-                        CT = DCONJG( C )
-                        ST = DCONJG( S )
+                        CTEMP = DCONJG( CTEMP );
+                        CT = DCONJG( C );
+                        ST = DCONJG( S );
                      }
                      zlarot( false , true , N-JC > K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, EXTRA );
-                     ICOL = MAX( 1, JC-K+1 )
+                     ICOL = MAX( 1, JC-K+1 );
                      zlarot( true , false , true , JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, CTEMP );
 
                      // Chase EXTRA back down the matrix
 
-                     ICOL = JC
-                     DO 270 JCH = JC + K, N - 1, K
+                     ICOL = JC;
+                     DO 270 JCH = JC + K, N - 1, K;
                         zlartg(A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY );
-                        DUMMY = ZLARND( 5, ISEED )
-                        C = REALC*DUMMY
-                        S = S*DUMMY
-                        CTEMP = A( 1+( 1-ISKEW )*JCH+IOFFG, JCH )
+                        DUMMY = ZLARND( 5, ISEED );
+                        C = REALC*DUMMY;
+                        S = S*DUMMY;
+                        CTEMP = A( 1+( 1-ISKEW )*JCH+IOFFG, JCH );
                         if ( ZSYM ) {
-                           CT = C
-                           ST = S
+                           CT = C;
+                           ST = S;
                         } else {
-                           CTEMP = DCONJG( CTEMP )
-                           CT = DCONJG( C )
-                           ST = DCONJG( S )
+                           CTEMP = DCONJG( CTEMP );
+                           CT = DCONJG( C );
+                           ST = DCONJG( S );
                         }
                         zlarot( true , true , true , K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, CTEMP );
-                        IL = MIN( N+1-JCH, K+2 )
-                        EXTRA = CZERO
+                        IL = MIN( N+1-JCH, K+2 );
+                        EXTRA = CZERO;
                         zlarot( false , true , N-JCH > K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
-                        ICOL = JCH
+                        ICOL = JCH;
                      } // 270
                   } // 280
                } // 290
@@ -655,29 +655,29 @@
                // the order of copying is chosen to work for 'b' -> 'q'
 
                if ( IPACK != IPACKG && IPACK != 4 ) {
-                  DO 320 JC = N, 1, -1
-                     IROW = IOFFST - ISKEW*JC
+                  DO 320 JC = N, 1, -1;
+                     IROW = IOFFST - ISKEW*JC;
                      if ( ZSYM ) {
-                        DO 300 JR = JC, MAX( 1, JC-UUB ), -1
-                           A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
+                        DO 300 JR = JC, MAX( 1, JC-UUB ), -1;
+                           A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 300
                      } else {
-                        DO 310 JR = JC, MAX( 1, JC-UUB ), -1
-                           A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
+                        DO 310 JR = JC, MAX( 1, JC-UUB ), -1;
+                           A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 310
                      }
                   } // 320
                   if ( IPACK == 6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 340
                         for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 330
-                           A( JR, JC ) = CZERO
+                           A( JR, JC ) = CZERO;
                         } // 330
                      } // 340
                   }
                   if ( IPACKG == 5 ) {
-                     IPACKG = IPACK
+                     IPACKG = IPACK;
                   } else {
-                     IPACKG = 0
+                     IPACKG = 0;
                   }
                }
             }
@@ -686,8 +686,8 @@
 
             if ( !ZSYM ) {
                for (JC = 1; JC <= N; JC++) { // 350
-                  IROW = IOFFST + ( 1-ISKEW )*JC
-                  A( IROW, JC ) = DCMPLX( DBLE( A( IROW, JC ) ) )
+                  IROW = IOFFST + ( 1-ISKEW )*JC;
+                  A( IROW, JC ) = DCMPLX( DBLE( A( IROW, JC ) ) );
                } // 350
             }
 
@@ -720,8 +720,8 @@
          }
 
          if ( IINFO != 0 ) {
-            INFO = 3
-            RETURN
+            INFO = 3;
+            RETURN;
          }
       }
 
@@ -734,7 +734,7 @@
 
             for (J = 1; J <= M; J++) { // 370
                for (I = J + 1; I <= M; I++) { // 360
-                  A( I, J ) = CZERO
+                  A( I, J ) = CZERO;
                } // 360
             } // 370
 
@@ -744,7 +744,7 @@
 
             for (J = 2; J <= M; J++) { // 390
                for (I = 1; I <= J - 1; I++) { // 380
-                  A( I, J ) = CZERO
+                  A( I, J ) = CZERO;
                } // 380
             } // 390
 
@@ -752,16 +752,16 @@
 
             // 'C' -- Upper triangle packed Columnwise.
 
-            ICOL = 1
-            IROW = 0
+            ICOL = 1;
+            IROW = 0;
             for (J = 1; J <= M; J++) { // 410
                for (I = 1; I <= J; I++) { // 400
-                  IROW = IROW + 1
+                  IROW = IROW + 1;
                   if ( IROW > LDA ) {
-                     IROW = 1
-                     ICOL = ICOL + 1
+                     IROW = 1;
+                     ICOL = ICOL + 1;
                   }
-                  A( IROW, ICOL ) = A( I, J )
+                  A( IROW, ICOL ) = A( I, J );
                } // 400
             } // 410
 
@@ -769,16 +769,16 @@
 
             // 'R' -- Lower triangle packed Columnwise.
 
-            ICOL = 1
-            IROW = 0
+            ICOL = 1;
+            IROW = 0;
             for (J = 1; J <= M; J++) { // 430
                for (I = J; I <= M; I++) { // 420
-                  IROW = IROW + 1
+                  IROW = IROW + 1;
                   if ( IROW > LDA ) {
-                     IROW = 1
-                     ICOL = ICOL + 1
+                     IROW = 1;
+                     ICOL = ICOL + 1;
                   }
-                  A( IROW, ICOL ) = A( I, J )
+                  A( IROW, ICOL ) = A( I, J );
                } // 420
             } // 430
 
@@ -791,14 +791,14 @@
             if (IPACK == 5) UUB = 0             IF( IPACK == 6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 450
-               DO 440 I = MIN( J+LLB, M ), 1, -1
-                  A( I-J+UUB+1, J ) = A( I, J )
+               DO 440 I = MIN( J+LLB, M ), 1, -1;
+                  A( I-J+UUB+1, J ) = A( I, J );
                } // 440
             } // 450
 
             for (J = UUB + 2; J <= N; J++) { // 470
-               DO 460 I = J - UUB, MIN( J+LLB, M )
-                  A( I-J+UUB+1, J ) = A( I, J )
+               DO 460 I = J - UUB, MIN( J+LLB, M );
+                  A( I-J+UUB+1, J ) = A( I, J );
                } // 460
             } // 470
          }
@@ -811,9 +811,9 @@
          if ( IPACK == 3 || IPACK == 4 ) {
             for (JC = ICOL; JC <= M; JC++) { // 490
                for (JR = IROW + 1; JR <= LDA; JR++) { // 480
-                  A( JR, JC ) = CZERO
+                  A( JR, JC ) = CZERO;
                } // 480
-               IROW = 0
+               IROW = 0;
             } // 490
 
          } else if ( IPACK >= 5 ) {
@@ -824,20 +824,20 @@
                // last non-zero diagonal is now in A( UUB+LLB+1,j ),
                   // zero below it, too.
 
-            IR1 = UUB + LLB + 2
-            IR2 = UUB + M + 2
+            IR1 = UUB + LLB + 2;
+            IR2 = UUB + M + 2;
             for (JC = 1; JC <= N; JC++) { // 520
                for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 500
-                  A( JR, JC ) = CZERO
+                  A( JR, JC ) = CZERO;
                } // 500
-               DO 510 JR = MAX( 1, MIN( IR1, IR2-JC ) ), LDA
-                  A( JR, JC ) = CZERO
+               DO 510 JR = MAX( 1, MIN( IR1, IR2-JC ) ), LDA;
+                  A( JR, JC ) = CZERO;
                } // 510
             } // 520
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLATMS
 

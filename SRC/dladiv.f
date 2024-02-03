@@ -1,4 +1,4 @@
-      SUBROUTINE DLADIV( A, B, C, D, P, Q )
+      SUBROUTINE DLADIV( A, B, C, D, P, Q );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -33,49 +33,49 @@
       // ..
       // .. Executable Statements ..
 
-      AA = A
-      BB = B
-      CC = C
-      DD = D
-      AB = MAX( ABS(A), ABS(B) )
-      CD = MAX( ABS(C), ABS(D) )
+      AA = A;
+      BB = B;
+      CC = C;
+      DD = D;
+      AB = MAX( ABS(A), ABS(B) );
+      CD = MAX( ABS(C), ABS(D) );
       S = 1.0;
 
-      OV = DLAMCH( 'Overflow threshold' )
-      UN = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Epsilon' )
-      BE = BS / (EPS*EPS)
+      OV = DLAMCH( 'Overflow threshold' );
+      UN = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Epsilon' );
+      BE = BS / (EPS*EPS);
 
       if ( AB >= HALF*OV ) {
-         AA = HALF * AA
-         BB = HALF * BB
-         S  = TWO * S
+         AA = HALF * AA;
+         BB = HALF * BB;
+         S  = TWO * S;
       }
       if ( CD >= HALF*OV ) {
-         CC = HALF * CC
-         DD = HALF * DD
-         S  = HALF * S
+         CC = HALF * CC;
+         DD = HALF * DD;
+         S  = HALF * S;
       }
       if ( AB <= UN*BS/EPS ) {
-         AA = AA * BE
-         BB = BB * BE
-         S  = S / BE
+         AA = AA * BE;
+         BB = BB * BE;
+         S  = S / BE;
       }
       if ( CD <= UN*BS/EPS ) {
-         CC = CC * BE
-         DD = DD * BE
-         S  = S * BE
+         CC = CC * BE;
+         DD = DD * BE;
+         S  = S * BE;
       }
       if ( ABS( D ) <= ABS( C ) ) {
          dladiv1(AA, BB, CC, DD, P, Q);
       } else {
          dladiv1(BB, AA, DD, CC, P, Q);
-         Q = -Q
+         Q = -Q;
       }
-      P = P * S
-      Q = Q * S
+      P = P * S;
+      Q = Q * S;
 
-      RETURN
+      RETURN;
 
       // End of DLADIV
 
@@ -84,7 +84,7 @@
 *> \ingroup ladiv
 
 
-      SUBROUTINE DLADIV1( A, B, C, D, P, Q )
+      SUBROUTINE DLADIV1( A, B, C, D, P, Q );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -109,13 +109,13 @@
       // ..
       // .. Executable Statements ..
 
-      R = D / C
-      T = ONE / (C + D * R)
-      P = DLADIV2(A, B, C, D, R, T)
-      A = -A
-      Q = DLADIV2(B, A, C, D, R, T)
+      R = D / C;
+      T = ONE / (C + D * R);
+      P = DLADIV2(A, B, C, D, R, T);
+      A = -A;
+      Q = DLADIV2(B, A, C, D, R, T);
 
-      RETURN
+      RETURN;
 
       // End of DLADIV1
 
@@ -145,17 +145,17 @@
       // .. Executable Statements ..
 
       if ( R != ZERO ) {
-         BR = B * R
+         BR = B * R;
          if ( BR != ZERO ) {
-            DLADIV2 = (A + BR) * T
+            DLADIV2 = (A + BR) * T;
          } else {
-            DLADIV2 = A * T + (B * T) * R
+            DLADIV2 = A * T + (B * T) * R;
          }
       } else {
-         DLADIV2 = (A + D * (B / C)) * T
+         DLADIV2 = (A + D * (B / C)) * T;
       }
 
-      RETURN
+      RETURN;
 
       // End of DLADIV2
 

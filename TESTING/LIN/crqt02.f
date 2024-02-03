@@ -1,4 +1,4 @@
-      SUBROUTINE CRQT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CRQT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,24 +8,24 @@
       int                K, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
+      REAL               RESULT( * ), RWORK( * );
+      COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            ROGUE
+      COMPLEX            ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, EPS, RESID
+      REAL               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANSY, SLAMCH
+      REAL               CLANGE, CLANSY, SLAMCH;
       // EXTERNAL CLANGE, CLANSY, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -45,12 +45,12 @@
       // Quick return if possible
 
       if ( M == 0 || N == 0 || K == 0 ) {
-         RESULT( 1 ) = ZERO
-         RESULT( 2 ) = ZERO
-         RETURN
+         RESULT( 1 ) = ZERO;
+         RESULT( 2 ) = ZERO;
+         RETURN;
       }
 
-      EPS = SLAMCH( 'Epsilon' )
+      EPS = SLAMCH( 'Epsilon' );
 
       // Copy the last k rows of the factorization to the array Q
 
@@ -59,7 +59,7 @@
 
       // Generate the last n rows of the matrix Q
 
-      SRNAMT = 'CUNGRQ'
+      SRNAMT = 'CUNGRQ';
       cungrq(M, N, K, Q, LDA, TAU( M-K+1 ), WORK, LWORK, INFO );
 
       // Copy R(m-k+1:m,n-m+1:n)
@@ -72,12 +72,12 @@
 
       // Compute norm( R - A*Q' ) / ( N * norm(A) * EPS ) .
 
-      ANORM = CLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK )
-      RESID = CLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK )
+      ANORM = CLANGE( '1', K, N, A( M-K+1, 1 ), LDA, RWORK );
+      RESID = CLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -87,11 +87,11 @@
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      RESID = CLANSY( '1', 'Upper', M, R, LDA, RWORK )
+      RESID = CLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of CRQT02
 

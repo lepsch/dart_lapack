@@ -1,5 +1,5 @@
-      SUBROUTINE ZCHKUNHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-      IMPLICIT NONE
+      SUBROUTINE ZCHKUNHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT );
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -46,26 +46,26 @@
 
       // Initialize constants
 
-      PATH( 1: 1 ) = 'Z'
-      PATH( 2: 3 ) = 'HH'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Z';
+      PATH( 2: 3 ) = 'HH';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
 
       // Test the error exits
 
       if (TSTERR) CALL ZERRUNHR_COL( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Do for each value of M in MVAL.
 
       for (I = 1; I <= NM; I++) {
-         M = MVAL( I )
+         M = MVAL( I );
 
          // Do for each value of N in NVAL.
 
          for (J = 1; J <= NN; J++) {
-            N = NVAL( J )
+            N = NVAL( J );
 
             // Only for M >= N
 
@@ -74,7 +74,7 @@
                // Do for each possible value of MB1
 
                for (IMB1 = 1; IMB1 <= NNB; IMB1++) {
-                  MB1 = NBVAL( IMB1 )
+                  MB1 = NBVAL( IMB1 );
 
                   // Only for MB1 > N
 
@@ -83,12 +83,12 @@
                      // Do for each possible value of NB1
 
                      for (INB1 = 1; INB1 <= NNB; INB1++) {
-                        NB1 = NBVAL( INB1 )
+                        NB1 = NBVAL( INB1 );
 
                         // Do for each possible value of NB2
 
                         for (INB2 = 1; INB2 <= NNB; INB2++) {
-                           NB2 = NBVAL( INB2 )
+                           NB2 = NBVAL( INB2 );
 
                            if ( NB1 > 0 && NB2 > 0 ) {
 
@@ -102,10 +102,10 @@
                               for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
-                                    NFAIL = NFAIL + 1
+                                    NFAIL = NFAIL + 1;
                                  }
                               }
-                              NRUN = NRUN + NTESTS
+                              NRUN = NRUN + NTESTS;
                            }
                         }
                      }
@@ -118,12 +118,12 @@
       // Do for each value of M in MVAL.
 
       for (I = 1; I <= NM; I++) {
-         M = MVAL( I )
+         M = MVAL( I );
 
          // Do for each value of N in NVAL.
 
          for (J = 1; J <= NN; J++) {
-            N = NVAL( J )
+            N = NVAL( J );
 
             // Only for M >= N
 
@@ -132,7 +132,7 @@
                // Do for each possible value of MB1
 
                for (IMB1 = 1; IMB1 <= NNB; IMB1++) {
-                  MB1 = NBVAL( IMB1 )
+                  MB1 = NBVAL( IMB1 );
 
                   // Only for MB1 > N
 
@@ -141,12 +141,12 @@
                      // Do for each possible value of NB1
 
                      for (INB1 = 1; INB1 <= NNB; INB1++) {
-                        NB1 = NBVAL( INB1 )
+                        NB1 = NBVAL( INB1 );
 
                         // Do for each possible value of NB2
 
                         for (INB2 = 1; INB2 <= NNB; INB2++) {
-                           NB2 = NBVAL( INB2 )
+                           NB2 = NBVAL( INB2 );
 
                            if ( NB1 > 0 && NB2 > 0 ) {
 
@@ -160,10 +160,10 @@
                               for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ) >= THRESH ) {
                                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
-                                    NFAIL = NFAIL + 1
+                                    NFAIL = NFAIL + 1;
                                  }
                               }
-                              NRUN = NRUN + NTESTS
+                              NRUN = NRUN + NTESTS;
                            }
                         }
                      }
@@ -177,9 +177,9 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 'ZUNGTSQR and ZUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )
- 9998 FORMAT( 'ZUNGTSQR_ROW and ZUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )
-      RETURN
+ 9999 FORMAT( 'ZUNGTSQR and ZUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 );
+ 9998 FORMAT( 'ZUNGTSQR_ROW and ZUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 );
+      RETURN;
 
       // End of ZCHKUNHR_COL
 

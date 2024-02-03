@@ -1,4 +1,4 @@
-      SUBROUTINE ZDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 )
+      SUBROUTINE ZDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
-      COMPLEX*16         A( * )
-      COMPLEX*16         AINV( * )
-      COMPLEX*16         ASAV( * )
-      COMPLEX*16         B( * )
-      COMPLEX*16         BSAV( * )
-      COMPLEX*16         AFAC( * )
-      COMPLEX*16         ARF( * )
-      COMPLEX*16         ARFINV( * )
-      COMPLEX*16         XACT( * )
-      COMPLEX*16         X( * )
-      COMPLEX*16         Z_WORK_ZLATMS( * )
-      COMPLEX*16         Z_WORK_ZPOT02( * )
-      COMPLEX*16         Z_WORK_ZPOT03( * )
+      COMPLEX*16         A( * );
+      COMPLEX*16         AINV( * );
+      COMPLEX*16         ASAV( * );
+      COMPLEX*16         B( * );
+      COMPLEX*16         BSAV( * );
+      COMPLEX*16         AFAC( * );
+      COMPLEX*16         ARF( * );
+      COMPLEX*16         ARFINV( * );
+      COMPLEX*16         XACT( * );
+      COMPLEX*16         X( * );
+      COMPLEX*16         Z_WORK_ZLATMS( * );
+      COMPLEX*16         Z_WORK_ZPOT02( * );
+      COMPLEX*16         Z_WORK_ZPOT03( * );
       double             D_WORK_ZLATMS( * );
       double             D_WORK_ZLANHE( * );
       double             D_WORK_ZPOT01( * );
@@ -64,34 +64,34 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' /
-      DATA               FORMS / 'N', 'C' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' /;
+      DATA               FORMS / 'N', 'C' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       for (IIN = 1; IIN <= NN; IIN++) { // 130
 
-         N = NVAL( IIN )
-         LDA = MAX( N, 1 )
-         LDB = MAX( N, 1 )
+         N = NVAL( IIN );
+         LDA = MAX( N, 1 );
+         LDB = MAX( N, 1 );
 
          for (IIS = 1; IIS <= NNS; IIS++) { // 980
 
-            NRHS = NSVAL( IIS )
+            NRHS = NSVAL( IIS );
 
             for (IIT = 1; IIT <= NNT; IIT++) { // 120
 
-               IMAT = NTVAL( IIT )
+               IMAT = NTVAL( IIT );
 
                // If N == 0, only consider the first type
 
@@ -105,66 +105,66 @@
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 110
-                  UPLO = UPLOS( IUPLO )
+                  UPLO = UPLOS( IUPLO );
 
                   // Do first for CFORM = 'N', then for CFORM = 'C'
 
                   for (IFORM = 1; IFORM <= 2; IFORM++) { // 100
-                     CFORM = FORMS( IFORM )
+                     CFORM = FORMS( IFORM );
 
                      // Set up parameters with ZLATB4 and generate a test
                      // matrix with ZLATMS.
 
                      zlatb4('ZPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                     SRNAMT = 'ZLATMS'
+                     SRNAMT = 'ZLATMS';
                      zlatms(N, N, DIST, ISEED, CTYPE, D_WORK_ZLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, Z_WORK_ZLATMS, INFO );
 
                      // Check error code from ZLATMS.
 
                      if ( INFO != 0 ) {
                         alaerh('ZPF', 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT );
-                        GO TO 100
+                        GO TO 100;
                      }
 
                      // For types 3-5, zero one row and column of the matrix to
                      // test that INFO is returned correctly.
 
-                     ZEROT = IMAT >= 3 && IMAT <= 5
+                     ZEROT = IMAT >= 3 && IMAT <= 5;
                      if ( ZEROT ) {
                         if ( IIT == 3 ) {
-                           IZERO = 1
+                           IZERO = 1;
                         } else if ( IIT == 4 ) {
-                           IZERO = N
+                           IZERO = N;
                         } else {
-                           IZERO = N / 2 + 1
+                           IZERO = N / 2 + 1;
                         }
-                        IOFF = ( IZERO-1 )*LDA
+                        IOFF = ( IZERO-1 )*LDA;
 
                         // Set row and column IZERO of A to 0.
 
                         if ( IUPLO == 1 ) {
                            for (I = 1; I <= IZERO - 1; I++) { // 20
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 20
-                           IOFF = IOFF + IZERO
+                           IOFF = IOFF + IZERO;
                            for (I = IZERO; I <= N; I++) { // 30
-                              A( IOFF ) = ZERO
-                              IOFF = IOFF + LDA
+                              A( IOFF ) = ZERO;
+                              IOFF = IOFF + LDA;
                            } // 30
                         } else {
-                           IOFF = IZERO
+                           IOFF = IZERO;
                            for (I = 1; I <= IZERO - 1; I++) { // 40
-                              A( IOFF ) = ZERO
-                              IOFF = IOFF + LDA
+                              A( IOFF ) = ZERO;
+                              IOFF = IOFF + LDA;
                            } // 40
-                           IOFF = IOFF - IZERO
+                           IOFF = IOFF - IZERO;
                            for (I = IZERO; I <= N; I++) { // 50
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 50
                         }
                      } else {
-                        IZERO = 0
+                        IZERO = 0;
                      }
 
                      // Set the imaginary part of the diagonals.
@@ -178,12 +178,12 @@
                      // Compute the condition number of A (RCONDC).
 
                      if ( ZEROT ) {
-                        RCONDC = ZERO
+                        RCONDC = ZERO;
                      } else {
 
                         // Compute the 1-norm of A.
 
-                        ANORM = ZLANHE( '1', UPLO, N, A, LDA, D_WORK_ZLANHE )
+                        ANORM = ZLANHE( '1', UPLO, N, A, LDA, D_WORK_ZLANHE );
 
                         // Factor the matrix A.
 
@@ -197,8 +197,8 @@
 
                            // Compute the 1-norm condition number of A.
 
-                           AINVNM = ZLANHE( '1', UPLO, N, A, LDA, D_WORK_ZLANHE )
-                           RCONDC = ( ONE / ANORM ) / AINVNM
+                           AINVNM = ZLANHE( '1', UPLO, N, A, LDA, D_WORK_ZLANHE );
+                           RCONDC = ( ONE / ANORM ) / AINVNM;
 
                            // Restore the matrix A.
 
@@ -209,7 +209,7 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'ZLARHS'
+                     SRNAMT = 'ZLARHS';
                      zlarhs('ZPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      zlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
@@ -219,9 +219,9 @@
                      zlacpy(UPLO, N, N, A, LDA, AFAC, LDA );
                      zlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
-                     SRNAMT = 'ZTRTTF'
+                     SRNAMT = 'ZTRTTF';
                      ztrttf(CFORM, UPLO, N, AFAC, LDA, ARF, INFO );
-                     SRNAMT = 'ZPFTRF'
+                     SRNAMT = 'ZPFTRF';
                      zpftrf(CFORM, UPLO, N, ARF, INFO );
 
                      // Check error code from ZPFTRF.
@@ -233,19 +233,19 @@
                         // complain.
 
                          alaerh('ZPF', 'ZPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT );
-                         GO TO 100
+                         GO TO 100;
                       }
 
                       // Skip the tests if INFO is not 0.
 
                      if ( INFO != 0 ) {
-                        GO TO 100
+                        GO TO 100;
                      }
 
-                     SRNAMT = 'ZPFTRS'
+                     SRNAMT = 'ZPFTRS';
                      zpftrs(CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO );
 
-                     SRNAMT = 'ZTFTTR'
+                     SRNAMT = 'ZTFTTR';
                      ztfttr(CFORM, UPLO, N, ARF, AFAC, LDA, INFO );
 
                      // Reconstruct matrix from factors and compute
@@ -263,10 +263,10 @@
                        zlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );
                     }
 
-                     SRNAMT = 'ZPFTRI'
+                     SRNAMT = 'ZPFTRI';
                      zpftri(CFORM, UPLO, N, ARFINV , INFO );
 
-                     SRNAMT = 'ZTFTTR'
+                     SRNAMT = 'ZTFTTR';
                      ztfttr(CFORM, UPLO, N, ARFINV, AINV, LDA, INFO );
 
                      // Check error code from ZPFTRI.
@@ -283,7 +283,7 @@
                      // Check solution from generated exact solution.
 
                      zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
-                     NT = 4
+                     NT = 4;
 
                      // Print information about the tests that did not
                      // pass the threshold.
@@ -291,10 +291,10 @@
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'ZPF' )                            WRITE( NOUT, FMT = 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 60
-                     NRUN = NRUN + NT
+                     NRUN = NRUN + NT;
                   } // 100
                } // 110
             } // 120
@@ -305,9 +305,9 @@
 
       alasvm('ZPF', NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
+ 9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 );
 
-      RETURN
+      RETURN;
 
       // End of ZDRVRFP
 

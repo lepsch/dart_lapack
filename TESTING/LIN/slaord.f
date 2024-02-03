@@ -1,4 +1,4 @@
-      SUBROUTINE SLAORD( JOB, N, X, INCX )
+      SUBROUTINE SLAORD( JOB, N, X, INCX );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,14 +9,14 @@
       int                INCX, N;
       // ..
       // .. Array Arguments ..
-      REAL               X( * )
+      REAL               X( * );
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
       int                I, INC, IX, IXNEXT;
-      REAL               TEMP
+      REAL               TEMP;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -27,25 +27,25 @@
       // ..
       // .. Executable Statements ..
 
-      INC = ABS( INCX )
+      INC = ABS( INCX );
       if ( LSAME( JOB, 'I' ) ) {
 
          // Sort in increasing order
 
          for (I = 2; I <= N; I++) { // 20
-            IX = 1 + ( I-1 )*INC
+            IX = 1 + ( I-1 )*INC;
             } // 10
             if (IX == 1) GO TO 20;
-            IXNEXT = IX - INC
+            IXNEXT = IX - INC;
             if ( X( IX ) > X( IXNEXT ) ) {
-               GO TO 20
+               GO TO 20;
             } else {
-               TEMP = X( IX )
-               X( IX ) = X( IXNEXT )
-               X( IXNEXT ) = TEMP
+               TEMP = X( IX );
+               X( IX ) = X( IXNEXT );
+               X( IXNEXT ) = TEMP;
             }
-            IX = IXNEXT
-            GO TO 10
+            IX = IXNEXT;
+            GO TO 10;
          } // 20
 
       } else if ( LSAME( JOB, 'D' ) ) {
@@ -53,22 +53,22 @@
          // Sort in decreasing order
 
          for (I = 2; I <= N; I++) { // 40
-            IX = 1 + ( I-1 )*INC
+            IX = 1 + ( I-1 )*INC;
             } // 30
             if (IX == 1) GO TO 40;
-            IXNEXT = IX - INC
+            IXNEXT = IX - INC;
             if ( X( IX ) < X( IXNEXT ) ) {
-               GO TO 40
+               GO TO 40;
             } else {
-               TEMP = X( IX )
-               X( IX ) = X( IXNEXT )
-               X( IXNEXT ) = TEMP
+               TEMP = X( IX );
+               X( IX ) = X( IXNEXT );
+               X( IXNEXT ) = TEMP;
             }
-            IX = IXNEXT
-            GO TO 30
+            IX = IXNEXT;
+            GO TO 30;
          } // 40
       }
-      RETURN
+      RETURN;
 
       // End of SLAORD
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZLATZM( SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK )
+      SUBROUTINE ZLATZM( SIDE, M, N, V, INCV, TAU, C1, C2, LDC, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             SIDE;
       int                INCV, LDC, M, N;
-      COMPLEX*16         TAU
+      COMPLEX*16         TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * )
+      COMPLEX*16         C1( LDC, * ), C2( LDC, * ), V( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO
+      COMPLEX*16         ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. External Subroutines ..
@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ( MIN( M, N ) == 0 ) || ( TAU == ZERO ) ) RETURN
+      IF( ( MIN( M, N ) == 0 ) || ( TAU == ZERO ) ) RETURN;
 
       if ( LSAME( SIDE, 'L' ) ) {
 
@@ -61,7 +61,7 @@
          zgerc(M, N-1, -TAU, WORK, 1, V, INCV, C2, LDC );
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLATZM
 

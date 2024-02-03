@@ -1,4 +1,4 @@
-      SUBROUTINE SERRTZ( PATH, NUNIT )
+      SUBROUTINE SERRTZ( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,7 +20,7 @@
       int                INFO;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), TAU( NMAX ), W( NMAX )
+      REAL               A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;
@@ -40,9 +40,9 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
-      C2 = PATH( 2: 3 )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
+      C2 = PATH( 2: 3 );
       A( 1, 1 ) = 1.0;
       A( 1, 2 ) = 2.0;
       A( 2, 2 ) = 3.0;
@@ -57,20 +57,20 @@
 
          // STZRZF
 
-         SRNAMT = 'STZRZF'
-         INFOT = 1
+         SRNAMT = 'STZRZF';
+         INFOT = 1;
          stzrzf(-1, 0, A, 1, TAU, W, 1, INFO );
          chkxer('STZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 2
+         INFOT = 2;
          stzrzf(1, 0, A, 1, TAU, W, 1, INFO );
          chkxer('STZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 4
+         INFOT = 4;
          stzrzf(2, 2, A, 1, TAU, W, 1, INFO );
          chkxer('STZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          stzrzf(2, 2, A, 2, TAU, W, 0, INFO );
          chkxer('STZRZF', INFOT, NOUT, LERR, OK );
-         INFOT = 7
+         INFOT = 7;
          stzrzf(2, 3, A, 2, TAU, W, 1, INFO );
          chkxer('STZRZF', INFOT, NOUT, LERR, OK );
       }
@@ -79,7 +79,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of SERRTZ
 

@@ -1,5 +1,5 @@
-      SUBROUTINE DLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK )
-      IMPLICIT NONE
+      SUBROUTINE DLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK );
+      IMPLICIT NONE;
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,7 +36,7 @@
 
       if (M < 0 || N <= 0 || K == 0 || K > N) RETURN;
 
-      LNOTIDENT = !LSAME( IDENT, 'I' )
+      LNOTIDENT = !LSAME( IDENT, 'I' );
 
       // ------------------------------------------------------------------
 
@@ -100,7 +100,7 @@
 
          for (J = 1; J <= N-K; J++) {
             for (I = 1; I <= K; I++) {
-               A( I, K+J ) = A( I, K+J ) - WORK( I, J )
+               A( I, K+J ) = A( I, K+J ) - WORK( I, J );
             }
          }
 
@@ -127,7 +127,7 @@
 
       for (J = 1; J <= K - 1; J++) {
          for (I = J + 1; I <= K; I++) {
-            WORK( I, J ) = ZERO
+            WORK( I, J ) = ZERO;
          }
       }
 
@@ -174,7 +174,7 @@
 
          for (J = 1; J <= K - 1; J++) {
             for (I = J + 1; I <= K; I++) {
-               A( I, J ) = - WORK( I, J )
+               A( I, J ) = - WORK( I, J );
             }
          }
 
@@ -184,11 +184,11 @@
 
       for (J = 1; J <= K; J++) {
          for (I = 1; I <= J; I++) {
-            A( I, J ) = A( I, J ) - WORK( I, J )
+            A( I, J ) = A( I, J ) - WORK( I, J );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DLARFB_GETT
 

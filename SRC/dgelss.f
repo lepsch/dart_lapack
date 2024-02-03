@@ -1,4 +1,4 @@
-      SUBROUTINE DGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, RANK, WORK, LWORK, INFO )
+      SUBROUTINE DGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, RANK, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,20 +42,20 @@
 
       // Test the input arguments
 
-      INFO = 0
-      MINMN = MIN( M, N )
-      MAXMN = MAX( M, N )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      MINMN = MIN( M, N );
+      MAXMN = MAX( M, N );
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, MAXMN ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       // Compute workspace
@@ -66,11 +66,11 @@
         // following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
-         MINWRK = 1
-         MAXWRK = 1
+         MINWRK = 1;
+         MAXWRK = 1;
          if ( MINMN > 0 ) {
-            MM = M
-            MNTHR = ILAENV( 6, 'DGELSS', ' ', M, N, NRHS, -1 )
+            MM = M;
+            MNTHR = ILAENV( 6, 'DGELSS', ' ', M, N, NRHS, -1 );
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
@@ -78,13 +78,13 @@
 
                // Compute space needed for DGEQRF
                dgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
-               LWORK_DGEQRF = INT( DUM(1) )
+               LWORK_DGEQRF = INT( DUM(1) );
                // Compute space needed for DORMQR
                dormqr('L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
-               LWORK_DORMQR = INT( DUM(1) )
-               MM = N
-               MAXWRK = MAX( MAXWRK, N + LWORK_DGEQRF )
-               MAXWRK = MAX( MAXWRK, N + LWORK_DORMQR )
+               LWORK_DORMQR = INT( DUM(1) );
+               MM = N;
+               MAXWRK = MAX( MAXWRK, N + LWORK_DGEQRF );
+               MAXWRK = MAX( MAXWRK, N + LWORK_DORMQR );
             }
             if ( M >= N ) {
 
@@ -92,31 +92,31 @@
 
                // Compute workspace needed for DBDSQR
 
-               BDSPAC = MAX( 1, 5*N )
+               BDSPAC = MAX( 1, 5*N );
                // Compute space needed for DGEBRD
                dgebrd(MM, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
-               LWORK_DGEBRD = INT( DUM(1) )
+               LWORK_DGEBRD = INT( DUM(1) );
                // Compute space needed for DORMBR
                dormbr('Q', 'L', 'T', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
-               LWORK_DORMBR = INT( DUM(1) )
+               LWORK_DORMBR = INT( DUM(1) );
                // Compute space needed for DORGBR
                dorgbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO );
-               LWORK_DORGBR = INT( DUM(1) )
+               LWORK_DORGBR = INT( DUM(1) );
                // Compute total workspace needed
-               MAXWRK = MAX( MAXWRK, 3*N + LWORK_DGEBRD )
-               MAXWRK = MAX( MAXWRK, 3*N + LWORK_DORMBR )
-               MAXWRK = MAX( MAXWRK, 3*N + LWORK_DORGBR )
-               MAXWRK = MAX( MAXWRK, BDSPAC )
-               MAXWRK = MAX( MAXWRK, N*NRHS )
-               MINWRK = MAX( 3*N + MM, 3*N + NRHS, BDSPAC )
-               MAXWRK = MAX( MINWRK, MAXWRK )
+               MAXWRK = MAX( MAXWRK, 3*N + LWORK_DGEBRD );
+               MAXWRK = MAX( MAXWRK, 3*N + LWORK_DORMBR );
+               MAXWRK = MAX( MAXWRK, 3*N + LWORK_DORGBR );
+               MAXWRK = MAX( MAXWRK, BDSPAC );
+               MAXWRK = MAX( MAXWRK, N*NRHS );
+               MINWRK = MAX( 3*N + MM, 3*N + NRHS, BDSPAC );
+               MAXWRK = MAX( MINWRK, MAXWRK );
             }
             if ( N > M ) {
 
                // Compute workspace needed for DBDSQR
 
-               BDSPAC = MAX( 1, 5*M )
-               MINWRK = MAX( 3*M+NRHS, 3*M+N, BDSPAC )
+               BDSPAC = MAX( 1, 5*M );
+               MINWRK = MAX( 3*M+NRHS, 3*M+N, BDSPAC );
                if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
@@ -124,121 +124,121 @@
 
                   // Compute space needed for DGELQF
                   dgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, INFO );
-                  LWORK_DGELQF = INT( DUM(1) )
+                  LWORK_DGELQF = INT( DUM(1) );
                   // Compute space needed for DGEBRD
                   dgebrd(M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
-                  LWORK_DGEBRD = INT( DUM(1) )
+                  LWORK_DGEBRD = INT( DUM(1) );
                   // Compute space needed for DORMBR
                   dormbr('Q', 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
-                  LWORK_DORMBR = INT( DUM(1) )
+                  LWORK_DORMBR = INT( DUM(1) );
                   // Compute space needed for DORGBR
                   dorgbr('P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO );
-                  LWORK_DORGBR = INT( DUM(1) )
+                  LWORK_DORGBR = INT( DUM(1) );
                   // Compute space needed for DORMLQ
                   dormlq('L', 'T', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
-                  LWORK_DORMLQ = INT( DUM(1) )
+                  LWORK_DORMLQ = INT( DUM(1) );
                   // Compute total workspace needed
-                  MAXWRK = M + LWORK_DGELQF
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DGEBRD )
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DORMBR )
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DORGBR )
-                  MAXWRK = MAX( MAXWRK, M*M + M + BDSPAC )
+                  MAXWRK = M + LWORK_DGELQF;
+                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DGEBRD );
+                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DORMBR );
+                  MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_DORGBR );
+                  MAXWRK = MAX( MAXWRK, M*M + M + BDSPAC );
                   if ( NRHS > 1 ) {
-                     MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
+                     MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS );
                   } else {
-                     MAXWRK = MAX( MAXWRK, M*M + 2*M )
+                     MAXWRK = MAX( MAXWRK, M*M + 2*M );
                   }
-                  MAXWRK = MAX( MAXWRK, M + LWORK_DORMLQ )
+                  MAXWRK = MAX( MAXWRK, M + LWORK_DORMLQ );
                } else {
 
                   // Path 2 - underdetermined
 
                   // Compute space needed for DGEBRD
                   dgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO );
-                  LWORK_DGEBRD = INT( DUM(1) )
+                  LWORK_DGEBRD = INT( DUM(1) );
                   // Compute space needed for DORMBR
                   dormbr('Q', 'L', 'T', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO );
-                  LWORK_DORMBR = INT( DUM(1) )
+                  LWORK_DORMBR = INT( DUM(1) );
                   // Compute space needed for DORGBR
                   dorgbr('P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO );
-                  LWORK_DORGBR = INT( DUM(1) )
-                  MAXWRK = 3*M + LWORK_DGEBRD
-                  MAXWRK = MAX( MAXWRK, 3*M + LWORK_DORMBR )
-                  MAXWRK = MAX( MAXWRK, 3*M + LWORK_DORGBR )
-                  MAXWRK = MAX( MAXWRK, BDSPAC )
-                  MAXWRK = MAX( MAXWRK, N*NRHS )
+                  LWORK_DORGBR = INT( DUM(1) );
+                  MAXWRK = 3*M + LWORK_DGEBRD;
+                  MAXWRK = MAX( MAXWRK, 3*M + LWORK_DORMBR );
+                  MAXWRK = MAX( MAXWRK, 3*M + LWORK_DORGBR );
+                  MAXWRK = MAX( MAXWRK, BDSPAC );
+                  MAXWRK = MAX( MAXWRK, N*NRHS );
                }
             }
-            MAXWRK = MAX( MINWRK, MAXWRK )
+            MAXWRK = MAX( MINWRK, MAXWRK );
          }
-         WORK( 1 ) = MAXWRK
+         WORK( 1 ) = MAXWRK;
 
          if (LWORK < MINWRK && !LQUERY) INFO = -12;
       }
 
       if ( INFO != 0 ) {
          xerbla('DGELSS', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RANK = 0
-         RETURN
+         RANK = 0;
+         RETURN;
       }
 
       // Get machine parameters
 
-      EPS = DLAMCH( 'P' )
-      SFMIN = DLAMCH( 'S' )
-      SMLNUM = SFMIN / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SFMIN = DLAMCH( 'S' );
+      SMLNUM = SFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
-      IASCL = 0
+      ANRM = DLANGE( 'M', M, N, A, LDA, WORK );
+      IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1
+         IASCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2
+         IASCL = 2;
       } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          dlaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
          dlaset('F', MINMN, 1, ZERO, ZERO, S, MINMN );
-         RANK = 0
-         GO TO 70
+         RANK = 0;
+         GO TO 70;
       }
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
-      IBSCL = 0
+      BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK );
+      IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
-         IBSCL = 1
+         IBSCL = 1;
       } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
-         IBSCL = 2
+         IBSCL = 2;
       }
 
       // Overdetermined case
@@ -247,14 +247,14 @@
 
          // Path 1 - overdetermined or exactly determined
 
-         MM = M
+         MM = M;
          if ( M >= MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns
 
-            MM = N
-            ITAU = 1
-            IWORK = ITAU + N
+            MM = N;
+            ITAU = 1;
+            IWORK = ITAU + N;
 
             // Compute A=Q*R
             // (Workspace: need 2*N, prefer N+N*NB)
@@ -271,10 +271,10 @@
             if (N > 1) CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
          }
 
-         IE = 1
-         ITAUQ = IE + N
-         ITAUP = ITAUQ + N
-         IWORK = ITAUP + N
+         IE = 1;
+         ITAUQ = IE + N;
+         ITAUP = ITAUQ + N;
+         IWORK = ITAUP + N;
 
          // Bidiagonalize R in A
          // (Workspace: need 3*N+MM, prefer 3*N+(MM+N)*NB)
@@ -290,24 +290,24 @@
          // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
          dorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
-         IWORK = IE + N
+         IWORK = IE + N;
 
          // Perform bidiagonal QR iteration
            // multiply B by transpose of left singular vectors
            // compute right singular vectors in A
          // (Workspace: need BDSPAC)
 
-         CALL DBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70
+         CALL DBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70;
 
          // Multiply B by reciprocals of singular values
 
-         THR = MAX( RCOND*S( 1 ), SFMIN )
+         THR = MAX( RCOND*S( 1 ), SFMIN );
          if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
-         RANK = 0
+         RANK = 0;
          for (I = 1; I <= N; I++) { // 10
             if ( S( I ) > THR ) {
                drscl(NRHS, S( I ), B( I, 1 ), LDB );
-               RANK = RANK + 1
+               RANK = RANK + 1;
             } else {
                dlaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
@@ -320,9 +320,9 @@
             dgemm('T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
             dlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
-            CHUNK = LWORK / N
-            DO 20 I = 1, NRHS, CHUNK
-               BL = MIN( NRHS-I+1, CHUNK )
+            CHUNK = LWORK / N;
+            DO 20 I = 1, NRHS, CHUNK;
+               BL = MIN( NRHS-I+1, CHUNK );
                dgemm('T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                dlacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
             } // 20
@@ -336,25 +336,25 @@
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm
 
-         LDWORK = M
-         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA
-         ITAU = 1
-         IWORK = M + 1
+         LDWORK = M;
+         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA;
+         ITAU = 1;
+         IWORK = M + 1;
 
          // Compute A=L*Q
          // (Workspace: need 2*M, prefer M+M*NB)
 
          dgelqf(M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO );
-         IL = IWORK
+         IL = IWORK;
 
          // Copy L to WORK(IL), zeroing out above it
 
          dlacpy('L', M, M, A, LDA, WORK( IL ), LDWORK );
          dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ), LDWORK );
-         IE = IL + LDWORK*M
-         ITAUQ = IE + M
-         ITAUP = ITAUQ + M
-         IWORK = ITAUP + M
+         IE = IL + LDWORK*M;
+         ITAUQ = IE + M;
+         ITAUP = ITAUQ + M;
+         IWORK = ITAUP + M;
 
          // Bidiagonalize L in WORK(IL)
          // (Workspace: need M*M+5*M, prefer M*M+4*M+2*M*NB)
@@ -370,29 +370,29 @@
          // (Workspace: need M*M+5*M-1, prefer M*M+4*M+(M-1)*NB)
 
          dorgbr('P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
-         IWORK = IE + M
+         IWORK = IE + M;
 
          // Perform bidiagonal QR iteration,
             // computing right singular vectors of L in WORK(IL) and
             // multiplying B by transpose of left singular vectors
          // (Workspace: need M*M+M+BDSPAC)
 
-         CALL DBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70
+         CALL DBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70;
 
          // Multiply B by reciprocals of singular values
 
-         THR = MAX( RCOND*S( 1 ), SFMIN )
+         THR = MAX( RCOND*S( 1 ), SFMIN );
          if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
-         RANK = 0
+         RANK = 0;
          for (I = 1; I <= M; I++) { // 30
             if ( S( I ) > THR ) {
                drscl(NRHS, S( I ), B( I, 1 ), LDB );
-               RANK = RANK + 1
+               RANK = RANK + 1;
             } else {
                dlaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
          } // 30
-         IWORK = IE
+         IWORK = IE;
 
          // Multiply B by right singular vectors of L in WORK(IL)
          // (Workspace: need M*M+2*M, prefer M*M+M+M*NRHS)
@@ -401,9 +401,9 @@
             dgemm('T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB );
             dlacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS > 1 ) {
-            CHUNK = ( LWORK-IWORK+1 ) / M
-            DO 40 I = 1, NRHS, CHUNK
-               BL = MIN( NRHS-I+1, CHUNK )
+            CHUNK = ( LWORK-IWORK+1 ) / M;
+            DO 40 I = 1, NRHS, CHUNK;
+               BL = MIN( NRHS-I+1, CHUNK );
                dgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M );
                dlacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
             } // 40
@@ -415,7 +415,7 @@
          // Zero out below first M rows of B
 
          dlaset('F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
-         IWORK = ITAU + M
+         IWORK = ITAU + M;
 
          // Multiply transpose(Q) by B
          // (Workspace: need M+NRHS, prefer M+NRHS*NB)
@@ -426,10 +426,10 @@
 
          // Path 2 - remaining underdetermined cases
 
-         IE = 1
-         ITAUQ = IE + M
-         ITAUP = ITAUQ + M
-         IWORK = ITAUP + M
+         IE = 1;
+         ITAUQ = IE + M;
+         ITAUP = ITAUQ + M;
+         IWORK = ITAUP + M;
 
          // Bidiagonalize A
          // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
@@ -445,24 +445,24 @@
          // (Workspace: need 4*M, prefer 3*M+M*NB)
 
          dorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO );
-         IWORK = IE + M
+         IWORK = IE + M;
 
          // Perform bidiagonal QR iteration,
             // computing right singular vectors of A in A and
             // multiplying B by transpose of left singular vectors
          // (Workspace: need BDSPAC)
 
-         CALL DBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70
+         CALL DBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO != 0 ) GO TO 70;
 
          // Multiply B by reciprocals of singular values
 
-         THR = MAX( RCOND*S( 1 ), SFMIN )
+         THR = MAX( RCOND*S( 1 ), SFMIN );
          if (RCOND < ZERO) THR = MAX( EPS*S( 1 ), SFMIN );
-         RANK = 0
+         RANK = 0;
          for (I = 1; I <= M; I++) { // 50
             if ( S( I ) > THR ) {
                drscl(NRHS, S( I ), B( I, 1 ), LDB );
-               RANK = RANK + 1
+               RANK = RANK + 1;
             } else {
                dlaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
@@ -475,9 +475,9 @@
             dgemm('T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
             dlacpy('F', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
-            CHUNK = LWORK / N
-            DO 60 I = 1, NRHS, CHUNK
-               BL = MIN( NRHS-I+1, CHUNK )
+            CHUNK = LWORK / N;
+            DO 60 I = 1, NRHS, CHUNK;
+               BL = MIN( NRHS-I+1, CHUNK );
                dgemm('T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                dlacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
             } // 60
@@ -503,8 +503,8 @@
       }
 
       } // 70
-      WORK( 1 ) = MAXWRK
-      RETURN
+      WORK( 1 ) = MAXWRK;
+      RETURN;
 
       // End of DGELSS
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKBD( NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, A, LDA, BD, BE, S1, S2, X, LDX, Y, Z, Q, LDQ, PT, LDPT, U, VT, WORK, LWORK, RWORK, NOUT, INFO )
+      SUBROUTINE ZCHKBD( NSIZES, MVAL, NVAL, NTYPES, DOTYPE, NRHS, ISEED, THRESH, A, LDA, BD, BE, S1, S2, X, LDX, Y, Z, Q, LDQ, PT, LDPT, U, VT, WORK, LWORK, RWORK, NOUT, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), MVAL( * ), NVAL( * );
       double             BD( * ), BE( * ), RWORK( * ), S1( * ), S2( * );
-      COMPLEX*16         A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * )
+      COMPLEX*16         A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * );
       // ..
 
 * ======================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 16 ;
@@ -56,101 +56,101 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA            KTYPE / 1, 2, 5*4, 5*6, 3*9, 10 /
-      DATA            KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3, 0 /
-      DATA            KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 0 /
+      DATA            KTYPE / 1, 2, 5*4, 5*6, 3*9, 10 /;
+      DATA            KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3, 0 /;
+      DATA            KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 0 /;
       // ..
       // .. Executable Statements ..
 
       // Check for errors
 
-      INFO = 0
+      INFO = 0;
 
       BADMM = false;
       BADNN = false;
-      MMAX = 1
-      NMAX = 1
-      MNMAX = 1
-      MINWRK = 1
+      MMAX = 1;
+      NMAX = 1;
+      MNMAX = 1;
+      MINWRK = 1;
       for (J = 1; J <= NSIZES; J++) { // 10
-         MMAX = MAX( MMAX, MVAL( J ) )
+         MMAX = MAX( MMAX, MVAL( J ) );
          IF( MVAL( J ) < 0 ) BADMM = true;
-         NMAX = MAX( NMAX, NVAL( J ) )
+         NMAX = MAX( NMAX, NVAL( J ) );
          IF( NVAL( J ) < 0 ) BADNN = true;
-         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
-         MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) )
+         MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) );
+         MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) );
       } // 10
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADMM ) {
-         INFO = -2
+         INFO = -2;
       } else if ( BADNN ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NTYPES < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRHS < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MMAX ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDX < MMAX ) {
-         INFO = -17
+         INFO = -17;
       } else if ( LDQ < MMAX ) {
-         INFO = -21
+         INFO = -21;
       } else if ( LDPT < MNMAX ) {
-         INFO = -23
+         INFO = -23;
       } else if ( MINWRK > LWORK ) {
-         INFO = -27
+         INFO = -27;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZCHKBD', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize constants
 
-      PATH( 1: 1 ) = 'Zomplex precision'
-      PATH( 2: 3 ) = 'BD'
-      NFAIL = 0
-      NTEST = 0
-      UNFL = DLAMCH( 'Safe minimum' )
-      OVFL = DLAMCH( 'Overflow' )
-      ULP = DLAMCH( 'Precision' )
-      ULPINV = ONE / ULP
-      LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) )
-      RTUNFL = SQRT( UNFL )
-      RTOVFL = SQRT( OVFL )
-      INFOT = 0
+      PATH( 1: 1 ) = 'Zomplex precision';
+      PATH( 2: 3 ) = 'BD';
+      NFAIL = 0;
+      NTEST = 0;
+      UNFL = DLAMCH( 'Safe minimum' );
+      OVFL = DLAMCH( 'Overflow' );
+      ULP = DLAMCH( 'Precision' );
+      ULPINV = ONE / ULP;
+      LOG2UI = INT( LOG( ULPINV ) / LOG( TWO ) );
+      RTUNFL = SQRT( UNFL );
+      RTOVFL = SQRT( OVFL );
+      INFOT = 0;
 
       // Loop over sizes, types
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 180
-         M = MVAL( JSIZE )
-         N = NVAL( JSIZE )
-         MNMIN = MIN( M, N )
-         AMNINV = ONE / MAX( M, N, 1 )
+         M = MVAL( JSIZE );
+         N = NVAL( JSIZE );
+         MNMIN = MIN( M, N );
+         AMNINV = ONE / MAX( M, N, 1 );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES )
+            MTYPES = MIN( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES )
+            MTYPES = MIN( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 170
-            IF( !DOTYPE( JTYPE ) ) GO TO 170
+            IF( !DOTYPE( JTYPE ) ) GO TO 170;
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J )
+               IOLDSD( J ) = ISEED( J );
             } // 20
 
             for (J = 1; J <= 14; J++) { // 30
-               RESULT( J ) = -ONE
+               RESULT( J ) = -ONE;
             } // 30
 
-            UPLO = ' '
+            UPLO = ' ';
 
             // Compute "A"
 
@@ -170,44 +170,44 @@
 
             if (MTYPES > MAXTYP) GO TO 100;
 
-            ITYPE = KTYPE( JTYPE )
-            IMODE = KMODE( JTYPE )
+            ITYPE = KTYPE( JTYPE );
+            IMODE = KMODE( JTYPE );
 
             // Compute norm
 
-            GO TO ( 40, 50, 60 )KMAGN( JTYPE )
+            GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
             } // 40
-            ANORM = ONE
-            GO TO 70
+            ANORM = ONE;
+            GO TO 70;
 
             } // 50
-            ANORM = ( RTOVFL*ULP )*AMNINV
-            GO TO 70
+            ANORM = ( RTOVFL*ULP )*AMNINV;
+            GO TO 70;
 
             } // 60
-            ANORM = RTUNFL*MAX( M, N )*ULPINV
-            GO TO 70
+            ANORM = RTUNFL*MAX( M, N )*ULPINV;
+            GO TO 70;
 
             } // 70
 
             zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
-            IINFO = 0
-            COND = ULPINV
+            IINFO = 0;
+            COND = ULPINV;
 
             BIDIAG = false;
             if ( ITYPE == 1 ) {
 
                // Zero matrix
 
-               IINFO = 0
+               IINFO = 0;
 
             } else if ( ITYPE == 2 ) {
 
                // Identity
 
                for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                } // 80
 
             } else if ( ITYPE == 4 ) {
@@ -250,21 +250,21 @@
 
                // Bidiagonal, random entries
 
-               TEMP1 = -TWO*LOG( ULP )
+               TEMP1 = -TWO*LOG( ULP );
                for (J = 1; J <= MNMIN; J++) { // 90
-                  BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
+                  BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) );
                   if (J < MNMIN) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) );
                } // 90
 
-               IINFO = 0
+               IINFO = 0;
                BIDIAG = true;
                if ( M >= N ) {
-                  UPLO = 'U'
+                  UPLO = 'U';
                } else {
-                  UPLO = 'L'
+                  UPLO = 'L';
                }
             } else {
-               IINFO = 1
+               IINFO = 1;
             }
 
             if ( IINFO == 0 ) {
@@ -281,9 +281,9 @@
             // Error Exit
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               RETURN
+               WRITE( NOUT, FMT = 9998 )'Generator', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               RETURN;
             }
 
             } // 100
@@ -301,30 +301,30 @@
                // Check error code from ZGEBRD.
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUT, FMT = 9998 )'ZGEBRD', IINFO, M, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUT, FMT = 9998 )'ZGEBRD', IINFO, M, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                zlacpy(' ', M, N, Q, LDQ, PT, LDPT );
                if ( M >= N ) {
-                  UPLO = 'U'
+                  UPLO = 'U';
                } else {
-                  UPLO = 'L'
+                  UPLO = 'L';
                }
 
                // Generate Q
 
-               MQ = M
+               MQ = M;
                if (NRHS <= 0) MQ = MNMIN;
                zungbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from ZUNGBR.
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUT, FMT = 9998 )'ZUNGBR(Q)', IINFO, M, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUT, FMT = 9998 )'ZUNGBR(Q)', IINFO, M, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                // Generate P'
@@ -334,9 +334,9 @@
                // Check error code from ZUNGBR.
 
                if ( IINFO != 0 ) {
-                  WRITE( NOUT, FMT = 9998 )'ZUNGBR(P)', IINFO, M, N, JTYPE, IOLDSD
-                  INFO = ABS( IINFO )
-                  RETURN
+                  WRITE( NOUT, FMT = 9998 )'ZUNGBR(P)', IINFO, M, N, JTYPE, IOLDSD;
+                  INFO = ABS( IINFO );
+                  RETURN;
                }
 
                // Apply Q' to an M by NRHS matrix X:  Y := Q' * X.
@@ -366,13 +366,13 @@
             // Check error code from ZBDSQR.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'ZBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'ZBDSQR(vects)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 4 ) = ULPINV
-                  GO TO 150
+                  RESULT( 4 ) = ULPINV;
+                  GO TO 150;
                }
             }
 
@@ -387,13 +387,13 @@
             // Check error code from ZBDSQR.
 
             if ( IINFO != 0 ) {
-               WRITE( NOUT, FMT = 9998 )'ZBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUT, FMT = 9998 )'ZBDSQR(values)', IINFO, M, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if ( IINFO < 0 ) {
-                  RETURN
+                  RETURN;
                } else {
-                  RESULT( 9 ) = ULPINV
-                  GO TO 150
+                  RESULT( 9 ) = ULPINV;
+                  GO TO 150;
                }
             }
 
@@ -410,38 +410,38 @@
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
 
-            RESULT( 8 ) = ZERO
+            RESULT( 8 ) = ZERO;
             for (I = 1; I <= MNMIN - 1; I++) { // 110
-               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV
+               IF( S1( I ) < S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ) < ZERO ) RESULT( 8 ) = ULPINV;
             } // 110
             if ( MNMIN >= 1 ) {
-               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV
+               IF( S1( MNMIN ) < ZERO ) RESULT( 8 ) = ULPINV;
             }
 
             // Test 9:  Compare ZBDSQR with and without singular vectors
 
-            TEMP2 = ZERO
+            TEMP2 = ZERO;
 
             for (J = 1; J <= MNMIN; J++) { // 120
-               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) )
-               TEMP2 = MAX( TEMP1, TEMP2 )
+               TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) );
+               TEMP2 = MAX( TEMP1, TEMP2 );
             } // 120
 
-            RESULT( 9 ) = TEMP2
+            RESULT( 9 ) = TEMP2;
 
             // Test 10:  Sturm sequence test of singular values
                       // Go up by factors of two until it succeeds
 
-            TEMP1 = THRESH*( HALF-ULP )
+            TEMP1 = THRESH*( HALF-ULP );
 
             for (J = 0; J <= LOG2UI; J++) { // 130
                dsvdch(MNMIN, BD, BE, S1, TEMP1, IINFO );
                if (IINFO == 0) GO TO 140;
-               TEMP1 = TEMP1*TWO
+               TEMP1 = TEMP1*TWO;
             } // 130
 
             } // 140
-            RESULT( 10 ) = TEMP1
+            RESULT( 10 ) = TEMP1;
 
             // Use ZBDSQR to form the decomposition A := (QU) S (VT PT)
             // from the bidiagonal form A := Q B PT.
@@ -469,13 +469,13 @@
             for (J = 1; J <= 14; J++) { // 160
                if ( RESULT( J ) >= THRESH ) {
                   if (NFAIL == 0) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
-                  NFAIL = NFAIL + 1
+                  NFAIL = NFAIL + 1;
                }
             } // 160
             if ( !BIDIAG ) {
-               NTEST = NTEST + 14
+               NTEST = NTEST + 14;
             } else {
-               NTEST = NTEST + 5
+               NTEST = NTEST + 5;
             }
 
          } // 170
@@ -485,11 +485,11 @@
 
       alasum(PATH, NOUT, NFAIL, NTEST, 0 );
 
-      RETURN
+      RETURN;
 
       // End of ZCHKBD
 
- 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 )
- 9998 FORMAT( ' ZCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 );
+ 9998 FORMAT( ' ZCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
       }

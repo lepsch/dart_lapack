@@ -1,4 +1,4 @@
-      SUBROUTINE CGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID )
+      SUBROUTINE CGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,30 +6,30 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDAFAC, M, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
-      REAL               ANORM, EPS
-      COMPLEX            T
+      REAL               ANORM, EPS;
+      COMPLEX            T;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH
-      COMPLEX            CDOTU
+      REAL               CLANGE, SLAMCH;
+      COMPLEX            CDOTU;
       // EXTERNAL CLANGE, SLAMCH, CDOTU
       // ..
       // .. External Subroutines ..
@@ -43,27 +43,27 @@
       // Quick exit if M = 0 or N = 0.
 
       if ( M <= 0 || N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANGE( '1', M, N, A, LDA, RWORK );
 
       // Compute the product L*U and overwrite AFAC with the result.
       // A column at a time of the product is obtained, starting with
       // column N.
 
-      DO 10 K = N, 1, -1
+      DO 10 K = N, 1, -1;
          if ( K > M ) {
             ctrmv('Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          } else {
 
             // Compute elements (K+1:M,K)
 
-            T = AFAC( K, K )
+            T = AFAC( K, K );
             if ( K+1 <= M ) {
                cscal(M-K, T, AFAC( K+1, K ), 1 );
                cgemv('No transpose', M-K, K-1, CONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, CONE, AFAC( K+1, K ), 1 );
@@ -71,7 +71,7 @@
 
             // Compute the (K,K) element
 
-            AFAC( K, K ) = T + CDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 )
+            AFAC( K, K ) = T + CDOTU( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 );
 
             // Compute elements (1:K-1,K)
 
@@ -84,21 +84,21 @@
 
       for (J = 1; J <= N; J++) { // 30
          for (I = 1; I <= M; I++) { // 20
-            AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+            AFAC( I, J ) = AFAC( I, J ) - A( I, J );
          } // 20
       } // 30
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 
-      RESID = CLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
+      RESID = CLANGE( '1', M, N, AFAC, LDAFAC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
+         RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of CGET01
 

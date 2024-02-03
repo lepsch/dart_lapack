@@ -1,4 +1,4 @@
-      SUBROUTINE DSBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,64 +40,64 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KA < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( KB < 0 || KB > KA ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAB < KA+1 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDBB < KB+1 ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDQ < 1 || ( WANTZ && LDQ < N ) ) {
-         INFO = -12
+         INFO = -12;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -14;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
-               INFO = -15
+               INFO = -15;
             } else if ( IU < MIN( N, IL ) || IU > N ) {
-               INFO = -16
+               INFO = -16;
             }
          }
       }
       if ( INFO == 0) {
          if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-            INFO = -21
+            INFO = -21;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DSBGVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if (N == 0) RETURN;
 
       // Form a split Cholesky factorization of B.
 
       dpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem.
@@ -106,13 +106,13 @@
 
       // Reduce symmetric band matrix to tridiagonal form.
 
-      INDD = 1
-      INDE = INDD + N
-      INDWRK = INDE + N
+      INDD = 1;
+      INDE = INDD + N;
+      INDWRK = INDE + N;
       if ( WANTZ ) {
-         VECT = 'U'
+         VECT = 'U';
       } else {
-         VECT = 'N'
+         VECT = 'N';
       }
       dsbtrd(VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO );
 
@@ -128,7 +128,7 @@
       }
       if ( ( ALLEIG || TEST ) && ( ABSTOL <= ZERO ) ) {
          dcopy(N, WORK( INDD ), 1, W, 1 );
-         INDEE = INDWRK + 2*N
+         INDEE = INDWRK + 2*N;
          dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
          if ( !WANTZ ) {
             dsterf(N, W, WORK( INDEE ), INFO );
@@ -137,27 +137,27 @@
             dsteqr(JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
-                  IFAIL( I ) = 0
+                  IFAIL( I ) = 0;
                } // 10
             }
          }
          if ( INFO == 0 ) {
-            M = N
-            GO TO 30
+            M = N;
+            GO TO 30;
          }
-         INFO = 0
+         INFO = 0;
       }
 
       // Otherwise, call DSTEBZ and, if eigenvectors are desired,
       // call DSTEIN.
 
       if ( WANTZ ) {
-         ORDER = 'B'
+         ORDER = 'B';
       } else {
-         ORDER = 'E'
+         ORDER = 'E';
       }
-      INDISP = 1 + N
-      INDIWO = INDISP + N
+      INDISP = 1 + N;
+      INDIWO = INDISP + N;
       dstebz(RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO );
 
       if ( WANTZ ) {
@@ -179,32 +179,32 @@
 
       if ( WANTZ ) {
          for (J = 1; J <= M - 1; J++) { // 50
-            I = 0
-            TMP1 = W( J )
+            I = 0;
+            TMP1 = W( J );
             for (JJ = J + 1; JJ <= M; JJ++) { // 40
                if ( W( JJ ) < TMP1 ) {
-                  I = JJ
-                  TMP1 = W( JJ )
+                  I = JJ;
+                  TMP1 = W( JJ );
                }
             } // 40
 
             if ( I != 0 ) {
-               ITMP1 = IWORK( 1 + I-1 )
-               W( I ) = W( J )
-               IWORK( 1 + I-1 ) = IWORK( 1 + J-1 )
-               W( J ) = TMP1
-               IWORK( 1 + J-1 ) = ITMP1
+               ITMP1 = IWORK( 1 + I-1 );
+               W( I ) = W( J );
+               IWORK( 1 + I-1 ) = IWORK( 1 + J-1 );
+               W( J ) = TMP1;
+               IWORK( 1 + J-1 ) = ITMP1;
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
-                  ITMP1 = IFAIL( I )
-                  IFAIL( I ) = IFAIL( J )
-                  IFAIL( J ) = ITMP1
+                  ITMP1 = IFAIL( I );
+                  IFAIL( I ) = IFAIL( J );
+                  IFAIL( J ) = ITMP1;
                }
             }
          } // 50
       }
 
-      RETURN
+      RETURN;
 
       // End of DSBGVX
 

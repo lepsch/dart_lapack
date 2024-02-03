@@ -1,28 +1,28 @@
-      SUBROUTINE SLADIV( A, B, C, D, P, Q )
+      SUBROUTINE SLADIV( A, B, C, D, P, Q );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               A, B, C, D, P, Q
+      REAL               A, B, C, D, P, Q;
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               BS
+      REAL               BS;
       const              BS = 2.0 ;
-      REAL               HALF
+      REAL               HALF;
       const              HALF = 0.5 ;
-      REAL               TWO
+      REAL               TWO;
       const              TWO = 2.0 ;
 
       // .. Local Scalars ..
-      REAL               AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS
+      REAL               AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -33,49 +33,49 @@
       // ..
       // .. Executable Statements ..
 
-      AA = A
-      BB = B
-      CC = C
-      DD = D
-      AB = MAX( ABS(A), ABS(B) )
-      CD = MAX( ABS(C), ABS(D) )
+      AA = A;
+      BB = B;
+      CC = C;
+      DD = D;
+      AB = MAX( ABS(A), ABS(B) );
+      CD = MAX( ABS(C), ABS(D) );
       S = 1.0;
 
-      OV = SLAMCH( 'Overflow threshold' )
-      UN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Epsilon' )
-      BE = BS / (EPS*EPS)
+      OV = SLAMCH( 'Overflow threshold' );
+      UN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Epsilon' );
+      BE = BS / (EPS*EPS);
 
       if ( AB >= HALF*OV ) {
-         AA = HALF * AA
-         BB = HALF * BB
-         S  = TWO * S
+         AA = HALF * AA;
+         BB = HALF * BB;
+         S  = TWO * S;
       }
       if ( CD >= HALF*OV ) {
-         CC = HALF * CC
-         DD = HALF * DD
-         S  = HALF * S
+         CC = HALF * CC;
+         DD = HALF * DD;
+         S  = HALF * S;
       }
       if ( AB <= UN*BS/EPS ) {
-         AA = AA * BE
-         BB = BB * BE
-         S  = S / BE
+         AA = AA * BE;
+         BB = BB * BE;
+         S  = S / BE;
       }
       if ( CD <= UN*BS/EPS ) {
-         CC = CC * BE
-         DD = DD * BE
-         S  = S * BE
+         CC = CC * BE;
+         DD = DD * BE;
+         S  = S * BE;
       }
       if ( ABS( D ) <= ABS( C ) ) {
          sladiv1(AA, BB, CC, DD, P, Q);
       } else {
          sladiv1(BB, AA, DD, CC, P, Q);
-         Q = -Q
+         Q = -Q;
       }
-      P = P * S
-      Q = Q * S
+      P = P * S;
+      Q = Q * S;
 
-      RETURN
+      RETURN;
 
       // End of SLADIV
 
@@ -84,38 +84,38 @@
 *> \ingroup ladiv
 
 
-      SUBROUTINE SLADIV1( A, B, C, D, P, Q )
+      SUBROUTINE SLADIV1( A, B, C, D, P, Q );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               A, B, C, D, P, Q
+      REAL               A, B, C, D, P, Q;
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
 
       // .. Local Scalars ..
-      REAL               R, T
+      REAL               R, T;
       // ..
       // .. External Functions ..
-      REAL               SLADIV2
+      REAL               SLADIV2;
       // EXTERNAL SLADIV2
       // ..
       // .. Executable Statements ..
 
-      R = D / C
-      T = ONE / (C + D * R)
-      P = SLADIV2(A, B, C, D, R, T)
-      A = -A
-      Q = SLADIV2(B, A, C, D, R, T)
+      R = D / C;
+      T = ONE / (C + D * R);
+      P = SLADIV2(A, B, C, D, R, T);
+      A = -A;
+      Q = SLADIV2(B, A, C, D, R, T);
 
-      RETURN
+      RETURN;
 
       // End of SLADIV1
 
@@ -123,39 +123,39 @@
 
 *> \ingroup ladiv
 
-      REAL FUNCTION SLADIV2( A, B, C, D, R, T )
+      REAL FUNCTION SLADIV2( A, B, C, D, R, T );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               A, B, C, D, R, T
+      REAL               A, B, C, D, R, T;
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
 
       // .. Local Scalars ..
-      REAL               BR
+      REAL               BR;
       // ..
       // .. Executable Statements ..
 
       if ( R != ZERO ) {
-         BR = B * R
+         BR = B * R;
          if (BR != ZERO) {
-            SLADIV2 = (A + BR) * T
+            SLADIV2 = (A + BR) * T;
          } else {
-            SLADIV2 = A * T + (B * T) * R
+            SLADIV2 = A * T + (B * T) * R;
          }
       } else {
-         SLADIV2 = (A + D * (B / C)) * T
+         SLADIV2 = (A + D * (B / C)) * T;
       }
 
-      RETURN
+      RETURN;
 
       // End of SLADIV2
 

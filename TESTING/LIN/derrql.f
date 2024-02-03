@@ -1,4 +1,4 @@
-      SUBROUTINE DERRQL( PATH, NUNIT )
+      SUBROUTINE DERRQL( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,15 +38,15 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            A( I, J ) = 1.0 / DBLE( I+J )
-            AF( I, J ) = 1.0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J );
+            AF( I, J ) = 1.0 / DBLE( I+J );
          } // 10
          B( J ) = 0.0;
          W( J ) = 0.0;
@@ -58,176 +58,176 @@
 
       // DGEQLF
 
-      SRNAMT = 'DGEQLF'
-      INFOT = 1
+      SRNAMT = 'DGEQLF';
+      INFOT = 1;
       dgeqlf(-1, 0, A, 1, B, W, 1, INFO );
       chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dgeqlf(0, -1, A, 1, B, W, 1, INFO );
       chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       dgeqlf(2, 1, A, 1, B, W, 1, INFO );
       chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
-      INFOT = 7
+      INFOT = 7;
       dgeqlf(1, 2, A, 1, B, W, 1, INFO );
       chkxer('DGEQLF', INFOT, NOUT, LERR, OK );
 
       // DGEQL2
 
-      SRNAMT = 'DGEQL2'
-      INFOT = 1
+      SRNAMT = 'DGEQL2';
+      INFOT = 1;
       dgeql2(-1, 0, A, 1, B, W, INFO );
       chkxer('DGEQL2', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dgeql2(0, -1, A, 1, B, W, INFO );
       chkxer('DGEQL2', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       dgeql2(2, 1, A, 1, B, W, INFO );
       chkxer('DGEQL2', INFOT, NOUT, LERR, OK );
 
       // DGEQLS
 
-      SRNAMT = 'DGEQLS'
-      INFOT = 1
+      SRNAMT = 'DGEQLS';
+      INFOT = 1;
       dgeqls(-1, 0, 0, A, 1, X, B, 1, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dgeqls(0, -1, 0, A, 1, X, B, 1, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dgeqls(1, 2, 0, A, 1, X, B, 1, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dgeqls(0, 0, -1, A, 1, X, B, 1, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dgeqls(2, 1, 0, A, 1, X, B, 2, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 8
+      INFOT = 8;
       dgeqls(2, 1, 0, A, 2, X, B, 1, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
-      INFOT = 10
+      INFOT = 10;
       dgeqls(1, 1, 2, A, 1, X, B, 1, W, 1, INFO );
       chkxer('DGEQLS', INFOT, NOUT, LERR, OK );
 
       // DORGQL
 
-      SRNAMT = 'DORGQL'
-      INFOT = 1
+      SRNAMT = 'DORGQL';
+      INFOT = 1;
       dorgql(-1, 0, 0, A, 1, X, W, 1, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dorgql(0, -1, 0, A, 1, X, W, 1, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dorgql(1, 2, 0, A, 1, X, W, 2, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dorgql(0, 0, -1, A, 1, X, W, 1, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dorgql(1, 1, 2, A, 1, X, W, 1, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dorgql(2, 1, 0, A, 1, X, W, 1, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
-      INFOT = 8
+      INFOT = 8;
       dorgql(2, 2, 0, A, 2, X, W, 1, INFO );
       chkxer('DORGQL', INFOT, NOUT, LERR, OK );
 
       // DORG2L
 
-      SRNAMT = 'DORG2L'
-      INFOT = 1
+      SRNAMT = 'DORG2L';
+      INFOT = 1;
       dorg2l(-1, 0, 0, A, 1, X, W, INFO );
       chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dorg2l(0, -1, 0, A, 1, X, W, INFO );
       chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dorg2l(1, 2, 0, A, 1, X, W, INFO );
       chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dorg2l(0, 0, -1, A, 1, X, W, INFO );
       chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dorg2l(2, 1, 2, A, 2, X, W, INFO );
       chkxer('DORG2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dorg2l(2, 1, 0, A, 1, X, W, INFO );
       chkxer('DORG2L', INFOT, NOUT, LERR, OK );
 
       // DORMQL
 
-      SRNAMT = 'DORMQL'
-      INFOT = 1
+      SRNAMT = 'DORMQL';
+      INFOT = 1;
       dormql('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dormql('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dormql('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       dormql('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dormql('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dormql('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dormql('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 7
+      INFOT = 7;
       dormql('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 7
+      INFOT = 7;
       dormql('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 10
+      INFOT = 10;
       dormql('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 12
+      INFOT = 12;
       dormql('L', 'N', 1, 2, 0, A, 1, X, AF, 1, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
-      INFOT = 12
+      INFOT = 12;
       dormql('R', 'N', 2, 1, 0, A, 1, X, AF, 2, W, 1, INFO );
       chkxer('DORMQL', INFOT, NOUT, LERR, OK );
 
       // DORM2L
 
-      SRNAMT = 'DORM2L'
-      INFOT = 1
+      SRNAMT = 'DORM2L';
+      INFOT = 1;
       dorm2l('/', 'N', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dorm2l('L', '/', 0, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 3
+      INFOT = 3;
       dorm2l('L', 'N', -1, 0, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       dorm2l('L', 'N', 0, -1, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dorm2l('L', 'N', 0, 0, -1, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dorm2l('L', 'N', 0, 1, 1, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 5
+      INFOT = 5;
       dorm2l('R', 'N', 1, 0, 1, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 7
+      INFOT = 7;
       dorm2l('L', 'N', 2, 1, 0, A, 1, X, AF, 2, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 7
+      INFOT = 7;
       dorm2l('R', 'N', 1, 2, 0, A, 1, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
-      INFOT = 10
+      INFOT = 10;
       dorm2l('L', 'N', 2, 1, 0, A, 2, X, AF, 1, W, INFO );
       chkxer('DORM2L', INFOT, NOUT, LERR, OK );
 
@@ -235,7 +235,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of DERRQL
 

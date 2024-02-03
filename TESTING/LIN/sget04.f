@@ -1,4 +1,4 @@
-      SUBROUTINE SGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID )
+      SUBROUTINE SGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,25 +6,25 @@
 
       // .. Scalar Arguments ..
       int                LDX, LDXACT, N, NRHS;
-      REAL               RCOND, RESID
+      REAL               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               X( LDX, * ), XACT( LDXACT, * )
+      REAL               X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX, J;
-      REAL               DIFFNM, EPS, XNORM
+      REAL               DIFFNM, EPS, XNORM;
       // ..
       // .. External Functions ..
       int                ISAMAX;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -35,39 +35,39 @@
       // Quick exit if N = 0 or NRHS = 0.
 
       if ( N <= 0 || NRHS <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if RCOND is invalid.
 
-      EPS = SLAMCH( 'Epsilon' )
+      EPS = SLAMCH( 'Epsilon' );
       if ( RCOND < ZERO ) {
-         RESID = 1.0 / EPS
-         RETURN
+         RESID = 1.0 / EPS;
+         RETURN;
       }
 
       // Compute the maximum of
          // norm(X - XACT) / ( norm(XACT) * EPS )
       // over all the vectors X and XACT .
 
-      RESID = ZERO
+      RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 20
-         IX = ISAMAX( N, XACT( 1, J ), 1 )
-         XNORM = ABS( XACT( IX, J ) )
-         DIFFNM = ZERO
+         IX = ISAMAX( N, XACT( 1, J ), 1 );
+         XNORM = ABS( XACT( IX, J ) );
+         DIFFNM = ZERO;
          for (I = 1; I <= N; I++) { // 10
-            DIFFNM = MAX( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) )
+            DIFFNM = MAX( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) );
          } // 10
          if ( XNORM <= ZERO ) {
             if (DIFFNM > ZERO) RESID = 1.0 / EPS;
          } else {
-            RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
+            RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND );
          }
       } // 20
       if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
-      RETURN
+      RETURN;
 
       // End of SGET04
 

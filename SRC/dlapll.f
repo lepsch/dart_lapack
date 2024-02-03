@@ -1,4 +1,4 @@
-      SUBROUTINE DLAPLL( N, X, INCX, Y, INCY, SSMIN )
+      SUBROUTINE DLAPLL( N, X, INCX, Y, INCY, SSMIN );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -33,29 +33,29 @@
       // Quick return if possible
 
       if ( N <= 1 ) {
-         SSMIN = ZERO
-         RETURN
+         SSMIN = ZERO;
+         RETURN;
       }
 
       // Compute the QR factorization of the N-by-2 matrix ( X Y )
 
       dlarfg(N, X( 1 ), X( 1+INCX ), INCX, TAU );
-      A11 = X( 1 )
-      X( 1 ) = ONE
+      A11 = X( 1 );
+      X( 1 ) = ONE;
 
-      C = -TAU*DDOT( N, X, INCX, Y, INCY )
+      C = -TAU*DDOT( N, X, INCX, Y, INCY );
       daxpy(N, C, X, INCX, Y, INCY );
 
       dlarfg(N-1, Y( 1+INCY ), Y( 1+2*INCY ), INCY, TAU );
 
-      A12 = Y( 1 )
-      A22 = Y( 1+INCY )
+      A12 = Y( 1 );
+      A22 = Y( 1+INCY );
 
       // Compute the SVD of 2-by-2 Upper triangular matrix.
 
       dlas2(A11, A12, A22, SSMIN, SSMAX );
 
-      RETURN
+      RETURN;
 
       // End of DLAPLL
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, ZW, VF, VFW, VL, VLW, ALPHA, BETA, DSIGMA, IDX, IDXP, IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S, INFO )
+      SUBROUTINE DLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, ZW, VF, VFW, VL, VLW, ALPHA, BETA, DSIGMA, IDX, IDXP, IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,86 +38,86 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      N = NL + NR + 1
-      M = N + SQRE
+      INFO = 0;
+      N = NL + NR + 1;
+      M = N + SQRE;
 
       if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NL < 1 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NR < 1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDGCOL < N ) {
-         INFO = -22
+         INFO = -22;
       } else if ( LDGNUM < N ) {
-         INFO = -24
+         INFO = -24;
       }
       if ( INFO != 0 ) {
          xerbla('DLASD7', -INFO );
-         RETURN
+         RETURN;
       }
 
-      NLP1 = NL + 1
-      NLP2 = NL + 2
+      NLP1 = NL + 1;
+      NLP2 = NL + 2;
       if ( ICOMPQ == 1 ) {
-         GIVPTR = 0
+         GIVPTR = 0;
       }
 
       // Generate the first part of the vector Z and move the singular
       // values in the first part of D one position backward.
 
-      Z1 = ALPHA*VL( NLP1 )
-      VL( NLP1 ) = ZERO
-      TAU = VF( NLP1 )
-      DO 10 I = NL, 1, -1
-         Z( I+1 ) = ALPHA*VL( I )
-         VL( I ) = ZERO
-         VF( I+1 ) = VF( I )
-         D( I+1 ) = D( I )
-         IDXQ( I+1 ) = IDXQ( I ) + 1
+      Z1 = ALPHA*VL( NLP1 );
+      VL( NLP1 ) = ZERO;
+      TAU = VF( NLP1 );
+      DO 10 I = NL, 1, -1;
+         Z( I+1 ) = ALPHA*VL( I );
+         VL( I ) = ZERO;
+         VF( I+1 ) = VF( I );
+         D( I+1 ) = D( I );
+         IDXQ( I+1 ) = IDXQ( I ) + 1;
       } // 10
-      VF( 1 ) = TAU
+      VF( 1 ) = TAU;
 
       // Generate the second part of the vector Z.
 
       for (I = NLP2; I <= M; I++) { // 20
-         Z( I ) = BETA*VF( I )
-         VF( I ) = ZERO
+         Z( I ) = BETA*VF( I );
+         VF( I ) = ZERO;
       } // 20
 
       // Sort the singular values into increasing order
 
       for (I = NLP2; I <= N; I++) { // 30
-         IDXQ( I ) = IDXQ( I ) + NLP1
+         IDXQ( I ) = IDXQ( I ) + NLP1;
       } // 30
 
       // DSIGMA, IDXC, IDXC, and ZW are used as storage space.
 
       for (I = 2; I <= N; I++) { // 40
-         DSIGMA( I ) = D( IDXQ( I ) )
-         ZW( I ) = Z( IDXQ( I ) )
-         VFW( I ) = VF( IDXQ( I ) )
-         VLW( I ) = VL( IDXQ( I ) )
+         DSIGMA( I ) = D( IDXQ( I ) );
+         ZW( I ) = Z( IDXQ( I ) );
+         VFW( I ) = VF( IDXQ( I ) );
+         VLW( I ) = VL( IDXQ( I ) );
       } // 40
 
       dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
       for (I = 2; I <= N; I++) { // 50
-         IDXI = 1 + IDX( I )
-         D( I ) = DSIGMA( IDXI )
-         Z( I ) = ZW( IDXI )
-         VF( I ) = VFW( IDXI )
-         VL( I ) = VLW( IDXI )
+         IDXI = 1 + IDX( I );
+         D( I ) = DSIGMA( IDXI );
+         Z( I ) = ZW( IDXI );
+         VF( I ) = VFW( IDXI );
+         VL( I ) = VLW( IDXI );
       } // 50
 
       // Calculate the allowable deflation tolerance
 
-      EPS = DLAMCH( 'Epsilon' )
-      TOL = MAX( ABS( ALPHA ), ABS( BETA ) )
-      TOL = EIGHT*EIGHT*EPS*MAX( ABS( D( N ) ), TOL )
+      EPS = DLAMCH( 'Epsilon' );
+      TOL = MAX( ABS( ALPHA ), ABS( BETA ) );
+      TOL = EIGHT*EIGHT*EPS*MAX( ABS( D( N ) ), TOL );
 
       // There are 2 kinds of deflation -- first a value in the z-vector
       // is small, second two (or more) singular values are very close
@@ -138,32 +138,32 @@
       // rotate the corresponding singular subspace so that the
       // corresponding components of Z are zero in this new basis.
 
-      K = 1
-      K2 = N + 1
+      K = 1;
+      K2 = N + 1;
       for (J = 2; J <= N; J++) { // 60
          if ( ABS( Z( J ) ) <= TOL ) {
 
             // Deflate due to small z component.
 
-            K2 = K2 - 1
-            IDXP( K2 ) = J
+            K2 = K2 - 1;
+            IDXP( K2 ) = J;
             if (J == N) GO TO 100;
          } else {
-            JPREV = J
-            GO TO 70
+            JPREV = J;
+            GO TO 70;
          }
       } // 60
       } // 70
-      J = JPREV
+      J = JPREV;
       } // 80
-      J = J + 1
+      J = J + 1;
       if (J > N) GO TO 90;
       if ( ABS( Z( J ) ) <= TOL ) {
 
          // Deflate due to small z component.
 
-         K2 = K2 - 1
-         IDXP( K2 ) = J
+         K2 = K2 - 1;
+         IDXP( K2 ) = J;
       } else {
 
          // Check if singular values are close enough to allow deflation.
@@ -172,57 +172,57 @@
 
             // Deflation is possible.
 
-            S = Z( JPREV )
-            C = Z( J )
+            S = Z( JPREV );
+            C = Z( J );
 
             // Find sqrt(a**2+b**2) without overflow or
             // destructive underflow.
 
-            TAU = DLAPY2( C, S )
-            Z( J ) = TAU
-            Z( JPREV ) = ZERO
-            C = C / TAU
-            S = -S / TAU
+            TAU = DLAPY2( C, S );
+            Z( J ) = TAU;
+            Z( JPREV ) = ZERO;
+            C = C / TAU;
+            S = -S / TAU;
 
             // Record the appropriate Givens rotation
 
             if ( ICOMPQ == 1 ) {
-               GIVPTR = GIVPTR + 1
-               IDXJP = IDXQ( IDX( JPREV )+1 )
-               IDXJ = IDXQ( IDX( J )+1 )
+               GIVPTR = GIVPTR + 1;
+               IDXJP = IDXQ( IDX( JPREV )+1 );
+               IDXJ = IDXQ( IDX( J )+1 );
                if ( IDXJP <= NLP1 ) {
-                  IDXJP = IDXJP - 1
+                  IDXJP = IDXJP - 1;
                }
                if ( IDXJ <= NLP1 ) {
-                  IDXJ = IDXJ - 1
+                  IDXJ = IDXJ - 1;
                }
-               GIVCOL( GIVPTR, 2 ) = IDXJP
-               GIVCOL( GIVPTR, 1 ) = IDXJ
-               GIVNUM( GIVPTR, 2 ) = C
-               GIVNUM( GIVPTR, 1 ) = S
+               GIVCOL( GIVPTR, 2 ) = IDXJP;
+               GIVCOL( GIVPTR, 1 ) = IDXJ;
+               GIVNUM( GIVPTR, 2 ) = C;
+               GIVNUM( GIVPTR, 1 ) = S;
             }
             drot(1, VF( JPREV ), 1, VF( J ), 1, C, S );
             drot(1, VL( JPREV ), 1, VL( J ), 1, C, S );
-            K2 = K2 - 1
-            IDXP( K2 ) = JPREV
-            JPREV = J
+            K2 = K2 - 1;
+            IDXP( K2 ) = JPREV;
+            JPREV = J;
          } else {
-            K = K + 1
-            ZW( K ) = Z( JPREV )
-            DSIGMA( K ) = D( JPREV )
-            IDXP( K ) = JPREV
-            JPREV = J
+            K = K + 1;
+            ZW( K ) = Z( JPREV );
+            DSIGMA( K ) = D( JPREV );
+            IDXP( K ) = JPREV;
+            JPREV = J;
          }
       }
-      GO TO 80
+      GO TO 80;
       } // 90
 
       // Record the last singular value.
 
-      K = K + 1
-      ZW( K ) = Z( JPREV )
-      DSIGMA( K ) = D( JPREV )
-      IDXP( K ) = JPREV
+      K = K + 1;
+      ZW( K ) = Z( JPREV );
+      DSIGMA( K ) = D( JPREV );
+      IDXP( K ) = JPREV;
 
       } // 100
 
@@ -231,17 +231,17 @@
       // that DSIGMA(1) is treated separately.
 
       for (J = 2; J <= N; J++) { // 110
-         JP = IDXP( J )
-         DSIGMA( J ) = D( JP )
-         VFW( J ) = VF( JP )
-         VLW( J ) = VL( JP )
+         JP = IDXP( J );
+         DSIGMA( J ) = D( JP );
+         VFW( J ) = VF( JP );
+         VLW( J ) = VL( JP );
       } // 110
       if ( ICOMPQ == 1 ) {
          for (J = 2; J <= N; J++) { // 120
-            JP = IDXP( J )
-            PERM( J ) = IDXQ( IDX( JP )+1 )
+            JP = IDXP( J );
+            PERM( J ) = IDXQ( IDX( JP )+1 );
             if ( PERM( J ) <= NLP1 ) {
-               PERM( J ) = PERM( J ) - 1
+               PERM( J ) = PERM( J ) - 1;
             }
          } // 120
       }
@@ -254,26 +254,26 @@
       // Determine DSIGMA(1), DSIGMA(2), Z(1), VF(1), VL(1), VF(M), and
       // VL(M).
 
-      DSIGMA( 1 ) = ZERO
-      HLFTOL = TOL / TWO
-      IF( ABS( DSIGMA( 2 ) ) <= HLFTOL ) DSIGMA( 2 ) = HLFTOL
+      DSIGMA( 1 ) = ZERO;
+      HLFTOL = TOL / TWO;
+      IF( ABS( DSIGMA( 2 ) ) <= HLFTOL ) DSIGMA( 2 ) = HLFTOL;
       if ( M > N ) {
-         Z( 1 ) = DLAPY2( Z1, Z( M ) )
+         Z( 1 ) = DLAPY2( Z1, Z( M ) );
          if ( Z( 1 ) <= TOL ) {
-            C = ONE
-            S = ZERO
-            Z( 1 ) = TOL
+            C = ONE;
+            S = ZERO;
+            Z( 1 ) = TOL;
          } else {
-            C = Z1 / Z( 1 )
-            S = -Z( M ) / Z( 1 )
+            C = Z1 / Z( 1 );
+            S = -Z( M ) / Z( 1 );
          }
          drot(1, VF( M ), 1, VF( 1 ), 1, C, S );
          drot(1, VL( M ), 1, VL( 1 ), 1, C, S );
       } else {
          if ( ABS( Z1 ) <= TOL ) {
-            Z( 1 ) = TOL
+            Z( 1 ) = TOL;
          } else {
-            Z( 1 ) = Z1
+            Z( 1 ) = Z1;
          }
       }
 
@@ -283,7 +283,7 @@
       dcopy(N-1, VFW( 2 ), 1, VF( 2 ), 1 );
       dcopy(N-1, VLW( 2 ), 1, VL( 2 ), 1 );
 
-      RETURN
+      RETURN;
 
       // End of DLASD7
 

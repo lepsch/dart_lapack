@@ -1,4 +1,4 @@
-      SUBROUTINE ZTZRQF( M, N, A, LDA, TAU, INFO )
+      SUBROUTINE ZTZRQF( M, N, A, LDA, TAU, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,18 +8,18 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * )
+      COMPLEX*16         A( LDA, * ), TAU( * );
       // ..
 
 * =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE, CZERO
+      COMPLEX*16         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, K, M1;
-      COMPLEX*16         ALPHA
+      COMPLEX*16         ALPHA;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MAX, MIN
@@ -31,17 +31,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZTZRQF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Perform the factorization.
@@ -49,21 +49,21 @@
       if (M == 0) RETURN;
       if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = CZERO
+            TAU( I ) = CZERO;
          } // 10
       } else {
-         M1 = MIN( M+1, N )
-         DO 20 K = M, 1, -1
+         M1 = MIN( M+1, N );
+         DO 20 K = M, 1, -1;
 
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.
 
-            A( K, K ) = DCONJG( A( K, K ) )
+            A( K, K ) = DCONJG( A( K, K ) );
             zlacgv(N-M, A( K, M1 ), LDA );
-            ALPHA = A( K, K )
+            ALPHA = A( K, K );
             zlarfg(N-M+1, ALPHA, A( K, M1 ), LDA, TAU( K ) );
-            A( K, K ) = ALPHA
-            TAU( K ) = DCONJG( TAU( K ) )
+            A( K, K ) = ALPHA;
+            TAU( K ) = DCONJG( TAU( K ) );
 
             if ( TAU( K ) != CZERO && K > 1 ) {
 
@@ -89,7 +89,7 @@
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of ZTZRQF
 

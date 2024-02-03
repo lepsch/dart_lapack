@@ -1,4 +1,4 @@
-      SUBROUTINE CHET01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE CHET01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX         CZERO, CONE
+      COMPLEX         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE  = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, CLANHE
+      REAL               SLAMCH, CLANHE;
       // EXTERNAL LSAME, SLAMCH, CLANHE
       // ..
       // .. External Subroutines ..
@@ -43,14 +43,14 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK );
 
       // Initialize C to the tridiagonal matrix T.
 
@@ -86,12 +86,12 @@
 
       // Apply hermitian pivots
 
-      DO J = N, 1, -1
-         I = IPIV( J )
+      DO J = N, 1, -1;
+         I = IPIV( J );
          if (I != J) CALL CSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
       }
-      DO J = N, 1, -1
-         I = IPIV( J )
+      DO J = N, 1, -1;
+         I = IPIV( J );
          if (I != J) CALL CSWAP( N, C( 1, J ), 1, C( 1, I ), 1 );
       }
 
@@ -101,28 +101,28 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             }
          }
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK )
+      RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of CHET01_AA
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CPPTRI( UPLO, N, AP, INFO )
+      SUBROUTINE CPPTRI( UPLO, N, AP, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,23 +9,23 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AP( * )
+      COMPLEX            AP( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, JC, JJ, JJN;
-      REAL               AJJ
+      REAL               AJJ;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX            CDOTC
+      COMPLEX            CDOTC;
       // EXTERNAL LSAME, CDOTC
       // ..
       // .. External Subroutines ..
@@ -38,16 +38,16 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       }
       if ( INFO != 0 ) {
          xerbla('CPPTRI', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,12 +62,12 @@
 
          // Compute the product inv(U) * inv(U)**H.
 
-         JJ = 0
+         JJ = 0;
          for (J = 1; J <= N; J++) { // 10
-            JC = JJ + 1
-            JJ = JJ + J
+            JC = JJ + 1;
+            JJ = JJ + J;
             if (J > 1) CALL CHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP );
-            AJJ = REAL( AP( JJ ) )
+            AJJ = REAL( AP( JJ ) );
             csscal(J, AJJ, AP( JC ), 1 );
          } // 10
 
@@ -75,16 +75,16 @@
 
          // Compute the product inv(L)**H * inv(L).
 
-         JJ = 1
+         JJ = 1;
          for (J = 1; J <= N; J++) { // 20
-            JJN = JJ + N - J + 1
-            AP( JJ ) = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) )
+            JJN = JJ + N - J + 1;
+            AP( JJ ) = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) );
             if (J < N) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
-            JJ = JJN
+            JJ = JJN;
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of CPPTRI
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZDSCAL(N,DA,ZX,INCX)
+      SUBROUTINE ZDSCAL(N,DA,ZX,INCX);
 
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*)
+      COMPLEX*16 ZX(*);
       // ..
 
 *  =====================================================================
@@ -29,18 +29,18 @@
          // code for increment equal to 1
 
          for (I = 1; I <= N; I++) {
-            ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
+            ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)));
          }
       } else {
 
          // code for increment not equal to 1
 
-         NINCX = N*INCX
-         DO I = 1,NINCX,INCX
-            ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
+         NINCX = N*INCX;
+         DO I = 1,NINCX,INCX;
+            ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)));
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZDSCAL
 

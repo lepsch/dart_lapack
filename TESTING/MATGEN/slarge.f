@@ -1,4 +1,4 @@
-      SUBROUTINE SLARGE( N, A, LDA, ISEED, WORK, INFO )
+      SUBROUTINE SLARGE( N, A, LDA, ISEED, WORK, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * ), WORK( * )
+      REAL               A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               TAU, WA, WB, WN
+      REAL               TAU, WA, WB, WN;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SGEMV, SGER, SLARNV, SSCAL, XERBLA
@@ -29,40 +29,40 @@
       // INTRINSIC MAX, SIGN
       // ..
       // .. External Functions ..
-      REAL               SNRM2
+      REAL               SNRM2;
       // EXTERNAL SNRM2
       // ..
       // .. Executable Statements ..
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -3
+         INFO = -3;
       }
       if ( INFO < 0 ) {
          xerbla('SLARGE', -INFO );
-         RETURN
+         RETURN;
       }
 
       // pre- and post-multiply A by random orthogonal matrix
 
-      DO 10 I = N, 1, -1
+      DO 10 I = N, 1, -1;
 
          // generate random reflection
 
          slarnv(3, ISEED, N-I+1, WORK );
-         WN = SNRM2( N-I+1, WORK, 1 )
-         WA = SIGN( WN, WORK( 1 ) )
+         WN = SNRM2( N-I+1, WORK, 1 );
+         WA = SIGN( WN, WORK( 1 ) );
          if ( WN == ZERO ) {
-            TAU = ZERO
+            TAU = ZERO;
          } else {
-            WB = WORK( 1 ) + WA
+            WB = WORK( 1 ) + WA;
             sscal(N-I, ONE / WB, WORK( 2 ), 1 );
-            WORK( 1 ) = ONE
-            TAU = WB / WA
+            WORK( 1 ) = ONE;
+            TAU = WB / WA;
          }
 
          // multiply A(i:n,1:n) by random reflection from the left
@@ -75,7 +75,7 @@
          sgemv('No transpose', N, N-I+1, ONE, A( 1, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 );
          sger(N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ), LDA );
       } // 10
-      RETURN
+      RETURN;
 
       // End of SLARGE
 

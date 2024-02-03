@@ -1,4 +1,4 @@
-      REAL             FUNCTION CRZT02( M, N, AF, LDA, TAU, WORK, LWORK )
+      REAL             FUNCTION CRZT02( M, N, AF, LDA, TAU, WORK, LWORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,23 +8,23 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AF( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX            AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 )
+      REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH
+      REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -35,11 +35,11 @@
       // ..
       // .. Executable Statements ..
 
-      CRZT02 = ZERO
+      CRZT02 = ZERO;
 
       if ( LWORK < N*N+N ) {
          xerbla('CRZT02', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,11 +61,11 @@
       // Q := Q - I
 
       for (I = 1; I <= N; I++) { // 10
-         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE
+         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
-      CRZT02 = CLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      RETURN
+      CRZT02 = CLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) );
+      RETURN;
 
       // End of CRZT02
 

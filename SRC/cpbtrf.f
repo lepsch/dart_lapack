@@ -1,4 +1,4 @@
-      SUBROUTINE CPBTRF( UPLO, N, KD, AB, LDAB, INFO )
+      SUBROUTINE CPBTRF( UPLO, N, KD, AB, LDAB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,15 +9,15 @@
       int                INFO, KD, LDAB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            AB( LDAB, * )
+      COMPLEX            AB( LDAB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       int                NBMAX, LDWORK;
       const              NBMAX = 32, LDWORK = NBMAX+1 ;
@@ -26,7 +26,7 @@
       int                I, I2, I3, IB, II, J, JJ, NB;
       // ..
       // .. Local Arrays ..
-      COMPLEX            WORK( LDWORK, NBMAX )
+      COMPLEX            WORK( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -43,19 +43,19 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( ( !LSAME( UPLO, 'U' ) ) && ( !LSAME( UPLO, 'L' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KD < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDAB < KD+1 ) {
-         INFO = -5
+         INFO = -5;
       }
       if ( INFO != 0 ) {
          xerbla('CPBTRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -64,12 +64,12 @@
 
       // Determine the block size for this environment
 
-      NB = ILAENV( 1, 'CPBTRF', UPLO, N, KD, -1, -1 )
+      NB = ILAENV( 1, 'CPBTRF', UPLO, N, KD, -1, -1 );
 
       // The block size must not exceed the semi-bandwidth KD, and must not
       // exceed the limit set by the size of the local array WORK.
 
-      NB = MIN( NB, NBMAX )
+      NB = MIN( NB, NBMAX );
 
       if ( NB <= 1 || NB > KD ) {
 
@@ -90,21 +90,21 @@
 
             for (J = 1; J <= NB; J++) { // 20
                for (I = 1; I <= J - 1; I++) { // 10
-                  WORK( I, J ) = ZERO
+                  WORK( I, J ) = ZERO;
                } // 10
             } // 20
 
             // Process the band matrix one diagonal block at a time.
 
-            DO 70 I = 1, N, NB
-               IB = MIN( NB, N-I+1 )
+            DO 70 I = 1, N, NB;
+               IB = MIN( NB, N-I+1 );
 
                // Factorize the diagonal block
 
                cpotf2(UPLO, IB, AB( KD+1, I ), LDAB-1, II );
                if ( II != 0 ) {
-                  INFO = I + II - 1
-                  GO TO 150
+                  INFO = I + II - 1;
+                  GO TO 150;
                }
                if ( I+IB <= N ) {
 
@@ -122,8 +122,8 @@
                   // A23 are empty if IB = KD. The upper triangle of A13
                   // lies outside the band.
 
-                  I2 = MIN( KD-IB, N-I-IB+1 )
-                  I3 = MIN( IB, N-I-KD+1 )
+                  I2 = MIN( KD-IB, N-I-IB+1 );
+                  I3 = MIN( IB, N-I-KD+1 );
 
                   if ( I2 > 0 ) {
 
@@ -142,7 +142,7 @@
 
                      for (JJ = 1; JJ <= I3; JJ++) { // 40
                         for (II = JJ; II <= IB; II++) { // 30
-                           WORK( II, JJ ) = AB( II-JJ+1, JJ+I+KD-1 )
+                           WORK( II, JJ ) = AB( II-JJ+1, JJ+I+KD-1 );
                         } // 30
                      } // 40
 
@@ -162,7 +162,7 @@
 
                      for (JJ = 1; JJ <= I3; JJ++) { // 60
                         for (II = JJ; II <= IB; II++) { // 50
-                           AB( II-JJ+1, JJ+I+KD-1 ) = WORK( II, JJ )
+                           AB( II-JJ+1, JJ+I+KD-1 ) = WORK( II, JJ );
                         } // 50
                      } // 60
                   }
@@ -178,21 +178,21 @@
 
             for (J = 1; J <= NB; J++) { // 90
                for (I = J + 1; I <= NB; I++) { // 80
-                  WORK( I, J ) = ZERO
+                  WORK( I, J ) = ZERO;
                } // 80
             } // 90
 
             // Process the band matrix one diagonal block at a time.
 
-            DO 140 I = 1, N, NB
-               IB = MIN( NB, N-I+1 )
+            DO 140 I = 1, N, NB;
+               IB = MIN( NB, N-I+1 );
 
                // Factorize the diagonal block
 
                cpotf2(UPLO, IB, AB( 1, I ), LDAB-1, II );
                if ( II != 0 ) {
-                  INFO = I + II - 1
-                  GO TO 150
+                  INFO = I + II - 1;
+                  GO TO 150;
                }
                if ( I+IB <= N ) {
 
@@ -210,8 +210,8 @@
                   // A32 are empty if IB = KD. The lower triangle of A31
                   // lies outside the band.
 
-                  I2 = MIN( KD-IB, N-I-IB+1 )
-                  I3 = MIN( IB, N-I-KD+1 )
+                  I2 = MIN( KD-IB, N-I-IB+1 );
+                  I3 = MIN( IB, N-I-KD+1 );
 
                   if ( I2 > 0 ) {
 
@@ -229,8 +229,8 @@
                      // Copy the upper triangle of A31 into the work array.
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 110
-                        DO 100 II = 1, MIN( JJ, I3 )
-                           WORK( II, JJ ) = AB( KD+1-JJ+II, JJ+I-1 )
+                        DO 100 II = 1, MIN( JJ, I3 );
+                           WORK( II, JJ ) = AB( KD+1-JJ+II, JJ+I-1 );
                         } // 100
                      } // 110
 
@@ -249,8 +249,8 @@
                      // Copy the upper triangle of A31 back into place.
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 130
-                        DO 120 II = 1, MIN( JJ, I3 )
-                           AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ )
+                        DO 120 II = 1, MIN( JJ, I3 );
+                           AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ );
                         } // 120
                      } // 130
                   }
@@ -258,10 +258,10 @@
             } // 140
          }
       }
-      RETURN
+      RETURN;
 
       } // 150
-      RETURN
+      RETURN;
 
       // End of CPBTRF
 

@@ -1,5 +1,5 @@
-      SUBROUTINE ZLAUNHR_COL_GETRFNP( M, N, A, LDA, D, INFO )
-      IMPLICIT NONE
+      SUBROUTINE ZLAUNHR_COL_GETRFNP( M, N, A, LDA, D, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), D( * )
+      COMPLEX*16         A( LDA, * ), D( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -35,27 +35,27 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZLAUNHR_COL_GETRFNP', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      IF( MIN( M, N ) == 0 ) RETURN
+      IF( MIN( M, N ) == 0 ) RETURN;
 
       // Determine the block size for this environment.
 
 
-      NB = ILAENV( 1, 'ZLAUNHR_COL_GETRFNP', ' ', M, N, -1, -1 )
+      NB = ILAENV( 1, 'ZLAUNHR_COL_GETRFNP', ' ', M, N, -1, -1 );
 
       if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
@@ -66,8 +66,8 @@
 
          // Use blocked code.
 
-         DO J = 1, MIN( M, N ), NB
-            JB = MIN( MIN( M, N )-J+1, NB )
+         DO J = 1, MIN( M, N ), NB;
+            JB = MIN( MIN( M, N )-J+1, NB );
 
             // Factor diagonal and subdiagonal blocks.
 
@@ -87,7 +87,7 @@
             }
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZLAUNHR_COL_GETRFNP
 

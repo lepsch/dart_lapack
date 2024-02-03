@@ -1,4 +1,4 @@
-      REAL FUNCTION SECOND( )
+      REAL FUNCTION SECOND( );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
 
       // .. Local Scalars ..
 
-      REAL T
+      REAL T;
 
 * .. Intrinsic Functions ..
 
@@ -17,8 +17,8 @@
 * .. Executable Statements .. *
 
       cpu_time(T );
-      SECOND = T
-      RETURN
+      SECOND = T;
+      RETURN;
 
       // End of SECOND
 

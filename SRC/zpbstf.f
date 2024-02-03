@@ -1,4 +1,4 @@
-      SUBROUTINE ZPBSTF( UPLO, N, KD, AB, LDAB, INFO )
+      SUBROUTINE ZPBSTF( UPLO, N, KD, AB, LDAB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, KD, LDAB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AB( LDAB, * )
+      COMPLEX*16         AB( LDAB, * );
       // ..
 
 *  =====================================================================
@@ -37,48 +37,48 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KD < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDAB < KD+1 ) {
-         INFO = -5
+         INFO = -5;
       }
       if ( INFO != 0 ) {
          xerbla('ZPBSTF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (N == 0) RETURN;
 
-      KLD = MAX( 1, LDAB-1 )
+      KLD = MAX( 1, LDAB-1 );
 
       // Set the splitting point m.
 
-      M = ( N+KD ) / 2
+      M = ( N+KD ) / 2;
 
       if ( UPPER ) {
 
          // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
-         DO 10 J = N, M + 1, -1
+         DO 10 J = N, M + 1, -1;
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( KD+1, J ) )
+            AJJ = DBLE( AB( KD+1, J ) );
             if ( AJJ <= ZERO ) {
-               AB( KD+1, J ) = AJJ
-               GO TO 50
+               AB( KD+1, J ) = AJJ;
+               GO TO 50;
             }
-            AJJ = SQRT( AJJ )
-            AB( KD+1, J ) = AJJ
-            KM = MIN( J-1, KD )
+            AJJ = SQRT( AJJ );
+            AB( KD+1, J ) = AJJ;
+            KM = MIN( J-1, KD );
 
             // Compute elements j-km:j-1 of the j-th column and update the
             // the leading submatrix within the band.
@@ -93,14 +93,14 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( KD+1, J ) )
+            AJJ = DBLE( AB( KD+1, J ) );
             if ( AJJ <= ZERO ) {
-               AB( KD+1, J ) = AJJ
-               GO TO 50
+               AB( KD+1, J ) = AJJ;
+               GO TO 50;
             }
-            AJJ = SQRT( AJJ )
-            AB( KD+1, J ) = AJJ
-            KM = MIN( KD, M-J )
+            AJJ = SQRT( AJJ );
+            AB( KD+1, J ) = AJJ;
+            KM = MIN( KD, M-J );
 
             // Compute elements j+1:j+km of the j-th row and update the
             // trailing submatrix within the band.
@@ -116,18 +116,18 @@
 
          // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
-         DO 30 J = N, M + 1, -1
+         DO 30 J = N, M + 1, -1;
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( 1, J ) )
+            AJJ = DBLE( AB( 1, J ) );
             if ( AJJ <= ZERO ) {
-               AB( 1, J ) = AJJ
-               GO TO 50
+               AB( 1, J ) = AJJ;
+               GO TO 50;
             }
-            AJJ = SQRT( AJJ )
-            AB( 1, J ) = AJJ
-            KM = MIN( J-1, KD )
+            AJJ = SQRT( AJJ );
+            AB( 1, J ) = AJJ;
+            KM = MIN( J-1, KD );
 
             // Compute elements j-km:j-1 of the j-th row and update the
             // trailing submatrix within the band.
@@ -144,14 +144,14 @@
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
-            AJJ = DBLE( AB( 1, J ) )
+            AJJ = DBLE( AB( 1, J ) );
             if ( AJJ <= ZERO ) {
-               AB( 1, J ) = AJJ
-               GO TO 50
+               AB( 1, J ) = AJJ;
+               GO TO 50;
             }
-            AJJ = SQRT( AJJ )
-            AB( 1, J ) = AJJ
-            KM = MIN( KD, M-J )
+            AJJ = SQRT( AJJ );
+            AB( 1, J ) = AJJ;
+            KM = MIN( KD, M-J );
 
             // Compute elements j+1:j+km of the j-th column and update the
             // trailing submatrix within the band.
@@ -162,11 +162,11 @@
             }
          } // 40
       }
-      RETURN
+      RETURN;
 
       } // 50
-      INFO = J
-      RETURN
+      INFO = J;
+      RETURN;
 
       // End of ZPBSTF
 

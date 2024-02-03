@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAUU2( UPLO, N, A, LDA, INFO )
+      SUBROUTINE ZLAUU2( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE
+      COMPLEX*16         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -25,7 +25,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC
+      COMPLEX*16         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. External Subroutines ..
@@ -38,18 +38,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZLAUU2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,9 +61,9 @@
          // Compute the product U * U**H.
 
          for (I = 1; I <= N; I++) { // 10
-            AII = DBLE( A( I, I ) )
+            AII = DBLE( A( I, I ) );
             if ( I < N ) {
-               A( I, I ) = AII*AII + DBLE( ZDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) )
+               A( I, I ) = AII*AII + DBLE( ZDOTC( N-I, A( I, I+1 ), LDA, A( I, I+1 ), LDA ) );
                zlacgv(N-I, A( I, I+1 ), LDA );
                zgemv('No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, DCMPLX( AII ), A( 1, I ), 1 );
                zlacgv(N-I, A( I, I+1 ), LDA );
@@ -77,9 +77,9 @@
          // Compute the product L**H * L.
 
          for (I = 1; I <= N; I++) { // 20
-            AII = DBLE( A( I, I ) )
+            AII = DBLE( A( I, I ) );
             if ( I < N ) {
-               A( I, I ) = AII*AII + DBLE( ZDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) )
+               A( I, I ) = AII*AII + DBLE( ZDOTC( N-I, A( I+1, I ), 1, A( I+1, I ), 1 ) );
                zlacgv(I-1, A( I, 1 ), LDA );
                zgemv('Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, DCMPLX( AII ), A( I, 1 ), LDA );
                zlacgv(I-1, A( I, 1 ), LDA );
@@ -89,7 +89,7 @@
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLAUU2
 

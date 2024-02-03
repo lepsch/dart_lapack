@@ -1,4 +1,4 @@
-      SUBROUTINE SSPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE SSPEVD( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               AP( * ), W( * ), WORK( * ), Z( LDZ, * )
+      REAL               AP( * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, SLANSP, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANSP, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, SLANSP, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -39,48 +39,48 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LIWMIN = 1
-            LWMIN = 1
+            LIWMIN = 1;
+            LWMIN = 1;
          } else {
             if ( WANTZ ) {
-               LIWMIN = 3 + 5*N
-               LWMIN = 1 + 6*N + N**2
+               LIWMIN = 3 + 5*N;
+               LWMIN = 1 + 6*N + N**2;
             } else {
-               LIWMIN = 1
-               LWMIN = 2*N
+               LIWMIN = 1;
+               LWMIN = 2*N;
             }
          }
-         IWORK( 1 ) = LIWMIN
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+         IWORK( 1 ) = LIWMIN;
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -9
+            INFO = -9;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('SSPEVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -88,30 +88,30 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = AP( 1 )
+         W( 1 ) = AP( 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = SLANSP( 'M', UPLO, N, AP, WORK )
-      ISCALE = 0
+      ANRM = SLANSP( 'M', UPLO, N, AP, WORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          sscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
@@ -119,8 +119,8 @@
 
       // Call SSPTRD to reduce symmetric packed matrix to tridiagonal form.
 
-      INDE = 1
-      INDTAU = INDE + N
+      INDE = 1;
+      INDTAU = INDE + N;
       ssptrd(UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
@@ -131,8 +131,8 @@
       if ( !WANTZ ) {
          ssterf(N, W, WORK( INDE ), INFO );
       } else {
-         INDWRK = INDTAU + N
-         LLWORK = LWORK - INDWRK + 1
+         INDWRK = INDTAU + N;
+         LLWORK = LWORK - INDWRK + 1;
          sstedc('I', N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWORK, IWORK, LIWORK, INFO );
          sopmtr('L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
       }
@@ -141,9 +141,9 @@
 
       if (ISCALE == 1) CALL SSCAL( N, ONE / SIGMA, W, 1 );
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of SSPEVD
 

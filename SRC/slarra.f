@@ -1,4 +1,4 @@
-      SUBROUTINE SLARRA( N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, INFO )
+      SUBROUTINE SLARRA( N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, N, NSPLIT;
-      REAL                SPLTOL, TNRM
+      REAL                SPLTOL, TNRM;
       // ..
       // .. Array Arguments ..
       int                ISPLIT( * );
-      REAL               D( * ), E( * ), E2( * )
+      REAL               D( * ), E( * ), E2( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               EABS, TMP1
+      REAL               EABS, TMP1;
 
       // ..
       // .. Intrinsic Functions ..
@@ -29,43 +29,43 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NSPLIT = 1
+      INFO = 0;
+      NSPLIT = 1;
 
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Compute splitting points
       if (SPLTOL < ZERO) {
          // Criterion based on absolute off-diagonal value
-         TMP1 = ABS(SPLTOL)* TNRM
+         TMP1 = ABS(SPLTOL)* TNRM;
          for (I = 1; I <= N-1; I++) { // 9
-            EABS = ABS( E(I) )
+            EABS = ABS( E(I) );
             if ( EABS <= TMP1) {
-               E(I) = ZERO
-               E2(I) = ZERO
-               ISPLIT( NSPLIT ) = I
-               NSPLIT = NSPLIT + 1
+               E(I) = ZERO;
+               E2(I) = ZERO;
+               ISPLIT( NSPLIT ) = I;
+               NSPLIT = NSPLIT + 1;
             }
          } // 9
       } else {
          // Criterion that guarantees relative accuracy
          for (I = 1; I <= N-1; I++) { // 10
-            EABS = ABS( E(I) )
+            EABS = ABS( E(I) );
             if ( EABS <= SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) {
-               E(I) = ZERO
-               E2(I) = ZERO
-               ISPLIT( NSPLIT ) = I
-               NSPLIT = NSPLIT + 1
+               E(I) = ZERO;
+               E2(I) = ZERO;
+               ISPLIT( NSPLIT ) = I;
+               NSPLIT = NSPLIT + 1;
             }
          } // 10
       }
-      ISPLIT( NSPLIT ) = N
+      ISPLIT( NSPLIT ) = N;
 
-      RETURN
+      RETURN;
 
       // End of SLARRA
 

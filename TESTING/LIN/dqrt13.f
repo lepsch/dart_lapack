@@ -1,4 +1,4 @@
-      SUBROUTINE DQRT13( SCALE, M, N, A, LDA, NORMA, ISEED )
+      SUBROUTINE DQRT13( SCALE, M, N, A, LDA, NORMA, ISEED );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,18 +45,18 @@
       for (J = 1; J <= N; J++) { // 10
          dlarnv(2, ISEED, M, A( 1, J ) );
          if ( J <= M ) {
-            A( J, J ) = A( J, J ) + SIGN( DASUM( M, A( 1, J ), 1 ), A( J, J ) )
+            A( J, J ) = A( J, J ) + SIGN( DASUM( M, A( 1, J ), 1 ), A( J, J ) );
          }
       } // 10
 
       // scaled versions
 
       if ( SCALE != 1 ) {
-         NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY )
-         SMLNUM = DLAMCH( 'Safe minimum' )
-         BIGNUM = ONE / SMLNUM
-         SMLNUM = SMLNUM / DLAMCH( 'Epsilon' )
-         BIGNUM = ONE / SMLNUM
+         NORMA = DLANGE( 'Max', M, N, A, LDA, DUMMY );
+         SMLNUM = DLAMCH( 'Safe minimum' );
+         BIGNUM = ONE / SMLNUM;
+         SMLNUM = SMLNUM / DLAMCH( 'Epsilon' );
+         BIGNUM = ONE / SMLNUM;
 
          if ( SCALE == 2 ) {
 
@@ -71,8 +71,8 @@
          }
       }
 
-      NORMA = DLANGE( 'One-norm', M, N, A, LDA, DUMMY )
-      RETURN
+      NORMA = DLANGE( 'One-norm', M, N, A, LDA, DUMMY );
+      RETURN;
 
       // End of DQRT13
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CSPSVX( FACT, UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CSPSVX( FACT, UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,27 +7,27 @@
       // .. Scalar Arguments ..
       String             FACT, UPLO;
       int                INFO, LDB, LDX, N, NRHS;
-      REAL               RCOND
+      REAL               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      REAL               BERR( * ), FERR( * ), RWORK( * );
+      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOFACT;
-      REAL               ANORM
+      REAL               ANORM;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANSP, SLAMCH
+      REAL               CLANSP, SLAMCH;
       // EXTERNAL LSAME, CLANSP, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -40,24 +40,24 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
       if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -11
+         INFO = -11;
       }
       if ( INFO != 0 ) {
          xerbla('CSPSVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( NOFACT ) {
@@ -70,14 +70,14 @@
          // Return if INFO is non-zero.
 
          if ( INFO > 0 ) {
-            RCOND = ZERO
-            RETURN
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
       // Compute the norm of the matrix A.
 
-      ANORM = CLANSP( 'I', UPLO, N, AP, RWORK )
+      ANORM = CLANSP( 'I', UPLO, N, AP, RWORK );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -95,9 +95,9 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RETURN
+      RETURN;
 
       // End of CSPSVX
 

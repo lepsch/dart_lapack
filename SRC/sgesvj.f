@@ -1,4 +1,4 @@
-      SUBROUTINE SGESVJ( JOBA, JOBU, JOBV, M, N, A, LDA, SVA, MV, V, LDV, WORK, LWORK, INFO )
+      SUBROUTINE SGESVJ( JOBA, JOBU, JOBV, M, N, A, LDA, SVA, MV, V, LDV, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       String             JOBA, JOBU, JOBV;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK )
+      REAL               A( LDA, * ), SVA( N ), V( LDV, * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Local Parameters ..
-      REAL               ZERO, HALF, ONE
+      REAL               ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
       int                NSWEEP;
       const              NSWEEP = 30 ;
       // ..
       // .. Local Scalars ..
-      REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL
+      REAL               AAPP, AAPP0, AAPQ, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, CTOL, EPSLN, LARGE, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SKL, SFMIN, SMALL, SN, T, TEMP1, THETA, THSIGN, TOL;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, N2, N34, N4, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND, MINMN, LWMIN;
       bool               APPLV, GOSCALE, LOWER, LQUERY, LSVEC, NOSCALE, ROTOK, RSVEC, UCTOL, UPPER;
       // ..
       // .. Local Arrays ..
-      REAL               FASTR( 5 )
+      REAL               FASTR( 5 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, FLOAT, SIGN, SQRT
@@ -34,12 +34,12 @@
       // .. External Functions ..
       // ..
       // from BLAS
-      REAL               SDOT, SNRM2
+      REAL               SDOT, SNRM2;
       // EXTERNAL SDOT, SNRM2
       int                ISAMAX;
       // EXTERNAL ISAMAX
       // from LAPACK
-      REAL               SLAMCH, SROUNDUP_LWORK
+      REAL               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       bool               LSAME;
       // EXTERNAL LSAME
@@ -57,52 +57,52 @@
 
       // Test the input arguments
 
-      LSVEC = LSAME( JOBU, 'U' )
-      UCTOL = LSAME( JOBU, 'C' )
-      RSVEC = LSAME( JOBV, 'V' )
-      APPLV = LSAME( JOBV, 'A' )
-      UPPER = LSAME( JOBA, 'U' )
-      LOWER = LSAME( JOBA, 'L' )
+      LSVEC = LSAME( JOBU, 'U' );
+      UCTOL = LSAME( JOBU, 'C' );
+      RSVEC = LSAME( JOBV, 'V' );
+      APPLV = LSAME( JOBV, 'A' );
+      UPPER = LSAME( JOBA, 'U' );
+      LOWER = LSAME( JOBA, 'L' );
 
-      MINMN = MIN( M, N )
+      MINMN = MIN( M, N );
       if ( MINMN == 0 ) {
-         LWMIN = 1
+         LWMIN = 1;
       } else {
-         LWMIN = MAX( 6, M+N )
+         LWMIN = MAX( 6, M+N );
       }
 
-      LQUERY = ( LWORK == -1 )
+      LQUERY = ( LWORK == -1 );
       if ( !( UPPER || LOWER || LSAME( JOBA, 'G' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSVEC || UCTOL || LSAME( JOBU, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( RSVEC || APPLV || LSAME( JOBV, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( ( N < 0 ) || ( N > M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < M ) {
-         INFO = -7
+         INFO = -7;
       } else if ( MV < 0 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( ( RSVEC && ( LDV < N ) ) || ( APPLV && ( LDV < MV ) ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( UCTOL && ( WORK( 1 ) <= ONE ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LWORK < LWMIN && ( !LQUERY ) ) {
-         INFO = -13
+         INFO = -13;
       } else {
-         INFO = 0
+         INFO = 0;
       }
 
       // #:(
       if ( INFO != 0 ) {
          xerbla('SGESVJ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+         RETURN;
       }
 
 * #:) Quick return for void matrix
@@ -118,47 +118,47 @@
 
       if ( UCTOL ) {
          // ... user controlled
-         CTOL = WORK( 1 )
+         CTOL = WORK( 1 );
       } else {
          // ... default
          if ( LSVEC || RSVEC || APPLV ) {
-            CTOL = SQRT( FLOAT( M ) )
+            CTOL = SQRT( FLOAT( M ) );
          } else {
-            CTOL = FLOAT( M )
+            CTOL = FLOAT( M );
          }
       }
       // ... and the machine dependent parameters are
 *[!]  (Make sure that SLAMCH() works properly on the target machine.)
 
-      EPSLN = SLAMCH( 'Epsilon' )
-      ROOTEPS = SQRT( EPSLN )
-      SFMIN = SLAMCH( 'SafeMinimum' )
-      ROOTSFMIN = SQRT( SFMIN )
-      SMALL = SFMIN / EPSLN
-      BIG = SLAMCH( 'Overflow' )
+      EPSLN = SLAMCH( 'Epsilon' );
+      ROOTEPS = SQRT( EPSLN );
+      SFMIN = SLAMCH( 'SafeMinimum' );
+      ROOTSFMIN = SQRT( SFMIN );
+      SMALL = SFMIN / EPSLN;
+      BIG = SLAMCH( 'Overflow' );
       // BIG         = ONE    / SFMIN
-      ROOTBIG = ONE / ROOTSFMIN
-      LARGE = BIG / SQRT( FLOAT( M*N ) )
-      BIGTHETA = ONE / ROOTEPS
+      ROOTBIG = ONE / ROOTSFMIN;
+      LARGE = BIG / SQRT( FLOAT( M*N ) );
+      BIGTHETA = ONE / ROOTEPS;
 
-      TOL = CTOL*EPSLN
-      ROOTTOL = SQRT( TOL )
+      TOL = CTOL*EPSLN;
+      ROOTTOL = SQRT( TOL );
 
       if ( FLOAT( M )*EPSLN >= ONE ) {
-         INFO = -4
+         INFO = -4;
          xerbla('SGESVJ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize the right singular vector matrix.
 
       if ( RSVEC ) {
-         MVL = N
+         MVL = N;
          slaset('A', MVL, N, ZERO, ONE, V, LDV );
       } else if ( APPLV ) {
-         MVL = MV
+         MVL = MV;
       }
-      RSVEC = RSVEC || APPLV
+      RSVEC = RSVEC || APPLV;
 
       // Initialize SVA( 1:N ) = ( ||A e_i||_2, i = 1:N )
 *(!)  If necessary, scale A to protect the largest singular value
@@ -169,31 +169,31 @@
       // SQRT(N)*max_i SVA(i) does not overflow. If INFinite entries
       // in A are detected, the procedure returns with INFO=-6.
 
-      SKL = ONE / SQRT( FLOAT( M )*FLOAT( N ) )
+      SKL = ONE / SQRT( FLOAT( M )*FLOAT( N ) );
       NOSCALE = true;
       GOSCALE = true;
 
       if ( LOWER ) {
          // the input matrix is M-by-N lower triangular (trapezoidal)
          for (p = 1; p <= N; p++) { // 1874
-            AAPP = ZERO
-            AAQQ = ONE
+            AAPP = ZERO;
+            AAQQ = ONE;
             slassq(M-p+1, A( p, p ), 1, AAPP, AAQQ );
             if ( AAPP > BIG ) {
-               INFO = -6
+               INFO = -6;
                xerbla('SGESVJ', -INFO );
-               RETURN
+               RETURN;
             }
-            AAQQ = SQRT( AAQQ )
+            AAQQ = SQRT( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
-               SVA( p ) = AAPP*AAQQ
+               SVA( p ) = AAPP*AAQQ;
             } else {
                NOSCALE = false;
-               SVA( p ) = AAPP*( AAQQ*SKL )
+               SVA( p ) = AAPP*( AAQQ*SKL );
                if ( GOSCALE ) {
                   GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 1873
-                     SVA( q ) = SVA( q )*SKL
+                     SVA( q ) = SVA( q )*SKL;
                   } // 1873
                }
             }
@@ -201,24 +201,24 @@
       } else if ( UPPER ) {
          // the input matrix is M-by-N upper triangular (trapezoidal)
          for (p = 1; p <= N; p++) { // 2874
-            AAPP = ZERO
-            AAQQ = ONE
+            AAPP = ZERO;
+            AAQQ = ONE;
             slassq(p, A( 1, p ), 1, AAPP, AAQQ );
             if ( AAPP > BIG ) {
-               INFO = -6
+               INFO = -6;
                xerbla('SGESVJ', -INFO );
-               RETURN
+               RETURN;
             }
-            AAQQ = SQRT( AAQQ )
+            AAQQ = SQRT( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
-               SVA( p ) = AAPP*AAQQ
+               SVA( p ) = AAPP*AAQQ;
             } else {
                NOSCALE = false;
-               SVA( p ) = AAPP*( AAQQ*SKL )
+               SVA( p ) = AAPP*( AAQQ*SKL );
                if ( GOSCALE ) {
                   GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 2873
-                     SVA( q ) = SVA( q )*SKL
+                     SVA( q ) = SVA( q )*SKL;
                   } // 2873
                }
             }
@@ -226,24 +226,24 @@
       } else {
          // the input matrix is M-by-N general dense
          for (p = 1; p <= N; p++) { // 3874
-            AAPP = ZERO
-            AAQQ = ONE
+            AAPP = ZERO;
+            AAQQ = ONE;
             slassq(M, A( 1, p ), 1, AAPP, AAQQ );
             if ( AAPP > BIG ) {
-               INFO = -6
+               INFO = -6;
                xerbla('SGESVJ', -INFO );
-               RETURN
+               RETURN;
             }
-            AAQQ = SQRT( AAQQ )
+            AAQQ = SQRT( AAQQ );
             if ( ( AAPP < ( BIG / AAQQ ) ) && NOSCALE ) {
-               SVA( p ) = AAPP*AAQQ
+               SVA( p ) = AAPP*AAQQ;
             } else {
                NOSCALE = false;
-               SVA( p ) = AAPP*( AAQQ*SKL )
+               SVA( p ) = AAPP*( AAQQ*SKL );
                if ( GOSCALE ) {
                   GOSCALE = false;
                   for (q = 1; q <= p - 1; q++) { // 3873
-                     SVA( q ) = SVA( q )*SKL
+                     SVA( q ) = SVA( q )*SKL;
                   } // 3873
                }
             }
@@ -256,66 +256,66 @@
 *(!)  Start by determining the position of the nonzero entries of the
       // array SVA() relative to ( SFMIN, BIG ).
 
-      AAPP = ZERO
-      AAQQ = BIG
+      AAPP = ZERO;
+      AAQQ = BIG;
       for (p = 1; p <= N; p++) { // 4781
-         IF( SVA( p ) != ZERO )AAQQ = MIN( AAQQ, SVA( p ) )
-         AAPP = MAX( AAPP, SVA( p ) )
+         IF( SVA( p ) != ZERO )AAQQ = MIN( AAQQ, SVA( p ) );
+         AAPP = MAX( AAPP, SVA( p ) );
       } // 4781
 
 * #:) Quick return for zero matrix
 
       if ( AAPP == ZERO ) {
          if (LSVEC) CALL SLASET( 'G', M, N, ZERO, ONE, A, LDA );
-         WORK( 1 ) = ONE
-         WORK( 2 ) = ZERO
-         WORK( 3 ) = ZERO
-         WORK( 4 ) = ZERO
-         WORK( 5 ) = ZERO
-         WORK( 6 ) = ZERO
-         RETURN
+         WORK( 1 ) = ONE;
+         WORK( 2 ) = ZERO;
+         WORK( 3 ) = ZERO;
+         WORK( 4 ) = ZERO;
+         WORK( 5 ) = ZERO;
+         WORK( 6 ) = ZERO;
+         RETURN;
       }
 
 * #:) Quick return for one-column matrix
 
       if ( N == 1 ) {
          if (LSVEC) CALL SLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
-         WORK( 1 ) = ONE / SKL
+         WORK( 1 ) = ONE / SKL;
          if ( SVA( 1 ) >= SFMIN ) {
-            WORK( 2 ) = ONE
+            WORK( 2 ) = ONE;
          } else {
-            WORK( 2 ) = ZERO
+            WORK( 2 ) = ZERO;
          }
-         WORK( 3 ) = ZERO
-         WORK( 4 ) = ZERO
-         WORK( 5 ) = ZERO
-         WORK( 6 ) = ZERO
-         RETURN
+         WORK( 3 ) = ZERO;
+         WORK( 4 ) = ZERO;
+         WORK( 5 ) = ZERO;
+         WORK( 6 ) = ZERO;
+         RETURN;
       }
 
       // Protect small singular values from underflow, and try to
       // avoid underflows/overflows in computing Jacobi rotations.
 
-      SN = SQRT( SFMIN / EPSLN )
-      TEMP1 = SQRT( BIG / FLOAT( N ) )
+      SN = SQRT( SFMIN / EPSLN );
+      TEMP1 = SQRT( BIG / FLOAT( N ) );
       if ( ( AAPP <= SN ) || ( AAQQ >= TEMP1 ) || ( ( SN <= AAQQ ) && ( AAPP <= TEMP1 ) ) ) {
-         TEMP1 = MIN( BIG, TEMP1 / AAPP )
+         TEMP1 = MIN( BIG, TEMP1 / AAPP );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ <= SN ) && ( AAPP <= TEMP1 ) ) {
-         TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*SQRT( FLOAT( N ) ) ) )
+         TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*SQRT( FLOAT( N ) ) ) );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ >= SN ) && ( AAPP >= TEMP1 ) ) {
-         TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
+         TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else if ( ( AAQQ <= SN ) && ( AAPP >= TEMP1 ) ) {
-         TEMP1 = MIN( SN / AAQQ, BIG / ( SQRT( FLOAT( N ) )*AAPP ) )
+         TEMP1 = MIN( SN / AAQQ, BIG / ( SQRT( FLOAT( N ) )*AAPP ) );
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
       } else {
-         TEMP1 = ONE
+         TEMP1 = ONE;
       }
 
       // Scale, if necessary
@@ -323,28 +323,28 @@
       if ( TEMP1 != ONE ) {
          slascl('G', 0, 0, ONE, TEMP1, N, 1, SVA, N, IERR );
       }
-      SKL = TEMP1*SKL
+      SKL = TEMP1*SKL;
       if ( SKL != ONE ) {
          slascl(JOBA, 0, 0, ONE, SKL, M, N, A, LDA, IERR );
-         SKL = ONE / SKL
+         SKL = ONE / SKL;
       }
 
       // Row-cyclic Jacobi SVD algorithm with column pivoting
 
-      EMPTSW = ( N*( N-1 ) ) / 2
-      NOTROT = 0
-      FASTR( 1 ) = ZERO
+      EMPTSW = ( N*( N-1 ) ) / 2;
+      NOTROT = 0;
+      FASTR( 1 ) = ZERO;
 
       // A is represented in factored form A = A * diag(WORK), where diag(WORK)
       // is initialized to identity. WORK is updated during fast scaled
       // rotations.
 
       for (q = 1; q <= N; q++) { // 1868
-         WORK( q ) = ONE
+         WORK( q ) = ONE;
       } // 1868
 
 
-      SWBAND = 3
+      SWBAND = 3;
 *[TP] SWBAND is a tuning parameter [TP]. It is meaningful and effective
       // if SGESVJ is used as a computational routine in the preconditioned
       // Jacobi SVD algorithm SGESVJ. For sweeps i=1:SWBAND the procedure
@@ -352,22 +352,22 @@
       // The boundaries are determined dynamically, based on the number of
       // pivots above a threshold.
 
-      KBL = MIN( 8, N )
+      KBL = MIN( 8, N );
 *[TP] KBL is a tuning parameter that defines the tile size in the
       // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
       // parameters of the computer's memory.
 
-      NBL = N / KBL
-      IF( ( NBL*KBL ) != N )NBL = NBL + 1
+      NBL = N / KBL;
+      IF( ( NBL*KBL ) != N )NBL = NBL + 1;
 
-      BLSKIP = KBL**2
+      BLSKIP = KBL**2;
 *[TP] BLKSKIP is a tuning parameter that depends on SWBAND and KBL.
 
-      ROWSKIP = MIN( 5, KBL )
+      ROWSKIP = MIN( 5, KBL );
 *[TP] ROWSKIP is a tuning parameter.
 
-      LKAHEAD = 1
+      LKAHEAD = 1;
 *[TP] LKAHEAD is a tuning parameter.
 
       // Quasi block transformations, using the lower (upper) triangular
@@ -378,13 +378,13 @@
       if ( ( LOWER || UPPER ) && ( N > MAX( 64, 4*KBL ) ) ) {
 *[TP] The number of partition levels and the actual partition are
       // tuning parameters.
-         N4 = N / 4
-         N2 = N / 2
-         N34 = 3*N4
+         N4 = N / 4;
+         N2 = N / 2;
+         N34 = 3*N4;
          if ( APPLV ) {
-            q = 0
+            q = 0;
          } else {
-            q = 1
+            q = 1;
          }
 
          if ( LOWER ) {
@@ -431,12 +431,12 @@
 
       // .. go go go ...
 
-         MXAAPQ = ZERO
-         MXSINJ = ZERO
-         ISWROT = 0
+         MXAAPQ = ZERO;
+         MXSINJ = ZERO;
+         ISWROT = 0;
 
-         NOTROT = 0
-         PSKIPPED = 0
+         NOTROT = 0;
+         PSKIPPED = 0;
 
       // Each sweep is unrolled using KBL-by-KBL tiles over the pivot pairs
       // 1 <= p < q <= N. This is the first step toward a blocked implementation
@@ -445,26 +445,26 @@
 
          for (ibr = 1; ibr <= NBL; ibr++) { // 2000
 
-            igl = ( ibr-1 )*KBL + 1
+            igl = ( ibr-1 )*KBL + 1;
 
-            DO 1002 ir1 = 0, MIN( LKAHEAD, NBL-ibr )
+            DO 1002 ir1 = 0, MIN( LKAHEAD, NBL-ibr );
 
-               igl = igl + ir1*KBL
+               igl = igl + ir1*KBL;
 
-               DO 2001 p = igl, MIN( igl+KBL-1, N-1 )
+               DO 2001 p = igl, MIN( igl+KBL-1, N-1 );
 
       // .. de Rijk's pivoting
 
-                  q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
+                  q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
                      if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
-                     TEMP1 = SVA( p )
-                     SVA( p ) = SVA( q )
-                     SVA( q ) = TEMP1
-                     TEMP1 = WORK( p )
-                     WORK( p ) = WORK( q )
-                     WORK( q ) = TEMP1
+                     TEMP1 = SVA( p );
+                     SVA( p ) = SVA( q );
+                     SVA( q ) = TEMP1;
+                     TEMP1 = WORK( p );
+                     WORK( p ) = WORK( q );
+                     WORK( q ) = TEMP1;
                   }
 
                   if ( ir1 == 0 ) {
@@ -482,50 +482,50 @@
          // below should read "AAPP = SNRM2( M, A(1,p), 1 ) * WORK(p)".
 
                      if ( ( SVA( p ) < ROOTBIG ) && ( SVA( p ) > ROOTSFMIN ) ) {
-                        SVA( p ) = SNRM2( M, A( 1, p ), 1 )*WORK( p )
+                        SVA( p ) = SNRM2( M, A( 1, p ), 1 )*WORK( p );
                      } else {
-                        TEMP1 = ZERO
-                        AAPP = ONE
+                        TEMP1 = ZERO;
+                        AAPP = ONE;
                         slassq(M, A( 1, p ), 1, TEMP1, AAPP );
-                        SVA( p ) = TEMP1*SQRT( AAPP )*WORK( p )
+                        SVA( p ) = TEMP1*SQRT( AAPP )*WORK( p );
                      }
-                     AAPP = SVA( p )
+                     AAPP = SVA( p );
                   } else {
-                     AAPP = SVA( p )
+                     AAPP = SVA( p );
                   }
 
                   if ( AAPP > ZERO ) {
 
-                     PSKIPPED = 0
+                     PSKIPPED = 0;
 
-                     DO 2002 q = p + 1, MIN( igl+KBL-1, N )
+                     DO 2002 q = p + 1, MIN( igl+KBL-1, N );
 
-                        AAQQ = SVA( q )
+                        AAQQ = SVA( q );
 
                         if ( AAQQ > ZERO ) {
 
-                           AAPP0 = AAPP
+                           AAPP0 = AAPP;
                            if ( AAQQ >= ONE ) {
-                              ROTOK = ( SMALL*AAPP ) <= AAQQ
+                              ROTOK = ( SMALL*AAPP ) <= AAQQ;
                               if ( AAPP < ( BIG / AAQQ ) ) {
-                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
+                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  scopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
                                  slascl('G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
+                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ;
                               }
                            } else {
-                              ROTOK = AAPP <= ( AAQQ / SMALL )
+                              ROTOK = AAPP <= ( AAQQ / SMALL );
                               if ( AAPP > ( SMALL / AAQQ ) ) {
-                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
+                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  scopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
                                  slascl('G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP
+                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP;
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) )
+                           MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
@@ -535,52 +535,52 @@
 *[RTD]      ROTATED = ROTATED + ONE
 
                               if ( ir1 == 0 ) {
-                                 NOTROT = 0
-                                 PSKIPPED = 0
-                                 ISWROT = ISWROT + 1
+                                 NOTROT = 0;
+                                 PSKIPPED = 0;
+                                 ISWROT = ISWROT + 1;
                               }
 
                               if ( ROTOK ) {
 
-                                 AQOAP = AAQQ / AAPP
-                                 APOAQ = AAPP / AAQQ
-                                 THETA = -HALF*ABS( AQOAP-APOAQ ) / AAPQ
+                                 AQOAP = AAQQ / AAPP;
+                                 APOAQ = AAPP / AAQQ;
+                                 THETA = -HALF*ABS( AQOAP-APOAQ ) / AAPQ;
 
                                  if ( ABS( THETA ) > BIGTHETA ) {
 
-                                    T = HALF / THETA
-                                    FASTR( 3 ) = T*WORK( p ) / WORK( q )
+                                    T = HALF / THETA;
+                                    FASTR( 3 ) = T*WORK( p ) / WORK( q );
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p );
                                     srotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL SROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
-                                    MXSINJ = MAX( MXSINJ, ABS( T ) )
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = MAX( MXSINJ, ABS( T ) );
 
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
 
-                                    THSIGN = -SIGN( ONE, AAPQ )
-                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
-                                    CS = SQRT( ONE / ( ONE+T*T ) )
-                                    SN = T*CS
+                                    THSIGN = -SIGN( ONE, AAPQ );
+                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) );
+                                    CS = SQRT( ONE / ( ONE+T*T ) );
+                                    SN = T*CS;
 
-                                    MXSINJ = MAX( MXSINJ, ABS( SN ) )
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
+                                    MXSINJ = MAX( MXSINJ, ABS( SN ) );
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
 
-                                    APOAQ = WORK( p ) / WORK( q )
-                                    AQOAP = WORK( q ) / WORK( p )
+                                    APOAQ = WORK( p ) / WORK( q );
+                                    AQOAP = WORK( q ) / WORK( p );
                                     if ( WORK( p ) >= ONE ) {
                                        if ( WORK( q ) >= ONE ) {
-                                          FASTR( 3 ) = T*APOAQ
-                                          FASTR( 4 ) = -T*AQOAP
-                                          WORK( p ) = WORK( p )*CS
-                                          WORK( q ) = WORK( q )*CS
+                                          FASTR( 3 ) = T*APOAQ;
+                                          FASTR( 4 ) = -T*AQOAP;
+                                          WORK( p ) = WORK( p )*CS;
+                                          WORK( q ) = WORK( q )*CS;
                                           srotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                           IF( RSVEC )CALL SROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                        } else {
                                           saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                          WORK( p ) = WORK( p )*CS
-                                          WORK( q ) = WORK( q ) / CS
+                                          WORK( p ) = WORK( p )*CS;
+                                          WORK( q ) = WORK( q ) / CS;
                                           if ( RSVEC ) {
                                              saxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                              saxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
@@ -590,8 +590,8 @@
                                        if ( WORK( q ) >= ONE ) {
                                           saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                          WORK( p ) = WORK( p ) / CS
-                                          WORK( q ) = WORK( q )*CS
+                                          WORK( p ) = WORK( p ) / CS;
+                                          WORK( q ) = WORK( q )*CS;
                                           if ( RSVEC ) {
                                              saxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                              saxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
@@ -600,8 +600,8 @@
                                           IF( WORK( p ) >= WORK( q ) ) THEN;
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                             WORK( p ) = WORK( p )*CS
-                                             WORK( q ) = WORK( q ) / CS
+                                             WORK( p ) = WORK( p )*CS;
+                                             WORK( q ) = WORK( q ) / CS;
                                              if ( RSVEC ) {
                                                 saxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                                 saxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
@@ -609,8 +609,8 @@
                                           } else {
                                              saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                             WORK( p ) = WORK( p ) / CS
-                                             WORK( q ) = WORK( q )*CS
+                                             WORK( p ) = WORK( p ) / CS;
+                                             WORK( q ) = WORK( q )*CS;
                                              if ( RSVEC ) {
                                                 saxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                                 saxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
@@ -625,51 +625,51 @@
                                  scopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
                                  slascl('G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR );
                                  slascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
-                                 TEMP1 = -AAPQ*WORK( p ) / WORK( q )
+                                 TEMP1 = -AAPQ*WORK( p ) / WORK( q );
                                  saxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 );
                                  slascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
-                                 MXSINJ = MAX( MXSINJ, SFMIN )
+                                 MXSINJ = MAX( MXSINJ, SFMIN );
                               }
             // END IF ROTOK THEN ... ELSE
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = SNRM2( M, A( 1, q ), 1 )* WORK( q )
+                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = SNRM2( M, A( 1, q ), 1 )* WORK( q );
                                  } else {
-                                    T = ZERO
-                                    AAQQ = ONE
+                                    T = ZERO;
+                                    AAQQ = ONE;
                                     slassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA( q ) = T*SQRT( AAQQ )*WORK( q )
+                                    SVA( q ) = T*SQRT( AAQQ )*WORK( q );
                                  }
                               }
                               if ( ( AAPP / AAPP0 ) <= ROOTEPS ) {
-                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = SNRM2( M, A( 1, p ), 1 )* WORK( p )
+                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = SNRM2( M, A( 1, p ), 1 )* WORK( p );
                                  } else {
-                                    T = ZERO
-                                    AAPP = ONE
+                                    T = ZERO;
+                                    AAPP = ONE;
                                     slassq(M, A( 1, p ), 1, T, AAPP );
-                                    AAPP = T*SQRT( AAPP )*WORK( p )
+                                    AAPP = T*SQRT( AAPP )*WORK( p );
                                  }
-                                 SVA( p ) = AAPP
+                                 SVA( p ) = AAPP;
                               }
 
                            } else {
          // A(:,p) and A(:,q) already numerically orthogonal
                               if (ir1 == 0) NOTROT = NOTROT + 1;
 *[RTD]      SKIPPED  = SKIPPED  + 1
-                              PSKIPPED = PSKIPPED + 1
+                              PSKIPPED = PSKIPPED + 1;
                            }
                         } else {
          // A(:,q) is zero column
                            if (ir1 == 0) NOTROT = NOTROT + 1;
-                           PSKIPPED = PSKIPPED + 1
+                           PSKIPPED = PSKIPPED + 1;
                         }
 
                         if ( ( i <= SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            if (ir1 == 0) AAPP = -AAPP;
-                           NOTROT = 0
-                           GO TO 2103
+                           NOTROT = 0;
+                           GO TO 2103;
                         }
 
                      } // 2002
@@ -678,11 +678,11 @@
                      } // 2103
       // bailed out of q-loop
 
-                     SVA( p ) = AAPP
+                     SVA( p ) = AAPP;
 
                   } else {
-                     SVA( p ) = AAPP
-                     IF( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
+                     SVA( p ) = AAPP;
+                     IF( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p;
                   }
 
                } // 2001
@@ -693,27 +693,27 @@
 
 * ... go to the off diagonal blocks
 
-            igl = ( ibr-1 )*KBL + 1
+            igl = ( ibr-1 )*KBL + 1;
 
             for (jbc = ibr + 1; jbc <= NBL; jbc++) { // 2010
 
-               jgl = ( jbc-1 )*KBL + 1
+               jgl = ( jbc-1 )*KBL + 1;
 
          // doing the block at ( ibr, jbc )
 
-               IJBLSK = 0
-               DO 2100 p = igl, MIN( igl+KBL-1, N )
+               IJBLSK = 0;
+               DO 2100 p = igl, MIN( igl+KBL-1, N );
 
-                  AAPP = SVA( p )
+                  AAPP = SVA( p );
                   if ( AAPP > ZERO ) {
 
-                     PSKIPPED = 0
+                     PSKIPPED = 0;
 
-                     DO 2200 q = jgl, MIN( jgl+KBL-1, N )
+                     DO 2200 q = jgl, MIN( jgl+KBL-1, N );
 
-                        AAQQ = SVA( q )
+                        AAQQ = SVA( q );
                         if ( AAQQ > ZERO ) {
-                           AAPP0 = AAPP
+                           AAPP0 = AAPP;
 
       // .. M x 2 Jacobi SVD ..
 
@@ -721,77 +721,77 @@
 
                            if ( AAQQ >= ONE ) {
                               if ( AAPP >= AAQQ ) {
-                                 ROTOK = ( SMALL*AAPP ) <= AAQQ
+                                 ROTOK = ( SMALL*AAPP ) <= AAQQ;
                               } else {
-                                 ROTOK = ( SMALL*AAQQ ) <= AAPP
+                                 ROTOK = ( SMALL*AAQQ ) <= AAPP;
                               }
                               if ( AAPP < ( BIG / AAQQ ) ) {
-                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
+                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  scopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
                                  slascl('G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
+                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ;
                               }
                            } else {
                               if ( AAPP >= AAQQ ) {
-                                 ROTOK = AAPP <= ( AAQQ / SMALL )
+                                 ROTOK = AAPP <= ( AAQQ / SMALL );
                               } else {
-                                 ROTOK = AAQQ <= ( AAPP / SMALL )
+                                 ROTOK = AAQQ <= ( AAPP / SMALL );
                               }
                               if ( AAPP > ( SMALL / AAQQ ) ) {
-                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
+                                 AAPQ = ( SDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP;
                               } else {
                                  scopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
                                  slascl('G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
-                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP
+                                 AAPQ = SDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP;
                               }
                            }
 
-                           MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) )
+                           MXAAPQ = MAX( MXAAPQ, ABS( AAPQ ) );
 
          // TO rotate or NOT to rotate, THAT is the question ...
 
                            if ( ABS( AAPQ ) > TOL ) {
-                              NOTROT = 0
+                              NOTROT = 0;
 *[RTD]      ROTATED  = ROTATED + 1
-                              PSKIPPED = 0
-                              ISWROT = ISWROT + 1
+                              PSKIPPED = 0;
+                              ISWROT = ISWROT + 1;
 
                               if ( ROTOK ) {
 
-                                 AQOAP = AAQQ / AAPP
-                                 APOAQ = AAPP / AAQQ
-                                 THETA = -HALF*ABS( AQOAP-APOAQ ) / AAPQ
+                                 AQOAP = AAQQ / AAPP;
+                                 APOAQ = AAPP / AAQQ;
+                                 THETA = -HALF*ABS( AQOAP-APOAQ ) / AAPQ;
                                  if (AAQQ > AAPP0) THETA = -THETA;
 
                                  if ( ABS( THETA ) > BIGTHETA ) {
-                                    T = HALF / THETA
-                                    FASTR( 3 ) = T*WORK( p ) / WORK( q )
+                                    T = HALF / THETA;
+                                    FASTR( 3 ) = T*WORK( p ) / WORK( q );
                                     FASTR( 4 ) = -T*WORK( q ) / WORK( p );
                                     srotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL SROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
-                                    MXSINJ = MAX( MXSINJ, ABS( T ) )
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
+                                    MXSINJ = MAX( MXSINJ, ABS( T ) );
                                  } else {
 
                   // .. choose correct signum for THETA and rotate
 
-                                    THSIGN = -SIGN( ONE, AAPQ )
+                                    THSIGN = -SIGN( ONE, AAPQ );
                                     if (AAQQ > AAPP0) THSIGN = -THSIGN;
-                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
-                                    CS = SQRT( ONE / ( ONE+T*T ) )
-                                    SN = T*CS
-                                    MXSINJ = MAX( MXSINJ, ABS( SN ) )
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
+                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) );
+                                    CS = SQRT( ONE / ( ONE+T*T ) );
+                                    SN = T*CS;
+                                    MXSINJ = MAX( MXSINJ, ABS( SN ) );
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) );
 
-                                    APOAQ = WORK( p ) / WORK( q )
-                                    AQOAP = WORK( q ) / WORK( p )
+                                    APOAQ = WORK( p ) / WORK( q );
+                                    AQOAP = WORK( q ) / WORK( p );
                                     if ( WORK( p ) >= ONE ) {
 
                                        if ( WORK( q ) >= ONE ) {
-                                          FASTR( 3 ) = T*APOAQ
-                                          FASTR( 4 ) = -T*AQOAP
-                                          WORK( p ) = WORK( p )*CS
-                                          WORK( q ) = WORK( q )*CS
+                                          FASTR( 3 ) = T*APOAQ;
+                                          FASTR( 4 ) = -T*AQOAP;
+                                          WORK( p ) = WORK( p )*CS;
+                                          WORK( q ) = WORK( q )*CS;
                                           srotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                           IF( RSVEC )CALL SROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                        } else {
                                           saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
@@ -800,8 +800,8 @@
                                              saxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                              saxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                           }
-                                          WORK( p ) = WORK( p )*CS
-                                          WORK( q ) = WORK( q ) / CS
+                                          WORK( p ) = WORK( p )*CS;
+                                          WORK( q ) = WORK( q ) / CS;
                                        }
                                     } else {
                                        if ( WORK( q ) >= ONE ) {
@@ -811,14 +811,14 @@
                                              saxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                              saxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                           }
-                                          WORK( p ) = WORK( p ) / CS
-                                          WORK( q ) = WORK( q )*CS
+                                          WORK( p ) = WORK( p ) / CS;
+                                          WORK( q ) = WORK( q )*CS;
                                        } else {
                                           IF( WORK( p ) >= WORK( q ) ) THEN;
                                              saxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              saxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
-                                             WORK( p ) = WORK( p )*CS
-                                             WORK( q ) = WORK( q ) / CS
+                                             WORK( p ) = WORK( p )*CS;
+                                             WORK( q ) = WORK( q ) / CS;
                                              if ( RSVEC ) {
                                                 saxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                                 saxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
@@ -826,8 +826,8 @@
                                           } else {
                                              saxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              saxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
-                                             WORK( p ) = WORK( p ) / CS
-                                             WORK( q ) = WORK( q )*CS
+                                             WORK( p ) = WORK( p ) / CS;
+                                             WORK( q ) = WORK( q )*CS;
                                              if ( RSVEC ) {
                                                 saxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                                 saxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
@@ -842,73 +842,73 @@
                                     scopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
                                     slascl('G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR );
                                     slascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
-                                    TEMP1 = -AAPQ*WORK( p ) / WORK( q )
+                                    TEMP1 = -AAPQ*WORK( p ) / WORK( q );
                                     saxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 );
                                     slascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) )
-                                    MXSINJ = MAX( MXSINJ, SFMIN )
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = MAX( MXSINJ, SFMIN );
                                  } else {
                                     scopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
                                     slascl('G', 0, 0, AAQQ, ONE, M, 1, WORK( N+1 ), LDA, IERR );
                                     slascl('G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
-                                    TEMP1 = -AAPQ*WORK( q ) / WORK( p )
+                                    TEMP1 = -AAPQ*WORK( q ) / WORK( p );
                                     saxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, p ), 1 );
                                     slascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
-                                    SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) )
-                                    MXSINJ = MAX( MXSINJ, SFMIN )
+                                    SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
+                                    MXSINJ = MAX( MXSINJ, SFMIN );
                                  }
                               }
             // END IF ROTOK THEN ... ELSE
 
             // In the case of cancellation in updating SVA(q)
             // .. recompute SVA(q)
-                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = SNRM2( M, A( 1, q ), 1 )* WORK( q )
+                              IF( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) THEN                                     SVA( q ) = SNRM2( M, A( 1, q ), 1 )* WORK( q );
                                  } else {
-                                    T = ZERO
-                                    AAQQ = ONE
+                                    T = ZERO;
+                                    AAQQ = ONE;
                                     slassq(M, A( 1, q ), 1, T, AAQQ );
-                                    SVA( q ) = T*SQRT( AAQQ )*WORK( q )
+                                    SVA( q ) = T*SQRT( AAQQ )*WORK( q );
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
-                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = SNRM2( M, A( 1, p ), 1 )* WORK( p )
+                                 IF( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) THEN                                     AAPP = SNRM2( M, A( 1, p ), 1 )* WORK( p );
                                  } else {
-                                    T = ZERO
-                                    AAPP = ONE
+                                    T = ZERO;
+                                    AAPP = ONE;
                                     slassq(M, A( 1, p ), 1, T, AAPP );
-                                    AAPP = T*SQRT( AAPP )*WORK( p )
+                                    AAPP = T*SQRT( AAPP )*WORK( p );
                                  }
-                                 SVA( p ) = AAPP
+                                 SVA( p ) = AAPP;
                               }
                // end of OK rotation
                            } else {
-                              NOTROT = NOTROT + 1
+                              NOTROT = NOTROT + 1;
 *[RTD]      SKIPPED  = SKIPPED  + 1
-                              PSKIPPED = PSKIPPED + 1
-                              IJBLSK = IJBLSK + 1
+                              PSKIPPED = PSKIPPED + 1;
+                              IJBLSK = IJBLSK + 1;
                            }
                         } else {
-                           NOTROT = NOTROT + 1
-                           PSKIPPED = PSKIPPED + 1
-                           IJBLSK = IJBLSK + 1
+                           NOTROT = NOTROT + 1;
+                           PSKIPPED = PSKIPPED + 1;
+                           IJBLSK = IJBLSK + 1;
                         }
 
                         if ( ( i <= SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
-                           SVA( p ) = AAPP
-                           NOTROT = 0
-                           GO TO 2011
+                           SVA( p ) = AAPP;
+                           NOTROT = 0;
+                           GO TO 2011;
                         }
                         if ( ( i <= SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
-                           AAPP = -AAPP
-                           NOTROT = 0
-                           GO TO 2203
+                           AAPP = -AAPP;
+                           NOTROT = 0;
+                           GO TO 2203;
                         }
 
                      } // 2200
          // end of the q-loop
                      } // 2203
 
-                     SVA( p ) = AAPP
+                     SVA( p ) = AAPP;
 
                   } else {
 
@@ -923,8 +923,8 @@
       // end of the jbc-loop
             } // 2011
 *2011 bailed out of the jbc-loop
-            DO 2012 p = igl, MIN( igl+KBL-1, N )
-               SVA( p ) = ABS( SVA( p ) )
+            DO 2012 p = igl, MIN( igl+KBL-1, N );
+               SVA( p ) = ABS( SVA( p ) );
             } // 2012
 ***
          } // 2000
@@ -932,20 +932,20 @@
 
       // .. update SVA(N)
          if ( ( SVA( N ) < ROOTBIG ) && ( SVA( N ) > ROOTSFMIN ) ) {
-            SVA( N ) = SNRM2( M, A( 1, N ), 1 )*WORK( N )
+            SVA( N ) = SNRM2( M, A( 1, N ), 1 )*WORK( N );
          } else {
-            T = ZERO
-            AAPP = ONE
+            T = ZERO;
+            AAPP = ONE;
             slassq(M, A( 1, N ), 1, T, AAPP );
-            SVA( N ) = T*SQRT( AAPP )*WORK( N )
+            SVA( N ) = T*SQRT( AAPP )*WORK( N );
          }
 
       // Additional steering devices
 
-         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i
+         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i;
 
          if ( ( i > SWBAND+1 ) && ( MXAAPQ < SQRT( FLOAT( N ) )* TOL ) && ( FLOAT( N )*MXAAPQ*MXSINJ < TOL ) ) {
-            GO TO 1994
+            GO TO 1994;
          }
 
          if (NOTROT >= EMPTSW) GO TO 1994;
@@ -954,42 +954,42 @@
       // end i=1:NSWEEP loop
 
 * #:( Reaching this point means that the procedure has not converged.
-      INFO = NSWEEP - 1
-      GO TO 1995
+      INFO = NSWEEP - 1;
+      GO TO 1995;
 
       } // 1994
 * #:) Reaching this point means numerical convergence after the i-th
       // sweep.
 
-      INFO = 0
+      INFO = 0;
 * #:) INFO = 0 confirms successful iterations.
       } // 1995
 
       // Sort the singular values and find how many are above
       // the underflow threshold.
 
-      N2 = 0
-      N4 = 0
+      N2 = 0;
+      N4 = 0;
       for (p = 1; p <= N - 1; p++) { // 5991
-         q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1
+         q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
          if ( p != q ) {
-            TEMP1 = SVA( p )
-            SVA( p ) = SVA( q )
-            SVA( q ) = TEMP1
-            TEMP1 = WORK( p )
-            WORK( p ) = WORK( q )
-            WORK( q ) = TEMP1
+            TEMP1 = SVA( p );
+            SVA( p ) = SVA( q );
+            SVA( q ) = TEMP1;
+            TEMP1 = WORK( p );
+            WORK( p ) = WORK( q );
+            WORK( q ) = TEMP1;
             sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
             if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
          if ( SVA( p ) != ZERO ) {
-            N4 = N4 + 1
-            IF( SVA( p )*SKL > SFMIN )N2 = N2 + 1
+            N4 = N4 + 1;
+            IF( SVA( p )*SKL > SFMIN )N2 = N2 + 1;
          }
       } // 5991
       if ( SVA( N ) != ZERO ) {
-         N4 = N4 + 1
-         IF( SVA( N )*SKL > SFMIN )N2 = N2 + 1
+         N4 = N4 + 1;
+         IF( SVA( N )*SKL > SFMIN )N2 = N2 + 1;
       }
 
       // Normalize the left singular vectors.
@@ -1009,7 +1009,7 @@
             } // 2398
          } else {
             for (p = 1; p <= N; p++) { // 2399
-               TEMP1 = ONE / SNRM2( MVL, V( 1, p ), 1 )
+               TEMP1 = ONE / SNRM2( MVL, V( 1, p ), 1 );
                sscal(MVL, TEMP1, V( 1, p ), 1 );
             } // 2399
          }
@@ -1018,36 +1018,36 @@
       // Undo scaling, if necessary (and possible).
       if ( ( ( SKL > ONE ) && ( SVA( 1 ) < ( BIG / SKL ) ) ) || ( ( SKL < ONE ) && ( SVA( MAX( N2, 1 ) ) > ( SFMIN / SKL ) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
-            SVA( P ) = SKL*SVA( P )
+            SVA( P ) = SKL*SVA( P );
          } // 2400
-         SKL = ONE
+         SKL = ONE;
       }
 
-      WORK( 1 ) = SKL
+      WORK( 1 ) = SKL;
       // The singular values of A are SKL*SVA(1:N). If SKL != ONE
       // then some of the singular values may overflow or underflow and
       // the spectrum is given in this factored representation.
 
-      WORK( 2 ) = FLOAT( N4 )
+      WORK( 2 ) = FLOAT( N4 );
       // N4 is the number of computed nonzero singular values of A.
 
-      WORK( 3 ) = FLOAT( N2 )
+      WORK( 3 ) = FLOAT( N2 );
       // N2 is the number of singular values of A greater than SFMIN.
       // If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
       // that may carry some information.
 
-      WORK( 4 ) = FLOAT( i )
+      WORK( 4 ) = FLOAT( i );
       // i is the index of the last sweep before declaring convergence.
 
-      WORK( 5 ) = MXAAPQ
+      WORK( 5 ) = MXAAPQ;
       // MXAAPQ is the largest absolute value of scaled pivots in the
       // last sweep
 
-      WORK( 6 ) = MXSINJ
+      WORK( 6 ) = MXSINJ;
       // MXSINJ is the largest absolute value of the sines of Jacobi angles
       // in the last sweep
 
-      RETURN
+      RETURN;
       // ..
       // .. END OF SGESVJ
       // ..

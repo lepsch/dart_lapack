@@ -1,4 +1,4 @@
-      SUBROUTINE CGTTRS( TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, INFO )
+      SUBROUTINE CGTTRS( TRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * )
+      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
       // ..
 
 *  =====================================================================
@@ -31,20 +31,20 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOTRAN = ( TRANS == 'N' || TRANS == 'n' )
+      INFO = 0;
+      NOTRAN = ( TRANS == 'N' || TRANS == 'n' );
       if ( !NOTRAN && !( TRANS == 'T' || TRANS == 't' ) && !( TRANS == 'C' || TRANS == 'c' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDB < MAX( N, 1 ) ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('CGTTRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -54,26 +54,26 @@
       // Decode TRANS
 
       if ( NOTRAN ) {
-         ITRANS = 0
+         ITRANS = 0;
       } else if ( TRANS == 'T' || TRANS == 't' ) {
-         ITRANS = 1
+         ITRANS = 1;
       } else {
-         ITRANS = 2
+         ITRANS = 2;
       }
 
       // Determine the number of right-hand sides to solve at a time.
 
       if ( NRHS == 1 ) {
-         NB = 1
+         NB = 1;
       } else {
-         NB = MAX( 1, ILAENV( 1, 'CGTTRS', TRANS, N, NRHS, -1, -1 ) )
+         NB = MAX( 1, ILAENV( 1, 'CGTTRS', TRANS, N, NRHS, -1, -1 ) );
       }
 
       if ( NB >= NRHS ) {
          cgtts2(ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB );
       } else {
-         DO 10 J = 1, NRHS, NB
-            JB = MIN( NRHS-J+1, NB )
+         DO 10 J = 1, NRHS, NB;
+            JB = MIN( NRHS-J+1, NB );
             cgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB );
          } // 10
       }

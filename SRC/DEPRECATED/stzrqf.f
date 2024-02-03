@@ -1,4 +1,4 @@
-      SUBROUTINE STZRQF( M, N, A, LDA, TAU, INFO )
+      SUBROUTINE STZRQF( M, N, A, LDA, TAU, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * )
+      REAL               A( LDA, * ), TAU( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -30,17 +30,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('STZRQF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Perform the factorization.
@@ -48,11 +48,11 @@
       if (M == 0) RETURN;
       if ( M == N ) {
          for (I = 1; I <= N; I++) { // 10
-            TAU( I ) = ZERO
+            TAU( I ) = ZERO;
          } // 10
       } else {
-         M1 = MIN( M+1, N )
-         DO 20 K = M, 1, -1
+         M1 = MIN( M+1, N );
+         DO 20 K = M, 1, -1;
 
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.
@@ -83,7 +83,7 @@
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of STZRQF
 

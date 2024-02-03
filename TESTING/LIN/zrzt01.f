@@ -8,7 +8,7 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -36,25 +36,25 @@
       // ..
       // .. Executable Statements ..
 
-      ZRZT01 = ZERO
+      ZRZT01 = ZERO;
 
       if ( LWORK < M*N+M ) {
          xerbla('ZRZT01', 8 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK )
+      NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK );
 
       // Copy upper triangle R
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
       for (J = 1; J <= M; J++) { // 20
          for (I = 1; I <= J; I++) { // 10
-            WORK( ( J-1 )*M+I ) = AF( I, J )
+            WORK( ( J-1 )*M+I ) = AF( I, J );
          } // 10
       } // 20
 
@@ -68,12 +68,12 @@
          zaxpy(M, DCMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
       } // 30
 
-      ZRZT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK )
+      ZRZT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK );
 
-      ZRZT01 = ZRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
+      ZRZT01 = ZRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
       if (NORMA != ZERO) ZRZT01 = ZRZT01 / NORMA;
 
-      RETURN
+      RETURN;
 
       // End of ZRZT01
 

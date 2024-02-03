@@ -8,7 +8,7 @@
       int                INCX, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         CX( * )
+      COMPLEX*16         CX( * );
       // ..
 
 *  =====================================================================
@@ -28,15 +28,15 @@
 
       // CODE FOR INCREMENT NOT EQUAL TO 1
 
-      NINCX = N*INCX
-      DO 10 I = 1, NINCX, INCX
+      NINCX = N*INCX;
+      DO 10 I = 1, NINCX, INCX;
 
          // NEXT LINE MODIFIED.
 
-         STEMP = STEMP + ABS( CX( I ) )
+         STEMP = STEMP + ABS( CX( I ) );
       } // 10
-      DZSUM1 = STEMP
-      RETURN
+      DZSUM1 = STEMP;
+      RETURN;
 
       // CODE FOR INCREMENT EQUAL TO 1
 
@@ -45,10 +45,10 @@
 
          // NEXT LINE MODIFIED.
 
-         STEMP = STEMP + ABS( CX( I ) )
+         STEMP = STEMP + ABS( CX( I ) );
       } // 30
-      DZSUM1 = STEMP
-      RETURN
+      DZSUM1 = STEMP;
+      RETURN;
 
       // End of DZSUM1
 

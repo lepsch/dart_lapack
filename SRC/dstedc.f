@@ -1,4 +1,4 @@
-      SUBROUTINE DSTEDC( COMPZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DSTEDC( COMPZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,63 +40,63 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
       if ( LSAME( COMPZ, 'N' ) ) {
-         ICOMPZ = 0
+         ICOMPZ = 0;
       } else if ( LSAME( COMPZ, 'V' ) ) {
-         ICOMPZ = 1
+         ICOMPZ = 1;
       } else if ( LSAME( COMPZ, 'I' ) ) {
-         ICOMPZ = 2
+         ICOMPZ = 2;
       } else {
-         ICOMPZ = -1
+         ICOMPZ = -1;
       }
       if ( ICOMPZ < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ( LDZ < 1 ) || ( ICOMPZ > 0 && LDZ < MAX( 1, N ) ) ) {
-         INFO = -6
+         INFO = -6;
       }
 
       if ( INFO == 0 ) {
 
          // Compute the workspace requirements
 
-         SMLSIZ = ILAENV( 9, 'DSTEDC', ' ', 0, 0, 0, 0 )
+         SMLSIZ = ILAENV( 9, 'DSTEDC', ' ', 0, 0, 0, 0 );
          if ( N <= 1 || ICOMPZ == 0 ) {
-            LIWMIN = 1
-            LWMIN = 1
+            LIWMIN = 1;
+            LWMIN = 1;
          } else if ( N <= SMLSIZ ) {
-            LIWMIN = 1
-            LWMIN = 2*( N - 1 )
+            LIWMIN = 1;
+            LWMIN = 2*( N - 1 );
          } else {
-            LGN = INT( LOG( DBLE( N ) )/LOG( TWO ) )
+            LGN = INT( LOG( DBLE( N ) )/LOG( TWO ) );
             if (2**LGN < N) LGN = LGN + 1             IF( 2**LGN < N ) LGN = LGN + 1;
             if ( ICOMPZ == 1 ) {
-               LWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
-               LIWMIN = 6 + 6*N + 5*N*LGN
+               LWMIN = 1 + 3*N + 2*N*LGN + 4*N**2;
+               LIWMIN = 6 + 6*N + 5*N*LGN;
             } else if ( ICOMPZ == 2 ) {
-               LWMIN = 1 + 4*N + N**2
-               LIWMIN = 3 + 5*N
+               LWMIN = 1 + 4*N + N**2;
+               LIWMIN = 3 + 5*N;
             }
          }
-         WORK( 1 ) = LWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = LWMIN;
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -8
+            INFO = -8;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -10
+            INFO = -10;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DSTEDC', -INFO );
-         RETURN
+         RETURN;
       } else if (LQUERY) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -104,7 +104,7 @@
       if (N == 0) RETURN;
       if ( N == 1 ) {
          if (ICOMPZ != 0) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // If the following conditional clause is removed, then the routine
@@ -120,7 +120,7 @@
 
       if ( ICOMPZ == 0 ) {
          dsterf(N, D, E, INFO );
-         GO TO 50
+         GO TO 50;
       }
 
       // If N is smaller than the minimum divide size (SMLSIZ+1), then
@@ -136,9 +136,9 @@
          // use.
 
          if ( ICOMPZ == 1 ) {
-            STOREZ = 1 + N*N
+            STOREZ = 1 + N*N;
          } else {
-            STOREZ = 1
+            STOREZ = 1;
          }
 
          if ( ICOMPZ == 2 ) {
@@ -147,12 +147,12 @@
 
          // Scale.
 
-         ORGNRM = DLANST( 'M', N, D, E )
+         ORGNRM = DLANST( 'M', N, D, E );
          if (ORGNRM == ZERO) GO TO 50;
 
-         EPS = DLAMCH( 'Epsilon' )
+         EPS = DLAMCH( 'Epsilon' );
 
-         START = 1
+         START = 1;
 
          // while ( START <= N )
 
@@ -165,40 +165,40 @@
             // between START and FINISH constitutes an independent
             // sub-problem.
 
-            FINISH = START
+            FINISH = START;
             } // 20
             if ( FINISH < N ) {
-               TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
+               TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) );
                if ( ABS( E( FINISH ) ) > TINY ) {
-                  FINISH = FINISH + 1
-                  GO TO 20
+                  FINISH = FINISH + 1;
+                  GO TO 20;
                }
             }
 
             // (Sub) Problem determined.  Compute its size and solve it.
 
-            M = FINISH - START + 1
+            M = FINISH - START + 1;
             if ( M == 1 ) {
-               START = FINISH + 1
-               GO TO 10
+               START = FINISH + 1;
+               GO TO 10;
             }
             if ( M > SMLSIZ ) {
 
                // Scale.
 
-               ORGNRM = DLANST( 'M', M, D( START ), E( START ) )
+               ORGNRM = DLANST( 'M', M, D( START ), E( START ) );
                dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO );
                dlascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
                if ( ICOMPZ == 1 ) {
-                  STRTRW = 1
+                  STRTRW = 1;
                } else {
-                  STRTRW = START
+                  STRTRW = START;
                }
                dlaed0(ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO );
                if ( INFO != 0 ) {
-                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
-                  GO TO 50
+                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1;
+                  GO TO 50;
                }
 
                // Scale back.
@@ -221,13 +221,13 @@
                   dsterf(M, D( START ), E( START ), INFO );
                }
                if ( INFO != 0 ) {
-                  INFO = START*( N+1 ) + FINISH
-                  GO TO 50
+                  INFO = START*( N+1 ) + FINISH;
+                  GO TO 50;
                }
             }
 
-            START = FINISH + 1
-            GO TO 10
+            START = FINISH + 1;
+            GO TO 10;
          }
 
          // endwhile
@@ -243,18 +243,18 @@
            // Use Selection Sort to minimize swaps of eigenvectors
 
            for (II = 2; II <= N; II++) { // 40
-              I = II - 1
-              K = I
-              P = D( I )
+              I = II - 1;
+              K = I;
+              P = D( I );
               for (J = II; J <= N; J++) { // 30
                  if ( D( J ) < P ) {
-                    K = J
-                    P = D( J )
+                    K = J;
+                    P = D( J );
                  }
               } // 30
               if ( K != I ) {
-                 D( K ) = D( I )
-                 D( I ) = P
+                 D( K ) = D( I );
+                 D( I ) = P;
                  dswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
               }
            } // 40
@@ -262,10 +262,10 @@
       }
 
       } // 50
-      WORK( 1 ) = LWMIN
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = LWMIN;
+      IWORK( 1 ) = LIWMIN;
 
-      RETURN
+      RETURN;
 
       // End of DSTEDC
 

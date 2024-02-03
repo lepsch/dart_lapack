@@ -1,6 +1,6 @@
-      SUBROUTINE ZHBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZHBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
-      COMPLEX*16         AB( LDAB, * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         AB( LDAB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -21,7 +21,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -45,62 +45,62 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 || LRWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 || LRWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( N <= 1 ) {
-         LWMIN = 1
-         LRWMIN = 1
-         LIWMIN = 1
+         LWMIN = 1;
+         LRWMIN = 1;
+         LIWMIN = 1;
       } else {
-         IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )
-         LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
-         LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
+         IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 );
+         LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 );
+         LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 );
          if ( WANTZ ) {
-            LWMIN = 2*N**2
-            LRWMIN = 1 + 5*N + 2*N**2
-            LIWMIN = 3 + 5*N
+            LWMIN = 2*N**2;
+            LRWMIN = 1 + 5*N + 2*N**2;
+            LIWMIN = 3 + 5*N;
          } else {
-            LWMIN  = MAX( N, LHTRD + LWTRD )
-            LRWMIN = N
-            LIWMIN = 1
+            LWMIN  = MAX( N, LHTRD + LWTRD );
+            LRWMIN = N;
+            LIWMIN = 1;
          }
       }
       if ( !( LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KD < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KD+1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9
+         INFO = -9;
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 )  = LWMIN
-         RWORK( 1 ) = LRWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 )  = LWMIN;
+         RWORK( 1 ) = LRWMIN;
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -15
+            INFO = -15;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHBEVD_2STAGE', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -108,30 +108,30 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = DBLE( AB( 1, 1 ) )
+         W( 1 ) = DBLE( AB( 1, 1 ) );
          if (WANTZ) Z( 1, 1 ) = CONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS    = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN   = SQRT( SMLNUM )
-      RMAX   = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS    = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN   = SQRT( SMLNUM );
+      RMAX   = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
-      ISCALE = 0
+      ANRM = ZLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          if ( LOWER ) {
@@ -143,14 +143,14 @@
 
       // Call ZHBTRD_HB2ST to reduce Hermitian band matrix to tridiagonal form.
 
-      INDE    = 1
-      INDRWK  = INDE + N
-      LLRWK   = LRWORK - INDRWK + 1
-      INDHOUS = 1
-      INDWK   = INDHOUS + LHTRD
-      LLWORK  = LWORK - INDWK + 1
-      INDWK2  = INDWK + N*N
-      LLWK2   = LWORK - INDWK2 + 1
+      INDE    = 1;
+      INDRWK  = INDE + N;
+      LLRWK   = LRWORK - INDRWK + 1;
+      INDHOUS = 1;
+      INDWK   = INDHOUS + LHTRD;
+      LLWORK  = LWORK - INDWK + 1;
+      INDWK2  = INDWK + N*N;
+      LLWK2   = LWORK - INDWK2 + 1;
 
       zhetrd_hb2st("N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO );
 
@@ -168,17 +168,17 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      WORK( 1 )  = LWMIN
-      RWORK( 1 ) = LRWMIN
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 )  = LWMIN;
+      RWORK( 1 ) = LRWMIN;
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of ZHBEVD_2STAGE
 

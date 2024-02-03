@@ -1,4 +1,4 @@
-      SUBROUTINE DPOT02( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
+      SUBROUTINE DPOT02( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,17 +38,17 @@
       // Quick exit if N = 0 or NRHS = 0.
 
       if ( N <= 0 || NRHS <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS
-         RETURN
+         RESID = ONE / EPS;
+         RETURN;
       }
 
       // Compute  B - A*X
@@ -58,18 +58,18 @@
       // Compute the maximum over the number of right hand sides of
          // norm( B - A*X ) / ( norm(A) * norm(X) * EPS ) .
 
-      RESID = ZERO
+      RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = DASUM( N, B( 1, J ), 1 )
-         XNORM = DASUM( N, X( 1, J ), 1 )
+         BNORM = DASUM( N, B( 1, J ), 1 );
+         XNORM = DASUM( N, X( 1, J ), 1 );
          if ( XNORM <= ZERO ) {
-            RESID = ONE / EPS
+            RESID = ONE / EPS;
          } else {
-            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
+            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS );
          }
       } // 10
 
-      RETURN
+      RETURN;
 
       // End of DPOT02
 

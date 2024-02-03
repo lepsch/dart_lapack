@@ -1,4 +1,4 @@
-      SUBROUTINE ZHBGVD( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZHBGVD( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,13 +11,13 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
-      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE, CZERO
+      COMPLEX*16         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -36,61 +36,61 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( N <= 1 ) {
-         LWMIN = 1+N
-         LRWMIN = 1+N
-         LIWMIN = 1
+         LWMIN = 1+N;
+         LRWMIN = 1+N;
+         LIWMIN = 1;
       } else if ( WANTZ ) {
-         LWMIN = 2*N**2
-         LRWMIN = 1 + 5*N + 2*N**2
-         LIWMIN = 3 + 5*N
+         LWMIN = 2*N**2;
+         LRWMIN = 1 + 5*N + 2*N**2;
+         LIWMIN = 3 + 5*N;
       } else {
-         LWMIN = N
-         LRWMIN = N
-         LIWMIN = 1
+         LWMIN = N;
+         LRWMIN = N;
+         LIWMIN = 1;
       }
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KA < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KB < 0 || KB > KA ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < KA+1 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDBB < KB+1 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -12
+         INFO = -12;
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LWMIN
-         RWORK( 1 ) = LRWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = LWMIN;
+         RWORK( 1 ) = LRWMIN;
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -14
+            INFO = -14;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -16
+            INFO = -16;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -18
+            INFO = -18;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHBGVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -101,25 +101,25 @@
 
       zpbstf(UPLO, N, KB, BB, LDBB, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem.
 
-      INDE = 1
-      INDWRK = INDE + N
-      INDWK2 = 1 + N*N
-      LLWK2 = LWORK - INDWK2 + 2
-      LLRWK = LRWORK - INDWRK + 2
+      INDE = 1;
+      INDWRK = INDE + N;
+      INDWK2 = 1 + N*N;
+      LLWK2 = LWORK - INDWK2 + 2;
+      LLRWK = LRWORK - INDWRK + 2;
       zhbgst(JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK, IINFO );
 
       // Reduce Hermitian band matrix to tridiagonal form.
 
       if ( WANTZ ) {
-         VECT = 'U'
+         VECT = 'U';
       } else {
-         VECT = 'N'
+         VECT = 'N';
       }
       zhbtrd(VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO );
 
@@ -133,10 +133,10 @@
          zlacpy('A', N, N, WORK( INDWK2 ), N, Z, LDZ );
       }
 
-      WORK( 1 ) = LWMIN
-      RWORK( 1 ) = LRWMIN
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = LWMIN;
+      RWORK( 1 ) = LRWMIN;
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of ZHBGVD
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IBLOCK, ISPLIT, WORK, IWORK, INFO )
+      SUBROUTINE SSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IBLOCK, ISPLIT, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,25 +7,25 @@
       // .. Scalar Arguments ..
       String             ORDER, RANGE;
       int                IL, INFO, IU, M, N, NSPLIT;
-      REAL               ABSTOL, VL, VU
+      REAL               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IBLOCK( * ), ISPLIT( * ), IWORK( * );
-      REAL               D( * ), E( * ), W( * ), WORK( * )
+      REAL               D( * ), E( * ), W( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, HALF
+      REAL               ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 1.0 / TWO ;
-      REAL               FUDGE, RELFAC
+      REAL               FUDGE, RELFAC;
       const              FUDGE = 2.1, RELFAC = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;
       int                IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU;
-      REAL               ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL
+      REAL               ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL;
       // ..
       // .. Local Arrays ..
       int                IDUMMA( 1 );
@@ -33,7 +33,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, ILAENV, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -44,60 +44,60 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
 
       // Decode RANGE
 
       if ( LSAME( RANGE, 'A' ) ) {
-         IRANGE = 1
+         IRANGE = 1;
       } else if ( LSAME( RANGE, 'V' ) ) {
-         IRANGE = 2
+         IRANGE = 2;
       } else if ( LSAME( RANGE, 'I' ) ) {
-         IRANGE = 3
+         IRANGE = 3;
       } else {
-         IRANGE = 0
+         IRANGE = 0;
       }
 
       // Decode ORDER
 
       if ( LSAME( ORDER, 'B' ) ) {
-         IORDER = 2
+         IORDER = 2;
       } else if ( LSAME( ORDER, 'E' ) ) {
-         IORDER = 1
+         IORDER = 1;
       } else {
-         IORDER = 0
+         IORDER = 0;
       }
 
       // Check for Errors
 
       if ( IRANGE <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IORDER <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( IRANGE == 2 ) {
          if (VL >= VU) INFO = -5;
       } else if ( IRANGE == 3 && ( IL < 1 || IL > MAX( 1, N ) ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( IRANGE == 3 && ( IU < MIN( N, IL ) || IU > N ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO != 0 ) {
          xerbla('SSTEBZ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize error flags
 
-      INFO = 0
+      INFO = 0;
       NCNVRG = false;
       TOOFEW = false;
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if (N == 0) RETURN;
 
       // Simplifications:
@@ -108,46 +108,46 @@
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
 
-      SAFEMN = SLAMCH( 'S' )
-      ULP = SLAMCH( 'P' )
-      RTOLI = ULP*RELFAC
-      NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
+      SAFEMN = SLAMCH( 'S' );
+      ULP = SLAMCH( 'P' );
+      RTOLI = ULP*RELFAC;
+      NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 );
       if (NB <= 1) NB = 0;
 
       // Special Case when N=1
 
       if ( N == 1 ) {
-         NSPLIT = 1
-         ISPLIT( 1 ) = 1
+         NSPLIT = 1;
+         ISPLIT( 1 ) = 1;
          if ( IRANGE == 2 && ( VL >= D( 1 ) || VU < D( 1 ) ) ) {
-            M = 0
+            M = 0;
          } else {
-            W( 1 ) = D( 1 )
-            IBLOCK( 1 ) = 1
-            M = 1
+            W( 1 ) = D( 1 );
+            IBLOCK( 1 ) = 1;
+            M = 1;
          }
-         RETURN
+         RETURN;
       }
 
       // Compute Splitting Points
 
-      NSPLIT = 1
-      WORK( N ) = ZERO
-      PIVMIN = ONE
+      NSPLIT = 1;
+      WORK( N ) = ZERO;
+      PIVMIN = ONE;
 
       for (J = 2; J <= N; J++) { // 10
-         TMP1 = E( J-1 )**2
+         TMP1 = E( J-1 )**2;
          if ( ABS( D( J )*D( J-1 ) )*ULP**2+SAFEMN > TMP1 ) {
-            ISPLIT( NSPLIT ) = J - 1
-            NSPLIT = NSPLIT + 1
-            WORK( J-1 ) = ZERO
+            ISPLIT( NSPLIT ) = J - 1;
+            NSPLIT = NSPLIT + 1;
+            WORK( J-1 ) = ZERO;
          } else {
-            WORK( J-1 ) = TMP1
-            PIVMIN = MAX( PIVMIN, TMP1 )
+            WORK( J-1 ) = TMP1;
+            PIVMIN = MAX( PIVMIN, TMP1 );
          }
       } // 10
-      ISPLIT( NSPLIT ) = N
-      PIVMIN = PIVMIN*SAFEMN
+      ISPLIT( NSPLIT ) = N;
+      PIVMIN = PIVMIN*SAFEMN;
 
       // Compute Interval and ATOLI
 
@@ -159,89 +159,89 @@
          // Compute Gershgorin interval for entire (split) matrix
          // and use it as the initial interval
 
-         GU = D( 1 )
-         GL = D( 1 )
-         TMP1 = ZERO
+         GU = D( 1 );
+         GL = D( 1 );
+         TMP1 = ZERO;
 
          for (J = 1; J <= N - 1; J++) { // 20
-            TMP2 = SQRT( WORK( J ) )
-            GU = MAX( GU, D( J )+TMP1+TMP2 )
-            GL = MIN( GL, D( J )-TMP1-TMP2 )
-            TMP1 = TMP2
+            TMP2 = SQRT( WORK( J ) );
+            GU = MAX( GU, D( J )+TMP1+TMP2 );
+            GL = MIN( GL, D( J )-TMP1-TMP2 );
+            TMP1 = TMP2;
          } // 20
 
-         GU = MAX( GU, D( N )+TMP1 )
-         GL = MIN( GL, D( N )-TMP1 )
-         TNORM = MAX( ABS( GL ), ABS( GU ) )
-         GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN
-         GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN
+         GU = MAX( GU, D( N )+TMP1 );
+         GL = MIN( GL, D( N )-TMP1 );
+         TNORM = MAX( ABS( GL ), ABS( GU ) );
+         GL = GL - FUDGE*TNORM*ULP*N - FUDGE*TWO*PIVMIN;
+         GU = GU + FUDGE*TNORM*ULP*N + FUDGE*PIVMIN;
 
          // Compute Iteration parameters
 
-         ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
+         ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2;
          if ( ABSTOL <= ZERO ) {
-            ATOLI = ULP*TNORM
+            ATOLI = ULP*TNORM;
          } else {
-            ATOLI = ABSTOL
+            ATOLI = ABSTOL;
          }
 
-         WORK( N+1 ) = GL
-         WORK( N+2 ) = GL
-         WORK( N+3 ) = GU
-         WORK( N+4 ) = GU
-         WORK( N+5 ) = GL
-         WORK( N+6 ) = GU
-         IWORK( 1 ) = -1
-         IWORK( 2 ) = -1
-         IWORK( 3 ) = N + 1
-         IWORK( 4 ) = N + 1
-         IWORK( 5 ) = IL - 1
-         IWORK( 6 ) = IU
+         WORK( N+1 ) = GL;
+         WORK( N+2 ) = GL;
+         WORK( N+3 ) = GU;
+         WORK( N+4 ) = GU;
+         WORK( N+5 ) = GL;
+         WORK( N+6 ) = GU;
+         IWORK( 1 ) = -1;
+         IWORK( 2 ) = -1;
+         IWORK( 3 ) = N + 1;
+         IWORK( 4 ) = N + 1;
+         IWORK( 5 ) = IL - 1;
+         IWORK( 6 ) = IU;
 
          slaebz(3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO );
 
          if ( IWORK( 6 ) == IU ) {
-            WL = WORK( N+1 )
-            WLU = WORK( N+3 )
-            NWL = IWORK( 1 )
-            WU = WORK( N+4 )
-            WUL = WORK( N+2 )
-            NWU = IWORK( 4 )
+            WL = WORK( N+1 );
+            WLU = WORK( N+3 );
+            NWL = IWORK( 1 );
+            WU = WORK( N+4 );
+            WUL = WORK( N+2 );
+            NWU = IWORK( 4 );
          } else {
-            WL = WORK( N+2 )
-            WLU = WORK( N+4 )
-            NWL = IWORK( 2 )
-            WU = WORK( N+3 )
-            WUL = WORK( N+1 )
-            NWU = IWORK( 3 )
+            WL = WORK( N+2 );
+            WLU = WORK( N+4 );
+            NWL = IWORK( 2 );
+            WU = WORK( N+3 );
+            WUL = WORK( N+1 );
+            NWU = IWORK( 3 );
          }
 
          if ( NWL < 0 || NWL >= N || NWU < 1 || NWU > N ) {
-            INFO = 4
-            RETURN
+            INFO = 4;
+            RETURN;
          }
       } else {
 
          // RANGE='A' or 'V' -- Set ATOLI
 
-         TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) )
+         TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) );
 
          for (J = 2; J <= N - 1; J++) { // 30
-            TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) )
+            TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) );
          } // 30
 
          if ( ABSTOL <= ZERO ) {
-            ATOLI = ULP*TNORM
+            ATOLI = ULP*TNORM;
          } else {
-            ATOLI = ABSTOL
+            ATOLI = ABSTOL;
          }
 
          if ( IRANGE == 2 ) {
-            WL = VL
-            WU = VU
+            WL = VL;
+            WU = VU;
          } else {
-            WL = ZERO
-            WU = ZERO
+            WL = ZERO;
+            WU = ZERO;
          }
       }
 
@@ -249,26 +249,26 @@
       // NWL accumulates the number of eigenvalues <= WL,
       // NWU accumulates the number of eigenvalues <= WU
 
-      M = 0
-      IEND = 0
-      INFO = 0
-      NWL = 0
-      NWU = 0
+      M = 0;
+      IEND = 0;
+      INFO = 0;
+      NWL = 0;
+      NWU = 0;
 
       for (JB = 1; JB <= NSPLIT; JB++) { // 70
-         IOFF = IEND
-         IBEGIN = IOFF + 1
-         IEND = ISPLIT( JB )
-         IN = IEND - IOFF
+         IOFF = IEND;
+         IBEGIN = IOFF + 1;
+         IEND = ISPLIT( JB );
+         IN = IEND - IOFF;
 
          if ( IN == 1 ) {
 
             // Special Case -- IN=1
 
             if ( IRANGE == 1 || WL >= D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 || WU >= D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 || ( WL < D( IBEGIN )-PIVMIN && WU >= D( IBEGIN )-PIVMIN ) ) {
-               M = M + 1
-               W( M ) = D( IBEGIN )
-               IBLOCK( M ) = JB
+               M = M + 1;
+               W( M ) = D( IBEGIN );
+               IBLOCK( M ) = JB;
             }
          } else {
 
@@ -277,51 +277,51 @@
             // Compute Gershgorin Interval
             // and use it as the initial interval
 
-            GU = D( IBEGIN )
-            GL = D( IBEGIN )
-            TMP1 = ZERO
+            GU = D( IBEGIN );
+            GL = D( IBEGIN );
+            TMP1 = ZERO;
 
             for (J = IBEGIN; J <= IEND - 1; J++) { // 40
-               TMP2 = ABS( E( J ) )
-               GU = MAX( GU, D( J )+TMP1+TMP2 )
-               GL = MIN( GL, D( J )-TMP1-TMP2 )
-               TMP1 = TMP2
+               TMP2 = ABS( E( J ) );
+               GU = MAX( GU, D( J )+TMP1+TMP2 );
+               GL = MIN( GL, D( J )-TMP1-TMP2 );
+               TMP1 = TMP2;
             } // 40
 
-            GU = MAX( GU, D( IEND )+TMP1 )
-            GL = MIN( GL, D( IEND )-TMP1 )
-            BNORM = MAX( ABS( GL ), ABS( GU ) )
-            GL = GL - FUDGE*BNORM*ULP*IN - FUDGE*PIVMIN
-            GU = GU + FUDGE*BNORM*ULP*IN + FUDGE*PIVMIN
+            GU = MAX( GU, D( IEND )+TMP1 );
+            GL = MIN( GL, D( IEND )-TMP1 );
+            BNORM = MAX( ABS( GL ), ABS( GU ) );
+            GL = GL - FUDGE*BNORM*ULP*IN - FUDGE*PIVMIN;
+            GU = GU + FUDGE*BNORM*ULP*IN + FUDGE*PIVMIN;
 
             // Compute ATOLI for the current submatrix
 
             if ( ABSTOL <= ZERO ) {
-               ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) )
+               ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) );
             } else {
-               ATOLI = ABSTOL
+               ATOLI = ABSTOL;
             }
 
             if ( IRANGE > 1 ) {
                if ( GU < WL ) {
-                  NWL = NWL + IN
-                  NWU = NWU + IN
-                  GO TO 70
+                  NWL = NWL + IN;
+                  NWU = NWU + IN;
+                  GO TO 70;
                }
-               GL = MAX( GL, WL )
-               GU = MIN( GU, WU )
+               GL = MAX( GL, WL );
+               GU = MIN( GU, WU );
                if (GL >= GU) GO TO 70;
             }
 
             // Set Up Initial Interval
 
-            WORK( N+1 ) = GL
-            WORK( N+IN+1 ) = GU
+            WORK( N+1 ) = GL;
+            WORK( N+IN+1 ) = GU;
             slaebz(1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO );
 
-            NWL = NWL + IWORK( 1 )
-            NWU = NWU + IWORK( IN+1 )
-            IWOFF = M - IWORK( 1 )
+            NWL = NWL + IWORK( 1 );
+            NWU = NWU + IWORK( IN+1 );
+            IWOFF = M - IWORK( 1 );
 
             // Compute Eigenvalues
 
@@ -332,23 +332,23 @@
             // Use -JB for block number for unconverged eigenvalues.
 
             for (J = 1; J <= IOUT; J++) { // 60
-               TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) )
+               TMP1 = HALF*( WORK( J+N )+WORK( J+IN+N ) );
 
                // Flag non-convergence.
 
                if ( J > IOUT-IINFO ) {
                   NCNVRG = true;
-                  IB = -JB
+                  IB = -JB;
                } else {
-                  IB = JB
+                  IB = JB;
                }
                for (JE = IWORK( J ) + 1 + IWOFF; JE <= IWORK( J+IN ) + IWOFF; JE++) { // 50
-                  W( JE ) = TMP1
-                  IBLOCK( JE ) = IB
+                  W( JE ) = TMP1;
+                  IBLOCK( JE ) = IB;
                } // 50
             } // 60
 
-            M = M + IM
+            M = M + IM;
          }
       } // 70
 
@@ -356,23 +356,23 @@
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
 
       if ( IRANGE == 3 ) {
-         IM = 0
-         IDISCL = IL - 1 - NWL
-         IDISCU = NWU - IU
+         IM = 0;
+         IDISCL = IL - 1 - NWL;
+         IDISCU = NWU - IU;
 
          if ( IDISCL > 0 || IDISCU > 0 ) {
             for (JE = 1; JE <= M; JE++) { // 80
                if ( W( JE ) <= WLU && IDISCL > 0 ) {
-                  IDISCL = IDISCL - 1
+                  IDISCL = IDISCL - 1;
                } else if ( W( JE ) >= WUL && IDISCU > 0 ) {
-                  IDISCU = IDISCU - 1
+                  IDISCU = IDISCU - 1;
                } else {
-                  IM = IM + 1
-                  W( IM ) = W( JE )
-                  IBLOCK( IM ) = IBLOCK( JE )
+                  IM = IM + 1;
+                  W( IM ) = W( JE );
+                  IBLOCK( IM ) = IBLOCK( JE );
                }
             } // 80
-            M = IM
+            M = IM;
          }
          if ( IDISCL > 0 || IDISCU > 0 ) {
 
@@ -387,41 +387,41 @@
                 // happen.)
 
             if ( IDISCL > 0 ) {
-               WKILL = WU
+               WKILL = WU;
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
-                  IW = 0
+                  IW = 0;
                   for (JE = 1; JE <= M; JE++) { // 90
                      if ( IBLOCK( JE ) != 0 && ( W( JE ) < WKILL || IW == 0 ) ) {
-                        IW = JE
-                        WKILL = W( JE )
+                        IW = JE;
+                        WKILL = W( JE );
                      }
                   } // 90
-                  IBLOCK( IW ) = 0
+                  IBLOCK( IW ) = 0;
                } // 100
             }
             if ( IDISCU > 0 ) {
 
-               WKILL = WL
+               WKILL = WL;
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
-                  IW = 0
+                  IW = 0;
                   for (JE = 1; JE <= M; JE++) { // 110
                      if ( IBLOCK( JE ) != 0 && ( W( JE ) > WKILL || IW == 0 ) ) {
-                        IW = JE
-                        WKILL = W( JE )
+                        IW = JE;
+                        WKILL = W( JE );
                      }
                   } // 110
-                  IBLOCK( IW ) = 0
+                  IBLOCK( IW ) = 0;
                } // 120
             }
-            IM = 0
+            IM = 0;
             for (JE = 1; JE <= M; JE++) { // 130
                if ( IBLOCK( JE ) != 0 ) {
-                  IM = IM + 1
-                  W( IM ) = W( JE )
-                  IBLOCK( IM ) = IBLOCK( JE )
+                  IM = IM + 1;
+                  W( IM ) = W( JE );
+                  IBLOCK( IM ) = IBLOCK( JE );
                }
             } // 130
-            M = IM
+            M = IM;
          }
          if ( IDISCL < 0 || IDISCU < 0 ) {
             TOOFEW = true;
@@ -434,28 +434,28 @@
 
       if ( IORDER == 1 && NSPLIT > 1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
-            IE = 0
-            TMP1 = W( JE )
+            IE = 0;
+            TMP1 = W( JE );
             for (J = JE + 1; J <= M; J++) { // 140
                if ( W( J ) < TMP1 ) {
-                  IE = J
-                  TMP1 = W( J )
+                  IE = J;
+                  TMP1 = W( J );
                }
             } // 140
 
             if ( IE != 0 ) {
-               ITMP1 = IBLOCK( IE )
-               W( IE ) = W( JE )
-               IBLOCK( IE ) = IBLOCK( JE )
-               W( JE ) = TMP1
-               IBLOCK( JE ) = ITMP1
+               ITMP1 = IBLOCK( IE );
+               W( IE ) = W( JE );
+               IBLOCK( IE ) = IBLOCK( JE );
+               W( JE ) = TMP1;
+               IBLOCK( JE ) = ITMP1;
             }
          } // 150
       }
 
-      INFO = 0
+      INFO = 0;
       if (NCNVRG) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2;
-      RETURN
+      RETURN;
 
       // End of SSTEBZ
 

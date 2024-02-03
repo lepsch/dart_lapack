@@ -1,4 +1,4 @@
-      SUBROUTINE SLAVSY_ROOK( UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+      SUBROUTINE SLAVSY_ROOK( UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), B( LDB, * )
+      REAL               A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT;
       int                J, K, KP;
-      REAL               D11, D12, D21, D22, T1, T2
+      REAL               D11, D12, D21, D22, T1, T2;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -38,30 +38,30 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !LSAME( DIAG, 'U' ) && !LSAME( DIAG, 'N' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('SLAVSY_ROOK ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
       if (N == 0) RETURN;
 
-      NOUNIT = LSAME( DIAG, 'N' )
+      NOUNIT = LSAME( DIAG, 'N' );
 *------------------------------------------
 
       // Compute  B := A * B  (No transpose)
@@ -76,7 +76,7 @@
 
          // Loop forward applying the transformations.
 
-            K = 1
+            K = 1;
             } // 10
             if (K > N) GO TO 30;
             if ( IPIV( K ) > 0 ) {
@@ -97,10 +97,10 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = IPIV( K )
+                  KP = IPIV( K );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K + 1
+               K = K + 1;
             } else {
 
                // 2 x 2 pivot block
@@ -108,15 +108,15 @@
                // Multiply by the diagonal block if forming U * D.
 
                if ( NOUNIT ) {
-                  D11 = A( K, K )
-                  D22 = A( K+1, K+1 )
-                  D12 = A( K, K+1 )
-                  D21 = D12
+                  D11 = A( K, K );
+                  D22 = A( K+1, K+1 );
+                  D12 = A( K, K+1 );
+                  D21 = D12;
                   for (J = 1; J <= NRHS; J++) { // 20
-                     T1 = B( K, J )
-                     T2 = B( K+1, J )
-                     B( K, J ) = D11*T1 + D12*T2
-                     B( K+1, J ) = D21*T1 + D22*T2
+                     T1 = B( K, J );
+                     T2 = B( K+1, J );
+                     B( K, J ) = D11*T1 + D12*T2;
+                     B( K+1, J ) = D21*T1 + D22*T2;
                   } // 20
                }
 
@@ -134,17 +134,17 @@
 
                   // Swap the first of pair with IMAXth
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // NOW swap the first of pair with Pth
 
-                  KP = ABS( IPIV( K+1 ) )
+                  KP = ABS( IPIV( K+1 ) );
                   if (KP != K+1) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K + 2
+               K = K + 2;
             }
-            GO TO 10
+            GO TO 10;
             } // 30
 
          // Compute  B := L*B
@@ -154,7 +154,7 @@
 
             // Loop backward applying the transformations to B.
 
-            K = N
+            K = N;
             } // 40
             if (K < 1) GO TO 60;
 
@@ -172,7 +172,7 @@
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
                if ( K != N ) {
-                  KP = IPIV( K )
+                  KP = IPIV( K );
 
                   // Apply the transformation.
 
@@ -183,7 +183,7 @@
 
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K - 1
+               K = K - 1;
 
             } else {
 
@@ -192,15 +192,15 @@
                // Multiply by the diagonal block if forming L * D.
 
                if ( NOUNIT ) {
-                  D11 = A( K-1, K-1 )
-                  D22 = A( K, K )
-                  D21 = A( K, K-1 )
-                  D12 = D21
+                  D11 = A( K-1, K-1 );
+                  D22 = A( K, K );
+                  D21 = A( K, K-1 );
+                  D12 = D21;
                   for (J = 1; J <= NRHS; J++) { // 50
-                     T1 = B( K-1, J )
-                     T2 = B( K, J )
-                     B( K-1, J ) = D11*T1 + D12*T2
-                     B( K, J ) = D21*T1 + D22*T2
+                     T1 = B( K-1, J );
+                     T2 = B( K, J );
+                     B( K-1, J ) = D11*T1 + D12*T2;
+                     B( K, J ) = D21*T1 + D22*T2;
                   } // 50
                }
 
@@ -218,17 +218,17 @@
 
                   // Swap the second of pair with IMAXth
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // NOW swap the first of pair with Pth
 
-                  KP = ABS( IPIV( K-1 ) )
+                  KP = ABS( IPIV( K-1 ) );
                   if (KP != K-1) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K - 2
+               K = K - 2;
             }
-            GO TO 40
+            GO TO 40;
             } // 60
          }
 *----------------------------------------
@@ -246,7 +246,7 @@
 
             // Loop backward applying the transformations.
 
-            K = N
+            K = N;
             } // 70
             if (K < 1) GO TO 90;
 
@@ -257,7 +257,7 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = IPIV( K )
+                  KP = IPIV( K );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
@@ -265,7 +265,7 @@
                   sgemv('Transpose', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
-               K = K - 1
+               K = K - 1;
 
             // 2 x 2 pivot block.
 
@@ -274,12 +274,12 @@
 
                   // Swap the second of pair with Pth
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Now swap the first of pair with IMAX(r)th
 
-                  KP = ABS( IPIV( K-1 ) )
+                  KP = ABS( IPIV( K-1 ) );
                   if (KP != K-1) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
@@ -291,20 +291,20 @@
                // Multiply by the diagonal block if non-unit.
 
                if ( NOUNIT ) {
-                  D11 = A( K-1, K-1 )
-                  D22 = A( K, K )
-                  D12 = A( K-1, K )
-                  D21 = D12
+                  D11 = A( K-1, K-1 );
+                  D22 = A( K, K );
+                  D12 = A( K-1, K );
+                  D21 = D12;
                   for (J = 1; J <= NRHS; J++) { // 80
-                     T1 = B( K-1, J )
-                     T2 = B( K, J )
-                     B( K-1, J ) = D11*T1 + D12*T2
-                     B( K, J ) = D21*T1 + D22*T2
+                     T1 = B( K-1, J );
+                     T2 = B( K, J );
+                     B( K-1, J ) = D11*T1 + D12*T2;
+                     B( K, J ) = D21*T1 + D22*T2;
                   } // 80
                }
-               K = K - 2
+               K = K - 2;
             }
-            GO TO 70
+            GO TO 70;
             } // 90
 
          // Form  B := L'*B
@@ -315,7 +315,7 @@
 
             // Loop forward applying the L-transformations.
 
-            K = 1
+            K = 1;
             } // 100
             if (K > N) GO TO 120;
 
@@ -326,7 +326,7 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = IPIV( K )
+                  KP = IPIV( K );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
@@ -334,7 +334,7 @@
                   sgemv('Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
-               K = K + 1
+               K = K + 1;
 
             // 2 x 2 pivot block.
 
@@ -343,12 +343,12 @@
 
                   // Swap the first of pair with Pth
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Now swap the second of pair with IMAX(r)th
 
-                  KP = ABS( IPIV( K+1 ) )
+                  KP = ABS( IPIV( K+1 ) );
                   if (KP != K+1) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
@@ -360,25 +360,25 @@
                // Multiply by the diagonal block if non-unit.
 
                if ( NOUNIT ) {
-                  D11 = A( K, K )
-                  D22 = A( K+1, K+1 )
-                  D21 = A( K+1, K )
-                  D12 = D21
+                  D11 = A( K, K );
+                  D22 = A( K+1, K+1 );
+                  D21 = A( K+1, K );
+                  D12 = D21;
                   for (J = 1; J <= NRHS; J++) { // 110
-                     T1 = B( K, J )
-                     T2 = B( K+1, J )
-                     B( K, J ) = D11*T1 + D12*T2
-                     B( K+1, J ) = D21*T1 + D22*T2
+                     T1 = B( K, J );
+                     T2 = B( K+1, J );
+                     B( K, J ) = D11*T1 + D12*T2;
+                     B( K+1, J ) = D21*T1 + D22*T2;
                   } // 110
                }
-               K = K + 2
+               K = K + 2;
             }
-            GO TO 100
+            GO TO 100;
             } // 120
          }
 
       }
-      RETURN
+      RETURN;
 
       // End of SLAVSY_ROOK
 

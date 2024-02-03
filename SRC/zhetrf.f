@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRF( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO )
+      SUBROUTINE ZHETRF( UPLO, N, A, LDA, IPIV, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -34,45 +34,45 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO == 0 ) {
 
          // Determine the block size
 
-         NB = ILAENV( 1, 'ZHETRF', UPLO, N, -1, -1, -1 )
-         LWKOPT = MAX( 1, N*NB )
-         WORK( 1 ) = LWKOPT
+         NB = ILAENV( 1, 'ZHETRF', UPLO, N, -1, -1, -1 );
+         LWKOPT = MAX( 1, N*NB );
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHETRF', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
-      NBMIN = 2
-      LDWORK = N
+      NBMIN = 2;
+      LDWORK = N;
       if ( NB > 1 && NB < N ) {
-         IWS = LDWORK*NB
+         IWS = LDWORK*NB;
          if ( LWORK < IWS ) {
-            NB = MAX( LWORK / LDWORK, 1 )
-            NBMIN = MAX( 2, ILAENV( 2, 'ZHETRF', UPLO, N, -1, -1, -1 ) )
+            NB = MAX( LWORK / LDWORK, 1 );
+            NBMIN = MAX( 2, ILAENV( 2, 'ZHETRF', UPLO, N, -1, -1, -1 ) );
          }
       } else {
-         IWS = 1
+         IWS = 1;
       }
       if (NB < NBMIN) NB = N;
 
@@ -84,7 +84,7 @@
          // KB, where KB is the number of columns factorized by ZLAHEF;
          // KB is either NB or NB-1, or K for the last block
 
-         K = N
+         K = N;
          } // 10
 
          // If K < 1, exit from loop
@@ -102,7 +102,7 @@
             // Use unblocked code to factorize columns 1:k of A
 
             zhetf2(UPLO, K, A, LDA, IPIV, IINFO );
-            KB = K
+            KB = K;
          }
 
          // Set INFO on the first occurrence of a zero pivot
@@ -111,8 +111,8 @@
 
          // Decrease K and return to the start of the main loop
 
-         K = K - KB
-         GO TO 10
+         K = K - KB;
+         GO TO 10;
 
       } else {
 
@@ -122,7 +122,7 @@
          // KB, where KB is the number of columns factorized by ZLAHEF;
          // KB is either NB or NB-1, or N-K+1 for the last block
 
-         K = 1
+         K = 1;
          } // 20
 
          // If K > N, exit from loop
@@ -140,7 +140,7 @@
             // Use unblocked code to factorize columns k:n of A
 
             zhetf2(UPLO, N-K+1, A( K, K ), LDA, IPIV( K ), IINFO );
-            KB = N - K + 1
+            KB = N - K + 1;
          }
 
          // Set INFO on the first occurrence of a zero pivot
@@ -151,23 +151,23 @@
 
          for (J = K; J <= K + KB - 1; J++) { // 30
             if ( IPIV( J ) > 0 ) {
-               IPIV( J ) = IPIV( J ) + K - 1
+               IPIV( J ) = IPIV( J ) + K - 1;
             } else {
-               IPIV( J ) = IPIV( J ) - K + 1
+               IPIV( J ) = IPIV( J ) - K + 1;
             }
          } // 30
 
          // Increase K and return to the start of the main loop
 
-         K = K + KB
-         GO TO 20
+         K = K + KB;
+         GO TO 20;
 
       }
 
       } // 40
 
-      WORK( 1 ) = LWKOPT
-      RETURN
+      WORK( 1 ) = LWKOPT;
+      RETURN;
 
       // End of ZHETRF
 

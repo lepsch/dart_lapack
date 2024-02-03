@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A, COPYA, S, TAU, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A, COPYA, S, TAU, WORK, RWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                MVAL( * ), NVAL( * );
       double             S( * ), RWORK( * );
-      COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * )
+      COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -55,52 +55,52 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision'
-      PATH( 2: 3 ) = 'TZ'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Zomplex precision';
+      PATH( 2: 3 ) = 'TZ';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
 
       // Test the error exits
 
       if (TSTERR) CALL ZERRTZ( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) { // 70
 
          // Do for each value of M in MVAL.
 
-         M = MVAL( IM )
-         LDA = MAX( 1, M )
+         M = MVAL( IM );
+         LDA = MAX( 1, M );
 
          for (IN = 1; IN <= NN; IN++) { // 60
 
             // Do for each value of N in NVAL for which M <= N.
 
-            N = NVAL( IN )
-            MNMIN = MIN( M, N )
-            LWORK = MAX( 1, N*N+4*M+N )
+            N = NVAL( IN );
+            MNMIN = MIN( M, N );
+            LWORK = MAX( 1, N*N+4*M+N );
 
             if ( M <= N ) {
                for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50
-                  IF( !DOTYPE( IMODE ) ) GO TO 50
+                  IF( !DOTYPE( IMODE ) ) GO TO 50;
 
                   // Do for each type of singular value distribution.
                      // 0:  zero matrix
                      // 1:  one small singular value
                      // 2:  exponential distribution
 
-                  MODE = IMODE - 1
+                  MODE = IMODE - 1;
 
                   // Test ZTZRQF
 
@@ -110,7 +110,7 @@
                   if ( MODE == 0 ) {
                      zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A, LDA );
                      for (I = 1; I <= MNMIN; I++) { // 30
-                        S( I ) = ZERO
+                        S( I ) = ZERO;
                      } // 30
                   } else {
                      zlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
@@ -126,20 +126,20 @@
                   // Call ZTZRZF to reduce the upper trapezoidal matrix to
                   // upper triangular form.
 
-                  SRNAMT = 'ZTZRZF'
+                  SRNAMT = 'ZTZRZF';
                   ztzrzf(M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
                   // Compute norm(svd(a) - svd(r))
 
-                  RESULT( 1 ) = ZQRT12( M, M, A, LDA, S, WORK, LWORK, RWORK )
+                  RESULT( 1 ) = ZQRT12( M, M, A, LDA, S, WORK, LWORK, RWORK );
 
                   // Compute norm( A - R*Q )
 
-                  RESULT( 2 ) = ZRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK )
+                  RESULT( 2 ) = ZRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK );
 
                   // Compute norm(Q'*Q - I).
 
-                  RESULT( 3 ) = ZRZT02( M, N, A, LDA, TAU, WORK, LWORK )
+                  RESULT( 3 ) = ZRZT02( M, N, A, LDA, TAU, WORK, LWORK );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -147,10 +147,10 @@
                   for (K = 1; K <= NTESTS; K++) { // 40
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 40
-                  NRUN = NRUN + 3
+                  NRUN = NRUN + 3;
                } // 50
             }
          } // 60
@@ -160,7 +160,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' M =', I5, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
+ 9999 FORMAT( ' M =', I5, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
 
       // End if ZCHKTZ
 

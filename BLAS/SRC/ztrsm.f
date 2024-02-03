@@ -1,16 +1,16 @@
-      SUBROUTINE ZTRSM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB)
+      SUBROUTINE ZTRSM(SIDE,UPLO,TRANSA,DIAG,M,N,ALPHA,A,LDA,B,LDB);
 
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16 ALPHA
+      COMPLEX*16 ALPHA;
       int     LDA,LDB,M,N;
       String    DIAG,SIDE,TRANSA,UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A(LDA,*),B(LDB,*)
+      COMPLEX*16 A(LDA,*),B(LDB,*);
       // ..
 
 *  =====================================================================
@@ -26,50 +26,50 @@
       // INTRINSIC DCONJG,MAX
       // ..
       // .. Local Scalars ..
-      COMPLEX*16 TEMP
+      COMPLEX*16 TEMP;
       int     I,INFO,J,K,NROWA;
       bool    LSIDE,NOCONJ,NOUNIT,UPPER;
       // ..
       // .. Parameters ..
-      COMPLEX*16 ONE
+      COMPLEX*16 ONE;
       const     ONE= (1.0,0.0);
-      COMPLEX*16 ZERO
+      COMPLEX*16 ZERO;
       const     ZERO= (0.0,0.0);
       // ..
 
       // Test the input parameters.
 
-      LSIDE = LSAME(SIDE,'L')
+      LSIDE = LSAME(SIDE,'L');
       if (LSIDE) {
-          NROWA = M
+          NROWA = M;
       } else {
-          NROWA = N
+          NROWA = N;
       }
-      NOCONJ = LSAME(TRANSA,'T')
-      NOUNIT = LSAME(DIAG,'N')
-      UPPER = LSAME(UPLO,'U')
+      NOCONJ = LSAME(TRANSA,'T');
+      NOUNIT = LSAME(DIAG,'N');
+      UPPER = LSAME(UPLO,'U');
 
-      INFO = 0
+      INFO = 0;
       if (( !LSIDE) && ( !LSAME(SIDE,'R'))) {
-          INFO = 1
+          INFO = 1;
       } else if (( !UPPER) && ( !LSAME(UPLO,'L'))) {
-          INFO = 2
+          INFO = 2;
       } else if (( !LSAME(TRANSA,'N')) && ( !LSAME(TRANSA,'T')) && ( !LSAME(TRANSA,'C'))) {
-          INFO = 3
+          INFO = 3;
       } else if (( !LSAME(DIAG,'U')) && ( !LSAME(DIAG,'N'))) {
-          INFO = 4
+          INFO = 4;
       } else if (M < 0) {
-          INFO = 5
+          INFO = 5;
       } else if (N < 0) {
-          INFO = 6
+          INFO = 6;
       } else if (LDA < MAX(1,NROWA)) {
-          INFO = 9
+          INFO = 9;
       } else if (LDB < MAX(1,M)) {
-          INFO = 11
+          INFO = 11;
       }
       if (INFO != 0) {
           xerbla('ZTRSM ',INFO);
-          RETURN
+          RETURN;
       }
 
       // Quick return if possible.
@@ -81,10 +81,10 @@
       if (ALPHA == ZERO) {
           for (J = 1; J <= N; J++) { // 20
               for (I = 1; I <= M; I++) { // 10
-                  B(I,J) = ZERO
+                  B(I,J) = ZERO;
               } // 10
           } // 20
-          RETURN
+          RETURN;
       }
 
       // Start the operations.
@@ -98,14 +98,14 @@
                   for (J = 1; J <= N; J++) { // 60
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 30
-                              B(I,J) = ALPHA*B(I,J)
+                              B(I,J) = ALPHA*B(I,J);
                           } // 30
                       }
-                      DO 50 K = M,1,-1
+                      DO 50 K = M,1,-1;
                           if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = 1; I <= K - 1; I++) { // 40
-                                  B(I,J) = B(I,J) - B(K,J)*A(I,K)
+                                  B(I,J) = B(I,J) - B(K,J)*A(I,K);
                               } // 40
                           }
                       } // 50
@@ -114,14 +114,14 @@
                   for (J = 1; J <= N; J++) { // 100
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 70
-                              B(I,J) = ALPHA*B(I,J)
+                              B(I,J) = ALPHA*B(I,J);
                           } // 70
                       }
                       for (K = 1; K <= M; K++) { // 90
                           if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = K + 1; I <= M; I++) { // 80
-                                  B(I,J) = B(I,J) - B(K,J)*A(I,K)
+                                  B(I,J) = B(I,J) - B(K,J)*A(I,K);
                               } // 80
                           }
                       } // 90
@@ -135,37 +135,37 @@
               if (UPPER) {
                   for (J = 1; J <= N; J++) { // 140
                       for (I = 1; I <= M; I++) { // 130
-                          TEMP = ALPHA*B(I,J)
+                          TEMP = ALPHA*B(I,J);
                           if (NOCONJ) {
                               for (K = 1; K <= I - 1; K++) { // 110
-                                  TEMP = TEMP - A(K,I)*B(K,J)
+                                  TEMP = TEMP - A(K,I)*B(K,J);
                               } // 110
                               if (NOUNIT) TEMP = TEMP/A(I,I);
                           } else {
                               for (K = 1; K <= I - 1; K++) { // 120
-                                  TEMP = TEMP - DCONJG(A(K,I))*B(K,J)
+                                  TEMP = TEMP - DCONJG(A(K,I))*B(K,J);
                               } // 120
                               if (NOUNIT) TEMP = TEMP/DCONJG(A(I,I));
                           }
-                          B(I,J) = TEMP
+                          B(I,J) = TEMP;
                       } // 130
                   } // 140
               } else {
                   for (J = 1; J <= N; J++) { // 180
-                      DO 170 I = M,1,-1
-                          TEMP = ALPHA*B(I,J)
+                      DO 170 I = M,1,-1;
+                          TEMP = ALPHA*B(I,J);
                           if (NOCONJ) {
                               for (K = I + 1; K <= M; K++) { // 150
-                                  TEMP = TEMP - A(K,I)*B(K,J)
+                                  TEMP = TEMP - A(K,I)*B(K,J);
                               } // 150
                               if (NOUNIT) TEMP = TEMP/A(I,I);
                           } else {
                               for (K = I + 1; K <= M; K++) { // 160
-                                  TEMP = TEMP - DCONJG(A(K,I))*B(K,J)
+                                  TEMP = TEMP - DCONJG(A(K,I))*B(K,J);
                               } // 160
                               if (NOUNIT) TEMP = TEMP/DCONJG(A(I,I));
                           }
-                          B(I,J) = TEMP
+                          B(I,J) = TEMP;
                       } // 170
                   } // 180
               }
@@ -179,41 +179,41 @@
                   for (J = 1; J <= N; J++) { // 230
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 190
-                              B(I,J) = ALPHA*B(I,J)
+                              B(I,J) = ALPHA*B(I,J);
                           } // 190
                       }
                       for (K = 1; K <= J - 1; K++) { // 210
                           if (A(K,J) != ZERO) {
                               for (I = 1; I <= M; I++) { // 200
-                                  B(I,J) = B(I,J) - A(K,J)*B(I,K)
+                                  B(I,J) = B(I,J) - A(K,J)*B(I,K);
                               } // 200
                           }
                       } // 210
                       if (NOUNIT) {
-                          TEMP = ONE/A(J,J)
+                          TEMP = ONE/A(J,J);
                           for (I = 1; I <= M; I++) { // 220
-                              B(I,J) = TEMP*B(I,J)
+                              B(I,J) = TEMP*B(I,J);
                           } // 220
                       }
                   } // 230
               } else {
-                  DO 280 J = N,1,-1
+                  DO 280 J = N,1,-1;
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 240
-                              B(I,J) = ALPHA*B(I,J)
+                              B(I,J) = ALPHA*B(I,J);
                           } // 240
                       }
                       for (K = J + 1; K <= N; K++) { // 260
                           if (A(K,J) != ZERO) {
                               for (I = 1; I <= M; I++) { // 250
-                                  B(I,J) = B(I,J) - A(K,J)*B(I,K)
+                                  B(I,J) = B(I,J) - A(K,J)*B(I,K);
                               } // 250
                           }
                       } // 260
                       if (NOUNIT) {
-                          TEMP = ONE/A(J,J)
+                          TEMP = ONE/A(J,J);
                           for (I = 1; I <= M; I++) { // 270
-                              B(I,J) = TEMP*B(I,J)
+                              B(I,J) = TEMP*B(I,J);
                           } // 270
                       }
                   } // 280
@@ -224,32 +224,32 @@
             // or    B := alpha*B*inv( A**H ).
 
               if (UPPER) {
-                  DO 330 K = N,1,-1
+                  DO 330 K = N,1,-1;
                       if (NOUNIT) {
                           if (NOCONJ) {
-                              TEMP = ONE/A(K,K)
+                              TEMP = ONE/A(K,K);
                           } else {
-                              TEMP = ONE/DCONJG(A(K,K))
+                              TEMP = ONE/DCONJG(A(K,K));
                           }
                           for (I = 1; I <= M; I++) { // 290
-                              B(I,K) = TEMP*B(I,K)
+                              B(I,K) = TEMP*B(I,K);
                           } // 290
                       }
                       for (J = 1; J <= K - 1; J++) { // 310
                           if (A(J,K) != ZERO) {
                               if (NOCONJ) {
-                                  TEMP = A(J,K)
+                                  TEMP = A(J,K);
                               } else {
-                                  TEMP = DCONJG(A(J,K))
+                                  TEMP = DCONJG(A(J,K));
                               }
                               for (I = 1; I <= M; I++) { // 300
-                                  B(I,J) = B(I,J) - TEMP*B(I,K)
+                                  B(I,J) = B(I,J) - TEMP*B(I,K);
                               } // 300
                           }
                       } // 310
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 320
-                              B(I,K) = ALPHA*B(I,K)
+                              B(I,K) = ALPHA*B(I,K);
                           } // 320
                       }
                   } // 330
@@ -257,29 +257,29 @@
                   for (K = 1; K <= N; K++) { // 380
                       if (NOUNIT) {
                           if (NOCONJ) {
-                              TEMP = ONE/A(K,K)
+                              TEMP = ONE/A(K,K);
                           } else {
-                              TEMP = ONE/DCONJG(A(K,K))
+                              TEMP = ONE/DCONJG(A(K,K));
                           }
                           for (I = 1; I <= M; I++) { // 340
-                              B(I,K) = TEMP*B(I,K)
+                              B(I,K) = TEMP*B(I,K);
                           } // 340
                       }
                       for (J = K + 1; J <= N; J++) { // 360
                           if (A(J,K) != ZERO) {
                               if (NOCONJ) {
-                                  TEMP = A(J,K)
+                                  TEMP = A(J,K);
                               } else {
-                                  TEMP = DCONJG(A(J,K))
+                                  TEMP = DCONJG(A(J,K));
                               }
                               for (I = 1; I <= M; I++) { // 350
-                                  B(I,J) = B(I,J) - TEMP*B(I,K)
+                                  B(I,J) = B(I,J) - TEMP*B(I,K);
                               } // 350
                           }
                       } // 360
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 370
-                              B(I,K) = ALPHA*B(I,K)
+                              B(I,K) = ALPHA*B(I,K);
                           } // 370
                       }
                   } // 380
@@ -287,7 +287,7 @@
           }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZTRSM
 

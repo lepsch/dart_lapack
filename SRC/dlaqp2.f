@@ -1,4 +1,4 @@
-      SUBROUTINE DLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2, WORK )
+      SUBROUTINE DLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2, WORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,26 +35,26 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M-OFFSET, N )
-      TOL3Z = SQRT(DLAMCH('Epsilon'))
+      MN = MIN( M-OFFSET, N );
+      TOL3Z = SQRT(DLAMCH('Epsilon'));
 
       // Compute factorization.
 
       for (I = 1; I <= MN; I++) { // 20
 
-         OFFPI = OFFSET + I
+         OFFPI = OFFSET + I;
 
          // Determine ith pivot column and swap if necessary.
 
-         PVT = ( I-1 ) + IDAMAX( N-I+1, VN1( I ), 1 )
+         PVT = ( I-1 ) + IDAMAX( N-I+1, VN1( I ), 1 );
 
          if ( PVT != I ) {
             dswap(M, A( 1, PVT ), 1, A( 1, I ), 1 );
-            ITEMP = JPVT( PVT )
-            JPVT( PVT ) = JPVT( I )
-            JPVT( I ) = ITEMP
-            VN1( PVT ) = VN1( I )
-            VN2( PVT ) = VN2( I )
+            ITEMP = JPVT( PVT );
+            JPVT( PVT ) = JPVT( I );
+            JPVT( I ) = ITEMP;
+            VN1( PVT ) = VN1( I );
+            VN2( PVT ) = VN2( I );
          }
 
          // Generate elementary reflector H(i).
@@ -69,10 +69,10 @@
 
             // Apply H(i)**T to A(offset+i:m,i+1:n) from the left.
 
-            AII = A( OFFPI, I )
-            A( OFFPI, I ) = ONE
+            AII = A( OFFPI, I );
+            A( OFFPI, I ) = ONE;
             dlarf('Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) );
-            A( OFFPI, I ) = AII
+            A( OFFPI, I ) = AII;
          }
 
          // Update partial column norms.
@@ -83,26 +83,26 @@
                // NOTE: The following 4 lines follow from the analysis in
                // Lapack Working Note 176.
 
-               TEMP = ONE - ( ABS( A( OFFPI, J ) ) / VN1( J ) )**2
-               TEMP = MAX( TEMP, ZERO )
-               TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
+               TEMP = ONE - ( ABS( A( OFFPI, J ) ) / VN1( J ) )**2;
+               TEMP = MAX( TEMP, ZERO );
+               TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                if ( TEMP2 <= TOL3Z ) {
                   if ( OFFPI < M ) {
-                     VN1( J ) = DNRM2( M-OFFPI, A( OFFPI+1, J ), 1 )
-                     VN2( J ) = VN1( J )
+                     VN1( J ) = DNRM2( M-OFFPI, A( OFFPI+1, J ), 1 );
+                     VN2( J ) = VN1( J );
                   } else {
-                     VN1( J ) = ZERO
-                     VN2( J ) = ZERO
+                     VN1( J ) = ZERO;
+                     VN2( J ) = ZERO;
                   }
                } else {
-                  VN1( J ) = VN1( J )*SQRT( TEMP )
+                  VN1( J ) = VN1( J )*SQRT( TEMP );
                }
             }
          } // 10
 
       } // 20
 
-      RETURN
+      RETURN;
 
       // End of DLAQP2
 

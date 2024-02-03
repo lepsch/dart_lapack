@@ -1,4 +1,4 @@
-      SUBROUTINE SCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AP, AINVP, B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AP, AINVP, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,12 +7,12 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNS, NOUT;
-      REAL               THRESH
+      REAL               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NSVAL( * ), NVAL( * );
-      REAL               AINVP( * ), AP( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      REAL               AINVP( * ), AP( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
@@ -24,7 +24,7 @@
       const              NTESTS = 9 ;
       int                NTRAN;
       const              NTRAN = 3 ;
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -36,11 +36,11 @@
       // .. Local Arrays ..
       String             TRANSS( NTRAN ), UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS )
+      REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLANTP
+      REAL               SLANTP;
       // EXTERNAL LSAME, SLANTP
       // ..
       // .. External Subroutines ..
@@ -59,66 +59,66 @@
       // INTRINSIC MAX
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' / , TRANSS / 'N', 'T', 'C' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' / , TRANSS / 'N', 'T', 'C' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Single precision'
-      PATH( 2: 3 ) = 'TP'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Single precision';
+      PATH( 2: 3 ) = 'TP';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL SERRTR( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 110
 
          // Do for each value of N in NVAL
 
-         N = NVAL( IN )
-         LDA = MAX( 1, N )
-         LAP = LDA*( LDA+1 ) / 2
-         XTYPE = 'N'
+         N = NVAL( IN );
+         LDA = MAX( 1, N );
+         LAP = LDA*( LDA+1 ) / 2;
+         XTYPE = 'N';
 
          for (IMAT = 1; IMAT <= NTYPE1; IMAT++) { // 70
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 70
+            IF( !DOTYPE( IMAT ) ) GO TO 70;
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 60
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
-               UPLO = UPLOS( IUPLO )
+               UPLO = UPLOS( IUPLO );
 
                // Call SLATTP to generate a triangular test matrix.
 
-               SRNAMT = 'SLATTP'
+               SRNAMT = 'SLATTP';
                slattp(IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, INFO );
 
                // Set IDIAG = 1 for non-unit matrices, 2 for unit.
 
                if ( LSAME( DIAG, 'N' ) ) {
-                  IDIAG = 1
+                  IDIAG = 1;
                } else {
-                  IDIAG = 2
+                  IDIAG = 2;
                }
 
 *+    TEST 1
                // Form the inverse of A.
 
                if (N > 0) CALL SCOPY( LAP, AP, 1, AINVP, 1 );
-               SRNAMT = 'STPTRI'
+               SRNAMT = 'STPTRI';
                stptri(UPLO, DIAG, N, AINVP, INFO );
 
                // Check error code from STPTRI.
@@ -127,12 +127,12 @@
 
                // Compute the infinity-norm condition number of A.
 
-               ANORM = SLANTP( 'I', UPLO, DIAG, N, AP, RWORK )
-               AINVNM = SLANTP( 'I', UPLO, DIAG, N, AINVP, RWORK )
+               ANORM = SLANTP( 'I', UPLO, DIAG, N, AP, RWORK );
+               AINVNM = SLANTP( 'I', UPLO, DIAG, N, AINVP, RWORK );
                if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                  RCONDI = ONE
+                  RCONDI = ONE;
                } else {
-                  RCONDI = ( ONE / ANORM ) / AINVNM
+                  RCONDI = ( ONE / ANORM ) / AINVNM;
                }
 
                // Compute the residual for the triangular matrix times its
@@ -144,36 +144,36 @@
 
                if ( RESULT( 1 ) >= THRESH ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 );
-                  NFAIL = NFAIL + 1
+                  NFAIL = NFAIL + 1;
                }
-               NRUN = NRUN + 1
+               NRUN = NRUN + 1;
 
                for (IRHS = 1; IRHS <= NNS; IRHS++) { // 40
-                  NRHS = NSVAL( IRHS )
-                  XTYPE = 'N'
+                  NRHS = NSVAL( IRHS );
+                  XTYPE = 'N';
 
                   for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 30
 
                   // Do for op(A) = A, A**T, or A**H.
 
-                     TRANS = TRANSS( ITRAN )
+                     TRANS = TRANSS( ITRAN );
                      if ( ITRAN == 1 ) {
-                        NORM = 'O'
-                        RCONDC = RCONDO
+                        NORM = 'O';
+                        RCONDC = RCONDO;
                      } else {
-                        NORM = 'I'
-                        RCONDC = RCONDI
+                        NORM = 'I';
+                        RCONDC = RCONDI;
                      }
 
 *+    TEST 2
                   // Solve and compute residual for op(A)*x = b.
 
-                     SRNAMT = 'SLARHS'
+                     SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO );
-                     XTYPE = 'C'
+                     XTYPE = 'C';
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'STPTRS'
+                     SRNAMT = 'STPTRS';
                      stptrs(UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO );
 
                   // Check error code from STPTRS.
@@ -191,7 +191,7 @@
                   // Use iterative refinement to improve the solution and
                   // compute error bounds.
 
-                     SRNAMT = 'STPRFS'
+                     SRNAMT = 'STPRFS';
                      stprfs(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO );
 
                   // Check error code from STPRFS.
@@ -207,10 +207,10 @@
                      for (K = 2; K <= 6; K++) { // 20
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 20
-                     NRUN = NRUN + 5
+                     NRUN = NRUN + 5;
                   } // 30
                } // 40
 
@@ -219,14 +219,14 @@
 
                for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 50
                   if ( ITRAN == 1 ) {
-                     NORM = 'O'
-                     RCONDC = RCONDO
+                     NORM = 'O';
+                     RCONDC = RCONDO;
                   } else {
-                     NORM = 'I'
-                     RCONDC = RCONDI
+                     NORM = 'I';
+                     RCONDC = RCONDI;
                   }
 
-                  SRNAMT = 'STPCON'
+                  SRNAMT = 'STPCON';
                   stpcon(NORM, UPLO, DIAG, N, AP, RCOND, WORK, IWORK, INFO );
 
                   // Check error code from STPCON.
@@ -239,9 +239,9 @@
 
                   if ( RESULT( 7 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'STPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 );
-                     NFAIL = NFAIL + 1
+                     NFAIL = NFAIL + 1;
                   }
-                  NRUN = NRUN + 1
+                  NRUN = NRUN + 1;
                } // 50
             } // 60
          } // 70
@@ -252,28 +252,28 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100;
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
-               UPLO = UPLOS( IUPLO )
+               UPLO = UPLOS( IUPLO );
                for (ITRAN = 1; ITRAN <= NTRAN; ITRAN++) { // 80
 
                   // Do for op(A) = A, A**T, or A**H.
 
-                  TRANS = TRANSS( ITRAN )
+                  TRANS = TRANSS( ITRAN );
 
                   // Call SLATTP to generate a triangular test matrix.
 
-                  SRNAMT = 'SLATTP'
+                  SRNAMT = 'SLATTP';
                   slattp(IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, INFO );
 
 *+    TEST 8
                   // Solve the system op(A)*x = b.
 
-                  SRNAMT = 'SLATPS'
+                  SRNAMT = 'SLATPS';
                   scopy(N, X, 1, B, 1 );
                   slatps(UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO );
 
@@ -300,13 +300,13 @@
 
                   if ( RESULT( 8 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
-                     NFAIL = NFAIL + 1
+                     NFAIL = NFAIL + 1;
                   }
                   if ( RESULT( 9 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
-                     NFAIL = NFAIL + 1
+                     NFAIL = NFAIL + 1;
                   }
-                  NRUN = NRUN + 2
+                  NRUN = NRUN + 2;
                } // 80
             } // 90
          } // 100
@@ -316,11 +316,11 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', type ', I2, ', test(', I2, ')= ', G12.5 )
- 9998 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ''', NRHS=', I5, ', type ', I2, ', test(', I2, ')= ', G12.5 )
- 9997 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ', ... ), type ', I2, ', test(', I2, ')=', G12.5 )
- 9996 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ', ... ), type ', I2, ', test(', I2, ')=', G12.5 )
-      RETURN
+ 9999 FORMAT( ' UPLO=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', type ', I2, ', test(', I2, ')= ', G12.5 );
+ 9998 FORMAT( ' UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ''', NRHS=', I5, ', type ', I2, ', test(', I2, ')= ', G12.5 );
+ 9997 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ', ... ), type ', I2, ', test(', I2, ')=', G12.5 );
+ 9996 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ''', A1, ''', ''', A1, ''',', I5, ', ... ), type ', I2, ', test(', I2, ')=', G12.5 );
+      RETURN;
 
       // End of SCHKTP
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DERRPS( PATH, NUNIT )
+      SUBROUTINE DERRPS( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,17 +39,17 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A( I, J ) = 1.0 / DBLE( I+J )
+            A( I, J ) = 1.0 / DBLE( I+J );
 
          } // 100
-         PIV( J ) = J
+         PIV( J ) = J;
          WORK( J ) = 0.0;
          WORK( NMAX+J ) = 0.0;
 
@@ -62,27 +62,27 @@
 
          // DPSTRF
 
-      SRNAMT = 'DPSTRF'
-      INFOT = 1
+      SRNAMT = 'DPSTRF';
+      INFOT = 1;
       dpstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dpstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       dpstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTRF', INFOT, NOUT, LERR, OK );
 
          // DPSTF2
 
-      SRNAMT = 'DPSTF2'
-      INFOT = 1
+      SRNAMT = 'DPSTF2';
+      INFOT = 1;
       dpstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       dpstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       dpstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('DPSTF2', INFOT, NOUT, LERR, OK );
 
@@ -91,7 +91,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of DERRPS
 

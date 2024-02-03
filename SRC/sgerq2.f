@@ -1,4 +1,4 @@
-      SUBROUTINE SGERQ2( M, N, A, LDA, TAU, WORK, INFO )
+      SUBROUTINE SGERQ2( M, N, A, LDA, TAU, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,18 +8,18 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, K;
-      REAL               AII
+      REAL               AII;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARF, SLARFG, XERBLA
@@ -31,22 +31,22 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('SGERQ2', -INFO );
-         RETURN
+         RETURN;
       }
 
-      K = MIN( M, N )
+      K = MIN( M, N );
 
-      DO 10 I = K, 1, -1
+      DO 10 I = K, 1, -1;
 
          // Generate elementary reflector H(i) to annihilate
          // A(m-k+i,1:n-k+i-1)
@@ -55,12 +55,12 @@
 
          // Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 
-         AII = A( M-K+I, N-K+I )
-         A( M-K+I, N-K+I ) = ONE
+         AII = A( M-K+I, N-K+I );
+         A( M-K+I, N-K+I ) = ONE;
          slarf('Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK );
-         A( M-K+I, N-K+I ) = AII
+         A( M-K+I, N-K+I ) = AII;
       } // 10
-      RETURN
+      RETURN;
 
       // End of SGERQ2
 

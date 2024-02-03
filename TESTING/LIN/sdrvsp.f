@@ -1,4 +1,4 @@
-      SUBROUTINE SDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
-      REAL               THRESH
+      REAL               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
-      REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES, NTESTS;
       const              NTYPES = 10, NTESTS = 6 ;
@@ -30,15 +30,15 @@
       String             DIST, FACT, PACKIT, TYPE, UPLO, XTYPE;
       String             PATH;
       int                I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NERRS, NFAIL, NIMAT, NPP, NRUN, NT;
-      REAL               AINVNM, ANORM, CNDNUM, RCOND, RCONDC
+      REAL               AINVNM, ANORM, CNDNUM, RCOND, RCONDC;
       // ..
       // .. Local Arrays ..
       String             FACTS( NFACT );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS )
+      REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SGET06, SLANSP
+      REAL               SGET06, SLANSP;
       // EXTERNAL SGET06, SLANSP
       // ..
       // .. External Subroutines ..
@@ -57,58 +57,58 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               FACTS / 'F', 'N' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               FACTS / 'F', 'N' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Single precision'
-      PATH( 2: 3 ) = 'SP'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Single precision';
+      PATH( 2: 3 ) = 'SP';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
-      LWORK = MAX( 2*NMAX, NMAX*NRHS )
+      LWORK = MAX( 2*NMAX, NMAX*NRHS );
 
       // Test the error exits
 
       if (TSTERR) CALL SERRVX( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         NPP = N*( N+1 ) / 2
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         NPP = N*( N+1 ) / 2;
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 170
+            IF( !DOTYPE( IMAT ) ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6
+            ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
                if ( IUPLO == 1 ) {
-                  UPLO = 'U'
-                  PACKIT = 'C'
+                  UPLO = 'U';
+                  PACKIT = 'C';
                } else {
-                  UPLO = 'L'
-                  PACKIT = 'R'
+                  UPLO = 'L';
+                  PACKIT = 'R';
                }
 
                // Set up parameters with SLATB4 and generate a test matrix
@@ -116,14 +116,14 @@
 
                slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'SLATMS'
+               SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS.
 
                if ( INFO != 0 ) {
                   alaerh(PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 160
+                  GO TO 160;
                }
 
                // For types 3-6, zero one or more rows and columns of the
@@ -131,11 +131,11 @@
 
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
-                     IZERO = 1
+                     IZERO = 1;
                   } else if ( IMAT == 4 ) {
-                     IZERO = N
+                     IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1
+                     IZERO = N / 2 + 1;
                   }
 
                   if ( IMAT < 6 ) {
@@ -143,74 +143,74 @@
                      // Set row and column IZERO to zero.
 
                      if ( IUPLO == 1 ) {
-                        IOFF = ( IZERO-1 )*IZERO / 2
+                        IOFF = ( IZERO-1 )*IZERO / 2;
                         for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A( IOFF+I ) = ZERO
+                           A( IOFF+I ) = ZERO;
                         } // 20
-                        IOFF = IOFF + IZERO
+                        IOFF = IOFF + IZERO;
                         for (I = IZERO; I <= N; I++) { // 30
-                           A( IOFF ) = ZERO
-                           IOFF = IOFF + I
+                           A( IOFF ) = ZERO;
+                           IOFF = IOFF + I;
                         } // 30
                      } else {
-                        IOFF = IZERO
+                        IOFF = IZERO;
                         for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A( IOFF ) = ZERO
-                           IOFF = IOFF + N - I
+                           A( IOFF ) = ZERO;
+                           IOFF = IOFF + N - I;
                         } // 40
-                        IOFF = IOFF - IZERO
+                        IOFF = IOFF - IZERO;
                         for (I = IZERO; I <= N; I++) { // 50
-                           A( IOFF+I ) = ZERO
+                           A( IOFF+I ) = ZERO;
                         } // 50
                      }
                   } else {
-                     IOFF = 0
+                     IOFF = 0;
                      if ( IUPLO == 1 ) {
 
                         // Set the first IZERO rows and columns to zero.
 
                         for (J = 1; J <= N; J++) { // 70
-                           I2 = MIN( J, IZERO )
+                           I2 = MIN( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 60
-                           IOFF = IOFF + J
+                           IOFF = IOFF + J;
                         } // 70
                      } else {
 
                         // Set the last IZERO rows and columns to zero.
 
                         for (J = 1; J <= N; J++) { // 90
-                           I1 = MAX( J, IZERO )
+                           I1 = MAX( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 80
-                           IOFF = IOFF + N - J
+                           IOFF = IOFF + N - J;
                         } // 90
                      }
                   }
                } else {
-                  IZERO = 0
+                  IZERO = 0;
                }
 
                for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 150
 
                   // Do first for FACT = 'F', then for other values.
 
-                  FACT = FACTS( IFACT )
+                  FACT = FACTS( IFACT );
 
                   // Compute the condition number for comparison with
                   // the value returned by SSPSVX.
 
                   if ( ZEROT ) {
                      if (IFACT == 1) GO TO 150;
-                     RCONDC = ZERO
+                     RCONDC = ZERO;
 
                   } else if ( IFACT == 1 ) {
 
                      // Compute the 1-norm of A.
 
-                     ANORM = SLANSP( '1', UPLO, N, A, RWORK )
+                     ANORM = SLANSP( '1', UPLO, N, A, RWORK );
 
                      // Factor the matrix A.
 
@@ -221,22 +221,22 @@
 
                      scopy(NPP, AFAC, 1, AINV, 1 );
                      ssptri(UPLO, N, AINV, IWORK, WORK, INFO );
-                     AINVNM = SLANSP( '1', UPLO, N, AINV, RWORK )
+                     AINVNM = SLANSP( '1', UPLO, N, AINV, RWORK );
 
                      // Compute the 1-norm condition number of A.
 
                      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                        RCONDC = ONE
+                        RCONDC = ONE;
                      } else {
-                        RCONDC = ( ONE / ANORM ) / AINVNM
+                        RCONDC = ( ONE / ANORM ) / AINVNM;
                      }
                   }
 
                   // Form an exact solution and set the right hand side.
 
-                  SRNAMT = 'SLARHS'
+                  SRNAMT = 'SLARHS';
                   slarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                  XTYPE = 'C'
+                  XTYPE = 'C';
 
                   // --- Test SSPSV  ---
 
@@ -246,23 +246,23 @@
 
                      // Factor the matrix and solve the system using SSPSV.
 
-                     SRNAMT = 'SSPSV '
+                     SRNAMT = 'SSPSV ';
                      sspsv(UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO );
 
                      // Adjust the expected value of INFO to account for
                      // pivoting.
 
-                     K = IZERO
+                     K = IZERO;
                      if ( K > 0 ) {
                         } // 100
                         if ( IWORK( K ) < 0 ) {
                            if ( IWORK( K ) != -K ) {
-                              K = -IWORK( K )
-                              GO TO 100
+                              K = -IWORK( K );
+                              GO TO 100;
                            }
                         } else if ( IWORK( K ) != K ) {
-                           K = IWORK( K )
-                           GO TO 100
+                           K = IWORK( K );
+                           GO TO 100;
                         }
                      }
 
@@ -270,9 +270,9 @@
 
                      if ( INFO != K ) {
                         alaerh(PATH, 'SSPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                        GO TO 120
+                        GO TO 120;
                      } else if ( INFO != 0 ) {
-                        GO TO 120
+                        GO TO 120;
                      }
 
                      // Reconstruct matrix from factors and compute
@@ -288,7 +288,7 @@
                      // Check solution from generated exact solution.
 
                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                     NT = 3
+                     NT = 3;
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -296,10 +296,10 @@
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SSPSV ', UPLO, N, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 110
-                     NRUN = NRUN + NT
+                     NRUN = NRUN + NT;
                      } // 120
                   }
 
@@ -311,23 +311,23 @@
                   // Solve the system and compute the condition number and
                   // error bounds using SSPSVX.
 
-                  SRNAMT = 'SSPSVX'
+                  SRNAMT = 'SSPSVX';
                   sspsvx(FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
 
-                  K = IZERO
+                  K = IZERO;
                   if ( K > 0 ) {
                      } // 130
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
-                           K = -IWORK( K )
-                           GO TO 130
+                           K = -IWORK( K );
+                           GO TO 130;
                         }
                      } else if ( IWORK( K ) != K ) {
-                        K = IWORK( K )
-                        GO TO 130
+                        K = IWORK( K );
+                        GO TO 130;
                      }
                   }
 
@@ -335,7 +335,7 @@
 
                   if ( INFO != K ) {
                      alaerh(PATH, 'SSPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                     GO TO 150
+                     GO TO 150;
                   }
 
                   if ( INFO == 0 ) {
@@ -345,9 +345,9 @@
                         // residual.
 
                         sspt01(UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
-                        K1 = 1
+                        K1 = 1;
                      } else {
-                        K1 = 2
+                        K1 = 2;
                      }
 
                      // Compute residual of the computed solution.
@@ -363,13 +363,13 @@
 
                      sppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                   } else {
-                     K1 = 6
+                     K1 = 6;
                   }
 
                   // Compare RCOND from SSPSVX with the computed value
                   // in RCONDC.
 
-                  RESULT( 6 ) = SGET06( RCOND, RCONDC )
+                  RESULT( 6 ) = SGET06( RCOND, RCONDC );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -377,10 +377,10 @@
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SSPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 140
-                  NRUN = NRUN + 7 - K1
+                  NRUN = NRUN + 7 - K1;
 
                } // 150
 
@@ -392,9 +392,9 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
- 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
-      RETURN
+ 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+ 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+      RETURN;
 
       // End of SDRVSP
 

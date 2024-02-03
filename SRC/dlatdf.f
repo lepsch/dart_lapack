@@ -1,4 +1,4 @@
-      SUBROUTINE DLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
+      SUBROUTINE DLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -49,23 +49,23 @@
 
          // Solve for L-part choosing RHS either to +1 or -1.
 
-         PMONE = -ONE
+         PMONE = -ONE;
 
          for (J = 1; J <= N - 1; J++) { // 10
-            BP = RHS( J ) + ONE
-            BM = RHS( J ) - ONE
-            SPLUS = ONE
+            BP = RHS( J ) + ONE;
+            BM = RHS( J ) - ONE;
+            SPLUS = ONE;
 
             // Look-ahead for L-part RHS(1:N-1) = + or -1, SPLUS and
             // SMIN computed more efficiently than in BSOLVE [1].
 
-            SPLUS = SPLUS + DDOT( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 )
-            SMINU = DDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 )
-            SPLUS = SPLUS*RHS( J )
+            SPLUS = SPLUS + DDOT( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 );
+            SMINU = DDOT( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 );
+            SPLUS = SPLUS*RHS( J );
             if ( SPLUS > SMINU ) {
-               RHS( J ) = BP
+               RHS( J ) = BP;
             } else if ( SMINU > SPLUS ) {
-               RHS( J ) = BM
+               RHS( J ) = BM;
             } else {
 
                // In this case the updating sums are equal and we can
@@ -74,13 +74,13 @@
                // get good estimates of matrices like Byers well-known
                // example (see [1]). (Not done in BSOLVE.)
 
-               RHS( J ) = RHS( J ) + PMONE
-               PMONE = ONE
+               RHS( J ) = RHS( J ) + PMONE;
+               PMONE = ONE;
             }
 
             // Compute the remaining r.h.s.
 
-            TEMP = -RHS( J )
+            TEMP = -RHS( J );
             daxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
 
          } // 10
@@ -91,20 +91,20 @@
          // and not to L. U(N, N) is an approximation to sigma_min(LU).
 
          dcopy(N-1, RHS, 1, XP, 1 );
-         XP( N ) = RHS( N ) + ONE
-         RHS( N ) = RHS( N ) - ONE
-         SPLUS = ZERO
-         SMINU = ZERO
-         DO 30 I = N, 1, -1
-            TEMP = ONE / Z( I, I )
-            XP( I ) = XP( I )*TEMP
-            RHS( I ) = RHS( I )*TEMP
+         XP( N ) = RHS( N ) + ONE;
+         RHS( N ) = RHS( N ) - ONE;
+         SPLUS = ZERO;
+         SMINU = ZERO;
+         DO 30 I = N, 1, -1;
+            TEMP = ONE / Z( I, I );
+            XP( I ) = XP( I )*TEMP;
+            RHS( I ) = RHS( I )*TEMP;
             for (K = I + 1; K <= N; K++) { // 20
-               XP( I ) = XP( I ) - XP( K )*( Z( I, K )*TEMP )
-               RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP )
+               XP( I ) = XP( I ) - XP( K )*( Z( I, K )*TEMP );
+               RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP );
             } // 20
-            SPLUS = SPLUS + ABS( XP( I ) )
-            SMINU = SMINU + ABS( RHS( I ) )
+            SPLUS = SPLUS + ABS( XP( I ) );
+            SMINU = SMINU + ABS( RHS( I ) );
          } // 30
          if (SPLUS > SMINU) CALL DCOPY( N, XP, 1, RHS, 1 );
 
@@ -126,14 +126,14 @@
          // Compute RHS
 
          dlaswp(1, XM, LDZ, 1, N-1, IPIV, -1 );
-         TEMP = ONE / SQRT( DDOT( N, XM, 1, XM, 1 ) )
+         TEMP = ONE / SQRT( DDOT( N, XM, 1, XM, 1 ) );
          dscal(N, TEMP, XM, 1 );
          dcopy(N, XM, 1, XP, 1 );
          daxpy(N, ONE, RHS, 1, XP, 1 );
          daxpy(N, -ONE, XM, 1, RHS, 1 );
          dgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          dgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         IF( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 )
+         IF( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 );
 
          // Compute the sum of squares
 
@@ -141,7 +141,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DLATDF
 

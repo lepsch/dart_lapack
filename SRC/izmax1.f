@@ -8,7 +8,7 @@
       int                INCX, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         ZX(*)
+      COMPLEX*16         ZX(*);
       // ..
 
 *  =====================================================================
@@ -22,37 +22,37 @@
       // ..
       // .. Executable Statements ..
 
-      IZMAX1 = 0
+      IZMAX1 = 0;
       if (N < 1 || INCX <= 0) RETURN;
-      IZMAX1 = 1
+      IZMAX1 = 1;
       if (N == 1) RETURN;
       if (INCX == 1) {
 
          // code for increment equal to 1
 
-         DMAX = ABS(ZX(1))
+         DMAX = ABS(ZX(1));
          for (I = 2; I <= N; I++) {
             if (ABS(ZX(I)) > DMAX) {
-               IZMAX1 = I
-               DMAX = ABS(ZX(I))
+               IZMAX1 = I;
+               DMAX = ABS(ZX(I));
             }
          }
       } else {
 
          // code for increment not equal to 1
 
-         IX = 1
-         DMAX = ABS(ZX(1))
-         IX = IX + INCX
+         IX = 1;
+         DMAX = ABS(ZX(1));
+         IX = IX + INCX;
          for (I = 2; I <= N; I++) {
             if (ABS(ZX(IX)) > DMAX) {
-               IZMAX1 = I
-               DMAX = ABS(ZX(IX))
+               IZMAX1 = I;
+               DMAX = ABS(ZX(IX));
             }
-            IX = IX + INCX
+            IX = IX + INCX;
          }
       }
-      RETURN
+      RETURN;
 
       // End of IZMAX1
 

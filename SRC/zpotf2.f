@@ -1,4 +1,4 @@
-      SUBROUTINE ZPOTF2( UPLO, N, A, LDA, INFO )
+      SUBROUTINE ZPOTF2( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -27,7 +27,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME, DISNAN;
-      COMPLEX*16         ZDOTC
+      COMPLEX*16         ZDOTC;
       // EXTERNAL LSAME, ZDOTC, DISNAN
       // ..
       // .. External Subroutines ..
@@ -40,18 +40,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZPOTF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -66,13 +66,13 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) )
+            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) );
             if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
-               A( J, J ) = AJJ
-               GO TO 30
+               A( J, J ) = AJJ;
+               GO TO 30;
             }
-            AJJ = SQRT( AJJ )
-            A( J, J ) = AJJ
+            AJJ = SQRT( AJJ );
+            A( J, J ) = AJJ;
 
             // Compute elements J+1:N of row J.
 
@@ -91,13 +91,13 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) )
+            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) );
             if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
-               A( J, J ) = AJJ
-               GO TO 30
+               A( J, J ) = AJJ;
+               GO TO 30;
             }
-            AJJ = SQRT( AJJ )
-            A( J, J ) = AJJ
+            AJJ = SQRT( AJJ );
+            A( J, J ) = AJJ;
 
             // Compute elements J+1:N of column J.
 
@@ -109,13 +109,13 @@
             }
          } // 20
       }
-      GO TO 40
+      GO TO 40;
 
       } // 30
-      INFO = J
+      INFO = J;
 
       } // 40
-      RETURN
+      RETURN;
 
       // End of ZPOTF2
 

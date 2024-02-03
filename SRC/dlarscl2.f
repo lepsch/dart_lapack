@@ -1,4 +1,4 @@
-      SUBROUTINE DLARSCL2 ( M, N, D, X, LDX )
+      SUBROUTINE DLARSCL2 ( M, N, D, X, LDX );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,9 +20,9 @@
 
       for (J = 1; J <= N; J++) {
          for (I = 1; I <= M; I++) {
-            X( I, J ) = X( I, J ) / D( I )
+            X( I, J ) = X( I, J ) / D( I );
          }
       }
 
-      RETURN
+      RETURN;
       }

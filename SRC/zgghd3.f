@@ -1,23 +1,23 @@
-      SUBROUTINE ZGGHD3( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE ZGGHD3( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             COMPQ, COMPZ;
       int                IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE, CZERO
+      COMPLEX*16         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -25,7 +25,7 @@
       String             COMPQ2, COMPZ2;
       int                COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ;
       double             C;
-      COMPLEX*16         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3
+      COMPLEX*16         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -42,47 +42,47 @@
 
       // Decode and test the input parameters.
 
-      INFO = 0
-      NB = ILAENV( 1, 'ZGGHD3', ' ', N, ILO, IHI, -1 )
-      NH = IHI - ILO + 1
+      INFO = 0;
+      NB = ILAENV( 1, 'ZGGHD3', ' ', N, ILO, IHI, -1 );
+      NH = IHI - ILO + 1;
       if ( NH <= 1 ) {
-         LWKOPT = 1
+         LWKOPT = 1;
       } else {
-         LWKOPT = 6*N*NB
+         LWKOPT = 6*N*NB;
       }
-      WORK( 1 ) = DCMPLX( LWKOPT )
-      INITQ = LSAME( COMPQ, 'I' )
-      WANTQ = INITQ || LSAME( COMPQ, 'V' )
-      INITZ = LSAME( COMPZ, 'I' )
-      WANTZ = INITZ || LSAME( COMPZ, 'V' )
-      LQUERY = ( LWORK == -1 )
+      WORK( 1 ) = DCMPLX( LWKOPT );
+      INITQ = LSAME( COMPQ, 'I' );
+      WANTQ = INITQ || LSAME( COMPQ, 'V' );
+      INITZ = LSAME( COMPZ, 'I' );
+      WANTZ = INITZ || LSAME( COMPZ, 'V' );
+      LQUERY = ( LWORK == -1 );
 
       if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ILO < 1 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( IHI > N || IHI < ILO-1 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( ( WANTQ && LDQ < N ) || LDQ < 1 ) {
-         INFO = -11
+         INFO = -11;
       } else if ( ( WANTZ && LDZ < N ) || LDZ < 1 ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -15
+         INFO = -15;
       }
       if ( INFO != 0 ) {
          xerbla('ZGGHD3', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Initialize Q and Z if desired.
@@ -96,18 +96,18 @@
       // Quick return if possible
 
       if ( NH <= 1 ) {
-         WORK( 1 ) = CONE
-         RETURN
+         WORK( 1 ) = CONE;
+         RETURN;
       }
 
       // Determine the blocksize.
 
-      NBMIN = ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 )
+      NBMIN = ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 );
       if ( NB > 1 && NB < NH ) {
 
          // Determine when to use unblocked instead of blocked code.
 
-         NX = MAX( NB, ILAENV( 3, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
+         NX = MAX( NB, ILAENV( 3, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) );
          if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code.
@@ -118,11 +118,11 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code.
 
-               NBMIN = MAX( 2, ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) );
                if ( LWORK >= 6*N*NBMIN ) {
-                  NB = LWORK / ( 6*N )
+                  NB = LWORK / ( 6*N );
                } else {
-                  NB = 1
+                  NB = 1;
                }
             }
          }
@@ -132,16 +132,16 @@
 
          // Use unblocked code below
 
-         JCOL = ILO
+         JCOL = ILO;
 
       } else {
 
          // Use blocked code
 
-         KACC22 = ILAENV( 16, 'ZGGHD3', ' ', N, ILO, IHI, -1 )
-         BLK22 = KACC22 == 2
-         DO JCOL = ILO, IHI-2, NB
-            NNB = MIN( NB, IHI-JCOL-1 )
+         KACC22 = ILAENV( 16, 'ZGGHD3', ' ', N, ILO, IHI, -1 );
+         BLK22 = KACC22 == 2;
+         DO JCOL = ILO, IHI-2, NB;
+            NNB = MIN( NB, IHI-JCOL-1 );
 
             // Initialize small unitary factors that will hold the
             // accumulated Givens rotations in workspace.
@@ -149,13 +149,13 @@
             // NBLST  denotes the (possibly smaller) order of the last
                    // factor.
 
-            N2NB = ( IHI-JCOL-1 ) / NNB - 1
-            NBLST = IHI - JCOL - N2NB*NNB
+            N2NB = ( IHI-JCOL-1 ) / NNB - 1;
+            NBLST = IHI - JCOL - N2NB*NNB;
             zlaset('All', NBLST, NBLST, CZERO, CONE, WORK, NBLST );
-            PW = NBLST * NBLST + 1
+            PW = NBLST * NBLST + 1;
             for (I = 1; I <= N2NB; I++) {
                zlaset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
-               PW = PW + 4*NNB*NNB
+               PW = PW + 4*NNB*NNB;
             }
 
             // Reduce columns JCOL:JCOL+NNB-1 of A to Hessenberg form.
@@ -165,113 +165,113 @@
                // Reduce Jth column of A. Store cosines and sines in Jth
                // column of A and B, respectively.
 
-               DO I = IHI, J+2, -1
-                  TEMP = A( I-1, J )
+               DO I = IHI, J+2, -1;
+                  TEMP = A( I-1, J );
                   zlartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
-                  A( I, J ) = DCMPLX( C )
-                  B( I, J ) = S
+                  A( I, J ) = DCMPLX( C );
+                  B( I, J ) = S;
                }
 
                // Accumulate Givens rotations into workspace array.
 
-               PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1
-               LEN  = 2 + J - JCOL
-               JROW = J + N2NB*NNB + 2
-               DO I = IHI, JROW, -1
-                  CTEMP = A( I, J )
-                  S = B( I, J )
+               PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1;
+               LEN  = 2 + J - JCOL;
+               JROW = J + N2NB*NNB + 2;
+               DO I = IHI, JROW, -1;
+                  CTEMP = A( I, J );
+                  S = B( I, J );
                   for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
-                     TEMP = WORK( JJ + NBLST )
-                     WORK( JJ + NBLST ) = CTEMP*TEMP - S*WORK( JJ )
-                     WORK( JJ ) = DCONJG( S )*TEMP + CTEMP*WORK( JJ )
+                     TEMP = WORK( JJ + NBLST );
+                     WORK( JJ + NBLST ) = CTEMP*TEMP - S*WORK( JJ );
+                     WORK( JJ ) = DCONJG( S )*TEMP + CTEMP*WORK( JJ );
                   }
-                  LEN = LEN + 1
-                  PPW = PPW - NBLST - 1
+                  LEN = LEN + 1;
+                  PPW = PPW - NBLST - 1;
                }
 
-               PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB
-               J0 = JROW - NNB
-               DO JROW = J0, J+2, -NNB
-                  PPW = PPWO
-                  LEN  = 2 + J - JCOL
-                  DO I = JROW+NNB-1, JROW, -1
-                     CTEMP = A( I, J )
-                     S = B( I, J )
+               PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB;
+               J0 = JROW - NNB;
+               DO JROW = J0, J+2, -NNB;
+                  PPW = PPWO;
+                  LEN  = 2 + J - JCOL;
+                  DO I = JROW+NNB-1, JROW, -1;
+                     CTEMP = A( I, J );
+                     S = B( I, J );
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
-                        TEMP = WORK( JJ + 2*NNB )
-                        WORK( JJ + 2*NNB ) = CTEMP*TEMP - S*WORK( JJ )
-                        WORK( JJ ) = DCONJG( S )*TEMP + CTEMP*WORK( JJ )
+                        TEMP = WORK( JJ + 2*NNB );
+                        WORK( JJ + 2*NNB ) = CTEMP*TEMP - S*WORK( JJ );
+                        WORK( JJ ) = DCONJG( S )*TEMP + CTEMP*WORK( JJ );
                      }
-                     LEN = LEN + 1
-                     PPW = PPW - 2*NNB - 1
+                     LEN = LEN + 1;
+                     PPW = PPW - 2*NNB - 1;
                   }
-                  PPWO = PPWO + 4*NNB*NNB
+                  PPWO = PPWO + 4*NNB*NNB;
                }
 
                // TOP denotes the number of top rows in A and B that will
                // not be updated during the next steps.
 
                if ( JCOL <= 2 ) {
-                  TOP = 0
+                  TOP = 0;
                } else {
-                  TOP = JCOL
+                  TOP = JCOL;
                }
 
                // Propagate transformations through B and replace stored
                // left sines/cosines by right sines/cosines.
 
-               DO JJ = N, J+1, -1
+               DO JJ = N, J+1, -1;
 
                   // Update JJth column of B.
 
-                  DO I = MIN( JJ+1, IHI ), J+2, -1
-                     CTEMP = A( I, J )
-                     S = B( I, J )
-                     TEMP = B( I, JJ )
-                     B( I, JJ ) = CTEMP*TEMP - DCONJG( S )*B( I-1, JJ )
-                     B( I-1, JJ ) = S*TEMP + CTEMP*B( I-1, JJ )
+                  DO I = MIN( JJ+1, IHI ), J+2, -1;
+                     CTEMP = A( I, J );
+                     S = B( I, J );
+                     TEMP = B( I, JJ );
+                     B( I, JJ ) = CTEMP*TEMP - DCONJG( S )*B( I-1, JJ );
+                     B( I-1, JJ ) = S*TEMP + CTEMP*B( I-1, JJ );
                   }
 
                   // Annihilate B( JJ+1, JJ ).
 
                   if ( JJ < IHI ) {
-                     TEMP = B( JJ+1, JJ+1 )
+                     TEMP = B( JJ+1, JJ+1 );
                      zlartg(TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) );
-                     B( JJ+1, JJ ) = CZERO
+                     B( JJ+1, JJ ) = CZERO;
                      zrot(JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S );
-                     A( JJ+1, J ) = DCMPLX( C )
-                     B( JJ+1, J ) = -DCONJG( S )
+                     A( JJ+1, J ) = DCMPLX( C );
+                     B( JJ+1, J ) = -DCONJG( S );
                   }
                }
 
                // Update A by transformations from right.
 
-               JJ = MOD( IHI-J-1, 3 )
-               DO I = IHI-J-3, JJ+1, -3
-                  CTEMP = A( J+1+I, J )
-                  S = -B( J+1+I, J )
-                  C1 = A( J+2+I, J )
-                  S1 = -B( J+2+I, J )
-                  C2 = A( J+3+I, J )
-                  S2 = -B( J+3+I, J )
+               JJ = MOD( IHI-J-1, 3 );
+               DO I = IHI-J-3, JJ+1, -3;
+                  CTEMP = A( J+1+I, J );
+                  S = -B( J+1+I, J );
+                  C1 = A( J+2+I, J );
+                  S1 = -B( J+2+I, J );
+                  C2 = A( J+3+I, J );
+                  S2 = -B( J+3+I, J );
 
                   for (K = TOP+1; K <= IHI; K++) {
-                     TEMP = A( K, J+I  )
-                     TEMP1 = A( K, J+I+1 )
-                     TEMP2 = A( K, J+I+2 )
-                     TEMP3 = A( K, J+I+3 )
-                     A( K, J+I+3 ) = C2*TEMP3 + DCONJG( S2 )*TEMP2
-                     TEMP2 = -S2*TEMP3 + C2*TEMP2
-                     A( K, J+I+2 ) = C1*TEMP2 + DCONJG( S1 )*TEMP1
-                     TEMP1 = -S1*TEMP2 + C1*TEMP1
-                     A( K, J+I+1 ) = CTEMP*TEMP1 + DCONJG( S )*TEMP
-                     A( K, J+I ) = -S*TEMP1 + CTEMP*TEMP
+                     TEMP = A( K, J+I  );
+                     TEMP1 = A( K, J+I+1 );
+                     TEMP2 = A( K, J+I+2 );
+                     TEMP3 = A( K, J+I+3 );
+                     A( K, J+I+3 ) = C2*TEMP3 + DCONJG( S2 )*TEMP2;
+                     TEMP2 = -S2*TEMP3 + C2*TEMP2;
+                     A( K, J+I+2 ) = C1*TEMP2 + DCONJG( S1 )*TEMP1;
+                     TEMP1 = -S1*TEMP2 + C1*TEMP1;
+                     A( K, J+I+1 ) = CTEMP*TEMP1 + DCONJG( S )*TEMP;
+                     A( K, J+I ) = -S*TEMP1 + CTEMP*TEMP;
                   }
                }
 
                if ( JJ > 0 ) {
-                  DO I = JJ, 1, -1
-                     C = DBLE( A( J+1+I, J ) )
+                  DO I = JJ, 1, -1;
+                     C = DBLE( A( J+1+I, J ) );
                      zrot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -DCONJG( B( J+1+I, J ) ) );
                   }
                }
@@ -279,7 +279,7 @@
                // Update (J+1)th column of A by transformations from left.
 
                if ( J < JCOL + NNB - 1 ) {
-                  LEN  = 1 + J - JCOL
+                  LEN  = 1 + J - JCOL;
 
                   // Multiply with the trailing accumulated unitary
                   // matrix, which takes the form
@@ -291,19 +291,19 @@
                   // where U21 is a LEN-by-LEN matrix and U12 is lower
                   // triangular.
 
-                  JROW = IHI - NBLST + 1
+                  JROW = IHI - NBLST + 1;
                   zgemv('Conjugate', NBLST, LEN, CONE, WORK, NBLST, A( JROW, J+1 ), 1, CZERO, WORK( PW ), 1 );
-                  PPW = PW + LEN
+                  PPW = PW + LEN;
                   for (I = JROW; I <= JROW+NBLST-LEN-1; I++) {
-                     WORK( PPW ) = A( I, J+1 )
-                     PPW = PPW + 1
+                     WORK( PPW ) = A( I, J+1 );
+                     PPW = PPW + 1;
                   }
                   ztrmv('Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 );
                   zgemv('Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
-                  PPW = PW
+                  PPW = PW;
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
-                     A( I, J+1 ) = WORK( PPW )
-                     PPW = PPW + 1
+                     A( I, J+1 ) = WORK( PPW );
+                     PPW = PPW + 1;
                   }
 
                   // Multiply with the other accumulated unitary
@@ -319,42 +319,42 @@
                   // matrix, U21 is a LEN-by-LEN upper triangular matrix
                   // and U12 is an NNB-by-NNB lower triangular matrix.
 
-                  PPWO = 1 + NBLST*NBLST
-                  J0 = JROW - NNB
-                  DO JROW = J0, JCOL+1, -NNB
-                     PPW = PW + LEN
+                  PPWO = 1 + NBLST*NBLST;
+                  J0 = JROW - NNB;
+                  DO JROW = J0, JCOL+1, -NNB;
+                     PPW = PW + LEN;
                      for (I = JROW; I <= JROW+NNB-1; I++) {
-                        WORK( PPW ) = A( I, J+1 )
-                        PPW = PPW + 1
+                        WORK( PPW ) = A( I, J+1 );
+                        PPW = PPW + 1;
                      }
-                     PPW = PW
+                     PPW = PW;
                      for (I = JROW+NNB; I <= JROW+NNB+LEN-1; I++) {
-                        WORK( PPW ) = A( I, J+1 )
-                        PPW = PPW + 1
+                        WORK( PPW ) = A( I, J+1 );
+                        PPW = PPW + 1;
                      }
                      ztrmv('Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 );
                      ztrmv('Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 );
                      zgemv('Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 );
                      zgemv('Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
-                     PPW = PW
+                     PPW = PW;
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
-                        A( I, J+1 ) = WORK( PPW )
-                        PPW = PPW + 1
+                        A( I, J+1 ) = WORK( PPW );
+                        PPW = PPW + 1;
                      }
-                     PPWO = PPWO + 4*NNB*NNB
+                     PPWO = PPWO + 4*NNB*NNB;
                   }
                }
             }
 
             // Apply accumulated unitary matrices to A.
 
-            COLA = N - JCOL - NNB + 1
-            J = IHI - NBLST + 1
+            COLA = N - JCOL - NNB + 1;
+            J = IHI - NBLST + 1;
             zgemm('Conjugate', 'No Transpose', NBLST, COLA, NBLST, CONE, WORK, NBLST, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), NBLST );
             zlacpy('All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA );
-            PPWO = NBLST*NBLST + 1
-            J0 = J - NNB
-            DO J = J0, JCOL+1, -NNB
+            PPWO = NBLST*NBLST + 1;
+            J0 = J - NNB;
+            DO J = J0, JCOL+1, -NNB;
                if ( BLK22 ) {
 
                   // Exploit the structure of
@@ -374,28 +374,28 @@
                   zgemm('Conjugate', 'No Transpose', 2*NNB, COLA, 2*NNB, CONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), 2*NNB );
                   zlacpy('All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA );
                }
-               PPWO = PPWO + 4*NNB*NNB
+               PPWO = PPWO + 4*NNB*NNB;
             }
 
             // Apply accumulated unitary matrices to Q.
 
             if ( WANTQ ) {
-               J = IHI - NBLST + 1
+               J = IHI - NBLST + 1;
                if ( INITQ ) {
-                  TOPQ = MAX( 2, J - JCOL + 1 )
-                  NH  = IHI - TOPQ + 1
+                  TOPQ = MAX( 2, J - JCOL + 1 );
+                  NH  = IHI - TOPQ + 1;
                } else {
-                  TOPQ = 1
-                  NH = N
+                  TOPQ = 1;
+                  NH = N;
                }
                zgemm('No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Q( TOPQ, J ), LDQ, WORK, NBLST, CZERO, WORK( PW ), NH );
                zlacpy('All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
-               PPWO = NBLST*NBLST + 1
-               J0 = J - NNB
-               DO J = J0, JCOL+1, -NNB
+               PPWO = NBLST*NBLST + 1;
+               J0 = J - NNB;
+               DO J = J0, JCOL+1, -NNB;
                   if ( INITQ ) {
-                     TOPQ = MAX( 2, J - JCOL + 1 )
-                     NH  = IHI - TOPQ + 1
+                     TOPQ = MAX( 2, J - JCOL + 1 );
+                     NH  = IHI - TOPQ + 1;
                   }
                   if ( BLK22 ) {
 
@@ -409,7 +409,7 @@
                      zgemm('No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH );
                      zlacpy('All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                   }
-                  PPWO = PPWO + 4*NNB*NNB
+                  PPWO = PPWO + 4*NNB*NNB;
                }
             }
 
@@ -421,51 +421,51 @@
                // accumulated Givens rotations in workspace.
 
                zlaset('All', NBLST, NBLST, CZERO, CONE, WORK, NBLST );
-               PW = NBLST * NBLST + 1
+               PW = NBLST * NBLST + 1;
                for (I = 1; I <= N2NB; I++) {
                   zlaset('All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB );
-                  PW = PW + 4*NNB*NNB
+                  PW = PW + 4*NNB*NNB;
                }
 
                // Accumulate Givens rotations into workspace array.
 
                for (J = JCOL; J <= JCOL+NNB-1; J++) {
-                  PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1
-                  LEN  = 2 + J - JCOL
-                  JROW = J + N2NB*NNB + 2
-                  DO I = IHI, JROW, -1
-                     CTEMP = A( I, J )
-                     A( I, J ) = CZERO
-                     S = B( I, J )
-                     B( I, J ) = CZERO
+                  PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1;
+                  LEN  = 2 + J - JCOL;
+                  JROW = J + N2NB*NNB + 2;
+                  DO I = IHI, JROW, -1;
+                     CTEMP = A( I, J );
+                     A( I, J ) = CZERO;
+                     S = B( I, J );
+                     B( I, J ) = CZERO;
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
-                        TEMP = WORK( JJ + NBLST )
-                        WORK( JJ + NBLST ) = CTEMP*TEMP - DCONJG( S )*WORK( JJ )
-                        WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ )
+                        TEMP = WORK( JJ + NBLST );
+                        WORK( JJ + NBLST ) = CTEMP*TEMP - DCONJG( S )*WORK( JJ );
+                        WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ );
                      }
-                     LEN = LEN + 1
-                     PPW = PPW - NBLST - 1
+                     LEN = LEN + 1;
+                     PPW = PPW - NBLST - 1;
                   }
 
-                  PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB
-                  J0 = JROW - NNB
-                  DO JROW = J0, J+2, -NNB
-                     PPW = PPWO
-                     LEN  = 2 + J - JCOL
-                     DO I = JROW+NNB-1, JROW, -1
-                        CTEMP = A( I, J )
-                        A( I, J ) = CZERO
-                        S = B( I, J )
-                        B( I, J ) = CZERO
+                  PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB;
+                  J0 = JROW - NNB;
+                  DO JROW = J0, J+2, -NNB;
+                     PPW = PPWO;
+                     LEN  = 2 + J - JCOL;
+                     DO I = JROW+NNB-1, JROW, -1;
+                        CTEMP = A( I, J );
+                        A( I, J ) = CZERO;
+                        S = B( I, J );
+                        B( I, J ) = CZERO;
                         for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
-                           TEMP = WORK( JJ + 2*NNB )
-                           WORK( JJ + 2*NNB ) = CTEMP*TEMP - DCONJG( S )*WORK( JJ )
-                           WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ )
+                           TEMP = WORK( JJ + 2*NNB );
+                           WORK( JJ + 2*NNB ) = CTEMP*TEMP - DCONJG( S )*WORK( JJ );
+                           WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ );
                         }
-                        LEN = LEN + 1
-                        PPW = PPW - 2*NNB - 1
+                        LEN = LEN + 1;
+                        PPW = PPW - 2*NNB - 1;
                      }
-                     PPWO = PPWO + 4*NNB*NNB
+                     PPWO = PPWO + 4*NNB*NNB;
                   }
                }
             } else {
@@ -477,12 +477,12 @@
             // Apply accumulated unitary matrices to A and B.
 
             if ( TOP > 0 ) {
-               J = IHI - NBLST + 1
+               J = IHI - NBLST + 1;
                zgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, A( 1, J ), LDA, WORK, NBLST, CZERO, WORK( PW ), TOP );
                zlacpy('All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA );
-               PPWO = NBLST*NBLST + 1
-               J0 = J - NNB
-               DO J = J0, JCOL+1, -NNB
+               PPWO = NBLST*NBLST + 1;
+               J0 = J - NNB;
+               DO J = J0, JCOL+1, -NNB;
                   if ( BLK22 ) {
 
                      // Exploit the structure of U.
@@ -495,15 +495,15 @@
                      zgemm('No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP );
                      zlacpy('All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA );
                   }
-                  PPWO = PPWO + 4*NNB*NNB
+                  PPWO = PPWO + 4*NNB*NNB;
                }
 
-               J = IHI - NBLST + 1
+               J = IHI - NBLST + 1;
                zgemm('No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, B( 1, J ), LDB, WORK, NBLST, CZERO, WORK( PW ), TOP );
                zlacpy('All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB );
-               PPWO = NBLST*NBLST + 1
-               J0 = J - NNB
-               DO J = J0, JCOL+1, -NNB
+               PPWO = NBLST*NBLST + 1;
+               J0 = J - NNB;
+               DO J = J0, JCOL+1, -NNB;
                   if ( BLK22 ) {
 
                      // Exploit the structure of U.
@@ -516,29 +516,29 @@
                      zgemm('No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP );
                      zlacpy('All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB );
                   }
-                  PPWO = PPWO + 4*NNB*NNB
+                  PPWO = PPWO + 4*NNB*NNB;
                }
             }
 
             // Apply accumulated unitary matrices to Z.
 
             if ( WANTZ ) {
-               J = IHI - NBLST + 1
+               J = IHI - NBLST + 1;
                if ( INITQ ) {
-                  TOPQ = MAX( 2, J - JCOL + 1 )
-                  NH  = IHI - TOPQ + 1
+                  TOPQ = MAX( 2, J - JCOL + 1 );
+                  NH  = IHI - TOPQ + 1;
                } else {
-                  TOPQ = 1
-                  NH = N
+                  TOPQ = 1;
+                  NH = N;
                }
                zgemm('No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Z( TOPQ, J ), LDZ, WORK, NBLST, CZERO, WORK( PW ), NH );
                zlacpy('All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
-               PPWO = NBLST*NBLST + 1
-               J0 = J - NNB
-               DO J = J0, JCOL+1, -NNB
+               PPWO = NBLST*NBLST + 1;
+               J0 = J - NNB;
+               DO J = J0, JCOL+1, -NNB;
                      if ( INITQ ) {
-                     TOPQ = MAX( 2, J - JCOL + 1 )
-                     NH  = IHI - TOPQ + 1
+                     TOPQ = MAX( 2, J - JCOL + 1 );
+                     NH  = IHI - TOPQ + 1;
                   }
                   if ( BLK22 ) {
 
@@ -552,7 +552,7 @@
                      zgemm('No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH );
                      zlacpy('All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                   }
-                  PPWO = PPWO + 4*NNB*NNB
+                  PPWO = PPWO + 4*NNB*NNB;
                }
             }
          }
@@ -561,17 +561,17 @@
       // Use unblocked code to reduce the rest of the matrix
       // Avoid re-initialization of modified Q and Z.
 
-      COMPQ2 = COMPQ
-      COMPZ2 = COMPZ
+      COMPQ2 = COMPQ;
+      COMPZ2 = COMPZ;
       if ( JCOL != ILO ) {
          if (WANTQ) COMPQ2 = 'V'          IF ( WANTZ ) COMPZ2 = 'V';
       }
 
       if (JCOL < IHI) CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
-      WORK( 1 ) = DCMPLX( LWKOPT )
+      WORK( 1 ) = DCMPLX( LWKOPT );
 
-      RETURN
+      RETURN;
 
       // End of ZGGHD3
 

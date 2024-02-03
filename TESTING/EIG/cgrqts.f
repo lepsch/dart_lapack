@@ -1,4 +1,4 @@
-      SUBROUTINE CGRQTS( M, P, N, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CGRQTS( M, P, N, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,26 +8,26 @@
       int                LDA, LDB, LWORK, M, P, N;
       // ..
       // .. Array Arguments ..
-      REAL               RESULT( 4 ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ),  Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK )
+      REAL               RESULT( 4 ), RWORK( * );
+      COMPLEX            A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ),  Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      COMPLEX            CROGUE
+      COMPLEX            CROGUE;
       const              CROGUE = ( -1.0e+10, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, ULP, UNFL, RESID
+      REAL               ANORM, BNORM, ULP, UNFL, RESID;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, CLANGE, CLANHE
+      REAL               SLAMCH, CLANGE, CLANHE;
       // EXTERNAL SLAMCH, CLANGE, CLANHE
       // ..
       // .. External Subroutines ..
@@ -38,16 +38,16 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = SLAMCH( 'Precision' )
-      UNFL = SLAMCH( 'Safe minimum' )
+      ULP = SLAMCH( 'Precision' );
+      UNFL = SLAMCH( 'Safe minimum' );
 
       // Copy the matrix A to the array AF.
 
       clacpy('Full', M, N, A, LDA, AF, LDA );
       clacpy('Full', P, N, B, LDB, BF, LDB );
 
-      ANORM = MAX( CLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( CLANGE( '1', P, N, B, LDB, RWORK ), UNFL )
+      ANORM = MAX( CLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( CLANGE( '1', P, N, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -90,11 +90,11 @@
 
       // Compute norm( R - A*Q' ) / ( MAX(M,N)*norm(A)*ULP ) .
 
-      RESID = CLANGE( '1', M, N, R, LDA, RWORK )
+      RESID = CLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL(MAX(1,M,N) ) ) / ANORM ) / ULP
+         RESULT( 1 ) = ( ( RESID / REAL(MAX(1,M,N) ) ) / ANORM ) / ULP;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute T*Q - Z'*B
@@ -103,11 +103,11 @@
 
       // Compute norm( T*Q - Z'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
-      RESID = CLANGE( '1', P, N, BWK, LDB, RWORK )
+      RESID = CLANGE( '1', P, N, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / REAL( MAX( 1,P,M ) ) )/BNORM ) / ULP
+         RESULT( 2 ) = ( ( RESID / REAL( MAX( 1,P,M ) ) )/BNORM ) / ULP;
       } else {
-         RESULT( 2 ) = ZERO
+         RESULT( 2 ) = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -117,8 +117,8 @@
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      RESID = CLANHE( '1', 'Upper', N, R, LDA, RWORK )
-      RESULT( 3 ) = ( RESID / REAL( MAX( 1,N ) ) ) / ULP
+      RESID = CLANHE( '1', 'Upper', N, R, LDA, RWORK );
+      RESULT( 3 ) = ( RESID / REAL( MAX( 1,N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -127,10 +127,10 @@
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      RESID = CLANHE( '1', 'Upper', P, T, LDB, RWORK )
-      RESULT( 4 ) = ( RESID / REAL( MAX( 1,P ) ) ) / ULP
+      RESID = CLANHE( '1', 'Upper', P, T, LDB, RWORK );
+      RESULT( 4 ) = ( RESID / REAL( MAX( 1,P ) ) ) / ULP;
 
-      RETURN
+      RETURN;
 
       // End of CGRQTS
 

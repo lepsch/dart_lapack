@@ -25,20 +25,20 @@
       // ..
       // .. Executable Statements ..
 
-      HUGEVAL = DLAMCH( 'Overflow' )
-      XABS = ABS( X )
-      YABS = ABS( Y )
-      ZABS = ABS( Z )
-      W = MAX( XABS, YABS, ZABS )
+      HUGEVAL = DLAMCH( 'Overflow' );
+      XABS = ABS( X );
+      YABS = ABS( Y );
+      ZABS = ABS( Z );
+      W = MAX( XABS, YABS, ZABS );
       if ( W == ZERO || W > HUGEVAL ) {
       // W can be zero for max(0,nan,0)
       // adding all three entries together will make sure
       // NaN will not disappear.
-         DLAPY3 =  XABS + YABS + ZABS
+         DLAPY3 =  XABS + YABS + ZABS;
       } else {
-         DLAPY3 = W*SQRT( ( XABS / W )**2+( YABS / W )**2+ ( ZABS / W )**2 )
+         DLAPY3 = W*SQRT( ( XABS / W )**2+( YABS / W )**2+ ( ZABS / W )**2 );
       }
-      RETURN
+      RETURN;
 
       // End of DLAPY3
 

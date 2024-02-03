@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
+      SUBROUTINE ZLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,7 +7,7 @@
       // .. Scalar Arguments ..
       bool               UPPER;
       double             A1, A3, B1, B3, CSQ, CSU, CSV;
-      COMPLEX*16         A2, B2, SNQ, SNU, SNV
+      COMPLEX*16         A2, B2, SNQ, SNU, SNV;
       // ..
 
 *  =====================================================================
@@ -18,7 +18,7 @@
       // ..
       // .. Local Scalars ..
       double             A, AUA11, AUA12, AUA21, AUA22, AVB12, AVB11, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R;
-      COMPLEX*16         B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
+      COMPLEX*16         B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22;
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASV2, ZLARTG
@@ -30,7 +30,7 @@
       double             ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( T ) = ABS( DBLE( T ) ) + ABS( DIMAG( T ) )
+      ABS1( T ) = ABS( DBLE( T ) ) + ABS( DIMAG( T ) );
       // ..
       // .. Executable Statements ..
 
@@ -41,15 +41,15 @@
          // Form matrix C = A*adj(B) = ( a b )
                                     // ( 0 d )
 
-         A = A1*B3
-         D = A3*B1
-         B = A2*B1 - A1*B2
-         FB = ABS( B )
+         A = A1*B3;
+         D = A3*B1;
+         B = A2*B1 - A1*B2;
+         FB = ABS( B );
 
          // Transform complex 2-by-2 matrix C to real matrix by unitary
          // diagonal matrix diag(1,D1).
 
-         D1 = ONE
+         D1 = ONE;
          if (FB != ZERO) D1 = B / FB;
 
          // The SVD of real 2 by 2 triangular C
@@ -64,14 +64,14 @@
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,2) element of |U|**H *|A| and |V|**H *|B|.
 
-            UA11R = CSL*A1
-            UA12 = CSL*A2 + D1*SNL*A3
+            UA11R = CSL*A1;
+            UA12 = CSL*A2 + D1*SNL*A3;
 
-            VB11R = CSR*B1
-            VB12 = CSR*B2 + D1*SNR*B3
+            VB11R = CSR*B1;
+            VB12 = CSR*B2 + D1*SNR*B3;
 
-            AUA12 = ABS( CSL )*ABS1( A2 ) + ABS( SNL )*ABS( A3 )
-            AVB12 = ABS( CSR )*ABS1( B2 ) + ABS( SNR )*ABS( B3 )
+            AUA12 = ABS( CSL )*ABS1( A2 ) + ABS( SNL )*ABS( A3 );
+            AVB12 = ABS( CSR )*ABS1( B2 ) + ABS( SNR )*ABS( B3 );
 
             // zero (1,2) elements of U**H *A and V**H *B
 
@@ -84,24 +84,24 @@
                zlartg(-DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R );
             }
 
-            CSU = CSL
-            SNU = -D1*SNL
-            CSV = CSR
-            SNV = -D1*SNR
+            CSU = CSL;
+            SNU = -D1*SNL;
+            CSV = CSR;
+            SNV = -D1*SNR;
 
          } else {
 
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,2) element of |U|**H *|A| and |V|**H *|B|.
 
-            UA21 = -DCONJG( D1 )*SNL*A1
-            UA22 = -DCONJG( D1 )*SNL*A2 + CSL*A3
+            UA21 = -DCONJG( D1 )*SNL*A1;
+            UA22 = -DCONJG( D1 )*SNL*A2 + CSL*A3;
 
-            VB21 = -DCONJG( D1 )*SNR*B1
-            VB22 = -DCONJG( D1 )*SNR*B2 + CSR*B3
+            VB21 = -DCONJG( D1 )*SNR*B1;
+            VB22 = -DCONJG( D1 )*SNR*B2 + CSR*B3;
 
-            AUA22 = ABS( SNL )*ABS1( A2 ) + ABS( CSL )*ABS( A3 )
-            AVB22 = ABS( SNR )*ABS1( B2 ) + ABS( CSR )*ABS( B3 )
+            AUA22 = ABS( SNL )*ABS1( A2 ) + ABS( CSL )*ABS( A3 );
+            AVB22 = ABS( SNR )*ABS1( B2 ) + ABS( CSR )*ABS( B3 );
 
             // zero (2,2) elements of U**H *A and V**H *B, and then swap.
 
@@ -114,10 +114,10 @@
                zlartg(-DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R );
             }
 
-            CSU = SNL
-            SNU = D1*CSL
-            CSV = SNR
-            SNV = D1*CSR
+            CSU = SNL;
+            SNU = D1*CSL;
+            CSV = SNR;
+            SNV = D1*CSR;
 
          }
 
@@ -128,15 +128,15 @@
          // Form matrix C = A*adj(B) = ( a 0 )
                                     // ( c d )
 
-         A = A1*B3
-         D = A3*B1
-         C = A2*B3 - A3*B2
-         FC = ABS( C )
+         A = A1*B3;
+         D = A3*B1;
+         C = A2*B3 - A3*B2;
+         FC = ABS( C );
 
          // Transform complex 2-by-2 matrix C to real matrix by unitary
          // diagonal matrix diag(d1,1).
 
-         D1 = ONE
+         D1 = ONE;
          if (FC != ZERO) D1 = C / FC;
 
          // The SVD of real 2 by 2 triangular C
@@ -151,14 +151,14 @@
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,1) element of |U|**H *|A| and |V|**H *|B|.
 
-            UA21 = -D1*SNR*A1 + CSR*A2
-            UA22R = CSR*A3
+            UA21 = -D1*SNR*A1 + CSR*A2;
+            UA22R = CSR*A3;
 
-            VB21 = -D1*SNL*B1 + CSL*B2
-            VB22R = CSL*B3
+            VB21 = -D1*SNL*B1 + CSL*B2;
+            VB22R = CSL*B3;
 
-            AUA21 = ABS( SNR )*ABS( A1 ) + ABS( CSR )*ABS1( A2 )
-            AVB21 = ABS( SNL )*ABS( B1 ) + ABS( CSL )*ABS1( B2 )
+            AUA21 = ABS( SNR )*ABS( A1 ) + ABS( CSR )*ABS1( A2 );
+            AVB21 = ABS( SNL )*ABS( B1 ) + ABS( CSL )*ABS1( B2 );
 
             // zero (2,1) elements of U**H *A and V**H *B.
 
@@ -172,24 +172,24 @@
                zlartg(DCMPLX( VB22R ), VB21, CSQ, SNQ, R );
             }
 
-            CSU = CSR
-            SNU = -DCONJG( D1 )*SNR
-            CSV = CSL
-            SNV = -DCONJG( D1 )*SNL
+            CSU = CSR;
+            SNU = -DCONJG( D1 )*SNR;
+            CSV = CSL;
+            SNV = -DCONJG( D1 )*SNL;
 
          } else {
 
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,1) element of |U|**H *|A| and |V|**H *|B|.
 
-            UA11 = CSR*A1 + DCONJG( D1 )*SNR*A2
-            UA12 = DCONJG( D1 )*SNR*A3
+            UA11 = CSR*A1 + DCONJG( D1 )*SNR*A2;
+            UA12 = DCONJG( D1 )*SNR*A3;
 
-            VB11 = CSL*B1 + DCONJG( D1 )*SNL*B2
-            VB12 = DCONJG( D1 )*SNL*B3
+            VB11 = CSL*B1 + DCONJG( D1 )*SNL*B2;
+            VB12 = DCONJG( D1 )*SNL*B3;
 
-            AUA11 = ABS( CSR )*ABS( A1 ) + ABS( SNR )*ABS1( A2 )
-            AVB11 = ABS( CSL )*ABS( B1 ) + ABS( SNL )*ABS1( B2 )
+            AUA11 = ABS( CSR )*ABS( A1 ) + ABS( SNR )*ABS1( A2 );
+            AVB11 = ABS( CSL )*ABS( B1 ) + ABS( SNL )*ABS1( B2 );
 
             // zero (1,1) elements of U**H *A and V**H *B, and then swap.
 
@@ -203,16 +203,16 @@
                zlartg(VB12, VB11, CSQ, SNQ, R );
             }
 
-            CSU = SNR
-            SNU = DCONJG( D1 )*CSR
-            CSV = SNL
-            SNV = DCONJG( D1 )*CSL
+            CSU = SNR;
+            SNU = DCONJG( D1 )*CSR;
+            CSV = SNL;
+            SNV = DCONJG( D1 )*CSL;
 
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLAGS2
 

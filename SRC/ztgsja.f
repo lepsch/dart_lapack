@@ -1,4 +1,4 @@
-      SUBROUTINE ZTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
+      SUBROUTINE ZTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             ALPHA( * ), BETA( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -21,7 +21,7 @@
       const              MAXIT = 40 ;
       double             ZERO, ONE, HUGENUM;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
       double             A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN;
-      COMPLEX*16         A2, B2, SNQ, SNU, SNV
+      COMPLEX*16         A2, B2, SNQ, SNU, SNV;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -46,42 +46,42 @@
 
       // Decode and test the input parameters
 
-      INITU = LSAME( JOBU, 'I' )
-      WANTU = INITU || LSAME( JOBU, 'U' )
+      INITU = LSAME( JOBU, 'I' );
+      WANTU = INITU || LSAME( JOBU, 'U' );
 
-      INITV = LSAME( JOBV, 'I' )
-      WANTV = INITV || LSAME( JOBV, 'V' )
+      INITV = LSAME( JOBV, 'I' );
+      WANTV = INITV || LSAME( JOBV, 'V' );
 
-      INITQ = LSAME( JOBQ, 'I' )
-      WANTQ = INITQ || LSAME( JOBQ, 'Q' )
+      INITQ = LSAME( JOBQ, 'I' );
+      WANTQ = INITQ || LSAME( JOBQ, 'Q' );
 
-      INFO = 0
+      INFO = 0;
       if ( !( INITU || WANTU || LSAME( JOBU, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( INITV || WANTV || LSAME( JOBV, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( INITQ || WANTQ || LSAME( JOBQ, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( P < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( N < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDB < MAX( 1, P ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
-         INFO = -18
+         INFO = -18;
       } else if ( LDV < 1 || ( WANTV && LDV < P ) ) {
-         INFO = -20
+         INFO = -20;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -22
+         INFO = -22;
       }
       if ( INFO != 0 ) {
          xerbla('ZTGSJA', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize U, V and Q, if necessary
@@ -93,25 +93,25 @@
       UPPER = false;
       for (KCYCLE = 1; KCYCLE <= MAXIT; KCYCLE++) { // 40
 
-         UPPER = !UPPER
+         UPPER = !UPPER;
 
          for (I = 1; I <= L - 1; I++) { // 20
             for (J = I + 1; J <= L; J++) { // 10
 
-               A1 = ZERO
-               A2 = CZERO
-               A3 = ZERO
+               A1 = ZERO;
+               A2 = CZERO;
+               A3 = ZERO;
                if (K+I <= M) A1 = DBLE( A( K+I, N-L+I ) )                IF( K+J <= M ) A3 = DBLE( A( K+J, N-L+J ) );
 
-               B1 = DBLE( B( I, N-L+I ) )
-               B3 = DBLE( B( J, N-L+J ) )
+               B1 = DBLE( B( I, N-L+I ) );
+               B3 = DBLE( B( J, N-L+J ) );
 
                if ( UPPER ) {
                   if (K+I <= M) A2 = A( K+I, N-L+J );
-                  B2 = B( I, N-L+J )
+                  B2 = B( I, N-L+J );
                } else {
                   if (K+J <= M) A2 = A( K+J, N-L+I );
-                  B2 = B( J, N-L+I )
+                  B2 = B( J, N-L+I );
                }
 
                zlags2(UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ );
@@ -133,17 +133,17 @@
 
                if ( UPPER ) {
                   if (K+I <= M) A( K+I, N-L+J ) = CZERO;
-                  B( I, N-L+J ) = CZERO
+                  B( I, N-L+J ) = CZERO;
                } else {
                   if (K+J <= M) A( K+J, N-L+I ) = CZERO;
-                  B( J, N-L+I ) = CZERO
+                  B( J, N-L+I ) = CZERO;
                }
 
                // Ensure that the diagonal elements of A and B are real.
 
                if (K+I <= M) A( K+I, N-L+I ) = DBLE( A( K+I, N-L+I ) )                IF( K+J <= M ) A( K+J, N-L+J ) = DBLE( A( K+J, N-L+J ) );
-               B( I, N-L+I ) = DBLE( B( I, N-L+I ) )
-               B( J, N-L+J ) = DBLE( B( J, N-L+J ) )
+               B( I, N-L+I ) = DBLE( B( I, N-L+I ) );
+               B( J, N-L+J ) = DBLE( B( J, N-L+J ) );
 
                // Update unitary matrices U, V, Q, if desired.
 
@@ -164,15 +164,15 @@
             // Convergence test: test the parallelism of the corresponding
             // rows of A and B.
 
-            ERROR = ZERO
-            DO 30 I = 1, MIN( L, M-K )
+            ERROR = ZERO;
+            DO 30 I = 1, MIN( L, M-K );
                zcopy(L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 );
                zcopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
                zlapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
-               ERROR = MAX( ERROR, SSMIN )
+               ERROR = MAX( ERROR, SSMIN );
             } // 30
 
-            IF( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50
+            IF( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50;
          }
 
          // End of cycle loop
@@ -181,8 +181,8 @@
 
       // The algorithm has not converged after MAXIT cycles.
 
-      INFO = 1
-      GO TO 100
+      INFO = 1;
+      GO TO 100;
 
       } // 50
 
@@ -191,15 +191,15 @@
       // set the triangular matrix R to array A.
 
       for (I = 1; I <= K; I++) { // 60
-         ALPHA( I ) = ONE
-         BETA( I ) = ZERO
+         ALPHA( I ) = ONE;
+         BETA( I ) = ZERO;
       } // 60
 
-      DO 70 I = 1, MIN( L, M-K )
+      DO 70 I = 1, MIN( L, M-K );
 
-         A1 = DBLE( A( K+I, N-L+I ) )
-         B1 = DBLE( B( I, N-L+I ) )
-         GAMMA = B1 / A1
+         A1 = DBLE( A( K+I, N-L+I ) );
+         B1 = DBLE( B( I, N-L+I ) );
+         GAMMA = B1 / A1;
 
          if ( (GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM) ) {
 
@@ -219,8 +219,8 @@
 
          } else {
 
-            ALPHA( K+I ) = ZERO
-            BETA( K+I ) = ONE
+            ALPHA( K+I ) = ZERO;
+            BETA( K+I ) = ONE;
             zcopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
          }
       } // 70
@@ -228,21 +228,21 @@
       // Post-assignment
 
       for (I = M + 1; I <= K + L; I++) { // 80
-         ALPHA( I ) = ZERO
-         BETA( I ) = ONE
+         ALPHA( I ) = ZERO;
+         BETA( I ) = ONE;
       } // 80
 
       if ( K+L < N ) {
          for (I = K + L + 1; I <= N; I++) { // 90
-            ALPHA( I ) = ZERO
-            BETA( I ) = ZERO
+            ALPHA( I ) = ZERO;
+            BETA( I ) = ZERO;
          } // 90
       }
 
       } // 100
-      NCYCLE = KCYCLE
+      NCYCLE = KCYCLE;
 
-      RETURN
+      RETURN;
 
       // End of ZTGSJA
 

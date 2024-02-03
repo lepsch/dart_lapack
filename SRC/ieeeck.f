@@ -6,63 +6,63 @@
 
       // .. Scalar Arguments ..
       int                ISPEC;
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
-      REAL               NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF, NEGZRO, NEWZRO, POSINF
+      REAL               NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF, NEGZRO, NEWZRO, POSINF;
       // ..
       // .. Executable Statements ..
-      IEEECK = 1
+      IEEECK = 1;
 
-      POSINF = ONE / ZERO
+      POSINF = ONE / ZERO;
       if ( POSINF <= ONE ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      NEGINF = -ONE / ZERO
+      NEGINF = -ONE / ZERO;
       if ( NEGINF >= ZERO ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      NEGZRO = ONE / ( NEGINF+ONE )
+      NEGZRO = ONE / ( NEGINF+ONE );
       if ( NEGZRO != ZERO ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      NEGINF = ONE / NEGZRO
+      NEGINF = ONE / NEGZRO;
       if ( NEGINF >= ZERO ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      NEWZRO = NEGZRO + ZERO
+      NEWZRO = NEGZRO + ZERO;
       if ( NEWZRO != ZERO ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      POSINF = ONE / NEWZRO
+      POSINF = ONE / NEWZRO;
       if ( POSINF <= ONE ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      NEGINF = NEGINF*POSINF
+      NEGINF = NEGINF*POSINF;
       if ( NEGINF >= ZERO ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      POSINF = POSINF*POSINF
+      POSINF = POSINF*POSINF;
       if ( POSINF <= ONE ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
 
@@ -72,47 +72,47 @@
 
       if (ISPEC == 0) RETURN;
 
-      NAN1 = POSINF + NEGINF
+      NAN1 = POSINF + NEGINF;
 
-      NAN2 = POSINF / NEGINF
+      NAN2 = POSINF / NEGINF;
 
-      NAN3 = POSINF / POSINF
+      NAN3 = POSINF / POSINF;
 
-      NAN4 = POSINF*ZERO
+      NAN4 = POSINF*ZERO;
 
-      NAN5 = NEGINF*NEGZRO
+      NAN5 = NEGINF*NEGZRO;
 
-      NAN6 = NAN5*ZERO
+      NAN6 = NAN5*ZERO;
 
       if ( NAN1 == NAN1 ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
       if ( NAN2 == NAN2 ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
       if ( NAN3 == NAN3 ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
       if ( NAN4 == NAN4 ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
       if ( NAN5 == NAN5 ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
       if ( NAN6 == NAN6 ) {
-         IEEECK = 0
-         RETURN
+         IEEECK = 0;
+         RETURN;
       }
 
-      RETURN
+      RETURN;
       }

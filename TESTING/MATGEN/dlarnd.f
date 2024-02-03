@@ -33,26 +33,26 @@
 
       // Generate a real random number from a uniform (0,1) distribution
 
-      T1 = DLARAN( ISEED )
+      T1 = DLARAN( ISEED );
 
       if ( IDIST == 1 ) {
 
          // uniform (0,1)
 
-         DLARND = T1
+         DLARND = T1;
       } else if ( IDIST == 2 ) {
 
          // uniform (-1,1)
 
-         DLARND = TWO*T1 - ONE
+         DLARND = TWO*T1 - ONE;
       } else if ( IDIST == 3 ) {
 
          // normal (0,1)
 
-         T2 = DLARAN( ISEED )
-         DLARND = SQRT( -TWO*LOG( T1 ) )*COS( TWOPI*T2 )
+         T2 = DLARAN( ISEED );
+         DLARND = SQRT( -TWO*LOG( T1 ) )*COS( TWOPI*T2 );
       }
-      RETURN
+      RETURN;
 
       // End of DLARND
 

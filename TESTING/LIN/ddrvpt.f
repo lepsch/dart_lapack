@@ -1,4 +1,4 @@
-      SUBROUTINE DDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT )
+      SUBROUTINE DDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -57,67 +57,67 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 0, 0, 0, 1 /
+      DATA               ISEEDY / 0, 0, 0, 1 /;
       // ..
       // .. Executable Statements ..
 
       PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'PT'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 2: 3 ) = 'PT';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL DERRVX( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
 
          // Do for each value of N in NVAL.
 
-         N = NVAL( IN )
-         LDA = MAX( 1, N )
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( 1, N );
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N > 0 && !DOTYPE( IMAT ) ) GO TO 110
+            IF( N > 0 && !DOTYPE( IMAT ) ) GO TO 110;
 
             // Set up parameters with DLATB4.
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT >= 8 && IMAT <= 10
+            ZEROT = IMAT >= 8 && IMAT <= 10;
             if ( IMAT <= 6 ) {
 
                // Type 1-6:  generate a symmetric tridiagonal matrix of
                // known condition number in lower triangular band storage.
 
-               SRNAMT = 'DLATMS'
+               SRNAMT = 'DLATMS';
                dlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO );
 
                // Check the error code from DLATMS.
 
                if ( INFO != 0 ) {
                   alaerh(PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 110
+                  GO TO 110;
                }
-               IZERO = 0
+               IZERO = 0;
 
                // Copy the matrix to D and E.
 
-               IA = 1
+               IA = 1;
                for (I = 1; I <= N - 1; I++) { // 20
-                  D( I ) = A( IA )
-                  E( I ) = A( IA+1 )
-                  IA = IA + 2
+                  D( I ) = A( IA );
+                  E( I ) = A( IA+1 );
+                  IA = IA + 2;
                } // 20
                if (N > 0) D( N ) = A( IA );
             } else {
@@ -135,19 +135,19 @@
                   // Make the tridiagonal matrix diagonally dominant.
 
                   if ( N == 1 ) {
-                     D( 1 ) = ABS( D( 1 ) )
+                     D( 1 ) = ABS( D( 1 ) );
                   } else {
-                     D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
-                     D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
+                     D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) );
+                     D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) );
                      for (I = 2; I <= N - 1; I++) { // 30
-                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
+                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) );
                      } // 30
                   }
 
                   // Scale D and E so the maximum element is ANORM.
 
-                  IX = IDAMAX( N, D, 1 )
-                  DMAX = D( IX )
+                  IX = IDAMAX( N, D, 1 );
+                  DMAX = D( IX );
                   dscal(N, ANORM / DMAX, D, 1 );
                   if (N > 1) CALL DSCAL( N-1, ANORM / DMAX, E, 1 );
 
@@ -157,57 +157,57 @@
                   // elements.
 
                   if ( IZERO == 1 ) {
-                     D( 1 ) = Z( 2 )
+                     D( 1 ) = Z( 2 );
                      if (N > 1) E( 1 ) = Z( 3 );
                   } else if ( IZERO == N ) {
-                     E( N-1 ) = Z( 1 )
-                     D( N ) = Z( 2 )
+                     E( N-1 ) = Z( 1 );
+                     D( N ) = Z( 2 );
                   } else {
-                     E( IZERO-1 ) = Z( 1 )
-                     D( IZERO ) = Z( 2 )
-                     E( IZERO ) = Z( 3 )
+                     E( IZERO-1 ) = Z( 1 );
+                     D( IZERO ) = Z( 2 );
+                     E( IZERO ) = Z( 3 );
                   }
                }
 
                // For types 8-10, set one row and column of the matrix to
                // zero.
 
-               IZERO = 0
+               IZERO = 0;
                if ( IMAT == 8 ) {
-                  IZERO = 1
-                  Z( 2 ) = D( 1 )
-                  D( 1 ) = ZERO
+                  IZERO = 1;
+                  Z( 2 ) = D( 1 );
+                  D( 1 ) = ZERO;
                   if ( N > 1 ) {
-                     Z( 3 ) = E( 1 )
-                     E( 1 ) = ZERO
+                     Z( 3 ) = E( 1 );
+                     E( 1 ) = ZERO;
                   }
                } else if ( IMAT == 9 ) {
-                  IZERO = N
+                  IZERO = N;
                   if ( N > 1 ) {
-                     Z( 1 ) = E( N-1 )
-                     E( N-1 ) = ZERO
+                     Z( 1 ) = E( N-1 );
+                     E( N-1 ) = ZERO;
                   }
-                  Z( 2 ) = D( N )
-                  D( N ) = ZERO
+                  Z( 2 ) = D( N );
+                  D( N ) = ZERO;
                } else if ( IMAT == 10 ) {
-                  IZERO = ( N+1 ) / 2
+                  IZERO = ( N+1 ) / 2;
                   if ( IZERO > 1 ) {
-                     Z( 1 ) = E( IZERO-1 )
-                     Z( 3 ) = E( IZERO )
-                     E( IZERO-1 ) = ZERO
-                     E( IZERO ) = ZERO
+                     Z( 1 ) = E( IZERO-1 );
+                     Z( 3 ) = E( IZERO );
+                     E( IZERO-1 ) = ZERO;
+                     E( IZERO ) = ZERO;
                   }
-                  Z( 2 ) = D( IZERO )
-                  D( IZERO ) = ZERO
+                  Z( 2 ) = D( IZERO );
+                  D( IZERO ) = ZERO;
                }
             }
 
             // Generate NRHS random solution vectors.
 
-            IX = 1
+            IX = 1;
             for (J = 1; J <= NRHS; J++) { // 40
                dlarnv(2, ISEED, N, XACT( IX ) );
-               IX = IX + LDA
+               IX = IX + LDA;
             } // 40
 
             // Set the right hand side.
@@ -216,9 +216,9 @@
 
             for (IFACT = 1; IFACT <= 2; IFACT++) { // 100
                if ( IFACT == 1 ) {
-                  FACT = 'F'
+                  FACT = 'F';
                } else {
-                  FACT = 'N'
+                  FACT = 'N';
                }
 
                // Compute the condition number for comparison with
@@ -226,13 +226,13 @@
 
                if ( ZEROT ) {
                   if (IFACT == 1) GO TO 100;
-                  RCONDC = ZERO
+                  RCONDC = ZERO;
 
                } else if ( IFACT == 1 ) {
 
                   // Compute the 1-norm of A.
 
-                  ANORM = DLANST( '1', N, D, E )
+                  ANORM = DLANST( '1', N, D, E );
 
                   dcopy(N, D, 1, D( N+1 ), 1 );
                   if (N > 1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
@@ -244,22 +244,22 @@
                   // Use DPTTRS to solve for one column at a time of
                   // inv(A), computing the maximum column sum as we go.
 
-                  AINVNM = ZERO
+                  AINVNM = ZERO;
                   for (I = 1; I <= N; I++) { // 60
                      for (J = 1; J <= N; J++) { // 50
-                        X( J ) = ZERO
+                        X( J ) = ZERO;
                      } // 50
-                     X( I ) = ONE
+                     X( I ) = ONE;
                      dpttrs(N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
-                     AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
+                     AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) );
                   } // 60
 
                   // Compute the 1-norm condition number of A.
 
                   if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-                     RCONDC = ONE
+                     RCONDC = ONE;
                   } else {
-                     RCONDC = ( ONE / ANORM ) / AINVNM
+                     RCONDC = ( ONE / ANORM ) / AINVNM;
                   }
                }
 
@@ -273,13 +273,13 @@
 
                   // Factor A as L*D*L' and solve the system A*X = B.
 
-                  SRNAMT = 'DPTSV '
+                  SRNAMT = 'DPTSV ';
                   dptsv(N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO );
 
                   // Check error code from DPTSV .
 
                   if (INFO != IZERO) CALL ALAERH( PATH, 'DPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
-                  NT = 0
+                  NT = 0;
                   if ( IZERO == 0 ) {
 
                      // Check the factorization by computing the ratio
@@ -295,7 +295,7 @@
                      // Check solution from generated exact solution.
 
                      dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                     NT = 3
+                     NT = 3;
                   }
 
                   // Print information about the tests that did not pass
@@ -304,10 +304,10 @@
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DPTSV ', N, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 70
-                  NRUN = NRUN + NT
+                  NRUN = NRUN + NT;
                }
 
                // --- Test DPTSVX ---
@@ -317,8 +317,8 @@
                   // Initialize D( N+1:2*N ) and E( N+1:2*N ) to zero.
 
                   for (I = 1; I <= N - 1; I++) { // 80
-                     D( N+I ) = ZERO
-                     E( N+I ) = ZERO
+                     D( N+I ) = ZERO;
+                     E( N+I ) = ZERO;
                   } // 80
                   if (N > 0) D( N+N ) = ZERO;
                }
@@ -328,7 +328,7 @@
                // Solve the system and compute the condition number and
                // error bounds using DPTSVX.
 
-               SRNAMT = 'DPTSVX'
+               SRNAMT = 'DPTSVX';
                dptsvx(FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, INFO );
 
                // Check the error code from DPTSVX.
@@ -340,10 +340,10 @@
                      // Check the factorization by computing the ratio
                         // norm(L*D*L' - A) / (n * norm(A) * EPS )
 
-                     K1 = 1
+                     K1 = 1;
                      dptt01(N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) );
                   } else {
-                     K1 = 2
+                     K1 = 2;
                   }
 
                   // Compute the residual in the solution.
@@ -359,12 +359,12 @@
 
                   dptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
                } else {
-                  K1 = 6
+                  K1 = 6;
                }
 
                // Check the reciprocal of the condition number.
 
-               RESULT( 6 ) = DGET06( RCOND, RCONDC )
+               RESULT( 6 ) = DGET06( RCOND, RCONDC );
 
                // Print information about the tests that did not pass
                // the threshold.
@@ -372,10 +372,10 @@
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DPTSVX', FACT, N, IMAT, K, RESULT( K );
-                     NFAIL = NFAIL + 1
+                     NFAIL = NFAIL + 1;
                   }
                } // 90
-               NRUN = NRUN + 7 - K1
+               NRUN = NRUN + 7 - K1;
             } // 100
          } // 110
       } // 120
@@ -384,9 +384,9 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
- 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 )
-      RETURN
+ 9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 );
+ 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio = ', G12.5 );
+      RETURN;
 
       // End of DDRVPT
 

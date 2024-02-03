@@ -1,4 +1,4 @@
-      SUBROUTINE DGTTRF( N, DL, D, DU, DU2, IPIV, INFO )
+      SUBROUTINE DGTTRF( N, DL, D, DU, DU2, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,11 +30,11 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
          xerbla('DGTTRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -44,10 +44,10 @@
       // Initialize IPIV(i) = i and DU2(I) = 0
 
       for (I = 1; I <= N; I++) { // 10
-         IPIV( I ) = I
+         IPIV( I ) = I;
       } // 10
       for (I = 1; I <= N - 2; I++) { // 20
-         DU2( I ) = ZERO
+         DU2( I ) = ZERO;
       } // 20
 
       for (I = 1; I <= N - 2; I++) { // 30
@@ -56,41 +56,41 @@
             // No row interchange required, eliminate DL(I)
 
             if ( D( I ) != ZERO ) {
-               FACT = DL( I ) / D( I )
-               DL( I ) = FACT
-               D( I+1 ) = D( I+1 ) - FACT*DU( I )
+               FACT = DL( I ) / D( I );
+               DL( I ) = FACT;
+               D( I+1 ) = D( I+1 ) - FACT*DU( I );
             }
          } else {
 
             // Interchange rows I and I+1, eliminate DL(I)
 
-            FACT = D( I ) / DL( I )
-            D( I ) = DL( I )
-            DL( I ) = FACT
-            TEMP = DU( I )
-            DU( I ) = D( I+1 )
-            D( I+1 ) = TEMP - FACT*D( I+1 )
-            DU2( I ) = DU( I+1 )
-            DU( I+1 ) = -FACT*DU( I+1 )
-            IPIV( I ) = I + 1
+            FACT = D( I ) / DL( I );
+            D( I ) = DL( I );
+            DL( I ) = FACT;
+            TEMP = DU( I );
+            DU( I ) = D( I+1 );
+            D( I+1 ) = TEMP - FACT*D( I+1 );
+            DU2( I ) = DU( I+1 );
+            DU( I+1 ) = -FACT*DU( I+1 );
+            IPIV( I ) = I + 1;
          }
       } // 30
       if ( N > 1 ) {
-         I = N - 1
+         I = N - 1;
          if ( ABS( D( I ) ) >= ABS( DL( I ) ) ) {
             if ( D( I ) != ZERO ) {
-               FACT = DL( I ) / D( I )
-               DL( I ) = FACT
-               D( I+1 ) = D( I+1 ) - FACT*DU( I )
+               FACT = DL( I ) / D( I );
+               DL( I ) = FACT;
+               D( I+1 ) = D( I+1 ) - FACT*DU( I );
             }
          } else {
-            FACT = D( I ) / DL( I )
-            D( I ) = DL( I )
-            DL( I ) = FACT
-            TEMP = DU( I )
-            DU( I ) = D( I+1 )
-            D( I+1 ) = TEMP - FACT*D( I+1 )
-            IPIV( I ) = I + 1
+            FACT = D( I ) / DL( I );
+            D( I ) = DL( I );
+            DL( I ) = FACT;
+            TEMP = DU( I );
+            DU( I ) = D( I+1 );
+            D( I+1 ) = TEMP - FACT*D( I+1 );
+            IPIV( I ) = I + 1;
          }
       }
 
@@ -98,13 +98,13 @@
 
       for (I = 1; I <= N; I++) { // 40
          if ( D( I ) == ZERO ) {
-            INFO = I
-            GO TO 50
+            INFO = I;
+            GO TO 50;
          }
       } // 40
       } // 50
 
-      RETURN
+      RETURN;
 
       // End of DGTTRF
 

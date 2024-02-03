@@ -1,4 +1,4 @@
-      SUBROUTINE CSPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE CSPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDC, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * )
-      COMPLEX            A( * ), AFAC( * ), C( LDC, * )
+      REAL               RWORK( * );
+      COMPLEX            A( * ), AFAC( * ), C( LDC, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, JC;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANSP, CLANSY, SLAMCH
+      REAL               CLANSP, CLANSY, SLAMCH;
       // EXTERNAL LSAME, CLANSP, CLANSY, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -43,14 +43,14 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANSP( '1', UPLO, N, A, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANSP( '1', UPLO, N, A, RWORK );
 
       // Initialize C to the identity matrix.
 
@@ -67,34 +67,34 @@
       // Compute the difference  C - A .
 
       if ( LSAME( UPLO, 'U' ) ) {
-         JC = 0
+         JC = 0;
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               C( I, J ) = C( I, J ) - A( JC+I )
+               C( I, J ) = C( I, J ) - A( JC+I );
             } // 10
-            JC = JC + J
+            JC = JC + J;
          } // 20
       } else {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= N; I++) { // 30
-               C( I, J ) = C( I, J ) - A( JC+I-J )
+               C( I, J ) = C( I, J ) - A( JC+I-J );
             } // 30
-            JC = JC + N - J + 1
+            JC = JC + N - J + 1;
          } // 40
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK )
+      RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
+         RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of CSPT01
 

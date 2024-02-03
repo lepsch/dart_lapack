@@ -1,4 +1,4 @@
-      SUBROUTINE DTPMQRT( SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO )
+      SUBROUTINE DTPMQRT( SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -33,46 +33,46 @@
 
       // .. Test the input arguments ..
 
-      INFO   = 0
-      LEFT   = LSAME( SIDE,  'L' )
-      RIGHT  = LSAME( SIDE,  'R' )
-      TRAN   = LSAME( TRANS, 'T' )
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO   = 0;
+      LEFT   = LSAME( SIDE,  'L' );
+      RIGHT  = LSAME( SIDE,  'R' );
+      TRAN   = LSAME( TRANS, 'T' );
+      NOTRAN = LSAME( TRANS, 'N' );
 
       if ( LEFT ) {
-         LDVQ = MAX( 1, M )
-         LDAQ = MAX( 1, K )
+         LDVQ = MAX( 1, M );
+         LDAQ = MAX( 1, K );
       } else if ( RIGHT ) {
-         LDVQ = MAX( 1, N )
-         LDAQ = MAX( 1, M )
+         LDVQ = MAX( 1, N );
+         LDAQ = MAX( 1, M );
       }
       if ( !LEFT && !RIGHT ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !TRAN && !NOTRAN ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( K < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( L < 0 || L > K ) {
-         INFO = -6
+         INFO = -6;
       } else if ( NB < 1 || (NB > K && K > 0) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDV < LDVQ ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDT < NB ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDA < LDAQ ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDB < MAX( 1, M ) ) {
-         INFO = -15
+         INFO = -15;
       }
 
       if ( INFO != 0 ) {
          xerbla('DTPMQRT', -INFO );
-         RETURN
+         RETURN;
       }
 
       // .. Quick return if possible ..
@@ -81,61 +81,61 @@
 
       if ( LEFT && TRAN ) {
 
-         DO I = 1, K, NB
-            IB = MIN( NB, K-I+1 )
-            MB = MIN( M-L+I+IB-1, M )
+         DO I = 1, K, NB;
+            IB = MIN( NB, K-I+1 );
+            MB = MIN( M-L+I+IB-1, M );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = MB-M+L-I+1
+               LB = MB-M+L-I+1;
             }
             dtprfb('L', 'T', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          }
 
       } else if ( RIGHT && NOTRAN ) {
 
-         DO I = 1, K, NB
-            IB = MIN( NB, K-I+1 )
-            MB = MIN( N-L+I+IB-1, N )
+         DO I = 1, K, NB;
+            IB = MIN( NB, K-I+1 );
+            MB = MIN( N-L+I+IB-1, N );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = MB-N+L-I+1
+               LB = MB-N+L-I+1;
             }
             dtprfb('R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          }
 
       } else if ( LEFT && NOTRAN ) {
 
-         KF = ((K-1)/NB)*NB+1
-         DO I = KF, 1, -NB
-            IB = MIN( NB, K-I+1 )
-            MB = MIN( M-L+I+IB-1, M )
+         KF = ((K-1)/NB)*NB+1;
+         DO I = KF, 1, -NB;
+            IB = MIN( NB, K-I+1 );
+            MB = MIN( M-L+I+IB-1, M );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = MB-M+L-I+1
+               LB = MB-M+L-I+1;
             }
             dtprfb('L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          }
 
       } else if ( RIGHT && TRAN ) {
 
-         KF = ((K-1)/NB)*NB+1
-         DO I = KF, 1, -NB
-            IB = MIN( NB, K-I+1 )
-            MB = MIN( N-L+I+IB-1, N )
+         KF = ((K-1)/NB)*NB+1;
+         DO I = KF, 1, -NB;
+            IB = MIN( NB, K-I+1 );
+            MB = MIN( N-L+I+IB-1, N );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = MB-N+L-I+1
+               LB = MB-N+L-I+1;
             }
             dtprfb('R', 'T', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DTPMQRT
 

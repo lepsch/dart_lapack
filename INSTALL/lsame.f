@@ -20,20 +20,20 @@
 
       // Test if the characters are equal
 
-      LSAME = CA == CB
+      LSAME = CA == CB;
       if (LSAME) RETURN;
 
       // Now test for equivalence if both characters are alphabetic.
 
-      ZCODE = ICHAR( 'Z' )
+      ZCODE = ICHAR( 'Z' );
 
       // Use 'Z' rather than 'A' so that ASCII can be detected on Prime
       // machines, on which ICHAR returns a value with bit 8 set.
       // ICHAR('A') on Prime machines returns 193 which is the same as
       // ICHAR('A') on an EBCDIC machine.
 
-      INTA = ICHAR( CA )
-      INTB = ICHAR( CB )
+      INTA = ICHAR( CA );
+      INTB = ICHAR( CB );
 
       if ( ZCODE == 90 || ZCODE == 122 ) {
 
@@ -58,7 +58,7 @@
          if (INTA >= 225 && INTA <= 250) INTA = INTA - 32;
          if (INTB >= 225 && INTB <= 250) INTB = INTB - 32;
       }
-      LSAME = INTA == INTB
+      LSAME = INTA == INTB;
 
       // RETURN
 

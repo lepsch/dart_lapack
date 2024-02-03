@@ -1,4 +1,4 @@
-      SUBROUTINE DLAED9( K, KSTART, KSTOP, N, D, Q, LDQ, RHO, DLAMBDA, W, S, LDS, INFO )
+      SUBROUTINE DLAED9( K, KSTART, KSTOP, N, D, Q, LDQ, RHO, DLAMBDA, W, S, LDS, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,24 +32,24 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
 
       if ( K < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( KSTART < 1 || KSTART > MAX( 1, K ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( MAX( 1, KSTOP ) < KSTART || KSTOP > MAX( 1, K ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < K ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDQ < MAX( 1, K ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDS < MAX( 1, K ) ) {
-         INFO = -12
+         INFO = -12;
       }
       if ( INFO != 0 ) {
          xerbla('DLAED9', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -67,10 +67,10 @@
       if ( K == 1 || K == 2 ) {
          for (I = 1; I <= K; I++) { // 40
             for (J = 1; J <= K; J++) { // 30
-               S( J, I ) = Q( J, I )
+               S( J, I ) = Q( J, I );
             } // 30
          } // 40
-         GO TO 120
+         GO TO 120;
       }
 
       // Compute updated W.
@@ -82,30 +82,30 @@
       dcopy(K, Q, LDQ+1, W, 1 );
       for (J = 1; J <= K; J++) { // 70
          for (I = 1; I <= J - 1; I++) { // 50
-            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
+            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) );
          } // 50
          for (I = J + 1; I <= K; I++) { // 60
-            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
+            W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) );
          } // 60
       } // 70
       for (I = 1; I <= K; I++) { // 80
-         W( I ) = SIGN( SQRT( -W( I ) ), S( I, 1 ) )
+         W( I ) = SIGN( SQRT( -W( I ) ), S( I, 1 ) );
       } // 80
 
       // Compute eigenvectors of the modified rank-1 modification.
 
       for (J = 1; J <= K; J++) { // 110
          for (I = 1; I <= K; I++) { // 90
-            Q( I, J ) = W( I ) / Q( I, J )
+            Q( I, J ) = W( I ) / Q( I, J );
          } // 90
-         TEMP = DNRM2( K, Q( 1, J ), 1 )
+         TEMP = DNRM2( K, Q( 1, J ), 1 );
          for (I = 1; I <= K; I++) { // 100
-            S( I, J ) = Q( I, J ) / TEMP
+            S( I, J ) = Q( I, J ) / TEMP;
          } // 100
       } // 110
 
       } // 120
-      RETURN
+      RETURN;
 
       // End of DLAED9
 

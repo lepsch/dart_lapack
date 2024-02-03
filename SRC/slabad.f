@@ -1,11 +1,11 @@
-      SUBROUTINE SLABAD( SMALL, LARGE )
+      SUBROUTINE SLABAD( SMALL, LARGE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               LARGE, SMALL
+      REAL               LARGE, SMALL;
       // ..
 
 *  =====================================================================
@@ -23,7 +23,7 @@
           // LARGE = SQRT( LARGE )
        // END IF
 
-      RETURN
+      RETURN;
 
       // End of SLABAD
 

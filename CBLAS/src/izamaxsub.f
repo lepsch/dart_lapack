@@ -1,10 +1,10 @@
-      subroutine izamaxsub(n,x,incx,iamax)
+      subroutine izamaxsub(n,x,incx,iamax);
 
       // external izamax
       int      izamax,iamax;
       int     n,incx;
-      double complex x(*)
+      double complex x(*);
 
-      iamax=izamax(n,x,incx)
-      return
-      end
+      iamax=izamax(n,x,incx);
+      return;
+      end;

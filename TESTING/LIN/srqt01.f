@@ -1,4 +1,4 @@
-      SUBROUTINE SRQT01( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE SRQT01( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,23 +8,23 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE
+      REAL               ROGUE;
       const              ROGUE = -1.0e+10 ;
       // ..
       // .. Local Scalars ..
       int                INFO, MINMN;
-      REAL               ANORM, EPS, RESID
+      REAL               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY
+      REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -41,8 +41,8 @@
       // ..
       // .. Executable Statements ..
 
-      MINMN = MIN( M, N )
-      EPS = SLAMCH( 'Epsilon' )
+      MINMN = MIN( M, N );
+      EPS = SLAMCH( 'Epsilon' );
 
       // Copy the matrix A to the array AF.
 
@@ -50,7 +50,7 @@
 
       // Factorize the matrix A in the array AF.
 
-      SRNAMT = 'SGERQF'
+      SRNAMT = 'SGERQF';
       sgerqf(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
@@ -64,7 +64,7 @@
 
       // Generate the n-by-n matrix Q
 
-      SRNAMT = 'SORGRQ'
+      SRNAMT = 'SORGRQ';
       sorgrq(N, N, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
@@ -82,12 +82,12 @@
 
       // Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 
-      ANORM = SLANGE( '1', M, N, A, LDA, RWORK )
-      RESID = SLANGE( '1', M, N, R, LDA, RWORK )
+      ANORM = SLANGE( '1', M, N, A, LDA, RWORK );
+      RESID = SLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, N ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q*Q'
@@ -97,11 +97,11 @@
 
       // Compute norm( I - Q*Q' ) / ( N * EPS ) .
 
-      RESID = SLANSY( '1', 'Upper', N, R, LDA, RWORK )
+      RESID = SLANSY( '1', 'Upper', N, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / REAL( MAX( 1, N ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of SRQT01
 

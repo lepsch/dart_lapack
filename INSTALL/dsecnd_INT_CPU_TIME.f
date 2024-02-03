@@ -8,7 +8,7 @@
 
       // .. Local Scalars ..
 
-      REAL T
+      REAL T;
 
 * .. Intrinsic Functions ..
 
@@ -17,8 +17,8 @@
 * .. Executable Statements .. *
 
       cpu_time(T );
-      DSECND = T
-      RETURN
+      DSECND = T;
+      RETURN;
 
       // End of DSECND
 

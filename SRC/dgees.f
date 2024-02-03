@@ -1,4 +1,4 @@
-      SUBROUTINE DGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, WR, WI, VS, LDVS, WORK, LWORK, BWORK, INFO )
+      SUBROUTINE DGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, WR, WI, VS, LDVS, WORK, LWORK, BWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -48,20 +48,20 @@
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
-      WANTVS = LSAME( JOBVS, 'V' )
-      WANTST = LSAME( SORT, 'S' )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
+      WANTVS = LSAME( JOBVS, 'V' );
+      WANTST = LSAME( SORT, 'S' );
       if ( ( !WANTVS ) && ( !LSAME( JOBVS, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDVS < 1 || ( WANTVS && LDVS < N ) ) {
-         INFO = -11
+         INFO = -11;
       }
 
       // Compute workspace
@@ -76,75 +76,75 @@
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {
-            MINWRK = 1
-            MAXWRK = 1
+            MINWRK = 1;
+            MAXWRK = 1;
          } else {
-            MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
-            MINWRK = 3*N
+            MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 );
+            MINWRK = 3*N;
 
             dhseqr('S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL );
-            HSWORK = INT( WORK( 1 ) )
+            HSWORK = INT( WORK( 1 ) );
 
             if ( !WANTVS ) {
-               MAXWRK = MAX( MAXWRK, N + HSWORK )
+               MAXWRK = MAX( MAXWRK, N + HSWORK );
             } else {
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )
-               MAXWRK = MAX( MAXWRK, N + HSWORK )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               MAXWRK = MAX( MAXWRK, N + HSWORK );
             }
          }
-         WORK( 1 ) = MAXWRK
+         WORK( 1 ) = MAXWRK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DGEES ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         SDIM = 0
-         RETURN
+         SDIM = 0;
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SQRT( SMLNUM ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SQRT( SMLNUM ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
+      ANRM = DLANGE( 'M', N, N, A, LDA, DUM );
       SCALEA = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
          SCALEA = true;
-         CSCALE = SMLNUM
+         CSCALE = SMLNUM;
       } else if ( ANRM > BIGNUM ) {
          SCALEA = true;
-         CSCALE = BIGNUM
+         CSCALE = BIGNUM;
       }
       if (SCALEA) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Workspace: need N)
 
-      IBAL = 1
+      IBAL = 1;
       dgebal('P', N, A, LDA, ILO, IHI, WORK( IBAL ), IERR );
 
       // Reduce to upper Hessenberg form
       // (Workspace: need 3*N, prefer 2*N+N*NB)
 
-      ITAU = N + IBAL
-      IWRK = N + ITAU
+      ITAU = N + IBAL;
+      IWRK = N + ITAU;
       dgehrd(N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
 
       if ( WANTVS ) {
@@ -159,13 +159,13 @@
          dorghr(N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR );
       }
 
-      SDIM = 0
+      SDIM = 0;
 
       // Perform QR iteration, accumulating Schur vectors in VS if desired
       // (Workspace: need N+1, prefer N+HSWORK (see comments) )
 
-      IWRK = ITAU
-      CALL DHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL
+      IWRK = ITAU;
+      CALL DHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL > 0 ) INFO = IEVAL;
 
       // Sort eigenvalues if desired
 
@@ -175,7 +175,7 @@
             dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
          }
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELECT( WR( I ), WI( I ) )
+            BWORK( I ) = SELECT( WR( I ), WI( I ) );
          } // 10
 
          // Reorder eigenvalues and transform Schur vectors
@@ -206,36 +206,36 @@
             // underflows.
 
             if ( IEVAL > 0 ) {
-               I1 = IEVAL + 1
-               I2 = IHI - 1
+               I1 = IEVAL + 1;
+               I2 = IHI - 1;
                dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, MAX( ILO-1, 1 ), IERR );
             } else if ( WANTST ) {
-               I1 = 1
-               I2 = N - 1
+               I1 = 1;
+               I2 = N - 1;
             } else {
-               I1 = ILO
-               I2 = IHI - 1
+               I1 = ILO;
+               I2 = IHI - 1;
             }
-            INXT = I1 - 1
+            INXT = I1 - 1;
             for (I = I1; I <= I2; I++) { // 20
                if (I < INXT) GO TO 20;
                if ( WI( I ) == ZERO ) {
-                  INXT = I + 1
+                  INXT = I + 1;
                } else {
                   if ( A( I+1, I ) == ZERO ) {
-                     WI( I ) = ZERO
-                     WI( I+1 ) = ZERO
+                     WI( I ) = ZERO;
+                     WI( I+1 ) = ZERO;
                   } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
-                     WI( I ) = ZERO
-                     WI( I+1 ) = ZERO
+                     WI( I ) = ZERO;
+                     WI( I+1 ) = ZERO;
                      if (I > 1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N > I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                         dswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }
-                     A( I, I+1 ) = A( I+1, I )
-                     A( I+1, I ) = ZERO
+                     A( I, I+1 ) = A( I+1, I );
+                     A( I+1, I ) = ZERO;
                   }
-                  INXT = I + 2
+                  INXT = I + 2;
                }
             } // 20
          }
@@ -251,38 +251,38 @@
 
          LASTSL = true;
          LST2SL = true;
-         SDIM = 0
-         IP = 0
+         SDIM = 0;
+         IP = 0;
          for (I = 1; I <= N; I++) { // 30
-            CURSL = SELECT( WR( I ), WI( I ) )
+            CURSL = SELECT( WR( I ), WI( I ) );
             if ( WI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
-               IP = 0
+               IP = 0;
                if (CURSL && !LASTSL) INFO = N + 2;
             } else {
                if ( IP == 1 ) {
 
                   // Last eigenvalue of conjugate pair
 
-                  CURSL = CURSL || LASTSL
-                  LASTSL = CURSL
+                  CURSL = CURSL || LASTSL;
+                  LASTSL = CURSL;
                   if (CURSL) SDIM = SDIM + 2;
-                  IP = -1
+                  IP = -1;
                   if (CURSL && !LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair
 
-                  IP = 1
+                  IP = 1;
                }
             }
-            LST2SL = LASTSL
-            LASTSL = CURSL
+            LST2SL = LASTSL;
+            LASTSL = CURSL;
          } // 30
       }
 
-      WORK( 1 ) = MAXWRK
-      RETURN
+      WORK( 1 ) = MAXWRK;
+      RETURN;
 
       // End of DGEES
 

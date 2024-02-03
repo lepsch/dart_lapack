@@ -1,4 +1,4 @@
-      SUBROUTINE SORT01( ROWCOL, M, N, U, LDU, WORK, LWORK, RESID )
+      SUBROUTINE SORT01( ROWCOL, M, N, U, LDU, WORK, LWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       String             ROWCOL;
       int                LDU, LWORK, M, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
-      REAL               U( LDU, * ), WORK( * )
+      REAL               U( LDU, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
-      REAL               EPS, TMP
+      REAL               EPS, TMP;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SDOT, SLAMCH, SLANSY
+      REAL               SDOT, SLAMCH, SLANSY;
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..
@@ -37,26 +37,26 @@
       // ..
       // .. Executable Statements ..
 
-      RESID = ZERO
+      RESID = ZERO;
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      EPS = SLAMCH( 'Precision' )
+      EPS = SLAMCH( 'Precision' );
       if ( M < N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
-         TRANSU = 'N'
-         K = N
+         TRANSU = 'N';
+         K = N;
       } else {
-         TRANSU = 'T'
-         K = M
+         TRANSU = 'T';
+         K = M;
       }
-      MNMIN = MIN( M, N )
+      MNMIN = MIN( M, N );
 
       if ( ( MNMIN+1 )*MNMIN <= LWORK ) {
-         LDWORK = MNMIN
+         LDWORK = MNMIN;
       } else {
-         LDWORK = 0
+         LDWORK = 0;
       }
       if ( LDWORK > 0 ) {
 
@@ -67,8 +67,8 @@
 
          // Compute norm( I - U*U' ) / ( K * EPS ) .
 
-         RESID = SLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) )
-         RESID = ( RESID / REAL( K ) ) / EPS
+         RESID = SLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) );
+         RESID = ( RESID / REAL( K ) ) / EPS;
       } else if ( TRANSU == 'T' ) {
 
          // Find the maximum element in abs( I - U'*U ) / ( m * EPS )
@@ -76,15 +76,15 @@
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
                if ( I != J ) {
-                  TMP = ZERO
+                  TMP = ZERO;
                } else {
-                  TMP = ONE
+                  TMP = ONE;
                }
-               TMP = TMP - SDOT( M, U( 1, I ), 1, U( 1, J ), 1 )
-               RESID = MAX( RESID, ABS( TMP ) )
+               TMP = TMP - SDOT( M, U( 1, I ), 1, U( 1, J ), 1 );
+               RESID = MAX( RESID, ABS( TMP ) );
             } // 10
          } // 20
-         RESID = ( RESID / REAL( M ) ) / EPS
+         RESID = ( RESID / REAL( M ) ) / EPS;
       } else {
 
          // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
@@ -92,17 +92,17 @@
          for (J = 1; J <= M; J++) { // 40
             for (I = 1; I <= J; I++) { // 30
                if ( I != J ) {
-                  TMP = ZERO
+                  TMP = ZERO;
                } else {
-                  TMP = ONE
+                  TMP = ONE;
                }
-               TMP = TMP - SDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU )
-               RESID = MAX( RESID, ABS( TMP ) )
+               TMP = TMP - SDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU );
+               RESID = MAX( RESID, ABS( TMP ) );
             } // 30
          } // 40
-         RESID = ( RESID / REAL( N ) ) / EPS
+         RESID = ( RESID / REAL( N ) ) / EPS;
       }
-      RETURN
+      RETURN;
 
       // End of SORT01
 

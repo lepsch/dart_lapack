@@ -1,4 +1,4 @@
-      SUBROUTINE SORT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO )
+      SUBROUTINE SORT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       List<String>       RC;
       int                INFO, K, LDU, LDV, LWORK, MU, MV, N;
-      REAL               RESULT
+      REAL               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               U( LDU, * ), V( LDV, * ), WORK( * )
+      REAL               U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IRC, J, LMX;
-      REAL               RES1, RES2, S, ULP
+      REAL               RES1, RES2, S, ULP;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ISAMAX;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -39,56 +39,56 @@
 
       // Check inputs
 
-      INFO = 0
+      INFO = 0;
       if ( LSAME( RC, 'R' ) ) {
-         IRC = 0
+         IRC = 0;
       } else if ( LSAME( RC, 'C' ) ) {
-         IRC = 1
+         IRC = 1;
       } else {
-         IRC = -1
+         IRC = -1;
       }
       if ( IRC == -1 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( MU < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( MV < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( K < 0 || K > MAX( MU, MV ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( ( IRC == 0 && LDU < MAX( 1, MU ) ) || ( IRC == 1 && LDU < MAX( 1, N ) ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( ( IRC == 0 && LDV < MAX( 1, MV ) ) || ( IRC == 1 && LDV < MAX( 1, N ) ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('SORT03', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize result
 
-      RESULT = ZERO
+      RESULT = ZERO;
       if (MU == 0 || MV == 0 || N == 0) RETURN;
 
       // Machine constants
 
-      ULP = SLAMCH( 'Precision' )
+      ULP = SLAMCH( 'Precision' );
 
       if ( IRC == 0 ) {
 
          // Compare rows
 
-         RES1 = ZERO
+         RES1 = ZERO;
          for (I = 1; I <= K; I++) { // 20
-            LMX = ISAMAX( N, U( I, 1 ), LDU )
-            S = SIGN( ONE, U( I, LMX ) )*SIGN( ONE, V( I, LMX ) )
+            LMX = ISAMAX( N, U( I, 1 ), LDU );
+            S = SIGN( ONE, U( I, LMX ) )*SIGN( ONE, V( I, LMX ) );
             for (J = 1; J <= N; J++) { // 10
-               RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) )
+               RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) );
             } // 10
          } // 20
-         RES1 = RES1 / ( REAL( N )*ULP )
+         RES1 = RES1 / ( REAL( N )*ULP );
 
          // Compute orthogonality of rows of V.
 
@@ -98,23 +98,23 @@
 
          // Compare columns
 
-         RES1 = ZERO
+         RES1 = ZERO;
          for (I = 1; I <= K; I++) { // 40
-            LMX = ISAMAX( N, U( 1, I ), 1 )
-            S = SIGN( ONE, U( LMX, I ) )*SIGN( ONE, V( LMX, I ) )
+            LMX = ISAMAX( N, U( 1, I ), 1 );
+            S = SIGN( ONE, U( LMX, I ) )*SIGN( ONE, V( LMX, I ) );
             for (J = 1; J <= N; J++) { // 30
-               RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) )
+               RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) );
             } // 30
          } // 40
-         RES1 = RES1 / ( REAL( N )*ULP )
+         RES1 = RES1 / ( REAL( N )*ULP );
 
          // Compute orthogonality of columns of V.
 
          sort01('Columns', N, MV, V, LDV, WORK, LWORK, RES2 );
       }
 
-      RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP )
-      RETURN
+      RESULT = MIN( MAX( RES1, RES2 ), ONE / ULP );
+      RETURN;
 
       // End of SORT03
 

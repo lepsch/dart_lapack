@@ -9,6 +9,6 @@ void main() {
       // EXTERNAL ILAVER
 
       ilaver(MAJOR, MINOR, PATCH );
-      WRITE(*,*) "LAPACK ",MAJOR,".",MINOR,".",PATCH
+      WRITE(*,*) "LAPACK ",MAJOR,".",MINOR,".",PATCH;
 
       }

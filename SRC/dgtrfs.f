@@ -1,4 +1,4 @@
-      SUBROUTINE DGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      SUBROUTINE DGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -49,56 +49,56 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOTRAN = LSAME( TRANS, 'N' );
       if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -15
+         INFO = -15;
       }
       if ( INFO != 0 ) {
          xerbla('DGTRFS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO
-            BERR( J ) = ZERO
+            FERR( J ) = ZERO;
+            BERR( J ) = ZERO;
          } // 10
-         RETURN
+         RETURN;
       }
 
       if ( NOTRAN ) {
-         TRANSN = 'N'
-         TRANST = 'T'
+         TRANSN = 'N';
+         TRANST = 'T';
       } else {
-         TRANSN = 'T'
-         TRANST = 'N'
+         TRANSN = 'T';
+         TRANST = 'N';
       }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
-      NZ = 4
-      EPS = DLAMCH( 'Epsilon' )
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      SAFE1 = NZ*SAFMIN
-      SAFE2 = SAFE1 / EPS
+      NZ = 4;
+      EPS = DLAMCH( 'Epsilon' );
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      SAFE1 = NZ*SAFMIN;
+      SAFE2 = SAFE1 / EPS;
 
       // Do for each right hand side
 
       for (J = 1; J <= NRHS; J++) { // 110
 
-         COUNT = 1
-         LSTRES = THREE
+         COUNT = 1;
+         LSTRES = THREE;
          } // 20
 
          // Loop until stopping criterion is satisfied.
@@ -114,23 +114,23 @@
 
          if ( NOTRAN ) {
             if ( N == 1 ) {
-               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
+               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) );
             } else {
-               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) )
+               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 30
-                  WORK( I ) = ABS( B( I, J ) ) + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) )
+                  WORK( I ) = ABS( B( I, J ) ) + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) );
                } // 30
-               WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
+               WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) );
             }
          } else {
             if ( N == 1 ) {
-               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
+               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) );
             } else {
-               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) )
+               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) );
                for (I = 2; I <= N - 1; I++) { // 40
-                  WORK( I ) = ABS( B( I, J ) ) + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) )
+                  WORK( I ) = ABS( B( I, J ) ) + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) );
                } // 40
-               WORK( N ) = ABS( B( N, J ) ) + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
+               WORK( N ) = ABS( B( N, J ) ) + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) );
             }
          }
 
@@ -143,15 +143,15 @@
          // than SAFE2, then SAFE1 is added to the i-th components of the
          // numerator and denominator before dividing.
 
-         S = ZERO
+         S = ZERO;
          for (I = 1; I <= N; I++) { // 50
             if ( WORK( I ) > SAFE2 ) {
-               S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
+               S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) );
             } else {
-               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
+               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) );
             }
          } // 50
-         BERR( J ) = S
+         BERR( J ) = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -165,9 +165,9 @@
 
             dgttrs(TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
             daxpy(N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 );
-            LSTRES = BERR( J )
-            COUNT = COUNT + 1
-            GO TO 20
+            LSTRES = BERR( J );
+            COUNT = COUNT + 1;
+            GO TO 20;
          }
 
          // Bound error from formula
@@ -194,13 +194,13 @@
 
          for (I = 1; I <= N; I++) { // 60
             if ( WORK( I ) > SAFE2 ) {
-               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
+               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I );
             } else {
-               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
+               WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1;
             }
          } // 60
 
-         KASE = 0
+         KASE = 0;
          } // 70
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -210,31 +210,31 @@
 
                dgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
                for (I = 1; I <= N; I++) { // 80
-                  WORK( N+I ) = WORK( I )*WORK( N+I )
+                  WORK( N+I ) = WORK( I )*WORK( N+I );
                } // 80
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 90
-                  WORK( N+I ) = WORK( I )*WORK( N+I )
+                  WORK( N+I ) = WORK( I )*WORK( N+I );
                } // 90
                dgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
             }
-            GO TO 70
+            GO TO 70;
          }
 
          // Normalize error.
 
-         LSTRES = ZERO
+         LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 100
-            LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
+            LSTRES = MAX( LSTRES, ABS( X( I, J ) ) );
          } // 100
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 110
 
-      RETURN
+      RETURN;
 
       // End of DGTRFS
 

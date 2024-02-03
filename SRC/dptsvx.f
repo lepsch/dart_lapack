@@ -1,4 +1,4 @@
-      SUBROUTINE DPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, INFO )
+      SUBROUTINE DPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,22 +38,22 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
       if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -11
+         INFO = -11;
       }
       if ( INFO != 0 ) {
          xerbla('DPTSVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( NOFACT ) {
@@ -67,14 +67,14 @@
          // Return if INFO is non-zero.
 
          if ( INFO > 0 ) {
-            RCOND = ZERO
-            RETURN
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
       // Compute the norm of the matrix A.
 
-      ANORM = DLANST( '1', N, D, E )
+      ANORM = DLANST( '1', N, D, E );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -92,9 +92,9 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RETURN
+      RETURN;
 
       // End of DPTSVX
 

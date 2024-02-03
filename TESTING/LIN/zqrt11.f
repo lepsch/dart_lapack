@@ -8,7 +8,7 @@
       int                K, LDA, LWORK, M;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -35,13 +35,13 @@
       // ..
       // .. Executable Statements ..
 
-      ZQRT11 = ZERO
+      ZQRT11 = ZERO;
 
       // Test for sufficient workspace
 
       if ( LWORK < M*M+M ) {
          xerbla('ZQRT11', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -59,12 +59,12 @@
       zunm2r('Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO );
 
       for (J = 1; J <= M; J++) {
-         WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE
+         WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE;
       }
 
-      ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) )
+      ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) );
 
-      RETURN
+      RETURN;
 
       // End of ZQRT11
 

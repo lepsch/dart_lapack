@@ -1,4 +1,4 @@
-      REAL             FUNCTION SLAMCH( CMACH )
+      REAL             FUNCTION SLAMCH( CMACH );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,11 +11,11 @@
 * =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               RND, EPS, SFMIN, SMALL, RMACH
+      REAL               RND, EPS, SFMIN, SMALL, RMACH;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -29,49 +29,49 @@
 
       // Assume rounding, not chopping. Always.
 
-      RND = ONE
+      RND = ONE;
 
       if ( ONE == RND ) {
-         EPS = EPSILON(ZERO) * 0.5
+         EPS = EPSILON(ZERO) * 0.5;
       } else {
-         EPS = EPSILON(ZERO)
+         EPS = EPSILON(ZERO);
       }
 
       if ( LSAME( CMACH, 'E' ) ) {
-         RMACH = EPS
+         RMACH = EPS;
       } else if ( LSAME( CMACH, 'S' ) ) {
-         SFMIN = TINY(ZERO)
-         SMALL = ONE / HUGE(ZERO)
+         SFMIN = TINY(ZERO);
+         SMALL = ONE / HUGE(ZERO);
          if ( SMALL >= SFMIN ) {
 
             // Use SMALL plus a bit, to avoid the possibility of rounding
             // causing overflow when computing  1/sfmin.
 
-            SFMIN = SMALL*( ONE+EPS )
+            SFMIN = SMALL*( ONE+EPS );
          }
-         RMACH = SFMIN
+         RMACH = SFMIN;
       } else if ( LSAME( CMACH, 'B' ) ) {
-         RMACH = RADIX(ZERO)
+         RMACH = RADIX(ZERO);
       } else if ( LSAME( CMACH, 'P' ) ) {
-         RMACH = EPS * RADIX(ZERO)
+         RMACH = EPS * RADIX(ZERO);
       } else if ( LSAME( CMACH, 'N' ) ) {
-         RMACH = DIGITS(ZERO)
+         RMACH = DIGITS(ZERO);
       } else if ( LSAME( CMACH, 'R' ) ) {
-         RMACH = RND
+         RMACH = RND;
       } else if ( LSAME( CMACH, 'M' ) ) {
-         RMACH = MINEXPONENT(ZERO)
+         RMACH = MINEXPONENT(ZERO);
       } else if ( LSAME( CMACH, 'U' ) ) {
-         RMACH = tiny(zero)
+         RMACH = tiny(zero);
       } else if ( LSAME( CMACH, 'L' ) ) {
-         RMACH = MAXEXPONENT(ZERO)
+         RMACH = MAXEXPONENT(ZERO);
       } else if ( LSAME( CMACH, 'O' ) ) {
-         RMACH = HUGE(ZERO)
+         RMACH = HUGE(ZERO);
       } else {
-         RMACH = ZERO
+         RMACH = ZERO;
       }
 
-      SLAMCH = RMACH
-      RETURN
+      SLAMCH = RMACH;
+      RETURN;
 
       // End of SLAMCH
 
@@ -100,21 +100,21 @@
 *> \endverbatim
 *>
 
-      REAL             FUNCTION SLAMC3( A, B )
+      REAL             FUNCTION SLAMC3( A, B );
 
 *  -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. Scalar Arguments ..
-      REAL               A, B
+      REAL               A, B;
       // ..
 * =====================================================================
 
       // .. Executable Statements ..
 
-      SLAMC3 = A + B
+      SLAMC3 = A + B;
 
-      RETURN
+      RETURN;
 
       // End of SLAMC3
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CHPGVD( ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CHPGVD( ITYPE, JOBZ, UPLO, N, AP, BP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +10,8 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), W( * )
-      COMPLEX            AP( * ), BP( * ), WORK( * ), Z( LDZ, * )
+      REAL               RWORK( * ), W( * );
+      COMPLEX            AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -23,7 +23,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -36,57 +36,57 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 || LRWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9
+         INFO = -9;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LWMIN = 1
-            LIWMIN = 1
-            LRWMIN = 1
+            LWMIN = 1;
+            LIWMIN = 1;
+            LRWMIN = 1;
          } else {
             if ( WANTZ ) {
-               LWMIN = 2*N
-               LRWMIN = 1 + 5*N + 2*N**2
-               LIWMIN = 3 + 5*N
+               LWMIN = 2*N;
+               LRWMIN = 1 + 5*N + 2*N**2;
+               LIWMIN = 3 + 5*N;
             } else {
-               LWMIN = N
-               LRWMIN = N
-               LIWMIN = 1
+               LWMIN = N;
+               LRWMIN = N;
+               LIWMIN = 1;
             }
          }
 
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-         RWORK( 1 ) = LRWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         RWORK( 1 ) = LRWMIN;
+         IWORK( 1 ) = LIWMIN;
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -15
+            INFO = -15;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CHPGVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -97,23 +97,23 @@
 
       cpptrf(UPLO, N, BP, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
 
       chpgst(ITYPE, UPLO, N, AP, BP, INFO );
       chpevd(JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
-      LWMIN = INT( MAX( REAL( LWMIN ), REAL( WORK( 1 ) ) ) )
-      LRWMIN = INT( MAX( REAL( LRWMIN ), REAL( RWORK( 1 ) ) ) )
-      LIWMIN = INT( MAX( REAL( LIWMIN ), REAL( IWORK( 1 ) ) ) )
+      LWMIN = INT( MAX( REAL( LWMIN ), REAL( WORK( 1 ) ) ) );
+      LRWMIN = INT( MAX( REAL( LRWMIN ), REAL( RWORK( 1 ) ) ) );
+      LIWMIN = INT( MAX( REAL( LIWMIN ), REAL( IWORK( 1 ) ) ) );
 
       if ( WANTZ ) {
 
          // Backtransform eigenvectors to the original problem.
 
-         NEIG = N
+         NEIG = N;
          if (INFO > 0) NEIG = INFO - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
@@ -121,9 +121,9 @@
             // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
 
             if ( UPPER ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'C'
+               TRANS = 'C';
             }
 
             for (J = 1; J <= NEIG; J++) { // 10
@@ -136,9 +136,9 @@
             // backtransform eigenvectors: x = L*y or U**H *y
 
             if ( UPPER ) {
-               TRANS = 'C'
+               TRANS = 'C';
             } else {
-               TRANS = 'N'
+               TRANS = 'N';
             }
 
             for (J = 1; J <= NEIG; J++) { // 20
@@ -147,10 +147,10 @@
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      RWORK( 1 ) = LRWMIN
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      RWORK( 1 ) = LRWMIN;
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of CHPGVD
 

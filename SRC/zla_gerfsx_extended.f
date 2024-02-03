@@ -1,4 +1,4 @@
-      SUBROUTINE ZLA_GERFSX_EXTENDED( PREC_TYPE, TRANS_TYPE, N, NRHS, A, LDA, AF, LDAF, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERRS_N, ERRS_C, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO )
+      SUBROUTINE ZLA_GERFSX_EXTENDED( PREC_TYPE, TRANS_TYPE, N, NRHS, A, LDA, AF, LDAF, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERRS_N, ERRS_C, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,7 +23,7 @@
       int                CNT, I, J,  X_STATE, Z_STATE, Y_PREC_STATE;
       double             YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH;
       bool               INCR_PREC;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Parameters ..
       int                UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y;
@@ -54,21 +54,21 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       if (INFO != 0) RETURN;
-      TRANS = CHLA_TRANSTYPE(TRANS_TYPE)
-      EPS = DLAMCH( 'Epsilon' )
-      HUGEVAL = DLAMCH( 'Overflow' )
+      TRANS = CHLA_TRANSTYPE(TRANS_TYPE);
+      EPS = DLAMCH( 'Epsilon' );
+      HUGEVAL = DLAMCH( 'Overflow' );
       // Force HUGEVAL to Inf
-      HUGEVAL = HUGEVAL * HUGEVAL
+      HUGEVAL = HUGEVAL * HUGEVAL;
       // Using HUGEVAL may lead to spurious underflows.
-      INCR_THRESH = DBLE( N ) * EPS
+      INCR_THRESH = DBLE( N ) * EPS;
 
       for (J = 1; J <= NRHS; J++) {
-         Y_PREC_STATE = EXTRA_RESIDUAL
+         Y_PREC_STATE = EXTRA_RESIDUAL;
          if ( Y_PREC_STATE == EXTRA_Y ) {
             for (I = 1; I <= N; I++) {
                Y_TAIL( I ) = 0.0;
@@ -79,15 +79,15 @@
          DXRATMAX = 0.0;
          DZRAT = 0.0;
          DZRATMAX = 0.0;
-         FINAL_DX_X = HUGEVAL
-         FINAL_DZ_Z = HUGEVAL
-         PREVNORMDX = HUGEVAL
-         PREV_DZ_Z = HUGEVAL
-         DZ_Z = HUGEVAL
-         DX_X = HUGEVAL
+         FINAL_DX_X = HUGEVAL;
+         FINAL_DZ_Z = HUGEVAL;
+         PREVNORMDX = HUGEVAL;
+         PREV_DZ_Z = HUGEVAL;
+         DZ_Z = HUGEVAL;
+         DX_X = HUGEVAL;
 
-         X_STATE = WORKING_STATE
-         Z_STATE = UNSTABLE_STATE
+         X_STATE = WORKING_STATE;
+         Z_STATE = UNSTABLE_STATE;
          INCR_PREC = false;
 
          for (CNT = 1; CNT <= ITHRESH; CNT++) {
@@ -114,41 +114,41 @@
             NORMY = 0.0;
             NORMDX = 0.0;
             DZ_Z = 0.0;
-            YMIN = HUGEVAL
+            YMIN = HUGEVAL;
 
             for (I = 1; I <= N; I++) {
-               YK = CABS1( Y( I, J ) )
-               DYK = CABS1( DY( I ) )
+               YK = CABS1( Y( I, J ) );
+               DYK = CABS1( DY( I ) );
 
                if ( YK != 0.0 ) {
-                  DZ_Z = MAX( DZ_Z, DYK / YK )
+                  DZ_Z = MAX( DZ_Z, DYK / YK );
                } else if ( DYK != 0.0 ) {
-                  DZ_Z = HUGEVAL
+                  DZ_Z = HUGEVAL;
                }
 
-               YMIN = MIN( YMIN, YK )
+               YMIN = MIN( YMIN, YK );
 
-               NORMY = MAX( NORMY, YK )
+               NORMY = MAX( NORMY, YK );
 
                if ( COLEQU ) {
-                  NORMX = MAX( NORMX, YK * C( I ) )
-                  NORMDX = MAX( NORMDX, DYK * C( I ) )
+                  NORMX = MAX( NORMX, YK * C( I ) );
+                  NORMDX = MAX( NORMDX, DYK * C( I ) );
                } else {
-                  NORMX = NORMY
-                  NORMDX = MAX(NORMDX, DYK)
+                  NORMX = NORMY;
+                  NORMDX = MAX(NORMDX, DYK);
                }
             }
 
             if ( NORMX != 0.0 ) {
-               DX_X = NORMDX / NORMX
+               DX_X = NORMDX / NORMX;
             } else if ( NORMDX == 0.0 ) {
                DX_X = 0.0;
             } else {
-               DX_X = HUGEVAL
+               DX_X = HUGEVAL;
             }
 
-            DXRAT = NORMDX / PREVNORMDX
-            DZRAT = DZ_Z / PREV_DZ_Z
+            DXRAT = NORMDX / PREVNORMDX;
+            DZRAT = DZ_Z / PREV_DZ_Z;
 
           // Check termination criteria
 
@@ -156,12 +156,12 @@
              if (X_STATE == NOPROG_STATE && DXRAT <= RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
                if (DX_X <= EPS) {
-                  X_STATE = CONV_STATE
+                  X_STATE = CONV_STATE;
                } else if ( DXRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
-                     X_STATE = NOPROG_STATE
+                     X_STATE = NOPROG_STATE;
                   }
                } else {
                   if (DXRAT > DXRATMAX) DXRATMAX = DXRAT;
@@ -171,16 +171,16 @@
              if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z <= EPS ) {
-                  Z_STATE = CONV_STATE
+                  Z_STATE = CONV_STATE;
                } else if ( DZ_Z > DZ_UB ) {
-                  Z_STATE = UNSTABLE_STATE
+                  Z_STATE = UNSTABLE_STATE;
                   DZRATMAX = 0.0;
-                  FINAL_DZ_Z = HUGEVAL
+                  FINAL_DZ_Z = HUGEVAL;
                } else if ( DZRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
                      INCR_PREC = true;
                   } else {
-                     Z_STATE = NOPROG_STATE
+                     Z_STATE = NOPROG_STATE;
                   }
                } else {
                   if (DZRAT > DZRATMAX) DZRATMAX = DZRAT;
@@ -200,14 +200,14 @@
 
             if ( INCR_PREC ) {
                INCR_PREC = false;
-               Y_PREC_STATE = Y_PREC_STATE + 1
+               Y_PREC_STATE = Y_PREC_STATE + 1;
                for (I = 1; I <= N; I++) {
                   Y_TAIL( I ) = 0.0;
                }
             }
 
-            PREVNORMDX = NORMDX
-            PREV_DZ_Z = DZ_Z
+            PREVNORMDX = NORMDX;
+            PREV_DZ_Z = DZ_Z;
 
             // Update solution.
 
@@ -229,11 +229,11 @@
       // Compute error bounds
 
          if (N_NORMS >= 1) {
-            ERRS_N( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
+            ERRS_N( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX);
 
          }
          if ( N_NORMS >= 2 ) {
-            ERRS_C( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
+            ERRS_C( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX);
          }
 
       // Compute componentwise relative backward error from formula
@@ -248,7 +248,7 @@
          zgemv(TRANS, N, N, (-1.0,0.0), A, LDA, Y(1,J), 1, (1.0,0.0), RES, 1 );
 
          for (I = 1; I <= N; I++) {
-            AYB( I ) = CABS1( B( I, J ) )
+            AYB( I ) = CABS1( B( I, J ) );
          }
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
@@ -261,7 +261,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLA_GERFSX_EXTENDED
 

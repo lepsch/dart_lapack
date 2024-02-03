@@ -1,4 +1,4 @@
-      SUBROUTINE CHESVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK, RWORK, INFO )
+      SUBROUTINE CHESVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       String             FACT, UPLO;
       int                INFO, LDA, LDAF, LDB, LDX, LWORK, N, NRHS;
-      REAL               RCOND
+      REAL               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      REAL               BERR( * ), FERR( * ), RWORK( * );
+      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, NOFACT;
       int                LWKMIN, LWKOPT, NB;
-      REAL               ANORM
+      REAL               ANORM;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               CLANHE, SLAMCH, SROUNDUP_LWORK
+      REAL               CLANHE, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, CLANHE, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -42,44 +42,44 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      LQUERY = ( LWORK == -1 )
-      LWKMIN = MAX( 1, 2*N )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      LQUERY = ( LWORK == -1 );
+      LWKMIN = MAX( 1, 2*N );
       if ( !NOFACT && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -18
+         INFO = -18;
       }
 
       if ( INFO == 0 ) {
-         LWKOPT = LWKMIN
+         LWKOPT = LWKMIN;
          if ( NOFACT ) {
-            NB = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 )
-            LWKOPT = MAX( LWKOPT, N*NB )
+            NB = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 );
+            LWKOPT = MAX( LWKOPT, N*NB );
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
          xerbla('CHESVX', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       if ( NOFACT ) {
@@ -92,14 +92,14 @@
          // Return if INFO is non-zero.
 
          if ( INFO > 0 ) {
-            RCOND = ZERO
-            RETURN
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
       // Compute the norm of the matrix A.
 
-      ANORM = CLANHE( 'I', UPLO, N, A, LDA, RWORK )
+      ANORM = CLANHE( 'I', UPLO, N, A, LDA, RWORK );
 
       // Compute the reciprocal of the condition number of A.
 
@@ -117,11 +117,11 @@
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN
+      RETURN;
 
       // End of CHESVX
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, INFO )
+      SUBROUTINE ZTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -26,25 +26,25 @@
       // .. Executable Statements ..
 
       // Decode and test input arguments.
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDQ < 1 || WANTQ && ( LDQ < MAX( 1, N ) ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDZ < 1 || WANTZ && ( LDZ < MAX( 1, N ) ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( IFST < 1 || IFST > N ) {
-         INFO = -12
+         INFO = -12;
       } else if ( ILST < 1 || ILST > N ) {
-         INFO = -13
+         INFO = -13;
       }
       if ( INFO != 0 ) {
          xerbla('ZTGEXC', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -53,7 +53,7 @@
 
       if ( IFST < ILST ) {
 
-         HERE = IFST
+         HERE = IFST;
 
          } // 10
 
@@ -61,14 +61,14 @@
 
          ztgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
          if ( INFO != 0 ) {
-            ILST = HERE
-            RETURN
+            ILST = HERE;
+            RETURN;
          }
-         HERE = HERE + 1
+         HERE = HERE + 1;
          if (HERE < ILST) GO TO 10;
-         HERE = HERE - 1
+         HERE = HERE - 1;
       } else {
-         HERE = IFST - 1
+         HERE = IFST - 1;
 
          } // 20
 
@@ -76,15 +76,15 @@
 
          ztgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO );
          if ( INFO != 0 ) {
-            ILST = HERE
-            RETURN
+            ILST = HERE;
+            RETURN;
          }
-         HERE = HERE - 1
+         HERE = HERE - 1;
          if (HERE >= ILST) GO TO 20;
-         HERE = HERE + 1
+         HERE = HERE + 1;
       }
-      ILST = HERE
-      RETURN
+      ILST = HERE;
+      RETURN;
 
       // End of ZTGEXC
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DSYGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
+      SUBROUTINE DSYGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,22 +37,22 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('DSYGS2', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( ITYPE == 1 ) {
@@ -64,13 +64,13 @@
 
                // Update the upper triangle of A(k:n,k:n)
 
-               AKK = A( K, K )
-               BKK = B( K, K )
-               AKK = AKK / BKK**2
-               A( K, K ) = AKK
+               AKK = A( K, K );
+               BKK = B( K, K );
+               AKK = AKK / BKK**2;
+               A( K, K ) = AKK;
                if ( K < N ) {
                   dscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
-                  CT = -HALF*AKK
+                  CT = -HALF*AKK;
                   daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
                   dsyr2(UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA );
                   daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
@@ -85,13 +85,13 @@
 
                // Update the lower triangle of A(k:n,k:n)
 
-               AKK = A( K, K )
-               BKK = B( K, K )
-               AKK = AKK / BKK**2
-               A( K, K ) = AKK
+               AKK = A( K, K );
+               BKK = B( K, K );
+               AKK = AKK / BKK**2;
+               A( K, K ) = AKK;
                if ( K < N ) {
                   dscal(N-K, ONE / BKK, A( K+1, K ), 1 );
-                  CT = -HALF*AKK
+                  CT = -HALF*AKK;
                   daxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
                   dsyr2(UPLO, N-K, -ONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA );
                   daxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
@@ -108,15 +108,15 @@
 
                // Update the upper triangle of A(1:k,1:k)
 
-               AKK = A( K, K )
-               BKK = B( K, K )
+               AKK = A( K, K );
+               BKK = B( K, K );
                dtrmv(UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 );
-               CT = HALF*AKK
+               CT = HALF*AKK;
                daxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                dsyr2(UPLO, K-1, ONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA );
                daxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                dscal(K-1, BKK, A( 1, K ), 1 );
-               A( K, K ) = AKK*BKK**2
+               A( K, K ) = AKK*BKK**2;
             } // 30
          } else {
 
@@ -126,19 +126,19 @@
 
                // Update the lower triangle of A(1:k,1:k)
 
-               AKK = A( K, K )
-               BKK = B( K, K )
+               AKK = A( K, K );
+               BKK = B( K, K );
                dtrmv(UPLO, 'Transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA );
-               CT = HALF*AKK
+               CT = HALF*AKK;
                daxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
                dsyr2(UPLO, K-1, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, A, LDA );
                daxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
                dscal(K-1, BKK, A( K, 1 ), LDA );
-               A( K, K ) = AKK*BKK**2
+               A( K, K ) = AKK*BKK**2;
             } // 40
          }
       }
-      RETURN
+      RETURN;
 
       // End of DSYGS2
 

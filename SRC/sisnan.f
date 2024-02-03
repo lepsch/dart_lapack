@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL, INTENT(IN) :: SIN
+      REAL, INTENT(IN) :: SIN;
       // ..
 
 *  =====================================================================
@@ -15,6 +15,6 @@
       // EXTERNAL SLAISNAN
 *  ..
 *  .. Executable Statements ..
-      SISNAN = SLAISNAN(SIN,SIN)
-      RETURN
+      SISNAN = SLAISNAN(SIN,SIN);
+      RETURN;
       }

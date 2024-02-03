@@ -5,14 +5,14 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ZI, ZR
+      REAL               ZI, ZR;
       // ..
 
 *  =====================================================================
 
       // .. Arrays in Common ..
       bool               SELVAL( 20 );
-      REAL               SELWI( 20 ), SELWR( 20 )
+      REAL               SELWI( 20 ), SELWR( 20 );
       // ..
       // .. Scalars in Common ..
       int                SELDIM, SELOPT;
@@ -22,32 +22,32 @@
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               RMIN, X
+      REAL               RMIN, X;
       // ..
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..
-      REAL               SLAPY2
+      REAL               SLAPY2;
       // EXTERNAL SLAPY2
       // ..
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         SSLECT = ( ZR < ZERO )
+         SSLECT = ( ZR < ZERO );
       } else {
-         RMIN = SLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )
-         SSLECT = SELVAL( 1 )
+         RMIN = SLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) );
+         SSLECT = SELVAL( 1 );
          for (I = 2; I <= SELDIM; I++) { // 10
-            X = SLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) )
+            X = SLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) );
             if ( X <= RMIN ) {
-               RMIN = X
-               SSLECT = SELVAL( I )
+               RMIN = X;
+               SSLECT = SELVAL( I );
             }
          } // 10
       }
-      RETURN
+      RETURN;
 
       // End of SSLECT
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SSYT01_ROOK( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE SSYT01_ROOK( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * )
+      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, SLANSY
+      REAL               SLAMCH, SLANSY;
       // EXTERNAL LSAME, SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..
@@ -40,14 +40,14 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK );
 
       // Initialize C to the identity matrix.
 
@@ -66,28 +66,28 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             } // 10
          } // 20
       } else {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= N; I++) { // 30
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             } // 30
          } // 40
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = SLANSY( '1', UPLO, N, C, LDC, RWORK )
+      RESID = SLANSY( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of SSYT01_ROOK
 

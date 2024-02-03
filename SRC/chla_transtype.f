@@ -16,15 +16,15 @@
       // ..
       // .. Executable Statements ..
       if ( TRANS == BLAS_NO_TRANS ) {
-         CHLA_TRANSTYPE = 'N'
+         CHLA_TRANSTYPE = 'N';
       } else if ( TRANS == BLAS_TRANS ) {
-         CHLA_TRANSTYPE = 'T'
+         CHLA_TRANSTYPE = 'T';
       } else if ( TRANS == BLAS_CONJ_TRANS ) {
-         CHLA_TRANSTYPE = 'C'
+         CHLA_TRANSTYPE = 'C';
       } else {
-         CHLA_TRANSTYPE = 'X'
+         CHLA_TRANSTYPE = 'X';
       }
-      RETURN
+      RETURN;
 
       // End of CHLA_TRANSTYPE
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DLAHR2( N, K, NB, A, LDA, TAU, T, LDT, Y, LDY )
+      SUBROUTINE DLAHR2( N, K, NB, A, LDA, TAU, T, LDT, Y, LDY );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -72,15 +72,15 @@
             dtrmv('Lower', 'NO TRANSPOSE', 'UNIT', I-1, A( K+1, 1 ), LDA, T( 1, NB ), 1 );
             daxpy(I-1, -ONE, T( 1, NB ), 1, A( K+1, I ), 1 );
 
-            A( K+I-1, I-1 ) = EI
+            A( K+I-1, I-1 ) = EI;
          }
 
          // Generate the elementary reflector H(I) to annihilate
          // A(K+I+1:N,I)
 
          dlarfg(N-K-I+1, A( K+I, I ), A( MIN( K+I+1, N ), I ), 1, TAU( I ) );
-         EI = A( K+I, I )
-         A( K+I, I ) = ONE
+         EI = A( K+I, I );
+         A( K+I, I ) = ONE;
 
          // Compute  Y(K+1:N,I)
 
@@ -93,10 +93,10 @@
 
          dscal(I-1, -TAU( I ), T( 1, I ), 1 );
          dtrmv('Upper', 'No Transpose', 'NON-UNIT', I-1, T, LDT, T( 1, I ), 1 );
-         T( I, I ) = TAU( I )
+         T( I, I ) = TAU( I );
 
       } // 10
-      A( K+NB, NB ) = EI
+      A( K+NB, NB ) = EI;
 
       // Compute Y(1:K,1:NB)
 
@@ -104,7 +104,7 @@
       dtrmm('RIGHT', 'Lower', 'NO TRANSPOSE', 'UNIT', K, NB, ONE, A( K+1, 1 ), LDA, Y, LDY )       IF( N > K+NB ) CALL DGEMM( 'NO TRANSPOSE', 'NO TRANSPOSE', K, NB, N-K-NB, ONE, A( 1, 2+NB ), LDA, A( K+1+NB, 1 ), LDA, ONE, Y, LDY );
       dtrmm('RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, ONE, T, LDT, Y, LDY );
 
-      RETURN
+      RETURN;
 
       // End of DLAHR2
 

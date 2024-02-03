@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID )
+      SUBROUTINE ZGET04( N, NRHS, X, LDX, XACT, LDXACT, RCOND, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       double             RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         X( LDX, * ), XACT( LDXACT, * )
+      COMPLEX*16         X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 *  =====================================================================
@@ -21,7 +21,7 @@
       // .. Local Scalars ..
       int                I, IX, J;
       double             DIFFNM, EPS, XNORM;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. External Functions ..
       int                IZAMAX;
@@ -35,46 +35,46 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Quick exit if N = 0 or NRHS = 0.
 
       if ( N <= 0 || NRHS <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if RCOND is invalid.
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
       if ( RCOND < ZERO ) {
-         RESID = 1.0 / EPS
-         RETURN
+         RESID = 1.0 / EPS;
+         RETURN;
       }
 
       // Compute the maximum of
          // norm(X - XACT) / ( norm(XACT) * EPS )
       // over all the vectors X and XACT .
 
-      RESID = ZERO
+      RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 20
-         IX = IZAMAX( N, XACT( 1, J ), 1 )
-         XNORM = CABS1( XACT( IX, J ) )
-         DIFFNM = ZERO
+         IX = IZAMAX( N, XACT( 1, J ), 1 );
+         XNORM = CABS1( XACT( IX, J ) );
+         DIFFNM = ZERO;
          for (I = 1; I <= N; I++) { // 10
-            DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
+            DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) );
          } // 10
          if ( XNORM <= ZERO ) {
             if (DIFFNM > ZERO) RESID = 1.0 / EPS;
          } else {
-            RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
+            RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND );
          }
       } // 20
       if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
-      RETURN
+      RETURN;
 
       // End of ZGET04
 

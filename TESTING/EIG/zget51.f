@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK, RWORK, RESULT )
+      SUBROUTINE ZGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -37,26 +37,26 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT = ZERO
+      RESULT = ZERO;
       if (N <= 0) RETURN;
 
       // Constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
+      UNFL = DLAMCH( 'Safe minimum' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
 
       // Some Error Checks
 
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         RESULT = TEN / ULP
-         RETURN
+         RESULT = TEN / ULP;
+         RETURN;
       }
 
       if ( ITYPE <= 2 ) {
 
          // Tests scaled by the norm(A)
 
-         ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
+         ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL );
 
          if ( ITYPE == 1 ) {
 
@@ -75,22 +75,22 @@
 
             for (JCOL = 1; JCOL <= N; JCOL++) { // 20
                for (JROW = 1; JROW <= N; JROW++) { // 10
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
+                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL );
                } // 10
             } // 20
          }
 
          // Compute norm(W)/ ( ulp*norm(A) )
 
-         WNORM = ZLANGE( '1', N, N, WORK, N, RWORK )
+         WNORM = ZLANGE( '1', N, N, WORK, N, RWORK );
 
          if ( ANORM > WNORM ) {
-            RESULT = ( WNORM / ANORM ) / ( N*ULP )
+            RESULT = ( WNORM / ANORM ) / ( N*ULP );
          } else {
             if ( ANORM < ONE ) {
-               RESULT = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
+               RESULT = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
             } else {
-               RESULT = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
+               RESULT = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP );
             }
          }
 
@@ -103,13 +103,13 @@
          zgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
          for (JDIAG = 1; JDIAG <= N; JDIAG++) { // 30
-            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE
+            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE;
          } // 30
 
-         RESULT = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
+         RESULT = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP );
       }
 
-      RETURN
+      RETURN;
 
       // End of ZGET51
 

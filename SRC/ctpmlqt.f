@@ -1,4 +1,4 @@
-      SUBROUTINE CTPMLQT( SIDE, TRANS, M, N, K, L, MB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO )
+      SUBROUTINE CTPMLQT( SIDE, TRANS, M, N, K, L, MB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int       INFO, K, LDV, LDA, LDB, M, N, L, MB, LDT;
       // ..
       // .. Array Arguments ..
-      COMPLEX            V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
+      COMPLEX            V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -33,44 +33,44 @@
 
       // .. Test the input arguments ..
 
-      INFO   = 0
-      LEFT   = LSAME( SIDE,  'L' )
-      RIGHT  = LSAME( SIDE,  'R' )
-      TRAN   = LSAME( TRANS, 'C' )
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO   = 0;
+      LEFT   = LSAME( SIDE,  'L' );
+      RIGHT  = LSAME( SIDE,  'R' );
+      TRAN   = LSAME( TRANS, 'C' );
+      NOTRAN = LSAME( TRANS, 'N' );
 
       if ( LEFT ) {
-         LDAQ = MAX( 1, K )
+         LDAQ = MAX( 1, K );
       } else if ( RIGHT ) {
-         LDAQ = MAX( 1, M )
+         LDAQ = MAX( 1, M );
       }
       if ( !LEFT && !RIGHT ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !TRAN && !NOTRAN ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( K < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( L < 0 || L > K ) {
-         INFO = -6
+         INFO = -6;
       } else if ( MB < 1 || (MB > K && K > 0) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDV < K ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDT < MB ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDA < LDAQ ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDB < MAX( 1, M ) ) {
-         INFO = -15
+         INFO = -15;
       }
 
       if ( INFO != 0 ) {
          xerbla('CTPMLQT', -INFO );
-         RETURN
+         RETURN;
       }
 
       // .. Quick return if possible ..
@@ -79,61 +79,61 @@
 
       if ( LEFT && NOTRAN ) {
 
-         DO I = 1, K, MB
-            IB = MIN( MB, K-I+1 )
-            NB = MIN( M-L+I+IB-1, M )
+         DO I = 1, K, MB;
+            IB = MIN( MB, K-I+1 );
+            NB = MIN( M-L+I+IB-1, M );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = 0
+               LB = 0;
             }
             ctprfb('L', 'C', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          }
 
       } else if ( RIGHT && TRAN ) {
 
-         DO I = 1, K, MB
-            IB = MIN( MB, K-I+1 )
-            NB = MIN( N-L+I+IB-1, N )
+         DO I = 1, K, MB;
+            IB = MIN( MB, K-I+1 );
+            NB = MIN( N-L+I+IB-1, N );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = NB-N+L-I+1
+               LB = NB-N+L-I+1;
             }
             ctprfb('R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          }
 
       } else if ( LEFT && TRAN ) {
 
-         KF = ((K-1)/MB)*MB+1
-         DO I = KF, 1, -MB
-            IB = MIN( MB, K-I+1 )
-            NB = MIN( M-L+I+IB-1, M )
+         KF = ((K-1)/MB)*MB+1;
+         DO I = KF, 1, -MB;
+            IB = MIN( MB, K-I+1 );
+            NB = MIN( M-L+I+IB-1, M );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = 0
+               LB = 0;
             }
             ctprfb('L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          }
 
       } else if ( RIGHT && NOTRAN ) {
 
-         KF = ((K-1)/MB)*MB+1
-         DO I = KF, 1, -MB
-            IB = MIN( MB, K-I+1 )
-            NB = MIN( N-L+I+IB-1, N )
+         KF = ((K-1)/MB)*MB+1;
+         DO I = KF, 1, -MB;
+            IB = MIN( MB, K-I+1 );
+            NB = MIN( N-L+I+IB-1, N );
             if ( I >= L ) {
-               LB = 0
+               LB = 0;
             } else {
-               LB = NB-N+L-I+1
+               LB = NB-N+L-I+1;
             }
             ctprfb('R', 'C', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CTPMLQT
 

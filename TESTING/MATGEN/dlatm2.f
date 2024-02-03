@@ -44,62 +44,62 @@
       // Check for I and J in range
 
       if ( I < 1 || I > M || J < 1 || J > N ) {
-         DLATM2 = ZERO
-         RETURN
+         DLATM2 = ZERO;
+         RETURN;
       }
 
       // Check for banding
 
       if ( J > I+KU || J < I-KL ) {
-         DLATM2 = ZERO
-         RETURN
+         DLATM2 = ZERO;
+         RETURN;
       }
 
       // Check for sparsity
 
       if ( SPARSE > ZERO ) {
          if ( DLARAN( ISEED ) < SPARSE ) {
-            DLATM2 = ZERO
-            RETURN
+            DLATM2 = ZERO;
+            RETURN;
          }
       }
 
       // Compute subscripts depending on IPVTNG
 
       if ( IPVTNG == 0 ) {
-         ISUB = I
-         JSUB = J
+         ISUB = I;
+         JSUB = J;
       } else if ( IPVTNG == 1 ) {
-         ISUB = IWORK( I )
-         JSUB = J
+         ISUB = IWORK( I );
+         JSUB = J;
       } else if ( IPVTNG == 2 ) {
-         ISUB = I
-         JSUB = IWORK( J )
+         ISUB = I;
+         JSUB = IWORK( J );
       } else if ( IPVTNG == 3 ) {
-         ISUB = IWORK( I )
-         JSUB = IWORK( J )
+         ISUB = IWORK( I );
+         JSUB = IWORK( J );
       }
 
       // Compute entry and grade it according to IGRADE
 
       if ( ISUB == JSUB ) {
-         TEMP = D( ISUB )
+         TEMP = D( ISUB );
       } else {
-         TEMP = DLARND( IDIST, ISEED )
+         TEMP = DLARND( IDIST, ISEED );
       }
       if ( IGRADE == 1 ) {
-         TEMP = TEMP*DL( ISUB )
+         TEMP = TEMP*DL( ISUB );
       } else if ( IGRADE == 2 ) {
-         TEMP = TEMP*DR( JSUB )
+         TEMP = TEMP*DR( JSUB );
       } else if ( IGRADE == 3 ) {
-         TEMP = TEMP*DL( ISUB )*DR( JSUB )
+         TEMP = TEMP*DL( ISUB )*DR( JSUB );
       } else if ( IGRADE == 4 && ISUB != JSUB ) {
-         TEMP = TEMP*DL( ISUB ) / DL( JSUB )
+         TEMP = TEMP*DL( ISUB ) / DL( JSUB );
       } else if ( IGRADE == 5 ) {
-         TEMP = TEMP*DL( ISUB )*DL( JSUB )
+         TEMP = TEMP*DL( ISUB )*DL( JSUB );
       }
-      DLATM2 = TEMP
-      RETURN
+      DLATM2 = TEMP;
+      RETURN;
 
       // End of DLATM2
 

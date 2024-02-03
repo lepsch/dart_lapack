@@ -1,4 +1,4 @@
-      SUBROUTINE DLAGGE( M, N, KL, KU, D, A, LDA, ISEED, WORK, INFO )
+      SUBROUTINE DLAGGE( M, N, KL, KU, D, A, LDA, ISEED, WORK, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,55 +36,55 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 || KL > M-1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 || KU > N-1 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO < 0 ) {
          xerbla('DLAGGE', -INFO );
-         RETURN
+         RETURN;
       }
 
       // initialize A to diagonal matrix
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            A( I, J ) = ZERO
+            A( I, J ) = ZERO;
          } // 10
       } // 20
-      DO 30 I = 1, MIN( M, N )
-         A( I, I ) = D( I )
+      DO 30 I = 1, MIN( M, N );
+         A( I, I ) = D( I );
       } // 30
 
       // Quick exit if the user wants a diagonal matrix
 
-      IF(( KL == 0 ) && ( KU == 0)) RETURN
+      IF(( KL == 0 ) && ( KU == 0)) RETURN;
 
       // pre- and post-multiply A by random orthogonal matrices
 
-      DO 40 I = MIN( M, N ), 1, -1
+      DO 40 I = MIN( M, N ), 1, -1;
          if ( I < M ) {
 
             // generate random reflection
 
             dlarnv(3, ISEED, M-I+1, WORK );
-            WN = DNRM2( M-I+1, WORK, 1 )
-            WA = SIGN( WN, WORK( 1 ) )
+            WN = DNRM2( M-I+1, WORK, 1 );
+            WA = SIGN( WN, WORK( 1 ) );
             if ( WN == ZERO ) {
-               TAU = ZERO
+               TAU = ZERO;
             } else {
-               WB = WORK( 1 ) + WA
+               WB = WORK( 1 ) + WA;
                dscal(M-I, ONE / WB, WORK( 2 ), 1 );
-               WORK( 1 ) = ONE
-               TAU = WB / WA
+               WORK( 1 ) = ONE;
+               TAU = WB / WA;
             }
 
             // multiply A(i:m,i:n) by random reflection from the left
@@ -97,15 +97,15 @@
             // generate random reflection
 
             dlarnv(3, ISEED, N-I+1, WORK );
-            WN = DNRM2( N-I+1, WORK, 1 )
-            WA = SIGN( WN, WORK( 1 ) )
+            WN = DNRM2( N-I+1, WORK, 1 );
+            WA = SIGN( WN, WORK( 1 ) );
             if ( WN == ZERO ) {
-               TAU = ZERO
+               TAU = ZERO;
             } else {
-               WB = WORK( 1 ) + WA
+               WB = WORK( 1 ) + WA;
                dscal(N-I, ONE / WB, WORK( 2 ), 1 );
-               WORK( 1 ) = ONE
-               TAU = WB / WA
+               WORK( 1 ) = ONE;
+               TAU = WB / WA;
             }
 
             // multiply A(i:m,i:n) by random reflection from the right
@@ -118,7 +118,7 @@
       // Reduce number of subdiagonals to KL and number of superdiagonals
       // to KU
 
-      DO 70 I = 1, MAX( M-1-KL, N-1-KU )
+      DO 70 I = 1, MAX( M-1-KL, N-1-KU );
          if ( KL <= KU ) {
 
             // annihilate subdiagonal elements first (necessary if KL = 0)
@@ -127,44 +127,44 @@
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
-               WN = DNRM2( M-KL-I+1, A( KL+I, I ), 1 )
-               WA = SIGN( WN, A( KL+I, I ) )
+               WN = DNRM2( M-KL-I+1, A( KL+I, I ), 1 );
+               WA = SIGN( WN, A( KL+I, I ) );
                if ( WN == ZERO ) {
-                  TAU = ZERO
+                  TAU = ZERO;
                } else {
-                  WB = A( KL+I, I ) + WA
+                  WB = A( KL+I, I ) + WA;
                   dscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
-                  A( KL+I, I ) = ONE
-                  TAU = WB / WA
+                  A( KL+I, I ) = ONE;
+                  TAU = WB / WA;
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
                dgemv('Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
                dger(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
-               A( KL+I, I ) = -WA
+               A( KL+I, I ) = -WA;
             }
 
             if ( I <= MIN( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
-               WN = DNRM2( N-KU-I+1, A( I, KU+I ), LDA )
-               WA = SIGN( WN, A( I, KU+I ) )
+               WN = DNRM2( N-KU-I+1, A( I, KU+I ), LDA );
+               WA = SIGN( WN, A( I, KU+I ) );
                if ( WN == ZERO ) {
-                  TAU = ZERO
+                  TAU = ZERO;
                } else {
-                  WB = A( I, KU+I ) + WA
+                  WB = A( I, KU+I ) + WA;
                   dscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
-                  A( I, KU+I ) = ONE
-                  TAU = WB / WA
+                  A( I, KU+I ) = ONE;
+                  TAU = WB / WA;
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
                dgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
                dger(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
-               A( I, KU+I ) = -WA
+               A( I, KU+I ) = -WA;
             }
          } else {
 
@@ -175,60 +175,60 @@
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
-               WN = DNRM2( N-KU-I+1, A( I, KU+I ), LDA )
-               WA = SIGN( WN, A( I, KU+I ) )
+               WN = DNRM2( N-KU-I+1, A( I, KU+I ), LDA );
+               WA = SIGN( WN, A( I, KU+I ) );
                if ( WN == ZERO ) {
-                  TAU = ZERO
+                  TAU = ZERO;
                } else {
-                  WB = A( I, KU+I ) + WA
+                  WB = A( I, KU+I ) + WA;
                   dscal(N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA );
-                  A( I, KU+I ) = ONE
-                  TAU = WB / WA
+                  A( I, KU+I ) = ONE;
+                  TAU = WB / WA;
                }
 
                // apply reflection to A(i+1:m,ku+i:n) from the right
 
                dgemv('No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 );
                dger(M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA );
-               A( I, KU+I ) = -WA
+               A( I, KU+I ) = -WA;
             }
 
             if ( I <= MIN( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
-               WN = DNRM2( M-KL-I+1, A( KL+I, I ), 1 )
-               WA = SIGN( WN, A( KL+I, I ) )
+               WN = DNRM2( M-KL-I+1, A( KL+I, I ), 1 );
+               WA = SIGN( WN, A( KL+I, I ) );
                if ( WN == ZERO ) {
-                  TAU = ZERO
+                  TAU = ZERO;
                } else {
-                  WB = A( KL+I, I ) + WA
+                  WB = A( KL+I, I ) + WA;
                   dscal(M-KL-I, ONE / WB, A( KL+I+1, I ), 1 );
-                  A( KL+I, I ) = ONE
-                  TAU = WB / WA
+                  A( KL+I, I ) = ONE;
+                  TAU = WB / WA;
                }
 
                // apply reflection to A(kl+i:m,i+1:n) from the left
 
                dgemv('Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 );
                dger(M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA );
-               A( KL+I, I ) = -WA
+               A( KL+I, I ) = -WA;
             }
          }
 
          if (I <= N) {
             for (J = KL + I + 1; J <= M; J++) { // 50
-               A( J, I ) = ZERO
+               A( J, I ) = ZERO;
             } // 50
          }
 
          if (I <= M) {
             for (J = KU + I + 1; J <= N; J++) { // 60
-               A( I, J ) = ZERO
+               A( I, J ) = ZERO;
             } // 60
          }
       } // 70
-      RETURN
+      RETURN;
 
       // End of DLAGGE
 

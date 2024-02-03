@@ -1,15 +1,15 @@
-      SUBROUTINE CSSCAL(N,SA,CX,INCX)
+      SUBROUTINE CSSCAL(N,SA,CX,INCX);
 
 *  -- Reference BLAS level1 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL SA
+      REAL SA;
       int     INCX,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX CX(*)
+      COMPLEX CX(*);
       // ..
 
 *  =====================================================================
@@ -18,7 +18,7 @@
       int     I,NINCX;
       // ..
       // .. Parameters ..
-      REAL ONE
+      REAL ONE;
       const     ONE=1.0;
       // ..
       // .. Intrinsic Functions ..
@@ -30,18 +30,18 @@
          // code for increment equal to 1
 
          for (I = 1; I <= N; I++) {
-            CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
+            CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)));
          }
       } else {
 
          // code for increment not equal to 1
 
-         NINCX = N*INCX
-         DO I = 1,NINCX,INCX
-            CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
+         NINCX = N*INCX;
+         DO I = 1,NINCX,INCX;
+            CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)));
          }
       }
-      RETURN
+      RETURN;
 
       // End of CSSCAL
 

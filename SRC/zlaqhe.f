@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED )
+      SUBROUTINE ZLAQHE( UPLO, N, A, LDA, S, SCOND, AMAX, EQUED );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             S( * );
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
@@ -37,20 +37,20 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         EQUED = 'N'
-         RETURN
+         EQUED = 'N';
+         RETURN;
       }
 
       // Initialize LARGE and SMALL.
 
-      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
-      LARGE = ONE / SMALL
+      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      LARGE = ONE / SMALL;
 
       if ( SCOND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
 
          // No equilibration
 
-         EQUED = 'N'
+         EQUED = 'N';
       } else {
 
          // Replace A by diag(S) * A * diag(S).
@@ -60,28 +60,28 @@
             // Upper triangle of A is stored.
 
             for (J = 1; J <= N; J++) { // 20
-               CJ = S( J )
+               CJ = S( J );
                for (I = 1; I <= J - 1; I++) { // 10
-                  A( I, J ) = CJ*S( I )*A( I, J )
+                  A( I, J ) = CJ*S( I )*A( I, J );
                } // 10
-               A( J, J ) = CJ*CJ*DBLE( A( J, J ) )
+               A( J, J ) = CJ*CJ*DBLE( A( J, J ) );
             } // 20
          } else {
 
             // Lower triangle of A is stored.
 
             for (J = 1; J <= N; J++) { // 40
-               CJ = S( J )
-               A( J, J ) = CJ*CJ*DBLE( A( J, J ) )
+               CJ = S( J );
+               A( J, J ) = CJ*CJ*DBLE( A( J, J ) );
                for (I = J + 1; I <= N; I++) { // 30
-                  A( I, J ) = CJ*S( I )*A( I, J )
+                  A( I, J ) = CJ*S( I )*A( I, J );
                } // 30
             } // 40
          }
-         EQUED = 'Y'
+         EQUED = 'Y';
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLAQHE
 

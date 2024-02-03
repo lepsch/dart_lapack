@@ -1,4 +1,4 @@
-      SUBROUTINE DBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID )
+      SUBROUTINE DBDT05( M, N, A, LDA, S, NS, U, LDU, VT, LDVT, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,11 +38,11 @@
 
       // Quick return if possible.
 
-      RESID = ZERO
-      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN
+      RESID = ZERO;
+      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN;
 
-      EPS = DLAMCH( 'Precision' )
-      ANORM = DLANGE( 'M', M, N, A, LDA, WORK )
+      EPS = DLAMCH( 'Precision' );
+      ANORM = DLANGE( 'M', M, N, A, LDA, WORK );
 
       // Compute U' * A * V.
 
@@ -50,28 +50,28 @@
 
       // norm(S - U' * B * V)
 
-      J = 0
+      J = 0;
       for (I = 1; I <= NS; I++) { // 10
-         WORK( J+I ) =  WORK( J+I ) + S( I )
-         RESID = MAX( RESID, DASUM( NS, WORK( J+1 ), 1 ) )
-         J = J + NS
+         WORK( J+I ) =  WORK( J+I ) + S( I );
+         RESID = MAX( RESID, DASUM( NS, WORK( J+1 ), 1 ) );
+         J = J + NS;
       } // 10
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM >= RESID ) {
-            RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )
+            RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS );
          } else {
             if ( ANORM < ONE ) {
-               RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS )
+               RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS );
             } else {
-               RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS )
+               RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS );
             }
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DBDT05
 

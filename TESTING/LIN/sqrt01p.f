@@ -1,4 +1,4 @@
-      SUBROUTINE SQRT01P( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE SQRT01P( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,23 +8,23 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE
+      REAL               ROGUE;
       const              ROGUE = -1.0e+10 ;
       // ..
       // .. Local Scalars ..
       int                INFO, MINMN;
-      REAL               ANORM, EPS, RESID
+      REAL               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY
+      REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -41,8 +41,8 @@
       // ..
       // .. Executable Statements ..
 
-      MINMN = MIN( M, N )
-      EPS = SLAMCH( 'Epsilon' )
+      MINMN = MIN( M, N );
+      EPS = SLAMCH( 'Epsilon' );
 
       // Copy the matrix A to the array AF.
 
@@ -50,7 +50,7 @@
 
       // Factorize the matrix A in the array AF.
 
-      SRNAMT = 'SGEQRFP'
+      SRNAMT = 'SGEQRFP';
       sgeqrfp(M, N, AF, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy details of Q
@@ -60,7 +60,7 @@
 
       // Generate the m-by-m matrix Q
 
-      SRNAMT = 'SORGQR'
+      SRNAMT = 'SORGQR';
       sorgqr(M, M, MINMN, Q, LDA, TAU, WORK, LWORK, INFO );
 
       // Copy R
@@ -74,12 +74,12 @@
 
       // Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 
-      ANORM = SLANGE( '1', M, N, A, LDA, RWORK )
-      RESID = SLANGE( '1', M, N, R, LDA, RWORK )
+      ANORM = SLANGE( '1', M, N, A, LDA, RWORK );
+      RESID = SLANGE( '1', M, N, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS
+         RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -89,11 +89,11 @@
 
       // Compute norm( I - Q'*Q ) / ( M * EPS ) .
 
-      RESID = SLANSY( '1', 'Upper', M, R, LDA, RWORK )
+      RESID = SLANSY( '1', 'Upper', M, R, LDA, RWORK );
 
-      RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS
+      RESULT( 2 ) = ( RESID / REAL( MAX( 1, M ) ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of SQRT01P
 

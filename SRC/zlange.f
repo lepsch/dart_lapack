@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             WORK( * );
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 * =====================================================================
@@ -36,61 +36,61 @@
       // .. Executable Statements ..
 
       if ( MIN( M, N ) == 0 ) {
-         VALUE = ZERO
+         VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= M; I++) { // 10
-               TEMP = ABS( A( I, J ) )
-               IF( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP
+               TEMP = ABS( A( I, J ) );
+               IF( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
          } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find norm1(A).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 40
-            SUM = ZERO
+            SUM = ZERO;
             for (I = 1; I <= M; I++) { // 30
-               SUM = SUM + ABS( A( I, J ) )
+               SUM = SUM + ABS( A( I, J ) );
             } // 30
-            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
          for (I = 1; I <= M; I++) { // 50
-            WORK( I ) = ZERO
+            WORK( I ) = ZERO;
          } // 50
          for (J = 1; J <= N; J++) { // 70
             for (I = 1; I <= M; I++) { // 60
-               WORK( I ) = WORK( I ) + ABS( A( I, J ) )
+               WORK( I ) = WORK( I ) + ABS( A( I, J ) );
             } // 60
          } // 70
-         VALUE = ZERO
+         VALUE = ZERO;
          for (I = 1; I <= M; I++) { // 80
-            TEMP = WORK( I )
-            IF( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP
+            TEMP = WORK( I );
+            IF( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
          } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         SCALE = ZERO
-         SUM = ONE
+         SCALE = ZERO;
+         SUM = ONE;
          for (J = 1; J <= N; J++) { // 90
             zlassq(M, A( 1, J ), 1, SCALE, SUM );
          } // 90
-         VALUE = SCALE*SQRT( SUM )
+         VALUE = SCALE*SQRT( SUM );
       }
 
-      ZLANGE = VALUE
-      RETURN
+      ZLANGE = VALUE;
+      RETURN;
 
       // End of ZLANGE
 

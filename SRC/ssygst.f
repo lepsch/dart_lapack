@@ -1,4 +1,4 @@
-      SUBROUTINE SSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
+      SUBROUTINE SSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * )
+      REAL               A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, HALF
+      REAL               ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
@@ -37,22 +37,22 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('SSYGST', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,7 +61,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'SSYGST', UPLO, N, -1, -1, -1 )
+      NB = ILAENV( 1, 'SSYGST', UPLO, N, -1, -1, -1 );
 
       if ( NB <= 1 || NB >= N ) {
 
@@ -77,8 +77,8 @@
 
                // Compute inv(U**T)*A*inv(U)
 
-               DO 10 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 10 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the upper triangle of A(k:n,k:n)
 
@@ -95,8 +95,8 @@
 
                // Compute inv(L)*A*inv(L**T)
 
-               DO 20 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 20 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the lower triangle of A(k:n,k:n)
 
@@ -115,8 +115,8 @@
 
                // Compute U*A*U**T
 
-               DO 30 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 30 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
 
@@ -131,8 +131,8 @@
 
                // Compute L**T*A*L
 
-               DO 40 K = 1, N, NB
-                  KB = MIN( N-K+1, NB )
+               DO 40 K = 1, N, NB;
+                  KB = MIN( N-K+1, NB );
 
                   // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
 
@@ -146,7 +146,7 @@
             }
          }
       }
-      RETURN
+      RETURN;
 
       // End of SSYGST
 

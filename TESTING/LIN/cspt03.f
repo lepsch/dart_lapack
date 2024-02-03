@@ -1,4 +1,4 @@
-      SUBROUTINE CSPT03( UPLO, N, A, AINV, WORK, LDW, RWORK, RCOND, RESID )
+      SUBROUTINE CSPT03( UPLO, N, A, AINV, WORK, LDW, RWORK, RCOND, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,28 +7,28 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDW, N;
-      REAL               RCOND, RESID
+      REAL               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * )
-      COMPLEX            A( * ), AINV( * ), WORK( LDW, * )
+      REAL               RWORK( * );
+      COMPLEX            A( * ), AINV( * ), WORK( LDW, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, ICOL, J, JCOL, K, KCOL, NALL;
-      REAL               AINVNM, ANORM, EPS
-      COMPLEX            T
+      REAL               AINVNM, ANORM, EPS;
+      COMPLEX            T;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGE, CLANSP, SLAMCH
-      COMPLEX            CDOTU
+      REAL               CLANGE, CLANSP, SLAMCH;
+      COMPLEX            CDOTU;
       // EXTERNAL LSAME, CLANGE, CLANSP, SLAMCH, CDOTU
       // ..
       // .. Intrinsic Functions ..
@@ -39,22 +39,22 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RCOND = ONE
-         RESID = ZERO
-         RETURN
+         RCOND = ONE;
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANSP( '1', UPLO, N, A, RWORK )
-      AINVNM = CLANSP( '1', UPLO, N, AINV, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANSP( '1', UPLO, N, A, RWORK );
+      AINVNM = CLANSP( '1', UPLO, N, AINV, RWORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO
-         RESID = ONE / EPS
-         RETURN
+         RCOND = ZERO;
+         RESID = ONE / EPS;
+         RETURN;
       }
-      RCOND = ( ONE/ANORM ) / AINVNM
+      RCOND = ( ONE/ANORM ) / AINVNM;
 
       // Case where both A and AINV are upper triangular:
       // Each element of - A * AINV is computed by taking the dot product
@@ -62,95 +62,95 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          for (I = 1; I <= N; I++) { // 70
-            ICOL = ( ( I-1 )*I ) / 2 + 1
+            ICOL = ( ( I-1 )*I ) / 2 + 1;
 
             // Code when J <= I
 
             for (J = 1; J <= I; J++) { // 30
-               JCOL = ( ( J-1 )*J ) / 2 + 1
-               T = CDOTU( J, A( ICOL ), 1, AINV( JCOL ), 1 )
-               JCOL = JCOL + 2*J - 1
-               KCOL = ICOL - 1
+               JCOL = ( ( J-1 )*J ) / 2 + 1;
+               T = CDOTU( J, A( ICOL ), 1, AINV( JCOL ), 1 );
+               JCOL = JCOL + 2*J - 1;
+               KCOL = ICOL - 1;
                for (K = J + 1; K <= I; K++) { // 10
-                  T = T + A( KCOL+K )*AINV( JCOL )
-                  JCOL = JCOL + K
+                  T = T + A( KCOL+K )*AINV( JCOL );
+                  JCOL = JCOL + K;
                } // 10
-               KCOL = KCOL + 2*I
+               KCOL = KCOL + 2*I;
                for (K = I + 1; K <= N; K++) { // 20
-                  T = T + A( KCOL )*AINV( JCOL )
-                  KCOL = KCOL + K
-                  JCOL = JCOL + K
+                  T = T + A( KCOL )*AINV( JCOL );
+                  KCOL = KCOL + K;
+                  JCOL = JCOL + K;
                } // 20
-               WORK( I, J ) = -T
+               WORK( I, J ) = -T;
             } // 30
 
             // Code when J > I
 
             for (J = I + 1; J <= N; J++) { // 60
-               JCOL = ( ( J-1 )*J ) / 2 + 1
-               T = CDOTU( I, A( ICOL ), 1, AINV( JCOL ), 1 )
-               JCOL = JCOL - 1
-               KCOL = ICOL + 2*I - 1
+               JCOL = ( ( J-1 )*J ) / 2 + 1;
+               T = CDOTU( I, A( ICOL ), 1, AINV( JCOL ), 1 );
+               JCOL = JCOL - 1;
+               KCOL = ICOL + 2*I - 1;
                for (K = I + 1; K <= J; K++) { // 40
-                  T = T + A( KCOL )*AINV( JCOL+K )
-                  KCOL = KCOL + K
+                  T = T + A( KCOL )*AINV( JCOL+K );
+                  KCOL = KCOL + K;
                } // 40
-               JCOL = JCOL + 2*J
+               JCOL = JCOL + 2*J;
                for (K = J + 1; K <= N; K++) { // 50
-                  T = T + A( KCOL )*AINV( JCOL )
-                  KCOL = KCOL + K
-                  JCOL = JCOL + K
+                  T = T + A( KCOL )*AINV( JCOL );
+                  KCOL = KCOL + K;
+                  JCOL = JCOL + K;
                } // 50
-               WORK( I, J ) = -T
+               WORK( I, J ) = -T;
             } // 60
          } // 70
       } else {
 
          // Case where both A and AINV are lower triangular
 
-         NALL = ( N*( N+1 ) ) / 2
+         NALL = ( N*( N+1 ) ) / 2;
          for (I = 1; I <= N; I++) { // 140
 
             // Code when J <= I
 
-            ICOL = NALL - ( ( N-I+1 )*( N-I+2 ) ) / 2 + 1
+            ICOL = NALL - ( ( N-I+1 )*( N-I+2 ) ) / 2 + 1;
             for (J = 1; J <= I; J++) { // 100
-               JCOL = NALL - ( ( N-J )*( N-J+1 ) ) / 2 - ( N-I )
-               T = CDOTU( N-I+1, A( ICOL ), 1, AINV( JCOL ), 1 )
-               KCOL = I
-               JCOL = J
+               JCOL = NALL - ( ( N-J )*( N-J+1 ) ) / 2 - ( N-I );
+               T = CDOTU( N-I+1, A( ICOL ), 1, AINV( JCOL ), 1 );
+               KCOL = I;
+               JCOL = J;
                for (K = 1; K <= J - 1; K++) { // 80
-                  T = T + A( KCOL )*AINV( JCOL )
-                  JCOL = JCOL + N - K
-                  KCOL = KCOL + N - K
+                  T = T + A( KCOL )*AINV( JCOL );
+                  JCOL = JCOL + N - K;
+                  KCOL = KCOL + N - K;
                } // 80
-               JCOL = JCOL - J
+               JCOL = JCOL - J;
                for (K = J; K <= I - 1; K++) { // 90
-                  T = T + A( KCOL )*AINV( JCOL+K )
-                  KCOL = KCOL + N - K
+                  T = T + A( KCOL )*AINV( JCOL+K );
+                  KCOL = KCOL + N - K;
                } // 90
-               WORK( I, J ) = -T
+               WORK( I, J ) = -T;
             } // 100
 
             // Code when J > I
 
-            ICOL = NALL - ( ( N-I )*( N-I+1 ) ) / 2
+            ICOL = NALL - ( ( N-I )*( N-I+1 ) ) / 2;
             for (J = I + 1; J <= N; J++) { // 130
-               JCOL = NALL - ( ( N-J+1 )*( N-J+2 ) ) / 2 + 1
-               T = CDOTU( N-J+1, A( ICOL-N+J ), 1, AINV( JCOL ), 1 )
-               KCOL = I
-               JCOL = J
+               JCOL = NALL - ( ( N-J+1 )*( N-J+2 ) ) / 2 + 1;
+               T = CDOTU( N-J+1, A( ICOL-N+J ), 1, AINV( JCOL ), 1 );
+               KCOL = I;
+               JCOL = J;
                for (K = 1; K <= I - 1; K++) { // 110
-                  T = T + A( KCOL )*AINV( JCOL )
-                  JCOL = JCOL + N - K
-                  KCOL = KCOL + N - K
+                  T = T + A( KCOL )*AINV( JCOL );
+                  JCOL = JCOL + N - K;
+                  KCOL = KCOL + N - K;
                } // 110
-               KCOL = KCOL - I
+               KCOL = KCOL - I;
                for (K = I; K <= J - 1; K++) { // 120
-                  T = T + A( KCOL+K )*AINV( JCOL )
-                  JCOL = JCOL + N - K
+                  T = T + A( KCOL+K )*AINV( JCOL );
+                  JCOL = JCOL + N - K;
                } // 120
-               WORK( I, J ) = -T
+               WORK( I, J ) = -T;
             } // 130
          } // 140
       }
@@ -158,16 +158,16 @@
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 150
-         WORK( I, I ) = WORK( I, I ) + ONE
+         WORK( I, I ) = WORK( I, I ) + ONE;
       } // 150
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = CLANGE( '1', N, N, WORK, LDW, RWORK )
+      RESID = CLANGE( '1', N, N, WORK, LDW, RWORK );
 
-      RESID = ( ( RESID*RCOND )/EPS ) / REAL( N )
+      RESID = ( ( RESID*RCOND )/EPS ) / REAL( N );
 
-      RETURN
+      RETURN;
 
       // End of CSPT03
 

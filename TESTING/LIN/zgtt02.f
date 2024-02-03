@@ -1,4 +1,4 @@
-      SUBROUTINE ZGTT02( TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB, RESID )
+      SUBROUTINE ZGTT02( TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       double             RESID;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * )
+      COMPLEX*16         B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -38,24 +38,24 @@
 
       // Quick exit if N = 0 or NRHS = 0
 
-      RESID = ZERO
+      RESID = ZERO;
       if (N <= 0 || NRHS == 0) RETURN;
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
 
       if ( LSAME( TRANS, 'N' ) ) {
-         ANORM = ZLANGT( '1', N, DL, D, DU )
+         ANORM = ZLANGT( '1', N, DL, D, DU );
       } else {
-         ANORM = ZLANGT( 'I', N, DL, D, DU )
+         ANORM = ZLANGT( 'I', N, DL, D, DU );
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
       if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS
-         RETURN
+         RESID = ONE / EPS;
+         RETURN;
       }
 
       // Compute B - op(A)*X and store in B.
@@ -63,16 +63,16 @@
       zlagtm(TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB );
 
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = DZASUM( N, B( 1, J ), 1 )
-         XNORM = DZASUM( N, X( 1, J ), 1 )
+         BNORM = DZASUM( N, B( 1, J ), 1 );
+         XNORM = DZASUM( N, X( 1, J ), 1 );
          if ( XNORM <= ZERO ) {
-            RESID = ONE / EPS
+            RESID = ONE / EPS;
          } else {
-            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
+            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS );
          }
       } // 10
 
-      RETURN
+      RETURN;
 
       // End of ZGTT02
 

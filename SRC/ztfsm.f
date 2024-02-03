@@ -1,4 +1,4 @@
-      SUBROUTINE ZTFSM( TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, LDB )
+      SUBROUTINE ZTFSM( TRANSR, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, B, LDB );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,16 +7,16 @@
       // .. Scalar Arguments ..
       String             TRANSR, DIAG, SIDE, TRANS, UPLO;
       int                LDB, M, N;
-      COMPLEX*16         ALPHA
+      COMPLEX*16         ALPHA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( 0: * ), B( 0: LDB-1, 0: * )
+      COMPLEX*16         A( 0: * ), B( 0: LDB-1, 0: * );
       // ..
 
 *  =====================================================================
       // ..
       // .. Parameters ..
-      COMPLEX*16         CONE, CZERO
+      COMPLEX*16         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -37,46 +37,46 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NORMALTRANSR = LSAME( TRANSR, 'N' )
-      LSIDE = LSAME( SIDE, 'L' )
-      LOWER = LSAME( UPLO, 'L' )
-      NOTRANS = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NORMALTRANSR = LSAME( TRANSR, 'N' );
+      LSIDE = LSAME( SIDE, 'L' );
+      LOWER = LSAME( UPLO, 'L' );
+      NOTRANS = LSAME( TRANS, 'N' );
       if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSIDE && !LSAME( SIDE, 'R' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( !NOTRANS && !LSAME( TRANS, 'C' ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( !LSAME( DIAG, 'N' ) && !LSAME( DIAG, 'U' ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( M < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( N < 0 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, M ) ) {
-         INFO = -11
+         INFO = -11;
       }
       if ( INFO != 0 ) {
          xerbla('ZTFSM ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return when ( (N == 0) || (M == 0) )
 
-      IF( ( M == 0 ) || ( N == 0 ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) ) RETURN;
 
       // Quick return when ALPHA == (0D+0,0D+0)
 
       if ( ALPHA == CZERO ) {
          for (J = 0; J <= N - 1; J++) { // 20
             for (I = 0; I <= M - 1; I++) { // 10
-               B( I, J ) = CZERO
+               B( I, J ) = CZERO;
             } // 10
          } // 20
-         RETURN
+         RETURN;
       }
 
       if ( LSIDE ) {
@@ -89,15 +89,15 @@
 
          if ( MOD( M, 2 ) == 0 ) {
             MISODD = false;
-            K = M / 2
+            K = M / 2;
          } else {
             MISODD = true;
             if ( LOWER ) {
-               M2 = M / 2
-               M1 = M - M2
+               M2 = M / 2;
+               M1 = M - M2;
             } else {
-               M1 = M / 2
-               M2 = M - M1
+               M1 = M / 2;
+               M2 = M - M1;
             }
          }
 
@@ -356,15 +356,15 @@
 
          if ( MOD( N, 2 ) == 0 ) {
             NISODD = false;
-            K = N / 2
+            K = N / 2;
          } else {
             NISODD = true;
             if ( LOWER ) {
-               N2 = N / 2
-               N1 = N - N2
+               N2 = N / 2;
+               N1 = N - N2;
             } else {
-               N1 = N / 2
-               N2 = N - N1
+               N1 = N / 2;
+               N2 = N - N1;
             }
          }
 
@@ -599,7 +599,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZTFSM
 

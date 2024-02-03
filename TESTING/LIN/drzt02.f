@@ -35,11 +35,11 @@
       // ..
       // .. Executable Statements ..
 
-      DRZT02 = ZERO
+      DRZT02 = ZERO;
 
       if ( LWORK < N*N+N ) {
          xerbla('DRZT02', 7 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,11 +61,11 @@
       // Q := Q - I
 
       for (I = 1; I <= N; I++) { // 10
-         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE
+         WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE;
       } // 10
 
-      DRZT02 = DLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
-      RETURN
+      DRZT02 = DLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) );
+      RETURN;
 
       // End of DRZT02
 

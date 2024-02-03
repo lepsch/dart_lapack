@@ -1,4 +1,4 @@
-      SUBROUTINE CSYT01_3( UPLO, N, A, LDA, AFAC, LDAFAC, E, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE CSYT01_3( UPLO, N, A, LDA, AFAC, LDAFAC, E, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,29 +7,29 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                LDA, LDAFAC, LDC, N;
-      REAL               RESID
+      REAL               RESID;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), E( * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), E( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               ANORM, EPS
+      REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, CLANSY
+      REAL               SLAMCH, CLANSY;
       // EXTERNAL LSAME, SLAMCH, CLANSY
       // ..
       // .. External Subroutines ..
@@ -43,8 +43,8 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // a) Revert to multipliers of L
@@ -53,8 +53,8 @@
 
       // 1) Determine EPS and the norm of A.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = CLANSY( '1', UPLO, N, A, LDA, RWORK );
 
       // 2) Initialize C to the identity matrix.
 
@@ -73,25 +73,25 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             }
          }
       }
 
       // 6) Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK )
+      RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
       }
 
 
@@ -99,7 +99,7 @@
 
       csyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
-      RETURN
+      RETURN;
 
       // End of CSYT01_3
 

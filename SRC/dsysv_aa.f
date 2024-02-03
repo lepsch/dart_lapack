@@ -1,4 +1,4 @@
-      SUBROUTINE DSYSV_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE DSYSV_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -34,37 +34,37 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
-      LWKMIN = MAX( 1, 2*N, 3*N-2 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
+      LWKMIN = MAX( 1, 2*N, 3*N-2 );
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
 
       if ( INFO == 0 ) {
          dsytrf_aa(UPLO, N, A, LDA, IPIV, WORK, -1, INFO );
-         LWKOPT_SYTRF = INT( WORK( 1 ) )
+         LWKOPT_SYTRF = INT( WORK( 1 ) );
          dsytrs_aa(UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO );
-         LWKOPT_SYTRS = INT( WORK( 1 ) )
-         LWKOPT = MAX( LWKMIN, LWKOPT_SYTRF, LWKOPT_SYTRS )
-         WORK( 1 ) = LWKOPT
+         LWKOPT_SYTRS = INT( WORK( 1 ) );
+         LWKOPT = MAX( LWKMIN, LWKOPT_SYTRF, LWKOPT_SYTRS );
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('DSYSV_AA ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Compute the factorization A = U**T*T*U or A = L*T*L**T.
@@ -78,9 +78,9 @@
 
       }
 
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of DSYSV_AA
 

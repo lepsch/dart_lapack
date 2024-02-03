@@ -1,4 +1,4 @@
-      SUBROUTINE DSYTRS2( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO )
+      SUBROUTINE DSYTRS2( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,22 +36,22 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('DSYTRS2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -67,20 +67,20 @@
          // Solve A*X = B, where A = U*D*U**T.
 
         // P**T * B
-        K=N
-        DO WHILE ( K >= 1 )
+        K=N;
+        DO WHILE ( K >= 1 );
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K=K-1
+            K=K-1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
-            KP = -IPIV( K )
-            IF( KP == -IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
-            K=K-2
+            KP = -IPIV( K );
+            IF( KP == -IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            K=K-2;
          }
         }
 
@@ -90,26 +90,26 @@
 
 *  Compute D \ B -> B   [ D \ (U \P**T * B) ]
 
-         I=N
-         DO WHILE ( I >= 1 )
+         I=N;
+         DO WHILE ( I >= 1 );
             if ( IPIV(I) > 0 ) {
               dscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else if ( I > 1) {
                if ( IPIV(I-1) == IPIV(I) ) {
-                  AKM1K = WORK(I)
-                  AKM1 = A( I-1, I-1 ) / AKM1K
-                  AK = A( I, I ) / AKM1K
-                  DENOM = AKM1*AK - ONE
+                  AKM1K = WORK(I);
+                  AKM1 = A( I-1, I-1 ) / AKM1K;
+                  AK = A( I, I ) / AKM1K;
+                  DENOM = AKM1*AK - ONE;
                   for (J = 1; J <= NRHS; J++) { // 15
-                     BKM1 = B( I-1, J ) / AKM1K
-                     BK = B( I, J ) / AKM1K
-                     B( I-1, J ) = ( AK*BKM1-BK ) / DENOM
-                     B( I, J ) = ( AKM1*BK-BKM1 ) / DENOM
+                     BKM1 = B( I-1, J ) / AKM1K;
+                     BK = B( I, J ) / AKM1K;
+                     B( I-1, J ) = ( AK*BKM1-BK ) / DENOM;
+                     B( I, J ) = ( AKM1*BK-BKM1 ) / DENOM;
                  } // 15
-               I = I - 1
+               I = I - 1;
                }
             }
-            I = I - 1
+            I = I - 1;
          }
 
        // Compute (U**T \ B) -> B   [ U**T \ (D \ (U \P**T * B) ) ]
@@ -118,20 +118,20 @@
 
         // P * B  [ P * (U**T \ (D \ (U \P**T * B) )) ]
 
-        K=1
-        DO WHILE ( K <= N )
+        K=1;
+        DO WHILE ( K <= N );
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K=K+1
+            K=K+1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
-            KP = -IPIV( K )
-            IF( K < N && KP == -IPIV( K+1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            K=K+2
+            KP = -IPIV( K );
+            IF( K < N && KP == -IPIV( K+1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            K=K+2;
          }
         }
 
@@ -140,20 +140,20 @@
          // Solve A*X = B, where A = L*D*L**T.
 
         // P**T * B
-        K=1
-        DO WHILE ( K <= N )
+        K=1;
+        DO WHILE ( K <= N );
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K=K+1
+            K=K+1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K and -IPIV(K+1).
-            KP = -IPIV( K+1 )
-            IF( KP == -IPIV( K ) ) CALL DSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
-            K=K+2
+            KP = -IPIV( K+1 );
+            IF( KP == -IPIV( K ) ) CALL DSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            K=K+2;
          }
         }
 
@@ -163,24 +163,24 @@
 
 *  Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
-         I=1
-         DO WHILE ( I <= N )
+         I=1;
+         DO WHILE ( I <= N );
             if ( IPIV(I) > 0 ) {
               dscal(NRHS, ONE / A( I, I ), B( I, 1 ), LDB );
             } else {
-                  AKM1K = WORK(I)
-                  AKM1 = A( I, I ) / AKM1K
-                  AK = A( I+1, I+1 ) / AKM1K
-                  DENOM = AKM1*AK - ONE
+                  AKM1K = WORK(I);
+                  AKM1 = A( I, I ) / AKM1K;
+                  AK = A( I+1, I+1 ) / AKM1K;
+                  DENOM = AKM1*AK - ONE;
                   for (J = 1; J <= NRHS; J++) { // 25
-                     BKM1 = B( I, J ) / AKM1K
-                     BK = B( I+1, J ) / AKM1K
-                     B( I, J ) = ( AK*BKM1-BK ) / DENOM
-                     B( I+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
+                     BKM1 = B( I, J ) / AKM1K;
+                     BK = B( I+1, J ) / AKM1K;
+                     B( I, J ) = ( AK*BKM1-BK ) / DENOM;
+                     B( I+1, J ) = ( AKM1*BK-BKM1 ) / DENOM;
                  } // 25
-                  I = I + 1
+                  I = I + 1;
             }
-            I = I + 1
+            I = I + 1;
          }
 
 *  Compute (L**T \ B) -> B   [ L**T \ (D \ (L \P**T * B) ) ]
@@ -189,20 +189,20 @@
 
         // P * B  [ P * (L**T \ (D \ (L \P**T * B) )) ]
 
-        K=N
-        DO WHILE ( K >= 1 )
+        K=N;
+        DO WHILE ( K >= 1 );
          if ( IPIV( K ) > 0 ) {
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K=K-1
+            K=K-1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
-            KP = -IPIV( K )
-            IF( K > 1 && KP == -IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
-            K=K-2
+            KP = -IPIV( K );
+            IF( K > 1 && KP == -IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            K=K-2;
          }
         }
 
@@ -212,7 +212,7 @@
 
       dsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
-      RETURN
+      RETURN;
 
       // End of DSYTRS2
 

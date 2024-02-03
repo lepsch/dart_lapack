@@ -1,4 +1,4 @@
-      SUBROUTINE DSPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO )
+      SUBROUTINE DSPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,22 +38,22 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
+      WANTZ = LSAME( JOBZ, 'V' );
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSAME( UPLO, 'U' ) || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO != 0 ) {
          xerbla('DSPEV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -61,30 +61,30 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = AP( 1 )
+         W( 1 ) = AP( 1 );
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = DLANSP( 'M', UPLO, N, AP, WORK )
-      ISCALE = 0
+      ANRM = DLANSP( 'M', UPLO, N, AP, WORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          dscal(( N*( N+1 ) ) / 2, SIGMA, AP, 1 );
@@ -92,8 +92,8 @@
 
       // Call DSPTRD to reduce symmetric packed matrix to tridiagonal form.
 
-      INDE = 1
-      INDTAU = INDE + N
+      INDE = 1;
+      INDTAU = INDE + N;
       dsptrd(UPLO, N, AP, W, WORK( INDE ), WORK( INDTAU ), IINFO );
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
@@ -102,7 +102,7 @@
       if ( !WANTZ ) {
          dsterf(N, W, WORK( INDE ), INFO );
       } else {
-         INDWRK = INDTAU + N
+         INDWRK = INDTAU + N;
          dopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
          dsteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO );
       }
@@ -111,14 +111,14 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          dscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      RETURN
+      RETURN;
 
       // End of DSPEV
 

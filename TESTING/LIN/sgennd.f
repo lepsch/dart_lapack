@@ -8,13 +8,13 @@
       int     M, N, LDA;
       // ..
       // .. Array Arguments ..
-      REAL A( LDA, * )
+      REAL A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -24,13 +24,13 @@
       // INTRINSIC MIN
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N )
+      K = MIN( M, N );
       for (I = 1; I <= K; I++) {
          if ( A( I, I ) < ZERO ) {
             SGENND = false;
-            RETURN
+            RETURN;
          }
       }
       SGENND = true;
-      RETURN
+      RETURN;
       }

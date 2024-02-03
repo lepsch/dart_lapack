@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), WORK( * ), X( * );
       double             RWORK( * );
       // ..
 
@@ -21,7 +21,7 @@
       double             AINVNM, ANORM, TMP;
       int                I, J;
       bool               UP, UPPER;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -40,26 +40,26 @@
       double             CABS1;
       // ..
       // .. Statement Function Definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       ZLA_SYRCOND_X = 0.0;
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAF < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('ZLA_SYRCOND_X', -INFO );
-         RETURN
+         RETURN;
       }
       UP = false;
       IF ( LSAME( UPLO, 'U' ) ) UP = true;
@@ -71,25 +71,25 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             for (J = 1; J <= I; J++) {
-               TMP = TMP + CABS1( A( J, I ) * X( J ) )
+               TMP = TMP + CABS1( A( J, I ) * X( J ) );
             }
             for (J = I+1; J <= N; J++) {
-               TMP = TMP + CABS1( A( I, J ) * X( J ) )
+               TMP = TMP + CABS1( A( I, J ) * X( J ) );
             }
-            RWORK( I ) = TMP
-            ANORM = MAX( ANORM, TMP )
+            RWORK( I ) = TMP;
+            ANORM = MAX( ANORM, TMP );
          }
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             for (J = 1; J <= I; J++) {
-               TMP = TMP + CABS1( A( I, J ) * X( J ) )
+               TMP = TMP + CABS1( A( I, J ) * X( J ) );
             }
             for (J = I+1; J <= N; J++) {
-               TMP = TMP + CABS1( A( J, I ) * X( J ) )
+               TMP = TMP + CABS1( A( J, I ) * X( J ) );
             }
-            RWORK( I ) = TMP
-            ANORM = MAX( ANORM, TMP )
+            RWORK( I ) = TMP;
+            ANORM = MAX( ANORM, TMP );
          }
       }
 
@@ -97,16 +97,16 @@
 
       if ( N == 0 ) {
          ZLA_SYRCOND_X = 1.0;
-         RETURN
+         RETURN;
       } else if ( ANORM == 0.0 ) {
-         RETURN
+         RETURN;
       }
 
       // Estimate the norm of inv(op(A)).
 
       AINVNM = 0.0;
 
-      KASE = 0
+      KASE = 0;
       } // 10
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -115,7 +115,7 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * RWORK( I )
+               WORK( I ) = WORK( I ) * RWORK( I );
             }
 
             if ( UP ) {
@@ -127,14 +127,14 @@
             // Multiply by inv(X).
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) / X( I )
+               WORK( I ) = WORK( I ) / X( I );
             }
          } else {
 
             // Multiply by inv(X**T).
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) / X( I )
+               WORK( I ) = WORK( I ) / X( I );
             }
 
             if ( UP ) {
@@ -146,17 +146,17 @@
             // Multiply by R.
 
             for (I = 1; I <= N; I++) {
-               WORK( I ) = WORK( I ) * RWORK( I )
+               WORK( I ) = WORK( I ) * RWORK( I );
             }
          }
-         GO TO 10
+         GO TO 10;
       }
 
       // Compute the estimate of the reciprocal condition number.
 
       if (AINVNM != 0.0) ZLA_SYRCOND_X = 1.0 / AINVNM;
 
-      RETURN
+      RETURN;
 
       // End of ZLA_SYRCOND_X
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZTBCON( NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, RWORK, INFO )
+      SUBROUTINE ZTBCON( NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), WORK( * )
+      COMPLEX*16         AB( LDAB, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -25,7 +25,7 @@
       String             NORMIN;
       int                IX, KASE, KASE1;
       double             AINVNM, ANORM, SCALE, SMLNUM, XNORM;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -46,48 +46,48 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
+      NOUNIT = LSAME( DIAG, 'N' );
 
       if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KD < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < KD+1 ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('ZTBCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       }
 
-      RCOND = ZERO
-      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( N, 1 ) )
+      RCOND = ZERO;
+      SMLNUM = DLAMCH( 'Safe minimum' )*DBLE( MAX( N, 1 ) );
 
       // Compute the 1-norm of the triangular matrix A or A**H.
 
-      ANORM = ZLANTB( NORM, UPLO, DIAG, N, KD, AB, LDAB, RWORK )
+      ANORM = ZLANTB( NORM, UPLO, DIAG, N, KD, AB, LDAB, RWORK );
 
       // Continue only if ANORM > 0.
 
@@ -95,14 +95,14 @@
 
          // Estimate the 1-norm of the inverse of A.
 
-         AINVNM = ZERO
-         NORMIN = 'N'
+         AINVNM = ZERO;
+         NORMIN = 'N';
          if ( ONENRM ) {
-            KASE1 = 1
+            KASE1 = 1;
          } else {
-            KASE1 = 2
+            KASE1 = 2;
          }
-         KASE = 0
+         KASE = 0;
          } // 10
          zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -117,17 +117,17 @@
 
                zlatbs(UPLO, 'Conjugate transpose', DIAG, NORMIN, N, KD, AB, LDAB, WORK, SCALE, RWORK, INFO );
             }
-            NORMIN = 'Y'
+            NORMIN = 'Y';
 
             // Multiply by 1/SCALE if doing so will not cause overflow.
 
             if ( SCALE != ONE ) {
-               IX = IZAMAX( N, WORK, 1 )
-               XNORM = CABS1( WORK( IX ) )
+               IX = IZAMAX( N, WORK, 1 );
+               XNORM = CABS1( WORK( IX ) );
                if (SCALE < XNORM*SMLNUM || SCALE == ZERO) GO TO 20;
                zdrscl(N, SCALE, WORK, 1 );
             }
-            GO TO 10
+            GO TO 10;
          }
 
          // Compute the estimate of the reciprocal condition number.
@@ -136,7 +136,7 @@
       }
 
       } // 20
-      RETURN
+      RETURN;
 
       // End of ZTBCON
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZHEGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
+      SUBROUTINE ZHEGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
@@ -17,14 +17,14 @@
       // .. Parameters ..
       double             ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                K;
       double             AKK, BKK;
-      COMPLEX*16         CT
+      COMPLEX*16         CT;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZAXPY, ZDSCAL, ZHER2, ZLACGV, ZTRMV, ZTRSV
@@ -40,22 +40,22 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('ZHEGS2', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( ITYPE == 1 ) {
@@ -67,13 +67,13 @@
 
                // Update the upper triangle of A(k:n,k:n)
 
-               AKK = DBLE( A( K, K ) )
-               BKK = DBLE( B( K, K ) )
-               AKK = AKK / BKK**2
-               A( K, K ) = AKK
+               AKK = DBLE( A( K, K ) );
+               BKK = DBLE( B( K, K ) );
+               AKK = AKK / BKK**2;
+               A( K, K ) = AKK;
                if ( K < N ) {
                   zdscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
-                  CT = -HALF*AKK
+                  CT = -HALF*AKK;
                   zlacgv(N-K, A( K, K+1 ), LDA );
                   zlacgv(N-K, B( K, K+1 ), LDB );
                   zaxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
@@ -92,13 +92,13 @@
 
                // Update the lower triangle of A(k:n,k:n)
 
-               AKK = DBLE( A( K, K ) )
-               BKK = DBLE( B( K, K ) )
-               AKK = AKK / BKK**2
-               A( K, K ) = AKK
+               AKK = DBLE( A( K, K ) );
+               BKK = DBLE( B( K, K ) );
+               AKK = AKK / BKK**2;
+               A( K, K ) = AKK;
                if ( K < N ) {
                   zdscal(N-K, ONE / BKK, A( K+1, K ), 1 );
-                  CT = -HALF*AKK
+                  CT = -HALF*AKK;
                   zaxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
                   zher2(UPLO, N-K, -CONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA );
                   zaxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
@@ -115,15 +115,15 @@
 
                // Update the upper triangle of A(1:k,1:k)
 
-               AKK = DBLE( A( K, K ) )
-               BKK = DBLE( B( K, K ) )
+               AKK = DBLE( A( K, K ) );
+               BKK = DBLE( B( K, K ) );
                ztrmv(UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 );
-               CT = HALF*AKK
+               CT = HALF*AKK;
                zaxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                zher2(UPLO, K-1, CONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA );
                zaxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                zdscal(K-1, BKK, A( 1, K ), 1 );
-               A( K, K ) = AKK*BKK**2
+               A( K, K ) = AKK*BKK**2;
             } // 30
          } else {
 
@@ -133,11 +133,11 @@
 
                // Update the lower triangle of A(1:k,1:k)
 
-               AKK = DBLE( A( K, K ) )
-               BKK = DBLE( B( K, K ) )
+               AKK = DBLE( A( K, K ) );
+               BKK = DBLE( B( K, K ) );
                zlacgv(K-1, A( K, 1 ), LDA );
                ztrmv(UPLO, 'Conjugate transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA );
-               CT = HALF*AKK
+               CT = HALF*AKK;
                zlacgv(K-1, B( K, 1 ), LDB );
                zaxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
                zher2(UPLO, K-1, CONE, A( K, 1 ), LDA, B( K, 1 ), LDB, A, LDA );
@@ -145,11 +145,11 @@
                zlacgv(K-1, B( K, 1 ), LDB );
                zdscal(K-1, BKK, A( K, 1 ), LDA );
                zlacgv(K-1, A( K, 1 ), LDA );
-               A( K, K ) = AKK*BKK**2
+               A( K, K ) = AKK*BKK**2;
             } // 40
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZHEGS2
 

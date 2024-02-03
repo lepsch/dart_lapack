@@ -8,31 +8,31 @@
       int     M, N, LDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX A( LDA, * )
+      COMPLEX A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int     I, K;
-      COMPLEX AII
+      COMPLEX AII;
       // ..
       // .. Intrinsics ..
       // INTRINSIC MIN, REAL, AIMAG
       // ..
       // .. Executable Statements ..
-      K = MIN( M, N )
+      K = MIN( M, N );
       for (I = 1; I <= K; I++) {
-         AII = A( I, I )
+         AII = A( I, I );
          if ( REAL( AII ) < ZERO || AIMAG( AII ) != ZERO ) {
             CGENND = false;
-            RETURN
+            RETURN;
          }
       }
       CGENND = true;
-      RETURN
+      RETURN;
       }

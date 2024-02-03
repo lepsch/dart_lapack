@@ -1,4 +1,4 @@
-      SUBROUTINE ZGTCON( NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND, WORK, INFO )
+      SUBROUTINE ZGTCON( NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         D( * ), DL( * ), DU( * ), DU2( * ), WORK( * )
+      COMPLEX*16         D( * ), DL( * ), DU( * ), DU2( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -42,43 +42,43 @@
 
       // Test the input arguments.
 
-      INFO = 0
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
+      INFO = 0;
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
       if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ANORM < ZERO ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('ZGTCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM == ZERO ) {
-         RETURN
+         RETURN;
       }
 
       // Check that D(1:N) is non-zero.
 
       for (I = 1; I <= N; I++) { // 10
-         IF( D( I ) == DCMPLX( ZERO ) ) RETURN
+         IF( D( I ) == DCMPLX( ZERO ) ) RETURN;
       } // 10
 
-      AINVNM = ZERO
+      AINVNM = ZERO;
       if ( ONENRM ) {
-         KASE1 = 1
+         KASE1 = 1;
       } else {
-         KASE1 = 2
+         KASE1 = 2;
       }
-      KASE = 0
+      KASE = 0;
       } // 20
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -93,14 +93,14 @@
 
             zgttrs('Conjugate transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO );
          }
-         GO TO 20
+         GO TO 20;
       }
 
       // Compute the estimate of the reciprocal condition number.
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      RETURN
+      RETURN;
 
       // End of ZGTCON
 

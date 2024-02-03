@@ -1,4 +1,4 @@
-      SUBROUTINE CUNGQL( M, N, K, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE CUNGQL( M, N, K, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int                INFO, K, LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), TAU( * ), WORK( * )
+      COMPLEX            A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ZERO
+      COMPLEX            ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -29,73 +29,73 @@
       // ..
       // .. External Functions ..
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 || N > M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( K < 0 || K > N ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       }
 
       if ( INFO == 0 ) {
          if ( N == 0 ) {
-            LWKOPT = 1
+            LWKOPT = 1;
          } else {
-            NB = ILAENV( 1, 'CUNGQL', ' ', M, N, K, -1 )
-            LWKOPT = N*NB
+            NB = ILAENV( 1, 'CUNGQL', ' ', M, N, K, -1 );
+            LWKOPT = N*NB;
          }
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
+         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
          if ( LWORK < MAX( 1, N ) && !LQUERY ) {
-            INFO = -8
+            INFO = -8;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CUNGQL', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N <= 0 ) {
-         RETURN
+         RETURN;
       }
 
-      NBMIN = 2
-      NX = 0
-      IWS = N
+      NBMIN = 2;
+      NX = 0;
+      IWS = N;
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'CUNGQL', ' ', M, N, K, -1 ) )
+         NX = MAX( 0, ILAENV( 3, 'CUNGQL', ' ', M, N, K, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            LDWORK = N
-            IWS = LDWORK*NB
+            LDWORK = N;
+            IWS = LDWORK*NB;
             if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
-               NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'CUNGQL', ' ', M, N, K, -1 ) )
+               NB = LWORK / LDWORK;
+               NBMIN = MAX( 2, ILAENV( 2, 'CUNGQL', ' ', M, N, K, -1 ) );
             }
          }
       }
@@ -105,17 +105,17 @@
          // Use blocked code after the first block.
          // The last kk columns are handled by the block method.
 
-         KK = MIN( K, ( ( K-NX+NB-1 ) / NB )*NB )
+         KK = MIN( K, ( ( K-NX+NB-1 ) / NB )*NB );
 
          // Set A(m-kk+1:m,1:n-kk) to zero.
 
          for (J = 1; J <= N - KK; J++) { // 20
             for (I = M - KK + 1; I <= M; I++) { // 10
-               A( I, J ) = ZERO
+               A( I, J ) = ZERO;
             } // 10
          } // 20
       } else {
-         KK = 0
+         KK = 0;
       }
 
       // Use unblocked code for the first or only block.
@@ -126,8 +126,8 @@
 
          // Use blocked code
 
-         DO 50 I = K - KK + 1, K, NB
-            IB = MIN( NB, K-I+1 )
+         DO 50 I = K - KK + 1, K, NB;
+            IB = MIN( NB, K-I+1 );
             if ( N-K+I > 1 ) {
 
                // Form the triangular factor of the block reflector
@@ -148,14 +148,14 @@
 
             for (J = N - K + I; J <= N - K + I + IB - 1; J++) { // 40
                for (L = M - K + I + IB; L <= M; L++) { // 30
-                  A( L, J ) = ZERO
+                  A( L, J ) = ZERO;
                } // 30
             } // 40
          } // 50
       }
 
-      WORK( 1 ) = IWS
-      RETURN
+      WORK( 1 ) = IWS;
+      RETURN;
 
       // End of CUNGQL
 

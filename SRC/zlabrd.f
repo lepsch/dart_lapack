@@ -1,4 +1,4 @@
-      SUBROUTINE ZLABRD( M, N, NB, A, LDA, D, E, TAUQ, TAUP, X, LDX, Y, LDY )
+      SUBROUTINE ZLABRD( M, N, NB, A, LDA, D, E, TAUQ, TAUP, X, LDX, Y, LDY );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * )
+      COMPLEX*16         A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE
+      COMPLEX*16         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX*16         ALPHA
+      COMPLEX*16         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMV, ZLACGV, ZLARFG, ZSCAL
@@ -49,11 +49,11 @@
 
             // Generate reflection Q(i) to annihilate A(i+1:m,i)
 
-            ALPHA = A( I, I )
+            ALPHA = A( I, I );
             zlarfg(M-I+1, ALPHA, A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = DBLE( ALPHA )
+            D( I ) = DBLE( ALPHA );
             if ( I < N ) {
-               A( I, I ) = ONE
+               A( I, I ) = ONE;
 
                // Compute Y(i+1:n,i)
 
@@ -76,10 +76,10 @@
 
                // Generate reflection P(i) to annihilate A(i,i+2:n)
 
-               ALPHA = A( I, I+1 )
+               ALPHA = A( I, I+1 );
                zlarfg(N-I, ALPHA, A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = DBLE( ALPHA )
-               A( I, I+1 ) = ONE
+               E( I ) = DBLE( ALPHA );
+               A( I, I+1 ) = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -110,11 +110,11 @@
 
             // Generate reflection P(i) to annihilate A(i,i+1:n)
 
-            ALPHA = A( I, I )
+            ALPHA = A( I, I );
             zlarfg(N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = DBLE( ALPHA )
+            D( I ) = DBLE( ALPHA );
             if ( I < M ) {
-               A( I, I ) = ONE
+               A( I, I ) = ONE;
 
                // Compute X(i+1:m,i)
 
@@ -135,10 +135,10 @@
 
                // Generate reflection Q(i) to annihilate A(i+2:m,i)
 
-               ALPHA = A( I+1, I )
+               ALPHA = A( I+1, I );
                zlarfg(M-I, ALPHA, A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = DBLE( ALPHA )
-               A( I+1, I ) = ONE
+               E( I ) = DBLE( ALPHA );
+               A( I+1, I ) = ONE;
 
                // Compute Y(i+1:n,i)
 
@@ -153,7 +153,7 @@
             }
          } // 20
       }
-      RETURN
+      RETURN;
 
       // End of ZLABRD
 

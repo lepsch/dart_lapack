@@ -1,5 +1,5 @@
-      SUBROUTINE CLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK )
-      IMPLICIT NONE
+      SUBROUTINE CLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK );
+      IMPLICIT NONE;
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,13 +10,13 @@
       int                K, LDA, LDB, LDT, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CONE, CZERO
+      COMPLEX            CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -36,7 +36,7 @@
 
       if (M < 0 || N <= 0 || K == 0 || K > N) RETURN;
 
-      LNOTIDENT = !LSAME( IDENT, 'I' )
+      LNOTIDENT = !LSAME( IDENT, 'I' );
 
       // ------------------------------------------------------------------
 
@@ -100,7 +100,7 @@
 
          for (J = 1; J <= N-K; J++) {
             for (I = 1; I <= K; I++) {
-               A( I, K+J ) = A( I, K+J ) - WORK( I, J )
+               A( I, K+J ) = A( I, K+J ) - WORK( I, J );
             }
          }
 
@@ -127,7 +127,7 @@
 
       for (J = 1; J <= K - 1; J++) {
          for (I = J + 1; I <= K; I++) {
-            WORK( I, J ) = CZERO
+            WORK( I, J ) = CZERO;
          }
       }
 
@@ -174,7 +174,7 @@
 
          for (J = 1; J <= K - 1; J++) {
             for (I = J + 1; I <= K; I++) {
-               A( I, J ) = - WORK( I, J )
+               A( I, J ) = - WORK( I, J );
             }
          }
 
@@ -184,11 +184,11 @@
 
       for (J = 1; J <= K; J++) {
          for (I = 1; I <= J; I++) {
-            A( I, J ) = A( I, J ) - WORK( I, J )
+            A( I, J ) = A( I, J ) - WORK( I, J );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of CLARFB_GETT
 

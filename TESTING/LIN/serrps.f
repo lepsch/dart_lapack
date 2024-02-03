@@ -1,4 +1,4 @@
-      SUBROUTINE SERRPS( PATH, NUNIT )
+      SUBROUTINE SERRPS( PATH, NUNIT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -19,7 +19,7 @@
       int                I, INFO, J, RANK;
       // ..
       // .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), WORK( 2*NMAX )
+      REAL               A( NMAX, NMAX ), WORK( 2*NMAX );
       int                PIV( NMAX );
       // ..
       // .. External Subroutines ..
@@ -39,19 +39,19 @@
       // ..
       // .. Executable Statements ..
 
-      NOUT = NUNIT
-      WRITE( NOUT, FMT = * )
+      NOUT = NUNIT;
+      WRITE( NOUT, FMT = * );
 
       // Set the variables to innocuous values.
 
       for (J = 1; J <= NMAX; J++) { // 110
          for (I = 1; I <= NMAX; I++) { // 100
-            A( I, J ) = 1.0 / REAL( I+J )
+            A( I, J ) = 1.0 / REAL( I+J );
 
          } // 100
-         PIV( J ) = J
-         WORK( J ) = 0.
-         WORK( NMAX+J ) = 0.
+         PIV( J ) = J;
+         WORK( J ) = 0.;
+         WORK( NMAX+J ) = 0.;
 
       } // 110
       OK = true;
@@ -62,27 +62,27 @@
 
          // SPSTRF
 
-      SRNAMT = 'SPSTRF'
-      INFOT = 1
+      SRNAMT = 'SPSTRF';
+      INFOT = 1;
       spstrf('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       spstrf('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       spstrf('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTRF', INFOT, NOUT, LERR, OK );
 
          // SPSTF2
 
-      SRNAMT = 'SPSTF2'
-      INFOT = 1
+      SRNAMT = 'SPSTF2';
+      INFOT = 1;
       spstf2('/', 0, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 2
+      INFOT = 2;
       spstf2('U', -1, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTF2', INFOT, NOUT, LERR, OK );
-      INFOT = 4
+      INFOT = 4;
       spstf2('U', 2, A, 1, PIV, RANK, -1.0, WORK, INFO );
       chkxer('SPSTF2', INFOT, NOUT, LERR, OK );
 
@@ -91,7 +91,7 @@
 
       alaesm(PATH, OK, NOUT );
 
-      RETURN
+      RETURN;
 
       // End of SERRPS
 

@@ -1,5 +1,5 @@
-      SUBROUTINE ZLAQP3RK( M, N, NRHS, IOFFSET, NB, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, AUXV, F, LDF, IWORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE ZLAQP3RK( M, N, NRHS, IOFFSET, NB, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, AUXV, F, LDF, IWORK, INFO );
+      IMPLICIT NONE;
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       // .. Array Arguments ..
       int                IWORK( * ), JPIV( * );
       double             VN1( * ), VN2( * );
-      COMPLEX*16         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * )
+      COMPLEX*16         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
       // ..
 
 *  =====================================================================
@@ -21,13 +21,13 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF;
       double             HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z;
-      COMPLEX*16         AIK
+      COMPLEX*16         AIK;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZGEMV, ZLARFG, ZSWAP
@@ -45,27 +45,27 @@
 
       // Initialize INFO
 
-      INFO = 0
+      INFO = 0;
 
       // MINMNFACT in the smallest dimension of the submatrix
       // A(IOFFSET+1:M,1:N) to be factorized.
 
-      MINMNFACT = MIN( M-IOFFSET, N )
-      MINMNUPDT = MIN( M-IOFFSET, N+NRHS )
-      NB = MIN( NB, MINMNFACT )
-      TOL3Z = SQRT( DLAMCH( 'Epsilon' ) )
-      HUGEVAL = DLAMCH( 'Overflow' )
+      MINMNFACT = MIN( M-IOFFSET, N );
+      MINMNUPDT = MIN( M-IOFFSET, N+NRHS );
+      NB = MIN( NB, MINMNFACT );
+      TOL3Z = SQRT( DLAMCH( 'Epsilon' ) );
+      HUGEVAL = DLAMCH( 'Overflow' );
 
       // Compute factorization in a while loop over NB columns,
       // K is the column index in the block A(1:M,1:N).
 
-      K = 0
-      LSTICC = 0
+      K = 0;
+      LSTICC = 0;
       DONE = false;
 
-      DO WHILE ( K < NB && LSTICC == 0 )
-         K = K + 1
-         I = IOFFSET + K
+      DO WHILE ( K < NB && LSTICC == 0 );
+         K = K + 1;
+         I = IOFFSET + K;
 
          if ( I == 1 ) {
 
@@ -73,7 +73,7 @@
             // therefore we use the computed KP1 and MAXC2NRM from the
             // main routine.
 
-            KP = KP1
+            KP = KP1;
 
          } else {
 
@@ -81,12 +81,12 @@
             // of the column with the maximum 2-norm in the
             // submatrix A(I:M,K:N).
 
-            KP = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 )
+            KP = ( K-1 ) + IDAMAX( N-K+1, VN1( K ), 1 );
 
             // Determine the maximum column 2-norm and the relative maximum
             // column 2-norm of the submatrix A(I:M,K:N) in step K.
 
-            MAXC2NRMK = VN1( KP )
+            MAXC2NRMK = VN1( KP );
 
             // ============================================================
 
@@ -109,13 +109,13 @@
                        // is the same as the number of processed rows in
                        // the original whole matrix A_orig.
 
-               KB = K - 1
-               IF = I - 1
-               INFO = KB + KP
+               KB = K - 1;
+               IF = I - 1;
+               INFO = KB + KP;
 
                // Set RELMAXC2NRMK to NaN.
 
-               RELMAXC2NRMK = MAXC2NRMK
+               RELMAXC2NRMK = MAXC2NRMK;
 
                // There is no need to apply the block reflector to the
                // residual of the matrix A stored in A(KB+1:M,KB+1:N),
@@ -141,7 +141,7 @@
 
                // Return from the routine.
 
-               RETURN
+               RETURN;
             }
 
             // Quick return, if the submatrix A(I:M,K:N) is
@@ -161,9 +161,9 @@
                        // is the same as the number of processed rows in
                        // the original whole matrix A_orig.
 
-               KB = K - 1
-               IF = I - 1
-               RELMAXC2NRMK = ZERO
+               KB = K - 1;
+               IF = I - 1;
+               RELMAXC2NRMK = ZERO;
 
                // There is no need to apply the block reflector to the
                // residual of the matrix A stored in A(KB+1:M,KB+1:N),
@@ -188,12 +188,12 @@
                // which is equivalent to seting TAU(K:MINMNFACT) = CZERO.
 
                for (J = K; J <= MINMNFACT; J++) {
-                  TAU( J ) = CZERO
+                  TAU( J ) = CZERO;
                }
 
                // Return from the routine.
 
-               RETURN
+               RETURN;
 
             }
 
@@ -209,7 +209,7 @@
             // original matrix is checked in the main routine.
 
             if ( INFO == 0 && MAXC2NRMK > HUGEVAL ) {
-               INFO = N + K - 1 + KP
+               INFO = N + K - 1 + KP;
             }
 
             // ============================================================
@@ -224,7 +224,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
+            RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM;
 
             if ( MAXC2NRMK <= ABSTOL || RELMAXC2NRMK <= RELTOL ) {
 
@@ -237,8 +237,8 @@
                        // is the same as the number of processed rows in
                        // the original whole matrix A_orig;
 
-                  KB = K - 1
-                  IF = I - 1
+                  KB = K - 1;
+                  IF = I - 1;
 
                // Apply the block reflector to the residual of the
                // matrix A and the residual of the right hand sides B, if
@@ -262,12 +262,12 @@
                // which is equivalent to seting TAU(K:MINMNFACT) = CZERO.
 
                for (J = K; J <= MINMNFACT; J++) {
-                  TAU( J ) = CZERO
+                  TAU( J ) = CZERO;
                }
 
                // Return from the routine.
 
-               RETURN
+               RETURN;
 
             }
 
@@ -294,11 +294,11 @@
          if ( KP != K ) {
             zswap(M, A( 1, KP ), 1, A( 1, K ), 1 );
             zswap(K-1, F( KP, 1 ), LDF, F( K, 1 ), LDF );
-            VN1( KP ) = VN1( K )
-            VN2( KP ) = VN2( K )
-            ITEMP = JPIV( KP )
-            JPIV( KP ) = JPIV( K )
-            JPIV( K ) = ITEMP
+            VN1( KP ) = VN1( K );
+            VN2( KP ) = VN2( K );
+            ITEMP = JPIV( KP );
+            JPIV( KP ) = JPIV( K );
+            JPIV( K ) = ITEMP;
          }
 
          // Apply previous Householder reflectors to column K:
@@ -306,11 +306,11 @@
 
          if ( K > 1 ) {
             for (J = 1; J <= K - 1; J++) {
-               F( K, J ) = DCONJG( F( K, J ) )
+               F( K, J ) = DCONJG( F( K, J ) );
             }
             zgemv('No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 );
             for (J = 1; J <= K - 1; J++) {
-               F( K, J ) = DCONJG( F( K, J ) )
+               F( K, J ) = DCONJG( F( K, J ) );
             }
          }
 
@@ -319,7 +319,7 @@
          if ( I < M ) {
             zlarfg(M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) );
          } else {
-            TAU( K ) = CZERO
+            TAU( K ) = CZERO;
          }
 
          // Check if TAU(K) contains NaN, set INFO parameter
@@ -333,11 +333,11 @@
          // by ZLARFG is covered by checking TAU(K) for NaN.
 
          if ( DISNAN( DBLE( TAU(K) ) ) ) {
-            TAUNAN = DBLE( TAU(K) )
+            TAUNAN = DBLE( TAU(K) );
          } else if ( DISNAN( DIMAG( TAU(K) ) ) ) {
-            TAUNAN = DIMAG( TAU(K) )
+            TAUNAN = DIMAG( TAU(K) );
          } else {
-            TAUNAN = ZERO
+            TAUNAN = ZERO;
          }
 
          if ( DISNAN( TAUNAN ) ) {
@@ -351,14 +351,14 @@
                     // is the same as the number of processed rows in
                     // the original whole matrix A_orig.
 
-            KB = K - 1
-            IF = I - 1
-            INFO = K
+            KB = K - 1;
+            IF = I - 1;
+            INFO = K;
 
             // Set MAXC2NRMK and  RELMAXC2NRMK to NaN.
 
-            MAXC2NRMK = TAUNAN
-            RELMAXC2NRMK = TAUNAN
+            MAXC2NRMK = TAUNAN;
+            RELMAXC2NRMK = TAUNAN;
 
             // There is no need to apply the block reflector to the
             // residual of the matrix A stored in A(KB+1:M,KB+1:N),
@@ -384,13 +384,13 @@
 
             // Return from the routine.
 
-            RETURN
+            RETURN;
          }
 
          // ===============================================================
 
-         AIK = A( I, K )
-         A( I, K ) = CONE
+         AIK = A( I, K );
+         A( I, K ) = CONE;
 
          // ===============================================================
 
@@ -405,7 +405,7 @@
                // column K in matrix F, i.e elements F(1:K,K).
 
          for (J = 1; J <= K; J++) {
-            F( J, K ) = CZERO
+            F( J, K ) = CZERO;
          }
 
           // 3) Incremental updating of the K-th column of F:
@@ -428,7 +428,7 @@
             zgemm('No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA );
          }
 
-         A( I, K ) = AIK
+         A( I, K ) = AIK;
 
          // Update the partial column 2-norms for the residual matrix,
          // only if the residual matrix A(I+1:M,K+1:N) exists, i.e.
@@ -442,9 +442,9 @@
                   // NOTE: The following lines follow from the analysis in
                   // Lapack Working Note 176.
 
-                  TEMP = ABS( A( I, J ) ) / VN1( J )
-                  TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
-                  TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
+                  TEMP = ABS( A( I, J ) ) / VN1( J );
+                  TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) );
+                  TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2;
                   if ( TEMP2 <= TOL3Z ) {
 
                      // At J-index, we have a difficult column for the
@@ -454,14 +454,14 @@
                      // with N-1 elements, where the elements are
                      // shifted by 1 to the left.
 
-                     IWORK( J-1 ) = LSTICC
+                     IWORK( J-1 ) = LSTICC;
 
                      // Set the index of the last difficult column LSTICC.
 
-                     LSTICC = J
+                     LSTICC = J;
 
                   } else {
-                     VN1( J ) = VN1( J )*SQRT( TEMP )
+                     VN1( J ) = VN1( J )*SQRT( TEMP );
                   }
                }
             }
@@ -478,8 +478,8 @@
                  // is the same as the number of processed rows in
                  // the original whole matrix A_orig, IF = IOFFSET + KB.
 
-      KB = K
-      IF = I
+      KB = K;
+      IF = I;
 
       // Apply the block reflector to the residual of the matrix A
       // and the residual of the right hand sides B, if the residual
@@ -498,13 +498,13 @@
       // Loop over the index of the difficult columns from the largest
       // to the smallest index.
 
-      DO WHILE( LSTICC > 0 )
+      DO WHILE( LSTICC > 0 );
 
          // LSTICC is the index of the last difficult column is greater
          // than 1.
          // ITEMP is the index of the previous difficult column.
 
-         ITEMP = IWORK( LSTICC-1 )
+         ITEMP = IWORK( LSTICC-1 );
 
          // Compute the 2-norm explicilty for the last difficult column and
          // save it in the partial and exact 2-norm vectors VN1 and VN2.
@@ -513,17 +513,17 @@
          // DZNRM2 does not fail on vectors with norm below the value of
          // SQRT(DLAMCH('S'))
 
-         VN1( LSTICC ) = DZNRM2( M-IF, A( IF+1, LSTICC ), 1 )
-         VN2( LSTICC ) = VN1( LSTICC )
+         VN1( LSTICC ) = DZNRM2( M-IF, A( IF+1, LSTICC ), 1 );
+         VN2( LSTICC ) = VN1( LSTICC );
 
          // Downdate the index of the last difficult column to
          // the index of the previous difficult column.
 
-         LSTICC = ITEMP
+         LSTICC = ITEMP;
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZLAQP3RK
 

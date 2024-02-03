@@ -1,4 +1,4 @@
-      SUBROUTINE DGECON( NORM, N, A, LDA, ANORM, RCOND, WORK, IWORK, INFO )
+      SUBROUTINE DGECON( NORM, N, A, LDA, ANORM, RCOND, WORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -43,55 +43,55 @@
       // ..
       // .. Executable Statements ..
 
-      HUGEVAL = DLAMCH( 'Overflow' )
+      HUGEVAL = DLAMCH( 'Overflow' );
 
       // Test the input parameters.
 
-      INFO = 0
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
+      INFO = 0;
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
       if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( ANORM < ZERO ) {
-         INFO = -5
+         INFO = -5;
       }
       if ( INFO != 0 ) {
          xerbla('DGECON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM == ZERO ) {
-         RETURN
+         RETURN;
       } else if ( DISNAN( ANORM ) ) {
-         RCOND = ANORM
-         INFO = -5
-         RETURN
+         RCOND = ANORM;
+         INFO = -5;
+         RETURN;
       } else if ( ANORM > HUGEVAL ) {
-         INFO = -5
-         RETURN
+         INFO = -5;
+         RETURN;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' )
+      SMLNUM = DLAMCH( 'Safe minimum' );
 
       // Estimate the norm of inv(A).
 
-      AINVNM = ZERO
-      NORMIN = 'N'
+      AINVNM = ZERO;
+      NORMIN = 'N';
       if ( ONENRM ) {
-         KASE1 = 1
+         KASE1 = 1;
       } else {
-         KASE1 = 2
+         KASE1 = 2;
       }
-      KASE = 0
+      KASE = 0;
       } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -117,31 +117,31 @@
 
          // Divide X by 1/(SL*SU) if doing so will not cause overflow.
 
-         SCALE = SL*SU
-         NORMIN = 'Y'
+         SCALE = SL*SU;
+         NORMIN = 'Y';
          if ( SCALE != ONE ) {
-            IX = IDAMAX( N, WORK, 1 )
-            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20
+            IX = IDAMAX( N, WORK, 1 );
+            IF( SCALE < ABS( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 20;
             drscl(N, SCALE, WORK, 1 );
          }
-         GO TO 10
+         GO TO 10;
       }
 
       // Compute the estimate of the reciprocal condition number.
 
       if ( AINVNM != ZERO ) {
-         RCOND = ( ONE / AINVNM ) / ANORM
+         RCOND = ( ONE / AINVNM ) / ANORM;
       } else {
-         INFO = 1
-         RETURN
+         INFO = 1;
+         RETURN;
       }
 
       // Check for NaNs and Infs
 
-      IF( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1
+      IF( DISNAN( RCOND ) || RCOND > HUGEVAL ) INFO = 1;
 
       } // 20
-      RETURN
+      RETURN;
 
       // End of DGECON
 

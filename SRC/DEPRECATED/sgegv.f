@@ -1,4 +1,4 @@
-      SUBROUTINE SGEGV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
+      SUBROUTINE SGEGV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, LDA, LDB, LDVL, LDVR, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -33,7 +33,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH, SLANGE
+      REAL               SLAMCH, SLANGE;
       // EXTERNAL ILAENV, LSAME, SLAMCH, SLANGE
       // ..
       // .. Intrinsic Functions ..
@@ -44,67 +44,67 @@
       // Decode the input arguments
 
       if ( LSAME( JOBVL, 'N' ) ) {
-         IJOBVL = 1
+         IJOBVL = 1;
          ILVL = false;
       } else if ( LSAME( JOBVL, 'V' ) ) {
-         IJOBVL = 2
+         IJOBVL = 2;
          ILVL = true;
       } else {
-         IJOBVL = -1
+         IJOBVL = -1;
          ILVL = false;
       }
 
       if ( LSAME( JOBVR, 'N' ) ) {
-         IJOBVR = 1
+         IJOBVR = 1;
          ILVR = false;
       } else if ( LSAME( JOBVR, 'V' ) ) {
-         IJOBVR = 2
+         IJOBVR = 2;
          ILVR = true;
       } else {
-         IJOBVR = -1
+         IJOBVR = -1;
          ILVR = false;
       }
-      ILV = ILVL || ILVR
+      ILV = ILVL || ILVR;
 
       // Test the input arguments
 
-      LWKMIN = MAX( 8*N, 1 )
-      LWKOPT = LWKMIN
-      WORK( 1 ) = LWKOPT
-      LQUERY = ( LWORK == -1 )
-      INFO = 0
+      LWKMIN = MAX( 8*N, 1 );
+      LWKOPT = LWKMIN;
+      WORK( 1 ) = LWKOPT;
+      LQUERY = ( LWORK == -1 );
+      INFO = 0;
       if ( IJOBVL <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IJOBVR <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDVL < 1 || ( ILVL && LDVL < N ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( LDVR < 1 || ( ILVR && LDVR < N ) ) {
-         INFO = -14
+         INFO = -14;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -16
+         INFO = -16;
       }
 
       if ( INFO == 0 ) {
-         NB1 = ILAENV( 1, 'SGEQRF', ' ', N, N, -1, -1 )
-         NB2 = ILAENV( 1, 'SORMQR', ' ', N, N, N, -1 )
-         NB3 = ILAENV( 1, 'SORGQR', ' ', N, N, N, -1 )
-         NB = MAX( NB1, NB2, NB3 )
-         LOPT = 2*N + MAX( 6*N, N*(NB+1) )
-         WORK( 1 ) = LOPT
+         NB1 = ILAENV( 1, 'SGEQRF', ' ', N, N, -1, -1 );
+         NB2 = ILAENV( 1, 'SORMQR', ' ', N, N, N, -1 );
+         NB3 = ILAENV( 1, 'SORGQR', ' ', N, N, N, -1 );
+         NB = MAX( NB1, NB2, NB3 );
+         LOPT = 2*N + MAX( 6*N, N*(NB+1) );
+         WORK( 1 ) = LOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('SGEGV ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -113,49 +113,49 @@
 
       // Get machine constants
 
-      EPS = SLAMCH( 'E' )*SLAMCH( 'B' )
-      SAFMIN = SLAMCH( 'S' )
-      SAFMIN = SAFMIN + SAFMIN
-      SAFMAX = ONE / SAFMIN
-      ONEPLS = ONE + ( 4*EPS )
+      EPS = SLAMCH( 'E' )*SLAMCH( 'B' );
+      SAFMIN = SLAMCH( 'S' );
+      SAFMIN = SAFMIN + SAFMIN;
+      SAFMAX = ONE / SAFMIN;
+      ONEPLS = ONE + ( 4*EPS );
 
       // Scale A
 
-      ANRM = SLANGE( 'M', N, N, A, LDA, WORK )
-      ANRM1 = ANRM
-      ANRM2 = ONE
+      ANRM = SLANGE( 'M', N, N, A, LDA, WORK );
+      ANRM1 = ANRM;
+      ANRM2 = ONE;
       if ( ANRM < ONE ) {
          if ( SAFMAX*ANRM < ONE ) {
-            ANRM1 = SAFMIN
-            ANRM2 = SAFMAX*ANRM
+            ANRM1 = SAFMIN;
+            ANRM2 = SAFMAX*ANRM;
          }
       }
 
       if ( ANRM > ZERO ) {
          slascl('G', -1, -1, ANRM, ONE, N, N, A, LDA, IINFO );
          if ( IINFO != 0 ) {
-            INFO = N + 10
-            RETURN
+            INFO = N + 10;
+            RETURN;
          }
       }
 
       // Scale B
 
-      BNRM = SLANGE( 'M', N, N, B, LDB, WORK )
-      BNRM1 = BNRM
-      BNRM2 = ONE
+      BNRM = SLANGE( 'M', N, N, B, LDB, WORK );
+      BNRM1 = BNRM;
+      BNRM2 = ONE;
       if ( BNRM < ONE ) {
          if ( SAFMAX*BNRM < ONE ) {
-            BNRM1 = SAFMIN
-            BNRM2 = SAFMAX*BNRM
+            BNRM1 = SAFMIN;
+            BNRM2 = SAFMAX*BNRM;
          }
       }
 
       if ( BNRM > ZERO ) {
          slascl('G', -1, -1, BNRM, ONE, N, N, B, LDB, IINFO );
          if ( IINFO != 0 ) {
-            INFO = N + 10
-            RETURN
+            INFO = N + 10;
+            RETURN;
          }
       }
 
@@ -163,38 +163,38 @@
       // Workspace layout:  (8*N words -- "work" requires 6*N words)
          // left_permutation, right_permutation, work...
 
-      ILEFT = 1
-      IRIGHT = N + 1
-      IWORK = IRIGHT + N
+      ILEFT = 1;
+      IRIGHT = N + 1;
+      IWORK = IRIGHT + N;
       sggbal('P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO );
       if ( IINFO != 0 ) {
-         INFO = N + 1
-         GO TO 120
+         INFO = N + 1;
+         GO TO 120;
       }
 
       // Reduce B to triangular form, and initialize VL and/or VR
       // Workspace layout:  ("work..." must have at least N words)
          // left_permutation, right_permutation, tau, work...
 
-      IROWS = IHI + 1 - ILO
+      IROWS = IHI + 1 - ILO;
       if ( ILV ) {
-         ICOLS = N + 1 - ILO
+         ICOLS = N + 1 - ILO;
       } else {
-         ICOLS = IROWS
+         ICOLS = IROWS;
       }
-      ITAU = IWORK
-      IWORK = ITAU + IROWS
+      ITAU = IWORK;
+      IWORK = ITAU + IROWS;
       sgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO >= 0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         INFO = N + 2
-         GO TO 120
+         INFO = N + 2;
+         GO TO 120;
       }
 
       sormqr('L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         INFO = N + 3
-         GO TO 120
+         INFO = N + 3;
+         GO TO 120;
       }
 
       if ( ILVL ) {
@@ -203,8 +203,8 @@
          sorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO != 0 ) {
-            INFO = N + 4
-            GO TO 120
+            INFO = N + 4;
+            GO TO 120;
          }
       }
 
@@ -221,31 +221,31 @@
          sgghrd('N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO );
       }
       if ( IINFO != 0 ) {
-         INFO = N + 5
-         GO TO 120
+         INFO = N + 5;
+         GO TO 120;
       }
 
       // Perform QZ algorithm
       // Workspace layout:  ("work..." must have at least 1 word)
          // left_permutation, right_permutation, work...
 
-      IWORK = ITAU
+      IWORK = ITAU;
       if ( ILV ) {
-         CHTEMP = 'S'
+         CHTEMP = 'S';
       } else {
-         CHTEMP = 'E'
+         CHTEMP = 'E';
       }
       shgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
          if ( IINFO > 0 && IINFO <= N ) {
-            INFO = IINFO
+            INFO = IINFO;
          } else if ( IINFO > N && IINFO <= 2*N ) {
-            INFO = IINFO - N
+            INFO = IINFO - N;
          } else {
-            INFO = N + 6
+            INFO = N + 6;
          }
-         GO TO 120
+         GO TO 120;
       }
 
       if ( ILV ) {
@@ -254,18 +254,18 @@
 
          if ( ILVL ) {
             if ( ILVR ) {
-               CHTEMP = 'B'
+               CHTEMP = 'B';
             } else {
-               CHTEMP = 'L'
+               CHTEMP = 'L';
             }
          } else {
-            CHTEMP = 'R'
+            CHTEMP = 'R';
          }
 
          stgevc(CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO );
          if ( IINFO != 0 ) {
-            INFO = N + 7
-            GO TO 120
+            INFO = N + 7;
+            GO TO 120;
          }
 
          // Undo balancing on VL and VR, rescale
@@ -273,31 +273,31 @@
          if ( ILVL ) {
             sggbak('P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO );
             if ( IINFO != 0 ) {
-               INFO = N + 8
-               GO TO 120
+               INFO = N + 8;
+               GO TO 120;
             }
             for (JC = 1; JC <= N; JC++) { // 50
-               IF( ALPHAI( JC ) < ZERO ) GO TO 50
-               TEMP = ZERO
+               IF( ALPHAI( JC ) < ZERO ) GO TO 50;
+               TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
+                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) );
                   } // 10
                } else {
                   for (JR = 1; JR <= N; JR++) { // 20
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
+                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) );
                   } // 20
                }
                if (TEMP < SAFMIN) GO TO 50;
-               TEMP = ONE / TEMP
+               TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
-                     VL( JR, JC ) = VL( JR, JC )*TEMP
+                     VL( JR, JC ) = VL( JR, JC )*TEMP;
                   } // 30
                } else {
                   for (JR = 1; JR <= N; JR++) { // 40
-                     VL( JR, JC ) = VL( JR, JC )*TEMP
-                     VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
+                     VL( JR, JC ) = VL( JR, JC )*TEMP;
+                     VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP;
                   } // 40
                }
             } // 50
@@ -305,31 +305,31 @@
          if ( ILVR ) {
             sggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO );
             if ( IINFO != 0 ) {
-               INFO = N + 9
-               GO TO 120
+               INFO = N + 9;
+               GO TO 120;
             }
             for (JC = 1; JC <= N; JC++) { // 100
-               IF( ALPHAI( JC ) < ZERO ) GO TO 100
-               TEMP = ZERO
+               IF( ALPHAI( JC ) < ZERO ) GO TO 100;
+               TEMP = ZERO;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
+                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) );
                   } // 60
                } else {
                   for (JR = 1; JR <= N; JR++) { // 70
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
+                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) );
                   } // 70
                }
                if (TEMP < SAFMIN) GO TO 100;
-               TEMP = ONE / TEMP
+               TEMP = ONE / TEMP;
                if ( ALPHAI( JC ) == ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
-                     VR( JR, JC ) = VR( JR, JC )*TEMP
+                     VR( JR, JC ) = VR( JR, JC )*TEMP;
                   } // 80
                } else {
                   for (JR = 1; JR <= N; JR++) { // 90
-                     VR( JR, JC ) = VR( JR, JC )*TEMP
-                     VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
+                     VR( JR, JC ) = VR( JR, JC )*TEMP;
+                     VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP;
                   } // 90
                }
             } // 100
@@ -348,20 +348,20 @@
       // if they are significant.
 
       for (JC = 1; JC <= N; JC++) { // 110
-         ABSAR = ABS( ALPHAR( JC ) )
-         ABSAI = ABS( ALPHAI( JC ) )
-         ABSB = ABS( BETA( JC ) )
-         SALFAR = ANRM*ALPHAR( JC )
-         SALFAI = ANRM*ALPHAI( JC )
-         SBETA = BNRM*BETA( JC )
+         ABSAR = ABS( ALPHAR( JC ) );
+         ABSAI = ABS( ALPHAI( JC ) );
+         ABSB = ABS( BETA( JC ) );
+         SALFAR = ANRM*ALPHAR( JC );
+         SALFAI = ANRM*ALPHAI( JC );
+         SBETA = BNRM*BETA( JC );
          ILIMIT = false;
-         SCALE = ONE
+         SCALE = ONE;
 
          // Check for significant underflow in ALPHAI
 
          if ( ABS( SALFAI ) < SAFMIN && ABSAI >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
-            SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
+            SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI );
 
          } else if ( SALFAI == ZERO ) {
 
@@ -369,9 +369,9 @@
             // conjugate eigenvalue real.
 
             if ( ALPHAI( JC ) < ZERO && JC > 1 ) {
-               ALPHAI( JC-1 ) = ZERO
+               ALPHAI( JC-1 ) = ZERO;
             } else if ( ALPHAI( JC ) > ZERO && JC < N ) {
-               ALPHAI( JC+1 ) = ZERO
+               ALPHAI( JC+1 ) = ZERO;
             }
          }
 
@@ -379,14 +379,14 @@
 
          if ( ABS( SALFAR ) < SAFMIN && ABSAR >= MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
-            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
+            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) );
          }
 
          // Check for significant underflow in BETA
 
          if ( ABS( SBETA ) < SAFMIN && ABSB >= MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
-            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
+            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) );
          }
 
          // Check for possible overflow when limiting scaling
@@ -398,19 +398,19 @@
          // Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.
 
          if ( ILIMIT ) {
-            SALFAR = ( SCALE*ALPHAR( JC ) )*ANRM
-            SALFAI = ( SCALE*ALPHAI( JC ) )*ANRM
-            SBETA = ( SCALE*BETA( JC ) )*BNRM
+            SALFAR = ( SCALE*ALPHAR( JC ) )*ANRM;
+            SALFAI = ( SCALE*ALPHAI( JC ) )*ANRM;
+            SBETA = ( SCALE*BETA( JC ) )*BNRM;
          }
-         ALPHAR( JC ) = SALFAR
-         ALPHAI( JC ) = SALFAI
-         BETA( JC ) = SBETA
+         ALPHAR( JC ) = SALFAR;
+         ALPHAI( JC ) = SALFAI;
+         BETA( JC ) = SBETA;
       } // 110
 
       } // 120
-      WORK( 1 ) = LWKOPT
+      WORK( 1 ) = LWKOPT;
 
-      RETURN
+      RETURN;
 
       // End of SGEGV
 

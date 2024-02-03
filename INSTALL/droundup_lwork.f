@@ -15,14 +15,14 @@
       // ..
       // .. Executable Statements ..
       // ..
-      DROUNDUP_LWORK = DBLE( LWORK )
+      DROUNDUP_LWORK = DBLE( LWORK );
 
       if ( INT( DROUNDUP_LWORK ) < LWORK ) {
           // Force round up of LWORK
-          DROUNDUP_LWORK = DROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) )
+          DROUNDUP_LWORK = DROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) );
       }
 
-      RETURN
+      RETURN;
 
       // End of DROUNDUP_LWORK
 

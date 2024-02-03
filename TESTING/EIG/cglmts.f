@@ -1,4 +1,4 @@
-      SUBROUTINE CGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,26 +6,26 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, P, N;
-      REAL               RESULT
+      REAL               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
 
 *  ====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL
+      REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
       // ..
       // .. External Functions ..
-      REAL               SCASUM, SLAMCH, CLANGE
+      REAL               SCASUM, SLAMCH, CLANGE;
       // EXTERNAL SCASUM, SLAMCH, CLANGE
       // ..
       // .. External Subroutines ..
@@ -36,10 +36,10 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = SLAMCH( 'Epsilon' )
-      UNFL = SLAMCH( 'Safe minimum' )
-      ANORM = MAX( CLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( CLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      EPS = SLAMCH( 'Epsilon' );
+      UNFL = SLAMCH( 'Safe minimum' );
+      ANORM = MAX( CLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( CLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
@@ -63,17 +63,17 @@
 
       cgemv('No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 );
 
-      DNORM = SCASUM( N, DF, 1 )
-      XNORM = SCASUM( M, X, 1 ) + SCASUM( P, U, 1 )
-      YNORM = ANORM + BNORM
+      DNORM = SCASUM( N, DF, 1 );
+      XNORM = SCASUM( M, X, 1 ) + SCASUM( P, U, 1 );
+      YNORM = ANORM + BNORM;
 
       if ( XNORM <= ZERO ) {
-         RESULT = ZERO
+         RESULT = ZERO;
       } else {
-         RESULT =  ( ( DNORM / YNORM ) / XNORM ) /EPS
+         RESULT =  ( ( DNORM / YNORM ) / XNORM ) /EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of CGLMTS
 

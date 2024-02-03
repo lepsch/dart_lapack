@@ -1,4 +1,4 @@
-      SUBROUTINE CLAIC1( JOB, J, X, SEST, W, GAMMA, SESTPR, S, C )
+      SUBROUTINE CLAIC1( JOB, J, X, SEST, W, GAMMA, SESTPR, S, C );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,41 +6,41 @@
 
       // .. Scalar Arguments ..
       int                J, JOB;
-      REAL               SEST, SESTPR
-      COMPLEX            C, GAMMA, S
+      REAL               SEST, SESTPR;
+      COMPLEX            C, GAMMA, S;
       // ..
       // .. Array Arguments ..
-      COMPLEX            W( J ), X( J )
+      COMPLEX            W( J ), X( J );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO
+      REAL               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      REAL               HALF, FOUR
+      REAL               HALF, FOUR;
       const              HALF = 0.5, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2
-      COMPLEX            ALPHA, COSINE, SINE
+      REAL               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
+      COMPLEX            ALPHA, COSINE, SINE;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, CONJG, MAX, SQRT
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
-      COMPLEX            CDOTC
+      REAL               SLAMCH;
+      COMPLEX            CDOTC;
       // EXTERNAL SLAMCH, CDOTC
       // ..
       // .. Executable Statements ..
 
-      EPS = SLAMCH( 'Epsilon' )
-      ALPHA = CDOTC( J, X, 1, W, 1 )
+      EPS = SLAMCH( 'Epsilon' );
+      ALPHA = CDOTC( J, X, 1, W, 1 );
 
-      ABSALP = ABS( ALPHA )
-      ABSGAM = ABS( GAMMA )
-      ABSEST = ABS( SEST )
+      ABSALP = ABS( ALPHA );
+      ABSGAM = ABS( GAMMA );
+      ABSEST = ABS( SEST );
 
       if ( JOB == 1 ) {
 
@@ -49,80 +49,80 @@
          // special cases
 
          if ( SEST == ZERO ) {
-            S1 = MAX( ABSGAM, ABSALP )
+            S1 = MAX( ABSGAM, ABSALP );
             if ( S1 == ZERO ) {
-               S = ZERO
-               C = ONE
-               SESTPR = ZERO
+               S = ZERO;
+               C = ONE;
+               SESTPR = ZERO;
             } else {
-               S = ALPHA / S1
-               C = GAMMA / S1
-               TMP = REAL( SQRT( S*CONJG( S )+C*CONJG( C ) ) )
-               S = S / TMP
-               C = C / TMP
-               SESTPR = S1*TMP
+               S = ALPHA / S1;
+               C = GAMMA / S1;
+               TMP = REAL( SQRT( S*CONJG( S )+C*CONJG( C ) ) );
+               S = S / TMP;
+               C = C / TMP;
+               SESTPR = S1*TMP;
             }
-            RETURN
+            RETURN;
          } else if ( ABSGAM <= EPS*ABSEST ) {
-            S = ONE
-            C = ZERO
-            TMP = MAX( ABSEST, ABSALP )
-            S1 = ABSEST / TMP
-            S2 = ABSALP / TMP
-            SESTPR = TMP*SQRT( S1*S1+S2*S2 )
-            RETURN
+            S = ONE;
+            C = ZERO;
+            TMP = MAX( ABSEST, ABSALP );
+            S1 = ABSEST / TMP;
+            S2 = ABSALP / TMP;
+            SESTPR = TMP*SQRT( S1*S1+S2*S2 );
+            RETURN;
          } else if ( ABSALP <= EPS*ABSEST ) {
-            S1 = ABSGAM
-            S2 = ABSEST
+            S1 = ABSGAM;
+            S2 = ABSEST;
             if ( S1 <= S2 ) {
-               S = ONE
-               C = ZERO
-               SESTPR = S2
+               S = ONE;
+               C = ZERO;
+               SESTPR = S2;
             } else {
-               S = ZERO
-               C = ONE
-               SESTPR = S1
+               S = ZERO;
+               C = ONE;
+               SESTPR = S1;
             }
-            RETURN
+            RETURN;
          } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
-            S1 = ABSGAM
-            S2 = ABSALP
+            S1 = ABSGAM;
+            S2 = ABSALP;
             if ( S1 <= S2 ) {
-               TMP = S1 / S2
-               SCL = SQRT( ONE+TMP*TMP )
-               SESTPR = S2*SCL
-               S = ( ALPHA / S2 ) / SCL
-               C = ( GAMMA / S2 ) / SCL
+               TMP = S1 / S2;
+               SCL = SQRT( ONE+TMP*TMP );
+               SESTPR = S2*SCL;
+               S = ( ALPHA / S2 ) / SCL;
+               C = ( GAMMA / S2 ) / SCL;
             } else {
-               TMP = S2 / S1
-               SCL = SQRT( ONE+TMP*TMP )
-               SESTPR = S1*SCL
-               S = ( ALPHA / S1 ) / SCL
-               C = ( GAMMA / S1 ) / SCL
+               TMP = S2 / S1;
+               SCL = SQRT( ONE+TMP*TMP );
+               SESTPR = S1*SCL;
+               S = ( ALPHA / S1 ) / SCL;
+               C = ( GAMMA / S1 ) / SCL;
             }
-            RETURN
+            RETURN;
          } else {
 
             // normal case
 
-            ZETA1 = ABSALP / ABSEST
-            ZETA2 = ABSGAM / ABSEST
+            ZETA1 = ABSALP / ABSEST;
+            ZETA2 = ABSGAM / ABSEST;
 
-            B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF
-            C = ZETA1*ZETA1
+            B = ( ONE-ZETA1*ZETA1-ZETA2*ZETA2 )*HALF;
+            C = ZETA1*ZETA1;
             if ( B > ZERO ) {
-               T = REAL( C / ( B+SQRT( B*B+C ) ) )
+               T = REAL( C / ( B+SQRT( B*B+C ) ) );
             } else {
-               T = REAL( SQRT( B*B+C ) - B )
+               T = REAL( SQRT( B*B+C ) - B );
             }
 
-            SINE = -( ALPHA / ABSEST ) / T
-            COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
-            TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) )
-            S = SINE / TMP
-            C = COSINE / TMP
-            SESTPR = SQRT( T+ONE )*ABSEST
-            RETURN
+            SINE = -( ALPHA / ABSEST ) / T;
+            COSINE = -( GAMMA / ABSEST ) / ( ONE+T );
+            TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
+            S = SINE / TMP;
+            C = COSINE / TMP;
+            SESTPR = SQRT( T+ONE )*ABSEST;
+            RETURN;
          }
 
       } else if ( JOB == 2 ) {
@@ -132,101 +132,101 @@
          // special cases
 
          if ( SEST == ZERO ) {
-            SESTPR = ZERO
+            SESTPR = ZERO;
             if ( MAX( ABSGAM, ABSALP ) == ZERO ) {
-               SINE = ONE
-               COSINE = ZERO
+               SINE = ONE;
+               COSINE = ZERO;
             } else {
-               SINE = -CONJG( GAMMA )
-               COSINE = CONJG( ALPHA )
+               SINE = -CONJG( GAMMA );
+               COSINE = CONJG( ALPHA );
             }
-            S1 = MAX( ABS( SINE ), ABS( COSINE ) )
-            S = SINE / S1
-            C = COSINE / S1
-            TMP = REAL( SQRT( S*CONJG( S )+C*CONJG( C ) ) )
-            S = S / TMP
-            C = C / TMP
-            RETURN
+            S1 = MAX( ABS( SINE ), ABS( COSINE ) );
+            S = SINE / S1;
+            C = COSINE / S1;
+            TMP = REAL( SQRT( S*CONJG( S )+C*CONJG( C ) ) );
+            S = S / TMP;
+            C = C / TMP;
+            RETURN;
          } else if ( ABSGAM <= EPS*ABSEST ) {
-            S = ZERO
-            C = ONE
-            SESTPR = ABSGAM
-            RETURN
+            S = ZERO;
+            C = ONE;
+            SESTPR = ABSGAM;
+            RETURN;
          } else if ( ABSALP <= EPS*ABSEST ) {
-            S1 = ABSGAM
-            S2 = ABSEST
+            S1 = ABSGAM;
+            S2 = ABSEST;
             if ( S1 <= S2 ) {
-               S = ZERO
-               C = ONE
-               SESTPR = S1
+               S = ZERO;
+               C = ONE;
+               SESTPR = S1;
             } else {
-               S = ONE
-               C = ZERO
-               SESTPR = S2
+               S = ONE;
+               C = ZERO;
+               SESTPR = S2;
             }
-            RETURN
+            RETURN;
          } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
-            S1 = ABSGAM
-            S2 = ABSALP
+            S1 = ABSGAM;
+            S2 = ABSALP;
             if ( S1 <= S2 ) {
-               TMP = S1 / S2
-               SCL = SQRT( ONE+TMP*TMP )
-               SESTPR = ABSEST*( TMP / SCL )
-               S = -( CONJG( GAMMA ) / S2 ) / SCL
-               C = ( CONJG( ALPHA ) / S2 ) / SCL
+               TMP = S1 / S2;
+               SCL = SQRT( ONE+TMP*TMP );
+               SESTPR = ABSEST*( TMP / SCL );
+               S = -( CONJG( GAMMA ) / S2 ) / SCL;
+               C = ( CONJG( ALPHA ) / S2 ) / SCL;
             } else {
-               TMP = S2 / S1
-               SCL = SQRT( ONE+TMP*TMP )
-               SESTPR = ABSEST / SCL
-               S = -( CONJG( GAMMA ) / S1 ) / SCL
-               C = ( CONJG( ALPHA ) / S1 ) / SCL
+               TMP = S2 / S1;
+               SCL = SQRT( ONE+TMP*TMP );
+               SESTPR = ABSEST / SCL;
+               S = -( CONJG( GAMMA ) / S1 ) / SCL;
+               C = ( CONJG( ALPHA ) / S1 ) / SCL;
             }
-            RETURN
+            RETURN;
          } else {
 
             // normal case
 
-            ZETA1 = ABSALP / ABSEST
-            ZETA2 = ABSGAM / ABSEST
+            ZETA1 = ABSALP / ABSEST;
+            ZETA2 = ABSGAM / ABSEST;
 
-            NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2, ZETA1*ZETA2+ZETA2*ZETA2 )
+            NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2, ZETA1*ZETA2+ZETA2*ZETA2 );
 
             // See if root is closer to zero or to ONE
 
-            TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 )
+            TEST = ONE + TWO*( ZETA1-ZETA2 )*( ZETA1+ZETA2 );
             if ( TEST >= ZERO ) {
 
                // root is close to zero, compute directly
 
-               B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF
-               C = ZETA2*ZETA2
-               T = REAL( C / ( B+SQRT( ABS( B*B-C ) ) ) )
-               SINE = ( ALPHA / ABSEST ) / ( ONE-T )
-               COSINE = -( GAMMA / ABSEST ) / T
-               SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
+               B = ( ZETA1*ZETA1+ZETA2*ZETA2+ONE )*HALF;
+               C = ZETA2*ZETA2;
+               T = REAL( C / ( B+SQRT( ABS( B*B-C ) ) ) );
+               SINE = ( ALPHA / ABSEST ) / ( ONE-T );
+               COSINE = -( GAMMA / ABSEST ) / T;
+               SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST;
             } else {
 
                // root is closer to ONE, shift by that amount
 
-               B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF
-               C = ZETA1*ZETA1
+               B = ( ZETA2*ZETA2+ZETA1*ZETA1-ONE )*HALF;
+               C = ZETA1*ZETA1;
                if ( B >= ZERO ) {
-                  T = REAL( -C / ( B+SQRT( B*B+C ) ) )
+                  T = REAL( -C / ( B+SQRT( B*B+C ) ) );
                } else {
-                  T = REAL( B - SQRT( B*B+C ) )
+                  T = REAL( B - SQRT( B*B+C ) );
                }
-               SINE = -( ALPHA / ABSEST ) / T
-               COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
-               SESTPR = SQRT( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST
+               SINE = -( ALPHA / ABSEST ) / T;
+               COSINE = -( GAMMA / ABSEST ) / ( ONE+T );
+               SESTPR = SQRT( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST;
             }
-            TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) )
-            S = SINE / TMP
-            C = COSINE / TMP
-            RETURN
+            TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) );
+            S = SINE / TMP;
+            C = COSINE / TMP;
+            RETURN;
 
          }
       }
-      RETURN
+      RETURN;
 
       // End of CLAIC1
 

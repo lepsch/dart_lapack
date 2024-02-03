@@ -1,4 +1,4 @@
-      SUBROUTINE DLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T, LDT, C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE DLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T, LDT, C, LDC, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -29,86 +29,86 @@
 
       // Test the input arguments
 
-      LQUERY  = ( LWORK == -1 )
-      NOTRAN  = LSAME( TRANS, 'N' )
-      TRAN    = LSAME( TRANS, 'T' )
-      LEFT    = LSAME( SIDE, 'L' )
-      RIGHT   = LSAME( SIDE, 'R' )
+      LQUERY  = ( LWORK == -1 );
+      NOTRAN  = LSAME( TRANS, 'N' );
+      TRAN    = LSAME( TRANS, 'T' );
+      LEFT    = LSAME( SIDE, 'L' );
+      RIGHT   = LSAME( SIDE, 'R' );
       if ( LEFT ) {
-        LW = N * MB
+        LW = N * MB;
       } else {
-        LW = M * MB
+        LW = M * MB;
       }
 
-      MINMNK = MIN( M, N, K )
+      MINMNK = MIN( M, N, K );
       if ( MINMNK == 0 ) {
-        LWMIN = 1
+        LWMIN = 1;
       } else {
-        LWMIN = MAX( 1, LW )
+        LWMIN = MAX( 1, LW );
       }
 
-      INFO = 0
+      INFO = 0;
       if ( !LEFT && !RIGHT ) {
-        INFO = -1
+        INFO = -1;
       } else if ( !TRAN && !NOTRAN ) {
-        INFO = -2
+        INFO = -2;
       } else if ( K < 0 ) {
-        INFO = -5
+        INFO = -5;
       } else if ( M < K ) {
-        INFO = -3
+        INFO = -3;
       } else if ( N < 0 ) {
-        INFO = -4
+        INFO = -4;
       } else if ( K < MB || MB < 1 ) {
-        INFO = -6
+        INFO = -6;
       } else if ( LDA < MAX( 1, K ) ) {
-        INFO = -9
+        INFO = -9;
       } else if ( LDT < MAX( 1, MB ) ) {
-        INFO = -11
+        INFO = -11;
       } else if ( LDC < MAX( 1, M ) ) {
-        INFO = -13
+        INFO = -13;
       } else if ( LWORK < LWMIN && ( !LQUERY) ) {
-        INFO = -15
+        INFO = -15;
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = LWMIN
+        WORK( 1 ) = LWMIN;
       }
       if ( INFO != 0 ) {
         xerbla('DLAMSWLQ', -INFO );
-        RETURN
+        RETURN;
       } else if ( LQUERY ) {
-        RETURN
+        RETURN;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN
+        RETURN;
       }
 
       if ((NB <= K) || (NB >= MAX(M,N,K))) {
         dgemlqt(SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO);
-        RETURN
+        RETURN;
       }
 
       if (LEFT && TRAN) {
 
           // Multiply Q to the last block of C
 
-          KK = MOD((M-K),(NB-K))
-          CTR = (M-K)/(NB-K)
+          KK = MOD((M-K),(NB-K));
+          CTR = (M-K)/(NB-K);
           if (KK > 0) {
-            II=M-KK+1
+            II=M-KK+1;
             dtpmlqt('L','T',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO );
           } else {
-            II=M+1
+            II=M+1;
           }
 
-          DO I=II-(NB-K),NB+1,-(NB-K)
+          DO I=II-(NB-K),NB+1,-(NB-K);
 
           // Multiply Q to the current block of C (1:M,I:I+NB)
 
-            CTR = CTR - 1
+            CTR = CTR - 1;
             dtpmlqt('L','T',NB-K , N, K, 0,MB, A(1,I), LDA, T(1, CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
 
           }
@@ -121,17 +121,17 @@
 
           // Multiply Q to the first block of C
 
-         KK = MOD((M-K),(NB-K))
-         II=M-KK+1
-         CTR = 1
+         KK = MOD((M-K),(NB-K));
+         II=M-KK+1;
+         CTR = 1;
          dgemlqt('L','N',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-         DO I=NB+1,II-NB+K,(NB-K)
+         DO I=NB+1,II-NB+K,(NB-K);
 
           // Multiply Q to the current block of C (I:I+NB,1:N)
 
           dtpmlqt('L','N',NB-K , N, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO );
-          CTR = CTR + 1
+          CTR = CTR + 1;
 
          }
          if (II <= M) {
@@ -146,20 +146,20 @@
 
           // Multiply Q to the last block of C
 
-          KK = MOD((N-K),(NB-K))
-          CTR = (N-K)/(NB-K)
+          KK = MOD((N-K),(NB-K));
+          CTR = (N-K)/(NB-K);
           if (KK > 0) {
-            II=N-KK+1
+            II=N-KK+1;
             dtpmlqt('R','N',M , KK, K, 0, MB, A(1, II), LDA, T(1,CTR *K+1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO );
           } else {
-            II=N+1
+            II=N+1;
           }
 
-          DO I=II-(NB-K),NB+1,-(NB-K)
+          DO I=II-(NB-K),NB+1,-(NB-K);
 
           // Multiply Q to the current block of C (1:M,I:I+MB)
 
-             CTR = CTR - 1
+             CTR = CTR - 1;
              dtpmlqt('R','N', M, NB-K, K, 0, MB, A(1, I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
 
           }
@@ -172,17 +172,17 @@
 
         // Multiply Q to the first block of C
 
-         KK = MOD((N-K),(NB-K))
-         CTR = 1
-         II=N-KK+1
+         KK = MOD((N-K),(NB-K));
+         CTR = 1;
+         II=N-KK+1;
          dgemlqt('R','T',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-         DO I=NB+1,II-NB+K,(NB-K)
+         DO I=NB+1,II-NB+K,(NB-K);
 
           // Multiply Q to the current block of C (1:M,I:I+MB)
 
           dtpmlqt('R','T',M , NB-K, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO );
-          CTR = CTR + 1
+          CTR = CTR + 1;
 
          }
          if (II <= N) {
@@ -195,9 +195,9 @@
 
       }
 
-      WORK( 1 ) = LWMIN
+      WORK( 1 ) = LWMIN;
 
-      RETURN
+      RETURN;
 
       // End of DLAMSWLQ
 

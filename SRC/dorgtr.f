@@ -1,4 +1,4 @@
-      SUBROUTINE DORGTR( UPLO, N, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE DORGTR( UPLO, N, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,41 +37,41 @@
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < MAX( 1, N-1 ) && !LQUERY ) {
-         INFO = -7
+         INFO = -7;
       }
 
       if ( INFO == 0 ) {
          if ( UPPER ) {
-            NB = ILAENV( 1, 'DORGQL', ' ', N-1, N-1, N-1, -1 )
+            NB = ILAENV( 1, 'DORGQL', ' ', N-1, N-1, N-1, -1 );
          } else {
-            NB = ILAENV( 1, 'DORGQR', ' ', N-1, N-1, N-1, -1 )
+            NB = ILAENV( 1, 'DORGQR', ' ', N-1, N-1, N-1, -1 );
          }
-         LWKOPT = MAX( 1, N-1 )*NB
-         WORK( 1 ) = LWKOPT
+         LWKOPT = MAX( 1, N-1 )*NB;
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('DORGTR', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
       if ( UPPER ) {
@@ -84,14 +84,14 @@
 
          for (J = 1; J <= N - 1; J++) { // 20
             for (I = 1; I <= J - 1; I++) { // 10
-               A( I, J ) = A( I, J+1 )
+               A( I, J ) = A( I, J+1 );
             } // 10
-            A( N, J ) = ZERO
+            A( N, J ) = ZERO;
          } // 20
          for (I = 1; I <= N - 1; I++) { // 30
-            A( I, N ) = ZERO
+            A( I, N ) = ZERO;
          } // 30
-         A( N, N ) = ONE
+         A( N, N ) = ONE;
 
          // Generate Q(1:n-1,1:n-1)
 
@@ -105,15 +105,15 @@
          // column to the right, and set the first row and column of Q to
          // those of the unit matrix
 
-         DO 50 J = N, 2, -1
-            A( 1, J ) = ZERO
+         DO 50 J = N, 2, -1;
+            A( 1, J ) = ZERO;
             for (I = J + 1; I <= N; I++) { // 40
-               A( I, J ) = A( I, J-1 )
+               A( I, J ) = A( I, J-1 );
             } // 40
          } // 50
-         A( 1, 1 ) = ONE
+         A( 1, 1 ) = ONE;
          for (I = 2; I <= N; I++) { // 60
-            A( I, 1 ) = ZERO
+            A( I, 1 ) = ZERO;
          } // 60
          if ( N > 1 ) {
 
@@ -122,8 +122,8 @@
             dorgqr(N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO );
          }
       }
-      WORK( 1 ) = LWKOPT
-      RETURN
+      WORK( 1 ) = LWKOPT;
+      RETURN;
 
       // End of DORGTR
 

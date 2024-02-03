@@ -1,4 +1,4 @@
-      SUBROUTINE ZRSCL( N, A, X, INCX )
+      SUBROUTINE ZRSCL( N, A, X, INCX );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,10 +6,10 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      COMPLEX*16         A
+      COMPLEX*16         A;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         X( * )
+      COMPLEX*16         X( * );
       // ..
 
 * =====================================================================
@@ -23,7 +23,7 @@
       // ..
       // .. External Functions ..
       double             DLAMCH;
-      COMPLEX*16         ZLADIV
+      COMPLEX*16         ZLADIV;
       // EXTERNAL DLAMCH, ZLADIV
       // ..
       // .. External Subroutines ..
@@ -40,16 +40,16 @@
 
       // Get machine parameters
 
-      SAFMIN = DLAMCH( 'S' )
-      SAFMAX = ONE / SAFMIN
-      OV   = DLAMCH( 'O' )
+      SAFMIN = DLAMCH( 'S' );
+      SAFMAX = ONE / SAFMIN;
+      OV   = DLAMCH( 'O' );
 
       // Initialize constants related to A.
 
-      AR = DBLE( A )
-      AI = DIMAG( A )
-      ABSR = ABS( AR )
-      ABSI = ABS( AI )
+      AR = DBLE( A );
+      AI = DIMAG( A );
+      ABSR = ABS( AR );
+      ABSI = ABS( AI );
 
       if ( AI == ZERO ) {
          // If alpha is real, then we can use csrscl
@@ -76,8 +76,8 @@
          // 1. alphaR or alphaI is NaN.
          // 2. alphaR and alphaI are both infinite, in which case it makes sense
          // to propagate a NaN.
-         UR = AR + AI * ( AI / AR )
-         UI = AI + AR * ( AR / AI )
+         UR = AR + AI * ( AI / AR );
+         UI = AI + AR * ( AR / AI );
 
          if ( (ABS( UR ) < SAFMIN) || (ABS( UI ) < SAFMIN) ) {
             // This means that both alphaR and alphaI are very small.
@@ -93,12 +93,12 @@
                   // Infs were generated. We do proper scaling to avoid them.
                   if ( ABSR >= ABSI ) {
                      // ABS( UR ) <= ABS( UI )
-                     UR = (SAFMIN * AR) + SAFMIN * (AI * ( AI / AR ))
-                     UI = (SAFMIN * AI) + AR * ( (SAFMIN * AR) / AI )
+                     UR = (SAFMIN * AR) + SAFMIN * (AI * ( AI / AR ));
+                     UI = (SAFMIN * AI) + AR * ( (SAFMIN * AR) / AI );
                   } else {
                      // ABS( UR ) > ABS( UI )
-                     UR = (SAFMIN * AR) + AI * ( (SAFMIN * AI) / AR )
-                     UI = (SAFMIN * AI) + SAFMIN * (AR * ( AR / AI ))
+                     UR = (SAFMIN * AR) + AI * ( (SAFMIN * AI) / AR );
+                     UI = (SAFMIN * AI) + SAFMIN * (AR * ( AR / AI ));
                   }
                   zscal(N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX );
                } else {
@@ -110,7 +110,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZRSCL
 

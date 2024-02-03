@@ -1,4 +1,4 @@
-      SUBROUTINE CTREXC( COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, INFO )
+      SUBROUTINE CTREXC( COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                IFST, ILST, INFO, LDQ, LDT, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            Q( LDQ, * ), T( LDT, * )
+      COMPLEX            Q( LDQ, * ), T( LDT, * );
       // ..
 
 *  =====================================================================
@@ -17,8 +17,8 @@
       // .. Local Scalars ..
       bool               WANTQ;
       int                K, M1, M2, M3;
-      REAL               CS
-      COMPLEX            SN, T11, T22, TEMP
+      REAL               CS;
+      COMPLEX            SN, T11, T22, TEMP;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -34,24 +34,24 @@
 
       // Decode and test the input parameters.
 
-      INFO = 0
-      WANTQ = LSAME( COMPQ, 'V' )
+      INFO = 0;
+      WANTQ = LSAME( COMPQ, 'V' );
       if ( !LSAME( COMPQ, 'N' ) && !WANTQ ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < MAX( 1, N ) ) ) {
-         INFO = -6
+         INFO = -6;
       } else if (( IFST < 1 || IFST > N ) && ( N > 0 )) {
-         INFO = -7
+         INFO = -7;
       } else if (( ILST < 1 || ILST > N ) && ( N > 0 )) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('CTREXC', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,24 +62,24 @@
 
          // Move the IFST-th diagonal element forward down the diagonal.
 
-         M1 = 0
-         M2 = -1
-         M3 = 1
+         M1 = 0;
+         M2 = -1;
+         M3 = 1;
       } else {
 
          // Move the IFST-th diagonal element backward up the diagonal.
 
-         M1 = -1
-         M2 = 0
-         M3 = -1
+         M1 = -1;
+         M2 = 0;
+         M3 = -1;
       }
 
-      DO 10 K = IFST + M1, ILST + M2, M3
+      DO 10 K = IFST + M1, ILST + M2, M3;
 
          // Interchange the k-th and (k+1)-th diagonal elements.
 
-         T11 = T( K, K )
-         T22 = T( K+1, K+1 )
+         T11 = T( K, K );
+         T22 = T( K+1, K+1 );
 
          // Determine the transformation to perform the interchange.
 
@@ -90,8 +90,8 @@
          if (K+2 <= N) CALL CROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN );
          crot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, CONJG( SN ) );
 
-         T( K, K ) = T22
-         T( K+1, K+1 ) = T11
+         T( K, K ) = T22;
+         T( K+1, K+1 ) = T11;
 
          if ( WANTQ ) {
 
@@ -102,7 +102,7 @@
 
       } // 10
 
-      RETURN
+      RETURN;
 
       // End of CTREXC
 

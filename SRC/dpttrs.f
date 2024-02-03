@@ -1,4 +1,4 @@
-      SUBROUTINE DPTTRS( N, NRHS, D, E, B, LDB, INFO )
+      SUBROUTINE DPTTRS( N, NRHS, D, E, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,17 +30,17 @@
 
       // Test the input arguments.
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NRHS < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('DPTTRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -50,21 +50,21 @@
       // Determine the number of right-hand sides to solve at a time.
 
       if ( NRHS == 1 ) {
-         NB = 1
+         NB = 1;
       } else {
-         NB = MAX( 1, ILAENV( 1, 'DPTTRS', ' ', N, NRHS, -1, -1 ) )
+         NB = MAX( 1, ILAENV( 1, 'DPTTRS', ' ', N, NRHS, -1, -1 ) );
       }
 
       if ( NB >= NRHS ) {
          dptts2(N, NRHS, D, E, B, LDB );
       } else {
-         DO 10 J = 1, NRHS, NB
-            JB = MIN( NRHS-J+1, NB )
+         DO 10 J = 1, NRHS, NB;
+            JB = MIN( NRHS-J+1, NB );
             dptts2(N, JB, D, E, B( 1, J ), LDB );
          } // 10
       }
 
-      RETURN
+      RETURN;
 
       // End of DPTTRS
 

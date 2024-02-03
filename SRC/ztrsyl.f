@@ -1,4 +1,4 @@
-      SUBROUTINE ZTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
+      SUBROUTINE ZTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       double             SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * );
       // ..
 
 *  =====================================================================
@@ -23,7 +23,7 @@
       bool               NOTRNA, NOTRNB;
       int                J, K, L;
       double             BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
-      COMPLEX*16         A11, SUML, SUMR, VEC, X11
+      COMPLEX*16         A11, SUML, SUMR, VEC, X11;
       // ..
       // .. Local Arrays ..
       double             DUM( 1 );
@@ -31,7 +31,7 @@
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
-      COMPLEX*16         ZDOTC, ZDOTU, ZLADIV
+      COMPLEX*16         ZDOTC, ZDOTU, ZLADIV;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..
@@ -44,46 +44,46 @@
 
       // Decode and Test input parameters
 
-      NOTRNA = LSAME( TRANA, 'N' )
-      NOTRNB = LSAME( TRANB, 'N' )
+      NOTRNA = LSAME( TRANA, 'N' );
+      NOTRNB = LSAME( TRANB, 'N' );
 
-      INFO = 0
+      INFO = 0;
       if ( !NOTRNA && !LSAME( TRANA, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRNB && !LSAME( TRANB, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ISGN != 1 && ISGN != -1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDC < MAX( 1, M ) ) {
-         INFO = -11
+         INFO = -11;
       }
       if ( INFO != 0 ) {
          xerbla('ZTRSYL', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      SCALE = ONE
+      SCALE = ONE;
       if (M == 0 || N == 0) RETURN;
 
       // Set constants to control overflow
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SMLNUM*DBLE( M*N ) / EPS
-      BIGNUM = ONE / SMLNUM
-      SMIN = MAX( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) )
-      SGN = ISGN
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SMLNUM*DBLE( M*N ) / EPS;
+      BIGNUM = ONE / SMLNUM;
+      SMIN = MAX( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) );
+      SGN = ISGN;
 
       if ( NOTRNA && NOTRNB ) {
 
@@ -100,33 +100,33 @@
                    // I=K+1                      J=1
 
          for (L = 1; L <= N; L++) { // 30
-            DO 20 K = M, 1, -1
+            DO 20 K = M, 1, -1;
 
-               SUML = ZDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )
-               SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 )
-               VEC = C( K, L ) - ( SUML+SGN*SUMR )
+               SUML = ZDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 );
+               SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
+               VEC = C( K, L ) - ( SUML+SGN*SUMR );
 
-               SCALOC = ONE
-               A11 = A( K, K ) + SGN*B( L, L )
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = A( K, K ) + SGN*B( L, L );
+               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
+               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
+               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 10
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 10
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 20
          } // 30
@@ -148,32 +148,32 @@
          for (L = 1; L <= N; L++) { // 60
             for (K = 1; K <= M; K++) { // 50
 
-               SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
-               SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 )
-               VEC = C( K, L ) - ( SUML+SGN*SUMR )
+               SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
+               SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
+               VEC = C( K, L ) - ( SUML+SGN*SUMR );
 
-               SCALOC = ONE
-               A11 = DCONJG( A( K, K ) ) + SGN*B( L, L )
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = DCONJG( A( K, K ) ) + SGN*B( L, L );
+               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
+               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
+               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 40
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 40
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 50
          } // 60
@@ -195,35 +195,35 @@
                       // ISGN*SUM [X(K,J)*B**H(L,J)].
                            // J=L+1
 
-         DO 90 L = N, 1, -1
+         DO 90 L = N, 1, -1;
             for (K = 1; K <= M; K++) { // 80
 
-               SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
-               SUMR = ZDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
-               VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) )
+               SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
+               SUMR = ZDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB );
+               VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );
 
-               SCALOC = ONE
-               A11 = DCONJG( A( K, K )+SGN*B( L, L ) )
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = DCONJG( A( K, K )+SGN*B( L, L ) );
+               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
+               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
+               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 70
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 70
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 80
          } // 90
@@ -242,41 +242,41 @@
            // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
                    // I=K+1                      J=L+1
 
-         DO 120 L = N, 1, -1
-            DO 110 K = M, 1, -1
+         DO 120 L = N, 1, -1;
+            DO 110 K = M, 1, -1;
 
-               SUML = ZDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )                SUMR = ZDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
-               VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) )
+               SUML = ZDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )                SUMR = ZDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB );
+               VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );
 
-               SCALOC = ONE
-               A11 = A( K, K ) + SGN*DCONJG( B( L, L ) )
-               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
+               SCALOC = ONE;
+               A11 = A( K, K ) + SGN*DCONJG( B( L, L ) );
+               DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) );
                if ( DA11 <= SMIN ) {
-                  A11 = SMIN
-                  DA11 = SMIN
-                  INFO = 1
+                  A11 = SMIN;
+                  DA11 = SMIN;
+                  INFO = 1;
                }
-               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
+               DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) );
                if ( DA11 < ONE && DB > ONE ) {
                   if (DB > BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
-               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
+               X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 );
 
                if ( SCALOC != ONE ) {
                   for (J = 1; J <= N; J++) { // 100
                      zdscal(M, SCALOC, C( 1, J ), 1 );
                   } // 100
-                  SCALE = SCALE*SCALOC
+                  SCALE = SCALE*SCALOC;
                }
-               C( K, L ) = X11
+               C( K, L ) = X11;
 
             } // 110
          } // 120
 
       }
 
-      RETURN
+      RETURN;
 
       // End of ZTRSYL
 

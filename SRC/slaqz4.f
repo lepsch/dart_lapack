@@ -1,58 +1,58 @@
-      SUBROUTINE SLAQZ4( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS, NBLOCK_DESIRED, SR, SI, SS, A, LDA, B, LDB, Q, LDQ, Z, LDZ, QC, LDQC, ZC, LDZC, WORK, LWORK, INFO )
-      IMPLICIT NONE
+      SUBROUTINE SLAQZ4( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS, NBLOCK_DESIRED, SR, SI, SS, A, LDA, B, LDB, Q, LDQ, Z, LDZ, QC, LDQC, ZC, LDZC, WORK, LWORK, INFO );
+      IMPLICIT NONE;
 
       // Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC;
-       REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), SR( * ), SI( * ), SS( * )
+       REAL, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), SR( * ), SI( * ), SS( * );
 
       int    , INTENT( OUT ) :: INFO;
 
       // Parameters
-      REAL :: ZERO, ONE, HALF
+      REAL :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
       int     :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS;
-      REAL :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP
+      REAL :: TEMP, V( 3 ), C1, S1, C2, S2, SWAP;
 
       // External functions
       // EXTERNAL :: XERBLA, SGEMM, SLAQZ1, SLAQZ2, SLASET, SLARTG, SROT, SLACPY
-      REAL, EXTERNAL :: SROUNDUP_LWORK
+      REAL, EXTERNAL :: SROUNDUP_LWORK;
 
-      INFO = 0
+      INFO = 0;
       if ( NBLOCK_DESIRED < NSHIFTS+1 ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( LWORK == -1 ) {
          // workspace query, quick return
-         WORK( 1 ) = SROUNDUP_LWORK(N*NBLOCK_DESIRED)
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK(N*NBLOCK_DESIRED);
+         RETURN;
       } else if ( LWORK < N*NBLOCK_DESIRED ) {
-         INFO = -25
+         INFO = -25;
       }
 
       if ( INFO != 0 ) {
          xerbla('SLAQZ4', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Executable statements
 
       if ( NSHIFTS < 2 ) {
-         RETURN
+         RETURN;
       }
 
       if ( ILO >= IHI ) {
-         RETURN
+         RETURN;
       }
 
       if ( ILSCHUR ) {
-         ISTARTM = 1
-         ISTOPM = N
+         ISTARTM = 1;
+         ISTOPM = N;
       } else {
-         ISTARTM = ILO
-         ISTOPM = IHI
+         ISTARTM = ILO;
+         ISTOPM = IHI;
       }
 
       // Shuffle shifts into pairs of real shifts and pairs
@@ -60,23 +60,23 @@
       // conjugate shifts are already adjacent to one
       // another
 
-      DO I = 1, NSHIFTS-2, 2
+      DO I = 1, NSHIFTS-2, 2;
          if ( SI( I ) != -SI( I+1 ) ) {
 
-            SWAP = SR( I )
-            SR( I ) = SR( I+1 )
-            SR( I+1 ) = SR( I+2 )
-            SR( I+2 ) = SWAP
+            SWAP = SR( I );
+            SR( I ) = SR( I+1 );
+            SR( I+1 ) = SR( I+2 );
+            SR( I+2 ) = SWAP;
 
-            SWAP = SI( I )
-            SI( I ) = SI( I+1 )
-            SI( I+1 ) = SI( I+2 )
-            SI( I+2 ) = SWAP
+            SWAP = SI( I );
+            SI( I ) = SI( I+1 );
+            SI( I+1 ) = SI( I+2 );
+            SI( I+2 ) = SWAP;
 
-            SWAP = SS( I )
-            SS( I ) = SS( I+1 )
-            SS( I+1 ) = SS( I+2 )
-            SS( I+2 ) = SWAP
+            SWAP = SS( I );
+            SS( I ) = SS( I+1 );
+            SS( I+1 ) = SS( I+2 );
+            SS( I+2 ) = SWAP;
          }
       }
 
@@ -85,8 +85,8 @@
       // ensures that the dropped shift is real and that
       // the remaining shifts are paired.
 
-      NS = NSHIFTS-MOD( NSHIFTS, 2 )
-      NPOS = MAX( NBLOCK_DESIRED-NS, 1 )
+      NS = NSHIFTS-MOD( NSHIFTS, 2 );
+      NPOS = MAX( NBLOCK_DESIRED-NS, 1 );
 
       // The following block introduces the shifts and chases
       // them down one by one just enough to make space for
@@ -96,11 +96,11 @@
       slaset('FULL', NS+1, NS+1, ZERO, ONE, QC, LDQC );
       slaset('FULL', NS, NS, ZERO, ONE, ZC, LDZC );
 
-      DO I = 1, NS, 2
+      DO I = 1, NS, 2;
          // Introduce the shift
          slaqz1(A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, SR( I ), SR( I+1 ), SI( I ), SS( I ), SS( I+1 ), V );
 
-         TEMP = V( 2 )
+         TEMP = V( 2 );
          slartg(TEMP, V( 3 ), C1, S1, V( 2 ) );
          slartg(V( 1 ), V( 2 ), C2, S2, TEMP );
           srot(NS, A( ILO+1, ILO ), LDA, A( ILO+2, ILO ), LDA, C1, S1 );
@@ -122,8 +122,8 @@
 
       // Update A(ilo:ilo+ns,ilo+ns:istopm) and B(ilo:ilo+ns,ilo+ns:istopm)
       // from the left with Qc(1:ns+1,1:ns+1)'
-      SHEIGHT = NS+1
-      SWIDTH = ISTOPM-( ILO+NS )+1
+      SHEIGHT = NS+1;
+      SWIDTH = ISTOPM-( ILO+NS )+1;
       if ( SWIDTH > 0 ) {
          sgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( ILO, ILO+NS ), LDA, ZERO, WORK, SHEIGHT );
          slacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA );
@@ -137,8 +137,8 @@
 
       // Update A(istartm:ilo-1,ilo:ilo+ns-1) and B(istartm:ilo-1,ilo:ilo+ns-1)
       // from the right with Zc(1:ns,1:ns)
-      SHEIGHT = ILO-1-ISTARTM+1
-      SWIDTH = NS
+      SHEIGHT = ILO-1-ISTARTM+1;
+      SWIDTH = NS;
       if ( SHEIGHT > 0 ) {
          sgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT );
          slacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA );
@@ -154,21 +154,21 @@
       // right block. If possible, a shift is moved down npos
       // positions at a time
 
-      K = ILO
-      DO WHILE ( K < IHI-NS )
-         NP = MIN( IHI-NS-K, NPOS )
+      K = ILO;
+      DO WHILE ( K < IHI-NS );
+         NP = MIN( IHI-NS-K, NPOS );
          // Size of the near-the-diagonal block
-         NBLOCK = NS+NP
+         NBLOCK = NS+NP;
          // istartb points to the first row we will be updating
-         ISTARTB = K+1
+         ISTARTB = K+1;
          // istopb points to the last column we will be updating
-         ISTOPB = K+NBLOCK-1
+         ISTOPB = K+NBLOCK-1;
 
          slaset('FULL', NS+NP, NS+NP, ZERO, ONE, QC, LDQC );
          slaset('FULL', NS+NP, NS+NP, ZERO, ONE, ZC, LDZC );
 
          // Near the diagonal shift chase
-         DO I = NS-1, 0, -2
+         DO I = NS-1, 0, -2;
             for (J = 0; J <= NP-1; J++) {
                // Move down the block with index k+i+j-1, updating
                // the (ns+np x ns+np) block:
@@ -182,8 +182,8 @@
          // Update A(k+1:k+ns+np, k+ns+np:istopm) and
          // B(k+1:k+ns+np, k+ns+np:istopm)
          // from the left with Qc(1:ns+np,1:ns+np)'
-         SHEIGHT = NS+NP
-         SWIDTH = ISTOPM-( K+NS+NP )+1
+         SHEIGHT = NS+NP;
+         SWIDTH = ISTOPM-( K+NS+NP )+1;
          if ( SWIDTH > 0 ) {
             sgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, ZERO, WORK, SHEIGHT );
             slacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA );
@@ -197,8 +197,8 @@
 
          // Update A(istartm:k,k:k+ns+npos-1) and B(istartm:k,k:k+ns+npos-1)
          // from the right with Zc(1:ns+np,1:ns+np)
-         SHEIGHT = K-ISTARTM+1
-         SWIDTH = NBLOCK
+         SHEIGHT = K-ISTARTM+1;
+         SWIDTH = NBLOCK;
          if ( SHEIGHT > 0 ) {
             sgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, K ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT );
             slacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA );
@@ -210,7 +210,7 @@
             slacpy('ALL', N, NBLOCK, WORK, N, Z( 1, K ), LDZ );
          }
 
-         K = K+NP
+         K = K+NP;
 
       }
 
@@ -221,11 +221,11 @@
       slaset('FULL', NS+1, NS+1, ZERO, ONE, ZC, LDZC );
 
       // istartb points to the first row we will be updating
-      ISTARTB = IHI-NS+1
+      ISTARTB = IHI-NS+1;
       // istopb points to the last column we will be updating
-      ISTOPB = IHI
+      ISTOPB = IHI;
 
-      DO I = 1, NS, 2
+      DO I = 1, NS, 2;
          // Chase the shift down to the bottom right corner
          for (ISHIFT = IHI-I-1; ISHIFT <= IHI-2; ISHIFT++) {
             slaqz2( true , true , ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );
@@ -237,8 +237,8 @@
 
       // Update A(ihi-ns+1:ihi, ihi+1:istopm)
       // from the left with Qc(1:ns,1:ns)'
-      SHEIGHT = NS
-      SWIDTH = ISTOPM-( IHI+1 )+1
+      SHEIGHT = NS;
+      SWIDTH = ISTOPM-( IHI+1 )+1;
       if ( SWIDTH > 0 ) {
          sgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, ZERO, WORK, SHEIGHT );
          slacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA );
@@ -252,8 +252,8 @@
 
       // Update A(istartm:ihi-ns,ihi-ns:ihi)
       // from the right with Zc(1:ns+1,1:ns+1)
-      SHEIGHT = IHI-NS-ISTARTM+1
-      SWIDTH = NS+1
+      SHEIGHT = IHI-NS-ISTARTM+1;
+      SWIDTH = NS+1;
       if ( SHEIGHT > 0 ) {
          sgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT );
          slacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA );
@@ -265,4 +265,4 @@
          slacpy('ALL', N, NS+1, WORK, N, Z( 1, IHI-NS ), LDZ );
       }
 
-      END SUBROUTINE
+      END SUBROUTINE;

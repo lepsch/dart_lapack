@@ -1,4 +1,4 @@
-      SUBROUTINE SPTSV( N, NRHS, D, E, B, LDB, INFO )
+      SUBROUTINE SPTSV( N, NRHS, D, E, B, LDB, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               B( LDB, * ), D( * ), E( * )
+      REAL               B( LDB, * ), D( * ), E( * );
       // ..
 
 *  =====================================================================
@@ -23,17 +23,17 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NRHS < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('SPTSV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Compute the L*D*L**T (or U**T*D*U) factorization of A.
@@ -45,7 +45,7 @@
 
          spttrs(N, NRHS, D, E, B, LDB, INFO );
       }
-      RETURN
+      RETURN;
 
       // End of SPTSV
 

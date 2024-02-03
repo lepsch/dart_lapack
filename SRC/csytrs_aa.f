@@ -1,10 +1,10 @@
-      SUBROUTINE CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -12,12 +12,12 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -37,29 +37,29 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < MAX( 1, 3*N-2 ) && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('CSYTRS_AA', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         LWKOPT = (3*N-2)
-         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
-         RETURN
+         LWKOPT = (3*N-2);
+         WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
+         RETURN;
       }
 
       // Quick return if possible
@@ -77,7 +77,7 @@
             // Pivot, P**T * B -> B
 
             for (K = 1; K <= N; K++) {
-               KP = IPIV( K )
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
 
@@ -107,8 +107,8 @@
 
             // Pivot, P * B -> B  [ P * (U**T \ (T \ (U \P**T * B) )) ]
 
-            DO K = N, 1, -1
-               KP = IPIV( K )
+            DO K = N, 1, -1;
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
@@ -124,7 +124,7 @@
             // Pivot, P**T * B -> B
 
             for (K = 1; K <= N; K++) {
-               KP = IPIV( K )
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
 
@@ -155,15 +155,15 @@
 
             // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 
-            DO K = N, 1, -1
-               KP = IPIV( K )
+            DO K = N, 1, -1;
+               KP = IPIV( K );
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CSYTRS_AA
 

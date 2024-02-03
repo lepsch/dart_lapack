@@ -1,4 +1,4 @@
-      SUBROUTINE DSYT01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE DSYT01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,14 +40,14 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
 
       // Initialize C to the tridiagonal matrix T.
 
@@ -81,12 +81,12 @@
 
       // Apply symmetric pivots
 
-      DO J = N, 1, -1
-         I = IPIV( J )
+      DO J = N, 1, -1;
+         I = IPIV( J );
          if (I != J) CALL DSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
       }
-      DO J = N, 1, -1
-         I = IPIV( J )
+      DO J = N, 1, -1;
+         I = IPIV( J );
          if (I != J) CALL DSWAP( N, C( 1, J ), 1, C( 1, I ), 1 );
       }
 
@@ -96,28 +96,28 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= J; I++) {
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = J; I <= N; I++) {
-               C( I, J ) = C( I, J ) - A( I, J )
+               C( I, J ) = C( I, J ) - A( I, J );
             }
          }
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = DLANSY( '1', UPLO, N, C, LDC, RWORK )
+      RESID = DLANSY( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of DSYT01_AA
 

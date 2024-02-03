@@ -15,6 +15,6 @@
       // EXTERNAL DLAISNAN
 *  ..
 *  .. Executable Statements ..
-      DISNAN = DLAISNAN(DIN,DIN)
-      RETURN
+      DISNAN = DLAISNAN(DIN,DIN);
+      RETURN;
       }

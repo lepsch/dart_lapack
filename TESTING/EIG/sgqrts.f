@@ -1,4 +1,4 @@
-      SUBROUTINE SGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE SGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,23 +8,23 @@
       int                LDA, LDB, LWORK, M, P, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), RESULT( 4 ), RWORK( * ), WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), RESULT( 4 ), RWORK( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               ROGUE
+      REAL               ROGUE;
       const              ROGUE = -1.0e+10 ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, ULP, UNFL, RESID
+      REAL               ANORM, BNORM, ULP, UNFL, RESID;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY
+      REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -35,16 +35,16 @@
       // ..
       // .. Executable Statements ..
 
-      ULP = SLAMCH( 'Precision' )
-      UNFL = SLAMCH( 'Safe minimum' )
+      ULP = SLAMCH( 'Precision' );
+      UNFL = SLAMCH( 'Safe minimum' );
 
       // Copy the matrix A to the array AF.
 
       slacpy('Full', N, M, A, LDA, AF, LDA );
       slacpy('Full', N, P, B, LDB, BF, LDB );
 
-      ANORM = MAX( SLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( SLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      ANORM = MAX( SLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( SLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Factorize the matrices A and B in the arrays AF and BF.
 
@@ -87,11 +87,11 @@
 
       // Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 
-      RESID = SLANGE( '1', N, M, R, LDA, RWORK )
+      RESID = SLANGE( '1', N, M, R, LDA, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = ( ( RESID / REAL( MAX(1,M,N) ) ) / ANORM ) / ULP
+         RESULT( 1 ) = ( ( RESID / REAL( MAX(1,M,N) ) ) / ANORM ) / ULP;
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute T*Z - Q'*B
@@ -100,11 +100,11 @@
 
       // Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 
-      RESID = SLANGE( '1', N, P, BWK, LDB, RWORK )
+      RESID = SLANGE( '1', N, P, BWK, LDB, RWORK );
       if ( BNORM > ZERO ) {
-         RESULT( 2 ) = ( ( RESID / REAL( MAX(1,P,N ) ) )/BNORM ) / ULP
+         RESULT( 2 ) = ( ( RESID / REAL( MAX(1,P,N ) ) )/BNORM ) / ULP;
       } else {
-         RESULT( 2 ) = ZERO
+         RESULT( 2 ) = ZERO;
       }
 
       // Compute I - Q'*Q
@@ -114,8 +114,8 @@
 
       // Compute norm( I - Q'*Q ) / ( N * ULP ) .
 
-      RESID = SLANSY( '1', 'Upper', N, R, LDA, RWORK )
-      RESULT( 3 ) = ( RESID / REAL( MAX( 1, N ) ) ) / ULP
+      RESID = SLANSY( '1', 'Upper', N, R, LDA, RWORK );
+      RESULT( 3 ) = ( RESID / REAL( MAX( 1, N ) ) ) / ULP;
 
       // Compute I - Z'*Z
 
@@ -124,10 +124,10 @@
 
       // Compute norm( I - Z'*Z ) / ( P*ULP ) .
 
-      RESID = SLANSY( '1', 'Upper', P, T, LDB, RWORK )
-      RESULT( 4 ) = ( RESID / REAL( MAX( 1, P ) ) ) / ULP
+      RESID = SLANSY( '1', 'Upper', P, T, LDB, RWORK );
+      RESULT( 4 ) = ( RESID / REAL( MAX( 1, P ) ) ) / ULP;
 
-      RETURN
+      RETURN;
 
       // End of SGQRTS
 

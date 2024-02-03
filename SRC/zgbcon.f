@@ -1,4 +1,4 @@
-      SUBROUTINE ZGBCON( NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
+      SUBROUTINE ZGBCON( NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), WORK( * )
+      COMPLEX*16         AB( LDAB, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -26,7 +26,7 @@
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM;
       double             AINVNM, SCALE, SMLNUM;
-      COMPLEX*16         T, ZDUM
+      COMPLEX*16         T, ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -35,7 +35,7 @@
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH;
-      COMPLEX*16         ZDOTC
+      COMPLEX*16         ZDOTC;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, ZDOTC
       // ..
       // .. External Subroutines ..
@@ -48,56 +48,56 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      ONENRM = NORM == '1' || LSAME( NORM, 'O' )
+      INFO = 0;
+      ONENRM = NORM == '1' || LSAME( NORM, 'O' );
       if ( !ONENRM && !LSAME( NORM, 'I' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KL < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KU < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < 2*KL+KU+1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( ANORM < ZERO ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('ZGBCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM == ZERO ) {
-         RETURN
+         RETURN;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' )
+      SMLNUM = DLAMCH( 'Safe minimum' );
 
       // Estimate the norm of inv(A).
 
-      AINVNM = ZERO
-      NORMIN = 'N'
+      AINVNM = ZERO;
+      NORMIN = 'N';
       if ( ONENRM ) {
-         KASE1 = 1
+         KASE1 = 1;
       } else {
-         KASE1 = 2
+         KASE1 = 2;
       }
-      KD = KL + KU + 1
-      LNOTI = KL > 0
-      KASE = 0
+      KD = KL + KU + 1;
+      LNOTI = KL > 0;
+      KASE = 0;
       } // 10
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE != 0 ) {
@@ -107,12 +107,12 @@
 
             if ( LNOTI ) {
                for (J = 1; J <= N - 1; J++) { // 20
-                  LM = MIN( KL, N-J )
-                  JP = IPIV( J )
-                  T = WORK( JP )
+                  LM = MIN( KL, N-J );
+                  JP = IPIV( J );
+                  T = WORK( JP );
                   if ( JP != J ) {
-                     WORK( JP ) = WORK( J )
-                     WORK( J ) = T
+                     WORK( JP ) = WORK( J );
+                     WORK( J ) = T;
                   }
                   zaxpy(LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
                } // 20
@@ -130,14 +130,14 @@
             // Multiply by inv(L**H).
 
             if ( LNOTI ) {
-               DO 30 J = N - 1, 1, -1
-                  LM = MIN( KL, N-J )
-                  WORK( J ) = WORK( J ) - ZDOTC( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
-                  JP = IPIV( J )
+               DO 30 J = N - 1, 1, -1;
+                  LM = MIN( KL, N-J );
+                  WORK( J ) = WORK( J ) - ZDOTC( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
+                  JP = IPIV( J );
                   if ( JP != J ) {
-                     T = WORK( JP )
-                     WORK( JP ) = WORK( J )
-                     WORK( J ) = T
+                     T = WORK( JP );
+                     WORK( JP ) = WORK( J );
+                     WORK( J ) = T;
                   }
                } // 30
             }
@@ -145,13 +145,13 @@
 
          // Divide X by 1/SCALE if doing so will not cause overflow.
 
-         NORMIN = 'Y'
+         NORMIN = 'Y';
          if ( SCALE != ONE ) {
-            IX = IZAMAX( N, WORK, 1 )
-            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40
+            IX = IZAMAX( N, WORK, 1 );
+            IF( SCALE < CABS1( WORK( IX ) )*SMLNUM || SCALE == ZERO ) GO TO 40;
             zdrscl(N, SCALE, WORK, 1 );
          }
-         GO TO 10
+         GO TO 10;
       }
 
       // Compute the estimate of the reciprocal condition number.
@@ -159,7 +159,7 @@
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       } // 40
-      RETURN
+      RETURN;
 
       // End of ZGBCON
 

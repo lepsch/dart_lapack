@@ -1,4 +1,4 @@
-      SUBROUTINE CSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT )
+      SUBROUTINE CSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,24 +8,24 @@
       int                KBAND, LDU, N;
       // ..
       // .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * )
-      COMPLEX            U( LDU, * ), WORK( * )
+      REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
+      COMPLEX            U( LDU, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J;
-      REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM
+      REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANHE, SLAMCH
+      REAL               CLANGE, CLANHE, SLAMCH;
       // EXTERNAL CLANGE, CLANHE, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -38,12 +38,12 @@
 
       // 1)      Constants
 
-      RESULT( 1 ) = ZERO
-      RESULT( 2 ) = ZERO
+      RESULT( 1 ) = ZERO;
+      RESULT( 2 ) = ZERO;
       if (N <= 0) RETURN;
 
-      UNFL = SLAMCH( 'Safe minimum' )
-      ULP = SLAMCH( 'Precision' )
+      UNFL = SLAMCH( 'Safe minimum' );
+      ULP = SLAMCH( 'Precision' );
 
       // Do Test 1
 
@@ -51,19 +51,19 @@
 
       claset('Full', N, N, CZERO, CZERO, WORK, N );
 
-      ANORM = ZERO
-      TEMP1 = ZERO
+      ANORM = ZERO;
+      TEMP1 = ZERO;
 
       for (J = 1; J <= N - 1; J++) { // 10
-         WORK( ( N+1 )*( J-1 )+1 ) = AD( J )
-         WORK( ( N+1 )*( J-1 )+2 ) = AE( J )
-         TEMP2 = ABS( AE( J ) )
-         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 )
-         TEMP1 = TEMP2
+         WORK( ( N+1 )*( J-1 )+1 ) = AD( J );
+         WORK( ( N+1 )*( J-1 )+2 ) = AE( J );
+         TEMP2 = ABS( AE( J ) );
+         ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 );
+         TEMP1 = TEMP2;
       } // 10
 
-      WORK( N**2 ) = AD( N )
-      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL )
+      WORK( N**2 ) = AD( N );
+      ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL );
 
       // Norm of A - U S U**H
 
@@ -77,15 +77,15 @@
          } // 30
       }
 
-      WNORM = CLANHE( '1', 'L', N, WORK, N, RWORK )
+      WNORM = CLANHE( '1', 'L', N, WORK, N, RWORK );
 
       if ( ANORM > WNORM ) {
-         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP );
       } else {
          if ( ANORM < ONE ) {
-            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
+            RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP );
          } else {
-            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
+            RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP );
          }
       }
 
@@ -96,12 +96,12 @@
       cgemm('N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N );
 
       for (J = 1; J <= N; J++) { // 40
-         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
+         WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE;
       } // 40
 
-      RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
-      RETURN
+      RETURN;
 
       // End of CSTT21
 

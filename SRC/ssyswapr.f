@@ -1,4 +1,4 @@
-      SUBROUTINE SSYSWAPR( UPLO, N, A, LDA, I1, I2)
+      SUBROUTINE SSYSWAPR( UPLO, N, A, LDA, I1, I2);
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,14 +9,14 @@
       int              I1, I2, LDA, N;
       // ..
       // .. Array Arguments ..
-      REAL             A( LDA, * )
+      REAL             A( LDA, * );
 
 *  =====================================================================
 
       // ..
       // .. Local Scalars ..
       bool               UPPER;
-      REAL               TMP
+      REAL               TMP;
 
       // .. External Functions ..
       bool               LSAME;
@@ -27,7 +27,7 @@
       // ..
       // .. Executable Statements ..
 
-      UPPER = LSAME( UPLO, 'U' )
+      UPPER = LSAME( UPLO, 'U' );
       if (UPPER) {
 
           // UPPER
@@ -38,9 +38,9 @@
            // second swap :
            // - swap A(I1,I1) and A(I2,I2)
            // - swap row I1 from I1+1 to I2-1 with col I2 from I1+1 to I2-1
-         TMP=A(I1,I1)
-         A(I1,I1)=A(I2,I2)
-         A(I2,I2)=TMP
+         TMP=A(I1,I1);
+         A(I1,I1)=A(I2,I2);
+         A(I2,I2)=TMP;
 
          sswap(I2-I1-1, A(I1,I1+1), LDA, A(I1+1,I2), 1 );
 
@@ -58,9 +58,9 @@
           // second swap :
            // - swap A(I1,I1) and A(I2,I2)
            // - swap col I1 from I1+1 to I2-1 with row I2 from I1+1 to I2-1
-          TMP=A(I1,I1)
-          A(I1,I1)=A(I2,I2)
-          A(I2,I2)=TMP
+          TMP=A(I1,I1);
+          A(I1,I1)=A(I2,I2);
+          A(I2,I2)=TMP;
 
           sswap(I2-I1-1, A(I1+1,I1), 1, A(I2,I1+1), LDA );
 
@@ -69,4 +69,4 @@
          if (I2 < N) CALL SSWAP( N-I2, A(I2+1,I1), 1, A(I2+1,I2), 1 );
 
       }
-      END SUBROUTINE SSYSWAPR
+      END SUBROUTINE SSYSWAPR;

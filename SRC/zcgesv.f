@@ -1,4 +1,4 @@
-      SUBROUTINE ZCGESV( N, NRHS, A, LDA, IPIV, B, LDB, X, LDX, WORK, SWORK, RWORK, ITER, INFO )
+      SUBROUTINE ZCGESV( N, NRHS, A, LDA, IPIV, B, LDB, X, LDX, WORK, SWORK, RWORK, ITER, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +10,8 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX            SWORK( * )
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * )
+      COMPLEX            SWORK( * );
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -26,13 +26,13 @@
       double             BWDMAX;
       const              BWDMAX = 1.0e+00 ;
 
-      COMPLEX*16         NEGONE, ONE
+      COMPLEX*16         NEGONE, ONE;
       const              NEGONE = ( -1.0e+00, 0.0e+00 ), ONE = ( 1.0e+00, 0.0e+00 ) ;
 
       // .. Local Scalars ..
       int                I, IITER, PTSA, PTSX;
       double             ANRM, CTE, EPS, RNRM, XNRM;
-      COMPLEX*16         ZDUM
+      COMPLEX*16         ZDUM;
 
       // .. External Subroutines ..
       // EXTERNAL CGETRS, CGETRF, CLAG2Z, XERBLA, ZAXPY, ZGEMM, ZLACPY, ZLAG2C, ZGETRF, ZGETRS
@@ -49,29 +49,29 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      ITER = 0
+      INFO = 0;
+      ITER = 0;
 
       // Test the input parameters.
 
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NRHS < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('ZCGESV', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if (N == 0).
@@ -82,20 +82,20 @@
       // than double precision factorization.
 
       if ( !DOITREF ) {
-         ITER = -1
-         GO TO 40
+         ITER = -1;
+         GO TO 40;
       }
 
       // Compute some constants.
 
-      ANRM = ZLANGE( 'I', N, N, A, LDA, RWORK )
-      EPS = DLAMCH( 'Epsilon' )
-      CTE = ANRM*EPS*SQRT( DBLE( N ) )*BWDMAX
+      ANRM = ZLANGE( 'I', N, N, A, LDA, RWORK );
+      EPS = DLAMCH( 'Epsilon' );
+      CTE = ANRM*EPS*SQRT( DBLE( N ) )*BWDMAX;
 
       // Set the indices PTSA, PTSX for referencing SA and SX in SWORK.
 
-      PTSA = 1
-      PTSX = PTSA + N*N
+      PTSA = 1;
+      PTSX = PTSA + N*N;
 
       // Convert B from double precision to single precision and store the
       // result in SX.
@@ -103,8 +103,8 @@
       zlag2c(N, NRHS, B, LDB, SWORK( PTSX ), N, INFO );
 
       if ( INFO != 0 ) {
-         ITER = -2
-         GO TO 40
+         ITER = -2;
+         GO TO 40;
       }
 
       // Convert A from double precision to single precision and store the
@@ -113,8 +113,8 @@
       zlag2c(N, N, A, LDA, SWORK( PTSA ), N, INFO );
 
       if ( INFO != 0 ) {
-         ITER = -2
-         GO TO 40
+         ITER = -2;
+         GO TO 40;
       }
 
       // Compute the LU factorization of SA.
@@ -122,8 +122,8 @@
       cgetrf(N, N, SWORK( PTSA ), N, IPIV, INFO );
 
       if ( INFO != 0 ) {
-         ITER = -3
-         GO TO 40
+         ITER = -3;
+         GO TO 40;
       }
 
       // Solve the system SA*SX = SB.
@@ -144,16 +144,16 @@
       // stopping criterion. If yes, set ITER=0 and return.
 
       for (I = 1; I <= NRHS; I++) {
-         XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
-         RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
+         XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) );
+         RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) );
          if (RNRM > XNRM*CTE) GO TO 10;
       }
 
       // If we are here, the NRHS normwise backward errors satisfy the
       // stopping criterion. We are good to exit.
 
-      ITER = 0
-      RETURN
+      ITER = 0;
+      RETURN;
 
       } // 10
 
@@ -165,8 +165,8 @@
          zlag2c(N, NRHS, WORK, N, SWORK( PTSX ), N, INFO );
 
          if ( INFO != 0 ) {
-            ITER = -2
-            GO TO 40
+            ITER = -2;
+            GO TO 40;
          }
 
          // Solve the system SA*SX = SR.
@@ -192,17 +192,17 @@
          // stopping criterion. If yes, set ITER=IITER>0 and return.
 
          for (I = 1; I <= NRHS; I++) {
-            XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
-            RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
+            XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) );
+            RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) );
             if (RNRM > XNRM*CTE) GO TO 20;
          }
 
          // If we are here, the NRHS normwise backward errors satisfy the
          // stopping criterion, we are good to exit.
 
-         ITER = IITER
+         ITER = IITER;
 
-         RETURN
+         RETURN;
 
          } // 20
 
@@ -213,7 +213,7 @@
       // criterion, set up the ITER flag accordingly and follow up on double
       // precision routine.
 
-      ITER = -ITERMAX - 1
+      ITER = -ITERMAX - 1;
 
       } // 40
 
@@ -227,7 +227,7 @@
       zlacpy('All', N, NRHS, B, LDB, X, LDX );
       zgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
-      RETURN
+      RETURN;
 
       // End of ZCGESV
 

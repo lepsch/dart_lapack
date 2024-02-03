@@ -1,4 +1,4 @@
-      SUBROUTINE SQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
+      SUBROUTINE SQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,28 +6,28 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, N, NRHS, RANK, RKSEL, SCALE;
-      REAL               NORMA, NORMB
+      REAL               NORMA, NORMB;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      REAL               A( LDA, * ), B( LDB, * ), S( * ), WORK( LWORK )
+      REAL               A( LDA, * ), B( LDB, * ), S( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO, SVMIN
+      REAL               ZERO, ONE, TWO, SVMIN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                INFO, J, MN;
-      REAL               BIGNUM, EPS, SMLNUM, TEMP
+      REAL               BIGNUM, EPS, SMLNUM, TEMP;
       // ..
       // .. Local Arrays ..
-      REAL               DUMMY( 1 )
+      REAL               DUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE, SLARND, SNRM2
+      REAL               SASUM, SLAMCH, SLANGE, SLARND, SNRM2;
       // EXTERNAL SASUM, SLAMCH, SLANGE, SLARND, SNRM2
       // ..
       // .. External Subroutines ..
@@ -38,26 +38,26 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N )
+      MN = MIN( M, N );
       if ( LWORK < MAX( M+MN, MN*NRHS, 2*N+M ) ) {
          xerbla('SQRT15', 16 );
-         RETURN
+         RETURN;
       }
 
-      SMLNUM = SLAMCH( 'Safe minimum' )
-      BIGNUM = ONE / SMLNUM
-      EPS = SLAMCH( 'Epsilon' )
-      SMLNUM = ( SMLNUM / EPS ) / EPS
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = SLAMCH( 'Safe minimum' );
+      BIGNUM = ONE / SMLNUM;
+      EPS = SLAMCH( 'Epsilon' );
+      SMLNUM = ( SMLNUM / EPS ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Determine rank and (unscaled) singular values
 
       if ( RKSEL == 1 ) {
-         RANK = MN
+         RANK = MN;
       } else if ( RKSEL == 2 ) {
-         RANK = ( 3*MN ) / 4
+         RANK = ( 3*MN ) / 4;
          for (J = RANK + 1; J <= MN; J++) { // 10
-            S( J ) = ZERO
+            S( J ) = ZERO;
          } // 10
       } else {
          xerbla('SQRT15', 2 );
@@ -67,14 +67,14 @@
 
          // Nontrivial case
 
-         S( 1 ) = ONE
+         S( 1 ) = ONE;
          for (J = 2; J <= RANK; J++) { // 30
             } // 20
-            TEMP = SLARND( 1, ISEED )
+            TEMP = SLARND( 1, ISEED );
             if ( TEMP > SVMIN ) {
-               S( J ) = ABS( TEMP )
+               S( J ) = ABS( TEMP );
             } else {
-               GO TO 20
+               GO TO 20;
             }
          } // 30
          slaord('Decreasing', RANK, S, 1 );
@@ -110,7 +110,7 @@
          // Generate null matrix and rhs
 
          for (J = 1; J <= MN; J++) { // 50
-            S( J ) = ZERO
+            S( J ) = ZERO;
          } // 50
          slaset('Full', M, N, ZERO, ZERO, A, LDA );
          slaset('Full', M, NRHS, ZERO, ZERO, B, LDB );
@@ -120,7 +120,7 @@
       // Scale the matrix
 
       if ( SCALE != 1 ) {
-         NORMA = SLANGE( 'Max', M, N, A, LDA, DUMMY )
+         NORMA = SLANGE( 'Max', M, N, A, LDA, DUMMY );
          if ( NORMA != ZERO ) {
             if ( SCALE == 2 ) {
 
@@ -138,15 +138,15 @@
                slascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
                xerbla('SQRT15', 1 );
-               RETURN
+               RETURN;
             }
          }
       }
 
-      NORMA = SASUM( MN, S, 1 )
-      NORMB = SLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY )
+      NORMA = SASUM( MN, S, 1 );
+      NORMB = SLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY );
 
-      RETURN
+      RETURN;
 
       // End of SQRT15
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CSYTF2( UPLO, N, A, LDA, IPIV, INFO )
+      SUBROUTINE CSYTF2( UPLO, N, A, LDA, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,24 +10,24 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX            A( LDA, * )
+      COMPLEX            A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN
+      REAL               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IMAX, J, JMAX, K, KK, KP, KSTEP;
-      REAL               ABSAKK, ALPHA, COLMAX, ROWMAX
-      COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, Z
+      REAL               ABSAKK, ALPHA, COLMAX, ROWMAX;
+      COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, Z;
       // ..
       // .. External Functions ..
       bool               LSAME, SISNAN;
@@ -41,32 +41,32 @@
       // INTRINSIC ABS, AIMAG, MAX, REAL, SQRT
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) )
+      CABS1( Z ) = ABS( REAL( Z ) ) + ABS( AIMAG( Z ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('CSYTF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
+      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
 
       if ( UPPER ) {
 
@@ -75,28 +75,28 @@
          // K is the main loop index, decreasing from N to 1 in steps of
          // 1 or 2
 
-         K = N
+         K = N;
          } // 10
 
          // If K < 1, exit from loop
 
          if (K < 1) GO TO 70;
-         KSTEP = 1
+         KSTEP = 1;
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = CABS1( A( K, K ) )
+         ABSAKK = CABS1( A( K, K ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
          if ( K > 1 ) {
-            IMAX = ICAMAX( K-1, A( 1, K ), 1 )
-            COLMAX = CABS1( A( IMAX, K ) )
+            IMAX = ICAMAX( K-1, A( 1, K ), 1 );
+            COLMAX = CABS1( A( IMAX, K ) );
          } else {
-            COLMAX = ZERO
+            COLMAX = ZERO;
          }
 
          if ( MAX( ABSAKK, COLMAX ) == ZERO || SISNAN(ABSAKK) ) {
@@ -105,47 +105,47 @@
             // set INFO and continue
 
             if (INFO == 0) INFO = K;
-            KP = K
+            KP = K;
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
-               KP = K
+               KP = K;
             } else {
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = IMAX + ICAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
-               ROWMAX = CABS1( A( IMAX, JMAX ) )
+               JMAX = IMAX + ICAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA );
+               ROWMAX = CABS1( A( IMAX, JMAX ) );
                if ( IMAX > 1 ) {
-                  JMAX = ICAMAX( IMAX-1, A( 1, IMAX ), 1 )
-                  ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
+                  JMAX = ICAMAX( IMAX-1, A( 1, IMAX ), 1 );
+                  ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
-                  KP = K
+                  KP = K;
                } else if ( CABS1( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
 
-                  KP = IMAX
+                  KP = IMAX;
                } else {
 
                   // interchange rows and columns K-1 and IMAX, use 2-by-2
                   // pivot block
 
-                  KP = IMAX
-                  KSTEP = 2
+                  KP = IMAX;
+                  KSTEP = 2;
                }
             }
 
-            KK = K - KSTEP + 1
+            KK = K - KSTEP + 1;
             if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the leading
@@ -153,13 +153,13 @@
 
                cswap(KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                cswap(KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
-               T = A( KK, KK )
-               A( KK, KK ) = A( KP, KP )
-               A( KP, KP ) = T
+               T = A( KK, KK );
+               A( KK, KK ) = A( KP, KP );
+               A( KP, KP ) = T;
                if ( KSTEP == 2 ) {
-                  T = A( K-1, K )
-                  A( K-1, K ) = A( KP, K )
-                  A( KP, K ) = T
+                  T = A( K-1, K );
+                  A( K-1, K ) = A( KP, K );
+                  A( KP, K ) = T;
                }
             }
 
@@ -177,7 +177,7 @@
 
                // A := A - U(k)*D(k)*U(k)**T = A - W(k)*1/D(k)*W(k)**T
 
-               R1 = CONE / A( K, K )
+               R1 = CONE / A( K, K );
                csyr(UPLO, K-1, -R1, A( 1, K ), 1, A, LDA );
 
                // Store U(k) in column k
@@ -199,20 +199,20 @@
 
                if ( K > 2 ) {
 
-                  D12 = A( K-1, K )
-                  D22 = A( K-1, K-1 ) / D12
-                  D11 = A( K, K ) / D12
-                  T = CONE / ( D11*D22-CONE )
-                  D12 = T / D12
+                  D12 = A( K-1, K );
+                  D22 = A( K-1, K-1 ) / D12;
+                  D11 = A( K, K ) / D12;
+                  T = CONE / ( D11*D22-CONE );
+                  D12 = T / D12;
 
-                  DO 30 J = K - 2, 1, -1
-                     WKM1 = D12*( D11*A( J, K-1 )-A( J, K ) )
-                     WK = D12*( D22*A( J, K )-A( J, K-1 ) )
-                     DO 20 I = J, 1, -1
-                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1
+                  DO 30 J = K - 2, 1, -1;
+                     WKM1 = D12*( D11*A( J, K-1 )-A( J, K ) );
+                     WK = D12*( D22*A( J, K )-A( J, K-1 ) );
+                     DO 20 I = J, 1, -1;
+                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1;
                      } // 20
-                     A( J, K ) = WK
-                     A( J, K-1 ) = WKM1
+                     A( J, K ) = WK;
+                     A( J, K-1 ) = WKM1;
                   } // 30
 
                }
@@ -223,16 +223,16 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP
+            IPIV( K ) = KP;
          } else {
-            IPIV( K ) = -KP
-            IPIV( K-1 ) = -KP
+            IPIV( K ) = -KP;
+            IPIV( K-1 ) = -KP;
          }
 
          // Decrease K and return to the start of the main loop
 
-         K = K - KSTEP
-         GO TO 10
+         K = K - KSTEP;
+         GO TO 10;
 
       } else {
 
@@ -241,28 +241,28 @@
          // K is the main loop index, increasing from 1 to N in steps of
          // 1 or 2
 
-         K = 1
+         K = 1;
          } // 40
 
          // If K > N, exit from loop
 
          if (K > N) GO TO 70;
-         KSTEP = 1
+         KSTEP = 1;
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = CABS1( A( K, K ) )
+         ABSAKK = CABS1( A( K, K ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
          // column K, and COLMAX is its absolute value.
          // Determine both COLMAX and IMAX.
 
          if ( K < N ) {
-            IMAX = K + ICAMAX( N-K, A( K+1, K ), 1 )
-            COLMAX = CABS1( A( IMAX, K ) )
+            IMAX = K + ICAMAX( N-K, A( K+1, K ), 1 );
+            COLMAX = CABS1( A( IMAX, K ) );
          } else {
-            COLMAX = ZERO
+            COLMAX = ZERO;
          }
 
          if ( MAX( ABSAKK, COLMAX ) == ZERO || SISNAN(ABSAKK) ) {
@@ -271,47 +271,47 @@
             // set INFO and continue
 
             if (INFO == 0) INFO = K;
-            KP = K
+            KP = K;
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
-               KP = K
+               KP = K;
             } else {
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = K - 1 + ICAMAX( IMAX-K, A( IMAX, K ), LDA )
-               ROWMAX = CABS1( A( IMAX, JMAX ) )
+               JMAX = K - 1 + ICAMAX( IMAX-K, A( IMAX, K ), LDA );
+               ROWMAX = CABS1( A( IMAX, JMAX ) );
                if ( IMAX < N ) {
-                  JMAX = IMAX + ICAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
-                  ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) )
+                  JMAX = IMAX + ICAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 );
+                  ROWMAX = MAX( ROWMAX, CABS1( A( JMAX, IMAX ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
-                  KP = K
+                  KP = K;
                } else if ( CABS1( A( IMAX, IMAX ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
 
-                  KP = IMAX
+                  KP = IMAX;
                } else {
 
                   // interchange rows and columns K+1 and IMAX, use 2-by-2
                   // pivot block
 
-                  KP = IMAX
-                  KSTEP = 2
+                  KP = IMAX;
+                  KSTEP = 2;
                }
             }
 
-            KK = K + KSTEP - 1
+            KK = K + KSTEP - 1;
             if ( KP != KK ) {
 
                // Interchange rows and columns KK and KP in the trailing
@@ -319,13 +319,13 @@
 
                if (KP < N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                cswap(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
-               T = A( KK, KK )
-               A( KK, KK ) = A( KP, KP )
-               A( KP, KP ) = T
+               T = A( KK, KK );
+               A( KK, KK ) = A( KP, KP );
+               A( KP, KP ) = T;
                if ( KSTEP == 2 ) {
-                  T = A( K+1, K )
-                  A( K+1, K ) = A( KP, K )
-                  A( KP, K ) = T
+                  T = A( K+1, K );
+                  A( K+1, K ) = A( KP, K );
+                  A( KP, K ) = T;
                }
             }
 
@@ -345,7 +345,7 @@
 
                   // A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 
-                  R1 = CONE / A( K, K )
+                  R1 = CONE / A( K, K );
                   csyr(UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA );
 
                   // Store L(k) in column K
@@ -366,20 +366,20 @@
                   // where L(k) and L(k+1) are the k-th and (k+1)-th
                   // columns of L
 
-                  D21 = A( K+1, K )
-                  D11 = A( K+1, K+1 ) / D21
-                  D22 = A( K, K ) / D21
-                  T = CONE / ( D11*D22-CONE )
-                  D21 = T / D21
+                  D21 = A( K+1, K );
+                  D11 = A( K+1, K+1 ) / D21;
+                  D22 = A( K, K ) / D21;
+                  T = CONE / ( D11*D22-CONE );
+                  D21 = T / D21;
 
                   for (J = K + 2; J <= N; J++) { // 60
-                     WK = D21*( D11*A( J, K )-A( J, K+1 ) )
-                     WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) )
+                     WK = D21*( D11*A( J, K )-A( J, K+1 ) );
+                     WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) );
                      for (I = J; I <= N; I++) { // 50
-                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1
+                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1;
                      } // 50
-                     A( J, K ) = WK
-                     A( J, K+1 ) = WKP1
+                     A( J, K ) = WK;
+                     A( J, K+1 ) = WKP1;
                   } // 60
                }
             }
@@ -388,21 +388,21 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP
+            IPIV( K ) = KP;
          } else {
-            IPIV( K ) = -KP
-            IPIV( K+1 ) = -KP
+            IPIV( K ) = -KP;
+            IPIV( K+1 ) = -KP;
          }
 
          // Increase K and return to the start of the main loop
 
-         K = K + KSTEP
-         GO TO 40
+         K = K + KSTEP;
+         GO TO 40;
 
       }
 
       } // 70
-      RETURN
+      RETURN;
 
       // End of CSYTF2
 

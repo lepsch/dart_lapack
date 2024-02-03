@@ -1,4 +1,4 @@
-      REAL FUNCTION SECOND( )
+      REAL FUNCTION SECOND( );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,7 +7,7 @@
 * =====================================================================
 
       SECOND = 0.0;
-      RETURN
+      RETURN;
 
       // End of SECOND
 

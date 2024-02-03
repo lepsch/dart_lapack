@@ -1,4 +1,4 @@
-      SUBROUTINE SGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, INFO )
+      SUBROUTINE SGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,23 +9,23 @@
       int                INFO, LDA, LDU, LDVT, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      REAL               A( LDA, * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS;
       int                BDSPAC, BLK, CHUNK, I, IE, IERR, IR, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL;
       int                LWORK_SGEQRF, LWORK_SORGQR_N, LWORK_SORGQR_M, LWORK_SGEBRD, LWORK_SORGBR_P, LWORK_SORGBR_Q, LWORK_SGELQF, LWORK_SORGLQ_N, LWORK_SORGLQ_M;
-      REAL               ANRM, BIGNUM, EPS, SMLNUM
+      REAL               ANRM, BIGNUM, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               DUM( 1 )
+      REAL               DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL SBDSQR, SGEBRD, SGELQF, SGEMM, SGEQRF, SLACPY, SLASCL, SLASET, SORGBR, SORGLQ, SORGQR, SORMBR, XERBLA
@@ -33,7 +33,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
@@ -43,34 +43,34 @@
 
       // Test the input arguments
 
-      INFO = 0
-      MINMN = MIN( M, N )
-      WNTUA = LSAME( JOBU, 'A' )
-      WNTUS = LSAME( JOBU, 'S' )
-      WNTUAS = WNTUA || WNTUS
-      WNTUO = LSAME( JOBU, 'O' )
-      WNTUN = LSAME( JOBU, 'N' )
-      WNTVA = LSAME( JOBVT, 'A' )
-      WNTVS = LSAME( JOBVT, 'S' )
-      WNTVAS = WNTVA || WNTVS
-      WNTVO = LSAME( JOBVT, 'O' )
-      WNTVN = LSAME( JOBVT, 'N' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      MINMN = MIN( M, N );
+      WNTUA = LSAME( JOBU, 'A' );
+      WNTUS = LSAME( JOBU, 'S' );
+      WNTUAS = WNTUA || WNTUS;
+      WNTUO = LSAME( JOBU, 'O' );
+      WNTUN = LSAME( JOBU, 'N' );
+      WNTVA = LSAME( JOBVT, 'A' );
+      WNTVS = LSAME( JOBVT, 'S' );
+      WNTVAS = WNTVA || WNTVS;
+      WNTVO = LSAME( JOBVT, 'O' );
+      WNTVN = LSAME( JOBVT, 'N' );
+      LQUERY = ( LWORK == -1 );
 
       if ( !( WNTUA || WNTUS || WNTUO || WNTUN ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WNTVA || WNTVS || WNTVO || WNTVN ) || ( WNTVO && WNTUO ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDU < 1 || ( WNTUAS && LDU < M ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDVT < 1 || ( WNTVA && LDVT < N ) || ( WNTVS && LDVT < MINMN ) ) {
-         INFO = -11
+         INFO = -11;
       }
 
       // Compute workspace
@@ -81,354 +81,354 @@
         // following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
-         MINWRK = 1
-         MAXWRK = 1
+         MINWRK = 1;
+         MAXWRK = 1;
          if ( M >= N && MINMN > 0 ) {
 
             // Compute space needed for SBDSQR
 
-            MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
-            BDSPAC = 5*N
+            MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            BDSPAC = 5*N;
             // Compute space needed for SGEQRF
             sgeqrf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SGEQRF = INT( DUM(1) )
+            LWORK_SGEQRF = INT( DUM(1) );
             // Compute space needed for SORGQR
             sorgqr(M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGQR_N = INT( DUM(1) )
+            LWORK_SORGQR_N = INT( DUM(1) );
             sorgqr(M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGQR_M = INT( DUM(1) )
+            LWORK_SORGQR_M = INT( DUM(1) );
             // Compute space needed for SGEBRD
             sgebrd(N, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_SGEBRD = INT( DUM(1) )
+            LWORK_SGEBRD = INT( DUM(1) );
             // Compute space needed for SORGBR P
             sorgbr('P', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGBR_P = INT( DUM(1) )
+            LWORK_SORGBR_P = INT( DUM(1) );
             // Compute space needed for SORGBR Q
             sorgbr('Q', N, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGBR_Q = INT( DUM(1) )
+            LWORK_SORGBR_Q = INT( DUM(1) );
 
             if ( M >= MNTHR ) {
                if ( WNTUN ) {
 
                   // Path 1 (M much larger than N, JOBU='N')
 
-                  MAXWRK = N + LWORK_SGEQRF
-                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SGEBRD )
+                  MAXWRK = N + LWORK_SGEQRF;
+                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SGEBRD );
                   if (WNTVO || WNTVAS) MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P );
-                  MAXWRK = MAX( MAXWRK, BDSPAC )
-                  MINWRK = MAX( 4*N, BDSPAC )
+                  MAXWRK = MAX( MAXWRK, BDSPAC );
+                  MINWRK = MAX( 4*N, BDSPAC );
                } else if ( WNTUO && WNTVN ) {
 
                   // Path 2 (M much larger than N, JOBU='O', JOBVT='N')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N )
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N );
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUO && WNTVAS ) {
 
                   // Path 3 (M much larger than N, JOBU='O', JOBVT='S' or
                   // 'A')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N )
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N );
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUS && WNTVN ) {
 
                   // Path 4 (M much larger than N, JOBU='S', JOBVT='N')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = N*N + WRKBL
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = N*N + WRKBL;
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUS && WNTVO ) {
 
                   // Path 5 (M much larger than N, JOBU='S', JOBVT='O')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = 2*N*N + WRKBL
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = 2*N*N + WRKBL;
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUS && WNTVAS ) {
 
                   // Path 6 (M much larger than N, JOBU='S', JOBVT='S' or
                   // 'A')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = N*N + WRKBL
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_N );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = N*N + WRKBL;
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUA && WNTVN ) {
 
                   // Path 7 (M much larger than N, JOBU='A', JOBVT='N')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_M )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = N*N + WRKBL
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_M );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = N*N + WRKBL;
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUA && WNTVO ) {
 
                   // Path 8 (M much larger than N, JOBU='A', JOBVT='O')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_M )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = 2*N*N + WRKBL
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_M );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = 2*N*N + WRKBL;
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                } else if ( WNTUA && WNTVAS ) {
 
                   // Path 9 (M much larger than N, JOBU='A', JOBVT='S' or
                   // 'A')
 
-                  WRKBL = N + LWORK_SGEQRF
-                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_M )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = N*N + WRKBL
-                  MINWRK = MAX( 3*N+M, BDSPAC )
+                  WRKBL = N + LWORK_SGEQRF;
+                  WRKBL = MAX( WRKBL, N+LWORK_SORGQR_M );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, 3*N+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = N*N + WRKBL;
+                  MINWRK = MAX( 3*N+M, BDSPAC );
                }
             } else {
 
                // Path 10 (M at least N, but not much larger)
 
                sgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-               LWORK_SGEBRD = INT( DUM(1) )
-               MAXWRK = 3*N + LWORK_SGEBRD
+               LWORK_SGEBRD = INT( DUM(1) );
+               MAXWRK = 3*N + LWORK_SGEBRD;
                if ( WNTUS || WNTUO ) {
                   sorgbr('Q', M, N, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-                  LWORK_SORGBR_Q = INT( DUM(1) )
-                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
+                  LWORK_SORGBR_Q = INT( DUM(1) );
+                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q );
                }
                if ( WNTUA ) {
                   sorgbr('Q', M, M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-                  LWORK_SORGBR_Q = INT( DUM(1) )
-                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q )
+                  LWORK_SORGBR_Q = INT( DUM(1) );
+                  MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_Q );
                }
                if ( !WNTVN ) {
-                 MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P )
+                 MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P );
                }
-               MAXWRK = MAX( MAXWRK, BDSPAC )
-               MINWRK = MAX( 3*N+M, BDSPAC )
+               MAXWRK = MAX( MAXWRK, BDSPAC );
+               MINWRK = MAX( 3*N+M, BDSPAC );
             }
          } else if ( MINMN > 0 ) {
 
             // Compute space needed for SBDSQR
 
-            MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 )
-            BDSPAC = 5*M
+            MNTHR = ILAENV( 6, 'SGESVD', JOBU // JOBVT, M, N, 0, 0 );
+            BDSPAC = 5*M;
             // Compute space needed for SGELQF
             sgelqf(M, N, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SGELQF = INT( DUM(1) )
+            LWORK_SGELQF = INT( DUM(1) );
             // Compute space needed for SORGLQ
             sorglq(N, N, M, DUM(1), N, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGLQ_N = INT( DUM(1) )
+            LWORK_SORGLQ_N = INT( DUM(1) );
             sorglq(M, N, M, A, LDA, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGLQ_M = INT( DUM(1) )
+            LWORK_SORGLQ_M = INT( DUM(1) );
             // Compute space needed for SGEBRD
             sgebrd(M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-            LWORK_SGEBRD = INT( DUM(1) )
+            LWORK_SGEBRD = INT( DUM(1) );
              // Compute space needed for SORGBR P
             sorgbr('P', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGBR_P = INT( DUM(1) )
+            LWORK_SORGBR_P = INT( DUM(1) );
             // Compute space needed for SORGBR Q
             sorgbr('Q', M, M, M, A, N, DUM(1), DUM(1), -1, IERR );
-            LWORK_SORGBR_Q = INT( DUM(1) )
+            LWORK_SORGBR_Q = INT( DUM(1) );
             if ( N >= MNTHR ) {
                if ( WNTVN ) {
 
                   // Path 1t(N much larger than M, JOBVT='N')
 
-                  MAXWRK = M + LWORK_SGELQF
-                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SGEBRD )
+                  MAXWRK = M + LWORK_SGELQF;
+                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SGEBRD );
                   if (WNTUO || WNTUAS) MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q );
-                  MAXWRK = MAX( MAXWRK, BDSPAC )
-                  MINWRK = MAX( 4*M, BDSPAC )
+                  MAXWRK = MAX( MAXWRK, BDSPAC );
+                  MINWRK = MAX( 4*M, BDSPAC );
                } else if ( WNTVO && WNTUN ) {
 
                   // Path 2t(N much larger than M, JOBU='N', JOBVT='O')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M )
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M );
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                } else if ( WNTVO && WNTUAS ) {
 
                   // Path 3t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='O')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M )
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M );
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                } else if ( WNTVS && WNTUN ) {
 
                   // Path 4t(N much larger than M, JOBU='N', JOBVT='S')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = M*M + WRKBL
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = M*M + WRKBL;
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                } else if ( WNTVS && WNTUO ) {
 
                   // Path 5t(N much larger than M, JOBU='O', JOBVT='S')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = 2*M*M + WRKBL
-                  MINWRK = MAX( 3*M+N, BDSPAC )
-                  MAXWRK = MAX( MAXWRK, MINWRK )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = 2*M*M + WRKBL;
+                  MINWRK = MAX( 3*M+N, BDSPAC );
+                  MAXWRK = MAX( MAXWRK, MINWRK );
                } else if ( WNTVS && WNTUAS ) {
 
                   // Path 6t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='S')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = M*M + WRKBL
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_M );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = M*M + WRKBL;
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                } else if ( WNTVA && WNTUN ) {
 
                   // Path 7t(N much larger than M, JOBU='N', JOBVT='A')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_N )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = M*M + WRKBL
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_N );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = M*M + WRKBL;
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                } else if ( WNTVA && WNTUO ) {
 
                   // Path 8t(N much larger than M, JOBU='O', JOBVT='A')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_N )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = 2*M*M + WRKBL
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_N );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = 2*M*M + WRKBL;
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                } else if ( WNTVA && WNTUAS ) {
 
                   // Path 9t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='A')
 
-                  WRKBL = M + LWORK_SGELQF
-                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_N )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P )
-                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q )
-                  WRKBL = MAX( WRKBL, BDSPAC )
-                  MAXWRK = M*M + WRKBL
-                  MINWRK = MAX( 3*M+N, BDSPAC )
+                  WRKBL = M + LWORK_SGELQF;
+                  WRKBL = MAX( WRKBL, M+LWORK_SORGLQ_N );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SGEBRD );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_P );
+                  WRKBL = MAX( WRKBL, 3*M+LWORK_SORGBR_Q );
+                  WRKBL = MAX( WRKBL, BDSPAC );
+                  MAXWRK = M*M + WRKBL;
+                  MINWRK = MAX( 3*M+N, BDSPAC );
                }
             } else {
 
                // Path 10t(N greater than M, but not much larger)
 
                sgebrd(M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, IERR );
-               LWORK_SGEBRD = INT( DUM(1) )
-               MAXWRK = 3*M + LWORK_SGEBRD
+               LWORK_SGEBRD = INT( DUM(1) );
+               MAXWRK = 3*M + LWORK_SGEBRD;
                if ( WNTVS || WNTVO ) {
                  // Compute space needed for SORGBR P
                  sorgbr('P', M, N, M, A, N, DUM(1), DUM(1), -1, IERR );
-                 LWORK_SORGBR_P = INT( DUM(1) )
-                 MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
+                 LWORK_SORGBR_P = INT( DUM(1) );
+                 MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P );
                }
                if ( WNTVA ) {
                  sorgbr('P', N, N, M, A, N, DUM(1), DUM(1), -1, IERR );
-                 LWORK_SORGBR_P = INT( DUM(1) )
-                 MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P )
+                 LWORK_SORGBR_P = INT( DUM(1) );
+                 MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_P );
                }
                if ( !WNTUN ) {
-                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q )
+                  MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q );
                }
-               MAXWRK = MAX( MAXWRK, BDSPAC )
-               MINWRK = MAX( 3*M+N, BDSPAC )
+               MAXWRK = MAX( MAXWRK, BDSPAC );
+               MINWRK = MAX( 3*M+N, BDSPAC );
             }
          }
-         MAXWRK = MAX( MAXWRK, MINWRK )
-         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
+         MAXWRK = MAX( MAXWRK, MINWRK );
+         WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('SGESVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SQRT( SLAMCH( 'S' ) ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SQRT( SLAMCH( 'S' ) ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = SLANGE( 'M', M, N, A, LDA, DUM )
-      ISCL = 0
+      ANRM = SLANGE( 'M', M, N, A, LDA, DUM );
+      ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ISCL = 1
+         ISCL = 1;
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM > BIGNUM ) {
-         ISCL = 1
+         ISCL = 1;
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
@@ -445,8 +445,8 @@
                // Path 1 (M much larger than N, JOBU='N')
                // No left singular vectors to be computed
 
-               ITAU = 1
-               IWORK = ITAU + N
+               ITAU = 1;
+               IWORK = ITAU + N;
 
                // Compute A=Q*R
                // (Workspace: need 2*N, prefer N+N*NB)
@@ -458,25 +458,25 @@
                if ( N > 1 ) {
                   slaset('L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
                }
-               IE = 1
-               ITAUQ = IE + N
-               ITAUP = ITAUQ + N
-               IWORK = ITAUP + N
+               IE = 1;
+               ITAUQ = IE + N;
+               ITAUP = ITAUQ + N;
+               IWORK = ITAUP + N;
 
                // Bidiagonalize R in A
                // (Workspace: need 4*N, prefer 3*N+2*N*NB)
 
                sgebrd(N, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-               NCVT = 0
+               NCVT = 0;
                if ( WNTVO || WNTVAS ) {
 
                   // If right singular vectors desired, generate P'.
                   // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                   sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  NCVT = N
+                  NCVT = N;
                }
-               IWORK = IE + N
+               IWORK = IE + N;
 
                // Perform bidiagonal QR iteration, computing right
                // singular vectors of A in A if desired
@@ -498,28 +498,28 @@
 
                   // Sufficient workspace for a fast algorithm
 
-                  IR = 1
+                  IR = 1;
                   if ( LWORK >= MAX( WRKBL, LDA*N+N )+LDA*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is LDA by N
 
-                     LDWRKU = LDA
-                     LDWRKR = LDA
+                     LDWRKU = LDA;
+                     LDWRKR = LDA;
                   } else if ( LWORK >= MAX( WRKBL, LDA*N+N )+N*N ) {
 
                      // WORK(IU) is LDA by N, WORK(IR) is N by N
 
-                     LDWRKU = LDA
-                     LDWRKR = N
+                     LDWRKU = LDA;
+                     LDWRKR = N;
                   } else {
 
                      // WORK(IU) is LDWRKU by N, WORK(IR) is N by N
 
-                     LDWRKU = ( LWORK-N*N-N ) / N
-                     LDWRKR = N
+                     LDWRKU = ( LWORK-N*N-N ) / N;
+                     LDWRKR = N;
                   }
-                  ITAU = IR + LDWRKR*N
-                  IWORK = ITAU + N
+                  ITAU = IR + LDWRKR*N;
+                  IWORK = ITAU + N;
 
                   // Compute A=Q*R
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -535,10 +535,10 @@
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
                   sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IE = ITAU
-                  ITAUQ = IE + N
-                  ITAUP = ITAUQ + N
-                  IWORK = ITAUP + N
+                  IE = ITAU;
+                  ITAUQ = IE + N;
+                  ITAUP = ITAUQ + N;
+                  IWORK = ITAUP + N;
 
                   // Bidiagonalize R in WORK(IR)
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
@@ -549,21 +549,21 @@
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
                   sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + N
+                  IWORK = IE + N;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of R in WORK(IR)
                   // (Workspace: need N*N+BDSPAC)
 
                   sbdsqr('U', N, 0, N, 0, S, WORK( IE ), DUM, 1, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
-                  IU = IE + N
+                  IU = IE + N;
 
                   // Multiply Q in A by left singular vectors of R in
                   // WORK(IR), storing result in WORK(IU) and copying to A
                   // (Workspace: need N*N+2*N, prefer N*N+M*N+N)
 
-                  DO 10 I = 1, M, LDWRKU
-                     CHUNK = MIN( M-I+1, LDWRKU )
+                  DO 10 I = 1, M, LDWRKU;
+                     CHUNK = MIN( M-I+1, LDWRKU );
                      sgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                   } // 10
@@ -572,10 +572,10 @@
 
                   // Insufficient workspace for a fast algorithm
 
-                  IE = 1
-                  ITAUQ = IE + N
-                  ITAUP = ITAUQ + N
-                  IWORK = ITAUP + N
+                  IE = 1;
+                  ITAUQ = IE + N;
+                  ITAUP = ITAUQ + N;
+                  IWORK = ITAUP + N;
 
                   // Bidiagonalize A
                   // (Workspace: need 3*N+M, prefer 3*N+(M+N)*NB)
@@ -586,7 +586,7 @@
                   // (Workspace: need 4*N, prefer 3*N+N*NB)
 
                   sorgbr('Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + N
+                  IWORK = IE + N;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of A in A
@@ -606,28 +606,28 @@
 
                   // Sufficient workspace for a fast algorithm
 
-                  IR = 1
+                  IR = 1;
                   if ( LWORK >= MAX( WRKBL, LDA*N+N )+LDA*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
-                     LDWRKU = LDA
-                     LDWRKR = LDA
+                     LDWRKU = LDA;
+                     LDWRKR = LDA;
                   } else if ( LWORK >= MAX( WRKBL, LDA*N+N )+N*N ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is N by N
 
-                     LDWRKU = LDA
-                     LDWRKR = N
+                     LDWRKU = LDA;
+                     LDWRKR = N;
                   } else {
 
                      // WORK(IU) is LDWRKU by N and WORK(IR) is N by N
 
-                     LDWRKU = ( LWORK-N*N-N ) / N
-                     LDWRKR = N
+                     LDWRKU = ( LWORK-N*N-N ) / N;
+                     LDWRKR = N;
                   }
-                  ITAU = IR + LDWRKR*N
-                  IWORK = ITAU + N
+                  ITAU = IR + LDWRKR*N;
+                  IWORK = ITAU + N;
 
                   // Compute A=Q*R
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -643,10 +643,10 @@
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
                   sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IE = ITAU
-                  ITAUQ = IE + N
-                  ITAUP = ITAUQ + N
-                  IWORK = ITAUP + N
+                  IE = ITAU;
+                  ITAUQ = IE + N;
+                  ITAUP = ITAUQ + N;
+                  IWORK = ITAUP + N;
 
                   // Bidiagonalize R in VT, copying result to WORK(IR)
                   // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
@@ -663,7 +663,7 @@
                   // (Workspace: need N*N+4*N-1, prefer N*N+3*N+(N-1)*NB)
 
                   sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + N
+                  IWORK = IE + N;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of R in WORK(IR) and computing right
@@ -671,14 +671,14 @@
                   // (Workspace: need N*N+BDSPAC)
 
                   sbdsqr('U', N, N, N, 0, S, WORK( IE ), VT, LDVT, WORK( IR ), LDWRKR, DUM, 1, WORK( IWORK ), INFO );
-                  IU = IE + N
+                  IU = IE + N;
 
                   // Multiply Q in A by left singular vectors of R in
                   // WORK(IR), storing result in WORK(IU) and copying to A
                   // (Workspace: need N*N+2*N, prefer N*N+M*N+N)
 
-                  DO 20 I = 1, M, LDWRKU
-                     CHUNK = MIN( M-I+1, LDWRKU )
+                  DO 20 I = 1, M, LDWRKU;
+                     CHUNK = MIN( M-I+1, LDWRKU );
                      sgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                   } // 20
@@ -687,8 +687,8 @@
 
                   // Insufficient workspace for a fast algorithm
 
-                  ITAU = 1
-                  IWORK = ITAU + N
+                  ITAU = 1;
+                  IWORK = ITAU + N;
 
                   // Compute A=Q*R
                   // (Workspace: need 2*N, prefer N+N*NB)
@@ -704,10 +704,10 @@
                   // (Workspace: need 2*N, prefer N+N*NB)
 
                   sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IE = ITAU
-                  ITAUQ = IE + N
-                  ITAUP = ITAUQ + N
-                  IWORK = ITAUP + N
+                  IE = ITAU;
+                  ITAUQ = IE + N;
+                  ITAUP = ITAUQ + N;
+                  IWORK = ITAUP + N;
 
                   // Bidiagonalize R in VT
                   // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -723,7 +723,7 @@
                   // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                   sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + N
+                  IWORK = IE + N;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of A in A and computing right
@@ -746,20 +746,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IR = 1
+                     IR = 1;
                      if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IR) is LDA by N
 
-                        LDWRKR = LDA
+                        LDWRKR = LDA;
                      } else {
 
                         // WORK(IR) is N by N
 
-                        LDWRKR = N
+                        LDWRKR = N;
                      }
-                     ITAU = IR + LDWRKR*N
-                     IWORK = ITAU + N
+                     ITAU = IR + LDWRKR*N;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -775,10 +775,10 @@
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
                      sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in WORK(IR)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
@@ -789,7 +789,7 @@
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
                      sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IR)
@@ -807,8 +807,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + N
+                     ITAU = 1;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
@@ -820,10 +820,10 @@
                      // (Workspace: need 2*N, prefer N+N*NB)
 
                      sorgqr(M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Zero out below R in A
 
@@ -840,7 +840,7 @@
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
                      sormbr('Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U
@@ -860,31 +860,31 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+2*LDA*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*N
-                        LDWRKR = LDA
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*N;
+                        LDWRKR = LDA;
                      } else if ( LWORK >= WRKBL+( LDA+N )*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is N by N
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*N
-                        LDWRKR = N
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*N;
+                        LDWRKR = N;
                      } else {
 
                         // WORK(IU) is N by N and WORK(IR) is N by N
 
-                        LDWRKU = N
-                        IR = IU + LDWRKU*N
-                        LDWRKR = N
+                        LDWRKU = N;
+                        IR = IU + LDWRKU*N;
+                        LDWRKR = N;
                      }
-                     ITAU = IR + LDWRKR*N
-                     IWORK = ITAU + N
+                     ITAU = IR + LDWRKR*N;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
@@ -900,10 +900,10 @@
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 
                      sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in WORK(IU), copying result to
                      // WORK(IR)
@@ -923,7 +923,7 @@
                                  // prefer 2*N*N+3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IU) and computing
@@ -947,8 +947,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + N
+                     ITAU = 1;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
@@ -960,10 +960,10 @@
                      // (Workspace: need 2*N, prefer N+N*NB)
 
                      sorgqr(M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Zero out below R in A
 
@@ -985,7 +985,7 @@
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U and computing right
@@ -1007,20 +1007,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IU) is LDA by N
 
-                        LDWRKU = LDA
+                        LDWRKU = LDA;
                      } else {
 
                         // WORK(IU) is N by N
 
-                        LDWRKU = N
+                        LDWRKU = N;
                      }
-                     ITAU = IU + LDWRKU*N
-                     IWORK = ITAU + N
+                     ITAU = IU + LDWRKU*N;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -1036,10 +1036,10 @@
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
 
                      sorgqr(M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in WORK(IU), copying result to VT
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
@@ -1057,7 +1057,7 @@
                                  // prefer N*N+3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IU) and computing
@@ -1076,8 +1076,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + N
+                     ITAU = 1;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
@@ -1094,10 +1094,10 @@
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
                      if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in VT
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -1114,7 +1114,7 @@
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U and computing right
@@ -1139,20 +1139,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IR = 1
+                     IR = 1;
                      if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IR) is LDA by N
 
-                        LDWRKR = LDA
+                        LDWRKR = LDA;
                      } else {
 
                         // WORK(IR) is N by N
 
-                        LDWRKR = N
+                        LDWRKR = N;
                      }
-                     ITAU = IR + LDWRKR*N
-                     IWORK = ITAU + N
+                     ITAU = IR + LDWRKR*N;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -1169,10 +1169,10 @@
                      // (Workspace: need N*N+N+M, prefer N*N+N+M*NB)
 
                      sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in WORK(IR)
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
@@ -1183,7 +1183,7 @@
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+N*NB)
 
                      sorgbr('Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IR)
@@ -1205,8 +1205,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + N
+                     ITAU = 1;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
@@ -1218,10 +1218,10 @@
                      // (Workspace: need N+M, prefer N+M*NB)
 
                      sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Zero out below R in A
 
@@ -1239,7 +1239,7 @@
                      // (Workspace: need 3*N+M, prefer 3*N+M*NB)
 
                      sormbr('Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U
@@ -1259,31 +1259,31 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+2*LDA*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is LDA by N
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*N
-                        LDWRKR = LDA
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*N;
+                        LDWRKR = LDA;
                      } else if ( LWORK >= WRKBL+( LDA+N )*N ) {
 
                         // WORK(IU) is LDA by N and WORK(IR) is N by N
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*N
-                        LDWRKR = N
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*N;
+                        LDWRKR = N;
                      } else {
 
                         // WORK(IU) is N by N and WORK(IR) is N by N
 
-                        LDWRKU = N
-                        IR = IU + LDWRKU*N
-                        LDWRKR = N
+                        LDWRKU = N;
+                        IR = IU + LDWRKU*N;
+                        LDWRKR = N;
                      }
-                     ITAU = IR + LDWRKR*N
-                     IWORK = ITAU + N
+                     ITAU = IR + LDWRKR*N;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
@@ -1300,10 +1300,10 @@
 
                      slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
                      slaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in WORK(IU), copying result to
                      // WORK(IR)
@@ -1323,7 +1323,7 @@
                                  // prefer 2*N*N+3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IU) and computing
@@ -1350,8 +1350,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + N
+                     ITAU = 1;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
@@ -1363,10 +1363,10 @@
                      // (Workspace: need N+M, prefer N+M*NB)
 
                      sorgqr(M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Zero out below R in A
 
@@ -1389,7 +1389,7 @@
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U and computing right
@@ -1411,20 +1411,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+LDA*N ) {
 
                         // WORK(IU) is LDA by N
 
-                        LDWRKU = LDA
+                        LDWRKU = LDA;
                      } else {
 
                         // WORK(IU) is N by N
 
-                        LDWRKU = N
+                        LDWRKU = N;
                      }
-                     ITAU = IU + LDWRKU*N
-                     IWORK = ITAU + N
+                     ITAU = IU + LDWRKU*N;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -1441,10 +1441,10 @@
 
                      slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
                      slaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in WORK(IU), copying result to VT
                      // (Workspace: need N*N+4*N, prefer N*N+3*N+2*N*NB)
@@ -1462,7 +1462,7 @@
                                  // prefer N*N+3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of R in WORK(IU) and computing
@@ -1485,8 +1485,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + N
+                     ITAU = 1;
+                     IWORK = ITAU + N;
 
                      // Compute A=Q*R, copying result to U
                      // (Workspace: need 2*N, prefer N+N*NB)
@@ -1503,10 +1503,10 @@
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
                      if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
-                     IE = ITAU
-                     ITAUQ = IE + N
-                     ITAUP = ITAUQ + N
-                     IWORK = ITAUP + N
+                     IE = ITAU;
+                     ITAUQ = IE + N;
+                     ITAUP = ITAUQ + N;
+                     IWORK = ITAUP + N;
 
                      // Bidiagonalize R in VT
                      // (Workspace: need 4*N, prefer 3*N+2*N*NB)
@@ -1523,7 +1523,7 @@
                      // (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 
                      sorgbr('P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + N
+                     IWORK = IE + N;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U and computing right
@@ -1545,10 +1545,10 @@
             // Path 10 (M at least N, but not much larger)
             // Reduce to bidiagonal form without QR decomposition
 
-            IE = 1
-            ITAUQ = IE + N
-            ITAUP = ITAUQ + N
-            IWORK = ITAUP + N
+            IE = 1;
+            ITAUQ = IE + N;
+            ITAUP = ITAUQ + N;
+            IWORK = ITAUP + N;
 
             // Bidiagonalize A
             // (Workspace: need 3*N+M, prefer 3*N+(M+N)*NB)
@@ -1589,7 +1589,7 @@
 
                sorgbr('P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
-            IWORK = IE + N
+            IWORK = IE + N;
             if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
@@ -1632,8 +1632,8 @@
                // Path 1t(N much larger than M, JOBVT='N')
                // No right singular vectors to be computed
 
-               ITAU = 1
-               IWORK = ITAU + M
+               ITAU = 1;
+               IWORK = ITAU + M;
 
                // Compute A=L*Q
                // (Workspace: need 2*M, prefer M+M*NB)
@@ -1643,10 +1643,10 @@
                // Zero out above L
 
                slaset('U', M-1, M-1, ZERO, ZERO, A( 1, 2 ), LDA );
-               IE = 1
-               ITAUQ = IE + M
-               ITAUP = ITAUQ + M
-               IWORK = ITAUP + M
+               IE = 1;
+               ITAUQ = IE + M;
+               ITAUP = ITAUQ + M;
+               IWORK = ITAUP + M;
 
                // Bidiagonalize L in A
                // (Workspace: need 4*M, prefer 3*M+2*M*NB)
@@ -1659,8 +1659,8 @@
 
                   sorgbr('Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
                }
-               IWORK = IE + M
-               NRU = 0
+               IWORK = IE + M;
+               NRU = 0;
                if (WNTUO || WNTUAS) NRU = M;
 
                // Perform bidiagonal QR iteration, computing left singular
@@ -1683,31 +1683,31 @@
 
                   // Sufficient workspace for a fast algorithm
 
-                  IR = 1
+                  IR = 1;
                   if ( LWORK >= MAX( WRKBL, LDA*N+M )+LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
-                     LDWRKU = LDA
-                     CHUNK = N
-                     LDWRKR = LDA
+                     LDWRKU = LDA;
+                     CHUNK = N;
+                     LDWRKR = LDA;
                   } else if ( LWORK >= MAX( WRKBL, LDA*N+M )+M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
-                     LDWRKU = LDA
-                     CHUNK = N
-                     LDWRKR = M
+                     LDWRKU = LDA;
+                     CHUNK = N;
+                     LDWRKR = M;
                   } else {
 
                      // WORK(IU) is M by CHUNK and WORK(IR) is M by M
 
-                     LDWRKU = M
-                     CHUNK = ( LWORK-M*M-M ) / M
-                     LDWRKR = M
+                     LDWRKU = M;
+                     CHUNK = ( LWORK-M*M-M ) / M;
+                     LDWRKR = M;
                   }
-                  ITAU = IR + LDWRKR*M
-                  IWORK = ITAU + M
+                  ITAU = IR + LDWRKR*M;
+                  IWORK = ITAU + M;
 
                   // Compute A=L*Q
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -1723,10 +1723,10 @@
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
                   sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IE = ITAU
-                  ITAUQ = IE + M
-                  ITAUP = ITAUQ + M
-                  IWORK = ITAUP + M
+                  IE = ITAU;
+                  ITAUQ = IE + M;
+                  ITAUP = ITAUQ + M;
+                  IWORK = ITAUP + M;
 
                   // Bidiagonalize L in WORK(IR)
                   // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
@@ -1737,21 +1737,21 @@
                   // (Workspace: need M*M+4*M-1, prefer M*M+3*M+(M-1)*NB)
 
                   sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + M
+                  IWORK = IE + M;
 
                   // Perform bidiagonal QR iteration, computing right
                   // singular vectors of L in WORK(IR)
                   // (Workspace: need M*M+BDSPAC)
 
                   sbdsqr('U', M, M, 0, 0, S, WORK( IE ), WORK( IR ), LDWRKR, DUM, 1, DUM, 1, WORK( IWORK ), INFO );
-                  IU = IE + M
+                  IU = IE + M;
 
                   // Multiply right singular vectors of L in WORK(IR) by Q
                   // in A, storing result in WORK(IU) and copying to A
                   // (Workspace: need M*M+2*M, prefer M*M+M*N+M)
 
-                  DO 30 I = 1, N, CHUNK
-                     BLK = MIN( N-I+1, CHUNK )
+                  DO 30 I = 1, N, CHUNK;
+                     BLK = MIN( N-I+1, CHUNK );
                      sgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
                   } // 30
@@ -1760,10 +1760,10 @@
 
                   // Insufficient workspace for a fast algorithm
 
-                  IE = 1
-                  ITAUQ = IE + M
-                  ITAUP = ITAUQ + M
-                  IWORK = ITAUP + M
+                  IE = 1;
+                  ITAUQ = IE + M;
+                  ITAUP = ITAUQ + M;
+                  IWORK = ITAUP + M;
 
                   // Bidiagonalize A
                   // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
@@ -1774,7 +1774,7 @@
                   // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                   sorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + M
+                  IWORK = IE + M;
 
                   // Perform bidiagonal QR iteration, computing right
                   // singular vectors of A in A
@@ -1794,31 +1794,31 @@
 
                   // Sufficient workspace for a fast algorithm
 
-                  IR = 1
+                  IR = 1;
                   if ( LWORK >= MAX( WRKBL, LDA*N+M )+LDA*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is LDA by M
 
-                     LDWRKU = LDA
-                     CHUNK = N
-                     LDWRKR = LDA
+                     LDWRKU = LDA;
+                     CHUNK = N;
+                     LDWRKR = LDA;
                   } else if ( LWORK >= MAX( WRKBL, LDA*N+M )+M*M ) {
 
                      // WORK(IU) is LDA by N and WORK(IR) is M by M
 
-                     LDWRKU = LDA
-                     CHUNK = N
-                     LDWRKR = M
+                     LDWRKU = LDA;
+                     CHUNK = N;
+                     LDWRKR = M;
                   } else {
 
                      // WORK(IU) is M by CHUNK and WORK(IR) is M by M
 
-                     LDWRKU = M
-                     CHUNK = ( LWORK-M*M-M ) / M
-                     LDWRKR = M
+                     LDWRKU = M;
+                     CHUNK = ( LWORK-M*M-M ) / M;
+                     LDWRKR = M;
                   }
-                  ITAU = IR + LDWRKR*M
-                  IWORK = ITAU + M
+                  ITAU = IR + LDWRKR*M;
+                  IWORK = ITAU + M;
 
                   // Compute A=L*Q
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -1834,10 +1834,10 @@
                   // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
                   sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IE = ITAU
-                  ITAUQ = IE + M
-                  ITAUP = ITAUQ + M
-                  IWORK = ITAUP + M
+                  IE = ITAU;
+                  ITAUQ = IE + M;
+                  ITAUP = ITAUQ + M;
+                  IWORK = ITAUP + M;
 
                   // Bidiagonalize L in U, copying result to WORK(IR)
                   // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
@@ -1854,7 +1854,7 @@
                   // (Workspace: need M*M+4*M, prefer M*M+3*M+M*NB)
 
                   sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + M
+                  IWORK = IE + M;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of L in U, and computing right
@@ -1862,14 +1862,14 @@
                   // (Workspace: need M*M+BDSPAC)
 
                   sbdsqr('U', M, M, M, 0, S, WORK( IE ), WORK( IR ), LDWRKR, U, LDU, DUM, 1, WORK( IWORK ), INFO );
-                  IU = IE + M
+                  IU = IE + M;
 
                   // Multiply right singular vectors of L in WORK(IR) by Q
                   // in A, storing result in WORK(IU) and copying to A
                   // (Workspace: need M*M+2*M, prefer M*M+M*N+M))
 
-                  DO 40 I = 1, N, CHUNK
-                     BLK = MIN( N-I+1, CHUNK )
+                  DO 40 I = 1, N, CHUNK;
+                     BLK = MIN( N-I+1, CHUNK );
                      sgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
                   } // 40
@@ -1878,8 +1878,8 @@
 
                   // Insufficient workspace for a fast algorithm
 
-                  ITAU = 1
-                  IWORK = ITAU + M
+                  ITAU = 1;
+                  IWORK = ITAU + M;
 
                   // Compute A=L*Q
                   // (Workspace: need 2*M, prefer M+M*NB)
@@ -1895,10 +1895,10 @@
                   // (Workspace: need 2*M, prefer M+M*NB)
 
                   sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IE = ITAU
-                  ITAUQ = IE + M
-                  ITAUP = ITAUQ + M
-                  IWORK = ITAUP + M
+                  IE = ITAU;
+                  ITAUQ = IE + M;
+                  ITAUP = ITAUQ + M;
+                  IWORK = ITAUP + M;
 
                   // Bidiagonalize L in U
                   // (Workspace: need 4*M, prefer 3*M+2*M*NB)
@@ -1914,7 +1914,7 @@
                   // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                   sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                  IWORK = IE + M
+                  IWORK = IE + M;
 
                   // Perform bidiagonal QR iteration, computing left
                   // singular vectors of A in U and computing right
@@ -1937,20 +1937,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IR = 1
+                     IR = 1;
                      if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IR) is LDA by M
 
-                        LDWRKR = LDA
+                        LDWRKR = LDA;
                      } else {
 
                         // WORK(IR) is M by M
 
-                        LDWRKR = M
+                        LDWRKR = M;
                      }
-                     ITAU = IR + LDWRKR*M
-                     IWORK = ITAU + M
+                     ITAU = IR + LDWRKR*M;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -1966,10 +1966,10 @@
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
                      sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in WORK(IR)
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
@@ -1981,7 +1981,7 @@
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+(M-1)*NB)
 
                      sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of L in WORK(IR)
@@ -1999,8 +1999,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + M
+                     ITAU = 1;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q
                      // (Workspace: need 2*M, prefer M+M*NB)
@@ -2015,10 +2015,10 @@
                      // (Workspace: need 2*M, prefer M+M*NB)
 
                      sorglq(M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Zero out above L in A
 
@@ -2033,7 +2033,7 @@
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
                      sormbr('P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of A in VT
@@ -2053,31 +2053,31 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+2*LDA*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is LDA by M
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*M
-                        LDWRKR = LDA
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*M;
+                        LDWRKR = LDA;
                      } else if ( LWORK >= WRKBL+( LDA+M )*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is M by M
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*M
-                        LDWRKR = M
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*M;
+                        LDWRKR = M;
                      } else {
 
                         // WORK(IU) is M by M and WORK(IR) is M by M
 
-                        LDWRKU = M
-                        IR = IU + LDWRKU*M
-                        LDWRKR = M
+                        LDWRKU = M;
+                        IR = IU + LDWRKU*M;
+                        LDWRKR = M;
                      }
-                     ITAU = IR + LDWRKR*M
-                     IWORK = ITAU + M
+                     ITAU = IR + LDWRKR*M;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
@@ -2093,10 +2093,10 @@
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 
                      sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in WORK(IU), copying result to
                      // WORK(IR)
@@ -2116,7 +2116,7 @@
                      // (Workspace: need 2*M*M+4*M, prefer 2*M*M+3*M+M*NB)
 
                      sorgbr('Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of L in WORK(IR) and computing
@@ -2140,8 +2140,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + M
+                     ITAU = 1;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
@@ -2153,10 +2153,10 @@
                      // (Workspace: need 2*M, prefer M+M*NB)
 
                      sorglq(M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Zero out above L in A
 
@@ -2176,7 +2176,7 @@
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                      sorgbr('Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, compute left
                      // singular vectors of A in A and compute right
@@ -2198,20 +2198,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IU) is LDA by N
 
-                        LDWRKU = LDA
+                        LDWRKU = LDA;
                      } else {
 
                         // WORK(IU) is LDA by M
 
-                        LDWRKU = M
+                        LDWRKU = M;
                      }
-                     ITAU = IU + LDWRKU*M
-                     IWORK = ITAU + M
+                     ITAU = IU + LDWRKU*M;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2227,10 +2227,10 @@
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
 
                      sorglq(M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in WORK(IU), copying result to U
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
@@ -2248,7 +2248,7 @@
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+M*NB)
 
                      sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of L in U and computing right
@@ -2267,8 +2267,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + M
+                     ITAU = 1;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
@@ -2285,10 +2285,10 @@
 
                      slacpy('L', M, M, A, LDA, U, LDU );
                      slaset('U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in U
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
@@ -2305,7 +2305,7 @@
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                      sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U and computing right
@@ -2330,20 +2330,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IR = 1
+                     IR = 1;
                      if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IR) is LDA by M
 
-                        LDWRKR = LDA
+                        LDWRKR = LDA;
                      } else {
 
                         // WORK(IR) is M by M
 
-                        LDWRKR = M
+                        LDWRKR = M;
                      }
-                     ITAU = IR + LDWRKR*M
-                     IWORK = ITAU + M
+                     ITAU = IR + LDWRKR*M;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2360,10 +2360,10 @@
                      // (Workspace: need M*M+M+N, prefer M*M+M+N*NB)
 
                      sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in WORK(IR)
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
@@ -2375,7 +2375,7 @@
                                  // prefer M*M+3*M+(M-1)*NB)
 
                      sorgbr('P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of L in WORK(IR)
@@ -2397,8 +2397,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + M
+                     ITAU = 1;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
@@ -2410,10 +2410,10 @@
                      // (Workspace: need M+N, prefer M+N*NB)
 
                      sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Zero out above L in A
 
@@ -2429,7 +2429,7 @@
                      // (Workspace: need 3*M+N, prefer 3*M+N*NB)
 
                      sormbr('P', 'L', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing right
                      // singular vectors of A in VT
@@ -2449,31 +2449,31 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+2*LDA*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is LDA by M
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*M
-                        LDWRKR = LDA
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*M;
+                        LDWRKR = LDA;
                      } else if ( LWORK >= WRKBL+( LDA+M )*M ) {
 
                         // WORK(IU) is LDA by M and WORK(IR) is M by M
 
-                        LDWRKU = LDA
-                        IR = IU + LDWRKU*M
-                        LDWRKR = M
+                        LDWRKU = LDA;
+                        IR = IU + LDWRKU*M;
+                        LDWRKR = M;
                      } else {
 
                         // WORK(IU) is M by M and WORK(IR) is M by M
 
-                        LDWRKU = M
-                        IR = IU + LDWRKU*M
-                        LDWRKR = M
+                        LDWRKU = M;
+                        IR = IU + LDWRKU*M;
+                        LDWRKR = M;
                      }
-                     ITAU = IR + LDWRKR*M
-                     IWORK = ITAU + M
+                     ITAU = IR + LDWRKR*M;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
@@ -2490,10 +2490,10 @@
 
                      slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
                      slaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in WORK(IU), copying result to
                      // WORK(IR)
@@ -2513,7 +2513,7 @@
                      // (Workspace: need 2*M*M+4*M, prefer 2*M*M+3*M+M*NB)
 
                      sorgbr('Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of L in WORK(IR) and computing
@@ -2540,8 +2540,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + M
+                     ITAU = 1;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
@@ -2553,10 +2553,10 @@
                      // (Workspace: need M+N, prefer M+N*NB)
 
                      sorglq(N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Zero out above L in A
 
@@ -2577,7 +2577,7 @@
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                      sorgbr('Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in A and computing right
@@ -2599,20 +2599,20 @@
 
                      // Sufficient workspace for a fast algorithm
 
-                     IU = 1
+                     IU = 1;
                      if ( LWORK >= WRKBL+LDA*M ) {
 
                         // WORK(IU) is LDA by M
 
-                        LDWRKU = LDA
+                        LDWRKU = LDA;
                      } else {
 
                         // WORK(IU) is M by M
 
-                        LDWRKU = M
+                        LDWRKU = M;
                      }
-                     ITAU = IU + LDWRKU*M
-                     IWORK = ITAU + M
+                     ITAU = IU + LDWRKU*M;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2629,10 +2629,10 @@
 
                      slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
                      slaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in WORK(IU), copying result to U
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+2*M*NB)
@@ -2649,7 +2649,7 @@
                      // (Workspace: need M*M+4*M, prefer M*M+3*M+M*NB)
 
                      sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of L in U and computing right
@@ -2672,8 +2672,8 @@
 
                      // Insufficient workspace for a fast algorithm
 
-                     ITAU = 1
-                     IWORK = ITAU + M
+                     ITAU = 1;
+                     IWORK = ITAU + M;
 
                      // Compute A=L*Q, copying result to VT
                      // (Workspace: need 2*M, prefer M+M*NB)
@@ -2690,10 +2690,10 @@
 
                      slacpy('L', M, M, A, LDA, U, LDU );
                      slaset('U', M-1, M-1, ZERO, ZERO, U( 1, 2 ), LDU );
-                     IE = ITAU
-                     ITAUQ = IE + M
-                     ITAUP = ITAUQ + M
-                     IWORK = ITAUP + M
+                     IE = ITAU;
+                     ITAUQ = IE + M;
+                     ITAUP = ITAUQ + M;
+                     IWORK = ITAUP + M;
 
                      // Bidiagonalize L in U
                      // (Workspace: need 4*M, prefer 3*M+2*M*NB)
@@ -2710,7 +2710,7 @@
                      // (Workspace: need 4*M, prefer 3*M+M*NB)
 
                      sorgbr('Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
-                     IWORK = IE + M
+                     IWORK = IE + M;
 
                      // Perform bidiagonal QR iteration, computing left
                      // singular vectors of A in U and computing right
@@ -2732,10 +2732,10 @@
             // Path 10t(N greater than M, but not much larger)
             // Reduce to bidiagonal form without LQ decomposition
 
-            IE = 1
-            ITAUQ = IE + M
-            ITAUP = ITAUQ + M
-            IWORK = ITAUP + M
+            IE = 1;
+            ITAUQ = IE + M;
+            ITAUP = ITAUQ + M;
+            IWORK = ITAUP + M;
 
             // Bidiagonalize A
             // (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
@@ -2776,7 +2776,7 @@
 
                sorgbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
-            IWORK = IE + M
+            IWORK = IE + M;
             if (WNTUAS || WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS || WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
             if ( ( !WNTUO ) && ( !WNTVO ) ) {
 
@@ -2814,12 +2814,12 @@
       if ( INFO != 0 ) {
          if ( IE > 2 ) {
             for (I = 1; I <= MINMN - 1; I++) { // 50
-               WORK( I+1 ) = WORK( I+IE-1 )
+               WORK( I+1 ) = WORK( I+IE-1 );
             } // 50
          }
          if ( IE < 2 ) {
-            DO 60 I = MINMN - 1, 1, -1
-               WORK( I+1 ) = WORK( I+IE-1 )
+            DO 60 I = MINMN - 1, 1, -1;
+               WORK( I+1 ) = WORK( I+IE-1 );
             } // 60
          }
       }
@@ -2832,9 +2832,9 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
+      WORK( 1 ) = SROUNDUP_LWORK(MAXWRK);
 
-      RETURN
+      RETURN;
 
       // End of SGESVD
 

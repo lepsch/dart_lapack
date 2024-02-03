@@ -1,4 +1,4 @@
-      SUBROUTINE DGELQ( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO )
+      SUBROUTINE DGELQ( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -36,9 +36,9 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
 
-      LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 )
+      LQUERY = ( TSIZE == -1 || TSIZE == -2 || LWORK == -1 || LWORK == -2 );
 
       MINT = false;
       MINW = false;
@@ -50,89 +50,89 @@
       // Determine the block size
 
       if ( MIN( M, N ) > 0 ) {
-        MB = ILAENV( 1, 'DGELQ ', ' ', M, N, 1, -1 )
-        NB = ILAENV( 1, 'DGELQ ', ' ', M, N, 2, -1 )
+        MB = ILAENV( 1, 'DGELQ ', ' ', M, N, 1, -1 );
+        NB = ILAENV( 1, 'DGELQ ', ' ', M, N, 2, -1 );
       } else {
-        MB = 1
-        NB = N
+        MB = 1;
+        NB = N;
       }
-      IF( MB > MIN( M, N ) || MB < 1 ) MB = 1
+      IF( MB > MIN( M, N ) || MB < 1 ) MB = 1;
       if (NB > N || NB <= M) NB = N;
-      MINTSZ = M + 5
+      MINTSZ = M + 5;
       if ( NB > M && N > M ) {
         if ( MOD( N - M, NB - M ) == 0 ) {
-          NBLCKS = ( N - M ) / ( NB - M )
+          NBLCKS = ( N - M ) / ( NB - M );
         } else {
-          NBLCKS = ( N - M ) / ( NB - M ) + 1
+          NBLCKS = ( N - M ) / ( NB - M ) + 1;
         }
       } else {
-        NBLCKS = 1
+        NBLCKS = 1;
       }
 
       // Determine if the workspace size satisfies minimal size
 
       if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
-         LWMIN = MAX( 1, N )
-         LWOPT = MAX( 1, MB*N )
+         LWMIN = MAX( 1, N );
+         LWOPT = MAX( 1, MB*N );
       } else {
-         LWMIN = MAX( 1, M )
-         LWOPT = MAX( 1, MB*M )
+         LWMIN = MAX( 1, M );
+         LWOPT = MAX( 1, MB*M );
       }
       LMINWS = false;
       if ( ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) || LWORK < LWOPT ) && ( LWORK >= LWMIN ) && ( TSIZE >= MINTSZ ) && ( !LQUERY ) ) {
         if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) ) {
             LMINWS = true;
-            MB = 1
-            NB = N
+            MB = 1;
+            NB = N;
         }
         if ( LWORK < LWOPT ) {
             LMINWS = true;
-            MB = 1
+            MB = 1;
         }
       }
       if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
-         LWREQ = MAX( 1, MB*N )
+         LWREQ = MAX( 1, MB*N );
       } else {
-         LWREQ = MAX( 1, MB*M )
+         LWREQ = MAX( 1, MB*M );
       }
 
       if ( M < 0 ) {
-        INFO = -1
+        INFO = -1;
       } else if ( N < 0 ) {
-        INFO = -2
+        INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-        INFO = -4
+        INFO = -4;
       } else if ( TSIZE < MAX( 1, MB*M*NBLCKS + 5 ) && ( !LQUERY ) && ( !LMINWS ) ) {
-        INFO = -6
+        INFO = -6;
       } else if ( ( LWORK < LWREQ ) .AND .( !LQUERY ) && ( !LMINWS ) ) {
-        INFO = -8
+        INFO = -8;
       }
 
       if ( INFO == 0 ) {
         if ( MINT ) {
-          T( 1 ) = MINTSZ
+          T( 1 ) = MINTSZ;
         } else {
-          T( 1 ) = MB*M*NBLCKS + 5
+          T( 1 ) = MB*M*NBLCKS + 5;
         }
-        T( 2 ) = MB
-        T( 3 ) = NB
+        T( 2 ) = MB;
+        T( 3 ) = NB;
         if ( MINW ) {
-          WORK( 1 ) = LWMIN
+          WORK( 1 ) = LWMIN;
         } else {
-          WORK( 1 ) = LWREQ
+          WORK( 1 ) = LWREQ;
         }
       }
       if ( INFO != 0 ) {
         xerbla('DGELQ', -INFO );
-        RETURN
+        RETURN;
       } else if ( LQUERY ) {
-        RETURN
+        RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N ) == 0 ) {
-        RETURN
+        RETURN;
       }
 
       // The LQ Decomposition
@@ -143,9 +143,9 @@
         dlaswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = LWREQ
+      WORK( 1 ) = LWREQ;
 
-      RETURN
+      RETURN;
 
       // End of DGELQ
 

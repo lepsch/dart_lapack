@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE CGELQT3( M, N, A, LDA, T, LDT, INFO )
+      RECURSIVE SUBROUTINE CGELQT3( M, N, A, LDA, T, LDT, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int       INFO, LDA, M, N, LDT;
       // ..
       // .. Array Arguments ..
-      COMPLEX   A( LDA, * ), T( LDT, * )
+      COMPLEX   A( LDA, * ), T( LDT, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX   ONE, ZERO
+      COMPLEX   ONE, ZERO;
       const     ONE = (1.0e+00,0.0e+00) ;
       const     ZERO = (0.0e+00,0.0e+00);
       // ..
@@ -26,19 +26,19 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < M ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDT < MAX( 1, M ) ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('CGELQT3', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( M == 1 ) {
@@ -46,16 +46,16 @@
          // Compute Householder transform when M=1
 
          clarfg(N, A( 1, 1 ), A( 1, MIN( 2, N ) ), LDA, T( 1, 1 ) );
-         T(1,1)=CONJG(T(1,1))
+         T(1,1)=CONJG(T(1,1));
 
       } else {
 
          // Otherwise, split A into blocks...
 
-         M1 = M/2
-         M2 = M-M1
-         I1 = MIN( M1+1, M )
-         J1 = MIN( M+1, N )
+         M1 = M/2;
+         M2 = M-M1;
+         I1 = MIN( M1+1, M );
+         J1 = MIN( M+1, N );
 
          // Compute A(1:M1,1:N) <- (Y1,R1,T1), where Q1 = I - Y1 T1 Y1^H
 
@@ -65,7 +65,7 @@
 
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
-               T(  I+M1, J ) = A( I+M1, J )
+               T(  I+M1, J ) = A( I+M1, J );
             }
          }
          ctrmm('R', 'U', 'C', 'U', M2, M1, ONE, A, LDA, T( I1, 1 ), LDT );
@@ -80,8 +80,8 @@
 
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
-               A(  I+M1, J ) = A( I+M1, J ) - T( I+M1, J )
-               T( I+M1, J )= ZERO
+               A(  I+M1, J ) = A( I+M1, J ) - T( I+M1, J );
+               T( I+M1, J )= ZERO;
             }
          }
 
@@ -93,7 +93,7 @@
 
          for (I = 1; I <= M2; I++) {
             for (J = 1; J <= M1; J++) {
-               T( J, I+M1  ) = (A( J, I+M1 ))
+               T( J, I+M1  ) = (A( J, I+M1 ));
             }
          }
 
@@ -112,7 +112,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CGELQT3
 

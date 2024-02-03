@@ -39,70 +39,70 @@
       // ..
       // .. Executable Statements ..
 
-      NEGCNT = 0
+      NEGCNT = 0;
 
       // I) upper part: L D L^T - SIGMA I = L+ D+ L+^T
-      T = -SIGMA
-      DO 210 BJ = 1, R-1, BLKLEN
-         NEG1 = 0
-         BSAV = T
-         DO 21 J = BJ, MIN(BJ+BLKLEN-1, R-1)
-            DPLUS = D( J ) + T
+      T = -SIGMA;
+      DO 210 BJ = 1, R-1, BLKLEN;
+         NEG1 = 0;
+         BSAV = T;
+         DO 21 J = BJ, MIN(BJ+BLKLEN-1, R-1);
+            DPLUS = D( J ) + T;
             if (DPLUS < ZERO) NEG1 = NEG1 + 1;
-            TMP = T / DPLUS
-            T = TMP * LLD( J ) - SIGMA
+            TMP = T / DPLUS;
+            T = TMP * LLD( J ) - SIGMA;
          } // 21
-         SAWNAN = DISNAN( T )
+         SAWNAN = DISNAN( T );
       // Run a slower version of the above loop if a NaN is detected.
       // A NaN should occur only with a zero pivot after an infinite
       // pivot.  In that case, substituting 1 for T/DPLUS is the
       // correct limit.
          if ( SAWNAN ) {
-            NEG1 = 0
-            T = BSAV
-            DO 22 J = BJ, MIN(BJ+BLKLEN-1, R-1)
-               DPLUS = D( J ) + T
+            NEG1 = 0;
+            T = BSAV;
+            DO 22 J = BJ, MIN(BJ+BLKLEN-1, R-1);
+               DPLUS = D( J ) + T;
                if (DPLUS < ZERO) NEG1 = NEG1 + 1;
-               TMP = T / DPLUS
-               IF (DISNAN(TMP)) TMP = ONE
-               T = TMP * LLD(J) - SIGMA
+               TMP = T / DPLUS;
+               IF (DISNAN(TMP)) TMP = ONE;
+               T = TMP * LLD(J) - SIGMA;
             } // 22
          }
-         NEGCNT = NEGCNT + NEG1
+         NEGCNT = NEGCNT + NEG1;
       } // 210
 
       // II) lower part: L D L^T - SIGMA I = U- D- U-^T
-      P = D( N ) - SIGMA
-      DO 230 BJ = N-1, R, -BLKLEN
-         NEG2 = 0
-         BSAV = P
-         DO 23 J = BJ, MAX(BJ-BLKLEN+1, R), -1
-            DMINUS = LLD( J ) + P
+      P = D( N ) - SIGMA;
+      DO 230 BJ = N-1, R, -BLKLEN;
+         NEG2 = 0;
+         BSAV = P;
+         DO 23 J = BJ, MAX(BJ-BLKLEN+1, R), -1;
+            DMINUS = LLD( J ) + P;
             if (DMINUS < ZERO) NEG2 = NEG2 + 1;
-            TMP = P / DMINUS
-            P = TMP * D( J ) - SIGMA
+            TMP = P / DMINUS;
+            P = TMP * D( J ) - SIGMA;
          } // 23
-         SAWNAN = DISNAN( P )
+         SAWNAN = DISNAN( P );
       // As above, run a slower version that substitutes 1 for Inf/Inf.
 
          if ( SAWNAN ) {
-            NEG2 = 0
-            P = BSAV
-            DO 24 J = BJ, MAX(BJ-BLKLEN+1, R), -1
-               DMINUS = LLD( J ) + P
+            NEG2 = 0;
+            P = BSAV;
+            DO 24 J = BJ, MAX(BJ-BLKLEN+1, R), -1;
+               DMINUS = LLD( J ) + P;
                if (DMINUS < ZERO) NEG2 = NEG2 + 1;
-               TMP = P / DMINUS
-               IF (DISNAN(TMP)) TMP = ONE
-               P = TMP * D(J) - SIGMA
+               TMP = P / DMINUS;
+               IF (DISNAN(TMP)) TMP = ONE;
+               P = TMP * D(J) - SIGMA;
             } // 24
          }
-         NEGCNT = NEGCNT + NEG2
+         NEGCNT = NEGCNT + NEG2;
       } // 230
 
       // III) Twist index
         // T was shifted by SIGMA initially.
-      GAMMA = (T + SIGMA) + P
+      GAMMA = (T + SIGMA) + P;
       if (GAMMA < ZERO) NEGCNT = NEGCNT+1;
 
-      DLANEG = NEGCNT
+      DLANEG = NEGCNT;
       }

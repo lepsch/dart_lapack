@@ -1,4 +1,4 @@
-      SUBROUTINE ZUNMBR( VECT, SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE ZUNMBR( VECT, SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, K, LDA, LDC, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -34,68 +34,68 @@
 
       // Test the input arguments
 
-      INFO = 0
-      APPLYQ = LSAME( VECT, 'Q' )
-      LEFT = LSAME( SIDE, 'L' )
-      NOTRAN = LSAME( TRANS, 'N' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      APPLYQ = LSAME( VECT, 'Q' );
+      LEFT = LSAME( SIDE, 'L' );
+      NOTRAN = LSAME( TRANS, 'N' );
+      LQUERY = ( LWORK == -1 );
 
       // NQ is the order of Q or P and NW is the minimum dimension of WORK
 
       if ( LEFT ) {
-         NQ = M
-         NW = MAX( 1, N )
+         NQ = M;
+         NW = MAX( 1, N );
       } else {
-         NQ = N
-         NW = MAX( 1, M )
+         NQ = N;
+         NW = MAX( 1, M );
       }
       if ( !APPLYQ && !LSAME( VECT, 'P' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOTRAN && !LSAME( TRANS, 'C' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( K < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( ( APPLYQ && LDA < MAX( 1, NQ ) ) || ( !APPLYQ && LDA < MAX( 1, MIN( NQ, K ) ) ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDC < MAX( 1, M ) ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LWORK < NW && !LQUERY ) {
-         INFO = -13
+         INFO = -13;
       }
 
       if ( INFO == 0 ) {
          if ( M > 0 && N > 0 ) {
             if ( APPLYQ ) {
                if ( LEFT ) {
-                  NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M-1, N, M-1, -1 )
+                  NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M-1, N, M-1, -1 );
                } else {
-                  NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M, N-1, N-1, -1 )
+                  NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M, N-1, N-1, -1 );
                }
             } else {
                if ( LEFT ) {
-                  NB = ILAENV( 1, 'ZUNMLQ', SIDE // TRANS, M-1, N, M-1, -1 )
+                  NB = ILAENV( 1, 'ZUNMLQ', SIDE // TRANS, M-1, N, M-1, -1 );
                } else {
-                  NB = ILAENV( 1, 'ZUNMLQ', SIDE // TRANS, M, N-1, N-1, -1 )
+                  NB = ILAENV( 1, 'ZUNMLQ', SIDE // TRANS, M, N-1, N-1, -1 );
                }
             }
-            LWKOPT = NW*NB
+            LWKOPT = NW*NB;
          } else {
-            LWKOPT = 1
+            LWKOPT = 1;
          }
-         WORK( 1 ) = LWKOPT
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZUNMBR', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -116,15 +116,15 @@
             // Q was determined by a call to ZGEBRD with nq < k
 
             if ( LEFT ) {
-               MI = M - 1
-               NI = N
-               I1 = 2
-               I2 = 1
+               MI = M - 1;
+               NI = N;
+               I1 = 2;
+               I2 = 1;
             } else {
-               MI = M
-               NI = N - 1
-               I1 = 1
-               I2 = 2
+               MI = M;
+               NI = N - 1;
+               I1 = 1;
+               I2 = 2;
             }
             zunmqr(SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
@@ -133,9 +133,9 @@
          // Apply P
 
          if ( NOTRAN ) {
-            TRANST = 'C'
+            TRANST = 'C';
          } else {
-            TRANST = 'N'
+            TRANST = 'N';
          }
          if ( NQ > K ) {
 
@@ -147,21 +147,21 @@
             // P was determined by a call to ZGEBRD with nq <= k
 
             if ( LEFT ) {
-               MI = M - 1
-               NI = N
-               I1 = 2
-               I2 = 1
+               MI = M - 1;
+               NI = N;
+               I1 = 2;
+               I2 = 1;
             } else {
-               MI = M
-               NI = N - 1
-               I1 = 1
-               I2 = 2
+               MI = M;
+               NI = N - 1;
+               I1 = 1;
+               I2 = 2;
             }
             zunmlq(SIDE, TRANST, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO );
          }
       }
-      WORK( 1 ) = LWKOPT
-      RETURN
+      WORK( 1 ) = LWKOPT;
+      RETURN;
 
       // End of ZUNMBR
 

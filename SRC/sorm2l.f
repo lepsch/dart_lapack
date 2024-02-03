@@ -1,4 +1,4 @@
-      SUBROUTINE SORM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO )
+      SUBROUTINE SORM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,19 +9,19 @@
       int                INFO, K, LDA, LDC, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, MI, NI, NQ;
-      REAL               AII
+      REAL               AII;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -37,35 +37,35 @@
 
       // Test the input arguments
 
-      INFO = 0
-      LEFT = LSAME( SIDE, 'L' )
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      LEFT = LSAME( SIDE, 'L' );
+      NOTRAN = LSAME( TRANS, 'N' );
 
       // NQ is the order of Q
 
       if ( LEFT ) {
-         NQ = M
+         NQ = M;
       } else {
-         NQ = N
+         NQ = N;
       }
       if ( !LEFT && !LSAME( SIDE, 'R' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( K < 0 || K > NQ ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, NQ ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDC < MAX( 1, M ) ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('SORM2L', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -73,42 +73,42 @@
       if (M == 0 || N == 0 || K == 0) RETURN;
 
       if ( ( LEFT && NOTRAN ) || ( !LEFT && !NOTRAN ) ) {
-         I1 = 1
-         I2 = K
-         I3 = 1
+         I1 = 1;
+         I2 = K;
+         I3 = 1;
       } else {
-         I1 = K
-         I2 = 1
-         I3 = -1
+         I1 = K;
+         I2 = 1;
+         I3 = -1;
       }
 
       if ( LEFT ) {
-         NI = N
+         NI = N;
       } else {
-         MI = M
+         MI = M;
       }
 
-      DO 10 I = I1, I2, I3
+      DO 10 I = I1, I2, I3;
          if ( LEFT ) {
 
             // H(i) is applied to C(1:m-k+i,1:n)
 
-            MI = M - K + I
+            MI = M - K + I;
          } else {
 
             // H(i) is applied to C(1:m,1:n-k+i)
 
-            NI = N - K + I
+            NI = N - K + I;
          }
 
          // Apply H(i)
 
-         AII = A( NQ-K+I, I )
-         A( NQ-K+I, I ) = ONE
+         AII = A( NQ-K+I, I );
+         A( NQ-K+I, I ) = ONE;
          slarf(SIDE, MI, NI, A( 1, I ), 1, TAU( I ), C, LDC, WORK );
-         A( NQ-K+I, I ) = AII
+         A( NQ-K+I, I ) = AII;
       } // 10
-      RETURN
+      RETURN;
 
       // End of SORM2L
 

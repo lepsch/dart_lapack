@@ -1,4 +1,4 @@
-      REAL FUNCTION SECOND( )
+      REAL FUNCTION SECOND( );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,20 +7,20 @@
 * =====================================================================
 
       // .. Local Scalars ..
-      REAL               T1
+      REAL               T1;
       // ..
       // .. Local Arrays ..
-      REAL               TARRAY( 2 )
+      REAL               TARRAY( 2 );
       // ..
       // .. External Functions ..
-      REAL               ETIME
+      REAL               ETIME;
       // EXTERNAL ETIME
       // ..
       // .. Executable Statements ..
 
-      T1 = ETIME( TARRAY )
-      SECOND = TARRAY( 1 )
-      RETURN
+      T1 = ETIME( TARRAY );
+      SECOND = TARRAY( 1 );
+      RETURN;
 
       // End of SECOND
 

@@ -1,4 +1,4 @@
-      SUBROUTINE CPPRFS( UPLO, N, NRHS, AP, AFP, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CPPRFS( UPLO, N, NRHS, AP, AFP, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +9,8 @@
       int                INFO, LDB, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      REAL               BERR( * ), FERR( * ), RWORK( * );
+      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  ====================================================================
@@ -18,20 +18,20 @@
       // .. Parameters ..
       int                ITMAX;
       const              ITMAX = 5 ;
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX            CONE
+      COMPLEX            CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      REAL               TWO
+      REAL               TWO;
       const              TWO = 2.0 ;
-      REAL               THREE
+      REAL               THREE;
       const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                COUNT, I, IK, J, K, KASE, KK, NZ;
-      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK
-      COMPLEX            ZDUM
+      REAL               EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
+      COMPLEX            ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -44,61 +44,61 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) )
+      CABS1( ZDUM ) = ABS( REAL( ZDUM ) ) + ABS( AIMAG( ZDUM ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDX < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('CPPRFS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 || NRHS == 0 ) {
          for (J = 1; J <= NRHS; J++) { // 10
-            FERR( J ) = ZERO
-            BERR( J ) = ZERO
+            FERR( J ) = ZERO;
+            BERR( J ) = ZERO;
          } // 10
-         RETURN
+         RETURN;
       }
 
       // NZ = maximum number of nonzero elements in each row of A, plus 1
 
-      NZ = N + 1
-      EPS = SLAMCH( 'Epsilon' )
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      SAFE1 = NZ*SAFMIN
-      SAFE2 = SAFE1 / EPS
+      NZ = N + 1;
+      EPS = SLAMCH( 'Epsilon' );
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      SAFE1 = NZ*SAFMIN;
+      SAFE2 = SAFE1 / EPS;
 
       // Do for each right hand side
 
       for (J = 1; J <= NRHS; J++) { // 140
 
-         COUNT = 1
-         LSTRES = THREE
+         COUNT = 1;
+         LSTRES = THREE;
          } // 20
 
          // Loop until stopping criterion is satisfied.
@@ -118,49 +118,49 @@
          // numerator and denominator before dividing.
 
          for (I = 1; I <= N; I++) { // 30
-            RWORK( I ) = CABS1( B( I, J ) )
+            RWORK( I ) = CABS1( B( I, J ) );
          } // 30
 
          // Compute abs(A)*abs(X) + abs(B).
 
-         KK = 1
+         KK = 1;
          if ( UPPER ) {
             for (K = 1; K <= N; K++) { // 50
-               S = ZERO
-               XK = CABS1( X( K, J ) )
-               IK = KK
+               S = ZERO;
+               XK = CABS1( X( K, J ) );
+               IK = KK;
                for (I = 1; I <= K - 1; I++) { // 40
-                  RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK
-                  S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
-                  IK = IK + 1
+                  RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK;
+                  S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) );
+                  IK = IK + 1;
                } // 40
-               RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK+K-1 ) ) )* XK + S
-               KK = KK + K
+               RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK+K-1 ) ) )* XK + S;
+               KK = KK + K;
             } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
-               S = ZERO
-               XK = CABS1( X( K, J ) )
-               RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK ) ) )*XK
-               IK = KK + 1
+               S = ZERO;
+               XK = CABS1( X( K, J ) );
+               RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK ) ) )*XK;
+               IK = KK + 1;
                for (I = K + 1; I <= N; I++) { // 60
-                  RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK
-                  S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
-                  IK = IK + 1
+                  RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK;
+                  S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) );
+                  IK = IK + 1;
                } // 60
-               RWORK( K ) = RWORK( K ) + S
-               KK = KK + ( N-K+1 )
+               RWORK( K ) = RWORK( K ) + S;
+               KK = KK + ( N-K+1 );
             } // 70
          }
-         S = ZERO
+         S = ZERO;
          for (I = 1; I <= N; I++) { // 80
             if ( RWORK( I ) > SAFE2 ) {
-               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
+               S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) );
             } else {
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) );
             }
          } // 80
-         BERR( J ) = S
+         BERR( J ) = S;
 
          // Test stopping criterion. Continue iterating if
             // 1) The residual BERR(J) is larger than machine epsilon, and
@@ -174,9 +174,9 @@
 
             cpptrs(UPLO, N, 1, AFP, WORK, N, INFO );
             caxpy(N, CONE, WORK, 1, X( 1, J ), 1 );
-            LSTRES = BERR( J )
-            COUNT = COUNT + 1
-            GO TO 20
+            LSTRES = BERR( J );
+            COUNT = COUNT + 1;
+            GO TO 20;
          }
 
          // Bound error from formula
@@ -203,13 +203,13 @@
 
          for (I = 1; I <= N; I++) { // 90
             if ( RWORK( I ) > SAFE2 ) {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I );
             } else {
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1;
             }
          } // 90
 
-         KASE = 0
+         KASE = 0;
          } // 100
          clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE != 0 ) {
@@ -219,31 +219,31 @@
 
                cpptrs(UPLO, N, 1, AFP, WORK, N, INFO );
                for (I = 1; I <= N; I++) { // 110
-                  WORK( I ) = RWORK( I )*WORK( I )
+                  WORK( I ) = RWORK( I )*WORK( I );
                } // 110
             } else if ( KASE == 2 ) {
 
                // Multiply by inv(A)*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
-                  WORK( I ) = RWORK( I )*WORK( I )
+                  WORK( I ) = RWORK( I )*WORK( I );
                } // 120
                cpptrs(UPLO, N, 1, AFP, WORK, N, INFO );
             }
-            GO TO 100
+            GO TO 100;
          }
 
          // Normalize error.
 
-         LSTRES = ZERO
+         LSTRES = ZERO;
          for (I = 1; I <= N; I++) { // 130
-            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
+            LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) );
          } // 130
          if (LSTRES != ZERO) FERR( J ) = FERR( J ) / LSTRES;
 
       } // 140
 
-      RETURN
+      RETURN;
 
       // End of CPPRFS
 

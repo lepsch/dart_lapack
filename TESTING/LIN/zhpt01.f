@@ -1,4 +1,4 @@
-      SUBROUTINE ZHPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID )
+      SUBROUTINE ZHPT01( UPLO, N, A, AFAC, IPIV, C, LDC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), C( LDC, * )
+      COMPLEX*16         A( * ), AFAC( * ), C( LDC, * );
       // ..
 
 *  =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -43,34 +43,34 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Determine EPS and the norm of A.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = ZLANHP( '1', UPLO, N, A, RWORK );
 
       // Check the imaginary parts of the diagonal elements and return with
       // an error code if any are nonzero.
 
-      JC = 1
+      JC = 1;
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             if ( DIMAG( AFAC( JC ) ) != ZERO ) {
-               RESID = ONE / EPS
-               RETURN
+               RESID = ONE / EPS;
+               RETURN;
             }
-            JC = JC + J + 1
+            JC = JC + J + 1;
          } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
             if ( DIMAG( AFAC( JC ) ) != ZERO ) {
-               RESID = ONE / EPS
-               RETURN
+               RESID = ONE / EPS;
+               RETURN;
             }
-            JC = JC + N - J + 1
+            JC = JC + N - J + 1;
          } // 20
       }
 
@@ -89,36 +89,36 @@
       // Compute the difference  C - A .
 
       if ( LSAME( UPLO, 'U' ) ) {
-         JC = 0
+         JC = 0;
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J - 1; I++) { // 30
-               C( I, J ) = C( I, J ) - A( JC+I )
+               C( I, J ) = C( I, J ) - A( JC+I );
             } // 30
-            C( J, J ) = C( J, J ) - DBLE( A( JC+J ) )
-            JC = JC + J
+            C( J, J ) = C( J, J ) - DBLE( A( JC+J ) );
+            JC = JC + J;
          } // 40
       } else {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 60
-            C( J, J ) = C( J, J ) - DBLE( A( JC ) )
+            C( J, J ) = C( J, J ) - DBLE( A( JC ) );
             for (I = J + 1; I <= N; I++) { // 50
-               C( I, J ) = C( I, J ) - A( JC+I-J )
+               C( I, J ) = C( I, J ) - A( JC+I-J );
             } // 50
-            JC = JC + N - J + 1
+            JC = JC + N - J + 1;
          } // 60
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )
 
-      RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
+      RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK );
 
       if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
-         RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
+         RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of ZHPT01
 

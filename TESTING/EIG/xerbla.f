@@ -1,4 +1,4 @@
-      SUBROUTINE XERBLA( SRNAME, INFO )
+      SUBROUTINE XERBLA( SRNAME, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,21 +28,21 @@
       LERR = true;
       if ( INFO != INFOT ) {
          if ( INFOT != 0 ) {
-            WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT
+            WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT;
          } else {
-            WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
+            WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO;
          }
          OK = false;
       }
       if ( SRNAME != SRNAMT ) {
-         WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) )
+         WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) );
          OK = false;
       }
-      RETURN
+      RETURN;
 
- 9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6, ' instead of ', I2, ' ***' )
- 9998 FORMAT( ' *** XERBLA was called with SRNAME = ', A, ' instead of ', A6, ' ***' )
- 9997 FORMAT( ' *** On entry to ', A, ' parameter number ', I6, ' had an illegal value ***' )
+ 9999 FORMAT( ' *** XERBLA was called from ', A, ' with INFO = ', I6, ' instead of ', I2, ' ***' );
+ 9998 FORMAT( ' *** XERBLA was called with SRNAME = ', A, ' instead of ', A6, ' ***' );
+ 9997 FORMAT( ' *** On entry to ', A, ' parameter number ', I6, ' had an illegal value ***' );
 
       // End of XERBLA
 

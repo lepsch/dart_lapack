@@ -1,4 +1,4 @@
-      SUBROUTINE ZHBTRD( VECT, UPLO, N, KD, AB, LDAB, D, E, Q, LDQ, WORK, INFO )
+      SUBROUTINE ZHBTRD( VECT, UPLO, N, KD, AB, LDAB, D, E, Q, LDQ, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * )
+      COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT;
       double             ABST;
-      COMPLEX*16         T, TEMP
+      COMPLEX*16         T, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLACGV, ZLAR2V, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL
@@ -41,31 +41,31 @@
 
       // Test the input parameters
 
-      INITQ = LSAME( VECT, 'V' )
-      WANTQ = INITQ || LSAME( VECT, 'U' )
-      UPPER = LSAME( UPLO, 'U' )
-      KD1 = KD + 1
-      KDM1 = KD - 1
-      INCX = LDAB - 1
-      IQEND = 1
+      INITQ = LSAME( VECT, 'V' );
+      WANTQ = INITQ || LSAME( VECT, 'U' );
+      UPPER = LSAME( UPLO, 'U' );
+      KD1 = KD + 1;
+      KDM1 = KD - 1;
+      INCX = LDAB - 1;
+      IQEND = 1;
 
-      INFO = 0
+      INFO = 0;
       if ( !WANTQ && !LSAME( VECT, 'N' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KD < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KD1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDQ < MAX( 1, N ) && WANTQ ) {
-         INFO = -10
+         INFO = -10;
       }
       if ( INFO != 0 ) {
          xerbla('ZHBTRD', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -82,8 +82,8 @@
       // The real cosines and complex sines of the plane rotations are
       // stored in the arrays D and WORK.
 
-      INCA = KD1*LDAB
-      KDN = MIN( N-1, KD )
+      INCA = KD1*LDAB;
+      KDN = MIN( N-1, KD );
       if ( UPPER ) {
 
          if ( KD > 1 ) {
@@ -91,18 +91,18 @@
             // Reduce to complex Hermitian tridiagonal form, working with
             // the upper triangle
 
-            NR = 0
-            J1 = KDN + 2
-            J2 = 1
+            NR = 0;
+            J1 = KDN + 2;
+            J2 = 1;
 
-            AB( KD1, 1 ) = DBLE( AB( KD1, 1 ) )
+            AB( KD1, 1 ) = DBLE( AB( KD1, 1 ) );
             for (I = 1; I <= N - 2; I++) { // 90
 
                // Reduce i-th row of matrix to tridiagonal form
 
-               DO 80 K = KDN + 1, 2, -1
-                  J1 = J1 + KDN
-                  J2 = J2 + KDN
+               DO 80 K = KDN + 1, 2, -1;
+                  J1 = J1 + KDN;
+                  J2 = J2 + KDN;
 
                   if ( NR > 0 ) {
 
@@ -123,8 +123,8 @@
                         } // 10
 
                      } else {
-                        JEND = J1 + ( NR-1 )*KD1
-                        DO 20 JINC = J1, JEND, KD1
+                        JEND = J1 + ( NR-1 )*KD1;
+                        DO 20 JINC = J1, JEND, KD1;
                            zrot(KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) );
                         } // 20
                      }
@@ -138,14 +138,14 @@
                         // within the band
 
                         zlartg(AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB( KD-K+3, I+K-2 ) = TEMP
+                        AB( KD-K+3, I+K-2 ) = TEMP;
 
                         // apply rotation from the right
 
                         zrot(K-3, AB( KD-K+4, I+K-2 ), 1, AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ), WORK( I+K-1 ) );
                      }
-                     NR = NR + 1
-                     J1 = J1 - KDN - 1
+                     NR = NR + 1;
+                     J1 = J1 - KDN - 1;
                   }
 
                   // apply plane rotations from both sides to diagonal
@@ -164,21 +164,21 @@
 
                         for (L = 1; L <= KD - 1; L++) { // 30
                            if ( J2+L > N ) {
-                              NRT = NR - 1
+                              NRT = NR - 1;
                            } else {
-                              NRT = NR
+                              NRT = NR;
                            }
                            if (NRT > 0) CALL ZLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 30
                      } else {
-                        J1END = J1 + KD1*( NR-2 )
+                        J1END = J1 + KD1*( NR-2 );
                         if ( J1END >= J1 ) {
-                           DO 40 JIN = J1, J1END, KD1
+                           DO 40 JIN = J1, J1END, KD1;
                               zrot(KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) );
                            } // 40
                         }
-                        LEND = MIN( KDM1, N-J2 )
-                        LAST = J1END + KD1
+                        LEND = MIN( KDM1, N-J2 );
+                        LAST = J1END + KD1;
                         if (LEND > 0) CALL ZROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
                      }
                   }
@@ -192,22 +192,22 @@
                   // take advantage of the fact that Q was
                   // initially the Identity matrix
 
-                        IQEND = MAX( IQEND, J2 )
-                        I2 = MAX( 0, K-3 )
-                        IQAEND = 1 + I*KD
+                        IQEND = MAX( IQEND, J2 );
+                        I2 = MAX( 0, K-3 );
+                        IQAEND = 1 + I*KD;
                         if (K == 2) IQAEND = IQAEND + KD;
-                        IQAEND = MIN( IQAEND, IQEND )
-                        DO 50 J = J1, J2, KD1
-                           IBL = I - I2 / KDM1
-                           I2 = I2 + 1
-                           IQB = MAX( 1, J-IBL )
-                           NQ = 1 + IQAEND - IQB
-                           IQAEND = MIN( IQAEND+KD, IQEND )
+                        IQAEND = MIN( IQAEND, IQEND );
+                        DO 50 J = J1, J2, KD1;
+                           IBL = I - I2 / KDM1;
+                           I2 = I2 + 1;
+                           IQB = MAX( 1, J-IBL );
+                           NQ = 1 + IQAEND - IQB;
+                           IQAEND = MIN( IQAEND+KD, IQEND );
                            zrot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), DCONJG( WORK( J ) ) );
                         } // 50
                      } else {
 
-                        DO 60 J = J1, J2, KD1
+                        DO 60 J = J1, J2, KD1;
                            zrot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), DCONJG( WORK( J ) ) );
                         } // 60
                      }
@@ -218,17 +218,17 @@
 
                      // adjust J2 to keep within the bounds of the matrix
 
-                     NR = NR - 1
-                     J2 = J2 - KDN - 1
+                     NR = NR - 1;
+                     J2 = J2 - KDN - 1;
                   }
 
-                  DO 70 J = J1, J2, KD1
+                  DO 70 J = J1, J2, KD1;
 
                      // create nonzero element a(j-1,j+kd) outside the band
                      // and store it in WORK
 
-                     WORK( J+KD ) = WORK( J )*AB( 1, J+KD )
-                     AB( 1, J+KD ) = D( J )*AB( 1, J+KD )
+                     WORK( J+KD ) = WORK( J )*AB( 1, J+KD );
+                     AB( 1, J+KD ) = D( J )*AB( 1, J+KD );
                   } // 70
                } // 80
             } // 90
@@ -239,14 +239,14 @@
             // make off-diagonal elements real and copy them to E
 
             for (I = 1; I <= N - 1; I++) { // 100
-               T = AB( KD, I+1 )
-               ABST = ABS( T )
-               AB( KD, I+1 ) = ABST
-               E( I ) = ABST
+               T = AB( KD, I+1 );
+               ABST = ABS( T );
+               AB( KD, I+1 ) = ABST;
+               E( I ) = ABST;
                if ( ABST != ZERO ) {
-                  T = T / ABST
+                  T = T / ABST;
                } else {
-                  T = CONE
+                  T = CONE;
                }
                if (I < N-1) AB( KD, I+2 ) = AB( KD, I+2 )*T;
                if ( WANTQ ) {
@@ -258,14 +258,14 @@
             // set E to zero if original matrix was diagonal
 
             for (I = 1; I <= N - 1; I++) { // 110
-               E( I ) = ZERO
+               E( I ) = ZERO;
             } // 110
          }
 
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 120
-            D( I ) = DBLE( AB( KD1, I ) )
+            D( I ) = DBLE( AB( KD1, I ) );
          } // 120
 
       } else {
@@ -275,18 +275,18 @@
             // Reduce to complex Hermitian tridiagonal form, working with
             // the lower triangle
 
-            NR = 0
-            J1 = KDN + 2
-            J2 = 1
+            NR = 0;
+            J1 = KDN + 2;
+            J2 = 1;
 
-            AB( 1, 1 ) = DBLE( AB( 1, 1 ) )
+            AB( 1, 1 ) = DBLE( AB( 1, 1 ) );
             for (I = 1; I <= N - 2; I++) { // 210
 
                // Reduce i-th column of matrix to tridiagonal form
 
-               DO 200 K = KDN + 1, 2, -1
-                  J1 = J1 + KDN
-                  J2 = J2 + KDN
+               DO 200 K = KDN + 1, 2, -1;
+                  J1 = J1 + KDN;
+                  J2 = J2 + KDN;
 
                   if ( NR > 0 ) {
 
@@ -306,8 +306,8 @@
                            zlartv(NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 130
                      } else {
-                        JEND = J1 + KD1*( NR-1 )
-                        DO 140 JINC = J1, JEND, KD1
+                        JEND = J1 + KD1*( NR-1 );
+                        DO 140 JINC = J1, JEND, KD1;
                            zrot(KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) );
                         } // 140
                      }
@@ -321,14 +321,14 @@
                         // within the band
 
                         zlartg(AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP );
-                        AB( K-1, I ) = TEMP
+                        AB( K-1, I ) = TEMP;
 
                         // apply rotation from the left
 
                         zrot(K-3, AB( K-2, I+1 ), LDAB-1, AB( K-1, I+1 ), LDAB-1, D( I+K-1 ), WORK( I+K-1 ) );
                      }
-                     NR = NR + 1
-                     J1 = J1 - KDN - 1
+                     NR = NR + 1;
+                     J1 = J1 - KDN - 1;
                   }
 
                   // apply plane rotations from both sides to diagonal
@@ -347,21 +347,21 @@
                      if ( NR > 2*KD-1 ) {
                         for (L = 1; L <= KD - 1; L++) { // 150
                            if ( J2+L > N ) {
-                              NRT = NR - 1
+                              NRT = NR - 1;
                            } else {
-                              NRT = NR
+                              NRT = NR;
                            }
                            if (NRT > 0) CALL ZLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 150
                      } else {
-                        J1END = J1 + KD1*( NR-2 )
+                        J1END = J1 + KD1*( NR-2 );
                         if ( J1END >= J1 ) {
-                           DO 160 J1INC = J1, J1END, KD1
+                           DO 160 J1INC = J1, J1END, KD1;
                               zrot(KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) );
                            } // 160
                         }
-                        LEND = MIN( KDM1, N-J2 )
-                        LAST = J1END + KD1
+                        LEND = MIN( KDM1, N-J2 );
+                        LAST = J1END + KD1;
                         if (LEND > 0) CALL ZROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
                      }
                   }
@@ -377,22 +377,22 @@
                   // take advantage of the fact that Q was
                   // initially the Identity matrix
 
-                        IQEND = MAX( IQEND, J2 )
-                        I2 = MAX( 0, K-3 )
-                        IQAEND = 1 + I*KD
+                        IQEND = MAX( IQEND, J2 );
+                        I2 = MAX( 0, K-3 );
+                        IQAEND = 1 + I*KD;
                         if (K == 2) IQAEND = IQAEND + KD;
-                        IQAEND = MIN( IQAEND, IQEND )
-                        DO 170 J = J1, J2, KD1
-                           IBL = I - I2 / KDM1
-                           I2 = I2 + 1
-                           IQB = MAX( 1, J-IBL )
-                           NQ = 1 + IQAEND - IQB
-                           IQAEND = MIN( IQAEND+KD, IQEND )
+                        IQAEND = MIN( IQAEND, IQEND );
+                        DO 170 J = J1, J2, KD1;
+                           IBL = I - I2 / KDM1;
+                           I2 = I2 + 1;
+                           IQB = MAX( 1, J-IBL );
+                           NQ = 1 + IQAEND - IQB;
+                           IQAEND = MIN( IQAEND+KD, IQEND );
                            zrot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) );
                         } // 170
                      } else {
 
-                        DO 180 J = J1, J2, KD1
+                        DO 180 J = J1, J2, KD1;
                            zrot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) );
                         } // 180
                      }
@@ -402,17 +402,17 @@
 
                      // adjust J2 to keep within the bounds of the matrix
 
-                     NR = NR - 1
-                     J2 = J2 - KDN - 1
+                     NR = NR - 1;
+                     J2 = J2 - KDN - 1;
                   }
 
-                  DO 190 J = J1, J2, KD1
+                  DO 190 J = J1, J2, KD1;
 
                      // create nonzero element a(j+kd,j-1) outside the
                      // band and store it in WORK
 
-                     WORK( J+KD ) = WORK( J )*AB( KD1, J )
-                     AB( KD1, J ) = D( J )*AB( KD1, J )
+                     WORK( J+KD ) = WORK( J )*AB( KD1, J );
+                     AB( KD1, J ) = D( J )*AB( KD1, J );
                   } // 190
                } // 200
             } // 210
@@ -423,14 +423,14 @@
             // make off-diagonal elements real and copy them to E
 
             for (I = 1; I <= N - 1; I++) { // 220
-               T = AB( 2, I )
-               ABST = ABS( T )
-               AB( 2, I ) = ABST
-               E( I ) = ABST
+               T = AB( 2, I );
+               ABST = ABS( T );
+               AB( 2, I ) = ABST;
+               E( I ) = ABST;
                if ( ABST != ZERO ) {
-                  T = T / ABST
+                  T = T / ABST;
                } else {
-                  T = CONE
+                  T = CONE;
                }
                if (I < N-1) AB( 2, I+1 ) = AB( 2, I+1 )*T;
                if ( WANTQ ) {
@@ -442,18 +442,18 @@
             // set E to zero if original matrix was diagonal
 
             for (I = 1; I <= N - 1; I++) { // 230
-               E( I ) = ZERO
+               E( I ) = ZERO;
             } // 230
          }
 
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 240
-            D( I ) = DBLE( AB( 1, I ) )
+            D( I ) = DBLE( AB( 1, I ) );
          } // 240
       }
 
-      RETURN
+      RETURN;
 
       // End of ZHBTRD
 

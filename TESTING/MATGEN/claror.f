@@ -1,4 +1,4 @@
-      SUBROUTINE CLAROR( SIDE, INIT, M, N, A, LDA, ISEED, X, INFO )
+      SUBROUTINE CLAROR( SIDE, INIT, M, N, A, LDA, ISEED, X, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,26 +10,26 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX            A( LDA, * ), X( * )
+      COMPLEX            A( LDA, * ), X( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TOOSML
+      REAL               ZERO, ONE, TOOSML;
       const              ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
-      REAL               FACTOR, XABS, XNORM
-      COMPLEX            CSIGN, XNORMS
+      REAL               FACTOR, XABS, XNORM;
+      COMPLEX            CSIGN, XNORMS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SCNRM2
-      COMPLEX            CLARND
+      REAL               SCNRM2;
+      COMPLEX            CLARND;
       // EXTERNAL LSAME, SCNRM2, CLARND
       // ..
       // .. External Subroutines ..
@@ -40,45 +40,45 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
       if (N == 0 || M == 0) RETURN;
 
-      ITYPE = 0
+      ITYPE = 0;
       if ( LSAME( SIDE, 'L' ) ) {
-         ITYPE = 1
+         ITYPE = 1;
       } else if ( LSAME( SIDE, 'R' ) ) {
-         ITYPE = 2
+         ITYPE = 2;
       } else if ( LSAME( SIDE, 'C' ) ) {
-         ITYPE = 3
+         ITYPE = 3;
       } else if ( LSAME( SIDE, 'T' ) ) {
-         ITYPE = 4
+         ITYPE = 4;
       }
 
       // Check for argument errors.
 
       if ( ITYPE == 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 || ( ITYPE == 3 && N != M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < M ) {
-         INFO = -6
+         INFO = -6;
       }
       if ( INFO != 0 ) {
          xerbla('CLAROR', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( ITYPE == 1 ) {
-         NXFRM = M
+         NXFRM = M;
       } else {
-         NXFRM = N
+         NXFRM = N;
       }
 
       // Initialize A to the identity matrix if desired
 
-      IF( LSAME( INIT, 'I' ) ) CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA )
+      IF( LSAME( INIT, 'I' ) ) CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA );
 
       // If no rotation possible, still multiply by
       // a random complex number from the circle |x| = 1
@@ -88,38 +88,38 @@
                // order in which they are computed is irrelevant.
 
       for (J = 1; J <= NXFRM; J++) { // 40
-         X( J ) = CZERO
+         X( J ) = CZERO;
       } // 40
 
       for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) { // 60
-         KBEG = NXFRM - IXFRM + 1
+         KBEG = NXFRM - IXFRM + 1;
 
          // Generate independent normal( 0, 1 ) random numbers
 
          for (J = KBEG; J <= NXFRM; J++) { // 50
-            X( J ) = CLARND( 3, ISEED )
+            X( J ) = CLARND( 3, ISEED );
          } // 50
 
          // Generate a Householder transformation from the random vector X
 
-         XNORM = SCNRM2( IXFRM, X( KBEG ), 1 )
-         XABS = ABS( X( KBEG ) )
+         XNORM = SCNRM2( IXFRM, X( KBEG ), 1 );
+         XABS = ABS( X( KBEG ) );
          if ( XABS != CZERO ) {
-            CSIGN = X( KBEG ) / XABS
+            CSIGN = X( KBEG ) / XABS;
          } else {
-            CSIGN = CONE
+            CSIGN = CONE;
          }
-         XNORMS = CSIGN*XNORM
-         X( NXFRM+KBEG ) = -CSIGN
-         FACTOR = XNORM*( XNORM+XABS )
+         XNORMS = CSIGN*XNORM;
+         X( NXFRM+KBEG ) = -CSIGN;
+         FACTOR = XNORM*( XNORM+XABS );
          if ( ABS( FACTOR ) < TOOSML ) {
-            INFO = 1
+            INFO = 1;
             xerbla('CLAROR', -INFO );
-            RETURN
+            RETURN;
          } else {
-            FACTOR = ONE / FACTOR
+            FACTOR = ONE / FACTOR;
          }
-         X( KBEG ) = X( KBEG ) + XNORMS
+         X( KBEG ) = X( KBEG ) + XNORMS;
 
          // Apply Householder transformation to A
 
@@ -146,14 +146,14 @@
          }
       } // 60
 
-      X( 1 ) = CLARND( 3, ISEED )
-      XABS = ABS( X( 1 ) )
+      X( 1 ) = CLARND( 3, ISEED );
+      XABS = ABS( X( 1 ) );
       if ( XABS != ZERO ) {
-         CSIGN = X( 1 ) / XABS
+         CSIGN = X( 1 ) / XABS;
       } else {
-         CSIGN = CONE
+         CSIGN = CONE;
       }
-      X( 2*NXFRM ) = CSIGN
+      X( 2*NXFRM ) = CSIGN;
 
       // Scale the matrix A by D.
 
@@ -174,7 +174,7 @@
             cscal(M, CONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
          } // 90
       }
-      RETURN
+      RETURN;
 
       // End of CLAROR
 

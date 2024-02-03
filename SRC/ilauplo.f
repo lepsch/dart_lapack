@@ -20,13 +20,13 @@
       // ..
       // .. Executable Statements ..
       if ( LSAME( UPLO, 'U' ) ) {
-         ILAUPLO = BLAS_UPPER
+         ILAUPLO = BLAS_UPPER;
       } else if ( LSAME( UPLO, 'L' ) ) {
-         ILAUPLO = BLAS_LOWER
+         ILAUPLO = BLAS_LOWER;
       } else {
-         ILAUPLO = -1
+         ILAUPLO = -1;
       }
-      RETURN
+      RETURN;
 
       // End of ILAUPLO
 

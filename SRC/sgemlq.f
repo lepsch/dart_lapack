@@ -1,4 +1,4 @@
-      SUBROUTINE SGEMLQ( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE, C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE SGEMLQ( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE, C, LDC, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, LDA, M, N, K, TSIZE, LWORK, LDC;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), T( * ), C( LDC, * ), WORK( * )
+      REAL               A( LDA, * ), T( * ), C( LDC, * ), WORK( * );
       // ..
 
 * =====================================================================
@@ -24,7 +24,7 @@
       // EXTERNAL LSAME
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -37,85 +37,85 @@
 
       // Test the input arguments
 
-      LQUERY  = ( LWORK == -1 )
-      NOTRAN  = LSAME( TRANS, 'N' )
-      TRAN    = LSAME( TRANS, 'T' )
-      LEFT    = LSAME( SIDE, 'L' )
-      RIGHT   = LSAME( SIDE, 'R' )
+      LQUERY  = ( LWORK == -1 );
+      NOTRAN  = LSAME( TRANS, 'N' );
+      TRAN    = LSAME( TRANS, 'T' );
+      LEFT    = LSAME( SIDE, 'L' );
+      RIGHT   = LSAME( SIDE, 'R' );
 
-      MB = INT( T( 2 ) )
-      NB = INT( T( 3 ) )
+      MB = INT( T( 2 ) );
+      NB = INT( T( 3 ) );
       if ( LEFT ) {
-        LW = N * MB
-        MN = M
+        LW = N * MB;
+        MN = M;
       } else {
-        LW = M * MB
-        MN = N
+        LW = M * MB;
+        MN = N;
       }
 
-      MINMNK = MIN( M, N, K )
+      MINMNK = MIN( M, N, K );
       if ( MINMNK == 0 ) {
-         LWMIN = 1
+         LWMIN = 1;
       } else {
-         LWMIN = MAX( 1, LW )
+         LWMIN = MAX( 1, LW );
       }
 
       if ( ( NB > K ) && ( MN > K ) ) {
         if ( MOD( MN - K, NB - K ) == 0 ) {
-          NBLCKS = ( MN - K ) / ( NB - K )
+          NBLCKS = ( MN - K ) / ( NB - K );
         } else {
-          NBLCKS = ( MN - K ) / ( NB - K ) + 1
+          NBLCKS = ( MN - K ) / ( NB - K ) + 1;
         }
       } else {
-        NBLCKS = 1
+        NBLCKS = 1;
       }
 
-      INFO = 0
+      INFO = 0;
       if ( !LEFT && !RIGHT ) {
-        INFO = -1
+        INFO = -1;
       } else if ( !TRAN && !NOTRAN ) {
-        INFO = -2
+        INFO = -2;
       } else if ( M < 0 ) {
-        INFO = -3
+        INFO = -3;
       } else if ( N < 0 ) {
-        INFO = -4
+        INFO = -4;
       } else if ( K < 0 || K > MN ) {
-        INFO = -5
+        INFO = -5;
       } else if ( LDA < MAX( 1, K ) ) {
-        INFO = -7
+        INFO = -7;
       } else if ( TSIZE < 5 ) {
-        INFO = -9
+        INFO = -9;
       } else if ( LDC < MAX( 1, M ) ) {
-        INFO = -11
+        INFO = -11;
       } else if ( LWORK < LWMIN && !LQUERY ) {
-        INFO = -13
+        INFO = -13;
       }
 
       if ( INFO == 0 ) {
-        WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
+        WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
       }
 
       if ( INFO != 0 ) {
         xerbla('SGEMLQ', -INFO );
-        RETURN
+        RETURN;
       } else if ( LQUERY ) {
-        RETURN
+        RETURN;
       }
 
       // Quick return if possible
 
       if ( MINMNK == 0 ) {
-        RETURN
+        RETURN;
       }
 
-      IF( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( NB <= K ) || ( NB >= MAX( M, N, K ) ) ) THEN         CALL SGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
+      IF( ( LEFT && M <= K ) || ( RIGHT && N <= K ) || ( NB <= K ) || ( NB >= MAX( M, N, K ) ) ) THEN         CALL SGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO );
       } else {
         slamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
+      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
 
-      RETURN
+      RETURN;
 
       // End of SGEMLQ
 

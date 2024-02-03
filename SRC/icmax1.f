@@ -8,13 +8,13 @@
       int                INCX, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            CX(*)
+      COMPLEX            CX(*);
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
-      REAL               SMAX
+      REAL               SMAX;
       int                I, IX;
       // ..
       // .. Intrinsic Functions ..
@@ -22,37 +22,37 @@
       // ..
       // .. Executable Statements ..
 
-      ICMAX1 = 0
+      ICMAX1 = 0;
       if (N < 1 || INCX <= 0) RETURN;
-      ICMAX1 = 1
+      ICMAX1 = 1;
       if (N == 1) RETURN;
       if (INCX == 1) {
 
          // code for increment equal to 1
 
-         SMAX = ABS(CX(1))
+         SMAX = ABS(CX(1));
          for (I = 2; I <= N; I++) {
             if (ABS(CX(I)) > SMAX) {
-               ICMAX1 = I
-               SMAX = ABS(CX(I))
+               ICMAX1 = I;
+               SMAX = ABS(CX(I));
             }
          }
       } else {
 
          // code for increment not equal to 1
 
-         IX = 1
-         SMAX = ABS(CX(1))
-         IX = IX + INCX
+         IX = 1;
+         SMAX = ABS(CX(1));
+         IX = IX + INCX;
          for (I = 2; I <= N; I++) {
             if (ABS(CX(IX)) > SMAX) {
-               ICMAX1 = I
-               SMAX = ABS(CX(IX))
+               ICMAX1 = I;
+               SMAX = ABS(CX(IX));
             }
-            IX = IX + INCX
+            IX = IX + INCX;
          }
       }
-      RETURN
+      RETURN;
 
       // End of ICMAX1
 

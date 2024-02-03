@@ -1,4 +1,4 @@
-      SUBROUTINE DCHKHS( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, T1, T2, U, LDU, Z, UZ, WR1, WI1, WR2, WI2, WR3, WI3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, IWORK, SELECT, RESULT, INFO )
+      SUBROUTINE DCHKHS( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, T1, T2, U, LDU, Z, UZ, WR1, WI1, WR2, WI2, WR3, WI3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, IWORK, SELECT, RESULT, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -43,46 +43,46 @@
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT
       // ..
       // .. Data statements ..
-      DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
-      DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
+      DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /;
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /;
+      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /;
+      DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /;
       // ..
       // .. Executable Statements ..
 
       // Check for errors
 
-      NTESTT = 0
-      INFO = 0
+      NTESTT = 0;
+      INFO = 0;
 
       BADNN = false;
-      NMAX = 0
+      NMAX = 0;
       for (J = 1; J <= NSIZES; J++) { // 10
-         NMAX = MAX( NMAX, NN( J ) )
+         NMAX = MAX( NMAX, NN( J ) );
          IF( NN( J ) < 0 ) BADNN = true;
       } // 10
 
       // Check for errors
 
       if ( NSIZES < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( BADNN ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NTYPES < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( THRESH < ZERO ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA <= 1 || LDA < NMAX ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDU <= 1 || LDU < NMAX ) {
-         INFO = -14
+         INFO = -14;
       } else if ( 4*NMAX*NMAX+2 > NWORK ) {
-         INFO = -28
+         INFO = -28;
       }
 
       if ( INFO != 0 ) {
          xerbla('DCHKHS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -91,47 +91,47 @@
 
       // More important constants
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      OVFL = DLAMCH( 'Overflow' )
-      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
-      ULPINV = ONE / ULP
-      RTUNFL = SQRT( UNFL )
-      RTOVFL = SQRT( OVFL )
-      RTULP = SQRT( ULP )
-      RTULPI = ONE / RTULP
+      UNFL = DLAMCH( 'Safe minimum' );
+      OVFL = DLAMCH( 'Overflow' );
+      ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' );
+      ULPINV = ONE / ULP;
+      RTUNFL = SQRT( UNFL );
+      RTOVFL = SQRT( OVFL );
+      RTULP = SQRT( ULP );
+      RTULPI = ONE / RTULP;
 
       // Loop over sizes, types
 
-      NERRS = 0
-      NMATS = 0
+      NERRS = 0;
+      NMATS = 0;
 
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
-         N = NN( JSIZE )
+         N = NN( JSIZE );
          if (N == 0) GO TO 270;
-         N1 = MAX( 1, N )
-         ANINV = ONE / DBLE( N1 )
+         N1 = MAX( 1, N );
+         ANINV = ONE / DBLE( N1 );
 
          if ( NSIZES != 1 ) {
-            MTYPES = MIN( MAXTYP, NTYPES )
+            MTYPES = MIN( MAXTYP, NTYPES );
          } else {
-            MTYPES = MIN( MAXTYP+1, NTYPES )
+            MTYPES = MIN( MAXTYP+1, NTYPES );
          }
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
-            IF( !DOTYPE( JTYPE ) ) GO TO 260
-            NMATS = NMATS + 1
-            NTEST = 0
+            IF( !DOTYPE( JTYPE ) ) GO TO 260;
+            NMATS = NMATS + 1;
+            NTEST = 0;
 
             // Save ISEED in case of an error.
 
             for (J = 1; J <= 4; J++) { // 20
-               IOLDSD( J ) = ISEED( J )
+               IOLDSD( J ) = ISEED( J );
             } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 16; J++) { // 30
-               RESULT( J ) = ZERO
+               RESULT( J ) = ZERO;
             } // 30
 
             // Compute "A"
@@ -152,30 +152,30 @@
 
             if (MTYPES > MAXTYP) GO TO 100;
 
-            ITYPE = KTYPE( JTYPE )
-            IMODE = KMODE( JTYPE )
+            ITYPE = KTYPE( JTYPE );
+            IMODE = KMODE( JTYPE );
 
             // Compute norm
 
-            GO TO ( 40, 50, 60 )KMAGN( JTYPE )
+            GO TO ( 40, 50, 60 )KMAGN( JTYPE );
 
             } // 40
-            ANORM = ONE
-            GO TO 70
+            ANORM = ONE;
+            GO TO 70;
 
             } // 50
-            ANORM = ( RTOVFL*ULP )*ANINV
-            GO TO 70
+            ANORM = ( RTOVFL*ULP )*ANINV;
+            GO TO 70;
 
             } // 60
-            ANORM = RTUNFL*N*ULPINV
-            GO TO 70
+            ANORM = RTUNFL*N*ULPINV;
+            GO TO 70;
 
             } // 70
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
-            IINFO = 0
-            COND = ULPINV
+            IINFO = 0;
+            COND = ULPINV;
 
             // Special Matrices
 
@@ -183,14 +183,14 @@
 
                // Zero
 
-               IINFO = 0
+               IINFO = 0;
 
             } else if ( ITYPE == 2 ) {
 
                // Identity
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                } // 80
 
             } else if ( ITYPE == 3 ) {
@@ -198,7 +198,7 @@
                // Jordan Block
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
-                  A( JCOL, JCOL ) = ANORM
+                  A( JCOL, JCOL ) = ANORM;
                   if (JCOL > 1) A( JCOL, JCOL-1 ) = ONE;
                } // 90
 
@@ -219,14 +219,14 @@
                // General, eigenvalues specified
 
                if ( KCONDS( JTYPE ) == 1 ) {
-                  CONDS = ONE
+                  CONDS = ONE;
                } else if ( KCONDS( JTYPE ) == 2 ) {
-                  CONDS = RTULPI
+                  CONDS = RTULPI;
                } else {
-                  CONDS = ZERO
+                  CONDS = ZERO;
                }
 
-               ADUMMA( 1 ) = ' '
+               ADUMMA( 1 ) = ' ';
                dlatme(N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO );
 
             } else if ( ITYPE == 7 ) {
@@ -255,13 +255,13 @@
 
             } else {
 
-               IINFO = 1
+               IINFO = 1;
             }
 
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               RETURN
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               RETURN;
             }
 
             } // 100
@@ -270,31 +270,31 @@
 
             dlacpy(' ', N, N, A, LDA, H, LDA );
 
-            NTEST = 1
+            NTEST = 1;
 
-            ILO = 1
-            IHI = N
+            ILO = 1;
+            IHI = N;
 
             dgehrd(N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO );
 
             if ( IINFO != 0 ) {
-               RESULT( 1 ) = ULPINV
-               WRITE( NOUNIT, FMT = 9999 )'DGEHRD', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               RESULT( 1 ) = ULPINV;
+               WRITE( NOUNIT, FMT = 9999 )'DGEHRD', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             for (J = 1; J <= N - 1; J++) { // 120
-               UU( J+1, J ) = ZERO
+               UU( J+1, J ) = ZERO;
                for (I = J + 2; I <= N; I++) { // 110
-                  U( I, J ) = H( I, J )
-                  UU( I, J ) = H( I, J )
-                  H( I, J ) = ZERO
+                  U( I, J ) = H( I, J );
+                  UU( I, J ) = H( I, J );
+                  H( I, J ) = ZERO;
                } // 110
             } // 120
             dcopy(N-1, WORK, 1, TAU, 1 );
             dorghr(N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO );
-            NTEST = 2
+            NTEST = 2;
 
             dhst01(N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT( 1 ) );
 
@@ -303,15 +303,15 @@
             // Eigenvalues only (WR3,WI3)
 
             dlacpy(' ', N, N, H, LDA, T2, LDA );
-            NTEST = 3
-            RESULT( 3 ) = ULPINV
+            NTEST = 3;
+            RESULT( 3 ) = ULPINV;
 
             dhseqr('E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(E)', IINFO, N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(E)', IINFO, N, JTYPE, IOLDSD;
                if ( IINFO <= N+2 ) {
-                  INFO = ABS( IINFO )
-                  GO TO 250
+                  INFO = ABS( IINFO );
+                  GO TO 250;
                }
             }
 
@@ -321,9 +321,9 @@
 
             dhseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 && IINFO <= N+2 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             // Eigenvalues (WR1,WI1), Schur Form (T1), and Schur vectors
@@ -334,15 +334,15 @@
 
             dhseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 && IINFO <= N+2 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             // Compute Z = U' UZ
 
             dgemm('T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO, Z, LDU );
-            NTEST = 8
+            NTEST = 8;
 
             // Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
                  // and 4: | I - Z Z' | / ( n ulp )
@@ -360,61 +360,61 @@
 
             // Do Test 8: | W2 - W1 | / ( max(|W1|,|W2|) ulp )
 
-            TEMP1 = ZERO
-            TEMP2 = ZERO
+            TEMP1 = ZERO;
+            TEMP2 = ZERO;
             for (J = 1; J <= N; J++) { // 130
-               TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) )
+               TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) );
             } // 130
 
-            RESULT( 8 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
+            RESULT( 8 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) );
 
             // Compute the Left and Right Eigenvectors of T
 
             // Compute the Right eigenvector Matrix:
 
-            NTEST = 9
-            RESULT( 9 ) = ULPINV
+            NTEST = 9;
+            RESULT( 9 ) = ULPINV;
 
             // Select last max(N/4,1) real, max(N/4,1) complex eigenvectors
 
-            NSELC = 0
-            NSELR = 0
-            J = N
+            NSELC = 0;
+            NSELR = 0;
+            J = N;
             } // 140
             if ( WI1( J ) == ZERO ) {
                if ( NSELR < MAX( N / 4, 1 ) ) {
-                  NSELR = NSELR + 1
+                  NSELR = NSELR + 1;
                   SELECT( J ) = true;
                } else {
                   SELECT( J ) = false;
                }
-               J = J - 1
+               J = J - 1;
             } else {
                if ( NSELC < MAX( N / 4, 1 ) ) {
-                  NSELC = NSELC + 1
+                  NSELC = NSELC + 1;
                   SELECT( J ) = true;
                   SELECT( J-1 ) = false;
                } else {
                   SELECT( J ) = false;
                   SELECT( J-1 ) = false;
                }
-               J = J - 2
+               J = J - 2;
             }
             if (J > 0) GO TO 140;
 
             dtrevc('Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,A)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,A)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             // Test 9:  | TR - RW | / ( |T| |R| ulp )
 
             dget22('N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
-            RESULT( 9 ) = DUMMA( 1 )
+            RESULT( 9 ) = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRESH ) {
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
 
             // Compute selected right eigenvectors and confirm that
@@ -422,30 +422,30 @@
 
             dtrevc('Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,S)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,S)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
-            K = 1
+            K = 1;
             MATCH = true;
             for (J = 1; J <= N; J++) { // 170
                if ( SELECT( J ) && WI1( J ) == ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 150
                      if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) ) {
                         MATCH = false;
-                        GO TO 180
+                        GO TO 180;
                      }
                   } // 150
-                  K = K + 1
+                  K = K + 1;
                } else if ( SELECT( J ) && WI1( J ) != ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
                      if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) || EVECTR( JJ, J+1 ) != EVECTL( JJ, K+1 ) ) {
                         MATCH = false;
-                        GO TO 180
+                        GO TO 180;
                      }
                   } // 160
-                  K = K + 2
+                  K = K + 2;
                }
             } // 170
             } // 180
@@ -453,21 +453,21 @@
 
             // Compute the Left eigenvector Matrix:
 
-            NTEST = 10
-            RESULT( 10 ) = ULPINV
+            NTEST = 10;
+            RESULT( 10 ) = ULPINV;
             dtrevc('Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             // Test 10:  | LT - WL | / ( |T| |L| ulp )
 
             dget22('Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
-            RESULT( 10 ) = DUMMA( 3 )
+            RESULT( 10 ) = DUMMA( 3 );
             if ( DUMMA( 4 ) > THRESH ) {
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD;
             }
 
             // Compute selected left eigenvectors and confirm that
@@ -475,30 +475,30 @@
 
             dtrevc('Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,S)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,S)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
-            K = 1
+            K = 1;
             MATCH = true;
             for (J = 1; J <= N; J++) { // 210
                if ( SELECT( J ) && WI1( J ) == ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 190
                      if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) ) {
                         MATCH = false;
-                        GO TO 220
+                        GO TO 220;
                      }
                   } // 190
-                  K = K + 1
+                  K = K + 1;
                } else if ( SELECT( J ) && WI1( J ) != ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 200
                      if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) || EVECTL( JJ, J+1 ) != EVECTR( JJ, K+1 ) ) {
                         MATCH = false;
-                        GO TO 220
+                        GO TO 220;
                      }
                   } // 200
-                  K = K + 2
+                  K = K + 2;
                }
             } // 210
             } // 220
@@ -506,16 +506,16 @@
 
             // Call DHSEIN for Right eigenvectors of H, do test 11
 
-            NTEST = 11
-            RESULT( 11 ) = ULPINV
+            NTEST = 11;
+            RESULT( 11 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 230
                SELECT( J ) = true;
             } // 230
 
             dhsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(R)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(R)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -523,24 +523,24 @@
 
                          // (from inverse iteration)
 
-               CALL DGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
+               CALL DGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV;
                if ( DUMMA( 2 ) > THRESH ) {
-                  WRITE( NOUNIT, FMT = 9998 )'Right', 'DHSEIN', DUMMA( 2 ), N, JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9998 )'Right', 'DHSEIN', DUMMA( 2 ), N, JTYPE, IOLDSD;
                }
             }
 
             // Call DHSEIN for Left eigenvectors of H, do test 12
 
-            NTEST = 12
-            RESULT( 12 ) = ULPINV
+            NTEST = 12;
+            RESULT( 12 ) = ULPINV;
             for (J = 1; J <= N; J++) { // 240
                SELECT( J ) = true;
             } // 240
 
             dhsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(L)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(L)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -548,21 +548,21 @@
 
                          // (from inverse iteration)
 
-               CALL DGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
+               CALL DGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV;
                if ( DUMMA( 4 ) > THRESH ) {
-                  WRITE( NOUNIT, FMT = 9998 )'Left', 'DHSEIN', DUMMA( 4 ), N, JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9998 )'Left', 'DHSEIN', DUMMA( 4 ), N, JTYPE, IOLDSD;
                }
             }
 
             // Call DORMHR for Right eigenvectors of A, do test 13
 
-            NTEST = 13
-            RESULT( 13 ) = ULPINV
+            NTEST = 13;
+            RESULT( 13 ) = ULPINV;
 
             dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DORMHR(R)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUNIT, FMT = 9999 )'DORMHR(R)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -570,18 +570,18 @@
 
                          // (from inverse iteration)
 
-               CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV
+               CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ) < ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV;
             }
 
             // Call DORMHR for Left eigenvectors of A, do test 14
 
-            NTEST = 14
-            RESULT( 14 ) = ULPINV
+            NTEST = 14;
+            RESULT( 14 ) = ULPINV;
 
             dormhr('Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DORMHR(L)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
+               WRITE( NOUNIT, FMT = 9999 )'DORMHR(L)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
                if (IINFO < 0) GO TO 250;
             } else {
 
@@ -589,23 +589,23 @@
 
                          // (from inverse iteration)
 
-               CALL DGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV
+               CALL DGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ) < ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV;
             }
 
             // Compute Left and Right Eigenvectors of A
 
             // Compute a Right eigenvector matrix:
 
-            NTEST = 15
-            RESULT( 15 ) = ULPINV
+            NTEST = 15;
+            RESULT( 15 ) = ULPINV;
 
             dlacpy(' ', N, N, UZ, LDU, EVECTR, LDU );
 
             dtrevc3('Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             // Test 15:  | AR - RW | / ( |A| |R| ulp )
@@ -613,23 +613,23 @@
                       // (from Schur decomposition)
 
             dget22('N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) );
-            RESULT( 15 ) = DUMMA( 1 )
+            RESULT( 15 ) = DUMMA( 1 );
             if ( DUMMA( 2 ) > THRESH ) {
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD;
             }
 
             // Compute a Left eigenvector matrix:
 
-            NTEST = 16
-            RESULT( 16 ) = ULPINV
+            NTEST = 16;
+            RESULT( 16 ) = ULPINV;
 
             dlacpy(' ', N, N, UZ, LDU, EVECTL, LDU );
 
             dtrevc3('Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
-               INFO = ABS( IINFO )
-               GO TO 250
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD;
+               INFO = ABS( IINFO );
+               GO TO 250;
             }
 
             // Test 16:  | LA - WL | / ( |A| |L| ulp )
@@ -637,16 +637,16 @@
                       // (from Schur decomposition)
 
             dget22('Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) );
-            RESULT( 16 ) = DUMMA( 3 )
+            RESULT( 16 ) = DUMMA( 3 );
             if ( DUMMA( 4 ) > THRESH ) {
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD;
             }
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
             } // 250
 
-            NTESTT = NTESTT + NTEST
+            NTESTT = NTESTT + NTEST;
             dlafts('DHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
          } // 260
@@ -656,11 +656,11 @@
 
       dlasum('DHS', NOUNIT, NERRS, NTESTT );
 
-      RETURN
+      RETURN;
 
- 9999 FORMAT( ' DCHKHS: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
- 9998 FORMAT( ' DCHKHS: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
- 9997 FORMAT( ' DCHKHS: Selected ', A, ' Eigenvectors from ', A, ' do not match other eigenvectors ', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' DCHKHS: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
+ 9998 FORMAT( ' DCHKHS: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
+ 9997 FORMAT( ' DCHKHS: Selected ', A, ' Eigenvectors from ', A, ' do not match other eigenvectors ', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
       // End of DCHKHS
 

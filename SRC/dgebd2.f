@@ -1,4 +1,4 @@
-      SUBROUTINE DGEBD2( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO )
+      SUBROUTINE DGEBD2( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,17 +30,17 @@
 
       // Test the input parameters
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO < 0 ) {
          xerbla('DGEBD2', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( M >= N ) {
@@ -52,13 +52,13 @@
             // Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 
             dlarfg(M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAUQ( I ) );
-            D( I ) = A( I, I )
-            A( I, I ) = ONE
+            D( I ) = A( I, I );
+            A( I, I ) = ONE;
 
             // Apply H(i) to A(i:m,i+1:n) from the left
 
             if (I < N) CALL DLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK );
-            A( I, I ) = D( I )
+            A( I, I ) = D( I );
 
             if ( I < N ) {
 
@@ -66,15 +66,15 @@
                // A(i,i+2:n)
 
                dlarfg(N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ), LDA, TAUP( I ) );
-               E( I ) = A( I, I+1 )
-               A( I, I+1 ) = ONE
+               E( I ) = A( I, I+1 );
+               A( I, I+1 ) = ONE;
 
                // Apply G(i) to A(i+1:m,i+1:n) from the right
 
                dlarf('Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK );
-               A( I, I+1 ) = E( I )
+               A( I, I+1 ) = E( I );
             } else {
-               TAUP( I ) = ZERO
+               TAUP( I ) = ZERO;
             }
          } // 10
       } else {
@@ -86,13 +86,13 @@
             // Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 
             dlarfg(N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAUP( I ) );
-            D( I ) = A( I, I )
-            A( I, I ) = ONE
+            D( I ) = A( I, I );
+            A( I, I ) = ONE;
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
             if (I < M) CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
-            A( I, I ) = D( I )
+            A( I, I ) = D( I );
 
             if ( I < M ) {
 
@@ -100,19 +100,19 @@
                // A(i+2:m,i)
 
                dlarfg(M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1, TAUQ( I ) );
-               E( I ) = A( I+1, I )
-               A( I+1, I ) = ONE
+               E( I ) = A( I+1, I );
+               A( I+1, I ) = ONE;
 
                // Apply H(i) to A(i+1:m,i+1:n) from the left
 
                dlarf('Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK );
-               A( I+1, I ) = E( I )
+               A( I+1, I ) = E( I );
             } else {
-               TAUQ( I ) = ZERO
+               TAUQ( I ) = ZERO;
             }
          } // 20
       }
-      RETURN
+      RETURN;
 
       // End of DGEBD2
 

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             WORK( * );
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 * =====================================================================
@@ -36,61 +36,61 @@
       // .. Executable Statements ..
 
       if ( N == 0 ) {
-         VALUE = ZERO
+         VALUE = ZERO;
       } else if ( LSAME( NORM, 'M' ) ) {
 
          // Find max(abs(A(i,j))).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = 1, MIN( N, J+1 )
-               SUM = ABS( A( I, J ) )
-               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+            DO 10 I = 1, MIN( N, J+1 );
+               SUM = ABS( A( I, J ) );
+               IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 10
          } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) || ( NORM == '1' ) ) {
 
          // Find norm1(A).
 
-         VALUE = ZERO
+         VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 40
-            SUM = ZERO
-            DO 30 I = 1, MIN( N, J+1 )
-               SUM = SUM + ABS( A( I, J ) )
+            SUM = ZERO;
+            DO 30 I = 1, MIN( N, J+1 );
+               SUM = SUM + ABS( A( I, J ) );
             } // 30
-            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
          for (I = 1; I <= N; I++) { // 50
-            WORK( I ) = ZERO
+            WORK( I ) = ZERO;
          } // 50
          for (J = 1; J <= N; J++) { // 70
-            DO 60 I = 1, MIN( N, J+1 )
-               WORK( I ) = WORK( I ) + ABS( A( I, J ) )
+            DO 60 I = 1, MIN( N, J+1 );
+               WORK( I ) = WORK( I ) + ABS( A( I, J ) );
             } // 60
          } // 70
-         VALUE = ZERO
+         VALUE = ZERO;
          for (I = 1; I <= N; I++) { // 80
-            SUM = WORK( I )
-            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM
+            SUM = WORK( I );
+            IF( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
          } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) || ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
 
-         SCALE = ZERO
-         SUM = ONE
+         SCALE = ZERO;
+         SUM = ONE;
          for (J = 1; J <= N; J++) { // 90
             zlassq(MIN( N, J+1 ), A( 1, J ), 1, SCALE, SUM );
          } // 90
-         VALUE = SCALE*SQRT( SUM )
+         VALUE = SCALE*SQRT( SUM );
       }
 
-      ZLANHS = VALUE
-      RETURN
+      ZLANHS = VALUE;
+      RETURN;
 
       // End of ZLANHS
 

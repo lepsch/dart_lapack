@@ -1,4 +1,4 @@
-      SUBROUTINE DLAQGE( M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
+      SUBROUTINE DLAQGE( M, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,14 +32,14 @@
       // Quick return if possible
 
       if ( M <= 0 || N <= 0 ) {
-         EQUED = 'N'
-         RETURN
+         EQUED = 'N';
+         RETURN;
       }
 
       // Initialize LARGE and SMALL.
 
-      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
-      LARGE = ONE / SMALL
+      SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      LARGE = ONE / SMALL;
 
       if ( ROWCND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
 
@@ -49,18 +49,18 @@
 
             // No column scaling
 
-            EQUED = 'N'
+            EQUED = 'N';
          } else {
 
             // Column scaling
 
             for (J = 1; J <= N; J++) { // 20
-               CJ = C( J )
+               CJ = C( J );
                for (I = 1; I <= M; I++) { // 10
-                  A( I, J ) = CJ*A( I, J )
+                  A( I, J ) = CJ*A( I, J );
                } // 10
             } // 20
-            EQUED = 'C'
+            EQUED = 'C';
          }
       } else if ( COLCND >= THRESH ) {
 
@@ -68,24 +68,24 @@
 
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= M; I++) { // 30
-               A( I, J ) = R( I )*A( I, J )
+               A( I, J ) = R( I )*A( I, J );
             } // 30
          } // 40
-         EQUED = 'R'
+         EQUED = 'R';
       } else {
 
          // Row and column scaling
 
          for (J = 1; J <= N; J++) { // 60
-            CJ = C( J )
+            CJ = C( J );
             for (I = 1; I <= M; I++) { // 50
-               A( I, J ) = CJ*R( I )*A( I, J )
+               A( I, J ) = CJ*R( I )*A( I, J );
             } // 50
          } // 60
-         EQUED = 'B'
+         EQUED = 'B';
       }
 
-      RETURN
+      RETURN;
 
       // End of DLAQGE
 

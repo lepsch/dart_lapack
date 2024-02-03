@@ -1,4 +1,4 @@
-      SUBROUTINE DGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE DGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,23 +42,23 @@
 
       // Test the input arguments.
 
-      INFO = 0
-      MN = MIN( M, N )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      MN = MIN( M, N );
+      LQUERY = ( LWORK == -1 );
       if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, M, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < MAX( 1, MN+MAX( MN, NRHS ) ) && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
 
       // Figure out optimal block size and optimal workspace size
@@ -68,27 +68,27 @@
          TPSD = true;
          IF( LSAME( TRANS, 'N' ) ) TPSD = false;
 
-         NB = ILAENV( 1, 'DGELST', ' ', M, N, -1, -1 )
+         NB = ILAENV( 1, 'DGELST', ' ', M, N, -1, -1 );
 
-         MNNRHS = MAX( MN, NRHS )
-         LWOPT = MAX( 1, (MN+MNNRHS)*NB )
-         WORK( 1 ) = DBLE( LWOPT )
+         MNNRHS = MAX( MN, NRHS );
+         LWOPT = MAX( 1, (MN+MNNRHS)*NB );
+         WORK( 1 ) = DBLE( LWOPT );
 
       }
 
       if ( INFO != 0 ) {
          xerbla('DGELST ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
          dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         WORK( 1 ) = DBLE( LWOPT )
-         RETURN
+         WORK( 1 ) = DBLE( LWOPT );
+         RETURN;
       }
 
       // *GEQRT and *GELQT routines cannot accept NB larger than min(M,N)
@@ -99,62 +99,62 @@
       // ( at this stage we know that LWORK >= (minimum required workspace,
       // but it may be less than optimal)
 
-      NB = MIN( NB, LWORK/( MN + MNNRHS ) )
+      NB = MIN( NB, LWORK/( MN + MNNRHS ) );
 
       // The minimum value of NB, when blocked code is used
 
-      NBMIN = MAX( 2, ILAENV( 2, 'DGELST', ' ', M, N, -1, -1 ) )
+      NBMIN = MAX( 2, ILAENV( 2, 'DGELST', ' ', M, N, -1, -1 ) );
 
       if ( NB < NBMIN ) {
-         NB = 1
+         NB = 1;
       }
 
       // Get machine parameters
 
-      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = DLANGE( 'M', M, N, A, LDA, RWORK )
-      IASCL = 0
+      ANRM = DLANGE( 'M', M, N, A, LDA, RWORK );
+      IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1
+         IASCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2
+         IASCL = 2;
       } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          dlaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         WORK( 1 ) = DBLE( LWOPT )
-         RETURN
+         WORK( 1 ) = DBLE( LWOPT );
+         RETURN;
       }
 
-      BROW = M
+      BROW = M;
       if (TPSD) BROW = N;
-      BNRM = DLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
-      IBSCL = 0
+      BNRM = DLANGE( 'M', BROW, NRHS, B, LDB, RWORK );
+      IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          dlascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 1
+         IBSCL = 1;
       } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          dlascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 2
+         IBSCL = 2;
       }
 
       if ( M >= N ) {
@@ -183,10 +183,10 @@
             dtrtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
-            SCLLEN = N
+            SCLLEN = N;
 
          } else {
 
@@ -201,7 +201,7 @@
             dtrtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
             // Block 2: Zero out all rows below the N-th row in B:
@@ -209,7 +209,7 @@
 
             for (J = 1; J <= NRHS; J++) {
                for (I = N + 1; I <= M; I++) {
-                  B( I, J ) = ZERO
+                  B( I, J ) = ZERO;
                }
             }
 
@@ -219,7 +219,7 @@
 
             dgemqrt('Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
-            SCLLEN = M
+            SCLLEN = M;
 
          }
 
@@ -245,7 +245,7 @@
             dtrtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
             // Block 2: Zero out all rows below the M-th row in B:
@@ -253,7 +253,7 @@
 
             for (J = 1; J <= NRHS; J++) {
                for (I = M + 1; I <= N; I++) {
-                  B( I, J ) = ZERO
+                  B( I, J ) = ZERO;
                }
             }
 
@@ -263,7 +263,7 @@
 
             dgemlqt('Left', 'Transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO );
 
-            SCLLEN = N
+            SCLLEN = N;
 
          } else {
 
@@ -282,10 +282,10 @@
             dtrtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
-            SCLLEN = M
+            SCLLEN = M;
 
          }
 
@@ -304,9 +304,9 @@
          dlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
-      WORK( 1 ) = DBLE( LWOPT )
+      WORK( 1 ) = DBLE( LWOPT );
 
-      RETURN
+      RETURN;
 
       // End of DGELST
 

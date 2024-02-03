@@ -1,4 +1,4 @@
-      SUBROUTINE STPTRS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, INFO )
+      SUBROUTINE STPTRS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               AP( * ), B( LDB, * )
+      REAL               AP( * ), B( LDB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO
+      REAL               ZERO;
       const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
@@ -36,25 +36,25 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      NOUNIT = LSAME( DIAG, 'N' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      NOUNIT = LSAME( DIAG, 'N' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOUNIT && !LSAME( DIAG, 'U' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRHS < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('STPTRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -65,20 +65,20 @@
 
       if ( NOUNIT ) {
          if ( UPPER ) {
-            JC = 1
+            JC = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 10
-               IF( AP( JC+INFO-1 ) == ZERO ) RETURN
-               JC = JC + INFO
+               IF( AP( JC+INFO-1 ) == ZERO ) RETURN;
+               JC = JC + INFO;
             } // 10
          } else {
-            JC = 1
+            JC = 1;
             for (INFO = 1; INFO <= N; INFO++) { // 20
-               IF( AP( JC ) == ZERO ) RETURN
-               JC = JC + N - INFO + 1
+               IF( AP( JC ) == ZERO ) RETURN;
+               JC = JC + N - INFO + 1;
             } // 20
          }
       }
-      INFO = 0
+      INFO = 0;
 
       // Solve A * x = b  or  A**T * x = b.
 
@@ -86,7 +86,7 @@
          stpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
       } // 30
 
-      RETURN
+      RETURN;
 
       // End of STPTRS
 

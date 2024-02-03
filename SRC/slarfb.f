@@ -1,4 +1,4 @@
-      SUBROUTINE SLARFB( SIDE, TRANS, DIRECT, STOREV, M, N, K, V, LDV, T, LDT, C, LDC, WORK, LDWORK )
+      SUBROUTINE SLARFB( SIDE, TRANS, DIRECT, STOREV, M, N, K, V, LDV, T, LDT, C, LDC, WORK, LDWORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +9,13 @@
       int                K, LDC, LDT, LDV, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
+      REAL               C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE
+      REAL               ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -36,9 +36,9 @@
       if (M <= 0 || N <= 0) RETURN;
 
       if ( LSAME( TRANS, 'N' ) ) {
-         TRANST = 'T'
+         TRANST = 'T';
       } else {
-         TRANST = 'N'
+         TRANST = 'N';
       }
 
       if ( LSAME( STOREV, 'C' ) ) {
@@ -93,7 +93,7 @@
 
                for (J = 1; J <= K; J++) { // 30
                   for (I = 1; I <= N; I++) { // 20
-                     C( J, I ) = C( J, I ) - WORK( I, J )
+                     C( J, I ) = C( J, I ) - WORK( I, J );
                   } // 20
                } // 30
 
@@ -140,7 +140,7 @@
 
                for (J = 1; J <= K; J++) { // 60
                   for (I = 1; I <= M; I++) { // 50
-                     C( I, J ) = C( I, J ) - WORK( I, J )
+                     C( I, J ) = C( I, J ) - WORK( I, J );
                   } // 50
                } // 60
             }
@@ -195,7 +195,7 @@
 
                for (J = 1; J <= K; J++) { // 90
                   for (I = 1; I <= N; I++) { // 80
-                     C( M-K+J, I ) = C( M-K+J, I ) - WORK( I, J )
+                     C( M-K+J, I ) = C( M-K+J, I ) - WORK( I, J );
                   } // 80
                } // 90
 
@@ -242,7 +242,7 @@
 
                for (J = 1; J <= K; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
-                     C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J )
+                     C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J );
                   } // 110
                } // 120
             }
@@ -299,7 +299,7 @@
 
                for (J = 1; J <= K; J++) { // 150
                   for (I = 1; I <= N; I++) { // 140
-                     C( J, I ) = C( J, I ) - WORK( I, J )
+                     C( J, I ) = C( J, I ) - WORK( I, J );
                   } // 140
                } // 150
 
@@ -346,7 +346,7 @@
 
                for (J = 1; J <= K; J++) { // 180
                   for (I = 1; I <= M; I++) { // 170
-                     C( I, J ) = C( I, J ) - WORK( I, J )
+                     C( I, J ) = C( I, J ) - WORK( I, J );
                   } // 170
                } // 180
 
@@ -401,7 +401,7 @@
 
                for (J = 1; J <= K; J++) { // 210
                   for (I = 1; I <= N; I++) { // 200
-                     C( M-K+J, I ) = C( M-K+J, I ) - WORK( I, J )
+                     C( M-K+J, I ) = C( M-K+J, I ) - WORK( I, J );
                   } // 200
                } // 210
 
@@ -448,7 +448,7 @@
 
                for (J = 1; J <= K; J++) { // 240
                   for (I = 1; I <= M; I++) { // 230
-                     C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J )
+                     C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J );
                   } // 230
                } // 240
 
@@ -457,7 +457,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of SLARFB
 

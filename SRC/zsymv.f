@@ -1,4 +1,4 @@
-      SUBROUTINE ZSYMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
+      SUBROUTINE ZSYMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, INCY, LDA, N;
-      COMPLEX*16         ALPHA, BETA
+      COMPLEX*16         ALPHA, BETA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), X( * ), Y( * )
+      COMPLEX*16         A( LDA, * ), X( * ), Y( * );
       // ..
 
 * =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE
+      COMPLEX*16         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         ZERO
+      COMPLEX*16         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, IX, IY, J, JX, JY, KX, KY;
-      COMPLEX*16         TEMP1, TEMP2
+      COMPLEX*16         TEMP1, TEMP2;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -39,38 +39,38 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = 1
+         INFO = 1;
       } else if ( N < 0 ) {
-         INFO = 2
+         INFO = 2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = 5
+         INFO = 5;
       } else if ( INCX == 0 ) {
-         INFO = 7
+         INFO = 7;
       } else if ( INCY == 0 ) {
-         INFO = 10
+         INFO = 10;
       }
       if ( INFO != 0 ) {
          xerbla('ZSYMV ', INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
-      IF( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
+      IF( ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN;
 
       // Set up the start points in  X  and  Y.
 
       if ( INCX > 0 ) {
-         KX = 1
+         KX = 1;
       } else {
-         KX = 1 - ( N-1 )*INCX
+         KX = 1 - ( N-1 )*INCX;
       }
       if ( INCY > 0 ) {
-         KY = 1
+         KY = 1;
       } else {
-         KY = 1 - ( N-1 )*INCY
+         KY = 1 - ( N-1 )*INCY;
       }
 
       // Start the operations. In this version the elements of A are
@@ -83,24 +83,24 @@
          if ( INCY == 1 ) {
             if ( BETA == ZERO ) {
                for (I = 1; I <= N; I++) { // 10
-                  Y( I ) = ZERO
+                  Y( I ) = ZERO;
                } // 10
             } else {
                for (I = 1; I <= N; I++) { // 20
-                  Y( I ) = BETA*Y( I )
+                  Y( I ) = BETA*Y( I );
                } // 20
             }
          } else {
-            IY = KY
+            IY = KY;
             if ( BETA == ZERO ) {
                for (I = 1; I <= N; I++) { // 30
-                  Y( IY ) = ZERO
-                  IY = IY + INCY
+                  Y( IY ) = ZERO;
+                  IY = IY + INCY;
                } // 30
             } else {
                for (I = 1; I <= N; I++) { // 40
-                  Y( IY ) = BETA*Y( IY )
-                  IY = IY + INCY
+                  Y( IY ) = BETA*Y( IY );
+                  IY = IY + INCY;
                } // 40
             }
          }
@@ -112,31 +112,31 @@
 
          if ( ( INCX == 1 ) && ( INCY == 1 ) ) {
             for (J = 1; J <= N; J++) { // 60
-               TEMP1 = ALPHA*X( J )
-               TEMP2 = ZERO
+               TEMP1 = ALPHA*X( J );
+               TEMP2 = ZERO;
                for (I = 1; I <= J - 1; I++) { // 50
-                  Y( I ) = Y( I ) + TEMP1*A( I, J )
-                  TEMP2 = TEMP2 + A( I, J )*X( I )
+                  Y( I ) = Y( I ) + TEMP1*A( I, J );
+                  TEMP2 = TEMP2 + A( I, J )*X( I );
                } // 50
-               Y( J ) = Y( J ) + TEMP1*A( J, J ) + ALPHA*TEMP2
+               Y( J ) = Y( J ) + TEMP1*A( J, J ) + ALPHA*TEMP2;
             } // 60
          } else {
-            JX = KX
-            JY = KY
+            JX = KX;
+            JY = KY;
             for (J = 1; J <= N; J++) { // 80
-               TEMP1 = ALPHA*X( JX )
-               TEMP2 = ZERO
-               IX = KX
-               IY = KY
+               TEMP1 = ALPHA*X( JX );
+               TEMP2 = ZERO;
+               IX = KX;
+               IY = KY;
                for (I = 1; I <= J - 1; I++) { // 70
-                  Y( IY ) = Y( IY ) + TEMP1*A( I, J )
-                  TEMP2 = TEMP2 + A( I, J )*X( IX )
-                  IX = IX + INCX
-                  IY = IY + INCY
+                  Y( IY ) = Y( IY ) + TEMP1*A( I, J );
+                  TEMP2 = TEMP2 + A( I, J )*X( IX );
+                  IX = IX + INCX;
+                  IY = IY + INCY;
                } // 70
-               Y( JY ) = Y( JY ) + TEMP1*A( J, J ) + ALPHA*TEMP2
-               JX = JX + INCX
-               JY = JY + INCY
+               Y( JY ) = Y( JY ) + TEMP1*A( J, J ) + ALPHA*TEMP2;
+               JX = JX + INCX;
+               JY = JY + INCY;
             } // 80
          }
       } else {
@@ -145,38 +145,38 @@
 
          if ( ( INCX == 1 ) && ( INCY == 1 ) ) {
             for (J = 1; J <= N; J++) { // 100
-               TEMP1 = ALPHA*X( J )
-               TEMP2 = ZERO
-               Y( J ) = Y( J ) + TEMP1*A( J, J )
+               TEMP1 = ALPHA*X( J );
+               TEMP2 = ZERO;
+               Y( J ) = Y( J ) + TEMP1*A( J, J );
                for (I = J + 1; I <= N; I++) { // 90
-                  Y( I ) = Y( I ) + TEMP1*A( I, J )
-                  TEMP2 = TEMP2 + A( I, J )*X( I )
+                  Y( I ) = Y( I ) + TEMP1*A( I, J );
+                  TEMP2 = TEMP2 + A( I, J )*X( I );
                } // 90
-               Y( J ) = Y( J ) + ALPHA*TEMP2
+               Y( J ) = Y( J ) + ALPHA*TEMP2;
             } // 100
          } else {
-            JX = KX
-            JY = KY
+            JX = KX;
+            JY = KY;
             for (J = 1; J <= N; J++) { // 120
-               TEMP1 = ALPHA*X( JX )
-               TEMP2 = ZERO
-               Y( JY ) = Y( JY ) + TEMP1*A( J, J )
-               IX = JX
-               IY = JY
+               TEMP1 = ALPHA*X( JX );
+               TEMP2 = ZERO;
+               Y( JY ) = Y( JY ) + TEMP1*A( J, J );
+               IX = JX;
+               IY = JY;
                for (I = J + 1; I <= N; I++) { // 110
-                  IX = IX + INCX
-                  IY = IY + INCY
-                  Y( IY ) = Y( IY ) + TEMP1*A( I, J )
-                  TEMP2 = TEMP2 + A( I, J )*X( IX )
+                  IX = IX + INCX;
+                  IY = IY + INCY;
+                  Y( IY ) = Y( IY ) + TEMP1*A( I, J );
+                  TEMP2 = TEMP2 + A( I, J )*X( IX );
                } // 110
-               Y( JY ) = Y( JY ) + ALPHA*TEMP2
-               JX = JX + INCX
-               JY = JY + INCY
+               Y( JY ) = Y( JY ) + ALPHA*TEMP2;
+               JX = JX + INCX;
+               JY = JY + INCY;
             } // 120
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZSYMV
 

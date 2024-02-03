@@ -1,4 +1,4 @@
-      REAL             FUNCTION SQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK )
+      REAL             FUNCTION SQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,24 +9,24 @@
       // ..
       // .. Array Arguments ..
       int                JPVT( * );
-      REAL               A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J;
-      REAL               NORMA
+      REAL               NORMA;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 )
+      REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE
+      REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
@@ -37,27 +37,27 @@
       // ..
       // .. Executable Statements ..
 
-      SQPT01 = ZERO
+      SQPT01 = ZERO;
 
       // Test if there is enough workspace
 
       if ( LWORK < M*N+N ) {
          xerbla('SQPT01', 10 );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (M <= 0 || N <= 0) RETURN;
 
-      NORMA = SLANGE( 'One-norm', M, N, A, LDA, RWORK )
+      NORMA = SLANGE( 'One-norm', M, N, A, LDA, RWORK );
 
       for (J = 1; J <= K; J++) {
-         DO I = 1, MIN( J, M )
-            WORK( ( J-1 )*M+I ) = AF( I, J )
+         DO I = 1, MIN( J, M );
+            WORK( ( J-1 )*M+I ) = AF( I, J );
          }
          for (I = J + 1; I <= M; I++) {
-            WORK( ( J-1 )*M+I ) = ZERO
+            WORK( ( J-1 )*M+I ) = ZERO;
          }
       }
       for (J = K + 1; J <= N; J++) {
@@ -73,9 +73,9 @@
          saxpy(M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 );
       }
 
-      SQPT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) SQPT01 = SQPT01 / NORMA
+      SQPT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) SQPT01 = SQPT01 / NORMA;
 
-      RETURN
+      RETURN;
 
       // End of SQPT01
 

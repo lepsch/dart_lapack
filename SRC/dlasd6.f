@@ -1,4 +1,4 @@
-      SUBROUTINE DLASD6( ICOMPQ, NL, NR, SQRE, D, VF, VL, ALPHA, BETA, IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, IWORK, INFO )
+      SUBROUTINE DLASD6( ICOMPQ, NL, NR, SQRE, D, VF, VL, ALPHA, BETA, IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, IWORK, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -33,53 +33,53 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      N = NL + NR + 1
-      M = N + SQRE
+      INFO = 0;
+      N = NL + NR + 1;
+      M = N + SQRE;
 
       if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NL < 1 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NR < 1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDGCOL < N ) {
-         INFO = -14
+         INFO = -14;
       } else if ( LDGNUM < N ) {
-         INFO = -16
+         INFO = -16;
       }
       if ( INFO != 0 ) {
          xerbla('DLASD6', -INFO );
-         RETURN
+         RETURN;
       }
 
       // The following values are for bookkeeping purposes only.  They are
       // integer pointers which indicate the portion of the workspace
       // used by a particular array in DLASD7 and DLASD8.
 
-      ISIGMA = 1
-      IW = ISIGMA + N
-      IVFW = IW + M
-      IVLW = IVFW + M
+      ISIGMA = 1;
+      IW = ISIGMA + N;
+      IVFW = IW + M;
+      IVLW = IVFW + M;
 
-      IDX = 1
-      IDXC = IDX + N
-      IDXP = IDXC + N
+      IDX = 1;
+      IDXC = IDX + N;
+      IDXP = IDXC + N;
 
       // Scale.
 
-      ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) )
-      D( NL+1 ) = ZERO
+      ORGNRM = MAX( ABS( ALPHA ), ABS( BETA ) );
+      D( NL+1 ) = ZERO;
       for (I = 1; I <= N; I++) { // 10
          if ( ABS( D( I ) ) > ORGNRM ) {
-            ORGNRM = ABS( D( I ) )
+            ORGNRM = ABS( D( I ) );
          }
       } // 10
       dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
-      ALPHA = ALPHA / ORGNRM
-      BETA = BETA / ORGNRM
+      ALPHA = ALPHA / ORGNRM;
+      BETA = BETA / ORGNRM;
 
       // Sort and Deflate singular values.
 
@@ -92,7 +92,7 @@
       // Report the possible convergence failure.
 
       if ( INFO != 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Save the poles if ICOMPQ = 1.
@@ -108,11 +108,11 @@
 
       // Prepare the IDXQ sorting permutation.
 
-      N1 = K
-      N2 = N - K
+      N1 = K;
+      N2 = N - K;
       dlamrg(N1, N2, D, 1, -1, IDXQ );
 
-      RETURN
+      RETURN;
 
       // End of DLASD6
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, W, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE ZHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, W, Z, LDZ, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       String             COMPZ, JOB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -30,13 +30,13 @@
       // .    deflation window.  ====
       int                NL;
       const              NL = 49 ;
-      COMPLEX*16         ZERO, ONE
+      COMPLEX*16         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         HL( NL, NL ), WORKL( NL )
+      COMPLEX*16         HL( NL, NL ), WORKL( NL );
       // ..
       // .. Local Scalars ..
       int                KBOT, NMIN;
@@ -57,29 +57,29 @@
 
       // ==== Decode and check the input parameters. ====
 
-      WANTT = LSAME( JOB, 'S' )
-      INITZ = LSAME( COMPZ, 'I' )
-      WANTZ = INITZ || LSAME( COMPZ, 'V' )
-      WORK( 1 ) = DCMPLX( DBLE( MAX( 1, N ) ), RZERO )
-      LQUERY = LWORK == -1
+      WANTT = LSAME( JOB, 'S' );
+      INITZ = LSAME( COMPZ, 'I' );
+      WANTZ = INITZ || LSAME( COMPZ, 'V' );
+      WORK( 1 ) = DCMPLX( DBLE( MAX( 1, N ) ), RZERO );
+      LQUERY = LWORK == -1;
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( JOB, 'E' ) && !WANTT ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDH < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < MAX( 1, N ) ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
-         INFO = -12
+         INFO = -12;
       }
 
       if ( INFO != 0 ) {
@@ -87,13 +87,13 @@
          // ==== Quick return in case of invalid argument. ====
 
          xerbla('ZHSEQR', -INFO );
-         RETURN
+         RETURN;
 
       } else if ( N == 0 ) {
 
          // ==== Quick return in case N = 0; nothing to do. ====
 
-         RETURN
+         RETURN;
 
       } else if ( LQUERY ) {
 
@@ -102,8 +102,8 @@
          zlaqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK( 1 ) = DCMPLX( MAX( DBLE( WORK( 1 ) ), DBLE( MAX( 1, N ) ) ), RZERO )
-         RETURN
+         WORK( 1 ) = DCMPLX( MAX( DBLE( WORK( 1 ) ), DBLE( MAX( 1, N ) ) ), RZERO );
+         RETURN;
 
       } else {
 
@@ -118,14 +118,14 @@
          // ==== Quick return if possible ====
 
          if ( ILO == IHI ) {
-            W( ILO ) = H( ILO, ILO )
-            RETURN
+            W( ILO ) = H( ILO, ILO );
+            RETURN;
          }
 
          // ==== ZLAHQR/ZLAQR0 crossover point ====
 
-         NMIN = ILAENV( 12, 'ZHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK )
-         NMIN = MAX( NTINY, NMIN )
+         NMIN = ILAENV( 12, 'ZHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK );
+         NMIN = MAX( NTINY, NMIN );
 
          // ==== ZLAQR0 for big matrices; ZLAHQR for small ones ====
 
@@ -142,7 +142,7 @@
                // ==== A rare ZLAHQR failure!  ZLAQR0 sometimes succeeds
                // .    when ZLAHQR fails. ====
 
-               KBOT = INFO
+               KBOT = INFO;
 
                if ( N >= NL ) {
 
@@ -159,7 +159,7 @@
                   // .    array before calling ZLAQR0. ====
 
                   zlacpy('A', N, N, H, LDH, HL, NL );
-                  HL( N+1, N ) = ZERO
+                  HL( N+1, N ) = ZERO;
                   zlaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
                   zlaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT || INFO != 0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH );
                }
@@ -168,12 +168,12 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT || INFO != 0 ) && N > 2 ) CALL ZLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT || INFO != 0 ) && N > 2 ) CALL ZLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK( 1 ) = DCMPLX( MAX( DBLE( MAX( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO )
+         WORK( 1 ) = DCMPLX( MAX( DBLE( MAX( 1, N ) ), DBLE( WORK( 1 ) ) ), RZERO );
       }
 
       // ==== End of ZHSEQR ====

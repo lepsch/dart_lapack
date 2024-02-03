@@ -24,19 +24,19 @@
 
       // Quick test for the common case where one corner is non-zero.
       if ( M == 0 ) {
-         ILADLR = M
+         ILADLR = M;
       } else if ( A(M, 1) != ZERO || A(M, N) != ZERO ) {
-         ILADLR = M
+         ILADLR = M;
       } else {
       // Scan up each column tracking the last zero row seen.
-         ILADLR = 0
+         ILADLR = 0;
          for (J = 1; J <= N; J++) {
-            I=M
-            DO WHILE((A(MAX(I,1),J) == ZERO) && (I >= 1))
-               I=I-1
+            I=M;
+            DO WHILE((A(MAX(I,1),J) == ZERO) && (I >= 1));
+               I=I-1;
             }
-            ILADLR = MAX( ILADLR, I )
+            ILADLR = MAX( ILADLR, I );
          }
       }
-      RETURN
+      RETURN;
       }

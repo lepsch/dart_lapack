@@ -1,6 +1,6 @@
-      SUBROUTINE SSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO )
+      SUBROUTINE SSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,13 +11,13 @@
       int                INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), W( * ), WORK( * )
+      REAL               A( LDA, * ), W( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -28,7 +28,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANSY, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, SLANSY, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -41,81 +41,81 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       }
 
       if ( INFO == 0 ) {
-         KD    = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', JOBZ, N, -1, -1, -1 )
-         IB    = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', JOBZ, N, KD, -1, -1 )
-         LHTRD = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
-         LWTRD = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
-         LWMIN = 2*N + LHTRD + LWTRD
-         WORK( 1 )  = LWMIN
+         KD    = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', JOBZ, N, -1, -1, -1 );
+         IB    = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', JOBZ, N, KD, -1, -1 );
+         LHTRD = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
+         LWTRD = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 );
+         LWMIN = 2*N + LHTRD + LWTRD;
+         WORK( 1 )  = LWMIN;
 
          if (LWORK < LWMIN && !LQUERY) INFO = -8;
       }
 
       if ( INFO != 0 ) {
          xerbla('SSYEV_2STAGE ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       if ( N == 1 ) {
-         W( 1 ) = A( 1, 1 )
-         WORK( 1 ) = 2
+         W( 1 ) = A( 1, 1 );
+         WORK( 1 ) = 2;
          if (WANTZ) A( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS    = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN   = SQRT( SMLNUM )
-      RMAX   = SQRT( BIGNUM )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS    = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN   = SQRT( SMLNUM );
+      RMAX   = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = SLANSY( 'M', UPLO, N, A, LDA, WORK )
-      ISCALE = 0
+      ANRM = SLANSY( 'M', UPLO, N, A, LDA, WORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if (ISCALE == 1) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 
-      INDE    = 1
-      INDTAU  = INDE + N
-      INDHOUS = INDTAU + N
-      INDWRK  = INDHOUS + LHTRD
-      LLWORK  = LWORK - INDWRK + 1
+      INDE    = 1;
+      INDTAU  = INDE + N;
+      INDHOUS = INDTAU + N;
+      INDWRK  = INDHOUS + LHTRD;
+      LLWORK  = LWORK - INDWRK + 1;
 
       ssytrd_2stage(JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
@@ -127,7 +127,7 @@
       } else {
          // Not available in this release, and argument checking should not
          // let it getting here
-         RETURN
+         RETURN;
          sorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
          ssteqr(JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
       }
@@ -136,18 +136,18 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN
+      RETURN;
 
       // End of SSYEV_2STAGE
 

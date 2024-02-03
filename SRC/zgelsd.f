@@ -1,4 +1,4 @@
-      SUBROUTINE ZGELSD( M, N, NRHS, A, LDA, B, LDB, S, RCOND, RANK, WORK, LWORK, RWORK, IWORK, INFO )
+      SUBROUTINE ZGELSD( M, N, NRHS, A, LDA, B, LDB, S, RCOND, RANK, WORK, LWORK, RWORK, IWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      COMPLEX*16         CZERO
+      COMPLEX*16         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -42,20 +42,20 @@
 
       // Test the input arguments.
 
-      INFO = 0
-      MINMN = MIN( M, N )
-      MAXMN = MAX( M, N )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      MINMN = MIN( M, N );
+      MAXMN = MAX( M, N );
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, MAXMN ) ) {
-         INFO = -7
+         INFO = -7;
       }
 
       // Compute workspace.
@@ -66,132 +66,132 @@
       // following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
-         MINWRK = 1
-         MAXWRK = 1
-         LIWORK = 1
-         LRWORK = 1
+         MINWRK = 1;
+         MAXWRK = 1;
+         LIWORK = 1;
+         LRWORK = 1;
          if ( MINMN > 0 ) {
-            SMLSIZ = ILAENV( 9, 'ZGELSD', ' ', 0, 0, 0, 0 )
-            MNTHR = ILAENV( 6, 'ZGELSD', ' ', M, N, NRHS, -1 )
-            NLVL = MAX( INT( LOG( DBLE( MINMN ) / DBLE( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 )
-            LIWORK = 3*MINMN*NLVL + 11*MINMN
-            MM = M
+            SMLSIZ = ILAENV( 9, 'ZGELSD', ' ', 0, 0, 0, 0 );
+            MNTHR = ILAENV( 6, 'ZGELSD', ' ', M, N, NRHS, -1 );
+            NLVL = MAX( INT( LOG( DBLE( MINMN ) / DBLE( SMLSIZ + 1 ) ) / LOG( TWO ) ) + 1, 0 );
+            LIWORK = 3*MINMN*NLVL + 11*MINMN;
+            MM = M;
             if ( M >= N && M >= MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns.
 
-               MM = N
-               MAXWRK = MAX( MAXWRK, N*ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, NRHS*ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) )
+               MM = N;
+               MAXWRK = MAX( MAXWRK, N*ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, NRHS*ILAENV( 1, 'ZUNMQR', 'LC', M, NRHS, N, -1 ) );
             }
             if ( M >= N ) {
 
                // Path 1 - overdetermined or exactly determined.
 
-               LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = MAX( MAXWRK, 2*N + ( MM + N )*ILAENV( 1, 'ZGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'ZUNMBR', 'PLN', N, NRHS, N, -1 ) )
-               MAXWRK = MAX( MAXWRK, 2*N + N*NRHS )
-               MINWRK = MAX( 2*N + MM, 2*N + N*NRHS )
+               LRWORK = 10*N + 2*N*SMLSIZ + 8*N*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )                MAXWRK = MAX( MAXWRK, 2*N + ( MM + N )*ILAENV( 1, 'ZGEBRD', ' ', MM, N, -1, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', MM, NRHS, N, -1 ) )                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'ZUNMBR', 'PLN', N, NRHS, N, -1 ) );
+               MAXWRK = MAX( MAXWRK, 2*N + N*NRHS );
+               MINWRK = MAX( 2*N + MM, 2*N + N*NRHS );
             }
             if ( N > M ) {
-               LRWORK = 10*M + 2*M*SMLSIZ + 8*M*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS )
+               LRWORK = 10*M + 2*M*SMLSIZ + 8*M*NLVL + 3*SMLSIZ*NRHS + MAX( (SMLSIZ+1)**2, N*(1+NRHS) + 2*NRHS );
                if ( N >= MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
                             // than rows.
 
-                  MAXWRK = M + M*ILAENV( 1, 'ZGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'ZGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) )
+                  MAXWRK = M + M*ILAENV( 1, 'ZGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'ZGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'ZUNMLQ', 'LC', N, NRHS, M, -1 ) );
                   if ( NRHS > 1 ) {
-                     MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
+                     MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS );
                   } else {
-                     MAXWRK = MAX( MAXWRK, M*M + 2*M )
+                     MAXWRK = MAX( MAXWRK, M*M + 2*M );
                   }
-                  MAXWRK = MAX( MAXWRK, M*M + 4*M + M*NRHS )
+                  MAXWRK = MAX( MAXWRK, M*M + 4*M + M*NRHS );
       // XXX: Ensure the Path 2a case below is triggered.  The workspace
       // calculation should use queries for all routines eventually.
-                  MAXWRK = MAX( MAXWRK, 4*M+M*M+MAX( M, 2*M-4, NRHS, N-3*M ) )
+                  MAXWRK = MAX( MAXWRK, 4*M+M*M+MAX( M, 2*M-4, NRHS, N-3*M ) );
                } else {
 
                   // Path 2 - underdetermined.
 
-                  MAXWRK = 2*M + ( N + M )*ILAENV( 1, 'ZGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, 2*M + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, 2*M + M*ILAENV( 1, 'ZUNMBR', 'PLN', N, NRHS, M, -1 ) )
-                  MAXWRK = MAX( MAXWRK, 2*M + M*NRHS )
+                  MAXWRK = 2*M + ( N + M )*ILAENV( 1, 'ZGEBRD', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, 2*M + NRHS*ILAENV( 1, 'ZUNMBR', 'QLC', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, 2*M + M*ILAENV( 1, 'ZUNMBR', 'PLN', N, NRHS, M, -1 ) );
+                  MAXWRK = MAX( MAXWRK, 2*M + M*NRHS );
                }
-               MINWRK = MAX( 2*M + N, 2*M + M*NRHS )
+               MINWRK = MAX( 2*M + N, 2*M + M*NRHS );
             }
          }
-         MINWRK = MIN( MINWRK, MAXWRK )
-         WORK( 1 ) = MAXWRK
-         IWORK( 1 ) = LIWORK
-         RWORK( 1 ) = LRWORK
+         MINWRK = MIN( MINWRK, MAXWRK );
+         WORK( 1 ) = MAXWRK;
+         IWORK( 1 ) = LIWORK;
+         RWORK( 1 ) = LRWORK;
 
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -12
+            INFO = -12;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('ZGELSD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
       if ( M == 0 || N == 0 ) {
-         RANK = 0
-         RETURN
+         RANK = 0;
+         RETURN;
       }
 
       // Get machine parameters.
 
-      EPS = DLAMCH( 'P' )
-      SFMIN = DLAMCH( 'S' )
-      SMLNUM = SFMIN / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SFMIN = DLAMCH( 'S' );
+      SMLNUM = SFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max entry outside range [SMLNUM,BIGNUM].
 
-      ANRM = ZLANGE( 'M', M, N, A, LDA, RWORK )
-      IASCL = 0
+      ANRM = ZLANGE( 'M', M, N, A, LDA, RWORK );
+      IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1
+         IASCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
          zlascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2
+         IASCL = 2;
       } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          zlaset('F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB );
          dlaset('F', MINMN, 1, ZERO, ZERO, S, 1 );
-         RANK = 0
-         GO TO 10
+         RANK = 0;
+         GO TO 10;
       }
 
       // Scale B if max entry outside range [SMLNUM,BIGNUM].
 
-      BNRM = ZLANGE( 'M', M, NRHS, B, LDB, RWORK )
-      IBSCL = 0
+      BNRM = ZLANGE( 'M', M, NRHS, B, LDB, RWORK );
+      IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM.
 
          zlascl('G', 0, 0, BNRM, SMLNUM, M, NRHS, B, LDB, INFO );
-         IBSCL = 1
+         IBSCL = 1;
       } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM.
 
          zlascl('G', 0, 0, BNRM, BIGNUM, M, NRHS, B, LDB, INFO );
-         IBSCL = 2
+         IBSCL = 2;
       }
 
       // If M < N make sure B(M+1:N,:) = 0
@@ -204,14 +204,14 @@
 
          // Path 1 - overdetermined or exactly determined.
 
-         MM = M
+         MM = M;
          if ( M >= MNTHR ) {
 
             // Path 1a - overdetermined, with many more rows than columns
 
-            MM = N
-            ITAU = 1
-            NWORK = ITAU + N
+            MM = N;
+            ITAU = 1;
+            NWORK = ITAU + N;
 
             // Compute A=Q*R.
             // (RWorkspace: need N)
@@ -232,11 +232,11 @@
             }
          }
 
-         ITAUQ = 1
-         ITAUP = ITAUQ + N
-         NWORK = ITAUP + N
-         IE = 1
-         NRWORK = IE + N
+         ITAUQ = 1;
+         ITAUP = ITAUQ + N;
+         NWORK = ITAUP + N;
+         IE = 1;
+         NRWORK = IE + N;
 
          // Bidiagonalize R in A.
          // (RWorkspace: need N)
@@ -253,7 +253,7 @@
 
          zlalsd('U', SMLSIZ, N, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO );
          if ( INFO != 0 ) {
-            GO TO 10
+            GO TO 10;
          }
 
          // Multiply B by right bidiagonalizing vectors of R.
@@ -265,26 +265,26 @@
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm.
 
-         LDWORK = M
-         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA
-         ITAU = 1
-         NWORK = M + 1
+         LDWORK = M;
+         IF( LWORK >= MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA;
+         ITAU = 1;
+         NWORK = M + 1;
 
          // Compute A=L*Q.
          // (CWorkspace: need 2*M, prefer M+M*NB)
 
          zgelqf(M, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, INFO );
-         IL = NWORK
+         IL = NWORK;
 
          // Copy L to WORK(IL), zeroing out above its diagonal.
 
          zlacpy('L', M, M, A, LDA, WORK( IL ), LDWORK );
          zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IL+LDWORK ), LDWORK );
-         ITAUQ = IL + LDWORK*M
-         ITAUP = ITAUQ + M
-         NWORK = ITAUP + M
-         IE = 1
-         NRWORK = IE + M
+         ITAUQ = IL + LDWORK*M;
+         ITAUP = ITAUQ + M;
+         NWORK = ITAUP + M;
+         IE = 1;
+         NRWORK = IE + M;
 
          // Bidiagonalize L in WORK(IL).
          // (RWorkspace: need M)
@@ -301,7 +301,7 @@
 
          zlalsd('U', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO );
          if ( INFO != 0 ) {
-            GO TO 10
+            GO TO 10;
          }
 
          // Multiply B by right bidiagonalizing vectors of L.
@@ -311,7 +311,7 @@
          // Zero out below first M rows of B.
 
          zlaset('F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
-         NWORK = ITAU + M
+         NWORK = ITAU + M;
 
          // Multiply transpose(Q) by B.
          // (CWorkspace: need NRHS, prefer NRHS*NB)
@@ -322,11 +322,11 @@
 
          // Path 2 - remaining underdetermined cases.
 
-         ITAUQ = 1
-         ITAUP = ITAUQ + M
-         NWORK = ITAUP + M
-         IE = 1
-         NRWORK = IE + M
+         ITAUQ = 1;
+         ITAUP = ITAUQ + M;
+         NWORK = ITAUP + M;
+         IE = 1;
+         NRWORK = IE + M;
 
          // Bidiagonalize A.
          // (RWorkspace: need M)
@@ -343,7 +343,7 @@
 
          zlalsd('L', SMLSIZ, M, NRHS, S, RWORK( IE ), B, LDB, RCOND, RANK, WORK( NWORK ), RWORK( NRWORK ), IWORK, INFO );
          if ( INFO != 0 ) {
-            GO TO 10
+            GO TO 10;
          }
 
          // Multiply B by right bidiagonalizing vectors of A.
@@ -368,10 +368,10 @@
       }
 
       } // 10
-      WORK( 1 ) = MAXWRK
-      IWORK( 1 ) = LIWORK
-      RWORK( 1 ) = LRWORK
-      RETURN
+      WORK( 1 ) = MAXWRK;
+      IWORK( 1 ) = LIWORK;
+      RWORK( 1 ) = LRWORK;
+      RETURN;
 
       // End of ZGELSD
 

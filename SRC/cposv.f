@@ -1,4 +1,4 @@
-      SUBROUTINE CPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO )
+      SUBROUTINE CPOSV( UPLO, N, NRHS, A, LDA, B, LDB, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, LDA, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * )
+      COMPLEX            A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
@@ -28,21 +28,21 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('CPOSV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Compute the Cholesky factorization A = U**H*U or A = L*L**H.
@@ -55,7 +55,7 @@
          cpotrs(UPLO, N, NRHS, A, LDA, B, LDB, INFO );
 
       }
-      RETURN
+      RETURN;
 
       // End of CPOSV
 

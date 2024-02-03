@@ -1,4 +1,4 @@
-      SUBROUTINE DSPGVX( ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSPGVX( ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,58 +35,58 @@
 
       // Test the input parameters.
 
-      UPPER = LSAME( UPLO, 'U' )
-      WANTZ = LSAME( JOBZ, 'V' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
+      UPPER = LSAME( UPLO, 'U' );
+      WANTZ = LSAME( JOBZ, 'V' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
 
-      INFO = 0
+      INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else {
          if ( VALEIG ) {
             if ( N > 0 && VU <= VL ) {
-               INFO = -9
+               INFO = -9;
             }
          } else if ( INDEIG ) {
             if ( IL < 1 ) {
-               INFO = -10
+               INFO = -10;
             } else if ( IU < MIN( N, IL ) || IU > N ) {
-               INFO = -11
+               INFO = -11;
             }
          }
       }
       if ( INFO == 0 ) {
          if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-            INFO = -16
+            INFO = -16;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DSPGVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if (N == 0) RETURN;
 
       // Form a Cholesky factorization of B.
 
       dpptrf(UPLO, N, BP, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -105,9 +105,9 @@
             // backtransform eigenvectors: x = inv(L)**T*y or inv(U)*y
 
             if ( UPPER ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'T'
+               TRANS = 'T';
             }
 
             for (J = 1; J <= M; J++) { // 10
@@ -120,9 +120,9 @@
             // backtransform eigenvectors: x = L*y or U**T*y
 
             if ( UPPER ) {
-               TRANS = 'T'
+               TRANS = 'T';
             } else {
-               TRANS = 'N'
+               TRANS = 'N';
             }
 
             for (J = 1; J <= M; J++) { // 20
@@ -131,7 +131,7 @@
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DSPGVX
 

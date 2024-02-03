@@ -1,4 +1,4 @@
-      SUBROUTINE DPST01( UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM, PIV, RWORK, RESID, RANK )
+      SUBROUTINE DPST01( UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM, PIV, RWORK, RESID, RANK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,17 +40,17 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS
-         RETURN
+         RESID = ONE / EPS;
+         RETURN;
       }
 
       // Compute the product U'*U, overwriting U.
@@ -60,17 +60,17 @@
          if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 110
                for (I = RANK + 1; I <= J; I++) { // 100
-                  AFAC( I, J ) = ZERO
+                  AFAC( I, J ) = ZERO;
                } // 100
             } // 110
          }
 
-         DO 120 K = N, 1, -1
+         DO 120 K = N, 1, -1;
 
             // Compute the (K,K) element of the result.
 
-            T = DDOT( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 )
-            AFAC( K, K ) = T
+            T = DDOT( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 );
+            AFAC( K, K ) = T;
 
             // Compute the rest of column K.
 
@@ -85,12 +85,12 @@
          if ( RANK < N ) {
             for (J = RANK + 1; J <= N; J++) { // 140
                for (I = J; I <= N; I++) { // 130
-                  AFAC( I, J ) = ZERO
+                  AFAC( I, J ) = ZERO;
                } // 130
             } // 140
          }
 
-         DO 150 K = N, 1, -1
+         DO 150 K = N, 1, -1;
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
 
@@ -98,7 +98,7 @@
 
             // Scale column K by the diagonal element.
 
-            T = AFAC( K, K )
+            T = AFAC( K, K );
             dscal(N-K+1, T, AFAC( K, K ), 1 );
          } // 150
 
@@ -112,9 +112,9 @@
             for (I = 1; I <= N; I++) { // 160
                if ( PIV( I ) <= PIV( J ) ) {
                   if ( I <= J ) {
-                     PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
+                     PERM( PIV( I ), PIV( J ) ) = AFAC( I, J );
                   } else {
-                     PERM( PIV( I ), PIV( J ) ) = AFAC( J, I )
+                     PERM( PIV( I ), PIV( J ) ) = AFAC( J, I );
                   }
                }
             } // 160
@@ -127,9 +127,9 @@
             for (I = 1; I <= N; I++) { // 180
                if ( PIV( I ) >= PIV( J ) ) {
                   if ( I >= J ) {
-                     PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
+                     PERM( PIV( I ), PIV( J ) ) = AFAC( I, J );
                   } else {
-                     PERM( PIV( I ), PIV( J ) ) = AFAC( J, I )
+                     PERM( PIV( I ), PIV( J ) ) = AFAC( J, I );
                   }
                }
             } // 180
@@ -142,13 +142,13 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 210
             for (I = 1; I <= J; I++) { // 200
-               PERM( I, J ) = PERM( I, J ) - A( I, J )
+               PERM( I, J ) = PERM( I, J ) - A( I, J );
             } // 200
          } // 210
       } else {
          for (J = 1; J <= N; J++) { // 230
             for (I = J; I <= N; I++) { // 220
-               PERM( I, J ) = PERM( I, J ) - A( I, J )
+               PERM( I, J ) = PERM( I, J ) - A( I, J );
             } // 220
          } // 230
       }
@@ -156,11 +156,11 @@
       // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or
       // ( P*U'*U*P' - A )/ ( N * norm(A) * EPS ).
 
-      RESID = DLANSY( '1', UPLO, N, PERM, LDAFAC, RWORK )
+      RESID = DLANSY( '1', UPLO, N, PERM, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
+      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of DPST01
 

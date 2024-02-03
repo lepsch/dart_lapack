@@ -1,4 +1,4 @@
-      SUBROUTINE DSTEVD( JOBZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DSTEVD( JOBZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,41 +39,41 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 );
 
-      INFO = 0
-      LIWMIN = 1
-      LWMIN = 1
+      INFO = 0;
+      LIWMIN = 1;
+      LWMIN = 1;
       if ( N > 1 && WANTZ ) {
-         LWMIN = 1 + 4*N + N**2
-         LIWMIN = 3 + 5*N
+         LWMIN = 1 + 4*N + N**2;
+         LIWMIN = 3 + 5*N;
       }
 
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -6
+         INFO = -6;
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = LWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = LWMIN;
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -8
+            INFO = -8;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -10
+            INFO = -10;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('DSTEVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -82,28 +82,28 @@
 
       if ( N == 1 ) {
          if (WANTZ) Z( 1, 1 ) = ONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ISCALE = 0
-      TNRM = DLANST( 'M', N, D, E )
+      ISCALE = 0;
+      TNRM = DLANST( 'M', N, D, E );
       if ( TNRM > ZERO && TNRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / TNRM
+         ISCALE = 1;
+         SIGMA = RMIN / TNRM;
       } else if ( TNRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / TNRM
+         ISCALE = 1;
+         SIGMA = RMAX / TNRM;
       }
       if ( ISCALE == 1 ) {
          dscal(N, SIGMA, D, 1 );
@@ -123,10 +123,10 @@
 
       if (ISCALE == 1) CALL DSCAL( N, ONE / SIGMA, D, 1 );
 
-      WORK( 1 ) = LWMIN
-      IWORK( 1 ) = LIWMIN
+      WORK( 1 ) = LWMIN;
+      IWORK( 1 ) = LIWMIN;
 
-      RETURN
+      RETURN;
 
       // End of DSTEVD
 

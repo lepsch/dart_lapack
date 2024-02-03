@@ -1,24 +1,24 @@
-      REAL             FUNCTION SGET06( RCOND, RCONDC )
+      REAL             FUNCTION SGET06( RCOND, RCONDC );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               RCOND, RCONDC
+      REAL               RCOND, RCONDC;
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      REAL               EPS, RAT
+      REAL               EPS, RAT;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -26,22 +26,22 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = SLAMCH( 'Epsilon' )
+      EPS = SLAMCH( 'Epsilon' );
       if ( RCOND > ZERO ) {
          if ( RCONDC > ZERO ) {
-            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS )
+            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS );
          } else {
-            RAT = RCOND / EPS
+            RAT = RCOND / EPS;
          }
       } else {
          if ( RCONDC > ZERO ) {
-            RAT = RCONDC / EPS
+            RAT = RCONDC / EPS;
          } else {
-            RAT = ZERO
+            RAT = ZERO;
          }
       }
-      SGET06 = RAT
-      RETURN
+      SGET06 = RAT;
+      RETURN;
 
       // End of SGET06
 

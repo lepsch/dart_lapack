@@ -1,4 +1,4 @@
-      REAL             FUNCTION SCSUM1( N, CX, INCX )
+      REAL             FUNCTION SCSUM1( N, CX, INCX );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +8,14 @@
       int                INCX, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            CX( * )
+      COMPLEX            CX( * );
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
       int                I, NINCX;
-      REAL               STEMP
+      REAL               STEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -28,15 +28,15 @@
 
       // CODE FOR INCREMENT NOT EQUAL TO 1
 
-      NINCX = N*INCX
-      DO 10 I = 1, NINCX, INCX
+      NINCX = N*INCX;
+      DO 10 I = 1, NINCX, INCX;
 
          // NEXT LINE MODIFIED.
 
-         STEMP = STEMP + ABS( CX( I ) )
+         STEMP = STEMP + ABS( CX( I ) );
       } // 10
-      SCSUM1 = STEMP
-      RETURN
+      SCSUM1 = STEMP;
+      RETURN;
 
       // CODE FOR INCREMENT EQUAL TO 1
 
@@ -45,10 +45,10 @@
 
          // NEXT LINE MODIFIED.
 
-         STEMP = STEMP + ABS( CX( I ) )
+         STEMP = STEMP + ABS( CX( I ) );
       } // 30
-      SCSUM1 = STEMP
-      RETURN
+      SCSUM1 = STEMP;
+      RETURN;
 
       // End of SCSUM1
 

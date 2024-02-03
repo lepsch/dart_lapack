@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+      SUBROUTINE ZHETRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,20 +10,20 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE
+      COMPLEX*16         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KP;
       double             S;
-      COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM
+      COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -37,22 +37,22 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NRHS < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('ZHETRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -68,7 +68,7 @@
          // K is the main loop index, decreasing from N to 1 in steps of
          // 1 or 2, depending on the size of the diagonal blocks.
 
-         K = N
+         K = N;
          } // 10
 
          // If K < 1, exit from loop.
@@ -81,7 +81,7 @@
 
             // Interchange rows K and IPIV(K).
 
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
@@ -91,16 +91,16 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            S = DBLE( ONE ) / DBLE( A( K, K ) )
+            S = DBLE( ONE ) / DBLE( A( K, K ) );
             zdscal(NRHS, S, B( K, 1 ), LDB );
-            K = K - 1
+            K = K - 1;
          } else {
 
             // 2 x 2 diagonal block
 
             // Interchange rows K-1 and -IPIV(K).
 
-            KP = -IPIV( K )
+            KP = -IPIV( K );
             if (KP != K-1) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
@@ -111,20 +111,20 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            AKM1K = A( K-1, K )
-            AKM1 = A( K-1, K-1 ) / AKM1K
-            AK = A( K, K ) / DCONJG( AKM1K )
-            DENOM = AKM1*AK - ONE
+            AKM1K = A( K-1, K );
+            AKM1 = A( K-1, K-1 ) / AKM1K;
+            AK = A( K, K ) / DCONJG( AKM1K );
+            DENOM = AKM1*AK - ONE;
             for (J = 1; J <= NRHS; J++) { // 20
-               BKM1 = B( K-1, J ) / AKM1K
-               BK = B( K, J ) / DCONJG( AKM1K )
-               B( K-1, J ) = ( AK*BKM1-BK ) / DENOM
-               B( K, J ) = ( AKM1*BK-BKM1 ) / DENOM
+               BKM1 = B( K-1, J ) / AKM1K;
+               BK = B( K, J ) / DCONJG( AKM1K );
+               B( K-1, J ) = ( AK*BKM1-BK ) / DENOM;
+               B( K, J ) = ( AKM1*BK-BKM1 ) / DENOM;
             } // 20
-            K = K - 2
+            K = K - 2;
          }
 
-         GO TO 10
+         GO TO 10;
          } // 30
 
          // Next solve U**H *X = B, overwriting B with X.
@@ -132,7 +132,7 @@
          // K is the main loop index, increasing from 1 to N in steps of
          // 1 or 2, depending on the size of the diagonal blocks.
 
-         K = 1
+         K = 1;
          } // 40
 
          // If K > N, exit from loop.
@@ -154,9 +154,9 @@
 
             // Interchange rows K and IPIV(K).
 
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K + 1
+            K = K + 1;
          } else {
 
             // 2 x 2 diagonal block
@@ -176,12 +176,12 @@
 
             // Interchange rows K and -IPIV(K).
 
-            KP = -IPIV( K )
+            KP = -IPIV( K );
             if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K + 2
+            K = K + 2;
          }
 
-         GO TO 40
+         GO TO 40;
          } // 50
 
       } else {
@@ -193,7 +193,7 @@
          // K is the main loop index, increasing from 1 to N in steps of
          // 1 or 2, depending on the size of the diagonal blocks.
 
-         K = 1
+         K = 1;
          } // 60
 
          // If K > N, exit from loop.
@@ -206,7 +206,7 @@
 
             // Interchange rows K and IPIV(K).
 
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
@@ -216,16 +216,16 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            S = DBLE( ONE ) / DBLE( A( K, K ) )
+            S = DBLE( ONE ) / DBLE( A( K, K ) );
             zdscal(NRHS, S, B( K, 1 ), LDB );
-            K = K + 1
+            K = K + 1;
          } else {
 
             // 2 x 2 diagonal block
 
             // Interchange rows K+1 and -IPIV(K).
 
-            KP = -IPIV( K )
+            KP = -IPIV( K );
             if (KP != K+1) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
@@ -238,20 +238,20 @@
 
             // Multiply by the inverse of the diagonal block.
 
-            AKM1K = A( K+1, K )
-            AKM1 = A( K, K ) / DCONJG( AKM1K )
-            AK = A( K+1, K+1 ) / AKM1K
-            DENOM = AKM1*AK - ONE
+            AKM1K = A( K+1, K );
+            AKM1 = A( K, K ) / DCONJG( AKM1K );
+            AK = A( K+1, K+1 ) / AKM1K;
+            DENOM = AKM1*AK - ONE;
             for (J = 1; J <= NRHS; J++) { // 70
-               BKM1 = B( K, J ) / DCONJG( AKM1K )
-               BK = B( K+1, J ) / AKM1K
-               B( K, J ) = ( AK*BKM1-BK ) / DENOM
-               B( K+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
+               BKM1 = B( K, J ) / DCONJG( AKM1K );
+               BK = B( K+1, J ) / AKM1K;
+               B( K, J ) = ( AK*BKM1-BK ) / DENOM;
+               B( K+1, J ) = ( AKM1*BK-BKM1 ) / DENOM;
             } // 70
-            K = K + 2
+            K = K + 2;
          }
 
-         GO TO 60
+         GO TO 60;
          } // 80
 
          // Next solve L**H *X = B, overwriting B with X.
@@ -259,7 +259,7 @@
          // K is the main loop index, decreasing from N to 1 in steps of
          // 1 or 2, depending on the size of the diagonal blocks.
 
-         K = N
+         K = N;
          } // 90
 
          // If K < 1, exit from loop.
@@ -281,9 +281,9 @@
 
             // Interchange rows K and IPIV(K).
 
-            KP = IPIV( K )
+            KP = IPIV( K );
             if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K - 1
+            K = K - 1;
          } else {
 
             // 2 x 2 diagonal block
@@ -303,16 +303,16 @@
 
             // Interchange rows K and -IPIV(K).
 
-            KP = -IPIV( K )
+            KP = -IPIV( K );
             if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
-            K = K - 2
+            K = K - 2;
          }
 
-         GO TO 90
+         GO TO 90;
          } // 100
       }
 
-      RETURN
+      RETURN;
 
       // End of ZHETRS
 

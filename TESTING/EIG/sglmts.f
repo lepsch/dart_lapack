@@ -1,4 +1,4 @@
-      SUBROUTINE SGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE SGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,23 +6,23 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDB, LWORK, M, P, N;
-      REAL               RESULT
+      REAL               RESULT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RWORK( * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * )
+      REAL               A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), RWORK( * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
 
 *  ====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                INFO;
-      REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL
+      REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE
+      REAL               SASUM, SLAMCH, SLANGE;
       // EXTERNAL SASUM, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..
@@ -33,10 +33,10 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = SLAMCH( 'Epsilon' )
-      UNFL = SLAMCH( 'Safe minimum' )
-      ANORM = MAX( SLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( SLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      EPS = SLAMCH( 'Epsilon' );
+      UNFL = SLAMCH( 'Safe minimum' );
+      ANORM = MAX( SLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( SLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
@@ -60,17 +60,17 @@
 
       sgemv('No transpose', N, P, -ONE, B, LDB, U, 1, ONE, DF, 1 );
 
-      DNORM = SASUM( N, DF, 1 )
-      XNORM = SASUM( M, X, 1 ) + SASUM( P, U, 1 )
-      YNORM = ANORM + BNORM
+      DNORM = SASUM( N, DF, 1 );
+      XNORM = SASUM( M, X, 1 ) + SASUM( P, U, 1 );
+      YNORM = ANORM + BNORM;
 
       if ( XNORM <= ZERO ) {
-         RESULT = ZERO
+         RESULT = ZERO;
       } else {
-         RESULT =  ( ( DNORM / YNORM ) / XNORM ) /EPS
+         RESULT =  ( ( DNORM / YNORM ) / XNORM ) /EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of SGLMTS
 

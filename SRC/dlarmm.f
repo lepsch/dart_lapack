@@ -1,5 +1,5 @@
       double           FUNCTION DLARMM( ANORM, BNORM, CNORM );
-      IMPLICIT NONE
+      IMPLICIT NONE;
       // .. Scalar Arguments ..
       double             ANORM, BNORM, CNORM;
       // .. Parameters ..
@@ -18,22 +18,22 @@
 
       // Determine machine dependent parameters to control overflow.
 
-      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
-      BIGNUM = ( ONE / SMLNUM ) / FOUR
+      SMLNUM = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' );
+      BIGNUM = ( ONE / SMLNUM ) / FOUR;
 
       // Compute a scale factor.
 
-      DLARMM = ONE
+      DLARMM = ONE;
       if ( BNORM <= ONE ) {
          if ( ANORM * BNORM > BIGNUM - CNORM ) {
-            DLARMM = HALF
+            DLARMM = HALF;
          }
       } else {
          if ( ANORM > (BIGNUM - CNORM) / BNORM ) {
-            DLARMM = HALF / BNORM
+            DLARMM = HALF / BNORM;
          }
       }
-      RETURN
+      RETURN;
 
       // ==== End of DLARMM ====
 

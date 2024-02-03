@@ -1,4 +1,4 @@
-      SUBROUTINE ZTPQRT2( M, N, L, A, LDA, B, LDB, T, LDT, INFO )
+      SUBROUTINE ZTPQRT2( M, N, L, A, LDA, B, LDB, T, LDT, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,18 +8,18 @@
       int       INFO, LDA, LDB, LDT, N, M, L;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * )
+      COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16  ONE, ZERO
+      COMPLEX*16  ONE, ZERO;
       const    ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int       I, J, P, MP, NP;
-      COMPLEX*16   ALPHA
+      COMPLEX*16   ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLARFG, ZGEMV, ZGERC, ZTRMV, XERBLA
@@ -31,23 +31,23 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( L < 0 || L > MIN(M,N) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < MAX( 1, M ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       }
       if ( INFO != 0 ) {
          xerbla('ZTPQRT2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -58,22 +58,22 @@
 
          // Generate elementary reflector H(I) to annihilate B(:,I)
 
-         P = M-L+MIN( L, I )
+         P = M-L+MIN( L, I );
          zlarfg(P+1, A( I, I ), B( 1, I ), 1, T( I, 1 ) );
          if ( I < N ) {
 
             // W(1:N-I) := C(I:M,I+1:N)**H * C(I:M,I) [use W = T(:,N)]
 
             for (J = 1; J <= N-I; J++) {
-               T( J, N ) = CONJG(A( I, I+J ))
+               T( J, N ) = CONJG(A( I, I+J ));
             }
             zgemv('C', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 );
 
             // C(I:M,I+1:N) = C(I:m,I+1:N) + alpha*C(I:M,I)*W(1:N-1)**H
 
-            ALPHA = -CONJG(T( I, 1 ))
+            ALPHA = -CONJG(T( I, 1 ));
             for (J = 1; J <= N-I; J++) {
-               A( I, I+J ) = A( I, I+J ) + ALPHA*CONJG(T( J, N ))
+               A( I, I+J ) = A( I, I+J ) + ALPHA*CONJG(T( J, N ));
             }
             zgerc(P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB );
          }
@@ -83,19 +83,19 @@
 
          // T(1:I-1,I) := C(I:M,1:I-1)**H * (alpha * C(I:M,I))
 
-         ALPHA = -T( I, 1 )
+         ALPHA = -T( I, 1 );
 
          for (J = 1; J <= I-1; J++) {
-            T( J, I ) = ZERO
+            T( J, I ) = ZERO;
          }
-         P = MIN( I-1, L )
-         MP = MIN( M-L+1, M )
-         NP = MIN( P+1, N )
+         P = MIN( I-1, L );
+         MP = MIN( M-L+1, M );
+         NP = MIN( P+1, N );
 
          // Triangular part of B2
 
          for (J = 1; J <= P; J++) {
-            T( J, I ) = ALPHA*B( M-L+J, I )
+            T( J, I ) = ALPHA*B( M-L+J, I );
          }
          ztrmv('U', 'C', 'N', P, B( MP, 1 ), LDB, T( 1, I ), 1 );
 
@@ -113,8 +113,8 @@
 
          // T(I,I) = tau(I)
 
-         T( I, I ) = T( I, 1 )
-         T( I, 1 ) = ZERO
+         T( I, I ) = T( I, 1 );
+         T( I, 1 ) = ZERO;
       }
 
 

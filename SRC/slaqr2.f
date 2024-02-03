@@ -1,4 +1,4 @@
-      SUBROUTINE SLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SR, SI, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK )
+      SUBROUTINE SLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SR, SI, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,12 +9,12 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      REAL               H( LDH, * ), SI( * ), SR( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * )
+      REAL               H( LDH, * ), SI( * ), SR( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
       // ..
 
 *  ================================================================
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -23,7 +23,7 @@
       bool               BULGE, SORTED;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SROUNDUP_LWORK
+      REAL               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -36,74 +36,74 @@
 
       // ==== Estimate optimal workspace. ====
 
-      JW = MIN( NW, KBOT-KTOP+1 )
+      JW = MIN( NW, KBOT-KTOP+1 );
       if ( JW <= 2 ) {
-         LWKOPT = 1
+         LWKOPT = 1;
       } else {
 
          // ==== Workspace query call to SGEHRD ====
 
          sgehrd(JW, 1, JW-1, T, LDT, WORK, WORK, -1, INFO );
-         LWK1 = INT( WORK( 1 ) )
+         LWK1 = INT( WORK( 1 ) );
 
          // ==== Workspace query call to SORMHR ====
 
          sormhr('R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO );
-         LWK2 = INT( WORK( 1 ) )
+         LWK2 = INT( WORK( 1 ) );
 
          // ==== Optimal workspace ====
 
-         LWKOPT = JW + MAX( LWK1, LWK2 )
+         LWKOPT = JW + MAX( LWK1, LWK2 );
       }
 
       // ==== Quick return in case of workspace query. ====
 
       if ( LWORK == -1 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
+         RETURN;
       }
 
       // ==== Nothing to do ...
       // ... for an empty active block ... ====
-      NS = 0
-      ND = 0
-      WORK( 1 ) = ONE
+      NS = 0;
+      ND = 0;
+      WORK( 1 ) = ONE;
       if (KTOP > KBOT) RETURN;
       // ... nor for an empty deflation window. ====
       if (NW < 1) RETURN;
 
       // ==== Machine constants ====
 
-      SAFMIN = SLAMCH( 'SAFE MINIMUM' )
-      SAFMAX = ONE / SAFMIN
-      ULP = SLAMCH( 'PRECISION' )
-      SMLNUM = SAFMIN*( REAL( N ) / ULP )
+      SAFMIN = SLAMCH( 'SAFE MINIMUM' );
+      SAFMAX = ONE / SAFMIN;
+      ULP = SLAMCH( 'PRECISION' );
+      SMLNUM = SAFMIN*( REAL( N ) / ULP );
 
       // ==== Setup deflation window ====
 
-      JW = MIN( NW, KBOT-KTOP+1 )
-      KWTOP = KBOT - JW + 1
+      JW = MIN( NW, KBOT-KTOP+1 );
+      KWTOP = KBOT - JW + 1;
       if ( KWTOP == KTOP ) {
-         S = ZERO
+         S = ZERO;
       } else {
-         S = H( KWTOP, KWTOP-1 )
+         S = H( KWTOP, KWTOP-1 );
       }
 
       if ( KBOT == KWTOP ) {
 
          // ==== 1-by-1 deflation window: not much to do ====
 
-         SR( KWTOP ) = H( KWTOP, KWTOP )
-         SI( KWTOP ) = ZERO
-         NS = 1
-         ND = 0
+         SR( KWTOP ) = H( KWTOP, KWTOP );
+         SI( KWTOP ) = ZERO;
+         NS = 1;
+         ND = 0;
          if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
-            NS = 0
-            ND = 1
+            NS = 0;
+            ND = 1;
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
          }
-         WORK( 1 ) = ONE
-         RETURN
+         WORK( 1 ) = ONE;
+         RETURN;
       }
 
       // ==== Convert to spike-triangular form.  (In case of a
@@ -121,21 +121,21 @@
       // ==== STREXC needs a clean margin near the diagonal ====
 
       for (J = 1; J <= JW - 3; J++) { // 10
-         T( J+2, J ) = ZERO
-         T( J+3, J ) = ZERO
+         T( J+2, J ) = ZERO;
+         T( J+3, J ) = ZERO;
       } // 10
       if (JW > 2) T( JW, JW-2 ) = ZERO;
 
       // ==== Deflation detection loop ====
 
-      NS = JW
-      ILST = INFQR + 1
+      NS = JW;
+      ILST = INFQR + 1;
       } // 20
       if ( ILST <= NS ) {
          if ( NS == 1 ) {
             BULGE = false;
          } else {
-            BULGE = T( NS, NS-1 ) != ZERO
+            BULGE = T( NS, NS-1 ) != ZERO;
          }
 
          // ==== Small spike tip test for deflation ====
@@ -144,46 +144,46 @@
 
             // ==== Real eigenvalue ====
 
-            FOO = ABS( T( NS, NS ) )
+            FOO = ABS( T( NS, NS ) );
             if (FOO == ZERO) FOO = ABS( S );
             if ( ABS( S*V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
 
-               NS = NS - 1
+               NS = NS - 1;
             } else {
 
                // ==== Undeflatable.   Move it up out of the way.
                // .    (STREXC can not fail in this case.) ====
 
-               IFST = NS
+               IFST = NS;
                strexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
-               ILST = ILST + 1
+               ILST = ILST + 1;
             }
          } else {
 
             // ==== Complex conjugate pair ====
 
-            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ) <= MAX( SMLNUM, ULP*FOO ) ) THEN
+            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ) <= MAX( SMLNUM, ULP*FOO ) ) THEN;
 
                // ==== Deflatable ====
 
-               NS = NS - 2
+               NS = NS - 2;
             } else {
 
                // ==== Undeflatable. Move them up out of the way.
                // .    Fortunately, STREXC does the right thing with
                // .    ILST in case of a rare exchange failure. ====
 
-               IFST = NS
+               IFST = NS;
                strexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
-               ILST = ILST + 2
+               ILST = ILST + 2;
             }
          }
 
          // ==== End deflation detection loop ====
 
-         GO TO 20
+         GO TO 20;
       }
 
          // ==== Return to Hessenberg form ====
@@ -197,84 +197,84 @@
          // .    exchange failures. ====
 
          SORTED = false;
-         I = NS + 1
+         I = NS + 1;
          } // 30
          if (SORTED) GO TO 50;
          SORTED = true;
 
-         KEND = I - 1
-         I = INFQR + 1
+         KEND = I - 1;
+         I = INFQR + 1;
          if ( I == NS ) {
-            K = I + 1
+            K = I + 1;
          } else if ( T( I+1, I ) == ZERO ) {
-            K = I + 1
+            K = I + 1;
          } else {
-            K = I + 2
+            K = I + 2;
          }
          } // 40
          if ( K <= KEND ) {
             if ( K == I+1 ) {
-               EVI = ABS( T( I, I ) )
+               EVI = ABS( T( I, I ) );
             } else {
-               EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) )
+               EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) );
             }
 
             if ( K == KEND ) {
-               EVK = ABS( T( K, K ) )
+               EVK = ABS( T( K, K ) );
             } else if ( T( K+1, K ) == ZERO ) {
-               EVK = ABS( T( K, K ) )
+               EVK = ABS( T( K, K ) );
             } else {
-               EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) )
+               EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) );
             }
 
             if ( EVI >= EVK ) {
-               I = K
+               I = K;
             } else {
                SORTED = false;
-               IFST = I
-               ILST = K
+               IFST = I;
+               ILST = K;
                strexc('V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO );
                if ( INFO == 0 ) {
-                  I = ILST
+                  I = ILST;
                } else {
-                  I = K
+                  I = K;
                }
             }
             if ( I == KEND ) {
-               K = I + 1
+               K = I + 1;
             } else if ( T( I+1, I ) == ZERO ) {
-               K = I + 1
+               K = I + 1;
             } else {
-               K = I + 2
+               K = I + 2;
             }
-            GO TO 40
+            GO TO 40;
          }
-         GO TO 30
+         GO TO 30;
          } // 50
       }
 
       // ==== Restore shift/eigenvalue array from T ====
 
-      I = JW
+      I = JW;
       } // 60
       if ( I >= INFQR+1 ) {
          if ( I == INFQR+1 ) {
-            SR( KWTOP+I-1 ) = T( I, I )
-            SI( KWTOP+I-1 ) = ZERO
-            I = I - 1
+            SR( KWTOP+I-1 ) = T( I, I );
+            SI( KWTOP+I-1 ) = ZERO;
+            I = I - 1;
          } else if ( T( I, I-1 ) == ZERO ) {
-            SR( KWTOP+I-1 ) = T( I, I )
-            SI( KWTOP+I-1 ) = ZERO
-            I = I - 1
+            SR( KWTOP+I-1 ) = T( I, I );
+            SI( KWTOP+I-1 ) = ZERO;
+            I = I - 1;
          } else {
-            AA = T( I-1, I-1 )
-            CC = T( I, I-1 )
-            BB = T( I-1, I )
-            DD = T( I, I )
+            AA = T( I-1, I-1 );
+            CC = T( I, I-1 );
+            BB = T( I-1, I );
+            DD = T( I, I );
             slanv2(AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN );
-            I = I - 2
+            I = I - 2;
          }
-         GO TO 60
+         GO TO 60;
       }
 
       if ( NS < JW || S == ZERO ) {
@@ -283,9 +283,9 @@
             // ==== Reflect spike back into lower triangle ====
 
             scopy(NS, V, LDV, WORK, 1 );
-            BETA = WORK( 1 )
+            BETA = WORK( 1 );
             slarfg(NS, BETA, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE
+            WORK( 1 ) = ONE;
 
             slaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
@@ -310,12 +310,12 @@
          // ==== Update vertical slab in H ====
 
          if ( WANTT ) {
-            LTOP = 1
+            LTOP = 1;
          } else {
-            LTOP = KTOP
+            LTOP = KTOP;
          }
-         DO 70 KROW = LTOP, KWTOP - 1, NV
-            KLN = MIN( NV, KWTOP-KROW )
+         DO 70 KROW = LTOP, KWTOP - 1, NV;
+            KLN = MIN( NV, KWTOP-KROW );
             sgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             slacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
          } // 70
@@ -323,8 +323,8 @@
          // ==== Update horizontal slab in H ====
 
          if ( WANTT ) {
-            DO 80 KCOL = KBOT + 1, N, NH
-               KLN = MIN( NH, N-KCOL+1 )
+            DO 80 KCOL = KBOT + 1, N, NH;
+               KLN = MIN( NH, N-KCOL+1 );
                sgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
                slacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
             } // 80
@@ -333,8 +333,8 @@
          // ==== Update vertical slab in Z ====
 
          if ( WANTZ ) {
-            DO 90 KROW = ILOZ, IHIZ, NV
-               KLN = MIN( NV, IHIZ-KROW+1 )
+            DO 90 KROW = ILOZ, IHIZ, NV;
+               KLN = MIN( NV, IHIZ-KROW+1 );
                sgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
                slacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
             } // 90
@@ -343,7 +343,7 @@
 
       // ==== Return the number of deflations ... ====
 
-      ND = JW - NS
+      ND = JW - NS;
 
       // ==== ... and the number of shifts. (Subtracting
       // .    INFQR from the spike length takes care
@@ -351,11 +351,11 @@
       // .    calculating eigenvalues of the deflation
       // .    window.)  ====
 
-      NS = NS - INFQR
+      NS = NS - INFQR;
 
        // ==== Return optimal workspace. ====
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
       // ==== End of SLAQR2 ====
 

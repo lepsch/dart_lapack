@@ -1,4 +1,4 @@
-      SUBROUTINE SLARRR( N, D, E, INFO )
+      SUBROUTINE SLARRR( N, D, E, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,24 +8,24 @@
       int                N, INFO;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * )
+      REAL               D( * ), E( * );
       // ..
 
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, RELCOND
+      REAL               ZERO, RELCOND;
       const              ZERO = 0.0, RELCOND = 0.999 ;
       // ..
       // .. Local Scalars ..
       int                I;
       bool               YESREL;
-      REAL               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
+      REAL               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2;
 
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -36,17 +36,17 @@
       // Quick return if possible
 
       if ( N <= 0 ) {
-         INFO = 0
-         RETURN
+         INFO = 0;
+         RETURN;
       }
 
       // As a default, do NOT go for relative-accuracy preserving computations.
-      INFO = 1
+      INFO = 1;
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      RMIN = SQRT( SMLNUM )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      RMIN = SQRT( SMLNUM );
 
       // Tests for relative accuracy
 
@@ -66,25 +66,25 @@
       // instead of the current OFFDIG + OFFDIG2 < 1
 
       YESREL = true;
-      OFFDIG = ZERO
-      TMP = SQRT(ABS(D(1)))
+      OFFDIG = ZERO;
+      TMP = SQRT(ABS(D(1)));
       if (TMP < RMIN) YESREL = false ;
       if ( !YESREL) GOTO 11;
       for (I = 2; I <= N; I++) { // 10
-         TMP2 = SQRT(ABS(D(I)))
+         TMP2 = SQRT(ABS(D(I)));
          if (TMP2 < RMIN) YESREL = false ;
          if ( !YESREL) GOTO 11;
-         OFFDIG2 = ABS(E(I-1))/(TMP*TMP2)
+         OFFDIG2 = ABS(E(I-1))/(TMP*TMP2);
          if (OFFDIG+OFFDIG2 >= RELCOND) YESREL = false ;
          if ( !YESREL) GOTO 11;
-         TMP = TMP2
-         OFFDIG = OFFDIG2
+         TMP = TMP2;
+         OFFDIG = OFFDIG2;
       } // 10
       } // 11
 
       if ( YESREL ) {
-         INFO = 0
-         RETURN
+         INFO = 0;
+         RETURN;
       } else {
       }
 
@@ -107,7 +107,7 @@
 
 
 
-      RETURN
+      RETURN;
 
       // End of SLARRR
 

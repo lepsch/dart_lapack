@@ -1,4 +1,4 @@
-      SUBROUTINE DGEBAL( JOB, N, A, LDA, ILO, IHI, SCALE, INFO )
+      SUBROUTINE DGEBAL( JOB, N, A, LDA, ILO, IHI, SCALE, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -41,62 +41,62 @@
       // ..
       // Test the input parameters
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( JOB, 'N' ) && !LSAME( JOB, 'P' ) && !LSAME( JOB, 'S' ) && !LSAME( JOB, 'B' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('DGEBAL', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick returns.
 
       if ( N == 0 ) {
-         ILO = 1
-         IHI = 0
-         RETURN
+         ILO = 1;
+         IHI = 0;
+         RETURN;
       }
 
       if ( LSAME( JOB, 'N' ) ) {
          for (I = 1; I <= N; I++) {
-            SCALE( I ) = ONE
+            SCALE( I ) = ONE;
          }
-         ILO = 1
-         IHI = N
-         RETURN
+         ILO = 1;
+         IHI = N;
+         RETURN;
       }
 
       // Permutation to isolate eigenvalues if possible.
 
-      K = 1
-      L = N
+      K = 1;
+      L = N;
 
       if ( !LSAME( JOB, 'S' ) ) {
 
          // Row and column exchange.
 
          NOCONV = true;
-         DO WHILE( NOCONV )
+         DO WHILE( NOCONV );
 
             // Search for rows isolating an eigenvalue and push them down.
 
             NOCONV = false;
-            DO I = L, 1, -1
+            DO I = L, 1, -1;
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
                   if ( I != J && A( I, J ) != ZERO ) {
                      CANSWAP = false;
-                     EXIT
+                     EXIT;
                   }
                }
 
                if ( CANSWAP ) {
-                  SCALE( L ) = I
+                  SCALE( L ) = I;
                   if ( I != L ) {
                      dswap(L, A( 1, I ), 1, A( 1, L ), 1 );
                      dswap(N-K+1, A( I, K ), LDA, A( L, K ), LDA );
@@ -104,19 +104,19 @@
                   NOCONV = true;
 
                   if ( L == 1 ) {
-                     ILO = 1
-                     IHI = 1
-                     RETURN
+                     ILO = 1;
+                     IHI = 1;
+                     RETURN;
                   }
 
-                  L = L - 1
+                  L = L - 1;
                }
             }
 
          }
 
          NOCONV = true;
-         DO WHILE( NOCONV )
+         DO WHILE( NOCONV );
 
             // Search for columns isolating an eigenvalue and push them left.
 
@@ -126,19 +126,19 @@
                for (I = K; I <= L; I++) {
                   if ( I != J && A( I, J ) != ZERO ) {
                      CANSWAP = false;
-                     EXIT
+                     EXIT;
                   }
                }
 
                if ( CANSWAP ) {
-                  SCALE( K ) = J
+                  SCALE( K ) = J;
                   if ( J != K ) {
                      dswap(L, A( 1, J ), 1, A( 1, K ), 1 );
                      dswap(N-K+1, A( J, K ), LDA, A( K, K ), LDA );
                   }
                   NOCONV = true;
 
-                  K = K + 1
+                  K = K + 1;
                }
             }
 
@@ -149,38 +149,38 @@
       // Initialize SCALE for non-permuted submatrix.
 
       for (I = K; I <= L; I++) {
-         SCALE( I ) = ONE
+         SCALE( I ) = ONE;
       }
 
       // If we only had to permute, we are done.
 
       if ( LSAME( JOB, 'P' ) ) {
-         ILO = K
-         IHI = L
-         RETURN
+         ILO = K;
+         IHI = L;
+         RETURN;
       }
 
       // Balance the submatrix in rows K to L.
 
       // Iterative loop for norm reduction.
 
-      SFMIN1 = DLAMCH( 'S' ) / DLAMCH( 'P' )
-      SFMAX1 = ONE / SFMIN1
-      SFMIN2 = SFMIN1*SCLFAC
-      SFMAX2 = ONE / SFMIN2
+      SFMIN1 = DLAMCH( 'S' ) / DLAMCH( 'P' );
+      SFMAX1 = ONE / SFMIN1;
+      SFMIN2 = SFMIN1*SCLFAC;
+      SFMAX2 = ONE / SFMIN2;
 
       NOCONV = true;
-      DO WHILE( NOCONV )
+      DO WHILE( NOCONV );
          NOCONV = false;
 
          for (I = K; I <= L; I++) {
 
-            C = DNRM2( L-K+1, A( K, I ), 1 )
-            R = DNRM2( L-K+1, A( I, K ), LDA )
-            ICA = IDAMAX( L, A( 1, I ), 1 )
-            CA = ABS( A( ICA, I ) )
-            IRA = IDAMAX( N-K+1, A( I, K ), LDA )
-            RA = ABS( A( I, IRA+K-1 ) )
+            C = DNRM2( L-K+1, A( K, I ), 1 );
+            R = DNRM2( L-K+1, A( I, K ), LDA );
+            ICA = IDAMAX( L, A( 1, I ), 1 );
+            CA = ABS( A( ICA, I ) );
+            IRA = IDAMAX( N-K+1, A( I, K ), LDA );
+            RA = ABS( A( I, IRA+K-1 ) );
 
             // Guard against zero C or R due to underflow.
 
@@ -189,46 +189,46 @@
             // Exit if NaN to avoid infinite loop
 
             if ( DISNAN( C+CA+R+RA ) ) {
-               INFO = -3
+               INFO = -3;
                xerbla('DGEBAL', -INFO );
-               RETURN
+               RETURN;
             }
 
-            G = R / SCLFAC
-            F = ONE
-            S = C + R
+            G = R / SCLFAC;
+            F = ONE;
+            S = C + R;
 
-            DO WHILE( C < G && MAX( F, C, CA ) < SFMAX2 && MIN( R, G, RA ) > SFMIN2 )
-               F = F*SCLFAC
-               C = C*SCLFAC
-               CA = CA*SCLFAC
-               R = R / SCLFAC
-               G = G / SCLFAC
-               RA = RA / SCLFAC
+            DO WHILE( C < G && MAX( F, C, CA ) < SFMAX2 && MIN( R, G, RA ) > SFMIN2 );
+               F = F*SCLFAC;
+               C = C*SCLFAC;
+               CA = CA*SCLFAC;
+               R = R / SCLFAC;
+               G = G / SCLFAC;
+               RA = RA / SCLFAC;
             }
 
-            G = C / SCLFAC
+            G = C / SCLFAC;
 
-            DO WHILE( G >= R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ) > SFMIN2 )
-               F = F / SCLFAC
-               C = C / SCLFAC
-               G = G / SCLFAC
-               CA = CA / SCLFAC
-               R = R*SCLFAC
-               RA = RA*SCLFAC
+            DO WHILE( G >= R && MAX( R, RA ) < SFMAX2 && MIN( F, C, G, CA ) > SFMIN2 );
+               F = F / SCLFAC;
+               C = C / SCLFAC;
+               G = G / SCLFAC;
+               CA = CA / SCLFAC;
+               R = R*SCLFAC;
+               RA = RA*SCLFAC;
             }
 
             // Now balance.
 
-            IF( ( C+R ) >= FACTOR*S ) CYCLE
+            IF( ( C+R ) >= FACTOR*S ) CYCLE;
             if ( F < ONE && SCALE( I ) < ONE ) {
-               IF( F*SCALE( I ) <= SFMIN1 ) CYCLE
+               IF( F*SCALE( I ) <= SFMIN1 ) CYCLE;
             }
             if ( F > ONE && SCALE( I ) > ONE ) {
-               IF( SCALE( I ) >= SFMAX1 / F ) CYCLE
+               IF( SCALE( I ) >= SFMAX1 / F ) CYCLE;
             }
-            G = ONE / F
-            SCALE( I ) = SCALE( I )*F
+            G = ONE / F;
+            SCALE( I ) = SCALE( I )*F;
             NOCONV = true;
 
             dscal(N-K+1, G, A( I, K ), LDA );
@@ -238,10 +238,10 @@
 
       }
 
-      ILO = K
-      IHI = L
+      ILO = K;
+      IHI = L;
 
-      RETURN
+      RETURN;
 
       // End of DGEBAL
 

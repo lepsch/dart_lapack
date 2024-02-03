@@ -1,4 +1,4 @@
-      SUBROUTINE DTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, S, SEP, MM, M, WORK, LDWORK, IWORK, INFO )
+      SUBROUTINE DTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, S, SEP, MM, M, WORK, LDWORK, IWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -44,32 +44,32 @@
 
       // Decode and test the input parameters
 
-      WANTBH = LSAME( JOB, 'B' )
-      WANTS = LSAME( JOB, 'E' ) || WANTBH
-      WANTSP = LSAME( JOB, 'V' ) || WANTBH
+      WANTBH = LSAME( JOB, 'B' );
+      WANTS = LSAME( JOB, 'E' ) || WANTBH;
+      WANTSP = LSAME( JOB, 'V' ) || WANTBH;
 
-      SOMCON = LSAME( HOWMNY, 'S' )
+      SOMCON = LSAME( HOWMNY, 'S' );
 
-      INFO = 0
+      INFO = 0;
       if ( !WANTS && !WANTSP ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( HOWMNY, 'A' ) && !SOMCON ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDT < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDVL < 1 || ( WANTS && LDVL < N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDVR < 1 || ( WANTS && LDVR < N ) ) {
-         INFO = -10
+         INFO = -10;
       } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
 
          if ( SOMCON ) {
-            M = 0
+            M = 0;
             PAIR = false;
             for (K = 1; K <= N; K++) { // 10
                if ( PAIR ) {
@@ -77,29 +77,29 @@
                } else {
                   if ( K < N ) {
                      if ( T( K+1, K ) == ZERO ) {
-                        IF( SELECT( K ) ) M = M + 1
+                        IF( SELECT( K ) ) M = M + 1;
                      } else {
                         PAIR = true;
-                        IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2
+                        IF( SELECT( K ) || SELECT( K+1 ) ) M = M + 2;
                      }
                   } else {
-                     IF( SELECT( N ) ) M = M + 1
+                     IF( SELECT( N ) ) M = M + 1;
                   }
                }
             } // 10
          } else {
-            M = N
+            M = N;
          }
 
          if ( MM < M ) {
-            INFO = -13
+            INFO = -13;
          } else if ( LDWORK < 1 || ( WANTSP && LDWORK < N ) ) {
-            INFO = -16
+            INFO = -16;
          }
       }
       if ( INFO != 0 ) {
          xerbla('DTRSNA', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -108,19 +108,19 @@
 
       if ( N == 1 ) {
          if ( SOMCON ) {
-            IF( !SELECT( 1 ) ) RETURN
+            IF( !SELECT( 1 ) ) RETURN;
          }
          if (WANTS) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) );
-         RETURN
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
-      KS = 0
+      KS = 0;
       PAIR = false;
       for (K = 1; K <= N; K++) { // 60
 
@@ -128,7 +128,7 @@
 
          if ( PAIR ) {
             PAIR = false;
-            GO TO 60
+            GO TO 60;
          } else {
             if (K < N) PAIR = T( K+1, K ) != ZERO;
          }
@@ -138,13 +138,13 @@
 
          if ( SOMCON ) {
             if ( PAIR ) {
-               IF( !SELECT( K ) && !SELECT( K+1 ) ) GO TO 60
+               IF( !SELECT( K ) && !SELECT( K+1 ) ) GO TO 60;
             } else {
-               IF( !SELECT( K ) ) GO TO 60
+               IF( !SELECT( K ) ) GO TO 60;
             }
          }
 
-         KS = KS + 1
+         KS = KS + 1;
 
          if ( WANTS ) {
 
@@ -155,21 +155,21 @@
 
                // Real eigenvalue.
 
-               PROD = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 )
-               RNRM = DNRM2( N, VR( 1, KS ), 1 )
-               LNRM = DNRM2( N, VL( 1, KS ), 1 )
-               S( KS ) = ABS( PROD ) / ( RNRM*LNRM )
+               PROD = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
+               RNRM = DNRM2( N, VR( 1, KS ), 1 );
+               LNRM = DNRM2( N, VL( 1, KS ), 1 );
+               S( KS ) = ABS( PROD ) / ( RNRM*LNRM );
             } else {
 
                // Complex eigenvalue.
 
-               PROD1 = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 )
-               PROD1 = PROD1 + DDOT( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ), 1 )
-               PROD2 = DDOT( N, VL( 1, KS ), 1, VR( 1, KS+1 ), 1 )
-               PROD2 = PROD2 - DDOT( N, VL( 1, KS+1 ), 1, VR( 1, KS ), 1 )                RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ), DNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ), DNRM2( N, VL( 1, KS+1 ), 1 ) )
-               COND = DLAPY2( PROD1, PROD2 ) / ( RNRM*LNRM )
-               S( KS ) = COND
-               S( KS+1 ) = COND
+               PROD1 = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 );
+               PROD1 = PROD1 + DDOT( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ), 1 );
+               PROD2 = DDOT( N, VL( 1, KS ), 1, VR( 1, KS+1 ), 1 );
+               PROD2 = PROD2 - DDOT( N, VL( 1, KS+1 ), 1, VR( 1, KS ), 1 )                RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ), DNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ), DNRM2( N, VL( 1, KS+1 ), 1 ) );
+               COND = DLAPY2( PROD1, PROD2 ) / ( RNRM*LNRM );
+               S( KS ) = COND;
+               S( KS+1 ) = COND;
             }
          }
 
@@ -182,16 +182,16 @@
             // block beginning at T(k,k) to the (1,1) position.
 
             dlacpy('Full', N, N, T, LDT, WORK, LDWORK );
-            IFST = K
-            ILST = 1
+            IFST = K;
+            ILST = 1;
             dtrexc('No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR );
 
             if ( IERR == 1 || IERR == 2 ) {
 
                // Could not swap because blocks not well separated
 
-               SCALE = ONE
-               EST = BIGNUM
+               SCALE = ONE;
+               EST = BIGNUM;
             } else {
 
                // Reordering successful
@@ -201,10 +201,10 @@
                   // Form C = T22 - lambda*I in WORK(2:N,2:N).
 
                   for (I = 2; I <= N; I++) { // 20
-                     WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
+                     WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 );
                   } // 20
-                  N2 = 1
-                  NN = N - 1
+                  N2 = 1;
+                  NN = N - 1;
                } else {
 
                   // Triangularize the 2 by 2 block by unitary
@@ -215,10 +215,10 @@
                   // position of WORK is the complex eigenvalue lambda
                   // with negative imaginary  part.
 
-                  MU = SQRT( ABS( WORK( 1, 2 ) ) )* SQRT( ABS( WORK( 2, 1 ) ) )
-                  DELTA = DLAPY2( MU, WORK( 2, 1 ) )
-                  CS = MU / DELTA
-                  SN = -WORK( 2, 1 ) / DELTA
+                  MU = SQRT( ABS( WORK( 1, 2 ) ) )* SQRT( ABS( WORK( 2, 1 ) ) );
+                  DELTA = DLAPY2( MU, WORK( 2, 1 ) );
+                  CS = MU / DELTA;
+                  SN = -WORK( 2, 1 ) / DELTA;
 
                   // Form
 
@@ -232,23 +232,23 @@
                   // WORK.
 
                   for (J = 3; J <= N; J++) { // 30
-                     WORK( 2, J ) = CS*WORK( 2, J )
-                     WORK( J, J ) = WORK( J, J ) - WORK( 1, 1 )
+                     WORK( 2, J ) = CS*WORK( 2, J );
+                     WORK( J, J ) = WORK( J, J ) - WORK( 1, 1 );
                   } // 30
-                  WORK( 2, 2 ) = ZERO
+                  WORK( 2, 2 ) = ZERO;
 
-                  WORK( 1, N+1 ) = TWO*MU
+                  WORK( 1, N+1 ) = TWO*MU;
                   for (I = 2; I <= N - 1; I++) { // 40
-                     WORK( I, N+1 ) = SN*WORK( 1, I+1 )
+                     WORK( I, N+1 ) = SN*WORK( 1, I+1 );
                   } // 40
-                  N2 = 2
-                  NN = 2*( N-1 )
+                  N2 = 2;
+                  NN = 2*( N-1 );
                }
 
                // Estimate norm(inv(C**T))
 
-               EST = ZERO
-               KASE = 0
+               EST = ZERO;
+               KASE = 0;
                } // 50
                dlacn2(NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE );
                if ( KASE != 0 ) {
@@ -281,18 +281,18 @@
                      }
                   }
 
-                  GO TO 50
+                  GO TO 50;
                }
             }
 
-            SEP( KS ) = SCALE / MAX( EST, SMLNUM )
+            SEP( KS ) = SCALE / MAX( EST, SMLNUM );
             if (PAIR) SEP( KS+1 ) = SEP( KS );
          }
 
          if (PAIR) KS = KS + 1;
 
       } // 60
-      RETURN
+      RETURN;
 
       // End of DTRSNA
 

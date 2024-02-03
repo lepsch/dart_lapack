@@ -1,5 +1,5 @@
-      SUBROUTINE CLQT05(M,N,L,NB,RESULT)
-      IMPLICIT NONE
+      SUBROUTINE CLQT05(M,N,L,NB,RESULT);
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,53 +8,53 @@
       // .. Scalar Arguments ..
       int     LWORK, M, N, L, NB, LDT;
       // .. Return values ..
-      REAL RESULT(6)
+      REAL RESULT(6);
 
 *  =====================================================================
 
       // ..
       // .. Local allocatable arrays
-      COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
-      REAL, ALLOCATABLE :: RWORK(:)
+      COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
+      REAL, ALLOCATABLE :: RWORK(:);
 
       // .. Parameters ..
-      REAL ZERO
-      COMPLEX       ONE, CZERO
+      REAL ZERO;
+      COMPLEX       ONE, CZERO;
       const    ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int     INFO, J, K, N2, NP1,i;
-      REAL   ANORM, EPS, RESID, CNORM, DNORM
+      REAL   ANORM, EPS, RESID, CNORM, DNORM;
       // ..
       // .. Local Arrays ..
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      REAL SLAMCH
-      REAL CLANGE, CLANSY
+      REAL SLAMCH;
+      REAL CLANGE, CLANSY;
       bool     LSAME;
       // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME
       // ..
       // .. Data statements ..
-      DATA ISEED / 1988, 1989, 1990, 1991 /
+      DATA ISEED / 1988, 1989, 1990, 1991 /;
 
-      EPS = SLAMCH( 'Epsilon' )
-      K = M
-      N2 = M+N
+      EPS = SLAMCH( 'Epsilon' );
+      K = M;
+      N2 = M+N;
       if ( N > 0 ) {
-         NP1 = M+1
+         NP1 = M+1;
       } else {
-         NP1 = 1
+         NP1 = 1;
       }
-      LWORK = N2*N2*NB
+      LWORK = N2*N2*NB;
 
       // Dynamically allocate all arrays
 
-      ALLOCATE(A(M,N2),AF(M,N2),Q(N2,N2),R(N2,N2),RWORK(N2), WORK(LWORK),T(NB,M),C(N2,M),CF(N2,M), D(M,N2),DF(M,N2) )
+      ALLOCATE(A(M,N2),AF(M,N2),Q(N2,N2),R(N2,N2),RWORK(N2), WORK(LWORK),T(NB,M),C(N2,M),CF(N2,M), D(M,N2),DF(M,N2) );
 
       // Put random stuff into A
 
-      LDT=NB
+      LDT=NB;
       claset('Full', M, N2, CZERO, CZERO, A, M );
       claset('Full', NB, M, CZERO, CZERO, T, NB );
       for (J = 1; J <= M; J++) {
@@ -92,20 +92,20 @@
       // Compute |L - A*Q*C| / |A| and store in RESULT(1)
 
       cgemm('N', 'C', M, N2, N2, -ONE,  A, M, Q, N2, ONE, R, N2);
-      ANORM = CLANGE( '1', M, N2, A, M, RWORK )
-      RESID = CLANGE( '1', M, N2, R, N2, RWORK )
+      ANORM = CLANGE( '1', M, N2, A, M, RWORK );
+      RESID = CLANGE( '1', M, N2, R, N2, RWORK );
       if ( ANORM > ZERO ) {
-         RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,N2))
+         RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,N2));
       } else {
-         RESULT( 1 ) = ZERO
+         RESULT( 1 ) = ZERO;
       }
 
       // Compute |I - Q*Q'| and store in RESULT(2)
 
       claset('Full', N2, N2, CZERO, ONE, R, N2 );
       cherk('U', 'N', N2, N2, REAL(-ONE), Q, N2, REAL(ONE), R, N2 );
-      RESID = CLANSY( '1', 'Upper', N2, R, N2, RWORK )
-      RESULT( 2 ) = RESID / (EPS*MAX(1,N2))
+      RESID = CLANSY( '1', 'Upper', N2, R, N2, RWORK );
+      RESULT( 2 ) = RESID / (EPS*MAX(1,N2));
 
       // Generate random m-by-n matrix C and a copy CF
 
@@ -113,7 +113,7 @@
       for (J = 1; J <= M; J++) {
          clarnv(2, ISEED, N2, C( 1, J ) );
       }
-      CNORM = CLANGE( '1', N2, M, C, N2, RWORK)
+      CNORM = CLANGE( '1', N2, M, C, N2, RWORK);
       clacpy('Full', N2, M, C, N2, CF, N2 );
 
       // Apply Q to C as Q*C
@@ -123,11 +123,11 @@
       // Compute |Q*C - Q*C| / |C|
 
       cgemm('N', 'N', N2, M, N2, -ONE, Q, N2, C, N2, ONE, CF, N2 );
-      RESID = CLANGE( '1', N2, M, CF, N2, RWORK )
+      RESID = CLANGE( '1', N2, M, CF, N2, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 3 ) = RESID / (EPS*MAX(1,N2)*CNORM)
+         RESULT( 3 ) = RESID / (EPS*MAX(1,N2)*CNORM);
       } else {
-         RESULT( 3 ) = ZERO
+         RESULT( 3 ) = ZERO;
       }
 
 
@@ -142,12 +142,12 @@
       // Compute |QT*C - QT*C| / |C|
 
       cgemm('C','N',N2,M,N2,-ONE,Q,N2,C,N2,ONE,CF,N2);
-      RESID = CLANGE( '1', N2, M, CF, N2, RWORK )
+      RESID = CLANGE( '1', N2, M, CF, N2, RWORK );
 
       if ( CNORM > ZERO ) {
-         RESULT( 4 ) = RESID / (EPS*MAX(1,N2)*CNORM)
+         RESULT( 4 ) = RESID / (EPS*MAX(1,N2)*CNORM);
       } else {
-         RESULT( 4 ) = ZERO
+         RESULT( 4 ) = ZERO;
       }
 
       // Generate random m-by-n matrix D and a copy DF
@@ -155,7 +155,7 @@
       for (J = 1; J <= N2; J++) {
          clarnv(2, ISEED, M, D( 1, J ) );
       }
-      DNORM = CLANGE( '1', M, N2, D, M, RWORK)
+      DNORM = CLANGE( '1', M, N2, D, M, RWORK);
       clacpy('Full', M, N2, D, M, DF, M );
 
       // Apply Q to D as D*Q
@@ -165,11 +165,11 @@
       // Compute |D*Q - D*Q| / |D|
 
       cgemm('N','N',M,N2,N2,-ONE,D,M,Q,N2,ONE,DF,M);
-      RESID = CLANGE('1',M, N2,DF,M,RWORK )
+      RESID = CLANGE('1',M, N2,DF,M,RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 5 ) = RESID / (EPS*MAX(1,N2)*DNORM)
+         RESULT( 5 ) = RESID / (EPS*MAX(1,N2)*DNORM);
       } else {
-         RESULT( 5 ) = ZERO
+         RESULT( 5 ) = ZERO;
       }
 
       // Copy D into DF again
@@ -184,15 +184,15 @@
       // Compute |D*QT - D*QT| / |D|
 
       cgemm('N', 'C', M, N2, N2, -ONE, D, M, Q, N2, ONE, DF, M );
-      RESID = CLANGE( '1', M, N2, DF, M, RWORK )
+      RESID = CLANGE( '1', M, N2, DF, M, RWORK );
       if ( CNORM > ZERO ) {
-         RESULT( 6 ) = RESID / (EPS*MAX(1,N2)*DNORM)
+         RESULT( 6 ) = RESID / (EPS*MAX(1,N2)*DNORM);
       } else {
-         RESULT( 6 ) = ZERO
+         RESULT( 6 ) = ZERO;
       }
 
       // Deallocate all arrays
 
-      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF)
-      RETURN
+      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T, C, D, CF, DF);
+      RETURN;
       }

@@ -1,5 +1,5 @@
-      SUBROUTINE CGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, INFO )
-      implicit none
+      SUBROUTINE CGESDD( JOBZ, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, INFO );
+      implicit none;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,35 +11,35 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), S( * )
-      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
+      REAL               RWORK( * ), S( * );
+      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
       int                BLK, CHUNK, I, IE, IERR, IL, IR, IRU, IRVT, ISCL, ITAU, ITAUP, ITAUQ, IU, IVT, LDWKVT, LDWRKL, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR1, MNTHR2, NRWORK, NWORK, WRKBL;
       int                LWORK_CGEBRD_MN, LWORK_CGEBRD_MM, LWORK_CGEBRD_NN, LWORK_CGELQF_MN, LWORK_CGEQRF_MN, LWORK_CUNGBR_P_MN, LWORK_CUNGBR_P_NN, LWORK_CUNGBR_Q_MN, LWORK_CUNGBR_Q_MM, LWORK_CUNGLQ_MN, LWORK_CUNGLQ_NN, LWORK_CUNGQR_MM, LWORK_CUNGQR_MN, LWORK_CUNMBR_PRC_MM, LWORK_CUNMBR_QLN_MM, LWORK_CUNMBR_PRC_MN, LWORK_CUNMBR_QLN_MN, LWORK_CUNMBR_PRC_NN, LWORK_CUNMBR_QLN_NN;
-      REAL   ANRM, BIGNUM, EPS, SMLNUM
+      REAL   ANRM, BIGNUM, EPS, SMLNUM;
       // ..
       // .. Local Arrays ..
       int                IDUM( 1 );
-      REAL               DUM( 1 )
-      COMPLEX            CDUM( 1 )
+      REAL               DUM( 1 );
+      COMPLEX            CDUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEBRD, CGELQF, CGEMM, CGEQRF, CLACP2, CLACPY, CLACRM, CLARCM, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SBDSDC, SLASCL, XERBLA
       // ..
       // .. External Functions ..
       bool               LSAME, SISNAN;
-      REAL               SLAMCH, CLANGE, SROUNDUP_LWORK
+      REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, CLANGE, SISNAN,  SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..
@@ -49,31 +49,31 @@
 
       // Test the input arguments
 
-      INFO   = 0
-      MINMN  = MIN( M, N )
-      MNTHR1 = INT( MINMN*17.0 / 9.0 )
-      MNTHR2 = INT( MINMN*5.0 / 3.0 )
-      WNTQA  = LSAME( JOBZ, 'A' )
-      WNTQS  = LSAME( JOBZ, 'S' )
-      WNTQAS = WNTQA || WNTQS
-      WNTQO  = LSAME( JOBZ, 'O' )
-      WNTQN  = LSAME( JOBZ, 'N' )
-      LQUERY = ( LWORK == -1 )
-      MINWRK = 1
-      MAXWRK = 1
+      INFO   = 0;
+      MINMN  = MIN( M, N );
+      MNTHR1 = INT( MINMN*17.0 / 9.0 );
+      MNTHR2 = INT( MINMN*5.0 / 3.0 );
+      WNTQA  = LSAME( JOBZ, 'A' );
+      WNTQS  = LSAME( JOBZ, 'S' );
+      WNTQAS = WNTQA || WNTQS;
+      WNTQO  = LSAME( JOBZ, 'O' );
+      WNTQN  = LSAME( JOBZ, 'N' );
+      LQUERY = ( LWORK == -1 );
+      MINWRK = 1;
+      MAXWRK = 1;
 
       if ( !( WNTQA || WNTQS || WNTQO || WNTQN ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDU < 1 || ( WNTQAS && LDU < M ) || ( WNTQO && M < N && LDU < M ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDVT < 1 || ( WNTQA && LDVT < N ) || ( WNTQS && LDVT < MINMN ) || ( WNTQO && M >= N && LDVT < N ) ) {
-         INFO = -10
+         INFO = -10;
       }
 
       // Compute workspace
@@ -85,8 +85,8 @@
         // immediately following subroutine, as returned by ILAENV.)
 
       if ( INFO == 0 ) {
-         MINWRK = 1
-         MAXWRK = 1
+         MINWRK = 1;
+         MAXWRK = 1;
          if ( M >= N && MINMN > 0 ) {
 
             // There is no complex work space needed for bidiagonal SVD
@@ -97,124 +97,124 @@
 
             // Compute space preferred for each routine
             cgebrd(M, N, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CGEBRD_MN = INT( CDUM(1) )
+            LWORK_CGEBRD_MN = INT( CDUM(1) );
 
             cgebrd(N, N, CDUM(1), N, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CGEBRD_NN = INT( CDUM(1) )
+            LWORK_CGEBRD_NN = INT( CDUM(1) );
 
             cgeqrf(M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CGEQRF_MN = INT( CDUM(1) )
+            LWORK_CGEQRF_MN = INT( CDUM(1) );
 
             cungbr('P', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGBR_P_NN = INT( CDUM(1) )
+            LWORK_CUNGBR_P_NN = INT( CDUM(1) );
 
             cungbr('Q', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGBR_Q_MM = INT( CDUM(1) )
+            LWORK_CUNGBR_Q_MM = INT( CDUM(1) );
 
             cungbr('Q', M, N, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGBR_Q_MN = INT( CDUM(1) )
+            LWORK_CUNGBR_Q_MN = INT( CDUM(1) );
 
             cungqr(M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGQR_MM = INT( CDUM(1) )
+            LWORK_CUNGQR_MM = INT( CDUM(1) );
 
             cungqr(M, N, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGQR_MN = INT( CDUM(1) )
+            LWORK_CUNGQR_MN = INT( CDUM(1) );
 
             cunmbr('P', 'R', 'C', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_PRC_NN = INT( CDUM(1) )
+            LWORK_CUNMBR_PRC_NN = INT( CDUM(1) );
 
             cunmbr('Q', 'L', 'N', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_QLN_MM = INT( CDUM(1) )
+            LWORK_CUNMBR_QLN_MM = INT( CDUM(1) );
 
             cunmbr('Q', 'L', 'N', M, N, N, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_QLN_MN = INT( CDUM(1) )
+            LWORK_CUNMBR_QLN_MN = INT( CDUM(1) );
 
             cunmbr('Q', 'L', 'N', N, N, N, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_QLN_NN = INT( CDUM(1) )
+            LWORK_CUNMBR_QLN_NN = INT( CDUM(1) );
 
             if ( M >= MNTHR1 ) {
                if ( WNTQN ) {
 
                   // Path 1 (M >> N, JOBZ='N')
 
-                  MAXWRK = N + LWORK_CGEQRF_MN
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CGEBRD_NN )
-                  MINWRK = 3*N
+                  MAXWRK = N + LWORK_CGEQRF_MN;
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CGEBRD_NN );
+                  MINWRK = 3*N;
                } else if ( WNTQO ) {
 
                   // Path 2 (M >> N, JOBZ='O')
 
-                  WRKBL = N + LWORK_CGEQRF_MN
-                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN )
-                  MAXWRK = M*N + N*N + WRKBL
-                  MINWRK = 2*N*N + 3*N
+                  WRKBL = N + LWORK_CGEQRF_MN;
+                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = M*N + N*N + WRKBL;
+                  MINWRK = 2*N*N + 3*N;
                } else if ( WNTQS ) {
 
                   // Path 3 (M >> N, JOBZ='S')
 
-                  WRKBL = N + LWORK_CGEQRF_MN
-                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN )
-                  MAXWRK = N*N + WRKBL
-                  MINWRK = N*N + 3*N
+                  WRKBL = N + LWORK_CGEQRF_MN;
+                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = N*N + WRKBL;
+                  MINWRK = N*N + 3*N;
                } else if ( WNTQA ) {
 
                   // Path 4 (M >> N, JOBZ='A')
 
-                  WRKBL = N + LWORK_CGEQRF_MN
-                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MM )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN )
-                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN )
-                  MAXWRK = N*N + WRKBL
-                  MINWRK = N*N + MAX( 3*N, N + M )
+                  WRKBL = N + LWORK_CGEQRF_MN;
+                  WRKBL = MAX( WRKBL,   N + LWORK_CUNGQR_MM );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CGEBRD_NN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_QLN_NN );
+                  WRKBL = MAX( WRKBL, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = N*N + WRKBL;
+                  MINWRK = N*N + MAX( 3*N, N + M );
                }
             } else if ( M >= MNTHR2 ) {
 
                // Path 5 (M >> N, but not as much as MNTHR1)
 
-               MAXWRK = 2*N + LWORK_CGEBRD_MN
-               MINWRK = 2*N + M
+               MAXWRK = 2*N + LWORK_CGEBRD_MN;
+               MINWRK = 2*N + M;
                if ( WNTQO ) {
                   // Path 5o (M >> N, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN )
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN )
-                  MAXWRK = MAXWRK + M*N
-                  MINWRK = MINWRK + N*N
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN );
+                  MAXWRK = MAXWRK + M*N;
+                  MINWRK = MINWRK + N*N;
                } else if ( WNTQS ) {
                   // Path 5s (M >> N, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN )
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN )
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MN );
                } else if ( WNTQA ) {
                   // Path 5a (M >> N, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN )
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MM )
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_P_NN );
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNGBR_Q_MM );
                }
             } else {
 
                // Path 6 (M >= N, but not much larger)
 
-               MAXWRK = 2*N + LWORK_CGEBRD_MN
-               MINWRK = 2*N + M
+               MAXWRK = 2*N + LWORK_CGEBRD_MN;
+               MINWRK = 2*N + M;
                if ( WNTQO ) {
                   // Path 6o (M >= N, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN )
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN )
-                  MAXWRK = MAXWRK + M*N
-                  MINWRK = MINWRK + N*N
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN );
+                  MAXWRK = MAXWRK + M*N;
+                  MINWRK = MINWRK + N*N;
                } else if ( WNTQS ) {
                   // Path 6s (M >= N, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN )
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN )
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MN );
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
                } else if ( WNTQA ) {
                   // Path 6a (M >= N, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MM )
-                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN )
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = MAX( MAXWRK, 2*N + LWORK_CUNMBR_PRC_NN );
                }
             }
          } else if ( MINMN > 0 ) {
@@ -227,168 +227,168 @@
 
             // Compute space preferred for each routine
             cgebrd(M, N, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CGEBRD_MN = INT( CDUM(1) )
+            LWORK_CGEBRD_MN = INT( CDUM(1) );
 
             cgebrd(M, M, CDUM(1), M, DUM(1), DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CGEBRD_MM = INT( CDUM(1) )
+            LWORK_CGEBRD_MM = INT( CDUM(1) );
 
             cgelqf(M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CGELQF_MN = INT( CDUM(1) )
+            LWORK_CGELQF_MN = INT( CDUM(1) );
 
             cungbr('P', M, N, M, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGBR_P_MN = INT( CDUM(1) )
+            LWORK_CUNGBR_P_MN = INT( CDUM(1) );
 
             cungbr('P', N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGBR_P_NN = INT( CDUM(1) )
+            LWORK_CUNGBR_P_NN = INT( CDUM(1) );
 
             cungbr('Q', M, M, N, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGBR_Q_MM = INT( CDUM(1) )
+            LWORK_CUNGBR_Q_MM = INT( CDUM(1) );
 
             cunglq(M, N, M, CDUM(1), M, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGLQ_MN = INT( CDUM(1) )
+            LWORK_CUNGLQ_MN = INT( CDUM(1) );
 
             cunglq(N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR );
-            LWORK_CUNGLQ_NN = INT( CDUM(1) )
+            LWORK_CUNGLQ_NN = INT( CDUM(1) );
 
             cunmbr('P', 'R', 'C', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_PRC_MM = INT( CDUM(1) )
+            LWORK_CUNMBR_PRC_MM = INT( CDUM(1) );
 
             cunmbr('P', 'R', 'C', M, N, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_PRC_MN = INT( CDUM(1) )
+            LWORK_CUNMBR_PRC_MN = INT( CDUM(1) );
 
             cunmbr('P', 'R', 'C', N, N, M, CDUM(1), N, CDUM(1), CDUM(1), N, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_PRC_NN = INT( CDUM(1) )
+            LWORK_CUNMBR_PRC_NN = INT( CDUM(1) );
 
             cunmbr('Q', 'L', 'N', M, M, M, CDUM(1), M, CDUM(1), CDUM(1), M, CDUM(1), -1, IERR );
-            LWORK_CUNMBR_QLN_MM = INT( CDUM(1) )
+            LWORK_CUNMBR_QLN_MM = INT( CDUM(1) );
 
             if ( N >= MNTHR1 ) {
                if ( WNTQN ) {
 
                   // Path 1t (N >> M, JOBZ='N')
 
-                  MAXWRK = M + LWORK_CGELQF_MN
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CGEBRD_MM )
-                  MINWRK = 3*M
+                  MAXWRK = M + LWORK_CGELQF_MN;
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CGEBRD_MM );
+                  MINWRK = 3*M;
                } else if ( WNTQO ) {
 
                   // Path 2t (N >> M, JOBZ='O')
 
-                  WRKBL = M + LWORK_CGELQF_MN
-                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_MN )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM )
-                  MAXWRK = M*N + M*M + WRKBL
-                  MINWRK = 2*M*M + 3*M
+                  WRKBL = M + LWORK_CGELQF_MN;
+                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_MN );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
+                  MAXWRK = M*N + M*M + WRKBL;
+                  MINWRK = 2*M*M + 3*M;
                } else if ( WNTQS ) {
 
                   // Path 3t (N >> M, JOBZ='S')
 
-                  WRKBL = M + LWORK_CGELQF_MN
-                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_MN )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM )
-                  MAXWRK = M*M + WRKBL
-                  MINWRK = M*M + 3*M
+                  WRKBL = M + LWORK_CGELQF_MN;
+                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_MN );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
+                  MAXWRK = M*M + WRKBL;
+                  MINWRK = M*M + 3*M;
                } else if ( WNTQA ) {
 
                   // Path 4t (N >> M, JOBZ='A')
 
-                  WRKBL = M + LWORK_CGELQF_MN
-                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_NN )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM )
-                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM )
-                  MAXWRK = M*M + WRKBL
-                  MINWRK = M*M + MAX( 3*M, M + N )
+                  WRKBL = M + LWORK_CGELQF_MN;
+                  WRKBL = MAX( WRKBL,   M + LWORK_CUNGLQ_NN );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CGEBRD_MM );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_QLN_MM );
+                  WRKBL = MAX( WRKBL, 2*M + LWORK_CUNMBR_PRC_MM );
+                  MAXWRK = M*M + WRKBL;
+                  MINWRK = M*M + MAX( 3*M, M + N );
                }
             } else if ( N >= MNTHR2 ) {
 
                // Path 5t (N >> M, but not as much as MNTHR1)
 
-               MAXWRK = 2*M + LWORK_CGEBRD_MN
-               MINWRK = 2*M + N
+               MAXWRK = 2*M + LWORK_CGEBRD_MN;
+               MINWRK = 2*M + N;
                if ( WNTQO ) {
                   // Path 5to (N >> M, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM )
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_MN )
-                  MAXWRK = MAXWRK + M*N
-                  MINWRK = MINWRK + M*M
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_MN );
+                  MAXWRK = MAXWRK + M*N;
+                  MINWRK = MINWRK + M*M;
                } else if ( WNTQS ) {
                   // Path 5ts (N >> M, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM )
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_MN )
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_MN );
                } else if ( WNTQA ) {
                   // Path 5ta (N >> M, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM )
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_NN )
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_Q_MM );
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNGBR_P_NN );
                }
             } else {
 
                // Path 6t (N > M, but not much larger)
 
-               MAXWRK = 2*M + LWORK_CGEBRD_MN
-               MINWRK = 2*M + N
+               MAXWRK = 2*M + LWORK_CGEBRD_MN;
+               MINWRK = 2*M + N;
                if ( WNTQO ) {
                   // Path 6to (N > M, JOBZ='O')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM )
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN )
-                  MAXWRK = MAXWRK + M*N
-                  MINWRK = MINWRK + M*M
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN );
+                  MAXWRK = MAXWRK + M*N;
+                  MINWRK = MINWRK + M*M;
                } else if ( WNTQS ) {
                   // Path 6ts (N > M, JOBZ='S')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM )
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN )
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_MN );
                } else if ( WNTQA ) {
                   // Path 6ta (N > M, JOBZ='A')
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM )
-                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_NN )
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_QLN_MM );
+                  MAXWRK = MAX( MAXWRK, 2*M + LWORK_CUNMBR_PRC_NN );
                }
             }
          }
-         MAXWRK = MAX( MAXWRK, MINWRK )
+         MAXWRK = MAX( MAXWRK, MINWRK );
       }
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
+         WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
          if ( LWORK < MINWRK && !LQUERY ) {
-            INFO = -12
+            INFO = -12;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CGESDD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( M == 0 || N == 0 ) {
-         RETURN
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SQRT( SLAMCH( 'S' ) ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SQRT( SLAMCH( 'S' ) ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = CLANGE( 'M', M, N, A, LDA, DUM )
+      ANRM = CLANGE( 'M', M, N, A, LDA, DUM );
       if ( SISNAN ( ANRM ) ) {
-          INFO = -4
-          RETURN
+          INFO = -4;
+          RETURN;
       }
-      ISCL = 0
+      ISCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ISCL = 1
+         ISCL = 1;
          clascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM > BIGNUM ) {
-         ISCL = 1
+         ISCL = 1;
          clascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, IERR );
       }
 
@@ -405,8 +405,8 @@
                // Path 1 (M >> N, JOBZ='N')
                // No singular vectors to be computed
 
-               ITAU = 1
-               NWORK = ITAU + N
+               ITAU = 1;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R
                // CWorkspace: need   N [tau] + N    [work]
@@ -418,10 +418,10 @@
                // Zero out below R
 
                claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
-               IE = 1
-               ITAUQ = 1
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = 1;
+               ITAUQ = 1;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in A
                // CWorkspace: need   2*N [tauq, taup] + N      [work]
@@ -429,7 +429,7 @@
                // RWorkspace: need   N [e]
 
                cgebrd(N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               NRWORK = IE + N
+               NRWORK = IE + N;
 
                // Perform bidiagonal SVD, compute singular values only
                // CWorkspace: need   0
@@ -443,22 +443,22 @@
                // N left singular vectors to be overwritten on A and
                // N right singular vectors to be computed in VT
 
-               IU = 1
+               IU = 1;
 
                // WORK(IU) is N by N
 
-               LDWRKU = N
-               IR = IU + LDWRKU*N
+               LDWRKU = N;
+               IR = IU + LDWRKU*N;
                if ( LWORK >= M*N + N*N + 3*N ) {
 
                   // WORK(IR) is M by N
 
-                  LDWRKR = M
+                  LDWRKR = M;
                } else {
-                  LDWRKR = ( LWORK - N*N - 3*N ) / N
+                  LDWRKR = ( LWORK - N*N - 3*N ) / N;
                }
-               ITAU = IR + LDWRKR*N
-               NWORK = ITAU + N
+               ITAU = IR + LDWRKR*N;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R
                // CWorkspace: need   N*N [U] + N*N [R] + N [tau] + N    [work]
@@ -478,10 +478,10 @@
                // RWorkspace: need   0
 
                cungqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               IE = 1
-               ITAUQ = ITAU
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = 1;
+               ITAUQ = ITAU;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in WORK(IR)
                // CWorkspace: need   N*N [U] + N*N [R] + 2*N [tauq, taup] + N      [work]
@@ -496,9 +496,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               IRU = IE + N
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = IE + N;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
@@ -525,8 +525,8 @@
                // CWorkspace: prefer N*N [U] + M*N [R]
                // RWorkspace: need   0
 
-               DO 10 I = 1, M, LDWRKR
-                  CHUNK = MIN( M-I+1, LDWRKR )
+               DO 10 I = 1, M, LDWRKR;
+                  CHUNK = MIN( M-I+1, LDWRKR );
                   cgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, CZERO, WORK( IR ), LDWRKR );
                   clacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
                } // 10
@@ -537,13 +537,13 @@
                // N left singular vectors to be computed in U and
                // N right singular vectors to be computed in VT
 
-               IR = 1
+               IR = 1;
 
                // WORK(IR) is N by N
 
-               LDWRKR = N
-               ITAU = IR + LDWRKR*N
-               NWORK = ITAU + N
+               LDWRKR = N;
+               ITAU = IR + LDWRKR*N;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R
                // CWorkspace: need   N*N [R] + N [tau] + N    [work]
@@ -563,10 +563,10 @@
                // RWorkspace: need   0
 
                cungqr(M, N, N, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               IE = 1
-               ITAUQ = ITAU
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = 1;
+               ITAUQ = ITAU;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in WORK(IR)
                // CWorkspace: need   N*N [R] + 2*N [tauq, taup] + N      [work]
@@ -581,9 +581,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               IRU = IE + N
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = IE + N;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -618,13 +618,13 @@
                // M left singular vectors to be computed in U and
                // N right singular vectors to be computed in VT
 
-               IU = 1
+               IU = 1;
 
                // WORK(IU) is N by N
 
-               LDWRKU = N
-               ITAU = IU + LDWRKU*N
-               NWORK = ITAU + N
+               LDWRKU = N;
+               ITAU = IU + LDWRKU*N;
+               NWORK = ITAU + N;
 
                // Compute A=Q*R, copying result to U
                // CWorkspace: need   N*N [U] + N [tau] + N    [work]
@@ -644,10 +644,10 @@
                // Produce R in A, zeroing out below it
 
                claset('L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
-               IE = 1
-               ITAUQ = ITAU
-               ITAUP = ITAUQ + N
-               NWORK = ITAUP + N
+               IE = 1;
+               ITAUQ = ITAU;
+               ITAUP = ITAUQ + N;
+               NWORK = ITAUP + N;
 
                // Bidiagonalize R in A
                // CWorkspace: need   N*N [U] + 2*N [tauq, taup] + N      [work]
@@ -655,9 +655,9 @@
                // RWorkspace: need   N [e]
 
                cgebrd(N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               IRU = IE + N
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = IE + N;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -706,11 +706,11 @@
             // Reduce to bidiagonal form without QR decomposition, use
             // CUNGBR and matrix multiplication to compute singular vectors
 
-            IE = 1
-            NRWORK = IE + N
-            ITAUQ = 1
-            ITAUP = ITAUQ + N
-            NWORK = ITAUP + N
+            IE = 1;
+            NRWORK = IE + N;
+            ITAUQ = 1;
+            ITAUP = ITAUQ + N;
+            NWORK = ITAUP + N;
 
             // Bidiagonalize A
             // CWorkspace: need   2*N [tauq, taup] + M        [work]
@@ -727,10 +727,10 @@
 
                sbdsdc('U', 'N', N, S, RWORK( IE ), DUM, 1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
-               IU = NWORK
-               IRU = NRWORK
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IU = NWORK;
+               IRU = NRWORK;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
 
                // Path 5o (M >> N, JOBZ='O')
                // Copy A to VT, generate P**H
@@ -752,14 +752,14 @@
 
                   // WORK( IU ) is M by N
 
-                  LDWRKU = M
+                  LDWRKU = M;
                } else {
 
                   // WORK(IU) is LDWRKU by N
 
-                  LDWRKU = ( LWORK - 3*N ) / N
+                  LDWRKU = ( LWORK - 3*N ) / N;
                }
-               NWORK = IU + LDWRKU*N
+               NWORK = IU + LDWRKU*N;
 
                // Perform bidiagonal SVD, computing left singular vectors
                // of bidiagonal matrix in RWORK(IRU) and computing right
@@ -784,9 +784,9 @@
                // RWorkspace: need   N [e] + N*N [RU] + 2*N*N [rwork]
                // RWorkspace: prefer N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
-               NRWORK = IRVT
-               DO 20 I = 1, M, LDWRKU
-                  CHUNK = MIN( M-I+1, LDWRKU )
+               NRWORK = IRVT;
+               DO 20 I = 1, M, LDWRKU;
+                  CHUNK = MIN( M-I+1, LDWRKU );
                   clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                   clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                } // 20
@@ -816,9 +816,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               IRU = NRWORK
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = NRWORK;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
@@ -834,7 +834,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
-               NRWORK = IRVT
+               NRWORK = IRVT;
                clacrm(M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) );
                clacpy('F', M, N, A, LDA, U, LDU );
             } else {
@@ -862,9 +862,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               IRU = NRWORK
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = NRWORK;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply real matrix RWORK(IRVT) by P**H in VT,
@@ -880,7 +880,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
-               NRWORK = IRVT
+               NRWORK = IRVT;
                clacrm(M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) );
                clacpy('F', M, N, A, LDA, U, LDU );
             }
@@ -893,11 +893,11 @@
             // Reduce to bidiagonal form without QR decomposition
             // Use CUNMBR to compute singular vectors
 
-            IE = 1
-            NRWORK = IE + N
-            ITAUQ = 1
-            ITAUP = ITAUQ + N
-            NWORK = ITAUP + N
+            IE = 1;
+            NRWORK = IE + N;
+            ITAUQ = 1;
+            ITAUP = ITAUQ + N;
+            NWORK = ITAUP + N;
 
             // Bidiagonalize A
             // CWorkspace: need   2*N [tauq, taup] + M        [work]
@@ -914,22 +914,22 @@
 
                sbdsdc('U', 'N', N, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
-               IU = NWORK
-               IRU = NRWORK
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IU = NWORK;
+               IRU = NRWORK;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                if ( LWORK >= M*N + 3*N ) {
 
                   // WORK( IU ) is M by N
 
-                  LDWRKU = M
+                  LDWRKU = M;
                } else {
 
                   // WORK( IU ) is LDWRKU by N
 
-                  LDWRKU = ( LWORK - 3*N ) / N
+                  LDWRKU = ( LWORK - 3*N ) / N;
                }
-               NWORK = IU + LDWRKU*N
+               NWORK = IU + LDWRKU*N;
 
                // Path 6o (M >= N, JOBZ='O')
                // Perform bidiagonal SVD, computing left singular vectors
@@ -980,9 +980,9 @@
                   // RWorkspace: need   N [e] + N*N [RU] + 2*N*N [rwork]
                   // RWorkspace: prefer N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
-                  NRWORK = IRVT
-                  DO 30 I = 1, M, LDWRKU
-                     CHUNK = MIN( M-I+1, LDWRKU )
+                  NRWORK = IRVT;
+                  DO 30 I = 1, M, LDWRKU;
+                     CHUNK = MIN( M-I+1, LDWRKU );
                      clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                      clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                   } // 30
@@ -997,9 +997,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               IRU = NRWORK
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = NRWORK;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -1029,9 +1029,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   N [e] + N*N [RU] + N*N [RVT] + BDSPAC
 
-               IRU = NRWORK
-               IRVT = IRU + N*N
-               NRWORK = IRVT + N*N
+               IRU = NRWORK;
+               IRVT = IRU + N*N;
+               NRWORK = IRVT + N*N;
                sbdsdc('U', 'I', N, S, RWORK( IE ), RWORK( IRU ), N, RWORK( IRVT ), N, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Set the right corner of U to identity matrix
@@ -1075,8 +1075,8 @@
                // Path 1t (N >> M, JOBZ='N')
                // No singular vectors to be computed
 
-               ITAU = 1
-               NWORK = ITAU + M
+               ITAU = 1;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q
                // CWorkspace: need   M [tau] + M    [work]
@@ -1088,10 +1088,10 @@
                // Zero out above L
 
                claset('U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA );
-               IE = 1
-               ITAUQ = 1
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = 1;
+               ITAUQ = 1;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in A
                // CWorkspace: need   2*M [tauq, taup] + M      [work]
@@ -1099,7 +1099,7 @@
                // RWorkspace: need   M [e]
 
                cgebrd(M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               NRWORK = IE + M
+               NRWORK = IE + M;
 
                // Perform bidiagonal SVD, compute singular values only
                // CWorkspace: need   0
@@ -1113,27 +1113,27 @@
                // M right singular vectors to be overwritten on A and
                // M left singular vectors to be computed in U
 
-               IVT = 1
-               LDWKVT = M
+               IVT = 1;
+               LDWKVT = M;
 
                // WORK(IVT) is M by M
 
-               IL = IVT + LDWKVT*M
+               IL = IVT + LDWKVT*M;
                if ( LWORK >= M*N + M*M + 3*M ) {
 
                   // WORK(IL) M by N
 
-                  LDWRKL = M
-                  CHUNK = N
+                  LDWRKL = M;
+                  CHUNK = N;
                } else {
 
                   // WORK(IL) is M by CHUNK
 
-                  LDWRKL = M
-                  CHUNK = ( LWORK - M*M - 3*M ) / M
+                  LDWRKL = M;
+                  CHUNK = ( LWORK - M*M - 3*M ) / M;
                }
-               ITAU = IL + LDWRKL*CHUNK
-               NWORK = ITAU + M
+               ITAU = IL + LDWRKL*CHUNK;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q
                // CWorkspace: need   M*M [VT] + M*M [L] + M [tau] + M    [work]
@@ -1153,10 +1153,10 @@
                // RWorkspace: need   0
 
                cunglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               IE = 1
-               ITAUQ = ITAU
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = 1;
+               ITAUQ = ITAU;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in WORK(IL)
                // CWorkspace: need   M*M [VT] + M*M [L] + 2*M [tauq, taup] + M      [work]
@@ -1171,9 +1171,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RU] + M*M [RVT] + BDSPAC
 
-               IRU = IE + M
-               IRVT = IRU + M*M
-               NRWORK = IRVT + M*M
+               IRU = IE + M;
+               IRVT = IRU + M*M;
+               NRWORK = IRVT + M*M;
                sbdsdc('U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
@@ -1200,8 +1200,8 @@
                // CWorkspace: prefer M*M [VT] + M*N [L]
                // RWorkspace: need   0
 
-               DO 40 I = 1, N, CHUNK
-                  BLK = MIN( N-I+1, CHUNK )
+               DO 40 I = 1, N, CHUNK;
+                  BLK = MIN( N-I+1, CHUNK );
                   cgemm('N', 'N', M, BLK, M, CONE, WORK( IVT ), M, A( 1, I ), LDA, CZERO, WORK( IL ), LDWRKL );
                   clacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
                } // 40
@@ -1212,13 +1212,13 @@
                // M right singular vectors to be computed in VT and
                // M left singular vectors to be computed in U
 
-               IL = 1
+               IL = 1;
 
                // WORK(IL) is M by M
 
-               LDWRKL = M
-               ITAU = IL + LDWRKL*M
-               NWORK = ITAU + M
+               LDWRKL = M;
+               ITAU = IL + LDWRKL*M;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q
                // CWorkspace: need   M*M [L] + M [tau] + M    [work]
@@ -1238,10 +1238,10 @@
                // RWorkspace: need   0
 
                cunglq(M, N, M, A, LDA, WORK( ITAU ), WORK( NWORK ), LWORK-NWORK+1, IERR );
-               IE = 1
-               ITAUQ = ITAU
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = 1;
+               ITAUQ = ITAU;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in WORK(IL)
                // CWorkspace: need   M*M [L] + 2*M [tauq, taup] + M      [work]
@@ -1256,9 +1256,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RU] + M*M [RVT] + BDSPAC
 
-               IRU = IE + M
-               IRVT = IRU + M*M
-               NRWORK = IRVT + M*M
+               IRU = IE + M;
+               IRVT = IRU + M*M;
+               NRWORK = IRVT + M*M;
                sbdsdc('U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -1293,13 +1293,13 @@
                // N right singular vectors to be computed in VT and
                // M left singular vectors to be computed in U
 
-               IVT = 1
+               IVT = 1;
 
                // WORK(IVT) is M by M
 
-               LDWKVT = M
-               ITAU = IVT + LDWKVT*M
-               NWORK = ITAU + M
+               LDWKVT = M;
+               ITAU = IVT + LDWKVT*M;
+               NWORK = ITAU + M;
 
                // Compute A=L*Q, copying result to VT
                // CWorkspace: need   M*M [VT] + M [tau] + M    [work]
@@ -1319,10 +1319,10 @@
                // Produce L in A, zeroing out above it
 
                claset('U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA );
-               IE = 1
-               ITAUQ = ITAU
-               ITAUP = ITAUQ + M
-               NWORK = ITAUP + M
+               IE = 1;
+               ITAUQ = ITAU;
+               ITAUP = ITAUQ + M;
+               NWORK = ITAUP + M;
 
                // Bidiagonalize L in A
                // CWorkspace: need   M*M [VT] + 2*M [tauq, taup] + M      [work]
@@ -1337,9 +1337,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RU] + M*M [RVT] + BDSPAC
 
-               IRU = IE + M
-               IRVT = IRU + M*M
-               NRWORK = IRVT + M*M
+               IRU = IE + M;
+               IRVT = IRU + M*M;
+               NRWORK = IRVT + M*M;
                sbdsdc('U', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -1381,11 +1381,11 @@
             // Reduce to bidiagonal form without QR decomposition, use
             // CUNGBR and matrix multiplication to compute singular vectors
 
-            IE = 1
-            NRWORK = IE + M
-            ITAUQ = 1
-            ITAUP = ITAUQ + M
-            NWORK = ITAUP + M
+            IE = 1;
+            NRWORK = IE + M;
+            ITAUQ = 1;
+            ITAUP = ITAUQ + M;
+            NWORK = ITAUP + M;
 
             // Bidiagonalize A
             // CWorkspace: need   2*M [tauq, taup] + N        [work]
@@ -1403,10 +1403,10 @@
 
                sbdsdc('L', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
-               IRVT = NRWORK
-               IRU = IRVT + M*M
-               NRWORK = IRU + M*M
-               IVT = NWORK
+               IRVT = NRWORK;
+               IRU = IRVT + M*M;
+               NRWORK = IRU + M*M;
+               IVT = NWORK;
 
                // Path 5to (N >> M, JOBZ='O')
                // Copy A to U, generate Q
@@ -1424,19 +1424,19 @@
 
                cungbr('P', M, N, M, A, LDA, WORK( ITAUP ), WORK( NWORK ), LWORK-NWORK+1, IERR );
 
-               LDWKVT = M
+               LDWKVT = M;
                if ( LWORK >= M*N + 3*M ) {
 
                   // WORK( IVT ) is M by N
 
-                  NWORK = IVT + LDWKVT*N
-                  CHUNK = N
+                  NWORK = IVT + LDWKVT*N;
+                  CHUNK = N;
                } else {
 
                   // WORK( IVT ) is M by CHUNK
 
-                  CHUNK = ( LWORK - 3*M ) / M
-                  NWORK = IVT + LDWKVT*CHUNK
+                  CHUNK = ( LWORK - 3*M ) / M;
+                  NWORK = IVT + LDWKVT*CHUNK;
                }
 
                // Perform bidiagonal SVD, computing left singular vectors
@@ -1462,9 +1462,9 @@
                // RWorkspace: need   M [e] + M*M [RVT] + 2*M*M [rwork]
                // RWorkspace: prefer M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
-               NRWORK = IRU
-               DO 50 I = 1, N, CHUNK
-                  BLK = MIN( N-I+1, CHUNK )
+               NRWORK = IRU;
+               DO 50 I = 1, N, CHUNK;
+                  BLK = MIN( N-I+1, CHUNK );
                   clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                   clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
                } // 50
@@ -1493,9 +1493,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + BDSPAC
 
-               IRVT = NRWORK
-               IRU = IRVT + M*M
-               NRWORK = IRU + M*M
+               IRVT = NRWORK;
+               IRU = IRVT + M*M;
+               NRWORK = IRU + M*M;
                sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply Q in U by real matrix RWORK(IRU), storing the
@@ -1511,7 +1511,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
-               NRWORK = IRU
+               NRWORK = IRU;
                clarcm(M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) );
                clacpy('F', M, N, A, LDA, VT, LDVT );
             } else {
@@ -1539,9 +1539,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + BDSPAC
 
-               IRVT = NRWORK
-               IRU = IRVT + M*M
-               NRWORK = IRU + M*M
+               IRVT = NRWORK;
+               IRU = IRVT + M*M;
+               NRWORK = IRU + M*M;
                sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Multiply Q in U by real matrix RWORK(IRU), storing the
@@ -1557,7 +1557,7 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
-               NRWORK = IRU
+               NRWORK = IRU;
                clarcm(M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) );
                clacpy('F', M, N, A, LDA, VT, LDVT );
             }
@@ -1570,11 +1570,11 @@
             // Reduce to bidiagonal form without LQ decomposition
             // Use CUNMBR to compute singular vectors
 
-            IE = 1
-            NRWORK = IE + M
-            ITAUQ = 1
-            ITAUP = ITAUQ + M
-            NWORK = ITAUP + M
+            IE = 1;
+            NRWORK = IE + M;
+            ITAUQ = 1;
+            ITAUP = ITAUQ + M;
+            NWORK = ITAUP + M;
 
             // Bidiagonalize A
             // CWorkspace: need   2*M [tauq, taup] + N        [work]
@@ -1592,20 +1592,20 @@
                sbdsdc('L', 'N', M, S, RWORK( IE ), DUM,1,DUM,1, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
             } else if ( WNTQO ) {
                // Path 6to (N > M, JOBZ='O')
-               LDWKVT = M
-               IVT = NWORK
+               LDWKVT = M;
+               IVT = NWORK;
                if ( LWORK >= M*N + 3*M ) {
 
                   // WORK( IVT ) is M by N
 
                   claset('F', M, N, CZERO, CZERO, WORK( IVT ), LDWKVT );
-                  NWORK = IVT + LDWKVT*N
+                  NWORK = IVT + LDWKVT*N;
                } else {
 
                   // WORK( IVT ) is M by CHUNK
 
-                  CHUNK = ( LWORK - 3*M ) / M
-                  NWORK = IVT + LDWKVT*CHUNK
+                  CHUNK = ( LWORK - 3*M ) / M;
+                  NWORK = IVT + LDWKVT*CHUNK;
                }
 
                // Perform bidiagonal SVD, computing left singular vectors
@@ -1614,9 +1614,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + BDSPAC
 
-               IRVT = NRWORK
-               IRU = IRVT + M*M
-               NRWORK = IRU + M*M
+               IRVT = NRWORK;
+               IRU = IRVT + M*M;
+               NRWORK = IRU + M*M;
                sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -1658,9 +1658,9 @@
                   // RWorkspace: need   M [e] + M*M [RVT] + 2*M*M [rwork]
                   // RWorkspace: prefer M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
-                  NRWORK = IRU
-                  DO 60 I = 1, N, CHUNK
-                     BLK = MIN( N-I+1, CHUNK )
+                  NRWORK = IRU;
+                  DO 60 I = 1, N, CHUNK;
+                     BLK = MIN( N-I+1, CHUNK );
                      clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                      clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
                   } // 60
@@ -1674,9 +1674,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + BDSPAC
 
-               IRVT = NRWORK
-               IRU = IRVT + M*M
-               NRWORK = IRU + M*M
+               IRVT = NRWORK;
+               IRU = IRVT + M*M;
+               NRWORK = IRU + M*M;
                sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
                // Copy real matrix RWORK(IRU) to complex matrix U
@@ -1706,9 +1706,9 @@
                // CWorkspace: need   0
                // RWorkspace: need   M [e] + M*M [RVT] + M*M [RU] + BDSPAC
 
-               IRVT = NRWORK
-               IRU = IRVT + M*M
-               NRWORK = IRU + M*M
+               IRVT = NRWORK;
+               IRU = IRVT + M*M;
+               NRWORK = IRU + M*M;
 
                sbdsdc('L', 'I', M, S, RWORK( IE ), RWORK( IRU ), M, RWORK( IRVT ), M, DUM, IDUM, RWORK( NRWORK ), IWORK, INFO );
 
@@ -1747,9 +1747,9 @@
 
       // Return optimal workspace in WORK(1)
 
-      WORK( 1 ) = SROUNDUP_LWORK( MAXWRK )
+      WORK( 1 ) = SROUNDUP_LWORK( MAXWRK );
 
-      RETURN
+      RETURN;
 
       // End of CGESDD
 

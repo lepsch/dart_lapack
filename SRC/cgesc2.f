@@ -1,4 +1,4 @@
-      SUBROUTINE CGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE )
+      SUBROUTINE CGESC2( N, A, LDA, RHS, IPIV, JPIV, SCALE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,30 +6,30 @@
 
       // .. Scalar Arguments ..
       int                LDA, N;
-      REAL               SCALE
+      REAL               SCALE;
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      COMPLEX            A( LDA, * ), RHS( * )
+      COMPLEX            A( LDA, * ), RHS( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE, TWO
+      REAL               ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J;
-      REAL               BIGNUM, EPS, SMLNUM
-      COMPLEX            TEMP
+      REAL               BIGNUM, EPS, SMLNUM;
+      COMPLEX            TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CLASWP, CSCAL
       // ..
       // .. External Functions ..
       int                ICAMAX;
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL ICAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -39,9 +39,9 @@
 
       // Set constant to control overflow
 
-      EPS = SLAMCH( 'P' )
-      SMLNUM = SLAMCH( 'S' ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = SLAMCH( 'P' );
+      SMLNUM = SLAMCH( 'S' ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Apply permutations IPIV to RHS
 
@@ -51,34 +51,34 @@
 
       for (I = 1; I <= N - 1; I++) { // 20
          for (J = I + 1; J <= N; J++) { // 10
-            RHS( J ) = RHS( J ) - A( J, I )*RHS( I )
+            RHS( J ) = RHS( J ) - A( J, I )*RHS( I );
          } // 10
       } // 20
 
       // Solve for U part
 
-      SCALE = ONE
+      SCALE = ONE;
 
       // Check for scaling
 
-      I = ICAMAX( N, RHS, 1 )
+      I = ICAMAX( N, RHS, 1 );
       if ( TWO*SMLNUM*ABS( RHS( I ) ) > ABS( A( N, N ) ) ) {
-         TEMP = CMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) )
+         TEMP = CMPLX( ONE / TWO, ZERO ) / ABS( RHS( I ) );
          cscal(N, TEMP, RHS( 1 ), 1 );
-         SCALE = SCALE*REAL( TEMP )
+         SCALE = SCALE*REAL( TEMP );
       }
-      DO 40 I = N, 1, -1
-         TEMP = CMPLX( ONE, ZERO ) / A( I, I )
-         RHS( I ) = RHS( I )*TEMP
+      DO 40 I = N, 1, -1;
+         TEMP = CMPLX( ONE, ZERO ) / A( I, I );
+         RHS( I ) = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30
-            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP )
+            RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP );
          } // 30
       } // 40
 
       // Apply permutations JPIV to the solution (RHS)
 
       claswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
-      RETURN
+      RETURN;
 
       // End of CGESC2
 

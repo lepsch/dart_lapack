@@ -1,4 +1,4 @@
-      SUBROUTINE DSYCONVF( UPLO, WAY, N, A, LDA, E, IPIV, INFO )
+      SUBROUTINE DSYCONVF( UPLO, WAY, N, A, LDA, E, IPIV, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,22 +31,22 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      CONVERT = LSAME( WAY, 'C' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      CONVERT = LSAME( WAY, 'C' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !CONVERT && !LSAME( WAY, 'R' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
 
       }
       if ( INFO != 0 ) {
          xerbla('DSYCONVF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -67,18 +67,18 @@
             // Assign superdiagonal entries of D to array E and zero out
             // corresponding entries in input storage A
 
-            I = N
-            E( 1 ) = ZERO
-            DO WHILE ( I > 1 )
+            I = N;
+            E( 1 ) = ZERO;
+            DO WHILE ( I > 1 );
                if ( IPIV( I ) < 0 ) {
-                  E( I ) = A( I-1, I )
-                  E( I-1 ) = ZERO
-                  A( I-1, I ) = ZERO
-                  I = I - 1
+                  E( I ) = A( I-1, I );
+                  E( I-1 ) = ZERO;
+                  A( I-1, I ) = ZERO;
+                  I = I - 1;
                } else {
-                  E( I ) = ZERO
+                  E( I ) = ZERO;
                }
-               I = I - 1
+               I = I - 1;
             }
 
             // Convert PERMUTATIONS and IPIV
@@ -86,15 +86,15 @@
             // Apply permutations to submatrices of upper part of A
             // in factorization order where i decreases from N to 1
 
-            I = N
-            DO WHILE ( I >= 1 )
+            I = N;
+            DO WHILE ( I >= 1 );
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 
-                  IP = IPIV( I )
+                  IP = IPIV( I );
                   if ( I < N ) {
                      if ( IP != I ) {
                         dswap(N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA );
@@ -107,7 +107,7 @@
 
                   // Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
 
-                  IP = -IPIV( I )
+                  IP = -IPIV( I );
                   if ( I < N ) {
                      if ( IP != (I-1) ) {
                         dswap(N-I, A( I-1, I+1 ), LDA, A( IP, I+1 ), LDA );
@@ -119,12 +119,12 @@
                   // so this should be reflected in IPIV format for
                   // *SYTRF_RK ( or *SYTRF_BK)
 
-                  IPIV( I ) = I
+                  IPIV( I ) = I;
 
-                  I = I - 1
+                  I = I - 1;
 
                }
-               I = I - 1
+               I = I - 1;
             }
 
          } else {
@@ -137,15 +137,15 @@
             // Apply permutations to submatrices of upper part of A
             // in reverse factorization order where i increases from 1 to N
 
-            I = 1
-            DO WHILE ( I <= N )
+            I = 1;
+            DO WHILE ( I <= N );
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(1:i,N-i:N)
 
-                  IP = IPIV( I )
+                  IP = IPIV( I );
                   if ( I < N ) {
                      if ( IP != I ) {
                         dswap(N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA );
@@ -158,8 +158,8 @@
 
                   // Swap rows i-1 and IPIV(i) in A(1:i,N-i:N)
 
-                  I = I + 1
-                  IP = -IPIV( I )
+                  I = I + 1;
+                  IP = -IPIV( I );
                   if ( I < N ) {
                      if ( IP != (I-1) ) {
                         dswap(N-I, A( IP, I+1 ), LDA, A( I-1, I+1 ), LDA );
@@ -171,23 +171,23 @@
                   // so this should be recorded in two consecutive entries
                   // in IPIV format for *SYTRF
 
-                  IPIV( I ) = IPIV( I-1 )
+                  IPIV( I ) = IPIV( I-1 );
 
                }
-               I = I + 1
+               I = I + 1;
             }
 
             // Revert VALUE
             // Assign superdiagonal entries of D from array E to
             // superdiagonal entries of A.
 
-            I = N
-            DO WHILE ( I > 1 )
+            I = N;
+            DO WHILE ( I > 1 );
                if ( IPIV( I ) < 0 ) {
-                  A( I-1, I ) = E( I )
-                  I = I - 1
+                  A( I-1, I ) = E( I );
+                  I = I - 1;
                }
-               I = I - 1
+               I = I - 1;
             }
 
          // End A is UPPER
@@ -207,18 +207,18 @@
             // Assign subdiagonal entries of D to array E and zero out
             // corresponding entries in input storage A
 
-            I = 1
-            E( N ) = ZERO
-            DO WHILE ( I <= N )
+            I = 1;
+            E( N ) = ZERO;
+            DO WHILE ( I <= N );
                if ( I < N && IPIV(I) < 0 ) {
-                  E( I ) = A( I+1, I )
-                  E( I+1 ) = ZERO
-                  A( I+1, I ) = ZERO
-                  I = I + 1
+                  E( I ) = A( I+1, I );
+                  E( I+1 ) = ZERO;
+                  A( I+1, I ) = ZERO;
+                  I = I + 1;
                } else {
-                  E( I ) = ZERO
+                  E( I ) = ZERO;
                }
-               I = I + 1
+               I = I + 1;
             }
 
             // Convert PERMUTATIONS and IPIV
@@ -226,15 +226,15 @@
             // Apply permutations to submatrices of lower part of A
             // in factorization order where k increases from 1 to N
 
-            I = 1
-            DO WHILE ( I <= N )
+            I = 1;
+            DO WHILE ( I <= N );
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 
-                  IP = IPIV( I )
+                  IP = IPIV( I );
                   if ( I > 1 ) {
                      if ( IP != I ) {
                         dswap(I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );
@@ -247,7 +247,7 @@
 
                   // Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
 
-                  IP = -IPIV( I )
+                  IP = -IPIV( I );
                   if ( I > 1 ) {
                      if ( IP != (I+1) ) {
                         dswap(I-1, A( I+1, 1 ), LDA, A( IP, 1 ), LDA );
@@ -259,12 +259,12 @@
                   // so this should be reflected in IPIV format for
                   // *SYTRF_RK ( or *SYTRF_BK)
 
-                  IPIV( I ) = I
+                  IPIV( I ) = I;
 
-                  I = I + 1
+                  I = I + 1;
 
                }
-               I = I + 1
+               I = I + 1;
             }
 
          } else {
@@ -277,15 +277,15 @@
             // Apply permutations to submatrices of lower part of A
             // in reverse factorization order where i decreases from N to 1
 
-            I = N
-            DO WHILE ( I >= 1 )
+            I = N;
+            DO WHILE ( I >= 1 );
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
 
                   // Swap rows i and IPIV(i) in A(i:N,1:i-1)
 
-                  IP = IPIV( I )
+                  IP = IPIV( I );
                   if ( I > 1 ) {
                      if ( IP != I ) {
                         dswap(I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA );
@@ -298,8 +298,8 @@
 
                   // Swap rows i+1 and IPIV(i) in A(i:N,1:i-1)
 
-                  I = I - 1
-                  IP = -IPIV( I )
+                  I = I - 1;
+                  IP = -IPIV( I );
                   if ( I > 1 ) {
                      if ( IP != (I+1) ) {
                         dswap(I-1, A( IP, 1 ), LDA, A( I+1, 1 ), LDA );
@@ -311,23 +311,23 @@
                   // so this should be recorded in consecutive entries
                   // in IPIV format for *SYTRF
 
-                  IPIV( I ) = IPIV( I+1 )
+                  IPIV( I ) = IPIV( I+1 );
 
                }
-               I = I - 1
+               I = I - 1;
             }
 
             // Revert VALUE
             // Assign subdiagonal entries of D from array E to
             // subdiagonal entries of A.
 
-            I = 1
-            DO WHILE ( I <= N-1 )
+            I = 1;
+            DO WHILE ( I <= N-1 );
                if ( IPIV( I ) < 0 ) {
-                  A( I + 1, I ) = E( I )
-                  I = I + 1
+                  A( I + 1, I ) = E( I );
+                  I = I + 1;
                }
-               I = I + 1
+               I = I + 1;
             }
 
          }
@@ -336,7 +336,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DSYCONVF
 

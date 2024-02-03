@@ -1,28 +1,28 @@
-      SUBROUTINE CHPMV(UPLO,N,ALPHA,AP,X,INCX,BETA,Y,INCY)
+      SUBROUTINE CHPMV(UPLO,N,ALPHA,AP,X,INCX,BETA,Y,INCY);
 
 *  -- Reference BLAS level2 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX ALPHA,BETA
+      COMPLEX ALPHA,BETA;
       int     INCX,INCY,N;
       String    UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX AP(*),X(*),Y(*)
+      COMPLEX AP(*),X(*),Y(*);
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX ONE
+      COMPLEX ONE;
       const     ONE= (1.0,0.0);
-      COMPLEX ZERO
+      COMPLEX ZERO;
       const     ZERO= (0.0,0.0);
       // ..
       // .. Local Scalars ..
-      COMPLEX TEMP1,TEMP2
+      COMPLEX TEMP1,TEMP2;
       int     I,INFO,IX,IY,J,JX,JY,K,KK,KX,KY;
       // ..
       // .. External Functions ..
@@ -38,36 +38,36 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME(UPLO,'U') && !LSAME(UPLO,'L')) {
-          INFO = 1
+          INFO = 1;
       } else if (N < 0) {
-          INFO = 2
+          INFO = 2;
       } else if (INCX == 0) {
-          INFO = 6
+          INFO = 6;
       } else if (INCY == 0) {
-          INFO = 9
+          INFO = 9;
       }
       if (INFO != 0) {
           xerbla('CHPMV ',INFO);
-          RETURN
+          RETURN;
       }
 
       // Quick return if possible.
 
-      IF ((N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN
+      IF ((N == 0) || ((ALPHA == ZERO) && (BETA == ONE))) RETURN;
 
       // Set up the start points in  X  and  Y.
 
       if (INCX > 0) {
-          KX = 1
+          KX = 1;
       } else {
-          KX = 1 - (N-1)*INCX
+          KX = 1 - (N-1)*INCX;
       }
       if (INCY > 0) {
-          KY = 1
+          KY = 1;
       } else {
-          KY = 1 - (N-1)*INCY
+          KY = 1 - (N-1)*INCY;
       }
 
       // Start the operations. In this version the elements of the array AP
@@ -79,65 +79,65 @@
           if (INCY == 1) {
               if (BETA == ZERO) {
                   for (I = 1; I <= N; I++) { // 10
-                      Y(I) = ZERO
+                      Y(I) = ZERO;
                   } // 10
               } else {
                   for (I = 1; I <= N; I++) { // 20
-                      Y(I) = BETA*Y(I)
+                      Y(I) = BETA*Y(I);
                   } // 20
               }
           } else {
-              IY = KY
+              IY = KY;
               if (BETA == ZERO) {
                   for (I = 1; I <= N; I++) { // 30
-                      Y(IY) = ZERO
-                      IY = IY + INCY
+                      Y(IY) = ZERO;
+                      IY = IY + INCY;
                   } // 30
               } else {
                   for (I = 1; I <= N; I++) { // 40
-                      Y(IY) = BETA*Y(IY)
-                      IY = IY + INCY
+                      Y(IY) = BETA*Y(IY);
+                      IY = IY + INCY;
                   } // 40
               }
           }
       }
       if (ALPHA == ZERO) RETURN;
-      KK = 1
+      KK = 1;
       if (LSAME(UPLO,'U')) {
 
          // Form  y  when AP contains the upper triangle.
 
           if ((INCX == 1) && (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 60
-                  TEMP1 = ALPHA*X(J)
-                  TEMP2 = ZERO
-                  K = KK
+                  TEMP1 = ALPHA*X(J);
+                  TEMP2 = ZERO;
+                  K = KK;
                   for (I = 1; I <= J - 1; I++) { // 50
-                      Y(I) = Y(I) + TEMP1*AP(K)
-                      TEMP2 = TEMP2 + CONJG(AP(K))*X(I)
-                      K = K + 1
+                      Y(I) = Y(I) + TEMP1*AP(K);
+                      TEMP2 = TEMP2 + CONJG(AP(K))*X(I);
+                      K = K + 1;
                   } // 50
-                  Y(J) = Y(J) + TEMP1*REAL(AP(KK+J-1)) + ALPHA*TEMP2
-                  KK = KK + J
+                  Y(J) = Y(J) + TEMP1*REAL(AP(KK+J-1)) + ALPHA*TEMP2;
+                  KK = KK + J;
               } // 60
           } else {
-              JX = KX
-              JY = KY
+              JX = KX;
+              JY = KY;
               for (J = 1; J <= N; J++) { // 80
-                  TEMP1 = ALPHA*X(JX)
-                  TEMP2 = ZERO
-                  IX = KX
-                  IY = KY
+                  TEMP1 = ALPHA*X(JX);
+                  TEMP2 = ZERO;
+                  IX = KX;
+                  IY = KY;
                   for (K = KK; K <= KK + J - 2; K++) { // 70
-                      Y(IY) = Y(IY) + TEMP1*AP(K)
-                      TEMP2 = TEMP2 + CONJG(AP(K))*X(IX)
-                      IX = IX + INCX
-                      IY = IY + INCY
+                      Y(IY) = Y(IY) + TEMP1*AP(K);
+                      TEMP2 = TEMP2 + CONJG(AP(K))*X(IX);
+                      IX = IX + INCX;
+                      IY = IY + INCY;
                   } // 70
-                  Y(JY) = Y(JY) + TEMP1*REAL(AP(KK+J-1)) + ALPHA*TEMP2
-                  JX = JX + INCX
-                  JY = JY + INCY
-                  KK = KK + J
+                  Y(JY) = Y(JY) + TEMP1*REAL(AP(KK+J-1)) + ALPHA*TEMP2;
+                  JX = JX + INCX;
+                  JY = JY + INCY;
+                  KK = KK + J;
               } // 80
           }
       } else {
@@ -146,42 +146,42 @@
 
           if ((INCX == 1) && (INCY == 1)) {
               for (J = 1; J <= N; J++) { // 100
-                  TEMP1 = ALPHA*X(J)
-                  TEMP2 = ZERO
-                  Y(J) = Y(J) + TEMP1*REAL(AP(KK))
-                  K = KK + 1
+                  TEMP1 = ALPHA*X(J);
+                  TEMP2 = ZERO;
+                  Y(J) = Y(J) + TEMP1*REAL(AP(KK));
+                  K = KK + 1;
                   for (I = J + 1; I <= N; I++) { // 90
-                      Y(I) = Y(I) + TEMP1*AP(K)
-                      TEMP2 = TEMP2 + CONJG(AP(K))*X(I)
-                      K = K + 1
+                      Y(I) = Y(I) + TEMP1*AP(K);
+                      TEMP2 = TEMP2 + CONJG(AP(K))*X(I);
+                      K = K + 1;
                   } // 90
-                  Y(J) = Y(J) + ALPHA*TEMP2
-                  KK = KK + (N-J+1)
+                  Y(J) = Y(J) + ALPHA*TEMP2;
+                  KK = KK + (N-J+1);
               } // 100
           } else {
-              JX = KX
-              JY = KY
+              JX = KX;
+              JY = KY;
               for (J = 1; J <= N; J++) { // 120
-                  TEMP1 = ALPHA*X(JX)
-                  TEMP2 = ZERO
-                  Y(JY) = Y(JY) + TEMP1*REAL(AP(KK))
-                  IX = JX
-                  IY = JY
+                  TEMP1 = ALPHA*X(JX);
+                  TEMP2 = ZERO;
+                  Y(JY) = Y(JY) + TEMP1*REAL(AP(KK));
+                  IX = JX;
+                  IY = JY;
                   for (K = KK + 1; K <= KK + N - J; K++) { // 110
-                      IX = IX + INCX
-                      IY = IY + INCY
-                      Y(IY) = Y(IY) + TEMP1*AP(K)
-                      TEMP2 = TEMP2 + CONJG(AP(K))*X(IX)
+                      IX = IX + INCX;
+                      IY = IY + INCY;
+                      Y(IY) = Y(IY) + TEMP1*AP(K);
+                      TEMP2 = TEMP2 + CONJG(AP(K))*X(IX);
                   } // 110
-                  Y(JY) = Y(JY) + ALPHA*TEMP2
-                  JX = JX + INCX
-                  JY = JY + INCY
-                  KK = KK + (N-J+1)
+                  Y(JY) = Y(JY) + ALPHA*TEMP2;
+                  JX = JX + INCX;
+                  JY = JY + INCY;
+                  KK = KK + (N-J+1);
               } // 120
           }
       }
 
-      RETURN
+      RETURN;
 
       // End of CHPMV
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
+      SUBROUTINE ZQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             S( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( LWORK );
       // ..
 
 *  =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO, SVMIN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -41,26 +41,26 @@
       // ..
       // .. Executable Statements ..
 
-      MN = MIN( M, N )
+      MN = MIN( M, N );
       if ( LWORK < MAX( M+MN, MN*NRHS, 2*N+M ) ) {
          xerbla('ZQRT15', 16 );
-         RETURN
+         RETURN;
       }
 
-      SMLNUM = DLAMCH( 'Safe minimum' )
-      BIGNUM = ONE / SMLNUM
-      EPS = DLAMCH( 'Epsilon' )
-      SMLNUM = ( SMLNUM / EPS ) / EPS
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = DLAMCH( 'Safe minimum' );
+      BIGNUM = ONE / SMLNUM;
+      EPS = DLAMCH( 'Epsilon' );
+      SMLNUM = ( SMLNUM / EPS ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Determine rank and (unscaled) singular values
 
       if ( RKSEL == 1 ) {
-         RANK = MN
+         RANK = MN;
       } else if ( RKSEL == 2 ) {
-         RANK = ( 3*MN ) / 4
+         RANK = ( 3*MN ) / 4;
          for (J = RANK + 1; J <= MN; J++) { // 10
-            S( J ) = ZERO
+            S( J ) = ZERO;
          } // 10
       } else {
          xerbla('ZQRT15', 2 );
@@ -70,14 +70,14 @@
 
          // Nontrivial case
 
-         S( 1 ) = ONE
+         S( 1 ) = ONE;
          for (J = 2; J <= RANK; J++) { // 30
             } // 20
-            TEMP = DLARND( 1, ISEED )
+            TEMP = DLARND( 1, ISEED );
             if ( TEMP > SVMIN ) {
-               S( J ) = ABS( TEMP )
+               S( J ) = ABS( TEMP );
             } else {
-               GO TO 20
+               GO TO 20;
             }
          } // 30
          dlaord('Decreasing', RANK, S, 1 );
@@ -113,7 +113,7 @@
          // Generate null matrix and rhs
 
          for (J = 1; J <= MN; J++) { // 50
-            S( J ) = ZERO
+            S( J ) = ZERO;
          } // 50
          zlaset('Full', M, N, CZERO, CZERO, A, LDA );
          zlaset('Full', M, NRHS, CZERO, CZERO, B, LDB );
@@ -123,7 +123,7 @@
       // Scale the matrix
 
       if ( SCALE != 1 ) {
-         NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY )
+         NORMA = ZLANGE( 'Max', M, N, A, LDA, DUMMY );
          if ( NORMA != ZERO ) {
             if ( SCALE == 2 ) {
 
@@ -141,15 +141,15 @@
                zlascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
                xerbla('ZQRT15', 1 );
-               RETURN
+               RETURN;
             }
          }
       }
 
-      NORMA = DASUM( MN, S, 1 )
-      NORMB = ZLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY )
+      NORMA = DASUM( MN, S, 1 );
+      NORMB = ZLANGE( 'One-norm', M, NRHS, B, LDB, DUMMY );
 
-      RETURN
+      RETURN;
 
       // End of ZQRT15
 

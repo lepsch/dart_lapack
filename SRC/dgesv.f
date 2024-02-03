@@ -1,4 +1,4 @@
-      SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO )
+      SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV, B, LDB, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,19 +24,19 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NRHS < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('DGESV ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Compute the LU factorization of A.
@@ -48,7 +48,7 @@
 
          dgetrs('No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO );
       }
-      RETURN
+      RETURN;
 
       // End of DGESV
 

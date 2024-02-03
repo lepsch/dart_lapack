@@ -1,6 +1,6 @@
 void main() {
 #if defined(_OPENMP)
-      use omp_lib
+      use omp_lib;
 #endif
 
 *  -- LAPACK test routine --
@@ -48,8 +48,8 @@ void main() {
       // .. Allocatable Arrays ..
       int     AllocateStatus;
       double          , DIMENSION(:), ALLOCATABLE :: RWORK, S;
-      COMPLEX*16, DIMENSION(:), ALLOCATABLE :: WORK
-      COMPLEX*16, DIMENSION(:,:), ALLOCATABLE :: A, B, C
+      COMPLEX*16, DIMENSION(:), ALLOCATABLE :: WORK;
+      COMPLEX*16, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
       // ..
       // .. External Functions ..
       bool               LSAMEN;
@@ -80,33 +80,33 @@ void main() {
       // COMMON / CLAENV / IPARMS
       // ..
       // .. Data statements ..
-      DATA               INTSTR / '0123456789' /
-      DATA               IOLDSD / 0, 0, 0, 1 /
+      DATA               INTSTR / '0123456789' /;
+      DATA               IOLDSD / 0, 0, 0, 1 /;
       // ..
       // .. Allocate memory dynamically ..
 
-      ALLOCATE ( S(NMAX*NMAX), STAT = AllocateStatus )
+      ALLOCATE ( S(NMAX*NMAX), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( A(NMAX*NMAX,NEED), STAT = AllocateStatus )
+      ALLOCATE ( A(NMAX*NMAX,NEED), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( B(NMAX*NMAX,5), STAT = AllocateStatus )
+      ALLOCATE ( B(NMAX*NMAX,5), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( C(NCMAX*NCMAX,NCMAX*NCMAX), STAT = AllocateStatus )
+      ALLOCATE ( C(NCMAX*NCMAX,NCMAX*NCMAX), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( RWORK(LWORK), STAT = AllocateStatus )
+      ALLOCATE ( RWORK(LWORK), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
-      ALLOCATE ( WORK(LWORK), STAT = AllocateStatus )
+      ALLOCATE ( WORK(LWORK), STAT = AllocateStatus );
       if (AllocateStatus /= 0) STOP "*** Not enough memory ***";
       // ..
       // .. Executable Statements ..
 
-      A = 0.0
-      B = 0.0
-      C = 0.0
-      DC = 0.0
-      S1 = DSECND( )
+      A = 0.0;
+      B = 0.0;
+      C = 0.0;
+      DC = 0.0;
+      S1 = DSECND( );
       FATAL = false;
-      NUNIT = NOUT
+      NUNIT = NOUT;
 
       // Return to here to read multiple sets of data
 
@@ -114,205 +114,205 @@ void main() {
 
       // Read the first line and set the 3-character test path
 
-      READ( NIN, FMT = '(A80)', END = 380 )LINE
-      PATH = LINE( 1: 3 )
-      NEP = LSAMEN( 3, PATH, 'NEP' ) || LSAMEN( 3, PATH, 'ZHS' )
-      SEP = LSAMEN( 3, PATH, 'SEP' ) || LSAMEN( 3, PATH, 'ZST' ) || LSAMEN( 3, PATH, 'ZSG' ) || LSAMEN( 3, PATH, 'SE2' )
-      SVD = LSAMEN( 3, PATH, 'SVD' ) || LSAMEN( 3, PATH, 'ZBD' )
-      ZEV = LSAMEN( 3, PATH, 'ZEV' )
-      ZES = LSAMEN( 3, PATH, 'ZES' )
-      ZVX = LSAMEN( 3, PATH, 'ZVX' )
-      ZSX = LSAMEN( 3, PATH, 'ZSX' )
-      ZGG = LSAMEN( 3, PATH, 'ZGG' )
-      ZGS = LSAMEN( 3, PATH, 'ZGS' )
-      ZGX = LSAMEN( 3, PATH, 'ZGX' )
-      ZGV = LSAMEN( 3, PATH, 'ZGV' )
-      ZXV = LSAMEN( 3, PATH, 'ZXV' )
-      ZHB = LSAMEN( 3, PATH, 'ZHB' )
-      ZBB = LSAMEN( 3, PATH, 'ZBB' )
-      GLM = LSAMEN( 3, PATH, 'GLM' )
-      GQR = LSAMEN( 3, PATH, 'GQR' ) || LSAMEN( 3, PATH, 'GRQ' )
-      GSV = LSAMEN( 3, PATH, 'GSV' )
-      CSD = LSAMEN( 3, PATH, 'CSD' )
-      LSE = LSAMEN( 3, PATH, 'LSE' )
-      ZBL = LSAMEN( 3, PATH, 'ZBL' )
-      ZBK = LSAMEN( 3, PATH, 'ZBK' )
-      ZGL = LSAMEN( 3, PATH, 'ZGL' )
-      ZGK = LSAMEN( 3, PATH, 'ZGK' )
+      READ( NIN, FMT = '(A80)', END = 380 )LINE;
+      PATH = LINE( 1: 3 );
+      NEP = LSAMEN( 3, PATH, 'NEP' ) || LSAMEN( 3, PATH, 'ZHS' );
+      SEP = LSAMEN( 3, PATH, 'SEP' ) || LSAMEN( 3, PATH, 'ZST' ) || LSAMEN( 3, PATH, 'ZSG' ) || LSAMEN( 3, PATH, 'SE2' );
+      SVD = LSAMEN( 3, PATH, 'SVD' ) || LSAMEN( 3, PATH, 'ZBD' );
+      ZEV = LSAMEN( 3, PATH, 'ZEV' );
+      ZES = LSAMEN( 3, PATH, 'ZES' );
+      ZVX = LSAMEN( 3, PATH, 'ZVX' );
+      ZSX = LSAMEN( 3, PATH, 'ZSX' );
+      ZGG = LSAMEN( 3, PATH, 'ZGG' );
+      ZGS = LSAMEN( 3, PATH, 'ZGS' );
+      ZGX = LSAMEN( 3, PATH, 'ZGX' );
+      ZGV = LSAMEN( 3, PATH, 'ZGV' );
+      ZXV = LSAMEN( 3, PATH, 'ZXV' );
+      ZHB = LSAMEN( 3, PATH, 'ZHB' );
+      ZBB = LSAMEN( 3, PATH, 'ZBB' );
+      GLM = LSAMEN( 3, PATH, 'GLM' );
+      GQR = LSAMEN( 3, PATH, 'GQR' ) || LSAMEN( 3, PATH, 'GRQ' );
+      GSV = LSAMEN( 3, PATH, 'GSV' );
+      CSD = LSAMEN( 3, PATH, 'CSD' );
+      LSE = LSAMEN( 3, PATH, 'LSE' );
+      ZBL = LSAMEN( 3, PATH, 'ZBL' );
+      ZBK = LSAMEN( 3, PATH, 'ZBK' );
+      ZGL = LSAMEN( 3, PATH, 'ZGL' );
+      ZGK = LSAMEN( 3, PATH, 'ZGK' );
 
       // Report values of parameters.
 
       if ( PATH == '   ' ) {
-         GO TO 10
+         GO TO 10;
       } else if ( NEP ) {
-         WRITE( NOUT, FMT = 9987 )
+         WRITE( NOUT, FMT = 9987 );
       } else if ( SEP ) {
-         WRITE( NOUT, FMT = 9986 )
+         WRITE( NOUT, FMT = 9986 );
       } else if ( SVD ) {
-         WRITE( NOUT, FMT = 9985 )
+         WRITE( NOUT, FMT = 9985 );
       } else if ( ZEV ) {
-         WRITE( NOUT, FMT = 9979 )
+         WRITE( NOUT, FMT = 9979 );
       } else if ( ZES ) {
-         WRITE( NOUT, FMT = 9978 )
+         WRITE( NOUT, FMT = 9978 );
       } else if ( ZVX ) {
-         WRITE( NOUT, FMT = 9977 )
+         WRITE( NOUT, FMT = 9977 );
       } else if ( ZSX ) {
-         WRITE( NOUT, FMT = 9976 )
+         WRITE( NOUT, FMT = 9976 );
       } else if ( ZGG ) {
-         WRITE( NOUT, FMT = 9975 )
+         WRITE( NOUT, FMT = 9975 );
       } else if ( ZGS ) {
-         WRITE( NOUT, FMT = 9964 )
+         WRITE( NOUT, FMT = 9964 );
       } else if ( ZGX ) {
-         WRITE( NOUT, FMT = 9965 )
+         WRITE( NOUT, FMT = 9965 );
       } else if ( ZGV ) {
-         WRITE( NOUT, FMT = 9963 )
+         WRITE( NOUT, FMT = 9963 );
       } else if ( ZXV ) {
-         WRITE( NOUT, FMT = 9962 )
+         WRITE( NOUT, FMT = 9962 );
       } else if ( ZHB ) {
-         WRITE( NOUT, FMT = 9974 )
+         WRITE( NOUT, FMT = 9974 );
       } else if ( ZBB ) {
-         WRITE( NOUT, FMT = 9967 )
+         WRITE( NOUT, FMT = 9967 );
       } else if ( GLM ) {
-         WRITE( NOUT, FMT = 9971 )
+         WRITE( NOUT, FMT = 9971 );
       } else if ( GQR ) {
-         WRITE( NOUT, FMT = 9970 )
+         WRITE( NOUT, FMT = 9970 );
       } else if ( GSV ) {
-         WRITE( NOUT, FMT = 9969 )
+         WRITE( NOUT, FMT = 9969 );
       } else if ( CSD ) {
-         WRITE( NOUT, FMT = 9960 )
+         WRITE( NOUT, FMT = 9960 );
       } else if ( LSE ) {
-         WRITE( NOUT, FMT = 9968 )
+         WRITE( NOUT, FMT = 9968 );
       } else if ( ZBL ) {
 
          // ZGEBAL:  Balancing
 
          zchkbl(NIN, NOUT );
-         GO TO 380
+         GO TO 380;
       } else if ( ZBK ) {
 
          // ZGEBAK:  Back transformation
 
          zchkbk(NIN, NOUT );
-         GO TO 380
+         GO TO 380;
       } else if ( ZGL ) {
 
          // ZGGBAL:  Balancing
 
          zchkgl(NIN, NOUT );
-         GO TO 380
+         GO TO 380;
       } else if ( ZGK ) {
 
          // ZGGBAK:  Back transformation
 
          zchkgk(NIN, NOUT );
-         GO TO 380
+         GO TO 380;
       } else if ( LSAMEN( 3, PATH, 'ZEC' ) ) {
 
          // ZEC:  Eigencondition estimation
 
-         READ( NIN, FMT = * )THRESH
+         READ( NIN, FMT = * )THRESH;
          xlaenv(1, 1 );
          xlaenv(12, 1 );
          TSTERR = true;
          zchkec(THRESH, TSTERR, NIN, NOUT );
-         GO TO 380
+         GO TO 380;
       } else {
-         WRITE( NOUT, FMT = 9992 )PATH
-         GO TO 380
+         WRITE( NOUT, FMT = 9992 )PATH;
+         GO TO 380;
       }
       ilaver(VERS_MAJOR, VERS_MINOR, VERS_PATCH );
-      WRITE( NOUT, FMT = 9972 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH
-      WRITE( NOUT, FMT = 9984 )
+      WRITE( NOUT, FMT = 9972 ) VERS_MAJOR, VERS_MINOR, VERS_PATCH;
+      WRITE( NOUT, FMT = 9984 );
 
       // Read the number of values of M, P, and N.
 
-      READ( NIN, FMT = * )NN
+      READ( NIN, FMT = * )NN;
       if ( NN < 0 ) {
-         WRITE( NOUT, FMT = 9989 )'   NN ', NN, 1
-         NN = 0
+         WRITE( NOUT, FMT = 9989 )'   NN ', NN, 1;
+         NN = 0;
          FATAL = true;
       } else if ( NN > MAXIN ) {
-         WRITE( NOUT, FMT = 9988 )'   NN ', NN, MAXIN
-         NN = 0
+         WRITE( NOUT, FMT = 9988 )'   NN ', NN, MAXIN;
+         NN = 0;
          FATAL = true;
       }
 
       // Read the values of M
 
       if ( !( ZGX || ZXV ) ) {
-         READ( NIN, FMT = * )( MVAL( I ), I = 1, NN )
+         READ( NIN, FMT = * )( MVAL( I ), I = 1, NN );
          if ( SVD ) {
-            VNAME = '    M '
+            VNAME = '    M ';
          } else {
-            VNAME = '    N '
+            VNAME = '    N ';
          }
          for (I = 1; I <= NN; I++) { // 20
             if ( MVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0
+               WRITE( NOUT, FMT = 9989 )VNAME, MVAL( I ), 0;
                FATAL = true;
             } else if ( MVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )VNAME, MVAL( I ), NMAX
+               WRITE( NOUT, FMT = 9988 )VNAME, MVAL( I ), NMAX;
                FATAL = true;
             }
          } // 20
-         WRITE( NOUT, FMT = 9983 )'M:    ', ( MVAL( I ), I = 1, NN )
+         WRITE( NOUT, FMT = 9983 )'M:    ', ( MVAL( I ), I = 1, NN );
       }
 
       // Read the values of P
 
       if ( GLM || GQR || GSV || CSD || LSE ) {
-         READ( NIN, FMT = * )( PVAL( I ), I = 1, NN )
+         READ( NIN, FMT = * )( PVAL( I ), I = 1, NN );
          for (I = 1; I <= NN; I++) { // 30
             if ( PVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0
+               WRITE( NOUT, FMT = 9989 )' P  ', PVAL( I ), 0;
                FATAL = true;
             } else if ( PVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )' P  ', PVAL( I ), NMAX
+               WRITE( NOUT, FMT = 9988 )' P  ', PVAL( I ), NMAX;
                FATAL = true;
             }
          } // 30
-         WRITE( NOUT, FMT = 9983 )'P:    ', ( PVAL( I ), I = 1, NN )
+         WRITE( NOUT, FMT = 9983 )'P:    ', ( PVAL( I ), I = 1, NN );
       }
 
       // Read the values of N
 
       if ( SVD || ZBB || GLM || GQR || GSV || CSD || LSE ) {
-         READ( NIN, FMT = * )( NVAL( I ), I = 1, NN )
+         READ( NIN, FMT = * )( NVAL( I ), I = 1, NN );
          for (I = 1; I <= NN; I++) { // 40
             if ( NVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0
+               WRITE( NOUT, FMT = 9989 )'    N ', NVAL( I ), 0;
                FATAL = true;
             } else if ( NVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )'    N ', NVAL( I ), NMAX
+               WRITE( NOUT, FMT = 9988 )'    N ', NVAL( I ), NMAX;
                FATAL = true;
             }
          } // 40
       } else {
          for (I = 1; I <= NN; I++) { // 50
-            NVAL( I ) = MVAL( I )
+            NVAL( I ) = MVAL( I );
          } // 50
       }
       if ( !( ZGX || ZXV ) ) {
-         WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN )
+         WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN );
       } else {
-         WRITE( NOUT, FMT = 9983 )'N:    ', NN
+         WRITE( NOUT, FMT = 9983 )'N:    ', NN;
       }
 
       // Read the number of values of K, followed by the values of K
 
       if ( ZHB || ZBB ) {
-         READ( NIN, FMT = * )NK
-         READ( NIN, FMT = * )( KVAL( I ), I = 1, NK )
+         READ( NIN, FMT = * )NK;
+         READ( NIN, FMT = * )( KVAL( I ), I = 1, NK );
          for (I = 1; I <= NK; I++) { // 60
             if ( KVAL( I ) < 0 ) {
-               WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0
+               WRITE( NOUT, FMT = 9989 )'    K ', KVAL( I ), 0;
                FATAL = true;
             } else if ( KVAL( I ) > NMAX ) {
-               WRITE( NOUT, FMT = 9988 )'    K ', KVAL( I ), NMAX
+               WRITE( NOUT, FMT = 9988 )'    K ', KVAL( I ), NMAX;
                FATAL = true;
             }
          } // 60
-         WRITE( NOUT, FMT = 9983 )'K:    ', ( KVAL( I ), I = 1, NK )
+         WRITE( NOUT, FMT = 9983 )'K:    ', ( KVAL( I ), I = 1, NK );
       }
 
       if ( ZEV || ZES || ZVX || ZSX ) {
@@ -320,30 +320,30 @@ void main() {
          // For the nonsymmetric QR driver routines, only one set of
          // parameters is allowed.
 
-         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1)
+         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), INMIN( 1 ), INWIN( 1 ), INIBL(1), ISHFTS(1), IACC22(1);
          if ( NBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1;
             FATAL = true;
          } else if ( NBMIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1;
             FATAL = true;
          } else if ( NXVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1;
             FATAL = true;
          } else if ( INMIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   INMIN ', INMIN( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   INMIN ', INMIN( 1 ), 1;
             FATAL = true;
          } else if ( INWIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   INWIN ', INWIN( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   INWIN ', INWIN( 1 ), 1;
             FATAL = true;
          } else if ( INIBL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   INIBL ', INIBL( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   INIBL ', INIBL( 1 ), 1;
             FATAL = true;
          } else if ( ISHFTS( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   ISHFTS ', ISHFTS( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   ISHFTS ', ISHFTS( 1 ), 1;
             FATAL = true;
          } else if ( IACC22( 1 ) < 0 ) {
-            WRITE( NOUT, FMT = 9989 )'   IACC22 ', IACC22( 1 ), 0
+            WRITE( NOUT, FMT = 9989 )'   IACC22 ', IACC22( 1 ), 0;
             FATAL = true;
          }
          xlaenv(1, NBVAL( 1 ) );
@@ -354,35 +354,35 @@ void main() {
          xlaenv(14, INIBL( 1 ) );
          xlaenv(15, ISHFTS( 1 ) );
          xlaenv(16, IACC22( 1 ) );
-         WRITE( NOUT, FMT = 9983 )'NB:   ', NBVAL( 1 )
-         WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 )
-         WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 )
-         WRITE( NOUT, FMT = 9983 )'INMIN:   ', INMIN( 1 )
-         WRITE( NOUT, FMT = 9983 )'INWIN: ', INWIN( 1 )
-         WRITE( NOUT, FMT = 9983 )'INIBL: ', INIBL( 1 )
-         WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ISHFTS( 1 )
-         WRITE( NOUT, FMT = 9983 )'IACC22: ', IACC22( 1 )
+         WRITE( NOUT, FMT = 9983 )'NB:   ', NBVAL( 1 );
+         WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 );
+         WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 );
+         WRITE( NOUT, FMT = 9983 )'INMIN:   ', INMIN( 1 );
+         WRITE( NOUT, FMT = 9983 )'INWIN: ', INWIN( 1 );
+         WRITE( NOUT, FMT = 9983 )'INIBL: ', INIBL( 1 );
+         WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ISHFTS( 1 );
+         WRITE( NOUT, FMT = 9983 )'IACC22: ', IACC22( 1 );
 
       } else if ( ZGS || ZGX || ZGV || ZXV ) {
 
          // For the nonsymmetric generalized driver routines, only one set of
          // parameters is allowed.
 
-         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 )
+         READ( NIN, FMT = * )NBVAL( 1 ), NBMIN( 1 ), NXVAL( 1 ), NSVAL( 1 ), MXBVAL( 1 );
          if ( NBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( 1 ), 1;
             FATAL = true;
          } else if ( NBMIN( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( 1 ), 1;
             FATAL = true;
          } else if ( NXVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( 1 ), 1;
             FATAL = true;
          } else if ( NSVAL( 1 ) < 2 ) {
-            WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( 1 ), 2
+            WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( 1 ), 2;
             FATAL = true;
          } else if ( MXBVAL( 1 ) < 1 ) {
-            WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( 1 ), 1
+            WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( 1 ), 1;
             FATAL = true;
          }
          xlaenv(1, NBVAL( 1 ) );
@@ -390,80 +390,80 @@ void main() {
          xlaenv(3, NXVAL( 1 ) );
          xlaenv(4, NSVAL( 1 ) );
          xlaenv(8, MXBVAL( 1 ) );
-         WRITE( NOUT, FMT = 9983 )'NB:   ', NBVAL( 1 )
-         WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 )
-         WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 )
-         WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 )
-         WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 )
+         WRITE( NOUT, FMT = 9983 )'NB:   ', NBVAL( 1 );
+         WRITE( NOUT, FMT = 9983 )'NBMIN:', NBMIN( 1 );
+         WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 );
+         WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 );
+         WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 );
       } else if ( !ZHB && !GLM && !GQR && !GSV && !CSD && !LSE ) {
 
          // For the other paths, the number of parameters can be varied
          // from the input file.  Read the number of parameter values.
 
-         READ( NIN, FMT = * )NPARMS
+         READ( NIN, FMT = * )NPARMS;
          if ( NPARMS < 1 ) {
-            WRITE( NOUT, FMT = 9989 )'NPARMS', NPARMS, 1
-            NPARMS = 0
+            WRITE( NOUT, FMT = 9989 )'NPARMS', NPARMS, 1;
+            NPARMS = 0;
             FATAL = true;
          } else if ( NPARMS > MAXIN ) {
-            WRITE( NOUT, FMT = 9988 )'NPARMS', NPARMS, MAXIN
-            NPARMS = 0
+            WRITE( NOUT, FMT = 9988 )'NPARMS', NPARMS, MAXIN;
+            NPARMS = 0;
             FATAL = true;
          }
 
          // Read the values of NB
 
          if ( !ZBB ) {
-            READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( NBVAL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 70
                if ( NBVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0
+                  WRITE( NOUT, FMT = 9989 )'   NB ', NBVAL( I ), 0;
                   FATAL = true;
                } else if ( NBVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'   NB ', NBVAL( I ), NMAX
+                  WRITE( NOUT, FMT = 9988 )'   NB ', NBVAL( I ), NMAX;
                   FATAL = true;
                }
             } // 70
-            WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS );
          }
 
          // Read the values of NBMIN
 
          if ( NEP || SEP || SVD || ZGG ) {
-            READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( NBMIN( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 80
                if ( NBMIN( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0
+                  WRITE( NOUT, FMT = 9989 )'NBMIN ', NBMIN( I ), 0;
                   FATAL = true;
                } else if ( NBMIN( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'NBMIN ', NBMIN( I ), NMAX
+                  WRITE( NOUT, FMT = 9988 )'NBMIN ', NBMIN( I ), NMAX;
                   FATAL = true;
                }
             } // 80
-            WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 90
-               NBMIN( I ) = 1
+               NBMIN( I ) = 1;
             } // 90
          }
 
          // Read the values of NX
 
          if ( NEP || SEP || SVD ) {
-            READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( NXVAL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 100
                if ( NXVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0
+                  WRITE( NOUT, FMT = 9989 )'   NX ', NXVAL( I ), 0;
                   FATAL = true;
                } else if ( NXVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'   NX ', NXVAL( I ), NMAX
+                  WRITE( NOUT, FMT = 9988 )'   NX ', NXVAL( I ), NMAX;
                   FATAL = true;
                }
             } // 100
-            WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 110
-               NXVAL( I ) = 1
+               NXVAL( I ) = 1;
             } // 110
          }
 
@@ -471,193 +471,193 @@ void main() {
          // or ZBB).
 
          if ( SVD || ZBB || ZGG ) {
-            READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( NSVAL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 120
                if ( NSVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0
+                  WRITE( NOUT, FMT = 9989 )'   NS ', NSVAL( I ), 0;
                   FATAL = true;
                } else if ( NSVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'   NS ', NSVAL( I ), NMAX
+                  WRITE( NOUT, FMT = 9988 )'   NS ', NSVAL( I ), NMAX;
                   FATAL = true;
                }
             } // 120
-            WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 130
-               NSVAL( I ) = 1
+               NSVAL( I ) = 1;
             } // 130
          }
 
          // Read the values for MAXB.
 
          if ( ZGG ) {
-            READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( MXBVAL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 140
                if ( MXBVAL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0
+                  WRITE( NOUT, FMT = 9989 )' MAXB ', MXBVAL( I ), 0;
                   FATAL = true;
                } else if ( MXBVAL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )' MAXB ', MXBVAL( I ), NMAX
+                  WRITE( NOUT, FMT = 9988 )' MAXB ', MXBVAL( I ), NMAX;
                   FATAL = true;
                }
             } // 140
-            WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 150
-               MXBVAL( I ) = 1
+               MXBVAL( I ) = 1;
             } // 150
          }
 
          // Read the values for INMIN.
 
          if ( NEP ) {
-            READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( INMIN( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 540
                if ( INMIN( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0
+                  WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0;
                   FATAL = true;
                }
             } // 540
-            WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 550
-               INMIN( I ) = 1
+               INMIN( I ) = 1;
             } // 550
          }
 
          // Read the values for INWIN.
 
          if ( NEP ) {
-            READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( INWIN( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 560
                if ( INWIN( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0
+                  WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0;
                   FATAL = true;
                }
             } // 560
-            WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 570
-               INWIN( I ) = 1
+               INWIN( I ) = 1;
             } // 570
          }
 
          // Read the values for INIBL.
 
          if ( NEP ) {
-            READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( INIBL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 580
                if ( INIBL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0
+                  WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0;
                   FATAL = true;
                }
             } // 580
-            WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 590
-               INIBL( I ) = 1
+               INIBL( I ) = 1;
             } // 590
          }
 
          // Read the values for ISHFTS.
 
          if ( NEP ) {
-            READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( ISHFTS( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 600
                if ( ISHFTS( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0
+                  WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0;
                   FATAL = true;
                }
             } // 600
-            WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 610
-               ISHFTS( I ) = 1
+               ISHFTS( I ) = 1;
             } // 610
          }
 
          // Read the values for IACC22.
 
          if ( NEP || ZGG ) {
-            READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( IACC22( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 620
                if ( IACC22( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0
+                  WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0;
                   FATAL = true;
                }
             } // 620
-            WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 630
-               IACC22( I ) = 1
+               IACC22( I ) = 1;
             } // 630
          }
 
          // Read the values for NBCOL.
 
          if ( ZGG ) {
-            READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS )
+            READ( NIN, FMT = * )( NBCOL( I ), I = 1, NPARMS );
             for (I = 1; I <= NPARMS; I++) { // 160
                if ( NBCOL( I ) < 0 ) {
-                  WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0
+                  WRITE( NOUT, FMT = 9989 )'NBCOL ', NBCOL( I ), 0;
                   FATAL = true;
                } else if ( NBCOL( I ) > NMAX ) {
-                  WRITE( NOUT, FMT = 9988 )'NBCOL ', NBCOL( I ), NMAX
+                  WRITE( NOUT, FMT = 9988 )'NBCOL ', NBCOL( I ), NMAX;
                   FATAL = true;
                }
             } // 160
-            WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS )
+            WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS );
          } else {
             for (I = 1; I <= NPARMS; I++) { // 170
-               NBCOL( I ) = 1
+               NBCOL( I ) = 1;
             } // 170
          }
       }
 
       // Calculate and print the machine dependent constants.
 
-      WRITE( NOUT, FMT = * )
-      EPS = DLAMCH( 'Underflow threshold' )
-      WRITE( NOUT, FMT = 9981 )'underflow', EPS
-      EPS = DLAMCH( 'Overflow threshold' )
-      WRITE( NOUT, FMT = 9981 )'overflow ', EPS
-      EPS = DLAMCH( 'Epsilon' )
-      WRITE( NOUT, FMT = 9981 )'precision', EPS
+      WRITE( NOUT, FMT = * );
+      EPS = DLAMCH( 'Underflow threshold' );
+      WRITE( NOUT, FMT = 9981 )'underflow', EPS;
+      EPS = DLAMCH( 'Overflow threshold' );
+      WRITE( NOUT, FMT = 9981 )'overflow ', EPS;
+      EPS = DLAMCH( 'Epsilon' );
+      WRITE( NOUT, FMT = 9981 )'precision', EPS;
 
       // Read the threshold value for the test ratios.
 
-      READ( NIN, FMT = * )THRESH
-      WRITE( NOUT, FMT = 9982 )THRESH
+      READ( NIN, FMT = * )THRESH;
+      WRITE( NOUT, FMT = 9982 )THRESH;
       if ( SEP || SVD || ZGG ) {
 
          // Read the flag that indicates whether to test LAPACK routines.
 
-         READ( NIN, FMT = * )TSTCHK
+         READ( NIN, FMT = * )TSTCHK;
 
          // Read the flag that indicates whether to test driver routines.
 
-         READ( NIN, FMT = * )TSTDRV
+         READ( NIN, FMT = * )TSTDRV;
       }
 
       // Read the flag that indicates whether to test the error exits.
 
-      READ( NIN, FMT = * )TSTERR
+      READ( NIN, FMT = * )TSTERR;
 
       // Read the code describing how to set the random number seed.
 
-      READ( NIN, FMT = * )NEWSD
+      READ( NIN, FMT = * )NEWSD;
 
       // If NEWSD = 2, read another line with 4 integers for the seed.
 
       if (NEWSD == 2) READ( NIN, FMT = * )( IOLDSD( I ), I = 1, 4 );
 
       for (I = 1; I <= 4; I++) { // 180
-         ISEED( I ) = IOLDSD( I )
+         ISEED( I ) = IOLDSD( I );
       } // 180
 
       if ( FATAL ) {
-         WRITE( NOUT, FMT = 9999 )
-         STOP
+         WRITE( NOUT, FMT = 9999 );
+         STOP;
       }
 
       // Read the input lines indicating the test path and its parameters.
@@ -670,52 +670,52 @@ void main() {
       if ( !( ZGX || ZXV ) ) {
 
          } // 200
-         READ( NIN, FMT = '(A80)', END = 380 )LINE
-         C3 = LINE( 1: 3 )
-         LENP = LEN( LINE )
-         I = 3
-         ITMP = 0
-         I1 = 0
+         READ( NIN, FMT = '(A80)', END = 380 )LINE;
+         C3 = LINE( 1: 3 );
+         LENP = LEN( LINE );
+         I = 3;
+         ITMP = 0;
+         I1 = 0;
          } // 210
-         I = I + 1
+         I = I + 1;
          if ( I > LENP ) {
             if ( I1 > 0 ) {
-               GO TO 240
+               GO TO 240;
             } else {
-               NTYPES = MAXT
-               GO TO 240
+               NTYPES = MAXT;
+               GO TO 240;
             }
          }
          if ( LINE( I: I ) != ' ' && LINE( I: I ) != ',' ) {
-            I1 = I
-            C1 = LINE( I1: I1 )
+            I1 = I;
+            C1 = LINE( I1: I1 );
 
          // Check that a valid integer was read
 
             for (K = 1; K <= 10; K++) { // 220
                if ( C1 == INTSTR( K: K ) ) {
-                  IC = K - 1
-                  GO TO 230
+                  IC = K - 1;
+                  GO TO 230;
                }
             } // 220
-            WRITE( NOUT, FMT = 9991 )I, LINE
-            GO TO 200
+            WRITE( NOUT, FMT = 9991 )I, LINE;
+            GO TO 200;
             } // 230
-            ITMP = 10*ITMP + IC
-            GO TO 210
+            ITMP = 10*ITMP + IC;
+            GO TO 210;
          } else if ( I1 > 0 ) {
-            GO TO 240
+            GO TO 240;
          } else {
-            GO TO 210
+            GO TO 210;
          }
          } // 240
-         NTYPES = ITMP
+         NTYPES = ITMP;
 
       // Skip the tests if NTYPES is <= 0.
 
          if ( !( ZEV || ZES || ZVX || ZSX || ZGV || ZGS ) && NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
-            GO TO 200
+            WRITE( NOUT, FMT = 9990 )C3;
+            GO TO 200;
          }
 
       } else {
@@ -726,7 +726,7 @@ void main() {
 
       if ( NEWSD == 0 ) {
          for (K = 1; K <= 4; K++) { // 250
-            ISEED( K ) = IOLDSD( K )
+            ISEED( K ) = IOLDSD( K );
          } // 250
       }
 
@@ -742,8 +742,8 @@ void main() {
             // NS    = number of shifts
             // MAXB  = minimum submatrix size
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
          if (TSTERR) CALL ZERRHS( 'ZHSEQR', NOUT );
@@ -759,7 +759,7 @@ void main() {
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 260
-                  ISEED( K ) = IOLDSD( K )
+                  ISEED( K ) = IOLDSD( K );
                } // 260
             }
             WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
@@ -777,15 +777,15 @@ void main() {
             // NBMIN = minimum block size
             // NX    = crossover point
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
          xlaenv(9, 25 );
          if ( TSTERR ) {
 #if defined(_OPENMP)
-            N_THREADS = OMP_GET_MAX_THREADS()
-            ONE_THREAD = 1
+            N_THREADS = OMP_GET_MAX_THREADS();
+            ONE_THREAD = 1;
             omp_set_num_threads(ONE_THREAD);
 #endif
             zerrst('ZST', NOUT );
@@ -800,10 +800,10 @@ void main() {
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 280
-                  ISEED( K ) = IOLDSD( K )
+                  ISEED( K ) = IOLDSD( K );
                } // 280
             }
-            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
+            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
             if ( TSTCHK ) {
                if ( LSAMEN( 3, C3, 'SE2' ) ) {
                zchkst2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), DR( 1, 9 ), DR( 1, 10 ), DR( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), DC( 1, 1 ), A( 1, 6 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
@@ -832,8 +832,8 @@ void main() {
             // NBMIN = minimum block size
             // NX    = crossover point
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(9, 25 );
          for (I = 1; I <= NPARMS; I++) { // 310
@@ -843,10 +843,10 @@ void main() {
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 300
-                  ISEED( K ) = IOLDSD( K )
+                  ISEED( K ) = IOLDSD( K );
                } // 300
             }
-            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
+            WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I );
             if ( TSTCHK ) {
                 // CALL ZDRVSG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH,
       // $                      NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX,
@@ -870,8 +870,8 @@ void main() {
             // NX    = crossover point
             // NRHS  = number of right hand sides
 
-         MAXTYP = 16
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 16;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(9, 25 );
 
@@ -881,16 +881,16 @@ void main() {
          if (TSTERR && TSTCHK) CALL ZERRBD( 'ZBD', NOUT )          IF( TSTERR && TSTDRV ) CALL ZERRED( 'ZBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
-            NRHS = NSVAL( I )
+            NRHS = NSVAL( I );
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
             xlaenv(3, NXVAL( I ) );
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 320
-                  ISEED( K ) = IOLDSD( K )
+                  ISEED( K ) = IOLDSD( K );
                } // 320
             }
-            WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS
+            WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS;
             if ( TSTCHK ) {
                zchkbd(NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, RWORK, NOUT, INFO );
                if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKBD', INFO;
@@ -905,18 +905,18 @@ void main() {
                // ZGEEV (eigenvalues and eigenvectors)
          // --------------------------------------------
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrvev(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEEV', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( LSAMEN( 3, C3, 'ZES' ) ) {
 
@@ -925,18 +925,18 @@ void main() {
                // ZGEES (Schur form)
          // --------------------------------------------
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrves(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEES', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( LSAMEN( 3, C3, 'ZVX' ) ) {
 
@@ -945,18 +945,18 @@ void main() {
                // ZGEEVX (eigenvalues, eigenvectors and condition numbers)
          // --------------------------------------------------------------
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          if ( NTYPES < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrvvx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), RESULT, WORK, LWORK, RWORK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEEVX', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( LSAMEN( 3, C3, 'ZSX' ) ) {
 
@@ -965,18 +965,18 @@ void main() {
                // ZGEESX (Schur form and condition numbers)
          // ---------------------------------------------------
 
-         MAXTYP = 21
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 21;
+         NTYPES = MIN( MAXTYP, NTYPES );
          if ( NTYPES < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRED( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrvsx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, RWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEESX', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( LSAMEN( 3, C3, 'ZGG' ) ) {
 
@@ -991,8 +991,8 @@ void main() {
             // IACC22: structured matrix multiply
             // NBCOL = minimum column dimension for blocks
 
-         MAXTYP = 26
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 26;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
          if (TSTCHK && TSTERR) CALL ZERRGG( C3, NOUT );
@@ -1006,10 +1006,10 @@ void main() {
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 340
-                  ISEED( K ) = IOLDSD( K )
+                  ISEED( K ) = IOLDSD( K );
                } // 340
             }
-            WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I )
+            WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I );
             TSTDIF = false;
             THRSHN = 10.0;
             if ( TSTCHK ) {
@@ -1025,10 +1025,10 @@ void main() {
                // ZGGES (Schur form)
          // -------------------------------------------------
 
-         MAXTYP = 26
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 26;
+         NTYPES = MIN( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
@@ -1042,8 +1042,8 @@ void main() {
 
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGES3', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( ZGX ) {
 
@@ -1052,10 +1052,10 @@ void main() {
                // ZGGESX (Schur form and condition numbers)
          // -------------------------------------------------
 
-         MAXTYP = 5
-         NTYPES = MAXTYP
+         MAXTYP = 5;
+         NTYPES = MAXTYP;
          if ( NN < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
@@ -1063,8 +1063,8 @@ void main() {
             zdrgsx(NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DC( 1, 1 ), DC( 1, 2 ), C, NCMAX*NCMAX, S, WORK, LWORK, RWORK, IWORK, LIWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGSX', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( LSAMEN( 3, C3, 'ZGV' ) ) {
 
@@ -1073,10 +1073,10 @@ void main() {
                // ZGGEV (Eigenvalue/vector form)
          // -------------------------------------------------
 
-         MAXTYP = 26
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 26;
+         NTYPES = MIN( MAXTYP, NTYPES );
          if ( NTYPES <= 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
@@ -1089,8 +1089,8 @@ void main() {
             zdrgev3(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGEV3', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( ZXV ) {
 
@@ -1099,10 +1099,10 @@ void main() {
                // ZGGEVX (eigenvalue/vector with condition numbers)
          // -------------------------------------------------
 
-         MAXTYP = 2
-         NTYPES = MAXTYP
+         MAXTYP = 2;
+         NTYPES = MAXTYP;
          if ( NN < 0 ) {
-            WRITE( NOUT, FMT = 9990 )C3
+            WRITE( NOUT, FMT = 9990 )C3;
          } else {
             if (TSTERR) CALL ZERRGG( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
@@ -1110,8 +1110,8 @@ void main() {
 
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGVX', INFO;
          }
-         WRITE( NOUT, FMT = 9973 )
-         GO TO 10
+         WRITE( NOUT, FMT = 9973 );
+         GO TO 10;
 
       } else if ( LSAMEN( 3, C3, 'ZHB' ) ) {
 
@@ -1119,13 +1119,13 @@ void main() {
          // ZHB:  Hermitian Band Reduction
          // ------------------------------
 
-         MAXTYP = 15
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 15;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          if ( TSTERR ) {
 #if defined(_OPENMP)
-            N_THREADS = OMP_GET_MAX_THREADS()
-            ONE_THREAD = 1
+            N_THREADS = OMP_GET_MAX_THREADS();
+            ONE_THREAD = 1;
             omp_set_num_threads(ONE_THREAD);
 #endif
             zerrst('ZHB', NOUT );
@@ -1146,18 +1146,18 @@ void main() {
          // ZBB:  General Band Reduction
          // ------------------------------
 
-         MAXTYP = 15
-         NTYPES = MIN( MAXTYP, NTYPES )
+         MAXTYP = 15;
+         NTYPES = MIN( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          for (I = 1; I <= NPARMS; I++) { // 370
-            NRHS = NSVAL( I )
+            NRHS = NSVAL( I );
 
             if ( NEWSD == 0 ) {
                for (K = 1; K <= 4; K++) { // 360
-                  ISEED( K ) = IOLDSD( K )
+                  ISEED( K ) = IOLDSD( K );
                } // 360
             }
-            WRITE( NOUT, FMT = 9966 )C3, NRHS
+            WRITE( NOUT, FMT = 9966 )C3, NRHS;
             zchkbb(NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), 2*NMAX, DR( 1, 1 ), DR( 1, 2 ), A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), WORK, LWORK, RWORK, RESULT, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKBB', INFO;
          } // 370
@@ -1217,62 +1217,62 @@ void main() {
          zcklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKLSE', INFO;
       } else {
-         WRITE( NOUT, FMT = * )
-         WRITE( NOUT, FMT = * )
-         WRITE( NOUT, FMT = 9992 )C3
+         WRITE( NOUT, FMT = * );
+         WRITE( NOUT, FMT = * );
+         WRITE( NOUT, FMT = 9992 )C3;
       }
-      IF( !( ZGX || ZXV ) ) GO TO 190
+      IF( !( ZGX || ZXV ) ) GO TO 190;
       } // 380
-      WRITE( NOUT, FMT = 9994 )
-      S2 = DSECND( )
-      WRITE( NOUT, FMT = 9993 )S2 - S1
+      WRITE( NOUT, FMT = 9994 );
+      S2 = DSECND( );
+      WRITE( NOUT, FMT = 9993 )S2 - S1;
 
-      DEALLOCATE (S, STAT = AllocateStatus)
-      DEALLOCATE (A, STAT = AllocateStatus)
-      DEALLOCATE (B, STAT = AllocateStatus)
-      DEALLOCATE (C, STAT = AllocateStatus)
-      DEALLOCATE (RWORK, STAT = AllocateStatus)
-      DEALLOCATE (WORK,  STAT = AllocateStatus)
+      DEALLOCATE (S, STAT = AllocateStatus);
+      DEALLOCATE (A, STAT = AllocateStatus);
+      DEALLOCATE (B, STAT = AllocateStatus);
+      DEALLOCATE (C, STAT = AllocateStatus);
+      DEALLOCATE (RWORK, STAT = AllocateStatus);
+      DEALLOCATE (WORK,  STAT = AllocateStatus);
 
- 9999 FORMAT( / ' Execution not attempted due to input errors' )
- 9997 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4 )
- 9996 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NS =', I4, ', MAXB =', I4, ', IACC22 =', I4, ', NBCOL =', I4 )
- 9995 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', NRHS =', I4 )
- 9994 FORMAT( / / ' End of tests' )
- 9993 FORMAT( ' Total time used = ', F12.2, ' seconds', / )
- 9992 FORMAT( 1X, A3, ':  Unrecognized path name' )
+ 9999 FORMAT( / ' Execution not attempted due to input errors' );
+ 9997 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4 );
+ 9996 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NS =', I4, ', MAXB =', I4, ', IACC22 =', I4, ', NBCOL =', I4 );
+ 9995 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', NRHS =', I4 );
+ 9994 FORMAT( / / ' End of tests' );
+ 9993 FORMAT( ' Total time used = ', F12.2, ' seconds', / );
+ 9992 FORMAT( 1X, A3, ':  Unrecognized path name' );
  9991 FORMAT( / / ' *** Invalid int     value in column ', I2,; ' of input', ' line:', / A79 )
- 9990 FORMAT( / / 1X, A3, ' routines were not tested' )
+ 9990 FORMAT( / / 1X, A3, ' routines were not tested' );
  9989 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be >=', I6 )
  9988 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be <=', I6 )
- 9987 FORMAT( ' Tests of the Nonsymmetric Eigenvalue Problem routines' )
- 9986 FORMAT( ' Tests of the Hermitian Eigenvalue Problem routines' )
- 9985 FORMAT( ' Tests of the Singular Value Decomposition routines' )
- 9984 FORMAT( / ' The following parameter values will be used:' )
- 9983 FORMAT( 4X, A, 10I6, / 10X, 10I6 )
- 9982 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / )
- 9981 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 )
- 9980 FORMAT( ' *** Error code from ', A, ' = ', I4 )
- 9979 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver', / '    ZGEEV (eigenvalues and eigevectors)' )
- 9978 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver', / '    ZGEES (Schur form)' )
- 9977 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert', ' Driver', / '    ZGEEVX (eigenvalues, eigenvectors and', ' condition numbers)' )
- 9976 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert', ' Driver', / '    ZGEESX (Schur form and condition', ' numbers)' )
- 9975 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem routines' )
- 9974 FORMAT( ' Tests of ZHBTRD', / ' (reduction of a Hermitian band ', 'matrix to real tridiagonal form)' )
- 9973 FORMAT( / 1X, 71( '-' ) )
- 9972 FORMAT( / ' LAPACK VERSION ', I1, '.', I1, '.', I1 )
- 9971 FORMAT( / ' Tests of the Generalized Linear Regression Model ', 'routines' )
- 9970 FORMAT( / ' Tests of the Generalized QR and RQ routines' )
- 9969 FORMAT( / ' Tests of the Generalized Singular Value', ' Decomposition routines' )
- 9968 FORMAT( / ' Tests of the Linear Least Squares routines' )
- 9967 FORMAT( ' Tests of ZGBBRD', / ' (reduction of a general band ', 'matrix to real bidiagonal form)' )
- 9966 FORMAT( / / 1X, A3, ':  NRHS =', I4 )
- 9965 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver ZGGESX' )
- 9964 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Driver ZGGES' )
- 9963 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Driver ZGGEV' )
- 9962 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver ZGGEVX' )
- 9961 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', INMIN=', I4, ', INWIN =', I4, ', INIBL =', I4, ', ISHFTS =', I4, ', IACC22 =', I4)
- 9960 FORMAT( / ' Tests of the CS Decomposition routines' )
+ 9987 FORMAT( ' Tests of the Nonsymmetric Eigenvalue Problem routines' );
+ 9986 FORMAT( ' Tests of the Hermitian Eigenvalue Problem routines' );
+ 9985 FORMAT( ' Tests of the Singular Value Decomposition routines' );
+ 9984 FORMAT( / ' The following parameter values will be used:' );
+ 9983 FORMAT( 4X, A, 10I6, / 10X, 10I6 );
+ 9982 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
+ 9981 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 );
+ 9980 FORMAT( ' *** Error code from ', A, ' = ', I4 );
+ 9979 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver', / '    ZGEEV (eigenvalues and eigevectors)' );
+ 9978 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver', / '    ZGEES (Schur form)' );
+ 9977 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert', ' Driver', / '    ZGEEVX (eigenvalues, eigenvectors and', ' condition numbers)' );
+ 9976 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert', ' Driver', / '    ZGEESX (Schur form and condition', ' numbers)' );
+ 9975 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem routines' );
+ 9974 FORMAT( ' Tests of ZHBTRD', / ' (reduction of a Hermitian band ', 'matrix to real tridiagonal form)' );
+ 9973 FORMAT( / 1X, 71( '-' ) );
+ 9972 FORMAT( / ' LAPACK VERSION ', I1, '.', I1, '.', I1 );
+ 9971 FORMAT( / ' Tests of the Generalized Linear Regression Model ', 'routines' );
+ 9970 FORMAT( / ' Tests of the Generalized QR and RQ routines' );
+ 9969 FORMAT( / ' Tests of the Generalized Singular Value', ' Decomposition routines' );
+ 9968 FORMAT( / ' Tests of the Linear Least Squares routines' );
+ 9967 FORMAT( ' Tests of ZGBBRD', / ' (reduction of a general band ', 'matrix to real bidiagonal form)' );
+ 9966 FORMAT( / / 1X, A3, ':  NRHS =', I4 );
+ 9965 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver ZGGESX' );
+ 9964 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Driver ZGGES' );
+ 9963 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Driver ZGGEV' );
+ 9962 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver ZGGEVX' );
+ 9961 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', INMIN=', I4, ', INWIN =', I4, ', INIBL =', I4, ', ISHFTS =', I4, ', IACC22 =', I4);
+ 9960 FORMAT( / ' Tests of the CS Decomposition routines' );
 
       // End of ZCHKEE
 

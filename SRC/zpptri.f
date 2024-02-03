@@ -1,4 +1,4 @@
-      SUBROUTINE ZPPTRI( UPLO, N, AP, INFO )
+      SUBROUTINE ZPPTRI( UPLO, N, AP, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AP( * )
+      COMPLEX*16         AP( * );
       // ..
 
 *  =====================================================================
@@ -25,7 +25,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC
+      COMPLEX*16         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. External Subroutines ..
@@ -38,16 +38,16 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       }
       if ( INFO != 0 ) {
          xerbla('ZPPTRI', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -62,12 +62,12 @@
 
          // Compute the product inv(U) * inv(U)**H.
 
-         JJ = 0
+         JJ = 0;
          for (J = 1; J <= N; J++) { // 10
-            JC = JJ + 1
-            JJ = JJ + J
+            JC = JJ + 1;
+            JJ = JJ + J;
             if (J > 1) CALL ZHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP );
-            AJJ = DBLE( AP( JJ ) )
+            AJJ = DBLE( AP( JJ ) );
             zdscal(J, AJJ, AP( JC ), 1 );
          } // 10
 
@@ -75,16 +75,16 @@
 
          // Compute the product inv(L)**H * inv(L).
 
-         JJ = 1
+         JJ = 1;
          for (J = 1; J <= N; J++) { // 20
-            JJN = JJ + N - J + 1
-            AP( JJ ) = DBLE( ZDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) )
+            JJN = JJ + N - J + 1;
+            AP( JJ ) = DBLE( ZDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) );
             if (J < N) CALL ZTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
-            JJ = JJN
+            JJ = JJN;
          } // 20
       }
 
-      RETURN
+      RETURN;
 
       // End of ZPPTRI
 

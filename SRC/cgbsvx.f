@@ -1,4 +1,4 @@
-      SUBROUTINE CGBSVX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CGBSVX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,11 +7,11 @@
       // .. Scalar Arguments ..
       String             EQUED, FACT, TRANS;
       int                INFO, KL, KU, LDAB, LDAFB, LDB, LDX, N, NRHS;
-      REAL               RCOND
+      REAL               RCOND;
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      REAL               BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
+      REAL               BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -20,18 +20,18 @@
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU;
       String             NORM;
       int                I, INFEQU, J, J1, J2;
-      REAL               AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM
+      REAL               AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANGB, CLANTB, SLAMCH
+      REAL               CLANGB, CLANTB, SLAMCH;
       // EXTERNAL LSAME, CLANGB, CLANTB, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -42,84 +42,84 @@
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
-      NOFACT = LSAME( FACT, 'N' )
-      EQUIL = LSAME( FACT, 'E' )
-      NOTRAN = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NOFACT = LSAME( FACT, 'N' );
+      EQUIL = LSAME( FACT, 'E' );
+      NOTRAN = LSAME( TRANS, 'N' );
       if ( NOFACT || EQUIL ) {
-         EQUED = 'N'
+         EQUED = 'N';
          ROWEQU = false;
          COLEQU = false;
       } else {
-         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
-         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
-         SMLNUM = SLAMCH( 'Safe minimum' )
-         BIGNUM = ONE / SMLNUM
+         ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
+         COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
+         SMLNUM = SLAMCH( 'Safe minimum' );
+         BIGNUM = ONE / SMLNUM;
       }
 
       // Test the input parameters.
 
       if ( !NOFACT && !EQUIL && !LSAME( FACT, 'F' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !NOTRAN && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KL < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KU < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( NRHS < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDAB < KL+KU+1 ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDAFB < 2*KL+KU+1 ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LSAME( FACT, 'F' ) && !( ROWEQU || COLEQU || LSAME( EQUED, 'N' ) ) ) {
-         INFO = -12
+         INFO = -12;
       } else {
          if ( ROWEQU ) {
-            RCMIN = BIGNUM
-            RCMAX = ZERO
+            RCMIN = BIGNUM;
+            RCMAX = ZERO;
             for (J = 1; J <= N; J++) { // 10
-               RCMIN = MIN( RCMIN, R( J ) )
-               RCMAX = MAX( RCMAX, R( J ) )
+               RCMIN = MIN( RCMIN, R( J ) );
+               RCMAX = MAX( RCMAX, R( J ) );
             } // 10
             if ( RCMIN <= ZERO ) {
-               INFO = -13
+               INFO = -13;
             } else if ( N > 0 ) {
-               ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
+               ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
             } else {
-               ROWCND = ONE
+               ROWCND = ONE;
             }
          }
          if ( COLEQU && INFO == 0 ) {
-            RCMIN = BIGNUM
-            RCMAX = ZERO
+            RCMIN = BIGNUM;
+            RCMAX = ZERO;
             for (J = 1; J <= N; J++) { // 20
-               RCMIN = MIN( RCMIN, C( J ) )
-               RCMAX = MAX( RCMAX, C( J ) )
+               RCMIN = MIN( RCMIN, C( J ) );
+               RCMAX = MAX( RCMAX, C( J ) );
             } // 20
             if ( RCMIN <= ZERO ) {
-               INFO = -14
+               INFO = -14;
             } else if ( N > 0 ) {
-               COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
+               COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM );
             } else {
-               COLCND = ONE
+               COLCND = ONE;
             }
          }
          if ( INFO == 0 ) {
             if ( LDB < MAX( 1, N ) ) {
-               INFO = -16
+               INFO = -16;
             } else if ( LDX < MAX( 1, N ) ) {
-               INFO = -18
+               INFO = -18;
             }
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CGBSVX', -INFO );
-         RETURN
+         RETURN;
       }
 
       if ( EQUIL ) {
@@ -132,8 +132,8 @@
             // Equilibrate the matrix.
 
             claqgb(N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED );
-            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' )
-            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' )
+            ROWEQU = LSAME( EQUED, 'R' ) || LSAME( EQUED, 'B' );
+            COLEQU = LSAME( EQUED, 'C' ) || LSAME( EQUED, 'B' );
          }
       }
 
@@ -143,14 +143,14 @@
          if ( ROWEQU ) {
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
-                  B( I, J ) = R( I )*B( I, J )
+                  B( I, J ) = R( I )*B( I, J );
                } // 30
             } // 40
          }
       } else if ( COLEQU ) {
          for (J = 1; J <= NRHS; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
-               B( I, J ) = C( I )*B( I, J )
+               B( I, J ) = C( I )*B( I, J );
             } // 50
          } // 60
       }
@@ -160,8 +160,8 @@
          // Compute the LU factorization of the band matrix A.
 
          for (J = 1; J <= N; J++) { // 70
-            J1 = MAX( J-KU, 1 )
-            J2 = MIN( J+KL, N )
+            J1 = MAX( J-KU, 1 );
+            J2 = MIN( J+KL, N );
             ccopy(J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 );
          } // 70
 
@@ -174,21 +174,21 @@
             // Compute the reciprocal pivot growth factor of the
             // leading rank-deficient INFO columns of A.
 
-            ANORM = ZERO
+            ANORM = ZERO;
             for (J = 1; J <= INFO; J++) { // 90
-               DO 80 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
-                  ANORM = MAX( ANORM, ABS( AB( I, J ) ) )
+               DO 80 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 );
+                  ANORM = MAX( ANORM, ABS( AB( I, J ) ) );
                } // 80
             } // 90
-            RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, RWORK )
+            RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, RWORK );
             if ( RPVGRW == ZERO ) {
-               RPVGRW = ONE
+               RPVGRW = ONE;
             } else {
-               RPVGRW = ANORM / RPVGRW
+               RPVGRW = ANORM / RPVGRW;
             }
-            RWORK( 1 ) = RPVGRW
-            RCOND = ZERO
-            RETURN
+            RWORK( 1 ) = RPVGRW;
+            RCOND = ZERO;
+            RETURN;
          }
       }
 
@@ -196,16 +196,16 @@
       // reciprocal pivot growth factor RPVGRW.
 
       if ( NOTRAN ) {
-         NORM = '1'
+         NORM = '1';
       } else {
-         NORM = 'I'
+         NORM = 'I';
       }
-      ANORM = CLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
-      RPVGRW = CLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, RWORK )
+      ANORM = CLANGB( NORM, N, KL, KU, AB, LDAB, RWORK );
+      RPVGRW = CLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, RWORK );
       if ( RPVGRW == ZERO ) {
-         RPVGRW = ONE
+         RPVGRW = ONE;
       } else {
-         RPVGRW = CLANGB( 'M', N, KL, KU, AB, LDAB, RWORK ) / RPVGRW
+         RPVGRW = CLANGB( 'M', N, KL, KU, AB, LDAB, RWORK ) / RPVGRW;
       }
 
       // Compute the reciprocal of the condition number of A.
@@ -229,30 +229,30 @@
          if ( COLEQU ) {
             for (J = 1; J <= NRHS; J++) { // 110
                for (I = 1; I <= N; I++) { // 100
-                  X( I, J ) = C( I )*X( I, J )
+                  X( I, J ) = C( I )*X( I, J );
                } // 100
             } // 110
             for (J = 1; J <= NRHS; J++) { // 120
-               FERR( J ) = FERR( J ) / COLCND
+               FERR( J ) = FERR( J ) / COLCND;
             } // 120
          }
       } else if ( ROWEQU ) {
          for (J = 1; J <= NRHS; J++) { // 140
             for (I = 1; I <= N; I++) { // 130
-               X( I, J ) = R( I )*X( I, J )
+               X( I, J ) = R( I )*X( I, J );
             } // 130
          } // 140
          for (J = 1; J <= NRHS; J++) { // 150
-            FERR( J ) = FERR( J ) / ROWCND
+            FERR( J ) = FERR( J ) / ROWCND;
          } // 150
       }
 
       // Set INFO = N+1 if the matrix is singular to working precision.
 
-      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1
+      IF( RCOND < SLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
-      RWORK( 1 ) = RPVGRW
-      RETURN
+      RWORK( 1 ) = RPVGRW;
+      RETURN;
 
       // End of CGBSVX
 

@@ -32,24 +32,24 @@
       // ..
       // .. Executable Statements ..
 
-      X_IS_NAN = DISNAN( X )
-      Y_IS_NAN = DISNAN( Y )
+      X_IS_NAN = DISNAN( X );
+      Y_IS_NAN = DISNAN( Y );
       if (X_IS_NAN) DLAPY2 = X;
       if (Y_IS_NAN) DLAPY2 = Y;
-      HUGEVAL = DLAMCH( 'Overflow' )
+      HUGEVAL = DLAMCH( 'Overflow' );
 
       if ( !( X_IS_NAN || Y_IS_NAN ) ) {
-         XABS = ABS( X )
-         YABS = ABS( Y )
-         W = MAX( XABS, YABS )
-         Z = MIN( XABS, YABS )
+         XABS = ABS( X );
+         YABS = ABS( Y );
+         W = MAX( XABS, YABS );
+         Z = MIN( XABS, YABS );
          if ( Z == ZERO || W > HUGEVAL ) {
-            DLAPY2 = W
+            DLAPY2 = W;
          } else {
-            DLAPY2 = W*SQRT( ONE+( Z / W )**2 )
+            DLAPY2 = W*SQRT( ONE+( Z / W )**2 );
          }
       }
-      RETURN
+      RETURN;
 
       // End of DLAPY2
 

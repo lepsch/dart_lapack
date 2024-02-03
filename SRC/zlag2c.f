@@ -1,4 +1,4 @@
-      SUBROUTINE ZLAG2C( M, N, A, LDA, SA, LDSA, INFO )
+      SUBROUTINE ZLAG2C( M, N, A, LDA, SA, LDSA, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,8 +8,8 @@
       int                INFO, LDA, LDSA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX            SA( LDSA, * )
-      COMPLEX*16         A( LDA, * )
+      COMPLEX            SA( LDSA, * );
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
@@ -22,24 +22,24 @@
       // INTRINSIC DBLE, DIMAG, CMPLX
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..
 
-      RMAX = SLAMCH( 'O' )
+      RMAX = SLAMCH( 'O' );
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             if ( ( DBLE( A( I, J ) ) < -RMAX ) || ( DBLE( A( I, J ) ) > RMAX ) || ( DIMAG( A( I, J ) ) < -RMAX ) || ( DIMAG( A( I, J ) ) > RMAX ) ) {
-               INFO = 1
-               GO TO 30
+               INFO = 1;
+               GO TO 30;
             }
-            SA( I, J ) = CMPLX( A( I, J ) )
+            SA( I, J ) = CMPLX( A( I, J ) );
          } // 10
       } // 20
-      INFO = 0
+      INFO = 0;
       } // 30
-      RETURN
+      RETURN;
 
       // End of ZLAG2C
 

@@ -1,4 +1,4 @@
-      SUBROUTINE SGEHRD( N, ILO, IHI, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE SGEHRD( N, ILO, IHI, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,7 +8,7 @@
       int                IHI, ILO, INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -16,13 +16,13 @@
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
       const              NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX ;
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX;
-      REAL               EI
+      REAL               EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SGEHD2, SGEMM, SLAHR2, SLARFB, STRMM, XERBLA
@@ -32,74 +32,74 @@
       // ..
       // .. External Functions ..
       int                ILAENV;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
-         INFO = -8
+         INFO = -8;
       }
 
-      NH = IHI - ILO + 1
+      NH = IHI - ILO + 1;
       if ( INFO == 0 ) {
 
         // Compute the workspace requirements
 
          if ( NH <= 1 ) {
-            LWKOPT = 1
+            LWKOPT = 1;
          } else {
-            NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
-            LWKOPT = N*NB + TSIZE
+            NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) );
+            LWKOPT = N*NB + TSIZE;
          }
-         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+         WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
       }
 
       if ( INFO != 0 ) {
          xerbla('SGEHRD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Set elements 1:ILO-1 and IHI:N-1 of TAU to zero
 
       for (I = 1; I <= ILO - 1; I++) { // 10
-         TAU( I ) = ZERO
+         TAU( I ) = ZERO;
       } // 10
-      DO 20 I = MAX( 1, IHI ), N - 1
-         TAU( I ) = ZERO
+      DO 20 I = MAX( 1, IHI ), N - 1;
+         TAU( I ) = ZERO;
       } // 20
 
       // Quick return if possible
 
       if ( NH <= 1 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
       // Determine the block size
 
-      NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
-      NBMIN = 2
+      NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) );
+      NBMIN = 2;
       if ( NB > 1 && NB < NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)
 
-         NX = MAX( NB, ILAENV( 3, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
+         NX = MAX( NB, ILAENV( 3, 'SGEHRD', ' ', N, ILO, IHI, -1 ) );
          if ( NX < NH ) {
 
             // Determine if workspace is large enough for blocked code
@@ -110,30 +110,30 @@
                // minimum value of NB, and reduce NB or force use of
                // unblocked code
 
-               NBMIN = MAX( 2, ILAENV( 2, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'SGEHRD', ' ', N, ILO, IHI, -1 ) );
                if ( LWORK >= (N*NBMIN + TSIZE) ) {
-                  NB = (LWORK-TSIZE) / N
+                  NB = (LWORK-TSIZE) / N;
                } else {
-                  NB = 1
+                  NB = 1;
                }
             }
          }
       }
-      LDWORK = N
+      LDWORK = N;
 
       if ( NB < NBMIN || NB >= NH ) {
 
          // Use unblocked code below
 
-         I = ILO
+         I = ILO;
 
       } else {
 
          // Use blocked code
 
-         IWT = 1 + N*NB
-         DO 40 I = ILO, IHI - 1 - NX, NB
-            IB = MIN( NB, IHI-I )
+         IWT = 1 + N*NB;
+         DO 40 I = ILO, IHI - 1 - NX, NB;
+            IB = MIN( NB, IHI-I );
 
             // Reduce columns i:i+ib-1 to Hessenberg form, returning the
             // matrices V and T of the block reflector H = I - V*T*V**T
@@ -145,10 +145,10 @@
             // right, computing  A := A - Y * V**T. V(i+ib,ib-1) must be set
             // to 1
 
-            EI = A( I+IB, I+IB-1 )
-            A( I+IB, I+IB-1 ) = ONE
+            EI = A( I+IB, I+IB-1 );
+            A( I+IB, I+IB-1 ) = ONE;
             sgemm('No transpose', 'Transpose', IHI, IHI-I-IB+1, IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE, A( 1, I+IB ), LDA );
-            A( I+IB, I+IB-1 ) = EI
+            A( I+IB, I+IB-1 ) = EI;
 
             // Apply the block reflector H to A(1:i,i+1:i+ib-1) from the
             // right
@@ -169,9 +169,9 @@
 
       sgehd2(N, I, IHI, A, LDA, TAU, WORK, IINFO );
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
+      WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
-      RETURN
+      RETURN;
 
       // End of SGEHRD
 

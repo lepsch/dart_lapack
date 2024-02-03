@@ -1,4 +1,4 @@
-      SUBROUTINE ZQRT16( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
+      SUBROUTINE ZQRT16( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 *  =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -42,21 +42,21 @@
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
       if ( M <= 0 || N <= 0 || NRHS == 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       if ( LSAME( TRANS, 'T' ) || LSAME( TRANS, 'C' ) ) {
-         ANORM = ZLANGE( 'I', M, N, A, LDA, RWORK )
-         N1 = N
-         N2 = M
+         ANORM = ZLANGE( 'I', M, N, A, LDA, RWORK );
+         N1 = N;
+         N2 = M;
       } else {
-         ANORM = ZLANGE( '1', M, N, A, LDA, RWORK )
-         N1 = M
-         N2 = N
+         ANORM = ZLANGE( '1', M, N, A, LDA, RWORK );
+         N1 = M;
+         N2 = N;
       }
 
-      EPS = DLAMCH( 'Epsilon' )
+      EPS = DLAMCH( 'Epsilon' );
 
       // Compute  B - A*X  (or  B - A'*X ) and store in B.
 
@@ -65,20 +65,20 @@
       // Compute the maximum over the number of right hand sides of
          // norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
 
-      RESID = ZERO
+      RESID = ZERO;
       for (J = 1; J <= NRHS; J++) { // 10
-         BNORM = DZASUM( N1, B( 1, J ), 1 )
-         XNORM = DZASUM( N2, X( 1, J ), 1 )
+         BNORM = DZASUM( N1, B( 1, J ), 1 );
+         XNORM = DZASUM( N2, X( 1, J ), 1 );
          if ( ANORM == ZERO && BNORM == ZERO ) {
-            RESID = ZERO
+            RESID = ZERO;
          } else if ( ANORM <= ZERO || XNORM <= ZERO ) {
-            RESID = ONE / EPS
+            RESID = ONE / EPS;
          } else {
-            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )
+            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) );
          }
       } // 10
 
-      RETURN
+      RETURN;
 
       // End of ZQRT16
 

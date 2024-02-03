@@ -1,4 +1,4 @@
-      SUBROUTINE STPT01( UPLO, DIAG, N, AP, AINVP, RCOND, WORK, RESID )
+      SUBROUTINE STPT01( UPLO, DIAG, N, AP, AINVP, RCOND, WORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       String             DIAG, UPLO;
       int                N;
-      REAL               RCOND, RESID
+      REAL               RCOND, RESID;
       // ..
       // .. Array Arguments ..
-      REAL               AINVP( * ), AP( * ), WORK( * )
+      REAL               AINVP( * ), AP( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UNITD;
       int                J, JC;
-      REAL               AINVNM, ANORM, EPS
+      REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH, SLANTP
+      REAL               SLAMCH, SLANTP;
       // EXTERNAL LSAME, SLAMCH, SLANTP
       // ..
       // .. External Subroutines ..
@@ -40,28 +40,28 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RCOND = ONE
-         RESID = ZERO
-         RETURN
+         RCOND = ONE;
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0 or AINVNM = 0.
 
-      EPS = SLAMCH( 'Epsilon' )
-      ANORM = SLANTP( '1', UPLO, DIAG, N, AP, WORK )
-      AINVNM = SLANTP( '1', UPLO, DIAG, N, AINVP, WORK )
+      EPS = SLAMCH( 'Epsilon' );
+      ANORM = SLANTP( '1', UPLO, DIAG, N, AP, WORK );
+      AINVNM = SLANTP( '1', UPLO, DIAG, N, AINVP, WORK );
       if ( ANORM <= ZERO || AINVNM <= ZERO ) {
-         RCOND = ZERO
-         RESID = ONE / EPS
-         RETURN
+         RCOND = ZERO;
+         RESID = ONE / EPS;
+         RETURN;
       }
-      RCOND = ( ONE / ANORM ) / AINVNM
+      RCOND = ( ONE / ANORM ) / AINVNM;
 
       // Compute A * AINV, overwriting AINV.
 
-      UNITD = LSAME( DIAG, 'U' )
+      UNITD = LSAME( DIAG, 'U' );
       if ( LSAME( UPLO, 'U' ) ) {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 10
             if (UNITD) AINVP( JC+J-1 ) = ONE;
 
@@ -71,11 +71,11 @@
 
             // Subtract 1 from the diagonal
 
-            AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE
-            JC = JC + J
+            AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE;
+            JC = JC + J;
          } // 10
       } else {
-         JC = 1
+         JC = 1;
          for (J = 1; J <= N; J++) { // 20
             if (UNITD) AINVP( JC ) = ONE;
 
@@ -85,18 +85,18 @@
 
             // Subtract 1 from the diagonal
 
-            AINVP( JC ) = AINVP( JC ) - ONE
-            JC = JC + N - J + 1
+            AINVP( JC ) = AINVP( JC ) - ONE;
+            JC = JC + N - J + 1;
          } // 20
       }
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 
-      RESID = SLANTP( '1', UPLO, 'Non-unit', N, AINVP, WORK )
+      RESID = SLANTP( '1', UPLO, 'Non-unit', N, AINVP, WORK );
 
-      RESID = ( ( RESID*RCOND ) / REAL( N ) ) / EPS
+      RESID = ( ( RESID*RCOND ) / REAL( N ) ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of STPT01
 

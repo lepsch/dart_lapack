@@ -1,4 +1,4 @@
-      SUBROUTINE DGET38( RMAX, LMAX, NINFO, KNT, NIN )
+      SUBROUTINE DGET38( RMAX, LMAX, NINFO, KNT, NIN );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,49 +45,49 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // EPSIN = 2**(-24) = precision to which input data computed
 
-      EPS = MAX( EPS, EPSIN )
-      RMAX( 1 ) = ZERO
-      RMAX( 2 ) = ZERO
-      RMAX( 3 ) = ZERO
-      LMAX( 1 ) = 0
-      LMAX( 2 ) = 0
-      LMAX( 3 ) = 0
-      KNT = 0
-      NINFO( 1 ) = 0
-      NINFO( 2 ) = 0
-      NINFO( 3 ) = 0
+      EPS = MAX( EPS, EPSIN );
+      RMAX( 1 ) = ZERO;
+      RMAX( 2 ) = ZERO;
+      RMAX( 3 ) = ZERO;
+      LMAX( 1 ) = 0;
+      LMAX( 2 ) = 0;
+      LMAX( 3 ) = 0;
+      KNT = 0;
+      NINFO( 1 ) = 0;
+      NINFO( 2 ) = 0;
+      NINFO( 3 ) = 0;
 
-      VAL( 1 ) = SQRT( SMLNUM )
-      VAL( 2 ) = ONE
-      VAL( 3 ) = SQRT( SQRT( BIGNUM ) )
+      VAL( 1 ) = SQRT( SMLNUM );
+      VAL( 2 ) = ONE;
+      VAL( 3 ) = SQRT( SQRT( BIGNUM ) );
 
       // Read input data until N=0.  Assume input eigenvalues are sorted
       // lexicographically (increasing by real part, then decreasing by
       // imaginary part)
 
       } // 10
-      READ( NIN, FMT = * )N, NDIM
+      READ( NIN, FMT = * )N, NDIM;
       if (N == 0) RETURN;
-      READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM )
+      READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM );
       for (I = 1; I <= N; I++) { // 20
-         READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
+         READ( NIN, FMT = * )( TMP( I, J ), J = 1, N );
       } // 20
-      READ( NIN, FMT = * )SIN, SEPIN
+      READ( NIN, FMT = * )SIN, SEPIN;
 
-      TNRM = DLANGE( 'M', N, N, TMP, LDT, WORK )
+      TNRM = DLANGE( 'M', N, N, TMP, LDT, WORK );
       for (ISCL = 1; ISCL <= 3; ISCL++) { // 160
 
          // Scale input matrix
 
-         KNT = KNT + 1
+         KNT = KNT + 1;
          dlacpy('F', N, N, TMP, LDT, T, LDT );
-         VMUL = VAL( ISCL )
+         VMUL = VAL( ISCL );
          for (I = 1; I <= N; I++) { // 30
             dscal(N, VMUL, T( 1, I ), 1 );
          } // 30
@@ -98,9 +98,9 @@
 
          dgehrd(N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO );
          if ( INFO != 0 ) {
-            LMAX( 1 ) = KNT
-            NINFO( 1 ) = NINFO( 1 ) + 1
-            GO TO 160
+            LMAX( 1 ) = KNT;
+            NINFO( 1 ) = NINFO( 1 ) + 1;
+            GO TO 160;
          }
 
          // Generate orthogonal matrix
@@ -112,37 +112,37 @@
 
          dhseqr('S', 'V', N, 1, N, T, LDT, WR, WI, Q, LDT, WORK, LWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 2 ) = KNT
-            NINFO( 2 ) = NINFO( 2 ) + 1
-            GO TO 160
+            LMAX( 2 ) = KNT;
+            NINFO( 2 ) = NINFO( 2 ) + 1;
+            GO TO 160;
          }
 
          // Sort, select eigenvalues
 
          for (I = 1; I <= N; I++) { // 40
-            IPNT( I ) = I
+            IPNT( I ) = I;
             SELECT( I ) = false;
          } // 40
          dcopy(N, WR, 1, WRTMP, 1 );
          dcopy(N, WI, 1, WITMP, 1 );
          for (I = 1; I <= N - 1; I++) { // 60
-            KMIN = I
-            VRMIN = WRTMP( I )
-            VIMIN = WITMP( I )
+            KMIN = I;
+            VRMIN = WRTMP( I );
+            VIMIN = WITMP( I );
             for (J = I + 1; J <= N; J++) { // 50
                if ( WRTMP( J ) < VRMIN ) {
-                  KMIN = J
-                  VRMIN = WRTMP( J )
-                  VIMIN = WITMP( J )
+                  KMIN = J;
+                  VRMIN = WRTMP( J );
+                  VIMIN = WITMP( J );
                }
             } // 50
-            WRTMP( KMIN ) = WRTMP( I )
-            WITMP( KMIN ) = WITMP( I )
-            WRTMP( I ) = VRMIN
-            WITMP( I ) = VIMIN
-            ITMP = IPNT( I )
-            IPNT( I ) = IPNT( KMIN )
-            IPNT( KMIN ) = ITMP
+            WRTMP( KMIN ) = WRTMP( I );
+            WITMP( KMIN ) = WITMP( I );
+            WRTMP( I ) = VRMIN;
+            WITMP( I ) = VIMIN;
+            ITMP = IPNT( I );
+            IPNT( I ) = IPNT( KMIN );
+            IPNT( KMIN ) = ITMP;
          } // 60
          for (I = 1; I <= NDIM; I++) { // 70
             SELECT( IPNT( ISELEC( I ) ) ) = true;
@@ -154,146 +154,146 @@
          dlacpy('F', N, N, T, LDT, TSAV1, LDT );
          dtrsen('B', 'V', SELECT, N, T, LDT, Q, LDT, WRTMP, WITMP, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT
-            NINFO( 3 ) = NINFO( 3 ) + 1
-            GO TO 160
+            LMAX( 3 ) = KNT;
+            NINFO( 3 ) = NINFO( 3 ) + 1;
+            GO TO 160;
          }
-         SEPTMP = SEP / VMUL
-         STMP = S
+         SEPTMP = SEP / VMUL;
+         STMP = S;
 
          // Compute residuals
 
          dhst01(N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RESULT );
-         VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
+         VMAX = MAX( RESULT( 1 ), RESULT( 2 ) );
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
+            RMAX( 1 ) = VMAX;
+            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
 
          // Compare condition number for eigenvalue cluster
          // taking its condition number into account
 
-         V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
+         V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM );
          if (TNRM == ZERO) V = ONE;
          if ( V > SEPTMP ) {
-            TOL = ONE
+            TOL = ONE;
          } else {
-            TOL = V / SEPTMP
+            TOL = V / SEPTMP;
          }
          if ( V > SEPIN ) {
-            TOLIN = ONE
+            TOLIN = ONE;
          } else {
-            TOLIN = V / SEPIN
+            TOLIN = V / SEPIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS )
-         TOLIN = MAX( TOLIN, SMLNUM / EPS )
+         TOL = MAX( TOL, SMLNUM / EPS );
+         TOLIN = MAX( TOLIN, SMLNUM / EPS );
          if ( EPS*( SIN-TOLIN ) > STMP+TOL ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SIN-TOLIN > STMP+TOL ) {
-            VMAX = ( SIN-TOLIN ) / ( STMP+TOL )
+            VMAX = ( SIN-TOLIN ) / ( STMP+TOL );
          } else if ( SIN+TOLIN < EPS*( STMP-TOL ) ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SIN+TOLIN < STMP-TOL ) {
-            VMAX = ( STMP-TOL ) / ( SIN+TOLIN )
+            VMAX = ( STMP-TOL ) / ( SIN+TOLIN );
          } else {
-            VMAX = ONE
+            VMAX = ONE;
          }
          if ( VMAX > RMAX( 2 ) ) {
-            RMAX( 2 ) = VMAX
-            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
+            RMAX( 2 ) = VMAX;
+            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
          // Compare condition numbers for invariant subspace
          // taking its condition number into account
 
          if ( V > SEPTMP*STMP ) {
-            TOL = SEPTMP
+            TOL = SEPTMP;
          } else {
-            TOL = V / STMP
+            TOL = V / STMP;
          }
          if ( V > SEPIN*SIN ) {
-            TOLIN = SEPIN
+            TOLIN = SEPIN;
          } else {
-            TOLIN = V / SIN
+            TOLIN = V / SIN;
          }
-         TOL = MAX( TOL, SMLNUM / EPS )
-         TOLIN = MAX( TOLIN, SMLNUM / EPS )
+         TOL = MAX( TOL, SMLNUM / EPS );
+         TOLIN = MAX( TOLIN, SMLNUM / EPS );
          if ( EPS*( SEPIN-TOLIN ) > SEPTMP+TOL ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SEPIN-TOLIN > SEPTMP+TOL ) {
-            VMAX = ( SEPIN-TOLIN ) / ( SEPTMP+TOL )
+            VMAX = ( SEPIN-TOLIN ) / ( SEPTMP+TOL );
          } else if ( SEPIN+TOLIN < EPS*( SEPTMP-TOL ) ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SEPIN+TOLIN < SEPTMP-TOL ) {
-            VMAX = ( SEPTMP-TOL ) / ( SEPIN+TOLIN )
+            VMAX = ( SEPTMP-TOL ) / ( SEPIN+TOLIN );
          } else {
-            VMAX = ONE
+            VMAX = ONE;
          }
          if ( VMAX > RMAX( 2 ) ) {
-            RMAX( 2 ) = VMAX
-            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT
+            RMAX( 2 ) = VMAX;
+            IF( NINFO( 2 ) == 0 ) LMAX( 2 ) = KNT;
          }
 
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
 
          if ( SIN <= DBLE( 2*N )*EPS && STMP <= DBLE( 2*N )*EPS ) {
-            VMAX = ONE
+            VMAX = ONE;
          } else if ( EPS*SIN > STMP ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SIN > STMP ) {
-            VMAX = SIN / STMP
+            VMAX = SIN / STMP;
          } else if ( SIN < EPS*STMP ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SIN < STMP ) {
-            VMAX = STMP / SIN
+            VMAX = STMP / SIN;
          } else {
-            VMAX = ONE
+            VMAX = ONE;
          }
          if ( VMAX > RMAX( 3 ) ) {
-            RMAX( 3 ) = VMAX
-            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
+            RMAX( 3 ) = VMAX;
+            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
          // Compare condition numbers for invariant subspace
          // without taking its condition number into account
 
          if ( SEPIN <= V && SEPTMP <= V ) {
-            VMAX = ONE
+            VMAX = ONE;
          } else if ( EPS*SEPIN > SEPTMP ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SEPIN > SEPTMP ) {
-            VMAX = SEPIN / SEPTMP
+            VMAX = SEPIN / SEPTMP;
          } else if ( SEPIN < EPS*SEPTMP ) {
-            VMAX = ONE / EPS
+            VMAX = ONE / EPS;
          } else if ( SEPIN < SEPTMP ) {
-            VMAX = SEPTMP / SEPIN
+            VMAX = SEPTMP / SEPIN;
          } else {
-            VMAX = ONE
+            VMAX = ONE;
          }
          if ( VMAX > RMAX( 3 ) ) {
-            RMAX( 3 ) = VMAX
-            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT
+            RMAX( 3 ) = VMAX;
+            IF( NINFO( 3 ) == 0 ) LMAX( 3 ) = KNT;
          }
 
          // Compute eigenvalue condition number only and compare
          // Update Q
 
-         VMAX = ZERO
+         VMAX = ZERO;
          dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
          dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
-         SEPTMP = -ONE
-         STMP = -ONE
+         SEPTMP = -ONE;
+         STMP = -ONE;
          dtrsen('E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT
-            NINFO( 3 ) = NINFO( 3 ) + 1
-            GO TO 160
+            LMAX( 3 ) = KNT;
+            NINFO( 3 ) = NINFO( 3 ) + 1;
+            GO TO 160;
          }
          if (S != STMP) VMAX = ONE / EPS          IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 90
             for (J = 1; J <= N; J++) { // 80
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS;
             } // 80
          } // 90
 
@@ -302,18 +302,18 @@
 
          dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
          dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
-         SEPTMP = -ONE
-         STMP = -ONE
+         SEPTMP = -ONE;
+         STMP = -ONE;
          dtrsen('V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT
-            NINFO( 3 ) = NINFO( 3 ) + 1
-            GO TO 160
+            LMAX( 3 ) = KNT;
+            NINFO( 3 ) = NINFO( 3 ) + 1;
+            GO TO 160;
          }
          if (-ONE != STMP) VMAX = ONE / EPS          IF( SEP != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 110
             for (J = 1; J <= N; J++) { // 100
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != Q( I, J ) ) VMAX = ONE / EPS;
             } // 100
          } // 110
 
@@ -322,18 +322,18 @@
 
          dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
          dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
-         SEPTMP = -ONE
-         STMP = -ONE
+         SEPTMP = -ONE;
+         STMP = -ONE;
          dtrsen('E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT
-            NINFO( 3 ) = NINFO( 3 ) + 1
-            GO TO 160
+            LMAX( 3 ) = KNT;
+            NINFO( 3 ) = NINFO( 3 ) + 1;
+            GO TO 160;
          }
          if (S != STMP) VMAX = ONE / EPS          IF( -ONE != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 130
             for (J = 1; J <= N; J++) { // 120
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS;
             } // 120
          } // 130
 
@@ -342,26 +342,26 @@
 
          dlacpy('F', N, N, TSAV1, LDT, TTMP, LDT );
          dlacpy('F', N, N, QSAV, LDT, QTMP, LDT );
-         SEPTMP = -ONE
-         STMP = -ONE
+         SEPTMP = -ONE;
+         STMP = -ONE;
          dtrsen('V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WRTMP, WITMP, M, STMP, SEPTMP, WORK, LWORK, IWORK, LIWORK, INFO );
          if ( INFO != 0 ) {
-            LMAX( 3 ) = KNT
-            NINFO( 3 ) = NINFO( 3 ) + 1
-            GO TO 160
+            LMAX( 3 ) = KNT;
+            NINFO( 3 ) = NINFO( 3 ) + 1;
+            GO TO 160;
          }
          if (-ONE != STMP) VMAX = ONE / EPS          IF( SEP != SEPTMP ) VMAX = ONE / EPS;
          for (I = 1; I <= N; I++) { // 150
             for (J = 1; J <= N; J++) { // 140
-               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS
+               IF( TTMP( I, J ) != T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ) != QSAV( I, J ) ) VMAX = ONE / EPS;
             } // 140
          } // 150
          if ( VMAX > RMAX( 1 ) ) {
-            RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT
+            RMAX( 1 ) = VMAX;
+            IF( NINFO( 1 ) == 0 ) LMAX( 1 ) = KNT;
          }
       } // 160
-      GO TO 10
+      GO TO 10;
 
       // End of DGET38
 

@@ -1,4 +1,4 @@
-      SUBROUTINE ZGEQR2( M, N, A, LDA, TAU, WORK, INFO )
+      SUBROUTINE ZGEQR2( M, N, A, LDA, TAU, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,18 +8,18 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE
+      COMPLEX*16         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, K;
-      COMPLEX*16         ALPHA
+      COMPLEX*16         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLARF, ZLARFG
@@ -31,20 +31,20 @@
 
       // Test the input arguments
 
-      INFO = 0
+      INFO = 0;
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZGEQR2', -INFO );
-         RETURN
+         RETURN;
       }
 
-      K = MIN( M, N )
+      K = MIN( M, N );
 
       for (I = 1; I <= K; I++) { // 10
 
@@ -55,13 +55,13 @@
 
             // Apply H(i)**H to A(i:m,i+1:n) from the left
 
-            ALPHA = A( I, I )
-            A( I, I ) = ONE
+            ALPHA = A( I, I );
+            A( I, I ) = ONE;
             zlarf('Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
-            A( I, I ) = ALPHA
+            A( I, I ) = ALPHA;
          }
       } // 10
-      RETURN
+      RETURN;
 
       // End of ZGEQR2
 

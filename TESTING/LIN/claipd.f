@@ -1,4 +1,4 @@
-      SUBROUTINE CLAIPD( N, A, INDA, VINDA )
+      SUBROUTINE CLAIPD( N, A, INDA, VINDA );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,17 +8,17 @@
       int                INDA, N, VINDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( * )
+      COMPLEX            A( * );
       // ..
 
 *  =====================================================================
 
       // .. Local Scalars ..
       int                I, IA, IXA;
-      REAL               BIGNUM
+      REAL               BIGNUM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..
@@ -26,13 +26,13 @@
       // ..
       // .. Executable Statements ..
 
-      BIGNUM = SLAMCH( 'Epsilon' ) / SLAMCH( 'Safe minimum' )
-      IA = 1
-      IXA = INDA
+      BIGNUM = SLAMCH( 'Epsilon' ) / SLAMCH( 'Safe minimum' );
+      IA = 1;
+      IXA = INDA;
       for (I = 1; I <= N; I++) { // 10
-         A( IA ) = CMPLX( REAL( A( IA ) ), BIGNUM )
-         IA = IA + IXA
-         IXA = IXA + VINDA
+         A( IA ) = CMPLX( REAL( A( IA ) ), BIGNUM );
+         IA = IA + IXA;
+         IXA = IXA + VINDA;
       } // 10
-      RETURN
+      RETURN;
       }

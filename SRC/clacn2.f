@@ -1,4 +1,4 @@
-      SUBROUTINE CLACN2( N, V, X, EST, KASE, ISAVE )
+      SUBROUTINE CLACN2( N, V, X, EST, KASE, ISAVE );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                KASE, N;
-      REAL               EST
+      REAL               EST;
       // ..
       // .. Array Arguments ..
       int                ISAVE( 3 );
-      COMPLEX            V( * ), X( * )
+      COMPLEX            V( * ), X( * );
       // ..
 
 *  =====================================================================
@@ -18,18 +18,18 @@
       // .. Parameters ..
       int                  ITMAX;
       const              ITMAX = 5 ;
-      REAL                 ONE,         TWO
+      REAL                 ONE,         TWO;
       const              ONE = 1.0, TWO = 2.0 ;
-      COMPLEX              CZERO, CONE
+      COMPLEX              CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, JLAST;
-      REAL               ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP
+      REAL               ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
       // ..
       // .. External Functions ..
       int                ICMAX1;
-      REAL               SCSUM1, SLAMCH
+      REAL               SCSUM1, SLAMCH;
       // EXTERNAL ICMAX1, SCSUM1, SLAMCH
       // ..
       // .. External Subroutines ..
@@ -40,119 +40,119 @@
       // ..
       // .. Executable Statements ..
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
+      SAFMIN = SLAMCH( 'Safe minimum' );
       if ( KASE == 0 ) {
          for (I = 1; I <= N; I++) { // 10
-            X( I ) = CMPLX( ONE / REAL( N ) )
+            X( I ) = CMPLX( ONE / REAL( N ) );
          } // 10
-         KASE = 1
-         ISAVE( 1 ) = 1
-         RETURN
+         KASE = 1;
+         ISAVE( 1 ) = 1;
+         RETURN;
       }
 
-      GO TO ( 20, 40, 70, 90, 120 )ISAVE( 1 )
+      GO TO ( 20, 40, 70, 90, 120 )ISAVE( 1 );
 
       // ................ ENTRY   (ISAVE( 1 ) = 1)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 20
       if ( N == 1 ) {
-         V( 1 ) = X( 1 )
-         EST = ABS( V( 1 ) )
+         V( 1 ) = X( 1 );
+         EST = ABS( V( 1 ) );
          // ... QUIT
-         GO TO 130
+         GO TO 130;
       }
-      EST = SCSUM1( N, X, 1 )
+      EST = SCSUM1( N, X, 1 );
 
       for (I = 1; I <= N; I++) { // 30
-         ABSXI = ABS( X( I ) )
+         ABSXI = ABS( X( I ) );
          if ( ABSXI > SAFMIN ) {
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
+            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
-            X( I ) = CONE
+            X( I ) = CONE;
          }
       } // 30
-      KASE = 2
-      ISAVE( 1 ) = 2
-      RETURN
+      KASE = 2;
+      ISAVE( 1 ) = 2;
+      RETURN;
 
       // ................ ENTRY   (ISAVE( 1 ) = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
       } // 40
-      ISAVE( 2 ) = ICMAX1( N, X, 1 )
-      ISAVE( 3 ) = 2
+      ISAVE( 2 ) = ICMAX1( N, X, 1 );
+      ISAVE( 3 ) = 2;
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
       } // 50
       for (I = 1; I <= N; I++) { // 60
-         X( I ) = CZERO
+         X( I ) = CZERO;
       } // 60
-      X( ISAVE( 2 ) ) = CONE
-      KASE = 1
-      ISAVE( 1 ) = 3
-      RETURN
+      X( ISAVE( 2 ) ) = CONE;
+      KASE = 1;
+      ISAVE( 1 ) = 3;
+      RETURN;
 
       // ................ ENTRY   (ISAVE( 1 ) = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 70
       ccopy(N, X, 1, V, 1 );
-      ESTOLD = EST
-      EST = SCSUM1( N, V, 1 )
+      ESTOLD = EST;
+      EST = SCSUM1( N, V, 1 );
 
       // TEST FOR CYCLING.
       if (EST <= ESTOLD) GO TO 100;
 
       for (I = 1; I <= N; I++) { // 80
-         ABSXI = ABS( X( I ) )
+         ABSXI = ABS( X( I ) );
          if ( ABSXI > SAFMIN ) {
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
+            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI );
          } else {
-            X( I ) = CONE
+            X( I ) = CONE;
          }
       } // 80
-      KASE = 2
-      ISAVE( 1 ) = 4
-      RETURN
+      KASE = 2;
+      ISAVE( 1 ) = 4;
+      RETURN;
 
       // ................ ENTRY   (ISAVE( 1 ) = 4)
       // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
       } // 90
-      JLAST = ISAVE( 2 )
-      ISAVE( 2 ) = ICMAX1( N, X, 1 )
+      JLAST = ISAVE( 2 );
+      ISAVE( 2 ) = ICMAX1( N, X, 1 );
       if ( ( ABS( X( JLAST ) ) != ABS( X( ISAVE( 2 ) ) ) ) && ( ISAVE( 3 ) < ITMAX ) ) {
-         ISAVE( 3 ) = ISAVE( 3 ) + 1
-         GO TO 50
+         ISAVE( 3 ) = ISAVE( 3 ) + 1;
+         GO TO 50;
       }
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
       } // 100
-      ALTSGN = ONE
+      ALTSGN = ONE;
       for (I = 1; I <= N; I++) { // 110
-         X( I ) = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) )
-         ALTSGN = -ALTSGN
+         X( I ) = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) );
+         ALTSGN = -ALTSGN;
       } // 110
-      KASE = 1
-      ISAVE( 1 ) = 5
-      RETURN
+      KASE = 1;
+      ISAVE( 1 ) = 5;
+      RETURN;
 
       // ................ ENTRY   (ISAVE( 1 ) = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
       } // 120
-      TEMP = TWO*( SCSUM1( N, X, 1 ) / REAL( 3*N ) )
+      TEMP = TWO*( SCSUM1( N, X, 1 ) / REAL( 3*N ) );
       if ( TEMP > EST ) {
          ccopy(N, X, 1, V, 1 );
-         EST = TEMP
+         EST = TEMP;
       }
 
       } // 130
-      KASE = 0
-      RETURN
+      KASE = 0;
+      RETURN;
 
       // End of CLACN2
 

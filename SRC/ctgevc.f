@@ -1,4 +1,4 @@
-      SUBROUTINE CTGEVC( SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL, LDVL, VR, LDVR, MM, M, WORK, RWORK, INFO )
+      SUBROUTINE CTGEVC( SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL, LDVL, VR, LDVR, MM, M, WORK, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,29 +10,29 @@
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
-      REAL               RWORK( * )
-      COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      REAL               RWORK( * );
+      COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB;
       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR;
       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
-      COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X
+      COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SLAMCH
-      COMPLEX            CLADIV
+      REAL               SLAMCH;
+      COMPLEX            CLADIV;
       // EXTERNAL LSAME, SLAMCH, CLADIV
       // ..
       // .. External Subroutines ..
@@ -42,73 +42,73 @@
       // INTRINSIC ABS, AIMAG, CMPLX, CONJG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               ABS1
+      REAL               ABS1;
       // ..
       // .. Statement Function definitions ..
-      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) )
+      ABS1( X ) = ABS( REAL( X ) ) + ABS( AIMAG( X ) );
       // ..
       // .. Executable Statements ..
 
       // Decode and Test the input parameters
 
       if ( LSAME( HOWMNY, 'A' ) ) {
-         IHWMNY = 1
+         IHWMNY = 1;
          ILALL = true;
          ILBACK = false;
       } else if ( LSAME( HOWMNY, 'S' ) ) {
-         IHWMNY = 2
+         IHWMNY = 2;
          ILALL = false;
          ILBACK = false;
       } else if ( LSAME( HOWMNY, 'B' ) ) {
-         IHWMNY = 3
+         IHWMNY = 3;
          ILALL = true;
          ILBACK = true;
       } else {
-         IHWMNY = -1
+         IHWMNY = -1;
       }
 
       if ( LSAME( SIDE, 'R' ) ) {
-         ISIDE = 1
+         ISIDE = 1;
          COMPL = false;
          COMPR = true;
       } else if ( LSAME( SIDE, 'L' ) ) {
-         ISIDE = 2
+         ISIDE = 2;
          COMPL = true;
          COMPR = false;
       } else if ( LSAME( SIDE, 'B' ) ) {
-         ISIDE = 3
+         ISIDE = 3;
          COMPL = true;
          COMPR = true;
       } else {
-         ISIDE = -1
+         ISIDE = -1;
       }
 
-      INFO = 0
+      INFO = 0;
       if ( ISIDE < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IHWMNY < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDS < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDP < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('CTGEVC', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Count the number of eigenvectors
 
       if ( !ILALL ) {
-         IM = 0
+         IM = 0;
          for (J = 1; J <= N; J++) { // 10
-            IF( SELECT( J ) ) IM = IM + 1
+            IF( SELECT( J ) ) IM = IM + 1;
          } // 10
       } else {
-         IM = N
+         IM = N;
       }
 
       // Check diagonal of B
@@ -119,59 +119,59 @@
       } // 20
 
       if ( ILBBAD ) {
-         INFO = -7
+         INFO = -7;
       } else if ( COMPL && LDVL < N || LDVL < 1 ) {
-         INFO = -10
+         INFO = -10;
       } else if ( COMPR && LDVR < N || LDVR < 1 ) {
-         INFO = -12
+         INFO = -12;
       } else if ( MM < IM ) {
-         INFO = -13
+         INFO = -13;
       }
       if ( INFO != 0 ) {
          xerbla('CTGEVC', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = IM
+      M = IM;
       if (N == 0) RETURN;
 
       // Machine Constants
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      BIG = ONE / SAFMIN
-      ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
-      SMALL = SAFMIN*N / ULP
-      BIG = ONE / SMALL
-      BIGNUM = ONE / ( SAFMIN*N )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      BIG = ONE / SAFMIN;
+      ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' );
+      SMALL = SAFMIN*N / ULP;
+      BIG = ONE / SMALL;
+      BIGNUM = ONE / ( SAFMIN*N );
 
       // Compute the 1-norm of each column of the strictly upper triangular
       // part of A and B to check for possible overflow in the triangular
       // solver.
 
-      ANORM = ABS1( S( 1, 1 ) )
-      BNORM = ABS1( P( 1, 1 ) )
-      RWORK( 1 ) = ZERO
-      RWORK( N+1 ) = ZERO
+      ANORM = ABS1( S( 1, 1 ) );
+      BNORM = ABS1( P( 1, 1 ) );
+      RWORK( 1 ) = ZERO;
+      RWORK( N+1 ) = ZERO;
       for (J = 2; J <= N; J++) { // 40
-         RWORK( J ) = ZERO
-         RWORK( N+J ) = ZERO
+         RWORK( J ) = ZERO;
+         RWORK( N+J ) = ZERO;
          for (I = 1; I <= J - 1; I++) { // 30
-            RWORK( J ) = RWORK( J ) + ABS1( S( I, J ) )
-            RWORK( N+J ) = RWORK( N+J ) + ABS1( P( I, J ) )
+            RWORK( J ) = RWORK( J ) + ABS1( S( I, J ) );
+            RWORK( N+J ) = RWORK( N+J ) + ABS1( P( I, J ) );
          } // 30
-         ANORM = MAX( ANORM, RWORK( J )+ABS1( S( J, J ) ) )
-         BNORM = MAX( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) )
+         ANORM = MAX( ANORM, RWORK( J )+ABS1( S( J, J ) ) );
+         BNORM = MAX( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) );
       } // 40
 
-      ASCALE = ONE / MAX( ANORM, SAFMIN )
-      BSCALE = ONE / MAX( BNORM, SAFMIN )
+      ASCALE = ONE / MAX( ANORM, SAFMIN );
+      BSCALE = ONE / MAX( BNORM, SAFMIN );
 
       // Left eigenvectors
 
       if ( COMPL ) {
-         IEIG = 0
+         IEIG = 0;
 
          // Main loop over eigenvalues
 
@@ -179,20 +179,20 @@
             if ( ILALL ) {
                ILCOMP = true;
             } else {
-               ILCOMP = SELECT( JE )
+               ILCOMP = SELECT( JE );
             }
             if ( ILCOMP ) {
-               IEIG = IEIG + 1
+               IEIG = IEIG + 1;
 
                if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( REAL( P( JE, JE ) ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 50
-                     VL( JR, IEIG ) = CZERO
+                     VL( JR, IEIG ) = CZERO;
                   } // 50
-                  VL( IEIG, IEIG ) = CONE
-                  GO TO 140
+                  VL( IEIG, IEIG ) = CONE;
+                  GO TO 140;
                }
 
                // Non-singular eigenvalue:
@@ -200,41 +200,41 @@
                     // H
                   // y  ( a A - b B ) = 0
 
-               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
-               SALPHA = ( TEMP*S( JE, JE ) )*ASCALE
-               SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE
-               ACOEFF = SBETA*ASCALE
-               BCOEFF = SALPHA*BSCALE
+               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN );
+               SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
+               SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE;
+               ACOEFF = SBETA*ASCALE;
+               BCOEFF = SALPHA*BSCALE;
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL
-               LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL
+               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL;
+               LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
-               SCALE = ONE
+               SCALE = ONE;
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
+                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
-                     ACOEFF = ASCALE*( SCALE*SBETA )
+                     ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
-                     ACOEFF = SCALE*ACOEFF
+                     ACOEFF = SCALE*ACOEFF;
                   }
                   if ( LSB ) {
-                     BCOEFF = BSCALE*( SCALE*SALPHA )
+                     BCOEFF = BSCALE*( SCALE*SALPHA );
                   } else {
-                     BCOEFF = SCALE*BCOEFF
+                     BCOEFF = SCALE*BCOEFF;
                   }
                }
 
-               ACOEFA = ABS( ACOEFF )
-               BCOEFA = ABS1( BCOEFF )
-               XMAX = ONE
+               ACOEFA = ABS( ACOEFF );
+               BCOEFA = ABS1( BCOEFF );
+               XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 60
-                  WORK( JR ) = CZERO
+                  WORK( JR ) = CZERO;
                } // 60
-               WORK( JE ) = CONE
-               DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
+               WORK( JE ) = CONE;
+               DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                                                // H
                // Triangular solve of  (a A - b B)  y = 0
@@ -250,72 +250,72 @@
                         // k=je
                   // (Scale if necessary)
 
-                  TEMP = ONE / XMAX
+                  TEMP = ONE / XMAX;
                   if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) > BIGNUM* TEMP ) {
                      for (JR = JE; JR <= J - 1; JR++) { // 70
-                        WORK( JR ) = TEMP*WORK( JR )
+                        WORK( JR ) = TEMP*WORK( JR );
                      } // 70
-                     XMAX = ONE
+                     XMAX = ONE;
                   }
-                  SUMA = CZERO
-                  SUMB = CZERO
+                  SUMA = CZERO;
+                  SUMB = CZERO;
 
                   for (JR = JE; JR <= J - 1; JR++) { // 80
-                     SUMA = SUMA + CONJG( S( JR, J ) )*WORK( JR )
-                     SUMB = SUMB + CONJG( P( JR, J ) )*WORK( JR )
+                     SUMA = SUMA + CONJG( S( JR, J ) )*WORK( JR );
+                     SUMB = SUMB + CONJG( P( JR, J ) )*WORK( JR );
                   } // 80
-                  SUM = ACOEFF*SUMA - CONJG( BCOEFF )*SUMB
+                  SUM = ACOEFF*SUMA - CONJG( BCOEFF )*SUMB;
 
                   // Form x(j) = - SUM / conjg( a*S(j,j) - b*P(j,j) )
 
                   // with scaling and perturbation of the denominator
 
-                  D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) )
-                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN )
+                  D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) );
+                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN );
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( SUM ) >= BIGNUM*ABS1( D ) ) {
-                        TEMP = ONE / ABS1( SUM )
+                        TEMP = ONE / ABS1( SUM );
                         for (JR = JE; JR <= J - 1; JR++) { // 90
-                           WORK( JR ) = TEMP*WORK( JR )
+                           WORK( JR ) = TEMP*WORK( JR );
                         } // 90
-                        XMAX = TEMP*XMAX
-                        SUM = TEMP*SUM
+                        XMAX = TEMP*XMAX;
+                        SUM = TEMP*SUM;
                      }
                   }
-                  WORK( J ) = CLADIV( -SUM, D )
-                  XMAX = MAX( XMAX, ABS1( WORK( J ) ) )
+                  WORK( J ) = CLADIV( -SUM, D );
+                  XMAX = MAX( XMAX, ABS1( WORK( J ) ) );
                } // 100
 
                // Back transform eigenvector if HOWMNY='B'.
 
                if ( ILBACK ) {
                   cgemv('N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 );
-                  ISRC = 2
-                  IBEG = 1
+                  ISRC = 2;
+                  IBEG = 1;
                } else {
-                  ISRC = 1
-                  IBEG = JE
+                  ISRC = 1;
+                  IBEG = JE;
                }
 
                // Copy and scale eigenvector into column of VL
 
-               XMAX = ZERO
+               XMAX = ZERO;
                for (JR = IBEG; JR <= N; JR++) { // 110
-                  XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
+                  XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
                } // 110
 
                if ( XMAX > SAFMIN ) {
-                  TEMP = ONE / XMAX
+                  TEMP = ONE / XMAX;
                   for (JR = IBEG; JR <= N; JR++) { // 120
-                     VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
+                     VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR );
                   } // 120
                } else {
-                  IBEG = N + 1
+                  IBEG = N + 1;
                }
 
                for (JR = 1; JR <= IBEG - 1; JR++) { // 130
-                  VL( JR, IEIG ) = CZERO
+                  VL( JR, IEIG ) = CZERO;
                } // 130
 
             }
@@ -325,28 +325,28 @@
       // Right eigenvectors
 
       if ( COMPR ) {
-         IEIG = IM + 1
+         IEIG = IM + 1;
 
          // Main loop over eigenvalues
 
-         DO 250 JE = N, 1, -1
+         DO 250 JE = N, 1, -1;
             if ( ILALL ) {
                ILCOMP = true;
             } else {
-               ILCOMP = SELECT( JE )
+               ILCOMP = SELECT( JE );
             }
             if ( ILCOMP ) {
-               IEIG = IEIG - 1
+               IEIG = IEIG - 1;
 
                if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( REAL( P( JE, JE ) ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
                   for (JR = 1; JR <= N; JR++) { // 150
-                     VR( JR, IEIG ) = CZERO
+                     VR( JR, IEIG ) = CZERO;
                   } // 150
-                  VR( IEIG, IEIG ) = CONE
-                  GO TO 250
+                  VR( IEIG, IEIG ) = CONE;
+                  GO TO 250;
                }
 
                // Non-singular eigenvalue:
@@ -354,41 +354,41 @@
 
                // ( a A - b B ) x  = 0
 
-               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
-               SALPHA = ( TEMP*S( JE, JE ) )*ASCALE
-               SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE
-               ACOEFF = SBETA*ASCALE
-               BCOEFF = SALPHA*BSCALE
+               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN );
+               SALPHA = ( TEMP*S( JE, JE ) )*ASCALE;
+               SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE;
+               ACOEFF = SBETA*ASCALE;
+               BCOEFF = SALPHA*BSCALE;
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL
-               LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL
+               LSA = ABS( SBETA ) >= SAFMIN && ABS( ACOEFF ) < SMALL;
+               LSB = ABS1( SALPHA ) >= SAFMIN && ABS1( BCOEFF ) < SMALL;
 
-               SCALE = ONE
+               SCALE = ONE;
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
                if ( LSA || LSB ) {
-                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
+                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) );
                   if ( LSA ) {
-                     ACOEFF = ASCALE*( SCALE*SBETA )
+                     ACOEFF = ASCALE*( SCALE*SBETA );
                   } else {
-                     ACOEFF = SCALE*ACOEFF
+                     ACOEFF = SCALE*ACOEFF;
                   }
                   if ( LSB ) {
-                     BCOEFF = BSCALE*( SCALE*SALPHA )
+                     BCOEFF = BSCALE*( SCALE*SALPHA );
                   } else {
-                     BCOEFF = SCALE*BCOEFF
+                     BCOEFF = SCALE*BCOEFF;
                   }
                }
 
-               ACOEFA = ABS( ACOEFF )
-               BCOEFA = ABS1( BCOEFF )
-               XMAX = ONE
+               ACOEFA = ABS( ACOEFF );
+               BCOEFA = ABS1( BCOEFF );
+               XMAX = ONE;
                for (JR = 1; JR <= N; JR++) { // 160
-                  WORK( JR ) = CZERO
+                  WORK( JR ) = CZERO;
                } // 160
-               WORK( JE ) = CONE
-               DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
+               WORK( JE ) = CONE;
+               DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN );
 
                // Triangular solve of  (a A - b B) x = 0  (columnwise)
 
@@ -396,46 +396,46 @@
                // WORK(j+1:JE) contains x
 
                for (JR = 1; JR <= JE - 1; JR++) { // 170
-                  WORK( JR ) = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE )
+                  WORK( JR ) = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE );
                } // 170
-               WORK( JE ) = CONE
+               WORK( JE ) = CONE;
 
-               DO 210 J = JE - 1, 1, -1
+               DO 210 J = JE - 1, 1, -1;
 
                   // Form x(j) := - w(j) / d
                   // with scaling and perturbation of the denominator
 
-                  D = ACOEFF*S( J, J ) - BCOEFF*P( J, J )
-                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN )
+                  D = ACOEFF*S( J, J ) - BCOEFF*P( J, J );
+                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN );
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( WORK( J ) ) >= BIGNUM*ABS1( D ) ) {
-                        TEMP = ONE / ABS1( WORK( J ) )
+                        TEMP = ONE / ABS1( WORK( J ) );
                         for (JR = 1; JR <= JE; JR++) { // 180
-                           WORK( JR ) = TEMP*WORK( JR )
+                           WORK( JR ) = TEMP*WORK( JR );
                         } // 180
                      }
                   }
 
-                  WORK( J ) = CLADIV( -WORK( J ), D )
+                  WORK( J ) = CLADIV( -WORK( J ), D );
 
                   if ( J > 1 ) {
 
                      // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
                      if ( ABS1( WORK( J ) ) > ONE ) {
-                        TEMP = ONE / ABS1( WORK( J ) )
+                        TEMP = ONE / ABS1( WORK( J ) );
                         if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ) >= BIGNUM*TEMP ) {
                            for (JR = 1; JR <= JE; JR++) { // 190
-                              WORK( JR ) = TEMP*WORK( JR )
+                              WORK( JR ) = TEMP*WORK( JR );
                            } // 190
                         }
                      }
 
-                     CA = ACOEFF*WORK( J )
-                     CB = BCOEFF*WORK( J )
+                     CA = ACOEFF*WORK( J );
+                     CB = BCOEFF*WORK( J );
                      for (JR = 1; JR <= J - 1; JR++) { // 200
-                        WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J )
+                        WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J );
                      } // 200
                   }
                } // 210
@@ -444,38 +444,38 @@
 
                if ( ILBACK ) {
                   cgemv('N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 );
-                  ISRC = 2
-                  IEND = N
+                  ISRC = 2;
+                  IEND = N;
                } else {
-                  ISRC = 1
-                  IEND = JE
+                  ISRC = 1;
+                  IEND = JE;
                }
 
                // Copy and scale eigenvector into column of VR
 
-               XMAX = ZERO
+               XMAX = ZERO;
                for (JR = 1; JR <= IEND; JR++) { // 220
-                  XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
+                  XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) );
                } // 220
 
                if ( XMAX > SAFMIN ) {
-                  TEMP = ONE / XMAX
+                  TEMP = ONE / XMAX;
                   for (JR = 1; JR <= IEND; JR++) { // 230
-                     VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
+                     VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR );
                   } // 230
                } else {
-                  IEND = 0
+                  IEND = 0;
                }
 
                for (JR = IEND + 1; JR <= N; JR++) { // 240
-                  VR( JR, IEIG ) = CZERO
+                  VR( JR, IEIG ) = CZERO;
                } // 240
 
             }
          } // 250
       }
 
-      RETURN
+      RETURN;
 
       // End of CTGEVC
 

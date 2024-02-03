@@ -1,4 +1,4 @@
-      SUBROUTINE DLATME( N, DIST, ISEED, D, MODE, COND, DMAX, EI, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, A, LDA, WORK, INFO )
+      SUBROUTINE DLATME( N, DIST, ISEED, D, MODE, COND, DMAX, EI, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, A, LDA, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -49,7 +49,7 @@
       // 1)      Decode and Test the input parameters.
               // Initialize flags & seed.
 
-      INFO = 0
+      INFO = 0;
 
       // Quick return if possible
 
@@ -58,13 +58,13 @@
       // Decode DIST
 
       if ( LSAME( DIST, 'U' ) ) {
-         IDIST = 1
+         IDIST = 1;
       } else if ( LSAME( DIST, 'S' ) ) {
-         IDIST = 2
+         IDIST = 2;
       } else if ( LSAME( DIST, 'N' ) ) {
-         IDIST = 3
+         IDIST = 3;
       } else {
-         IDIST = -1
+         IDIST = -1;
       }
 
       // Check EI
@@ -90,31 +90,31 @@
       // Decode RSIGN
 
       if ( LSAME( RSIGN, 'T' ) ) {
-         IRSIGN = 1
+         IRSIGN = 1;
       } else if ( LSAME( RSIGN, 'F' ) ) {
-         IRSIGN = 0
+         IRSIGN = 0;
       } else {
-         IRSIGN = -1
+         IRSIGN = -1;
       }
 
       // Decode UPPER
 
       if ( LSAME( UPPER, 'T' ) ) {
-         IUPPER = 1
+         IUPPER = 1;
       } else if ( LSAME( UPPER, 'F' ) ) {
-         IUPPER = 0
+         IUPPER = 0;
       } else {
-         IUPPER = -1
+         IUPPER = -1;
       }
 
       // Decode SIM
 
       if ( LSAME( SIM, 'T' ) ) {
-         ISIM = 1
+         ISIM = 1;
       } else if ( LSAME( SIM, 'F' ) ) {
-         ISIM = 0
+         ISIM = 0;
       } else {
-         ISIM = -1
+         ISIM = -1;
       }
 
       // Check DS, if MODES=0 and ISIM=1
@@ -129,47 +129,47 @@
       // Set INFO if an error
 
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IDIST == -1 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ABS( MODE ) > 6 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND < ONE ) {
-         INFO = -6
+         INFO = -6;
       } else if ( BADEI ) {
-         INFO = -8
+         INFO = -8;
       } else if ( IRSIGN == -1 ) {
-         INFO = -9
+         INFO = -9;
       } else if ( IUPPER == -1 ) {
-         INFO = -10
+         INFO = -10;
       } else if ( ISIM == -1 ) {
-         INFO = -11
+         INFO = -11;
       } else if ( BADS ) {
-         INFO = -12
+         INFO = -12;
       } else if ( ISIM == 1 && ABS( MODES ) > 5 ) {
-         INFO = -13
+         INFO = -13;
       } else if ( ISIM == 1 && MODES != 0 && CONDS < ONE ) {
-         INFO = -14
+         INFO = -14;
       } else if ( KL < 1 ) {
-         INFO = -15
+         INFO = -15;
       } else if ( KU < 1 || ( KU < N-1 && KL < N-1 ) ) {
-         INFO = -16
+         INFO = -16;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -19
+         INFO = -19;
       }
 
       if ( INFO != 0 ) {
          xerbla('DLATME', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 30
-         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
+         ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 );
       } // 30
 
-      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up diagonal of A
 
@@ -177,25 +177,25 @@
 
       dlatm1(MODE, COND, IRSIGN, IDIST, ISEED, D, N, IINFO );
       if ( IINFO != 0 ) {
-         INFO = 1
-         RETURN
+         INFO = 1;
+         RETURN;
       }
       if ( MODE != 0 && ABS( MODE ) != 6 ) {
 
          // Scale by DMAX
 
-         TEMP = ABS( D( 1 ) )
+         TEMP = ABS( D( 1 ) );
          for (I = 2; I <= N; I++) { // 40
-            TEMP = MAX( TEMP, ABS( D( I ) ) )
+            TEMP = MAX( TEMP, ABS( D( I ) ) );
          } // 40
 
          if ( TEMP > ZERO ) {
-            ALPHA = DMAX / TEMP
+            ALPHA = DMAX / TEMP;
          } else if ( DMAX != ZERO ) {
-            INFO = 2
-            RETURN
+            INFO = 2;
+            RETURN;
          } else {
-            ALPHA = ZERO
+            ALPHA = ZERO;
          }
 
          dscal(N, ALPHA, D, 1 );
@@ -211,20 +211,20 @@
          if ( USEEI ) {
             for (J = 2; J <= N; J++) { // 50
                if ( LSAME( EI( J ), 'I' ) ) {
-                  A( J-1, J ) = A( J, J )
-                  A( J, J-1 ) = -A( J, J )
-                  A( J, J ) = A( J-1, J-1 )
+                  A( J-1, J ) = A( J, J );
+                  A( J, J-1 ) = -A( J, J );
+                  A( J, J ) = A( J-1, J-1 );
                }
             } // 50
          }
 
       } else if ( ABS( MODE ) == 5 ) {
 
-         DO 60 J = 2, N, 2
+         DO 60 J = 2, N, 2;
             if ( DLARAN( ISEED ) > HALF ) {
-               A( J-1, J ) = A( J, J )
-               A( J, J-1 ) = -A( J, J )
-               A( J, J ) = A( J-1, J-1 )
+               A( J-1, J ) = A( J, J );
+               A( J, J-1 ) = -A( J, J );
+               A( J, J ) = A( J-1, J-1 );
             }
          } // 60
       }
@@ -235,9 +235,9 @@
       if ( IUPPER != 0 ) {
          for (JC = 2; JC <= N; JC++) { // 70
             if ( A( JC-1, JC ) != ZERO ) {
-               JR = JC - 2
+               JR = JC - 2;
             } else {
-               JR = JC - 1
+               JR = JC - 1;
             }
             dlarnv(IDIST, ISEED, JR, A( 1, JC ) );
          } // 70
@@ -257,16 +257,16 @@
 
          dlatm1(MODES, CONDS, 0, 0, ISEED, DS, N, IINFO );
          if ( IINFO != 0 ) {
-            INFO = 3
-            RETURN
+            INFO = 3;
+            RETURN;
          }
 
          // Multiply by V and V'
 
          dlarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO != 0 ) {
-            INFO = 4
-            RETURN
+            INFO = 4;
+            RETURN;
          }
 
          // Multiply by S and (1/S)
@@ -276,8 +276,8 @@
             if ( DS( J ) != ZERO ) {
                dscal(N, ONE / DS( J ), A( 1, J ), 1 );
             } else {
-               INFO = 5
-               RETURN
+               INFO = 5;
+               RETURN;
             }
          } // 80
 
@@ -285,8 +285,8 @@
 
          dlarge(N, A, LDA, ISEED, WORK, IINFO );
          if ( IINFO != 0 ) {
-            INFO = 4
-            RETURN
+            INFO = 4;
+            RETURN;
          }
       }
 
@@ -297,14 +297,14 @@
          // Reduce bandwidth -- kill column
 
          for (JCR = KL + 1; JCR <= N - 1; JCR++) { // 90
-            IC = JCR - KL
-            IROWS = N + 1 - JCR
-            ICOLS = N + KL - JCR
+            IC = JCR - KL;
+            IROWS = N + 1 - JCR;
+            ICOLS = N + KL - JCR;
 
             dcopy(IROWS, A( JCR, IC ), 1, WORK, 1 );
-            XNORMS = WORK( 1 )
+            XNORMS = WORK( 1 );
             dlarfg(IROWS, XNORMS, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE
+            WORK( 1 ) = ONE;
 
             dgemv('T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 );
             dger(IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA );
@@ -312,7 +312,7 @@
             dgemv('N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 );
             dger(N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA );
 
-            A( JCR, IC ) = XNORMS
+            A( JCR, IC ) = XNORMS;
             dlaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
          } // 90
       } else if ( KU < N-1 ) {
@@ -320,14 +320,14 @@
          // Reduce upper bandwidth -- kill a row at a time.
 
          for (JCR = KU + 1; JCR <= N - 1; JCR++) { // 100
-            IR = JCR - KU
-            IROWS = N + KU - JCR
-            ICOLS = N + 1 - JCR
+            IR = JCR - KU;
+            IROWS = N + KU - JCR;
+            ICOLS = N + 1 - JCR;
 
             dcopy(ICOLS, A( IR, JCR ), LDA, WORK, 1 );
-            XNORMS = WORK( 1 )
+            XNORMS = WORK( 1 );
             dlarfg(ICOLS, XNORMS, WORK( 2 ), 1, TAU );
-            WORK( 1 ) = ONE
+            WORK( 1 ) = ONE;
 
             dgemv('N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 );
             dger(IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA );
@@ -335,7 +335,7 @@
             dgemv('C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 );
             dger(ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA );
 
-            A( IR, JCR ) = XNORMS
+            A( IR, JCR ) = XNORMS;
             dlaset('Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA );
          } // 100
       }
@@ -343,16 +343,16 @@
       // Scale the matrix to have norm ANORM
 
       if ( ANORM >= ZERO ) {
-         TEMP = DLANGE( 'M', N, N, A, LDA, TEMPA )
+         TEMP = DLANGE( 'M', N, N, A, LDA, TEMPA );
          if ( TEMP > ZERO ) {
-            ALPHA = ANORM / TEMP
+            ALPHA = ANORM / TEMP;
             for (J = 1; J <= N; J++) { // 110
                dscal(N, ALPHA, A( 1, J ), 1 );
             } // 110
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of DLATME
 

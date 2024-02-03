@@ -1,6 +1,6 @@
-      SUBROUTINE CHBEVX_2STAGE( JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO )
+      SUBROUTINE CHBEVX_2STAGE( JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,33 +9,33 @@
       // .. Scalar Arguments ..
       String             JOBZ, RANGE, UPLO;
       int                IL, INFO, IU, KD, LDAB, LDQ, LDZ, M, N, LWORK;
-      REAL               ABSTOL, VL, VU
+      REAL               ABSTOL, VL, VU;
       // ..
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
-      REAL               RWORK( * ), W( * )
-      COMPLEX            AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
+      REAL               RWORK( * ), W( * );
+      COMPLEX            AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ, LQUERY;
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, J, JJ, NSPLIT;
-      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
-      COMPLEX            CTMP1
+      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
+      COMPLEX            CTMP1;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      REAL               SLAMCH, CLANHB, SROUNDUP_LWORK
+      REAL               SLAMCH, CLANHB, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, CLANHB, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -48,51 +48,51 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      ALLEIG = LSAME( RANGE, 'A' )
-      VALEIG = LSAME( RANGE, 'V' )
-      INDEIG = LSAME( RANGE, 'I' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      ALLEIG = LSAME( RANGE, 'A' );
+      VALEIG = LSAME( RANGE, 'V' );
+      INDEIG = LSAME( RANGE, 'I' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( !( LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( ALLEIG || VALEIG || INDEIG ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( KD < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < KD+1 ) {
-         INFO = -7
+         INFO = -7;
       } else if ( WANTZ && LDQ < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else {
          if ( VALEIG ) {
             if (N > 0 && VU <= VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
-               INFO = -12
+               INFO = -12;
             } else if ( IU < MIN( N, IL ) || IU > N ) {
-               INFO = -13
+               INFO = -13;
             }
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -18
+         IF( LDZ < 1 || ( WANTZ && LDZ < N ) ) INFO = -18;
       }
 
       if ( INFO == 0 ) {
          if ( N <= 1 ) {
-            LWMIN = 1
-            WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+            LWMIN = 1;
+            WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
          } else {
-            IB    = ILAENV2STAGE( 2, 'CHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
-            LWMIN = LHTRD + LWTRD
-            WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
+            IB    = ILAENV2STAGE( 2, 'CHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 );
+            LWMIN = LHTRD + LWTRD;
+            WORK( 1 )  = SROUNDUP_LWORK(LWMIN);
          }
 
          if (LWORK < LWMIN && !LQUERY) INFO = -20;
@@ -100,61 +100,61 @@
 
       if ( INFO != 0 ) {
          xerbla('CHBEVX_2STAGE', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      M = 0
+      M = 0;
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         M = 1
+         M = 1;
          if ( LOWER ) {
-            CTMP1 = AB( 1, 1 )
+            CTMP1 = AB( 1, 1 );
          } else {
-            CTMP1 = AB( KD+1, 1 )
+            CTMP1 = AB( KD+1, 1 );
          }
-         TMP1 = REAL( CTMP1 )
+         TMP1 = REAL( CTMP1 );
          if ( VALEIG ) {
-            IF( !( VL < TMP1 && VU >= TMP1 ) ) M = 0
+            IF( !( VL < TMP1 && VU >= TMP1 ) ) M = 0;
          }
          if ( M == 1 ) {
-            W( 1 ) = REAL( CTMP1 )
+            W( 1 ) = REAL( CTMP1 );
             if (WANTZ) Z( 1, 1 ) = CONE;
          }
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS    = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN   = SQRT( SMLNUM )
-      RMAX   = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS    = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN   = SQRT( SMLNUM );
+      RMAX   = MIN( SQRT( BIGNUM ), ONE / SQRT( SQRT( SAFMIN ) ) );
 
       // Scale matrix to allowable range, if necessary.
 
-      ISCALE = 0
-      ABSTLL = ABSTOL
+      ISCALE = 0;
+      ABSTLL = ABSTOL;
       if ( VALEIG ) {
-         VLL = VL
-         VUU = VU
+         VLL = VL;
+         VUU = VU;
       } else {
-         VLL = ZERO
-         VUU = ZERO
+         VLL = ZERO;
+         VUU = ZERO;
       }
-      ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
+      ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK );
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          if ( LOWER ) {
@@ -164,20 +164,20 @@
          }
          if (ABSTOL > 0) ABSTLL = ABSTOL*SIGMA;
          if ( VALEIG ) {
-            VLL = VL*SIGMA
-            VUU = VU*SIGMA
+            VLL = VL*SIGMA;
+            VUU = VU*SIGMA;
          }
       }
 
       // Call CHBTRD_HB2ST to reduce Hermitian band matrix to tridiagonal form.
 
-      INDD = 1
-      INDE = INDD + N
-      INDRWK = INDE + N
+      INDD = 1;
+      INDE = INDD + N;
+      INDRWK = INDE + N;
 
-      INDHOUS = 1
-      INDWRK  = INDHOUS + LHTRD
-      LLWORK  = LWORK - INDWRK + 1
+      INDHOUS = 1;
+      INDWRK  = INDHOUS + LHTRD;
+      LLWORK  = LWORK - INDWRK + 1;
 
       chetrd_hb2st('N', JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO );
 
@@ -193,7 +193,7 @@
       }
       if ((ALLEIG || TEST) && (ABSTOL <= ZERO)) {
          scopy(N, RWORK( INDD ), 1, W, 1 );
-         INDEE = INDRWK + 2*N
+         INDEE = INDRWK + 2*N;
          if ( !WANTZ ) {
             scopy(N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 );
             ssterf(N, W, RWORK( INDEE ), INFO );
@@ -203,27 +203,27 @@
             csteqr(JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO );
             if ( INFO == 0 ) {
                for (I = 1; I <= N; I++) { // 10
-                  IFAIL( I ) = 0
+                  IFAIL( I ) = 0;
                } // 10
             }
          }
          if ( INFO == 0 ) {
-            M = N
-            GO TO 30
+            M = N;
+            GO TO 30;
          }
-         INFO = 0
+         INFO = 0;
       }
 
       // Otherwise, call SSTEBZ and, if eigenvectors are desired, CSTEIN.
 
       if ( WANTZ ) {
-         ORDER = 'B'
+         ORDER = 'B';
       } else {
-         ORDER = 'E'
+         ORDER = 'E';
       }
-      INDIBL = 1
-      INDISP = INDIBL + N
-      INDIWK = INDISP + N
+      INDIBL = 1;
+      INDISP = INDIBL + N;
+      INDIWK = INDISP + N;
       sstebz(RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO );
 
       if ( WANTZ ) {
@@ -243,9 +243,9 @@
       } // 30
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = M
+            IMAX = M;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
@@ -255,26 +255,26 @@
 
       if ( WANTZ ) {
          for (J = 1; J <= M - 1; J++) { // 50
-            I = 0
-            TMP1 = W( J )
+            I = 0;
+            TMP1 = W( J );
             for (JJ = J + 1; JJ <= M; JJ++) { // 40
                if ( W( JJ ) < TMP1 ) {
-                  I = JJ
-                  TMP1 = W( JJ )
+                  I = JJ;
+                  TMP1 = W( JJ );
                }
             } // 40
 
             if ( I != 0 ) {
-               ITMP1 = IWORK( INDIBL+I-1 )
-               W( I ) = W( J )
-               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 )
-               W( J ) = TMP1
-               IWORK( INDIBL+J-1 ) = ITMP1
+               ITMP1 = IWORK( INDIBL+I-1 );
+               W( I ) = W( J );
+               IWORK( INDIBL+I-1 ) = IWORK( INDIBL+J-1 );
+               W( J ) = TMP1;
+               IWORK( INDIBL+J-1 ) = ITMP1;
                cswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
                if ( INFO != 0 ) {
-                  ITMP1 = IFAIL( I )
-                  IFAIL( I ) = IFAIL( J )
-                  IFAIL( J ) = ITMP1
+                  ITMP1 = IFAIL( I );
+                  IFAIL( I ) = IFAIL( J );
+                  IFAIL( J ) = ITMP1;
                }
             }
          } // 50
@@ -282,9 +282,9 @@
 
       // Set WORK(1) to optimal workspace size.
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN
+      RETURN;
 
       // End of CHBEVX_2STAGE
 

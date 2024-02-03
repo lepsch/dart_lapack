@@ -1,4 +1,4 @@
-      SUBROUTINE SDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,18 +7,18 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NOUT, NRHS;
-      REAL               THRESH
+      REAL               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
-      REAL               A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * )
+      REAL               A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), RWORK( * ), S( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 11 ;
@@ -37,11 +37,11 @@
       // .. Local Arrays ..
       String             EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               RESULT( NTESTS )
+      REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               SGET06, SLAMCH, SLANGE, SLANTR
+      REAL               SGET06, SLAMCH, SLANGE, SLANTR;
       // EXTERNAL LSAME, SGET06, SLAMCH, SLANGE, SLANTR
       // ..
       // .. External Subroutines ..
@@ -60,70 +60,70 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               TRANSS / 'N', 'T', 'C' /
-      DATA               FACTS / 'F', 'N', 'E' /
-      DATA               EQUEDS / 'N', 'R', 'C', 'B' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               TRANSS / 'N', 'T', 'C' /;
+      DATA               FACTS / 'F', 'N', 'E' /;
+      DATA               EQUEDS / 'N', 'R', 'C', 'B' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Single precision'
-      PATH( 2: 3 ) = 'GE'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Single precision';
+      PATH( 2: 3 ) = 'GE';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL SERRVX( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Set the block size and minimum block size for testing.
 
-      NB = 1
-      NBMIN = 2
+      NB = 1;
+      NBMIN = 2;
       xlaenv(1, NB );
       xlaenv(2, NBMIN );
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 90
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 80
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 80
+            IF( !DOTYPE( IMAT ) ) GO TO 80;
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT >= 5 && IMAT <= 7
+            ZEROT = IMAT >= 5 && IMAT <= 7;
             if (ZEROT && N < IMAT-4) GO TO 80;
 
             // Set up parameters with SLATB4 and generate a test matrix
             // with SLATMS.
 
             slatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
-            RCONDC = ONE / CNDNUM
+            RCONDC = ONE / CNDNUM;
 
-            SRNAMT = 'SLATMS'
+            SRNAMT = 'SLATMS';
             slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
             // Check error code from SLATMS.
 
             if ( INFO != 0 ) {
                alaerh(PATH, 'SLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-               GO TO 80
+               GO TO 80;
             }
 
             // For types 5-7, zero one or more columns of the matrix to
@@ -131,22 +131,22 @@
 
             if ( ZEROT ) {
                if ( IMAT == 5 ) {
-                  IZERO = 1
+                  IZERO = 1;
                } else if ( IMAT == 6 ) {
-                  IZERO = N
+                  IZERO = N;
                } else {
-                  IZERO = N / 2 + 1
+                  IZERO = N / 2 + 1;
                }
-               IOFF = ( IZERO-1 )*LDA
+               IOFF = ( IZERO-1 )*LDA;
                if ( IMAT < 7 ) {
                   for (I = 1; I <= N; I++) { // 20
-                     A( IOFF+I ) = ZERO
+                     A( IOFF+I ) = ZERO;
                   } // 20
                } else {
                   slaset('Full', N, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );
                }
             } else {
-               IZERO = 0
+               IZERO = 0;
             }
 
             // Save a copy of the matrix A in ASAV.
@@ -154,23 +154,23 @@
             slacpy('Full', N, N, A, LDA, ASAV, LDA );
 
             for (IEQUED = 1; IEQUED <= 4; IEQUED++) { // 70
-               EQUED = EQUEDS( IEQUED )
+               EQUED = EQUEDS( IEQUED );
                if ( IEQUED == 1 ) {
-                  NFACT = 3
+                  NFACT = 3;
                } else {
-                  NFACT = 1
+                  NFACT = 1;
                }
 
                for (IFACT = 1; IFACT <= NFACT; IFACT++) { // 60
-                  FACT = FACTS( IFACT )
-                  PREFAC = LSAME( FACT, 'F' )
-                  NOFACT = LSAME( FACT, 'N' )
-                  EQUIL = LSAME( FACT, 'E' )
+                  FACT = FACTS( IFACT );
+                  PREFAC = LSAME( FACT, 'F' );
+                  NOFACT = LSAME( FACT, 'N' );
+                  EQUIL = LSAME( FACT, 'E' );
 
                   if ( ZEROT ) {
                      if (PREFAC) GO TO 60;
-                     RCONDO = ZERO
-                     RCONDI = ZERO
+                     RCONDO = ZERO;
+                     RCONDI = ZERO;
 
                   } else if ( !NOFACT ) {
 
@@ -188,14 +188,14 @@
                         sgeequ(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
                         if ( INFO == 0 && N > 0 ) {
                            if ( LSAME( EQUED, 'R' ) ) {
-                              ROWCND = ZERO
-                              COLCND = ONE
+                              ROWCND = ZERO;
+                              COLCND = ONE;
                            } else if ( LSAME( EQUED, 'C' ) ) {
-                              ROWCND = ONE
-                              COLCND = ZERO
+                              ROWCND = ONE;
+                              COLCND = ZERO;
                            } else if ( LSAME( EQUED, 'B' ) ) {
-                              ROWCND = ZERO
-                              COLCND = ZERO
+                              ROWCND = ZERO;
+                              COLCND = ZERO;
                            }
 
                            // Equilibrate the matrix.
@@ -208,43 +208,43 @@
                      // system for use in SGET04.
 
                      if ( EQUIL ) {
-                        ROLDO = RCONDO
-                        ROLDI = RCONDI
+                        ROLDO = RCONDO;
+                        ROLDI = RCONDI;
                      }
 
                      // Compute the 1-norm and infinity-norm of A.
 
-                     ANORMO = SLANGE( '1', N, N, AFAC, LDA, RWORK )
-                     ANORMI = SLANGE( 'I', N, N, AFAC, LDA, RWORK )
+                     ANORMO = SLANGE( '1', N, N, AFAC, LDA, RWORK );
+                     ANORMI = SLANGE( 'I', N, N, AFAC, LDA, RWORK );
 
                      // Factor the matrix A.
 
-                     SRNAMT = 'SGETRF'
+                     SRNAMT = 'SGETRF';
                      sgetrf(N, N, AFAC, LDA, IWORK, INFO );
 
                      // Form the inverse of A.
 
                      slacpy('Full', N, N, AFAC, LDA, A, LDA );
-                     LWORK = NMAX*MAX( 3, NRHS )
-                     SRNAMT = 'SGETRI'
+                     LWORK = NMAX*MAX( 3, NRHS );
+                     SRNAMT = 'SGETRI';
                      sgetri(N, A, LDA, IWORK, WORK, LWORK, INFO );
 
                      // Compute the 1-norm condition number of A.
 
-                     AINVNM = SLANGE( '1', N, N, A, LDA, RWORK )
+                     AINVNM = SLANGE( '1', N, N, A, LDA, RWORK );
                      if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
-                        RCONDO = ONE
+                        RCONDO = ONE;
                      } else {
-                        RCONDO = ( ONE / ANORMO ) / AINVNM
+                        RCONDO = ( ONE / ANORMO ) / AINVNM;
                      }
 
                      // Compute the infinity-norm condition number of A.
 
-                     AINVNM = SLANGE( 'I', N, N, A, LDA, RWORK )
+                     AINVNM = SLANGE( 'I', N, N, A, LDA, RWORK );
                      if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
-                        RCONDI = ONE
+                        RCONDI = ONE;
                      } else {
-                        RCONDI = ( ONE / ANORMI ) / AINVNM
+                        RCONDI = ( ONE / ANORMI ) / AINVNM;
                      }
                   }
 
@@ -252,11 +252,11 @@
 
                      // Do for each value of TRANS.
 
-                     TRANS = TRANSS( ITRAN )
+                     TRANS = TRANSS( ITRAN );
                      if ( ITRAN == 1 ) {
-                        RCONDC = RCONDO
+                        RCONDC = RCONDO;
                      } else {
-                        RCONDC = RCONDI
+                        RCONDC = RCONDI;
                      }
 
                      // Restore the matrix A.
@@ -265,9 +265,9 @@
 
                      // Form an exact solution and set the right hand side.
 
-                     SRNAMT = 'SLARHS'
+                     SRNAMT = 'SLARHS';
                      slarhs(PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
-                     XTYPE = 'C'
+                     XTYPE = 'C';
                      slacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
                      if ( NOFACT && ITRAN == 1 ) {
@@ -280,7 +280,7 @@
                         slacpy('Full', N, N, A, LDA, AFAC, LDA );
                         slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                        SRNAMT = 'SGESV '
+                        SRNAMT = 'SGESV ';
                         sgesv(N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                         // Check error code from SGESV .
@@ -291,7 +291,7 @@
                         // residual.
 
                         sget01(N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) );
-                        NT = 1
+                        NT = 1;
                         if ( IZERO == 0 ) {
 
                            // Compute residual of the computed solution.
@@ -302,7 +302,7 @@
                            // Check solution from generated exact solution.
 
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
-                           NT = 3
+                           NT = 3;
                         }
 
                         // Print information about the tests that did not
@@ -311,10 +311,10 @@
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'SGESV ', N, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1
+                              NFAIL = NFAIL + 1;
                            }
                         } // 30
-                        NRUN = NRUN + NT
+                        NRUN = NRUN + NT;
                      }
 
                      // --- Test SGESVX ---
@@ -332,7 +332,7 @@
                      // Solve the system and compute the condition number
                      // and error bounds using SGESVX.
 
-                     SRNAMT = 'SGESVX'
+                     SRNAMT = 'SGESVX';
                      sgesvx(FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO );
 
                      // Check the error code from SGESVX.
@@ -343,21 +343,21 @@
                      // reciprocal pivot growth factor RPVGRW
 
                      if ( INFO != 0 && INFO <= N) {
-                        RPVGRW = SLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK )
+                        RPVGRW = SLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK );
                         if ( RPVGRW == ZERO ) {
-                           RPVGRW = ONE
+                           RPVGRW = ONE;
                         } else {
-                           RPVGRW = SLANGE( 'M', N, INFO, A, LDA, WORK ) / RPVGRW
+                           RPVGRW = SLANGE( 'M', N, INFO, A, LDA, WORK ) / RPVGRW;
                         }
                      } else {
-                        RPVGRW = SLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, WORK )
+                        RPVGRW = SLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, WORK );
                         if ( RPVGRW == ZERO ) {
-                           RPVGRW = ONE
+                           RPVGRW = ONE;
                         } else {
-                           RPVGRW = SLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW
+                           RPVGRW = SLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW;
                         }
                      }
-                     RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / MAX( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' )
+                     RESULT( 7 ) = ABS( RPVGRW-WORK( 1 ) ) / MAX( WORK( 1 ), RPVGRW ) / SLAMCH( 'E' );
 
                      if ( !PREFAC ) {
 
@@ -365,9 +365,9 @@
                         // residual.
 
                         sget01(N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) );
-                        K1 = 1
+                        K1 = 1;
                      } else {
-                        K1 = 2
+                        K1 = 2;
                      }
 
                      if ( INFO == 0 ) {
@@ -384,9 +384,9 @@
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {
-                              ROLDC = ROLDO
+                              ROLDC = ROLDO;
                            } else {
-                              ROLDC = ROLDI
+                              ROLDC = ROLDI;
                            }
                            sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }
@@ -402,7 +402,7 @@
                      // Compare RCOND from SGESVX with the computed value
                      // in RCONDC.
 
-                     RESULT( 6 ) = SGET06( RCOND, RCONDC )
+                     RESULT( 6 ) = SGET06( RCOND, RCONDC );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -412,43 +412,43 @@
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
-                                 WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
+                                 WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K );
                               } else {
-                                 WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, K, RESULT( K )
+                                 WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                               }
-                              NFAIL = NFAIL + 1
+                              NFAIL = NFAIL + 1;
                            }
                         } // 40
-                        NRUN = NRUN + NTESTS - K1 + 1
+                        NRUN = NRUN + NTESTS - K1 + 1;
                      } else {
-                        IF( RESULT( 1 ) >= THRESH && !PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ) >= THRESH && !PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
-                              WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
+                              WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 );
                            } else {
-                              WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, 1, RESULT( 1 )
+                              WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, 1, RESULT( 1 );
                            }
-                           NFAIL = NFAIL + 1
-                           NRUN = NRUN + 1
+                           NFAIL = NFAIL + 1;
+                           NRUN = NRUN + 1;
                         }
                         if ( RESULT( 6 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
-                              WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
+                              WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 );
                            } else {
-                              WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, 6, RESULT( 6 )
+                              WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, 6, RESULT( 6 );
                            }
-                           NFAIL = NFAIL + 1
-                           NRUN = NRUN + 1
+                           NFAIL = NFAIL + 1;
+                           NRUN = NRUN + 1;
                         }
                         if ( RESULT( 7 ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
-                              WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
+                              WRITE( NOUT, FMT = 9997 )'SGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 );
                            } else {
-                              WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, 7, RESULT( 7 )
+                              WRITE( NOUT, FMT = 9998 )'SGESVX', FACT, TRANS, N, IMAT, 7, RESULT( 7 );
                            }
-                           NFAIL = NFAIL + 1
-                           NRUN = NRUN + 1
+                           NFAIL = NFAIL + 1;
+                           NRUN = NRUN + 1;
                         }
 
                      }
@@ -463,10 +463,10 @@
 
       alasvm(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test(', I2, ') =', G12.5 )
- 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', type ', I2, ', test(', I1, ')=', G12.5 )
- 9997 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', EQUED=''', A1, ''', type ', I2, ', test(', I1, ')=', G12.5 )
-      RETURN
+ 9999 FORMAT( 1X, A, ', N =', I5, ', type ', I2, ', test(', I2, ') =', G12.5 );
+ 9998 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', type ', I2, ', test(', I1, ')=', G12.5 );
+ 9997 FORMAT( 1X, A, ', FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', EQUED=''', A1, ''', type ', I2, ', test(', I1, ')=', G12.5 );
+      RETURN;
 
       // End of SDRVGE
 

@@ -1,4 +1,4 @@
-      SUBROUTINE DPBTF2( UPLO, N, KD, AB, LDAB, INFO )
+      SUBROUTINE DPBTF2( UPLO, N, KD, AB, LDAB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,27 +37,27 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KD < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDAB < KD+1 ) {
-         INFO = -5
+         INFO = -5;
       }
       if ( INFO != 0 ) {
          xerbla('DPBTF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if (N == 0) RETURN;
 
-      KLD = MAX( 1, LDAB-1 )
+      KLD = MAX( 1, LDAB-1 );
 
       if ( UPPER ) {
 
@@ -67,15 +67,15 @@
 
             // Compute U(J,J) and test for non-positive-definiteness.
 
-            AJJ = AB( KD+1, J )
+            AJJ = AB( KD+1, J );
             if (AJJ <= ZERO) GO TO 30;
-            AJJ = SQRT( AJJ )
-            AB( KD+1, J ) = AJJ
+            AJJ = SQRT( AJJ );
+            AB( KD+1, J ) = AJJ;
 
             // Compute elements J+1:J+KN of row J and update the
             // trailing submatrix within the band.
 
-            KN = MIN( KD, N-J )
+            KN = MIN( KD, N-J );
             if ( KN > 0 ) {
                dscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
                dsyr('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
@@ -89,26 +89,26 @@
 
             // Compute L(J,J) and test for non-positive-definiteness.
 
-            AJJ = AB( 1, J )
+            AJJ = AB( 1, J );
             if (AJJ <= ZERO) GO TO 30;
-            AJJ = SQRT( AJJ )
-            AB( 1, J ) = AJJ
+            AJJ = SQRT( AJJ );
+            AB( 1, J ) = AJJ;
 
             // Compute elements J+1:J+KN of column J and update the
             // trailing submatrix within the band.
 
-            KN = MIN( KD, N-J )
+            KN = MIN( KD, N-J );
             if ( KN > 0 ) {
                dscal(KN, ONE / AJJ, AB( 2, J ), 1 );
                dsyr('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
          } // 20
       }
-      RETURN
+      RETURN;
 
       } // 30
-      INFO = J
-      RETURN
+      INFO = J;
+      RETURN;
 
       // End of DPBTF2
 

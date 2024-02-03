@@ -1,4 +1,4 @@
-      RECURSIVE SUBROUTINE ZPOTRF2( UPLO, N, A, LDA, INFO )
+      RECURSIVE SUBROUTINE ZPOTRF2( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = (1.0, 0.0) ;
       // ..
       // .. Local Scalars ..
@@ -39,18 +39,18 @@
 
       // Test the input parameters
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZPOTRF2', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -63,28 +63,28 @@
 
          // Test for non-positive-definiteness
 
-         AJJ = DBLE( A( 1, 1 ) )
+         AJJ = DBLE( A( 1, 1 ) );
          if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
-            INFO = 1
-            RETURN
+            INFO = 1;
+            RETURN;
          }
 
          // Factor
 
-         A( 1, 1 ) = SQRT( AJJ )
+         A( 1, 1 ) = SQRT( AJJ );
 
       // Use recursive code
 
       } else {
-         N1 = N/2
-         N2 = N-N1
+         N1 = N/2;
+         N2 = N-N1;
 
          // Factor A11
 
          zpotrf2(UPLO, N1, A( 1, 1 ), LDA, IINFO );
          if ( IINFO != 0 ) {
-            INFO = IINFO
-            RETURN
+            INFO = IINFO;
+            RETURN;
          }
 
          // Compute the Cholesky factorization A = U**H*U
@@ -100,8 +100,8 @@
             zherk(UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
             zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO != 0 ) {
-               INFO = IINFO + N1
-               RETURN
+               INFO = IINFO + N1;
+               RETURN;
             }
 
          // Compute the Cholesky factorization A = L*L**H
@@ -117,12 +117,12 @@
             zherk(UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA );
             zpotrf2(UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO );
             if ( IINFO != 0 ) {
-               INFO = IINFO + N1
-               RETURN
+               INFO = IINFO + N1;
+               RETURN;
             }
          }
       }
-      RETURN
+      RETURN;
 
       // End of ZPOTRF2
 

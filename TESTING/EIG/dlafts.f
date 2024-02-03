@@ -1,4 +1,4 @@
-      SUBROUTINE DLAFTS( TYPE, M, N, IMAT, NTESTS, RESULT, ISEED, THRESH, IOUNIT, IE )
+      SUBROUTINE DLAFTS( TYPE, M, N, IMAT, NTESTS, RESULT, ISEED, THRESH, IOUNIT, IE );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,13 +35,13 @@
             // to print a header to the data file.
 
                if (IE == 0) CALL DLAHD2( IOUNIT, TYPE );
-               IE = IE + 1
+               IE = IE + 1;
                if ( RESULT( K ) < 10000.0 ) {
-                  WRITE( IOUNIT, FMT = 9999 )N, IMAT, ISEED, K, RESULT( K )
- 9999             FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 0P, F8.2 )
+                  WRITE( IOUNIT, FMT = 9999 )N, IMAT, ISEED, K, RESULT( K );
+ 9999             FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 0P, F8.2 );
                } else {
-                  WRITE( IOUNIT, FMT = 9998 )N, IMAT, ISEED, K, RESULT( K )
- 9998             FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 1P, D10.3 )
+                  WRITE( IOUNIT, FMT = 9998 )N, IMAT, ISEED, K, RESULT( K );
+ 9998             FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 1P, D10.3 );
                }
             }
          } // 10
@@ -56,19 +56,19 @@
                // to print a header to the data file.
 
                if (IE == 0) CALL DLAHD2( IOUNIT, TYPE );
-               IE = IE + 1
+               IE = IE + 1;
                if ( RESULT( K ) < 10000.0 ) {
-                  WRITE( IOUNIT, FMT = 9997 )M, N, IMAT, ISEED, K, RESULT( K )
- 9997             FORMAT( 1X, I5, ' x', I5, ' matrix, type=', I2, ', s', 'eed=', 3( I4, ',' ), I4, ': result ', I3, ' is', 0P, F8.2 )
+                  WRITE( IOUNIT, FMT = 9997 )M, N, IMAT, ISEED, K, RESULT( K );
+ 9997             FORMAT( 1X, I5, ' x', I5, ' matrix, type=', I2, ', s', 'eed=', 3( I4, ',' ), I4, ': result ', I3, ' is', 0P, F8.2 );
                } else {
-                  WRITE( IOUNIT, FMT = 9996 )M, N, IMAT, ISEED, K, RESULT( K )
- 9996             FORMAT( 1X, I5, ' x', I5, ' matrix, type=', I2, ', s', 'eed=', 3( I4, ',' ), I4, ': result ', I3, ' is', 1P, D10.3 )
+                  WRITE( IOUNIT, FMT = 9996 )M, N, IMAT, ISEED, K, RESULT( K );
+ 9996             FORMAT( 1X, I5, ' x', I5, ' matrix, type=', I2, ', s', 'eed=', 3( I4, ',' ), I4, ': result ', I3, ' is', 1P, D10.3 );
                }
             }
          } // 20
 
       }
-      RETURN
+      RETURN;
 
       // End of DLAFTS
 

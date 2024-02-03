@@ -1,4 +1,4 @@
-      SUBROUTINE DGEQRF( M, N, A, LDA, TAU, WORK, LWORK, INFO )
+      SUBROUTINE DGEQRF( M, N, A, LDA, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,60 +31,60 @@
 
       // Test the input arguments
 
-      K = MIN( M, N )
-      INFO = 0
-      NB = ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 )
-      LQUERY = ( LWORK == -1 )
+      K = MIN( M, N );
+      INFO = 0;
+      NB = ILAENV( 1, 'DGEQRF', ' ', M, N, -1, -1 );
+      LQUERY = ( LWORK == -1 );
       if ( M < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( !LQUERY ) {
-         IF( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7
+         IF( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('DGEQRF', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
          if ( K == 0 ) {
-            LWKOPT = 1
+            LWKOPT = 1;
          } else {
-            LWKOPT = N*NB
+            LWKOPT = N*NB;
          }
-         WORK( 1 ) = LWKOPT
-         RETURN
+         WORK( 1 ) = LWKOPT;
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( K == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
-      NBMIN = 2
-      NX = 0
-      IWS = N
+      NBMIN = 2;
+      NX = 0;
+      IWS = N;
       if ( NB > 1 && NB < K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
-         NX = MAX( 0, ILAENV( 3, 'DGEQRF', ' ', M, N, -1, -1 ) )
+         NX = MAX( 0, ILAENV( 3, 'DGEQRF', ' ', M, N, -1, -1 ) );
          if ( NX < K ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            LDWORK = N
-            IWS = LDWORK*NB
+            LDWORK = N;
+            IWS = LDWORK*NB;
             if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  reduce NB and
                // determine the minimum value of NB.
 
-               NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'DGEQRF', ' ', M, N, -1, -1 ) )
+               NB = LWORK / LDWORK;
+               NBMIN = MAX( 2, ILAENV( 2, 'DGEQRF', ' ', M, N, -1, -1 ) );
             }
          }
       }
@@ -93,8 +93,8 @@
 
          // Use blocked code initially
 
-         DO 10 I = 1, K - NX, NB
-            IB = MIN( K-I+1, NB )
+         DO 10 I = 1, K - NX, NB;
+            IB = MIN( K-I+1, NB );
 
             // Compute the QR factorization of the current block
             // A(i:m,i:i+ib-1)
@@ -113,15 +113,15 @@
             }
          } // 10
       } else {
-         I = 1
+         I = 1;
       }
 
       // Use unblocked code to factor the last or only block.
 
       if (I <= K) CALL DGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
-      WORK( 1 ) = IWS
-      RETURN
+      WORK( 1 ) = IWS;
+      RETURN;
 
       // End of DGEQRF
 

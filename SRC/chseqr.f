@@ -1,4 +1,4 @@
-      SUBROUTINE CHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, W, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE CHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, W, Z, LDZ, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,7 +9,7 @@
       String             COMPZ, JOB;
       // ..
       // .. Array Arguments ..
-      COMPLEX            H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * )
+      COMPLEX            H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
@@ -30,13 +30,13 @@
       // .    deflation window.  ====
       int                NL;
       const              NL = 49 ;
-      COMPLEX            ZERO, ONE
+      COMPLEX            ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      REAL               RZERO
+      REAL               RZERO;
       const              RZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
-      COMPLEX            HL( NL, NL ), WORKL( NL )
+      COMPLEX            HL( NL, NL ), WORKL( NL );
       // ..
       // .. Local Scalars ..
       int                KBOT, NMIN;
@@ -45,7 +45,7 @@
       // .. External Functions ..
       int                ILAENV;
       bool               LSAME;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -58,29 +58,29 @@
 
       // ==== Decode and check the input parameters. ====
 
-      WANTT = LSAME( JOB, 'S' )
-      INITZ = LSAME( COMPZ, 'I' )
-      WANTZ = INITZ || LSAME( COMPZ, 'V' )
-      WORK( 1 ) = CMPLX( REAL( MAX( 1, N ) ), RZERO )
-      LQUERY = LWORK == -1
+      WANTT = LSAME( JOB, 'S' );
+      INITZ = LSAME( COMPZ, 'I' );
+      WANTZ = INITZ || LSAME( COMPZ, 'V' );
+      WORK( 1 ) = CMPLX( REAL( MAX( 1, N ) ), RZERO );
+      LQUERY = LWORK == -1;
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( JOB, 'E' ) && !WANTT ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( COMPZ, 'N' ) && !WANTZ ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ILO < 1 || ILO > MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( IHI < MIN( ILO, N ) || IHI > N ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDH < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < MAX( 1, N ) ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LWORK < MAX( 1, N ) && !LQUERY ) {
-         INFO = -12
+         INFO = -12;
       }
 
       if ( INFO != 0 ) {
@@ -88,13 +88,13 @@
          // ==== Quick return in case of invalid argument. ====
 
          xerbla('CHSEQR', -INFO );
-         RETURN
+         RETURN;
 
       } else if ( N == 0 ) {
 
          // ==== Quick return in case N = 0; nothing to do. ====
 
-         RETURN
+         RETURN;
 
       } else if ( LQUERY ) {
 
@@ -103,8 +103,8 @@
          claqr0(WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO );
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
-         WORK( 1 ) = CMPLX( MAX( REAL( WORK( 1 ) ), REAL( MAX( 1, N ) ) ), RZERO )
-         RETURN
+         WORK( 1 ) = CMPLX( MAX( REAL( WORK( 1 ) ), REAL( MAX( 1, N ) ) ), RZERO );
+         RETURN;
 
       } else {
 
@@ -119,14 +119,14 @@
          // ==== Quick return if possible ====
 
          if ( ILO == IHI ) {
-            W( ILO ) = H( ILO, ILO )
-            RETURN
+            W( ILO ) = H( ILO, ILO );
+            RETURN;
          }
 
          // ==== CLAHQR/CLAQR0 crossover point ====
 
-         NMIN = ILAENV( 12, 'CHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK )
-         NMIN = MAX( NTINY, NMIN )
+         NMIN = ILAENV( 12, 'CHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK );
+         NMIN = MAX( NTINY, NMIN );
 
          // ==== CLAQR0 for big matrices; CLAHQR for small ones ====
 
@@ -143,7 +143,7 @@
                // ==== A rare CLAHQR failure!  CLAQR0 sometimes succeeds
                // .    when CLAHQR fails. ====
 
-               KBOT = INFO
+               KBOT = INFO;
 
                if ( N >= NL ) {
 
@@ -160,7 +160,7 @@
                   // .    array before calling CLAQR0. ====
 
                   clacpy('A', N, N, H, LDH, HL, NL );
-                  HL( N+1, N ) = ZERO
+                  HL( N+1, N ) = ZERO;
                   claset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
                   claqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT || INFO != 0 ) CALL CLACPY( 'A', N, N, HL, NL, H, LDH );
                }
@@ -169,12 +169,12 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT || INFO != 0 ) && N > 2 ) CALL CLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT || INFO != 0 ) && N > 2 ) CALL CLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====
 
-         WORK( 1 ) = CMPLX( MAX( REAL( MAX( 1, N ) ), REAL( WORK( 1 ) ) ), RZERO )
+         WORK( 1 ) = CMPLX( MAX( REAL( MAX( 1, N ) ), REAL( WORK( 1 ) ) ), RZERO );
       }
 
       // ==== End of CHSEQR ====

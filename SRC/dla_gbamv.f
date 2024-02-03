@@ -1,4 +1,4 @@
-      SUBROUTINE DLA_GBAMV( TRANS, M, N, KL, KU, ALPHA, AB, LDAB, X, INCX, BETA, Y, INCY )
+      SUBROUTINE DLA_GBAMV( TRANS, M, N, KL, KU, ALPHA, AB, LDAB, X, INCX, BETA, Y, INCY );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,59 +38,59 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !( ( TRANS == ILATRANS( 'N' ) ) || ( TRANS == ILATRANS( 'T' ) ) || ( TRANS == ILATRANS( 'C' ) ) ) ) {
-         INFO = 1
+         INFO = 1;
       } else if ( M < 0 ) {
-         INFO = 2
+         INFO = 2;
       } else if ( N < 0 ) {
-         INFO = 3
+         INFO = 3;
       } else if ( KL < 0 || KL > M-1 ) {
-         INFO = 4
+         INFO = 4;
       } else if ( KU < 0 || KU > N-1 ) {
-         INFO = 5
+         INFO = 5;
       } else if ( LDAB < KL+KU+1 ) {
-         INFO = 6
+         INFO = 6;
       } else if ( INCX == 0 ) {
-         INFO = 8
+         INFO = 8;
       } else if ( INCY == 0 ) {
-         INFO = 11
+         INFO = 11;
       }
       if ( INFO != 0 ) {
          xerbla('DLA_GBAMV ', INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
-      IF( ( M == 0 ) || ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
+      IF( ( M == 0 ) || ( N == 0 ) || ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN;
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
 
       if ( TRANS == ILATRANS( 'N' ) ) {
-         LENX = N
-         LENY = M
+         LENX = N;
+         LENY = M;
       } else {
-         LENX = M
-         LENY = N
+         LENX = M;
+         LENY = N;
       }
       if ( INCX > 0 ) {
-         KX = 1
+         KX = 1;
       } else {
-         KX = 1 - ( LENX - 1 )*INCX
+         KX = 1 - ( LENX - 1 )*INCX;
       }
       if ( INCY > 0 ) {
-         KY = 1
+         KY = 1;
       } else {
-         KY = 1 - ( LENY - 1 )*INCY
+         KY = 1 - ( LENY - 1 )*INCY;
       }
 
       // Set SAFE1 essentially to be the underflow threshold times the
       // number of additions in each row.
 
-      SAFE1 = DLAMCH( 'Safe minimum' )
-      SAFE1 = (N+1)*SAFE1
+      SAFE1 = DLAMCH( 'Safe minimum' );
+      SAFE1 = (N+1)*SAFE1;
 
       // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
 
@@ -98,9 +98,9 @@
       // the inexact flag.  Still doesn't help change the iteration order
       // to per-column.
 
-      KD = KU + 1
-      KE = KL + 1
-      IY = KY
+      KD = KU + 1;
+      KE = KL + 1;
+      IY = KY;
       if ( INCX == 1 ) {
          if ( TRANS == ILATRANS( 'N' ) ) {
             for (I = 1; I <= LENY; I++) {
@@ -111,18 +111,18 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != ZERO ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
-                     TEMP = ABS( AB( KD+I-J, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                     TEMP = ABS( AB( KD+I-J, J ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          } else {
             for (I = 1; I <= LENY; I++) {
@@ -133,18 +133,18 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != ZERO ) {
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
-                     TEMP = ABS( AB( KE-I+J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO )
+                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                     TEMP = ABS( AB( KE-I+J, I ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          }
       } else {
@@ -157,21 +157,21 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != ZERO ) {
-                  JX = KX
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
-                     TEMP = ABS( AB( KD+I-J, J ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO )
+                  JX = KX;
+                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                     TEMP = ABS( AB( KD+I-J, J ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
-                     JX = JX + INCX
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     JX = JX + INCX;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          } else {
             for (I = 1; I <= LENY; I++) {
@@ -182,27 +182,27 @@
                   SYMB_ZERO = true;
                } else {
                   SYMB_ZERO = false;
-                  Y( IY ) = BETA * ABS( Y( IY ) )
+                  Y( IY ) = BETA * ABS( Y( IY ) );
                }
                if ( ALPHA != ZERO ) {
-                  JX = KX
-                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
-                     TEMP = ABS( AB( KE-I+J, I ) )
-                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO )
+                  JX = KX;
+                  DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX );
+                     TEMP = ABS( AB( KE-I+J, I ) );
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO || TEMP == ZERO );
 
-                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
-                     JX = JX + INCX
+                     Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP;
+                     JX = JX + INCX;
                   }
                }
                 if ( !SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) );
 
-               IY = IY + INCY
+               IY = IY + INCY;
             }
          }
 
       }
 
-      RETURN
+      RETURN;
 
       // End of DLA_GBAMV
 

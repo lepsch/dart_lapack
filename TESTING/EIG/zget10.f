@@ -1,4 +1,4 @@
-      SUBROUTINE ZGET10( M, N, A, LDA, B, LDB, WORK, RWORK, RESULT )
+      SUBROUTINE ZGET10( M, N, A, LDA, B, LDB, WORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -38,33 +38,33 @@
       // Quick return if possible
 
       if ( M <= 0 || N <= 0 ) {
-         RESULT = ZERO
-         RETURN
+         RESULT = ZERO;
+         RETURN;
       }
 
-      UNFL = DLAMCH( 'Safe minimum' )
-      EPS = DLAMCH( 'Precision' )
+      UNFL = DLAMCH( 'Safe minimum' );
+      EPS = DLAMCH( 'Precision' );
 
-      WNORM = ZERO
+      WNORM = ZERO;
       for (J = 1; J <= N; J++) { // 10
          zcopy(M, A( 1, J ), 1, WORK, 1 );
          zaxpy(M, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
-         WNORM = MAX( WNORM, DZASUM( N, WORK, 1 ) )
+         WNORM = MAX( WNORM, DZASUM( N, WORK, 1 ) );
       } // 10
 
-      ANORM = MAX( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
+      ANORM = MAX( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL );
 
       if ( ANORM > WNORM ) {
-         RESULT = ( WNORM / ANORM ) / ( M*EPS )
+         RESULT = ( WNORM / ANORM ) / ( M*EPS );
       } else {
          if ( ANORM < ONE ) {
-            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS )
+            RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS );
          } else {
-            RESULT = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*EPS )
+            RESULT = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*EPS );
          }
       }
 
-      RETURN
+      RETURN;
 
       // End of ZGET10
 

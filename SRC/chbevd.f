@@ -1,4 +1,4 @@
-      SUBROUTINE CHBEVD( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CHBEVD( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +10,16 @@
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * ), W( * )
-      COMPLEX            AB( LDAB, * ), WORK( * ), Z( LDZ, * )
+      REAL               RWORK( * ), W( * );
+      COMPLEX            AB( LDAB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      REAL               CLANHB, SLAMCH, SROUNDUP_LWORK
+      REAL               CLANHB, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL LSAME, CLANHB, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -42,59 +42,59 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      LOWER = LSAME( UPLO, 'L' )
-      LQUERY = ( LWORK == -1 || LIWORK == -1 || LRWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      LOWER = LSAME( UPLO, 'L' );
+      LQUERY = ( LWORK == -1 || LIWORK == -1 || LRWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( N <= 1 ) {
-         LWMIN = 1
-         LRWMIN = 1
-         LIWMIN = 1
+         LWMIN = 1;
+         LRWMIN = 1;
+         LIWMIN = 1;
       } else {
          if ( WANTZ ) {
-            LWMIN = 2*N**2
-            LRWMIN = 1 + 5*N + 2*N**2
-            LIWMIN = 3 + 5*N
+            LWMIN = 2*N**2;
+            LRWMIN = 1 + 5*N + 2*N**2;
+            LIWMIN = 3 + 5*N;
          } else {
-            LWMIN = N
-            LRWMIN = N
-            LIWMIN = 1
+            LWMIN = N;
+            LRWMIN = N;
+            LIWMIN = 1;
          }
       }
       if ( !( WANTZ || LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LOWER || LSAME( UPLO, 'U' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( KD < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDAB < KD+1 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDZ < 1 || ( WANTZ && LDZ < N ) ) {
-         INFO = -9
+         INFO = -9;
       }
 
       if ( INFO == 0 ) {
-         WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-         RWORK( 1 ) = LRWMIN
-         IWORK( 1 ) = LIWMIN
+         WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+         RWORK( 1 ) = LRWMIN;
+         IWORK( 1 ) = LIWMIN;
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          } else if ( LRWORK < LRWMIN && !LQUERY ) {
-            INFO = -13
+            INFO = -13;
          } else if ( LIWORK < LIWMIN && !LQUERY ) {
-            INFO = -15
+            INFO = -15;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CHBEVD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -102,30 +102,30 @@
       if (N == 0) RETURN;
 
       if ( N == 1 ) {
-         W( 1 ) = REAL( AB( 1, 1 ) )
+         W( 1 ) = REAL( AB( 1, 1 ) );
          if (WANTZ) Z( 1, 1 ) = CONE;
-         RETURN
+         RETURN;
       }
 
       // Get machine constants.
 
-      SAFMIN = SLAMCH( 'Safe minimum' )
-      EPS = SLAMCH( 'Precision' )
-      SMLNUM = SAFMIN / EPS
-      BIGNUM = ONE / SMLNUM
-      RMIN = SQRT( SMLNUM )
-      RMAX = SQRT( BIGNUM )
+      SAFMIN = SLAMCH( 'Safe minimum' );
+      EPS = SLAMCH( 'Precision' );
+      SMLNUM = SAFMIN / EPS;
+      BIGNUM = ONE / SMLNUM;
+      RMIN = SQRT( SMLNUM );
+      RMAX = SQRT( BIGNUM );
 
       // Scale matrix to allowable range, if necessary.
 
-      ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
-      ISCALE = 0
+      ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK );
+      ISCALE = 0;
       if ( ANRM > ZERO && ANRM < RMIN ) {
-         ISCALE = 1
-         SIGMA = RMIN / ANRM
+         ISCALE = 1;
+         SIGMA = RMIN / ANRM;
       } else if ( ANRM > RMAX ) {
-         ISCALE = 1
-         SIGMA = RMAX / ANRM
+         ISCALE = 1;
+         SIGMA = RMAX / ANRM;
       }
       if ( ISCALE == 1 ) {
          if ( LOWER ) {
@@ -137,11 +137,11 @@
 
       // Call CHBTRD to reduce Hermitian band matrix to tridiagonal form.
 
-      INDE = 1
-      INDWRK = INDE + N
-      INDWK2 = 1 + N*N
-      LLWK2 = LWORK - INDWK2 + 1
-      LLRWK = LRWORK - INDWRK + 1
+      INDE = 1;
+      INDWRK = INDE + N;
+      INDWK2 = 1 + N*N;
+      LLWK2 = LWORK - INDWK2 + 1;
+      LLRWK = LRWORK - INDWRK + 1;
       chbtrd(JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO );
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEDC.
@@ -158,17 +158,17 @@
 
       if ( ISCALE == 1 ) {
          if ( INFO == 0 ) {
-            IMAX = N
+            IMAX = N;
          } else {
-            IMAX = INFO - 1
+            IMAX = INFO - 1;
          }
          sscal(IMAX, ONE / SIGMA, W, 1 );
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
-      RWORK( 1 ) = LRWMIN
-      IWORK( 1 ) = LIWMIN
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
+      RWORK( 1 ) = LRWMIN;
+      IWORK( 1 ) = LIWMIN;
+      RETURN;
 
       // End of CHBEVD
 

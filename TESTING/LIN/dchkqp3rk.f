@@ -1,5 +1,5 @@
-      SUBROUTINE DCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, B, COPYB, S, TAU, WORK, IWORK, NOUT )
-      IMPLICIT NONE
+      SUBROUTINE DCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, B, COPYB, S, TAU, WORK, IWORK, NOUT );
+      IMPLICIT NONE;
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -55,40 +55,40 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
       PATH( 1: 1 ) = 'double          ';
-      PATH( 2: 3 ) = 'QK'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 2: 3 ) = 'QK';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) {
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       }
-      EPS = DLAMCH( 'Epsilon' )
-      INFOT = 0
+      EPS = DLAMCH( 'Epsilon' );
+      INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) {
 
          // Do for each value of M in MVAL.
 
-         M = MVAL( IM )
-         LDA = MAX( 1, M )
+         M = MVAL( IM );
+         LDA = MAX( 1, M );
 
          for (IN = 1; IN <= NN; IN++) {
 
             // Do for each value of N in NVAL.
 
-            N = NVAL( IN )
-            MINMN = MIN( M, N )
-            LWORK = MAX( 1, M*MAX( M, N )+4*MINMN+MAX( M, N ), M*N + 2*MINMN + 4*N )
+            N = NVAL( IN );
+            MINMN = MIN( M, N );
+            LWORK = MAX( 1, M*MAX( M, N )+4*MINMN+MAX( M, N ), M*N + 2*MINMN + 4*N );
 
             for (INS = 1; INS <= NNS; INS++) {
-               NRHS = NSVAL( INS )
+               NRHS = NSVAL( INS );
 
                   // Set up parameters with DLATB4 and generate
                   // M-by-NRHS B matrix with DLATMS.
@@ -98,7 +98,7 @@
 
                   dlatb4(PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMS'
+                  SRNAMT = 'DLATMS';
                   dlatms(M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO );
 
 
@@ -107,14 +107,14 @@
 
                   if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT );
-                     CYCLE
+                     CYCLE;
                   }
 
                for (IMAT = 1; IMAT <= NTYPES; IMAT++) {
 
                // Do the tests only if DOTYPE( IMAT ) is true.
 
-               IF( !DOTYPE( IMAT ) ) CYCLE
+               IF( !DOTYPE( IMAT ) ) CYCLE;
 
                // The type of distribution used to generate the random
                // eigen-/singular values:
@@ -149,7 +149,7 @@
 
                   dlaset('Full', M, N, ZERO, ZERO, COPYA, LDA );
                   for (I = 1; I <= MINMN; I++) {
-                     S( I ) = ZERO
+                     S( I ) = ZERO;
                   }
 
                } else if ( (IMAT >= 2 && IMAT <= 4 ) || (IMAT >= 14 && IMAT <= 19 ) ) {
@@ -161,14 +161,14 @@
 
                   dlatb4(PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMS'
+                  SRNAMT = 'DLATMS';
                   dlatms(M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO );
 
                   // Check error code from DLATMS.
 
                   if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     CYCLE
+                     CYCLE;
                   }
 
                   dlaord('Decreasing', MINMN, S, 1 );
@@ -191,50 +191,50 @@
 
                      // First column is zero.
 
-                     JB_ZERO = 1
-                     NB_ZERO = 1
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = 1;
+                     NB_ZERO = 1;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 6 ) {
 
                      // Last column MINMN is zero.
 
-                     JB_ZERO = MINMN
-                     NB_ZERO = 1
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = MINMN;
+                     NB_ZERO = 1;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 7 ) {
 
                      // Last column N is zero.
 
-                     JB_ZERO = N
-                     NB_ZERO = 1
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = N;
+                     NB_ZERO = 1;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 8 ) {
 
                      // Middle column in MINMN is zero.
 
-                     JB_ZERO = MINMN / 2 + 1
-                     NB_ZERO = 1
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = MINMN / 2 + 1;
+                     NB_ZERO = 1;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 9 ) {
 
                      // First half of MINMN columns is zero.
 
-                     JB_ZERO = 1
-                     NB_ZERO = MINMN / 2
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = 1;
+                     NB_ZERO = MINMN / 2;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 10 ) {
 
                      // Last columns are zero columns,
                      // starting from (MINMN / 2 + 1) column.
 
-                     JB_ZERO = MINMN / 2 + 1
-                     NB_ZERO = N - JB_ZERO + 1
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = MINMN / 2 + 1;
+                     NB_ZERO = N - JB_ZERO + 1;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 11 ) {
 
@@ -242,27 +242,27 @@
                      // columns is zero, starting from
                      // MINMN/2 - (MINMN/2)/2 + 1 column.
 
-                     JB_ZERO = MINMN / 2 - (MINMN / 2) / 2 + 1
-                     NB_ZERO = MINMN / 2
-                     NB_GEN = N - NB_ZERO
+                     JB_ZERO = MINMN / 2 - (MINMN / 2) / 2 + 1;
+                     NB_ZERO = MINMN / 2;
+                     NB_GEN = N - NB_ZERO;
 
                   } else if ( IMAT == 12 ) {
 
                      // Odd-numbered columns are zero,
 
-                     NB_GEN = N / 2
-                     NB_ZERO = N - NB_GEN
-                     J_INC = 2
-                     J_FIRST_NZ = 2
+                     NB_GEN = N / 2;
+                     NB_ZERO = N - NB_GEN;
+                     J_INC = 2;
+                     J_FIRST_NZ = 2;
 
                   } else if ( IMAT == 13 ) {
 
                      // Even-numbered columns are zero.
 
-                     NB_ZERO = N / 2
-                     NB_GEN = N - NB_ZERO
-                     J_INC = 2
-                     J_FIRST_NZ = 1
+                     NB_ZERO = N / 2;
+                     NB_GEN = N - NB_ZERO;
+                     J_INC = 2;
+                     J_FIRST_NZ = 1;
 
                   }
 
@@ -278,9 +278,9 @@
 
                   dlatb4(PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-                  SRNAMT = 'DLATMS'
+                  SRNAMT = 'DLATMS';
 
-                  IND_OFFSET_GEN = NB_ZERO * LDA
+                  IND_OFFSET_GEN = NB_ZERO * LDA;
 
                   dlatms(M, NB_GEN, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA( IND_OFFSET_GEN + 1 ), LDA, WORK, INFO );
 
@@ -288,7 +288,7 @@
 
                   if ( INFO != 0 ) {
                      alaerh(PATH, 'DLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                     CYCLE
+                     CYCLE;
                   }
 
                   // 3) Swap the gererated colums from the right side
@@ -302,7 +302,7 @@
                      // (NB_ZERO+1:NB_ZERO+JB_ZERO)
                      // into columns (1:JB_ZERO-1).
 
-                     DO J = 1, JB_ZERO-1, 1
+                     DO J = 1, JB_ZERO-1, 1;
                         dswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
                      }
 
@@ -318,8 +318,8 @@
                      // NB_GEN-size block into the odd zero colums in the
                      // left NB_ZERO-size block.
 
-                     DO J = 1, NB_GEN, 1
-                        IND_OUT = ( NB_ZERO+J-1 )*LDA + 1
+                     DO J = 1, NB_GEN, 1;
+                        IND_OUT = ( NB_ZERO+J-1 )*LDA + 1;
                         IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1;
                         dswap(M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 );
                         }
@@ -331,39 +331,39 @@
                      // that correspond to zero columns.
                      // The total number of singular values is MINMN.
 
-                  MINMNB_GEN = MIN( M, NB_GEN )
+                  MINMNB_GEN = MIN( M, NB_GEN );
 
                   for (I = MINMNB_GEN+1; I <= MINMN; I++) {
-                     S( I ) = ZERO
+                     S( I ) = ZERO;
                   }
 
                } else {
 
                      // IF(MINMN < 2) skip this size for this matrix type.
 
-                     CYCLE
+                     CYCLE;
                }
 
                // Initialize a copy array for a pivot array for DGEQP3RK.
 
                for (I = 1; I <= N; I++) {
-                  IWORK( I ) = 0
+                  IWORK( I ) = 0;
                }
 
                for (INB = 1; INB <= NNB; INB++) {
 
                   // Do for each pair of values (NB,NX) in NBVAL and NXVAL.
 
-                  NB = NBVAL( INB )
+                  NB = NBVAL( INB );
                   xlaenv(1, NB );
-                  NX = NXVAL( INB )
+                  NX = NXVAL( INB );
                   xlaenv(3, NX );
 
                   // We do MIN(M,N)+1 because we need a test for KMAX > N,
                   // when KMAX is larger than MIN(M,N), KMAX should be
                   // KMAX = MIN(M,N)
 
-                  DO KMAX = 0, MIN(M,N)+1
+                  DO KMAX = 0, MIN(M,N)+1;
 
                   // Get a working copy of COPYA into A( 1:M,1:N ).
                   // Get a working copy of COPYB into A( 1:M, (N+1):NRHS ).
@@ -378,16 +378,16 @@
                   dlacpy('All', M, NRHS, COPYB, LDA, B,  LDA );
                   icopy(N, IWORK( 1 ), 1, IWORK( N+1 ), 1 );
 
-                  ABSTOL = -1.0
-                  RELTOL = -1.0
+                  ABSTOL = -1.0;
+                  RELTOL = -1.0;
 
                   // Compute the QR factorization with pivoting of A
 
-                  LW = MAX( 1, MAX( 2*N + NB*( N+NRHS+1 ), 3*N + NRHS - 1 ) )
+                  LW = MAX( 1, MAX( 2*N + NB*( N+NRHS+1 ), 3*N + NRHS - 1 ) );
 
                   // Compute DGEQP3RK factorization of A.
 
-                  SRNAMT = 'DGEQP3RK'
+                  SRNAMT = 'DGEQP3RK';
                   dgeqp3rk(M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, IWORK( 2*N+1 ), INFO );
 
                   // Check error code from DGEQP3RK.
@@ -410,15 +410,15 @@
 
                   if ( KFACT == MINMN ) {
 
-                     RESULT( 1 ) = DQRT12( M, N, A, LDA, S, WORK, LWORK )
+                     RESULT( 1 ) = DQRT12( M, N, A, LDA, S, WORK, LWORK );
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      }
-                     NRUN = NRUN + 1
+                     NRUN = NRUN + 1;
 
                     // End test 1
 
@@ -430,7 +430,7 @@
 
                   // 1-norm( A*P - Q*R ) / ( max(M,N) * 1-norm(A) * EPS )
 
-                  RESULT( 2 ) = DQPT01( M, N, KFACT, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK )
+                  RESULT( 2 ) = DQPT01( M, N, KFACT, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK );
 
                   // Compute test 3:
 
@@ -438,7 +438,7 @@
 
                   // 1-norm( Q**T * Q - I ) / ( M * EPS )
 
-                  RESULT( 3 ) = DQRT11( M, KFACT, A, LDA, TAU, WORK, LWORK )
+                  RESULT( 3 ) = DQRT11( M, KFACT, A, LDA, TAU, WORK, LWORK );
 
                   // Print information about the tests that did not pass
                   // the threshold.
@@ -446,10 +446,10 @@
                   for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   }
-                  NRUN = NRUN + 2
+                  NRUN = NRUN + 2;
 
                   // Compute test 4:
 
@@ -465,11 +465,11 @@
 
                   if ( MIN(KFACT, MINMN) >= 2 ) {
 
-                     DO J = 1, KFACT-1, 1
-                         DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ABS( A(1) ) )
+                     DO J = 1, KFACT-1, 1;
+                         DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ABS( A(1) ) );
 
                         if ( DTEMP < ZERO ) {
-                           RESULT( 4 ) = BIGNUM
+                           RESULT( 4 ) = BIGNUM;
                         }
 
                      }
@@ -480,10 +480,10 @@
                      for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      }
-                     NRUN = NRUN + 1
+                     NRUN = NRUN + 1;
 
                      // End test 4.
 
@@ -502,7 +502,7 @@
 
                   if ( MINMN > 0 ) {
 
-                     LWORK_MQR = MAX(1, NRHS)
+                     LWORK_MQR = MAX(1, NRHS);
                      dormqr('Left', 'Transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO );
 
                      for (I = 1; I <= NRHS; I++) {
@@ -512,7 +512,7 @@
                         daxpy(M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 );
                      }
 
-                   RESULT( 5 ) = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) ) )
+                   RESULT( 5 ) = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.
@@ -520,10 +520,10 @@
                      for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      }
-                     NRUN = NRUN + 1
+                     NRUN = NRUN + 1;
 
                      // End compute test 5.
 
@@ -557,7 +557,7 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5, ', KMAX =', I5, ', ABSTOL =', G12.5, ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
+ 9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5, ', KMAX =', I5, ', ABSTOL =', G12.5, ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
 
       // End of DCHKQP3RK
 

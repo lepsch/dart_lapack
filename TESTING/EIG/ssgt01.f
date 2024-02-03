@@ -1,4 +1,4 @@
-      SUBROUTINE SSGT01( ITYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT )
+      SUBROUTINE SSGT01( ITYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,21 +9,21 @@
       int                ITYPE, LDA, LDB, LDZ, M, N;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * )
+      REAL               A( LDA, * ), B( LDB, * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       int                I;
-      REAL               ANORM, ULP
+      REAL               ANORM, ULP;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY
+      REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -31,14 +31,14 @@
       // ..
       // .. Executable Statements ..
 
-      RESULT( 1 ) = ZERO
+      RESULT( 1 ) = ZERO;
       if (N <= 0) RETURN;
 
-      ULP = SLAMCH( 'Epsilon' )
+      ULP = SLAMCH( 'Epsilon' );
 
       // Compute product of 1-norms of A and Z.
 
-      ANORM = SLANSY( '1', UPLO, N, A, LDA, WORK )* SLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE
+      ANORM = SLANSY( '1', UPLO, N, A, LDA, WORK )* SLANGE( '1', N, M, Z, LDZ, WORK )       IF( ANORM == ZERO ) ANORM = ONE;
 
       if ( ITYPE == 1 ) {
 
@@ -50,7 +50,7 @@
          } // 10
          ssymm('Left', UPLO, N, M, ONE, B, LDB, Z, LDZ, -ONE, WORK, N );
 
-         RESULT( 1 ) = ( SLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( SLANGE( '1', N, M, WORK, N, WORK ) / ANORM ) / ( N*ULP );
 
       } else if ( ITYPE == 2 ) {
 
@@ -62,7 +62,7 @@
          } // 20
          ssymm('Left', UPLO, N, M, ONE, A, LDA, WORK, N, -ONE, Z, LDZ );
 
-         RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
 
       } else if ( ITYPE == 3 ) {
 
@@ -74,10 +74,10 @@
          } // 30
          ssymm('Left', UPLO, N, M, ONE, B, LDB, WORK, N, -ONE, Z, LDZ );
 
-         RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP )
+         RESULT( 1 ) = ( SLANGE( '1', N, M, Z, LDZ, WORK ) / ANORM ) / ( N*ULP );
       }
 
-      RETURN
+      RETURN;
 
       // End of SSGT01
 

@@ -80,90 +80,90 @@ void main() {
       // COMMON /INFOC/INFOT, NOUTC, OK
       // COMMON /SRNAMC/SRNAMT
       // .. Data statements ..
-      DATA               SNAMES/'cblas_dgemm ', 'cblas_dsymm ', 'cblas_dtrmm ', 'cblas_dtrsm ','cblas_dsyrk ', 'cblas_dsyr2k'/
+      DATA               SNAMES/'cblas_dgemm ', 'cblas_dsymm ', 'cblas_dtrmm ', 'cblas_dtrsm ','cblas_dsyrk ', 'cblas_dsyr2k'/;
       // .. Executable Statements ..
 
       // Read name and unit number for summary output file and open file.
 
-      NOUTC = NOUT
+      NOUTC = NOUT;
       // Read name and unit number for snapshot output file and open file.
 
-      READ( NIN, FMT = * )SNAPS
-      READ( NIN, FMT = * )NTRA
-      TRACE = NTRA >= 0
+      READ( NIN, FMT = * )SNAPS;
+      READ( NIN, FMT = * )NTRA;
+      TRACE = NTRA >= 0;
       if ( TRACE ) {
-         OPEN( NTRA, FILE = SNAPS, STATUS = 'NEW' )
+         OPEN( NTRA, FILE = SNAPS, STATUS = 'NEW' );
       }
       // Read the flag that directs rewinding of the snapshot file.
-      READ( NIN, FMT = * )REWI
-      REWI = REWI && TRACE
+      READ( NIN, FMT = * )REWI;
+      REWI = REWI && TRACE;
       // Read the flag that directs stopping on any failure.
-      READ( NIN, FMT = * )SFATAL
+      READ( NIN, FMT = * )SFATAL;
       // Read the flag that indicates whether error exits are to be tested.
-      READ( NIN, FMT = * )TSTERR
+      READ( NIN, FMT = * )TSTERR;
       // Read the flag that indicates whether row-major data layout to be tested.
-      READ( NIN, FMT = * )LAYOUT
+      READ( NIN, FMT = * )LAYOUT;
       // Read the threshold value of the test ratio
-      READ( NIN, FMT = * )THRESH
+      READ( NIN, FMT = * )THRESH;
 
       // Read and check the parameter values for the tests.
 
       // Values of N
-      READ( NIN, FMT = * )NIDIM
+      READ( NIN, FMT = * )NIDIM;
       if ( NIDIM < 1 || NIDIM > NIDMAX ) {
-         WRITE( NOUT, FMT = 9997 )'N', NIDMAX
-         GO TO 220
+         WRITE( NOUT, FMT = 9997 )'N', NIDMAX;
+         GO TO 220;
       }
-      READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM )
+      READ( NIN, FMT = * )( IDIM( I ), I = 1, NIDIM );
       for (I = 1; I <= NIDIM; I++) { // 10
          if ( IDIM( I ) < 0 || IDIM( I ) > NMAX ) {
-            WRITE( NOUT, FMT = 9996 )NMAX
-            GO TO 220
+            WRITE( NOUT, FMT = 9996 )NMAX;
+            GO TO 220;
          }
       } // 10
       // Values of ALPHA
-      READ( NIN, FMT = * )NALF
+      READ( NIN, FMT = * )NALF;
       if ( NALF < 1 || NALF > NALMAX ) {
-         WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX
-         GO TO 220
+         WRITE( NOUT, FMT = 9997 )'ALPHA', NALMAX;
+         GO TO 220;
       }
-      READ( NIN, FMT = * )( ALF( I ), I = 1, NALF )
+      READ( NIN, FMT = * )( ALF( I ), I = 1, NALF );
       // Values of BETA
-      READ( NIN, FMT = * )NBET
+      READ( NIN, FMT = * )NBET;
       if ( NBET < 1 || NBET > NBEMAX ) {
-         WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX
-         GO TO 220
+         WRITE( NOUT, FMT = 9997 )'BETA', NBEMAX;
+         GO TO 220;
       }
-      READ( NIN, FMT = * )( BET( I ), I = 1, NBET )
+      READ( NIN, FMT = * )( BET( I ), I = 1, NBET );
 
       // Report values of parameters.
 
-      WRITE( NOUT, FMT = 9995 )
-      WRITE( NOUT, FMT = 9994 )( IDIM( I ), I = 1, NIDIM )
-      WRITE( NOUT, FMT = 9993 )( ALF( I ), I = 1, NALF )
-      WRITE( NOUT, FMT = 9992 )( BET( I ), I = 1, NBET )
+      WRITE( NOUT, FMT = 9995 );
+      WRITE( NOUT, FMT = 9994 )( IDIM( I ), I = 1, NIDIM );
+      WRITE( NOUT, FMT = 9993 )( ALF( I ), I = 1, NALF );
+      WRITE( NOUT, FMT = 9992 )( BET( I ), I = 1, NBET );
       if ( !TSTERR ) {
-         WRITE( NOUT, FMT = * )
-         WRITE( NOUT, FMT = 9984 )
+         WRITE( NOUT, FMT = * );
+         WRITE( NOUT, FMT = 9984 );
       }
-      WRITE( NOUT, FMT = * )
-      WRITE( NOUT, FMT = 9999 )THRESH
-      WRITE( NOUT, FMT = * )
+      WRITE( NOUT, FMT = * );
+      WRITE( NOUT, FMT = 9999 )THRESH;
+      WRITE( NOUT, FMT = * );
 
       RORDER = false;
       CORDER = false;
       if (LAYOUT == 2) {
          RORDER = true;
          CORDER = true;
-         WRITE( *, FMT = 10002 )
+         WRITE( *, FMT = 10002 );
       } else if (LAYOUT == 1) {
          RORDER = true;
-         WRITE( *, FMT = 10001 )
+         WRITE( *, FMT = 10001 );
       } else if (LAYOUT == 0) {
          CORDER = true;
-         WRITE( *, FMT = 10000 )
+         WRITE( *, FMT = 10000 );
       }
-      WRITE( *, FMT = * )
+      WRITE( *, FMT = * );
 
 
       // Read names of subroutines and flags which indicate
@@ -172,185 +172,185 @@ void main() {
       for (I = 1; I <= NSUBS; I++) { // 20
          LTEST( I ) = false;
       } // 20
-   30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT
+   30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT;
       for (I = 1; I <= NSUBS; I++) { // 40
-         IF( SNAMET == SNAMES( I ) ) GO TO 50
+         IF( SNAMET == SNAMES( I ) ) GO TO 50;
       } // 40
-      WRITE( NOUT, FMT = 9990 )SNAMET
-      STOP
-   50 LTEST( I ) = LTESTT
-      GO TO 30
+      WRITE( NOUT, FMT = 9990 )SNAMET;
+      STOP;
+   50 LTEST( I ) = LTESTT;
+      GO TO 30;
 
       } // 60
-      CLOSE ( NIN )
+      CLOSE ( NIN );
 
       // Compute EPS (the machine precision).
 
-      EPS = ONE
+      EPS = ONE;
       } // 70
-      IF( DDIFF( ONE + EPS, ONE ) == ZERO ) GO TO 80
-      EPS = HALF*EPS
-      GO TO 70
+      IF( DDIFF( ONE + EPS, ONE ) == ZERO ) GO TO 80;
+      EPS = HALF*EPS;
+      GO TO 70;
       } // 80
-      EPS = EPS + EPS
-      WRITE( NOUT, FMT = 9998 )EPS
+      EPS = EPS + EPS;
+      WRITE( NOUT, FMT = 9998 )EPS;
 
       // Check the reliability of DMMCH using exact data.
 
-      N = MIN( 32, NMAX )
+      N = MIN( 32, NMAX );
       for (J = 1; J <= N; J++) { // 100
          for (I = 1; I <= N; I++) { // 90
-            AB( I, J ) = MAX( I - J + 1, 0 )
+            AB( I, J ) = MAX( I - J + 1, 0 );
          } // 90
-         AB( J, NMAX + 1 ) = J
-         AB( 1, NMAX + J ) = J
-         C( J, 1 ) = ZERO
+         AB( J, NMAX + 1 ) = J;
+         AB( 1, NMAX + J ) = J;
+         C( J, 1 ) = ZERO;
       } // 100
       for (J = 1; J <= N; J++) { // 110
-         CC( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
+         CC( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
       } // 110
       // CC holds the exact result. On exit from DMMCH CT holds
       // the result computed by DMMCH.
-      TRANSA = 'N'
-      TRANSB = 'N'
+      TRANSA = 'N';
+      TRANSB = 'N';
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
-      SAME = LDE( CC, CT, N )
+      SAME = LDE( CC, CT, N );
       if ( !SAME || ERR != ZERO ) {
-         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
-         STOP
+         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
+         STOP;
       }
-      TRANSB = 'T'
+      TRANSB = 'T';
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
-      SAME = LDE( CC, CT, N )
+      SAME = LDE( CC, CT, N );
       if ( !SAME || ERR != ZERO ) {
-         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
-         STOP
+         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
+         STOP;
       }
       for (J = 1; J <= N; J++) { // 120
-         AB( J, NMAX + 1 ) = N - J + 1
-         AB( 1, NMAX + J ) = N - J + 1
+         AB( J, NMAX + 1 ) = N - J + 1;
+         AB( 1, NMAX + J ) = N - J + 1;
       } // 120
       for (J = 1; J <= N; J++) { // 130
-         CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
+         CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3;
       } // 130
-      TRANSA = 'T'
-      TRANSB = 'N'
+      TRANSA = 'T';
+      TRANSB = 'N';
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
-      SAME = LDE( CC, CT, N )
+      SAME = LDE( CC, CT, N );
       if ( !SAME || ERR != ZERO ) {
-         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
-         STOP
+         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
+         STOP;
       }
-      TRANSB = 'T'
+      TRANSB = 'T';
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, true );
-      SAME = LDE( CC, CT, N )
+      SAME = LDE( CC, CT, N );
       if ( !SAME || ERR != ZERO ) {
-         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
-         STOP
+         WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR;
+         STOP;
       }
 
       // Test each subroutine in turn.
 
       for (ISNUM = 1; ISNUM <= NSUBS; ISNUM++) { // 200
-         WRITE( NOUT, FMT = * )
+         WRITE( NOUT, FMT = * );
          if ( !LTEST( ISNUM ) ) {
             // Subprogram is not to be tested.
-            WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM )
+            WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM );
          } else {
-            SRNAMT = SNAMES( ISNUM )
+            SRNAMT = SNAMES( ISNUM );
             // Test error exits.
             if ( TSTERR ) {
                cd3chke(SNAMES( ISNUM ) );
-               WRITE( NOUT, FMT = * )
+               WRITE( NOUT, FMT = * );
             }
             // Test computations.
-            INFOT = 0
+            INFOT = 0;
             OK = true;
             FATAL = false;
-            GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM
+            GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM;
             // Test DGEMM, 01.
-  140       IF (CORDER) THEN
+  140       IF (CORDER) THEN;
             dchk1(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 );
             }
             if (RORDER) {
             dchk1(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 );
             }
-            GO TO 190
+            GO TO 190;
             // Test DSYMM, 02.
-  150       IF (CORDER) THEN
+  150       IF (CORDER) THEN;
             dchk2(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 );
             }
             if (RORDER) {
             dchk2(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 );
             }
-            GO TO 190
+            GO TO 190;
             // Test DTRMM, 03, DTRSM, 04.
-  160       IF (CORDER) THEN
+  160       IF (CORDER) THEN;
             dchk3(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 0 );
             }
             if (RORDER) {
             dchk3(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 1 );
             }
-            GO TO 190
+            GO TO 190;
             // Test DSYRK, 05.
-  170       IF (CORDER) THEN
+  170       IF (CORDER) THEN;
             dchk4(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 );
             }
             if (RORDER) {
             dchk4(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 );
             }
-            GO TO 190
+            GO TO 190;
             // Test DSYR2K, 06.
-  180       IF (CORDER) THEN
+  180       IF (CORDER) THEN;
             dchk5(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 0 );
             }
             if (RORDER) {
             dchk5(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 1 );
             }
-            GO TO 190
+            GO TO 190;
 
-  190       IF( FATAL && SFATAL ) GO TO 210
+  190       IF( FATAL && SFATAL ) GO TO 210;
          }
       } // 200
-      WRITE( NOUT, FMT = 9986 )
-      GO TO 230
+      WRITE( NOUT, FMT = 9986 );
+      GO TO 230;
 
       } // 210
-      WRITE( NOUT, FMT = 9985 )
-      GO TO 230
+      WRITE( NOUT, FMT = 9985 );
+      GO TO 230;
 
       } // 220
-      WRITE( NOUT, FMT = 9991 )
+      WRITE( NOUT, FMT = 9991 );
 
       } // 230
       if (TRACE) CLOSE ( NTRA );
-      CLOSE ( NOUT )
-      STOP
+      CLOSE ( NOUT );
+      STOP;
 
 10002 FORMAT( ' COLUMN-MAJOR AND ROW-MAJOR DATA LAYOUTS ARE TESTED' )
 10001 FORMAT( ' ROW-MAJOR DATA LAYOUT IS TESTED' )
 10000 FORMAT( ' COLUMN-MAJOR DATA LAYOUT IS TESTED' )
- 9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES', 'S THAN', F8.2 )
- 9998 FORMAT( ' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, D9.1 )
- 9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ', 'THAN ', I2 )
- 9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 )
+ 9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES', 'S THAN', F8.2 );
+ 9998 FORMAT( ' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, D9.1 );
+ 9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ', 'THAN ', I2 );
+ 9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 );
  9995 FORMAT( ' TESTS OF THE double           LEVEL 3 BLAS', //' THE F',; 'OLLOWING PARAMETER VALUES WILL BE USED:' )
- 9994 FORMAT( '   FOR N              ', 9I6 )
- 9993 FORMAT( '   FOR ALPHA          ', 7F6.1 )
- 9992 FORMAT( '   FOR BETA           ', 7F6.1 )
- 9991 FORMAT( ' AMEND DATA FILE OR INCREASE ARRAY SIZES IN PROGRAM', /' ******* TESTS ABANDONED *******' )
- 9990 FORMAT( ' SUBPROGRAM NAME ', A12,' NOT RECOGNIZED', /' ******* T', 'ESTS ABANDONED *******' )
- 9989 FORMAT( ' ERROR IN DMMCH -  IN-LINE DOT PRODUCTS ARE BEING EVALU', 'ATED WRONGLY.', /' DMMCH WAS CALLED WITH TRANSA = ', A1, ' AND TRANSB = ', A1, /' AND RETURNED SAME = ', L1, ' AND ', 'ERR = ', F12.3, '.', /' THIS MAY BE DUE TO FAULTS IN THE ', 'ARITHMETIC OR THE COMPILER.', /' ******* TESTS ABANDONED ', '*******' )
- 9988 FORMAT( A12,L2 )
- 9987 FORMAT( 1X, A12,' WAS NOT TESTED' )
- 9986 FORMAT( /' END OF TESTS' )
- 9985 FORMAT( /' ******* FATAL ERROR - TESTS ABANDONED *******' )
- 9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' )
+ 9994 FORMAT( '   FOR N              ', 9I6 );
+ 9993 FORMAT( '   FOR ALPHA          ', 7F6.1 );
+ 9992 FORMAT( '   FOR BETA           ', 7F6.1 );
+ 9991 FORMAT( ' AMEND DATA FILE OR INCREASE ARRAY SIZES IN PROGRAM', /' ******* TESTS ABANDONED *******' );
+ 9990 FORMAT( ' SUBPROGRAM NAME ', A12,' NOT RECOGNIZED', /' ******* T', 'ESTS ABANDONED *******' );
+ 9989 FORMAT( ' ERROR IN DMMCH -  IN-LINE DOT PRODUCTS ARE BEING EVALU', 'ATED WRONGLY.', /' DMMCH WAS CALLED WITH TRANSA = ', A1, ' AND TRANSB = ', A1, /' AND RETURNED SAME = ', L1, ' AND ', 'ERR = ', F12.3, '.', /' THIS MAY BE DUE TO FAULTS IN THE ', 'ARITHMETIC OR THE COMPILER.', /' ******* TESTS ABANDONED ', '*******' );
+ 9988 FORMAT( A12,L2 );
+ 9987 FORMAT( 1X, A12,' WAS NOT TESTED' );
+ 9986 FORMAT( /' END OF TESTS' );
+ 9985 FORMAT( /' ******* FATAL ERROR - TESTS ABANDONED *******' );
+ 9984 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
 
       // End of DBLAT3.
 
       }
-      SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
+      SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER);
 
 *  Tests DGEMM.
 
@@ -394,108 +394,108 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICH/'NTC'/
+      DATA               ICH/'NTC'/;
       // .. Executable Statements ..
 
-      NARGS = 13
-      NC = 0
+      NARGS = 13;
+      NC = 0;
       RESET = true;
-      ERRMAX = ZERO
+      ERRMAX = ZERO;
 
       for (IM = 1; IM <= NIDIM; IM++) { // 110
-         M = IDIM( IM )
+         M = IDIM( IM );
 
          for (IN = 1; IN <= NIDIM; IN++) { // 100
-            N = IDIM( IN )
+            N = IDIM( IN );
             // Set LDC to 1 more than minimum value if room.
-            LDC = M
+            LDC = M;
             if (LDC < NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
             if (LDC > NMAX) GO TO 100;
-            LCC = LDC*N
-            NULL = N <= 0 || M <= 0
+            LCC = LDC*N;
+            NULL = N <= 0 || M <= 0;
 
             for (IK = 1; IK <= NIDIM; IK++) { // 90
-               K = IDIM( IK )
+               K = IDIM( IK );
 
                for (ICA = 1; ICA <= 3; ICA++) { // 80
-                  TRANSA = ICH( ICA: ICA )
-                  TRANA = TRANSA == 'T' || TRANSA == 'C'
+                  TRANSA = ICH( ICA: ICA );
+                  TRANA = TRANSA == 'T' || TRANSA == 'C';
 
                   if ( TRANA ) {
-                     MA = K
-                     NA = M
+                     MA = K;
+                     NA = M;
                   } else {
-                     MA = M
-                     NA = K
+                     MA = M;
+                     NA = K;
                   }
                   // Set LDA to 1 more than minimum value if room.
-                  LDA = MA
+                  LDA = MA;
                   if (LDA < NMAX) LDA = LDA + 1;
                   // Skip tests if not enough room.
                   if (LDA > NMAX) GO TO 80;
-                  LAA = LDA*NA
+                  LAA = LDA*NA;
 
                   // Generate the matrix A.
 
                   dmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                   for (ICB = 1; ICB <= 3; ICB++) { // 70
-                     TRANSB = ICH( ICB: ICB )
-                     TRANB = TRANSB == 'T' || TRANSB == 'C'
+                     TRANSB = ICH( ICB: ICB );
+                     TRANB = TRANSB == 'T' || TRANSB == 'C';
 
                      if ( TRANB ) {
-                        MB = N
-                        NB = K
+                        MB = N;
+                        NB = K;
                      } else {
-                        MB = K
-                        NB = N
+                        MB = K;
+                        NB = N;
                      }
                      // Set LDB to 1 more than minimum value if room.
-                     LDB = MB
+                     LDB = MB;
                      if (LDB < NMAX) LDB = LDB + 1;
                      // Skip tests if not enough room.
                      if (LDB > NMAX) GO TO 70;
-                     LBB = LDB*NB
+                     LBB = LDB*NB;
 
                      // Generate the matrix B.
 
                      dmake('GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO );
 
                      for (IA = 1; IA <= NALF; IA++) { // 60
-                        ALPHA = ALF( IA )
+                        ALPHA = ALF( IA );
 
                         for (IB = 1; IB <= NBET; IB++) { // 50
-                           BETA = BET( IB )
+                           BETA = BET( IB );
 
                            // Generate the matrix C.
 
                            dmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
 
-                           NC = NC + 1
+                           NC = NC + 1;
 
                            // Save every datum before calling the
                            // subroutine.
 
-                           TRANAS = TRANSA
-                           TRANBS = TRANSB
-                           MS = M
-                           NS = N
-                           KS = K
-                           ALS = ALPHA
+                           TRANAS = TRANSA;
+                           TRANBS = TRANSB;
+                           MS = M;
+                           NS = N;
+                           KS = K;
+                           ALS = ALPHA;
                            for (I = 1; I <= LAA; I++) { // 10
-                              AS( I ) = AA( I )
+                              AS( I ) = AA( I );
                            } // 10
-                           LDAS = LDA
+                           LDAS = LDA;
                            for (I = 1; I <= LBB; I++) { // 20
-                              BS( I ) = BB( I )
+                              BS( I ) = BB( I );
                            } // 20
-                           LDBS = LDB
-                           BLS = BETA
+                           LDBS = LDB;
+                           BLS = BETA;
                            for (I = 1; I <= LCC; I++) { // 30
-                              CS( I ) = CC( I )
+                              CS( I ) = CC( I );
                            } // 30
-                           LDCS = LDC
+                           LDCS = LDC;
 
                            // Call the subroutine.
 
@@ -506,42 +506,42 @@ void main() {
                            // Check if error-exit was taken incorrectly.
 
                            if ( !OK ) {
-                              WRITE( NOUT, FMT = 9994 )
+                              WRITE( NOUT, FMT = 9994 );
                               FATAL = true;
-                              GO TO 120
+                              GO TO 120;
                            }
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = TRANSA == TRANAS
-                           ISAME( 2 ) = TRANSB == TRANBS
-                           ISAME( 3 ) = MS == M
-                           ISAME( 4 ) = NS == N
-                           ISAME( 5 ) = KS == K
-                           ISAME( 6 ) = ALS == ALPHA
-                           ISAME( 7 ) = LDE( AS, AA, LAA )
-                           ISAME( 8 ) = LDAS == LDA
-                           ISAME( 9 ) = LDE( BS, BB, LBB )
-                           ISAME( 10 ) = LDBS == LDB
-                           ISAME( 11 ) = BLS == BETA
+                           ISAME( 1 ) = TRANSA == TRANAS;
+                           ISAME( 2 ) = TRANSB == TRANBS;
+                           ISAME( 3 ) = MS == M;
+                           ISAME( 4 ) = NS == N;
+                           ISAME( 5 ) = KS == K;
+                           ISAME( 6 ) = ALS == ALPHA;
+                           ISAME( 7 ) = LDE( AS, AA, LAA );
+                           ISAME( 8 ) = LDAS == LDA;
+                           ISAME( 9 ) = LDE( BS, BB, LBB );
+                           ISAME( 10 ) = LDBS == LDB;
+                           ISAME( 11 ) = BLS == BETA;
                            if ( NULL ) {
-                              ISAME( 12 ) = LDE( CS, CC, LCC )
+                              ISAME( 12 ) = LDE( CS, CC, LCC );
                            } else {
-                              ISAME( 12 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC )
+                              ISAME( 12 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC );
                            }
-                           ISAME( 13 ) = LDCS == LDC
+                           ISAME( 13 ) = LDCS == LDC;
 
                            // If data was incorrectly changed, report
                            // and return.
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
-                              SAME = SAME && ISAME( I )
-                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                              SAME = SAME && ISAME( I );
+                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                            } // 40
                            if ( !SAME ) {
                               FATAL = true;
-                              GO TO 120
+                              GO TO 120;
                            }
 
                            if ( !NULL ) {
@@ -549,7 +549,7 @@ void main() {
                               // Check the result.
 
                               dmmch(TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
-                              ERRMAX = MAX( ERRMAX, ERR )
+                              ERRMAX = MAX( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 120;
@@ -578,28 +578,28 @@ void main() {
          if (IORDER == 0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
          if (IORDER == 1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
-      GO TO 130
+      GO TO 130;
 
       } // 120
-      WRITE( NOUT, FMT = 9996 )SNAME
+      WRITE( NOUT, FMT = 9996 )SNAME;
       dprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
 
       } // 130
-      RETURN
+      RETURN;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10001 FORMAT( ' ', A12,' PASSED THE ROW-MAJOR    COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
 10000 FORMAT( ' ', A12,' PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
- 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A12,'(''', A1, ''',''', A1, ''',', 3( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', ', 'C,', I3, ').' )
- 9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
+ 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' );
+ 9995 FORMAT( 1X, I6, ': ', A12,'(''', A1, ''',''', A1, ''',', 3( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', ', 'C,', I3, ').' );
+ 9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
 
       // End of DCHK1.
 
       }
-      SUBROUTINE DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
+      SUBROUTINE DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       double           ALPHA, BETA;
       String           TRANSA, TRANSB;
@@ -607,32 +607,32 @@ void main() {
       String           CRC, CTA,CTB;
 
       if (TRANSA == 'N') {
-         CTA = '  CblasNoTrans'
+         CTA = '  CblasNoTrans';
       } else if (TRANSA == 'T') {
-         CTA = '    CblasTrans'
+         CTA = '    CblasTrans';
       } else {
-         CTA = 'CblasConjTrans'
+         CTA = 'CblasConjTrans';
       }
       if (TRANSB == 'N') {
-         CTB = '  CblasNoTrans'
+         CTB = '  CblasNoTrans';
       } else if (TRANSB == 'T') {
-         CTB = '    CblasTrans'
+         CTB = '    CblasTrans';
       } else {
-         CTB = 'CblasConjTrans'
+         CTB = 'CblasConjTrans';
       }
       if (IORDER == 1) {
-         CRC = ' CblasRowMajor'
+         CRC = ' CblasRowMajor';
       } else {
-         CRC = ' CblasColMajor'
+         CRC = ' CblasColMajor';
       }
-      WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CTA,CTB
-      WRITE(NOUT, FMT = 9994)M, N, K, ALPHA, LDA, LDB, BETA, LDC
+      WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CTA,CTB;
+      WRITE(NOUT, FMT = 9994)M, N, K, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
- 9994 FORMAT( 20X, 3( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', ', 'C,', I3, ').' )
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',');
+ 9994 FORMAT( 20X, 3( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', ', 'C,', I3, ').' );
       }
 
-      SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
+      SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER);
 
 *  Tests DSYMM.
 
@@ -676,94 +676,94 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHS/'LR'/, ICHU/'UL'/
+      DATA               ICHS/'LR'/, ICHU/'UL'/;
       // .. Executable Statements ..
 
-      NARGS = 12
-      NC = 0
+      NARGS = 12;
+      NC = 0;
       RESET = true;
-      ERRMAX = ZERO
+      ERRMAX = ZERO;
 
       for (IM = 1; IM <= NIDIM; IM++) { // 100
-         M = IDIM( IM )
+         M = IDIM( IM );
 
          for (IN = 1; IN <= NIDIM; IN++) { // 90
-            N = IDIM( IN )
+            N = IDIM( IN );
             // Set LDC to 1 more than minimum value if room.
-            LDC = M
+            LDC = M;
             if (LDC < NMAX) LDC = LDC + 1;
             // Skip tests if not enough room.
             if (LDC > NMAX) GO TO 90;
-            LCC = LDC*N
-            NULL = N <= 0 || M <= 0
+            LCC = LDC*N;
+            NULL = N <= 0 || M <= 0;
 
             // Set LDB to 1 more than minimum value if room.
-            LDB = M
+            LDB = M;
             if (LDB < NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
             if (LDB > NMAX) GO TO 90;
-            LBB = LDB*N
+            LBB = LDB*N;
 
             // Generate the matrix B.
 
             dmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
             for (ICS = 1; ICS <= 2; ICS++) { // 80
-               SIDE = ICHS( ICS: ICS )
-               LEFT = SIDE == 'L'
+               SIDE = ICHS( ICS: ICS );
+               LEFT = SIDE == 'L';
 
                if ( LEFT ) {
-                  NA = M
+                  NA = M;
                } else {
-                  NA = N
+                  NA = N;
                }
                // Set LDA to 1 more than minimum value if room.
-               LDA = NA
+               LDA = NA;
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA > NMAX) GO TO 80;
-               LAA = LDA*NA
+               LAA = LDA*NA;
 
                for (ICU = 1; ICU <= 2; ICU++) { // 70
-                  UPLO = ICHU( ICU: ICU )
+                  UPLO = ICHU( ICU: ICU );
 
                   // Generate the symmetric matrix A.
 
                   dmake('SY', UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                   for (IA = 1; IA <= NALF; IA++) { // 60
-                     ALPHA = ALF( IA )
+                     ALPHA = ALF( IA );
 
                      for (IB = 1; IB <= NBET; IB++) { // 50
-                        BETA = BET( IB )
+                        BETA = BET( IB );
 
                         // Generate the matrix C.
 
                         dmake('GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO );
 
-                        NC = NC + 1
+                        NC = NC + 1;
 
                         // Save every datum before calling the
                         // subroutine.
 
-                        SIDES = SIDE
-                        UPLOS = UPLO
-                        MS = M
-                        NS = N
-                        ALS = ALPHA
+                        SIDES = SIDE;
+                        UPLOS = UPLO;
+                        MS = M;
+                        NS = N;
+                        ALS = ALPHA;
                         for (I = 1; I <= LAA; I++) { // 10
-                           AS( I ) = AA( I )
+                           AS( I ) = AA( I );
                         } // 10
-                        LDAS = LDA
+                        LDAS = LDA;
                         for (I = 1; I <= LBB; I++) { // 20
-                           BS( I ) = BB( I )
+                           BS( I ) = BB( I );
                         } // 20
-                        LDBS = LDB
-                        BLS = BETA
+                        LDBS = LDB;
+                        BLS = BETA;
                         for (I = 1; I <= LCC; I++) { // 30
-                           CS( I ) = CC( I )
+                           CS( I ) = CC( I );
                         } // 30
-                        LDCS = LDC
+                        LDCS = LDC;
 
                         // Call the subroutine.
 
@@ -774,41 +774,41 @@ void main() {
                         // Check if error-exit was taken incorrectly.
 
                         if ( !OK ) {
-                           WRITE( NOUT, FMT = 9994 )
+                           WRITE( NOUT, FMT = 9994 );
                            FATAL = true;
-                           GO TO 110
+                           GO TO 110;
                         }
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = SIDES == SIDE
-                        ISAME( 2 ) = UPLOS == UPLO
-                        ISAME( 3 ) = MS == M
-                        ISAME( 4 ) = NS == N
-                        ISAME( 5 ) = ALS == ALPHA
-                        ISAME( 6 ) = LDE( AS, AA, LAA )
-                        ISAME( 7 ) = LDAS == LDA
-                        ISAME( 8 ) = LDE( BS, BB, LBB )
-                        ISAME( 9 ) = LDBS == LDB
-                        ISAME( 10 ) = BLS == BETA
+                        ISAME( 1 ) = SIDES == SIDE;
+                        ISAME( 2 ) = UPLOS == UPLO;
+                        ISAME( 3 ) = MS == M;
+                        ISAME( 4 ) = NS == N;
+                        ISAME( 5 ) = ALS == ALPHA;
+                        ISAME( 6 ) = LDE( AS, AA, LAA );
+                        ISAME( 7 ) = LDAS == LDA;
+                        ISAME( 8 ) = LDE( BS, BB, LBB );
+                        ISAME( 9 ) = LDBS == LDB;
+                        ISAME( 10 ) = BLS == BETA;
                         if ( NULL ) {
-                           ISAME( 11 ) = LDE( CS, CC, LCC )
+                           ISAME( 11 ) = LDE( CS, CC, LCC );
                         } else {
-                           ISAME( 11 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC )
+                           ISAME( 11 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC );
                         }
-                        ISAME( 12 ) = LDCS == LDC
+                        ISAME( 12 ) = LDCS == LDC;
 
                         // If data was incorrectly changed, report and
                         // return.
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME && ISAME( I )
-                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           SAME = SAME && ISAME( I );
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                         } // 40
                         if ( !SAME ) {
                            FATAL = true;
-                           GO TO 110
+                           GO TO 110;
                         }
 
                         if ( !NULL ) {
@@ -820,7 +820,7 @@ void main() {
                            } else {
                               dmmch('N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, true );
                            }
-                           ERRMAX = MAX( ERRMAX, ERR )
+                           ERRMAX = MAX( ERRMAX, ERR );
                            // If got really bad answer, report and
                            // return.
                            if (FATAL) GO TO 110;
@@ -847,29 +847,29 @@ void main() {
          if (IORDER == 0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
          if (IORDER == 1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
-      GO TO 120
+      GO TO 120;
 
       } // 110
-      WRITE( NOUT, FMT = 9996 )SNAME
+      WRITE( NOUT, FMT = 9996 )SNAME;
       dprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
 
       } // 120
-      RETURN
+      RETURN;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10001 FORMAT( ' ', A12,' PASSED THE ROW-MAJOR    COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
 10000 FORMAT( ' ', A12,' PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
- 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A12,'(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', C,', I3, ')   ', ' .' )
- 9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
+ 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' );
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', C,', I3, ')   ', ' .' );
+ 9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
 
       // End of DCHK2.
 
       }
 
-      SUBROUTINE DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
+      SUBROUTINE DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
       double           ALPHA, BETA;
       String           SIDE, UPLO;
@@ -877,28 +877,28 @@ void main() {
       String           CRC, CS,CU;
 
       if (SIDE == 'L') {
-         CS = '     CblasLeft'
+         CS = '     CblasLeft';
       } else {
-         CS = '    CblasRight'
+         CS = '    CblasRight';
       }
       if (UPLO == 'U') {
-         CU = '    CblasUpper'
+         CU = '    CblasUpper';
       } else {
-         CU = '    CblasLower'
+         CU = '    CblasLower';
       }
       if (IORDER == 1) {
-         CRC = ' CblasRowMajor'
+         CRC = ' CblasRowMajor';
       } else {
-         CRC = ' CblasColMajor'
+         CRC = ' CblasColMajor';
       }
-      WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CS,CU
-      WRITE(NOUT, FMT = 9994)M, N, ALPHA, LDA, LDB, BETA, LDC
+      WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CS,CU;
+      WRITE(NOUT, FMT = 9994)M, N, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
- 9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', ', 'C,', I3, ').' )
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',');
+ 9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', ', 'C,', I3, ').' );
       }
 
-      SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER )
+      SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER );
 
 *  Tests DTRMM and DTRSM.
 
@@ -943,59 +943,59 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/
+      DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/;
       // .. Executable Statements ..
 
-      NARGS = 11
-      NC = 0
+      NARGS = 11;
+      NC = 0;
       RESET = true;
-      ERRMAX = ZERO
+      ERRMAX = ZERO;
       // Set up zero matrix for DMMCH.
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
-            C( I, J ) = ZERO
+            C( I, J ) = ZERO;
          } // 10
       } // 20
 
       for (IM = 1; IM <= NIDIM; IM++) { // 140
-         M = IDIM( IM )
+         M = IDIM( IM );
 
          for (IN = 1; IN <= NIDIM; IN++) { // 130
-            N = IDIM( IN )
+            N = IDIM( IN );
             // Set LDB to 1 more than minimum value if room.
-            LDB = M
+            LDB = M;
             if (LDB < NMAX) LDB = LDB + 1;
             // Skip tests if not enough room.
             if (LDB > NMAX) GO TO 130;
-            LBB = LDB*N
-            NULL = M <= 0 || N <= 0
+            LBB = LDB*N;
+            NULL = M <= 0 || N <= 0;
 
             for (ICS = 1; ICS <= 2; ICS++) { // 120
-               SIDE = ICHS( ICS: ICS )
-               LEFT = SIDE == 'L'
+               SIDE = ICHS( ICS: ICS );
+               LEFT = SIDE == 'L';
                if ( LEFT ) {
-                  NA = M
+                  NA = M;
                } else {
-                  NA = N
+                  NA = N;
                }
                // Set LDA to 1 more than minimum value if room.
-               LDA = NA
+               LDA = NA;
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA > NMAX) GO TO 130;
-               LAA = LDA*NA
+               LAA = LDA*NA;
 
                for (ICU = 1; ICU <= 2; ICU++) { // 110
-                  UPLO = ICHU( ICU: ICU )
+                  UPLO = ICHU( ICU: ICU );
 
                   for (ICT = 1; ICT <= 3; ICT++) { // 100
-                     TRANSA = ICHT( ICT: ICT )
+                     TRANSA = ICHT( ICT: ICT );
 
                      for (ICD = 1; ICD <= 2; ICD++) { // 90
-                        DIAG = ICHD( ICD: ICD )
+                        DIAG = ICHD( ICD: ICD );
 
                         for (IA = 1; IA <= NALF; IA++) { // 80
-                           ALPHA = ALF( IA )
+                           ALPHA = ALF( IA );
 
                            // Generate the matrix A.
 
@@ -1005,26 +1005,26 @@ void main() {
 
                            dmake('GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO );
 
-                           NC = NC + 1
+                           NC = NC + 1;
 
                            // Save every datum before calling the
                            // subroutine.
 
-                           SIDES = SIDE
-                           UPLOS = UPLO
-                           TRANAS = TRANSA
-                           DIAGS = DIAG
-                           MS = M
-                           NS = N
-                           ALS = ALPHA
+                           SIDES = SIDE;
+                           UPLOS = UPLO;
+                           TRANAS = TRANSA;
+                           DIAGS = DIAG;
+                           MS = M;
+                           NS = N;
+                           ALS = ALPHA;
                            for (I = 1; I <= LAA; I++) { // 30
-                              AS( I ) = AA( I )
+                              AS( I ) = AA( I );
                            } // 30
-                           LDAS = LDA
+                           LDAS = LDA;
                            for (I = 1; I <= LBB; I++) { // 40
-                              BS( I ) = BB( I )
+                              BS( I ) = BB( I );
                            } // 40
-                           LDBS = LDB
+                           LDBS = LDB;
 
                            // Call the subroutine.
 
@@ -1041,40 +1041,40 @@ void main() {
                            // Check if error-exit was taken incorrectly.
 
                            if ( !OK ) {
-                              WRITE( NOUT, FMT = 9994 )
+                              WRITE( NOUT, FMT = 9994 );
                               FATAL = true;
-                              GO TO 150
+                              GO TO 150;
                            }
 
                            // See what data changed inside subroutines.
 
-                           ISAME( 1 ) = SIDES == SIDE
-                           ISAME( 2 ) = UPLOS == UPLO
-                           ISAME( 3 ) = TRANAS == TRANSA
-                           ISAME( 4 ) = DIAGS == DIAG
-                           ISAME( 5 ) = MS == M
-                           ISAME( 6 ) = NS == N
-                           ISAME( 7 ) = ALS == ALPHA
-                           ISAME( 8 ) = LDE( AS, AA, LAA )
-                           ISAME( 9 ) = LDAS == LDA
+                           ISAME( 1 ) = SIDES == SIDE;
+                           ISAME( 2 ) = UPLOS == UPLO;
+                           ISAME( 3 ) = TRANAS == TRANSA;
+                           ISAME( 4 ) = DIAGS == DIAG;
+                           ISAME( 5 ) = MS == M;
+                           ISAME( 6 ) = NS == N;
+                           ISAME( 7 ) = ALS == ALPHA;
+                           ISAME( 8 ) = LDE( AS, AA, LAA );
+                           ISAME( 9 ) = LDAS == LDA;
                            if ( NULL ) {
-                              ISAME( 10 ) = LDE( BS, BB, LBB )
+                              ISAME( 10 ) = LDE( BS, BB, LBB );
                            } else {
-                              ISAME( 10 ) = LDERES( 'GE', ' ', M, N, BS, BB, LDB )
+                              ISAME( 10 ) = LDERES( 'GE', ' ', M, N, BS, BB, LDB );
                            }
-                           ISAME( 11 ) = LDBS == LDB
+                           ISAME( 11 ) = LDBS == LDB;
 
                            // If data was incorrectly changed, report and
                            // return.
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 50
-                              SAME = SAME && ISAME( I )
-                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                              SAME = SAME && ISAME( I );
+                              IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                            } // 50
                            if ( !SAME ) {
                               FATAL = true;
-                              GO TO 150
+                              GO TO 150;
                            }
 
                            if ( !NULL ) {
@@ -1094,7 +1094,7 @@ void main() {
 
                                  for (J = 1; J <= N; J++) { // 70
                                     for (I = 1; I <= M; I++) { // 60
-                                       C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J )
+                                       C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J );
                                     } // 60
                                  } // 70
 
@@ -1104,7 +1104,7 @@ void main() {
                                     dmmch('N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, false );
                                  }
                               }
-                              ERRMAX = MAX( ERRMAX, ERR )
+                              ERRMAX = MAX( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 150;
@@ -1133,29 +1133,29 @@ void main() {
          if (IORDER == 0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
          if (IORDER == 1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
-      GO TO 160
+      GO TO 160;
 
       } // 150
-      WRITE( NOUT, FMT = 9996 )SNAME
+      WRITE( NOUT, FMT = 9996 )SNAME;
       if (TRACE) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
 
       } // 160
-      RETURN
+      RETURN;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10001 FORMAT( ' ', A12,' PASSED THE ROW-MAJOR    COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
 10000 FORMAT( ' ', A12,' PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
- 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A12,'(', 4( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ')        .' )
- 9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
+ 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' );
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', 4( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ')        .' );
+ 9994 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
 
       // End of DCHK3.
 
       }
 
-      SUBROUTINE DPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
+      SUBROUTINE DPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
       double           ALPHA;
       String           SIDE, UPLO, TRANSA, DIAG;
@@ -1163,40 +1163,40 @@ void main() {
       String           CRC, CS, CU, CA, CD;
 
       if (SIDE == 'L') {
-         CS = '     CblasLeft'
+         CS = '     CblasLeft';
       } else {
-         CS = '    CblasRight'
+         CS = '    CblasRight';
       }
       if (UPLO == 'U') {
-         CU = '    CblasUpper'
+         CU = '    CblasUpper';
       } else {
-         CU = '    CblasLower'
+         CU = '    CblasLower';
       }
       if (TRANSA == 'N') {
-         CA = '  CblasNoTrans'
+         CA = '  CblasNoTrans';
       } else if (TRANSA == 'T') {
-         CA = '    CblasTrans'
+         CA = '    CblasTrans';
       } else {
-         CA = 'CblasConjTrans'
+         CA = 'CblasConjTrans';
       }
       if (DIAG == 'N') {
-         CD = '  CblasNonUnit'
+         CD = '  CblasNonUnit';
       } else {
-         CD = '     CblasUnit'
+         CD = '     CblasUnit';
       }
       if (IORDER == 1) {
-         CRC = ' CblasRowMajor'
+         CRC = ' CblasRowMajor';
       } else {
-         CRC = ' CblasColMajor'
+         CRC = ' CblasColMajor';
       }
-      WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CS,CU
-      WRITE(NOUT, FMT = 9994)CA, CD, M, N, ALPHA, LDA, LDB
+      WRITE(NOUT, FMT = 9995)NC,SNAME,CRC, CS,CU;
+      WRITE(NOUT, FMT = 9994)CA, CD, M, N, ALPHA, LDA, LDB;
 
- 9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
- 9994 FORMAT( 22X, 2( A14, ',') , 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ').' )
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',');
+ 9994 FORMAT( 22X, 2( A14, ',') , 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ').' );
       }
 
-      SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
+      SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER);
 
 *  Tests DSYRK.
 
@@ -1241,80 +1241,80 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHT/'NTC'/, ICHU/'UL'/
+      DATA               ICHT/'NTC'/, ICHU/'UL'/;
       // .. Executable Statements ..
 
-      NARGS = 10
-      NC = 0
+      NARGS = 10;
+      NC = 0;
       RESET = true;
-      ERRMAX = ZERO
+      ERRMAX = ZERO;
 
       for (IN = 1; IN <= NIDIM; IN++) { // 100
-         N = IDIM( IN )
+         N = IDIM( IN );
          // Set LDC to 1 more than minimum value if room.
-         LDC = N
+         LDC = N;
          if (LDC < NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
          if (LDC > NMAX) GO TO 100;
-         LCC = LDC*N
-         NULL = N <= 0
+         LCC = LDC*N;
+         NULL = N <= 0;
 
          for (IK = 1; IK <= NIDIM; IK++) { // 90
-            K = IDIM( IK )
+            K = IDIM( IK );
 
             for (ICT = 1; ICT <= 3; ICT++) { // 80
-               TRANS = ICHT( ICT: ICT )
-               TRAN = TRANS == 'T' || TRANS == 'C'
+               TRANS = ICHT( ICT: ICT );
+               TRAN = TRANS == 'T' || TRANS == 'C';
                if ( TRAN ) {
-                  MA = K
-                  NA = N
+                  MA = K;
+                  NA = N;
                } else {
-                  MA = N
-                  NA = K
+                  MA = N;
+                  NA = K;
                }
                // Set LDA to 1 more than minimum value if room.
-               LDA = MA
+               LDA = MA;
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA > NMAX) GO TO 80;
-               LAA = LDA*NA
+               LAA = LDA*NA;
 
                // Generate the matrix A.
 
                dmake('GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO );
 
                for (ICU = 1; ICU <= 2; ICU++) { // 70
-                  UPLO = ICHU( ICU: ICU )
-                  UPPER = UPLO == 'U'
+                  UPLO = ICHU( ICU: ICU );
+                  UPPER = UPLO == 'U';
 
                   for (IA = 1; IA <= NALF; IA++) { // 60
-                     ALPHA = ALF( IA )
+                     ALPHA = ALF( IA );
 
                      for (IB = 1; IB <= NBET; IB++) { // 50
-                        BETA = BET( IB )
+                        BETA = BET( IB );
 
                         // Generate the matrix C.
 
                         dmake('SY', UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
 
-                        NC = NC + 1
+                        NC = NC + 1;
 
                         // Save every datum before calling the subroutine.
 
-                        UPLOS = UPLO
-                        TRANSS = TRANS
-                        NS = N
-                        KS = K
-                        ALS = ALPHA
+                        UPLOS = UPLO;
+                        TRANSS = TRANS;
+                        NS = N;
+                        KS = K;
+                        ALS = ALPHA;
                         for (I = 1; I <= LAA; I++) { // 10
-                           AS( I ) = AA( I )
+                           AS( I ) = AA( I );
                         } // 10
-                        LDAS = LDA
-                        BETS = BETA
+                        LDAS = LDA;
+                        BETS = BETA;
                         for (I = 1; I <= LCC; I++) { // 20
-                           CS( I ) = CC( I )
+                           CS( I ) = CC( I );
                         } // 20
-                        LDCS = LDC
+                        LDCS = LDC;
 
                         // Call the subroutine.
 
@@ -1325,53 +1325,53 @@ void main() {
                         // Check if error-exit was taken incorrectly.
 
                         if ( !OK ) {
-                           WRITE( NOUT, FMT = 9993 )
+                           WRITE( NOUT, FMT = 9993 );
                            FATAL = true;
-                           GO TO 120
+                           GO TO 120;
                         }
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLOS == UPLO
-                        ISAME( 2 ) = TRANSS == TRANS
-                        ISAME( 3 ) = NS == N
-                        ISAME( 4 ) = KS == K
-                        ISAME( 5 ) = ALS == ALPHA
-                        ISAME( 6 ) = LDE( AS, AA, LAA )
-                        ISAME( 7 ) = LDAS == LDA
-                        ISAME( 8 ) = BETS == BETA
+                        ISAME( 1 ) = UPLOS == UPLO;
+                        ISAME( 2 ) = TRANSS == TRANS;
+                        ISAME( 3 ) = NS == N;
+                        ISAME( 4 ) = KS == K;
+                        ISAME( 5 ) = ALS == ALPHA;
+                        ISAME( 6 ) = LDE( AS, AA, LAA );
+                        ISAME( 7 ) = LDAS == LDA;
+                        ISAME( 8 ) = BETS == BETA;
                         if ( NULL ) {
-                           ISAME( 9 ) = LDE( CS, CC, LCC )
+                           ISAME( 9 ) = LDE( CS, CC, LCC );
                         } else {
-                           ISAME( 9 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC )
+                           ISAME( 9 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC );
                         }
-                        ISAME( 10 ) = LDCS == LDC
+                        ISAME( 10 ) = LDCS == LDC;
 
                         // If data was incorrectly changed, report and
                         // return.
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 30
-                           SAME = SAME && ISAME( I )
-                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           SAME = SAME && ISAME( I );
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                         } // 30
                         if ( !SAME ) {
                            FATAL = true;
-                           GO TO 120
+                           GO TO 120;
                         }
 
                         if ( !NULL ) {
 
                            // Check the result column by column.
 
-                           JC = 1
+                           JC = 1;
                            for (J = 1; J <= N; J++) { // 40
                               if ( UPPER ) {
-                                 JJ = 1
-                                 LJ = J
+                                 JJ = 1;
+                                 LJ = J;
                               } else {
-                                 JJ = J
-                                 LJ = N - J + 1
+                                 JJ = J;
+                                 LJ = N - J + 1;
                               }
                               if ( TRAN ) {
                                  dmmch('T', 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
@@ -1379,11 +1379,11 @@ void main() {
                                  dmmch('N', 'T', LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               }
                               if ( UPPER ) {
-                                 JC = JC + LDC
+                                 JC = JC + LDC;
                               } else {
-                                 JC = JC + LDC + 1
+                                 JC = JC + LDC + 1;
                               }
-                              ERRMAX = MAX( ERRMAX, ERR )
+                              ERRMAX = MAX( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 110;
@@ -1411,33 +1411,33 @@ void main() {
          if (IORDER == 0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
          if (IORDER == 1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
-      GO TO 130
+      GO TO 130;
 
       } // 110
       if (N > 1) WRITE( NOUT, FMT = 9995 )J;
 
       } // 120
-      WRITE( NOUT, FMT = 9996 )SNAME
+      WRITE( NOUT, FMT = 9996 )SNAME;
       dprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
 
       } // 130
-      RETURN
+      RETURN;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10001 FORMAT( ' ', A12,' PASSED THE ROW-MAJOR    COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
 10000 FORMAT( ' ', A12,' PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
- 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A12,'(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ')           .' )
- 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
+ 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' );
+ 9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 );
+ 9994 FORMAT( 1X, I6, ': ', A12,'(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ')           .' );
+ 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
 
       // End of DCHK4.
 
       }
 
-      SUBROUTINE DPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
+      SUBROUTINE DPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC);
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
       double           ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1445,30 +1445,30 @@ void main() {
       String           CRC, CU, CA;
 
       if (UPLO == 'U') {
-         CU = '    CblasUpper'
+         CU = '    CblasUpper';
       } else {
-         CU = '    CblasLower'
+         CU = '    CblasLower';
       }
       if (TRANSA == 'N') {
-         CA = '  CblasNoTrans'
+         CA = '  CblasNoTrans';
       } else if (TRANSA == 'T') {
-         CA = '    CblasTrans'
+         CA = '    CblasTrans';
       } else {
-         CA = 'CblasConjTrans'
+         CA = 'CblasConjTrans';
       }
       if (IORDER == 1) {
-         CRC = ' CblasRowMajor'
+         CRC = ' CblasRowMajor';
       } else {
-         CRC = ' CblasColMajor'
+         CRC = ' CblasColMajor';
       }
-      WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA
-      WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, BETA, LDC
+      WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA;
+      WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
- 9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ').' )
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') );
+ 9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ').' );
       }
 
-      SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER )
+      SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER );
 
 *  Tests DSYR2K.
 
@@ -1513,43 +1513,43 @@ void main() {
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHT/'NTC'/, ICHU/'UL'/
+      DATA               ICHT/'NTC'/, ICHU/'UL'/;
       // .. Executable Statements ..
 
-      NARGS = 12
-      NC = 0
+      NARGS = 12;
+      NC = 0;
       RESET = true;
-      ERRMAX = ZERO
+      ERRMAX = ZERO;
 
       for (IN = 1; IN <= NIDIM; IN++) { // 130
-         N = IDIM( IN )
+         N = IDIM( IN );
          // Set LDC to 1 more than minimum value if room.
-         LDC = N
+         LDC = N;
          if (LDC < NMAX) LDC = LDC + 1;
          // Skip tests if not enough room.
          if (LDC > NMAX) GO TO 130;
-         LCC = LDC*N
-         NULL = N <= 0
+         LCC = LDC*N;
+         NULL = N <= 0;
 
          for (IK = 1; IK <= NIDIM; IK++) { // 120
-            K = IDIM( IK )
+            K = IDIM( IK );
 
             for (ICT = 1; ICT <= 3; ICT++) { // 110
-               TRANS = ICHT( ICT: ICT )
-               TRAN = TRANS == 'T' || TRANS == 'C'
+               TRANS = ICHT( ICT: ICT );
+               TRAN = TRANS == 'T' || TRANS == 'C';
                if ( TRAN ) {
-                  MA = K
-                  NA = N
+                  MA = K;
+                  NA = N;
                } else {
-                  MA = N
-                  NA = K
+                  MA = N;
+                  NA = K;
                }
                // Set LDA to 1 more than minimum value if room.
-               LDA = MA
+               LDA = MA;
                if (LDA < NMAX) LDA = LDA + 1;
                // Skip tests if not enough room.
                if (LDA > NMAX) GO TO 110;
-               LAA = LDA*NA
+               LAA = LDA*NA;
 
                // Generate the matrix A.
 
@@ -1561,8 +1561,8 @@ void main() {
 
                // Generate the matrix B.
 
-               LDB = LDA
-               LBB = LAA
+               LDB = LDA;
+               LBB = LAA;
                if ( TRAN ) {
                   dmake('GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO );
                } else {
@@ -1570,41 +1570,41 @@ void main() {
                }
 
                for (ICU = 1; ICU <= 2; ICU++) { // 100
-                  UPLO = ICHU( ICU: ICU )
-                  UPPER = UPLO == 'U'
+                  UPLO = ICHU( ICU: ICU );
+                  UPPER = UPLO == 'U';
 
                   for (IA = 1; IA <= NALF; IA++) { // 90
-                     ALPHA = ALF( IA )
+                     ALPHA = ALF( IA );
 
                      for (IB = 1; IB <= NBET; IB++) { // 80
-                        BETA = BET( IB )
+                        BETA = BET( IB );
 
                         // Generate the matrix C.
 
                         dmake('SY', UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO );
 
-                        NC = NC + 1
+                        NC = NC + 1;
 
                         // Save every datum before calling the subroutine.
 
-                        UPLOS = UPLO
-                        TRANSS = TRANS
-                        NS = N
-                        KS = K
-                        ALS = ALPHA
+                        UPLOS = UPLO;
+                        TRANSS = TRANS;
+                        NS = N;
+                        KS = K;
+                        ALS = ALPHA;
                         for (I = 1; I <= LAA; I++) { // 10
-                           AS( I ) = AA( I )
+                           AS( I ) = AA( I );
                         } // 10
-                        LDAS = LDA
+                        LDAS = LDA;
                         for (I = 1; I <= LBB; I++) { // 20
-                           BS( I ) = BB( I )
+                           BS( I ) = BB( I );
                         } // 20
-                        LDBS = LDB
-                        BETS = BETA
+                        LDBS = LDB;
+                        BETS = BETA;
                         for (I = 1; I <= LCC; I++) { // 30
-                           CS( I ) = CC( I )
+                           CS( I ) = CC( I );
                         } // 30
-                        LDCS = LDC
+                        LDCS = LDC;
 
                         // Call the subroutine.
 
@@ -1614,75 +1614,75 @@ void main() {
                         // Check if error-exit was taken incorrectly.
 
                         if ( !OK ) {
-                           WRITE( NOUT, FMT = 9993 )
+                           WRITE( NOUT, FMT = 9993 );
                            FATAL = true;
-                           GO TO 150
+                           GO TO 150;
                         }
 
                         // See what data changed inside subroutines.
 
-                        ISAME( 1 ) = UPLOS == UPLO
-                        ISAME( 2 ) = TRANSS == TRANS
-                        ISAME( 3 ) = NS == N
-                        ISAME( 4 ) = KS == K
-                        ISAME( 5 ) = ALS == ALPHA
-                        ISAME( 6 ) = LDE( AS, AA, LAA )
-                        ISAME( 7 ) = LDAS == LDA
-                        ISAME( 8 ) = LDE( BS, BB, LBB )
-                        ISAME( 9 ) = LDBS == LDB
-                        ISAME( 10 ) = BETS == BETA
+                        ISAME( 1 ) = UPLOS == UPLO;
+                        ISAME( 2 ) = TRANSS == TRANS;
+                        ISAME( 3 ) = NS == N;
+                        ISAME( 4 ) = KS == K;
+                        ISAME( 5 ) = ALS == ALPHA;
+                        ISAME( 6 ) = LDE( AS, AA, LAA );
+                        ISAME( 7 ) = LDAS == LDA;
+                        ISAME( 8 ) = LDE( BS, BB, LBB );
+                        ISAME( 9 ) = LDBS == LDB;
+                        ISAME( 10 ) = BETS == BETA;
                         if ( NULL ) {
-                           ISAME( 11 ) = LDE( CS, CC, LCC )
+                           ISAME( 11 ) = LDE( CS, CC, LCC );
                         } else {
-                           ISAME( 11 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC )
+                           ISAME( 11 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC );
                         }
-                        ISAME( 12 ) = LDCS == LDC
+                        ISAME( 12 ) = LDCS == LDC;
 
                         // If data was incorrectly changed, report and
                         // return.
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME && ISAME( I )
-                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
+                           SAME = SAME && ISAME( I );
+                           IF( !ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I;
                         } // 40
                         if ( !SAME ) {
                            FATAL = true;
-                           GO TO 150
+                           GO TO 150;
                         }
 
                         if ( !NULL ) {
 
                            // Check the result column by column.
 
-                           JJAB = 1
-                           JC = 1
+                           JJAB = 1;
+                           JC = 1;
                            for (J = 1; J <= N; J++) { // 70
                               if ( UPPER ) {
-                                 JJ = 1
-                                 LJ = J
+                                 JJ = 1;
+                                 LJ = J;
                               } else {
-                                 JJ = J
-                                 LJ = N - J + 1
+                                 JJ = J;
+                                 LJ = N - J + 1;
                               }
                               if ( TRAN ) {
                                  for (I = 1; I <= K; I++) { // 50
-                                    W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
+                                    W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I );
                                  } // 50
                                  dmmch('T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               } else {
                                  for (I = 1; I <= K; I++) { // 60
-                                    W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
+                                    W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J );
                                  } // 60
                                  dmmch('N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, true );
                               }
                               if ( UPPER ) {
-                                 JC = JC + LDC
+                                 JC = JC + LDC;
                               } else {
-                                 JC = JC + LDC + 1
+                                 JC = JC + LDC + 1;
                                  if (TRAN) JJAB = JJAB + 2*NMAX;
                               }
-                              ERRMAX = MAX( ERRMAX, ERR )
+                              ERRMAX = MAX( ERRMAX, ERR );
                               // If got really bad answer, report and
                               // return.
                               if (FATAL) GO TO 140;
@@ -1710,33 +1710,33 @@ void main() {
          if (IORDER == 0) WRITE( NOUT, FMT = 10002 )SNAME, NC, ERRMAX;
          if (IORDER == 1) WRITE( NOUT, FMT = 10003 )SNAME, NC, ERRMAX;
       }
-      GO TO 160
+      GO TO 160;
 
       } // 140
       if (N > 1) WRITE( NOUT, FMT = 9995 )J;
 
       } // 150
-      WRITE( NOUT, FMT = 9996 )SNAME
+      WRITE( NOUT, FMT = 9996 )SNAME;
       dprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
 
       } // 160
-      RETURN
+      RETURN;
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10002 FORMAT( ' ', A12,' COMPLETED THE COLUMN-MAJOR COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
 10001 FORMAT( ' ', A12,' PASSED THE ROW-MAJOR    COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
 10000 FORMAT( ' ', A12,' PASSED THE COLUMN-MAJOR COMPUTATIONAL TESTS', ' (', I6, ' CALL', 'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
- 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A12,'(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', C,', I3, ')   ', ' .' )
- 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' );
+ 9996 FORMAT( ' ******* ', A12,' FAILED ON CALL NUMBER:' );
+ 9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 );
+ 9994 FORMAT( 1X, I6, ': ', A12,'(', 2( '''', A1, ''',' ), 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',', F4.1, ', C,', I3, ')   ', ' .' );
+ 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
 
       // End of DCHK5.
 
       }
 
-      SUBROUTINE DPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
+      SUBROUTINE DPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC);
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
       double           ALPHA, BETA;
       String           UPLO, TRANSA;
@@ -1744,30 +1744,30 @@ void main() {
       String           CRC, CU, CA;
 
       if (UPLO == 'U') {
-         CU = '    CblasUpper'
+         CU = '    CblasUpper';
       } else {
-         CU = '    CblasLower'
+         CU = '    CblasLower';
       }
       if (TRANSA == 'N') {
-         CA = '  CblasNoTrans'
+         CA = '  CblasNoTrans';
       } else if (TRANSA == 'T') {
-         CA = '    CblasTrans'
+         CA = '    CblasTrans';
       } else {
-         CA = 'CblasConjTrans'
+         CA = 'CblasConjTrans';
       }
       if (IORDER == 1) {
-         CRC = ' CblasRowMajor'
+         CRC = ' CblasRowMajor';
       } else {
-         CRC = ' CblasColMajor'
+         CRC = ' CblasColMajor';
       }
-      WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA
-      WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, LDB, BETA, LDC
+      WRITE(NOUT, FMT = 9995)NC, SNAME, CRC, CU, CA;
+      WRITE(NOUT, FMT = 9994)N, K, ALPHA, LDA, LDB, BETA, LDC;
 
- 9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
- 9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ', B', I3, ',', F4.1, ', C,', I3, ').' )
+ 9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') );
+ 9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ', B', I3, ',', F4.1, ', C,', I3, ').' );
       }
 
-      SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
+      SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL );
 
 *  Generates values for an M by N matrix A.
 *  Stores the values in the array AA in the data structure required
@@ -1803,26 +1803,26 @@ void main() {
       double             DBEG;
       // EXTERNAL DBEG
       // .. Executable Statements ..
-      GEN = TYPE == 'GE'
-      SYM = TYPE == 'SY'
-      TRI = TYPE == 'TR'
-      UPPER = ( SYM || TRI ) && UPLO == 'U'
-      LOWER = ( SYM || TRI ) && UPLO == 'L'
-      UNIT = TRI && DIAG == 'U'
+      GEN = TYPE == 'GE';
+      SYM = TYPE == 'SY';
+      TRI = TYPE == 'TR';
+      UPPER = ( SYM || TRI ) && UPLO == 'U';
+      LOWER = ( SYM || TRI ) && UPLO == 'L';
+      UNIT = TRI && DIAG == 'U';
 
       // Generate data in array A.
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) {
-               A( I, J ) = DBEG( RESET ) + TRANSL
+               A( I, J ) = DBEG( RESET ) + TRANSL;
                if ( I != J ) {
                   // Set some elements to zero
                   if (N > 3 && J == N/2) A( I, J ) = ZERO;
                   if ( SYM ) {
-                     A( J, I ) = A( I, J )
+                     A( J, I ) = A( I, J );
                   } else if ( TRI ) {
-                     A( J, I ) = ZERO
+                     A( J, I ) = ZERO;
                   }
                }
             }
@@ -1835,46 +1835,46 @@ void main() {
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= M; I++) { // 30
-               AA( I + ( J - 1 )*LDA ) = A( I, J )
+               AA( I + ( J - 1 )*LDA ) = A( I, J );
             } // 30
             for (I = M + 1; I <= LDA; I++) { // 40
-               AA( I + ( J - 1 )*LDA ) = ROGUE
+               AA( I + ( J - 1 )*LDA ) = ROGUE;
             } // 40
          } // 50
       } else if ( TYPE == 'SY' || TYPE == 'TR' ) {
          for (J = 1; J <= N; J++) { // 90
             if ( UPPER ) {
-               IBEG = 1
+               IBEG = 1;
                if ( UNIT ) {
-                  IEND = J - 1
+                  IEND = J - 1;
                } else {
-                  IEND = J
+                  IEND = J;
                }
             } else {
                if ( UNIT ) {
-                  IBEG = J + 1
+                  IBEG = J + 1;
                } else {
-                  IBEG = J
+                  IBEG = J;
                }
-               IEND = N
+               IEND = N;
             }
             for (I = 1; I <= IBEG - 1; I++) { // 60
-               AA( I + ( J - 1 )*LDA ) = ROGUE
+               AA( I + ( J - 1 )*LDA ) = ROGUE;
             } // 60
             for (I = IBEG; I <= IEND; I++) { // 70
-               AA( I + ( J - 1 )*LDA ) = A( I, J )
+               AA( I + ( J - 1 )*LDA ) = A( I, J );
             } // 70
             for (I = IEND + 1; I <= LDA; I++) { // 80
-               AA( I + ( J - 1 )*LDA ) = ROGUE
+               AA( I + ( J - 1 )*LDA ) = ROGUE;
             } // 80
          } // 90
       }
-      RETURN
+      RETURN;
 
       // End of DMAKE.
 
       }
-      SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
+      SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV );
 
 *  Checks the results of the computational tests.
 
@@ -1903,8 +1903,8 @@ void main() {
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, SQRT
       // .. Executable Statements ..
-      TRANA = TRANSA == 'T' || TRANSA == 'C'
-      TRANB = TRANSB == 'T' || TRANSB == 'C'
+      TRANA = TRANSA == 'T' || TRANSA == 'C';
+      TRANB = TRANSB == 'T' || TRANSB == 'C';
 
       // Compute expected result, one column at a time, in CT using data
       // in A, B and C.
@@ -1913,77 +1913,77 @@ void main() {
       for (J = 1; J <= N; J++) { // 120
 
          for (I = 1; I <= M; I++) { // 10
-            CT( I ) = ZERO
-            G( I ) = ZERO
+            CT( I ) = ZERO;
+            G( I ) = ZERO;
          } // 10
          if ( !TRANA && !TRANB ) {
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
-                  CT( I ) = CT( I ) + A( I, K )*B( K, J )
-                  G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) )
+                  CT( I ) = CT( I ) + A( I, K )*B( K, J );
+                  G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) );
                } // 20
             } // 30
          } else if ( TRANA && !TRANB ) {
             for (K = 1; K <= KK; K++) { // 50
                for (I = 1; I <= M; I++) { // 40
-                  CT( I ) = CT( I ) + A( K, I )*B( K, J )
-                  G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) )
+                  CT( I ) = CT( I ) + A( K, I )*B( K, J );
+                  G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) );
                } // 40
             } // 50
          } else if ( !TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 70
                for (I = 1; I <= M; I++) { // 60
-                  CT( I ) = CT( I ) + A( I, K )*B( J, K )
-                  G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) )
+                  CT( I ) = CT( I ) + A( I, K )*B( J, K );
+                  G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) );
                } // 60
             } // 70
          } else if ( TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 90
                for (I = 1; I <= M; I++) { // 80
-                  CT( I ) = CT( I ) + A( K, I )*B( J, K )
-                  G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( J, K ) )
+                  CT( I ) = CT( I ) + A( K, I )*B( J, K );
+                  G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( J, K ) );
                } // 80
             } // 90
          }
          for (I = 1; I <= M; I++) { // 100
-            CT( I ) = ALPHA*CT( I ) + BETA*C( I, J )
-            G( I ) = ABS( ALPHA )*G( I ) + ABS( BETA )*ABS( C( I, J ) )
+            CT( I ) = ALPHA*CT( I ) + BETA*C( I, J );
+            G( I ) = ABS( ALPHA )*G( I ) + ABS( BETA )*ABS( C( I, J ) );
          } // 100
 
          // Compute the error ratio for this result.
 
-         ERR = ZERO
+         ERR = ZERO;
          for (I = 1; I <= M; I++) { // 110
-            ERRI = ABS( CT( I ) - CC( I, J ) )/EPS
-            IF( G( I ) != ZERO ) ERRI = ERRI/G( I )
-            ERR = MAX( ERR, ERRI )
-            IF( ERR*SQRT( EPS ) >= ONE ) GO TO 130
+            ERRI = ABS( CT( I ) - CC( I, J ) )/EPS;
+            IF( G( I ) != ZERO ) ERRI = ERRI/G( I );
+            ERR = MAX( ERR, ERRI );
+            IF( ERR*SQRT( EPS ) >= ONE ) GO TO 130;
          } // 110
 
       } // 120
 
       // If the loop completes, all results are at least half accurate.
-      GO TO 150
+      GO TO 150;
 
       // Report fatal error.
 
   130 FATAL = true;
-      WRITE( NOUT, FMT = 9999 )
+      WRITE( NOUT, FMT = 9999 );
       for (I = 1; I <= M; I++) { // 140
          if ( MV ) {
-            WRITE( NOUT, FMT = 9998 )I, CT( I ), CC( I, J )
+            WRITE( NOUT, FMT = 9998 )I, CT( I ), CC( I, J );
          } else {
-            WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
+            WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I );
          }
       } // 140
       if (N > 1) WRITE( NOUT, FMT = 9997 )J;
 
       } // 150
-      RETURN
+      RETURN;
 
- 9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'           EXPECTED RESULT   COMPU', 'TED RESULT' )
- 9998 FORMAT( 1X, I7, 2G18.6 )
- 9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
+ 9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'           EXPECTED RESULT   COMPU', 'TED RESULT' );
+ 9998 FORMAT( 1X, I7, 2G18.6 );
+ 9997 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 );
 
       // End of DMMCH.
 
@@ -2008,13 +2008,13 @@ void main() {
       int                I;
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
-         IF( RI( I ) != RJ( I ) ) GO TO 20
+         IF( RI( I ) != RJ( I ) ) GO TO 20;
       } // 10
       LDE = true;
-      GO TO 30
+      GO TO 30;
       } // 20
       LDE = false;
-   30 RETURN
+   30 RETURN;
 
       // End of LDE.
 
@@ -2043,37 +2043,37 @@ void main() {
       int                I, IBEG, IEND, J;
       bool               UPPER;
       // .. Executable Statements ..
-      UPPER = UPLO == 'U'
+      UPPER = UPLO == 'U';
       if ( TYPE == 'GE' ) {
          for (J = 1; J <= N; J++) { // 20
             for (I = M + 1; I <= LDA; I++) { // 10
-               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70;
             } // 10
          } // 20
       } else if ( TYPE == 'SY' ) {
          for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
-               IBEG = 1
-               IEND = J
+               IBEG = 1;
+               IEND = J;
             } else {
-               IBEG = J
-               IEND = N
+               IBEG = J;
+               IEND = N;
             }
             for (I = 1; I <= IBEG - 1; I++) { // 30
-               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70;
             } // 30
             for (I = IEND + 1; I <= LDA; I++) { // 40
-               IF( AA( I, J ) != AS( I, J ) ) GO TO 70
+               IF( AA( I, J ) != AS( I, J ) ) GO TO 70;
             } // 40
          } // 50
       }
 
       } // 60
       LDERES = true;
-      GO TO 80
+      GO TO 80;
       } // 70
       LDERES = false;
-   80 RETURN
+   80 RETURN;
 
       // End of LDERES.
 
@@ -2095,13 +2095,13 @@ void main() {
       // .. Local Scalars ..
       int                I, IC, MI;
       // .. Save statement ..
-      SAVE               I, IC, MI
+      SAVE               I, IC, MI;
       // .. Executable Statements ..
       if ( RESET ) {
          // Initialize local variables.
-         MI = 891
-         I = 7
-         IC = 0
+         MI = 891;
+         I = 7;
+         IC = 0;
          RESET = false;
       }
 
@@ -2111,15 +2111,15 @@ void main() {
       // If initial I = 5, the period will be 10.
       // IC is used to break up the period by skipping 1 value of I in 6.
 
-      IC = IC + 1
-   10 I = I*MI
-      I = I - 1000*( I/1000 )
+      IC = IC + 1;
+   10 I = I*MI;
+      I = I - 1000*( I/1000 );
       if ( IC >= 5 ) {
-         IC = 0
-         GO TO 10
+         IC = 0;
+         GO TO 10;
       }
       DBEG = ( I - 500 )/1001.0;
-      RETURN
+      RETURN;
 
       // End of DBEG.
 
@@ -2137,8 +2137,8 @@ void main() {
       // .. Scalar Arguments ..
       double             X, Y;
       // .. Executable Statements ..
-      DDIFF = X - Y
-      RETURN
+      DDIFF = X - Y;
+      RETURN;
 
       // End of DDIFF.
 

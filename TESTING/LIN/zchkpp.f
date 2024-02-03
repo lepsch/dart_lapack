@@ -1,4 +1,4 @@
-      SUBROUTINE ZCHKPP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKPP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
+      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
@@ -58,66 +58,66 @@
       // INTRINSIC MAX
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' / , PACKS / 'C', 'R' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' / , PACKS / 'C', 'R' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      PATH( 1: 1 ) = 'Zomplex precision'
-      PATH( 2: 3 ) = 'PP'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      PATH( 1: 1 ) = 'Zomplex precision';
+      PATH( 2: 3 ) = 'PP';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL ZERRPO( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 110
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 100
+            IF( !DOTYPE( IMAT ) ) GO TO 100;
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 5
+            ZEROT = IMAT >= 3 && IMAT <= 5;
             if (ZEROT && N < IMAT-2) GO TO 100;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 90
-               UPLO = UPLOS( IUPLO )
-               PACKIT = PACKS( IUPLO )
+               UPLO = UPLOS( IUPLO );
+               PACKIT = PACKS( IUPLO );
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
 
                zlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST );
 
-               SRNAMT = 'ZLATMS'
+               SRNAMT = 'ZLATMS';
                zlatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO );
 
                // Check error code from ZLATMS.
 
                if ( INFO != 0 ) {
                   alaerh(PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 90
+                  GO TO 90;
                }
 
                // For types 3-5, zero one row and column of the matrix to
@@ -125,38 +125,38 @@
 
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
-                     IZERO = 1
+                     IZERO = 1;
                   } else if ( IMAT == 4 ) {
-                     IZERO = N
+                     IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1
+                     IZERO = N / 2 + 1;
                   }
 
                   // Set row and column IZERO of A to 0.
 
                   if ( IUPLO == 1 ) {
-                     IOFF = ( IZERO-1 )*IZERO / 2
+                     IOFF = ( IZERO-1 )*IZERO / 2;
                      for (I = 1; I <= IZERO - 1; I++) { // 20
-                        A( IOFF+I ) = ZERO
+                        A( IOFF+I ) = ZERO;
                      } // 20
-                     IOFF = IOFF + IZERO
+                     IOFF = IOFF + IZERO;
                      for (I = IZERO; I <= N; I++) { // 30
-                        A( IOFF ) = ZERO
-                        IOFF = IOFF + I
+                        A( IOFF ) = ZERO;
+                        IOFF = IOFF + I;
                      } // 30
                   } else {
-                     IOFF = IZERO
+                     IOFF = IZERO;
                      for (I = 1; I <= IZERO - 1; I++) { // 40
-                        A( IOFF ) = ZERO
-                        IOFF = IOFF + N - I
+                        A( IOFF ) = ZERO;
+                        IOFF = IOFF + N - I;
                      } // 40
-                     IOFF = IOFF - IZERO
+                     IOFF = IOFF - IZERO;
                      for (I = IZERO; I <= N; I++) { // 50
-                        A( IOFF+I ) = ZERO
+                        A( IOFF+I ) = ZERO;
                      } // 50
                   }
                } else {
-                  IZERO = 0
+                  IZERO = 0;
                }
 
                // Set the imaginary part of the diagonals.
@@ -169,16 +169,16 @@
 
                // Compute the L*L' or U'*U factorization of the matrix.
 
-               NPP = N*( N+1 ) / 2
+               NPP = N*( N+1 ) / 2;
                zcopy(NPP, A, 1, AFAC, 1 );
-               SRNAMT = 'ZPPTRF'
+               SRNAMT = 'ZPPTRF';
                zpptrf(UPLO, N, AFAC, INFO );
 
                // Check error code from ZPPTRF.
 
                if ( INFO != IZERO ) {
                   alaerh(PATH, 'ZPPTRF', INFO, IZERO, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
-                  GO TO 90
+                  GO TO 90;
                }
 
                // Skip the tests if INFO is not 0.
@@ -195,7 +195,7 @@
                // Form the inverse and compute the residual.
 
                zcopy(NPP, AFAC, 1, AINV, 1 );
-               SRNAMT = 'ZPPTRI'
+               SRNAMT = 'ZPPTRI';
                zpptri(UPLO, N, AINV, INFO );
 
                // Check error code from ZPPTRI.
@@ -210,22 +210,22 @@
                for (K = 1; K <= 2; K++) { // 60
                   if ( RESULT( K ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
-                     NFAIL = NFAIL + 1
+                     NFAIL = NFAIL + 1;
                   }
                } // 60
-               NRUN = NRUN + 2
+               NRUN = NRUN + 2;
 
                for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
-                  NRHS = NSVAL( IRHS )
+                  NRHS = NSVAL( IRHS );
 
 *+    TEST 3
                // Solve and compute residual for  A * X = B.
 
-                  SRNAMT = 'ZLARHS'
+                  SRNAMT = 'ZLARHS';
                   zlarhs(PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                   zlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                  SRNAMT = 'ZPPTRS'
+                  SRNAMT = 'ZPPTRS';
                   zpptrs(UPLO, N, NRHS, AFAC, X, LDA, INFO );
 
                // Check error code from ZPPTRS.
@@ -243,7 +243,7 @@
 *+    TESTS 5, 6, and 7
                // Use iterative refinement to improve the solution.
 
-                  SRNAMT = 'ZPPRFS'
+                  SRNAMT = 'ZPPRFS';
                   zpprfs(UPLO, N, NRHS, A, AFAC, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO );
 
                // Check error code from ZPPRFS.
@@ -259,32 +259,32 @@
                   for (K = 3; K <= 7; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 70
-                  NRUN = NRUN + 5
+                  NRUN = NRUN + 5;
                } // 80
 
 *+    TEST 8
                // Get an estimate of RCOND = 1/CNDNUM.
 
-               ANORM = ZLANHP( '1', UPLO, N, A, RWORK )
-               SRNAMT = 'ZPPCON'
+               ANORM = ZLANHP( '1', UPLO, N, A, RWORK );
+               SRNAMT = 'ZPPCON';
                zppcon(UPLO, N, AFAC, ANORM, RCOND, WORK, RWORK, INFO );
 
                // Check error code from ZPPCON.
 
                if (INFO != 0) CALL ALAERH( PATH, 'ZPPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
-               RESULT( 8 ) = DGET06( RCOND, RCONDC )
+               RESULT( 8 ) = DGET06( RCOND, RCONDC );
 
                // Print the test ratio if greater than or equal to THRESH.
 
                if ( RESULT( 8 ) >= THRESH ) {
                   if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
-                  NFAIL = NFAIL + 1
+                  NFAIL = NFAIL + 1;
                }
-               NRUN = NRUN + 1
+               NRUN = NRUN + 1;
 
             } // 90
          } // 100
@@ -294,9 +294,9 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
- 9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )
-      RETURN
+ 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+ 9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 );
+      RETURN;
 
       // End of ZCHKPP
 

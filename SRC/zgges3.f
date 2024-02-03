@@ -1,4 +1,4 @@
-      SUBROUTINE ZGGES3( JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, RWORK, BWORK, INFO )
+      SUBROUTINE ZGGES3( JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, RWORK, BWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               BWORK( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * );
       // ..
       // .. Function Arguments ..
       bool               SELCTG;
@@ -23,7 +23,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE
+      COMPLEX*16         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -51,112 +51,112 @@
       // Decode the input arguments
 
       if ( LSAME( JOBVSL, 'N' ) ) {
-         IJOBVL = 1
+         IJOBVL = 1;
          ILVSL = false;
       } else if ( LSAME( JOBVSL, 'V' ) ) {
-         IJOBVL = 2
+         IJOBVL = 2;
          ILVSL = true;
       } else {
-         IJOBVL = -1
+         IJOBVL = -1;
          ILVSL = false;
       }
 
       if ( LSAME( JOBVSR, 'N' ) ) {
-         IJOBVR = 1
+         IJOBVR = 1;
          ILVSR = false;
       } else if ( LSAME( JOBVSR, 'V' ) ) {
-         IJOBVR = 2
+         IJOBVR = 2;
          ILVSR = true;
       } else {
-         IJOBVR = -1
+         IJOBVR = -1;
          ILVSR = false;
       }
 
-      WANTST = LSAME( SORT, 'S' )
+      WANTST = LSAME( SORT, 'S' );
 
       // Test the input arguments
 
-      INFO = 0
-      LQUERY = ( LWORK == -1 )
-      LWKMIN = MAX( 1, 2*N )
+      INFO = 0;
+      LQUERY = ( LWORK == -1 );
+      LWKMIN = MAX( 1, 2*N );
 
       if ( IJOBVL <= 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( IJOBVR <= 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( ( !WANTST ) && ( !LSAME( SORT, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -9
+         INFO = -9;
       } else if ( LDVSL < 1 || ( ILVSL && LDVSL < N ) ) {
-         INFO = -14
+         INFO = -14;
       } else if ( LDVSR < 1 || ( ILVSR && LDVSR < N ) ) {
-         INFO = -16
+         INFO = -16;
       } else if ( LWORK < LWKMIN && !LQUERY ) {
-         INFO = -18
+         INFO = -18;
       }
 
       // Compute workspace
 
       if ( INFO == 0 ) {
          zgeqrf(N, N, B, LDB, WORK, WORK, -1, IERR );
-         LWKOPT = MAX( LWKMIN,  N + INT( WORK( 1 ) ) )
+         LWKOPT = MAX( LWKMIN,  N + INT( WORK( 1 ) ) );
          zunmqr('L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR );
-         LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) )
+         LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) );
          if ( ILVSL ) {
             zungqr(N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR );
-            LWKOPT = MAX( LWKOPT, N + INT ( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, N + INT ( WORK( 1 ) ) );
          }
          zgghd3(JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK, -1, IERR );
-         LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) )
+         LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) );
          zlaqz0('S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1, RWORK, 0, IERR );
-         LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) )
+         LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) );
          if ( WANTST ) {
             ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR );
-            LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) )
+            LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) );
          }
          if ( N == 0 ) {
-            WORK( 1 ) = 1
+            WORK( 1 ) = 1;
          } else {
-            WORK( 1 ) = DCMPLX( LWKOPT )
+            WORK( 1 ) = DCMPLX( LWKOPT );
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('ZGGES3 ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         SDIM = 0
-         RETURN
+         SDIM = 0;
+         RETURN;
       }
 
       // Get machine constants
 
-      EPS = DLAMCH( 'P' )
-      SMLNUM = DLAMCH( 'S' )
-      BIGNUM = ONE / SMLNUM
-      SMLNUM = SQRT( SMLNUM ) / EPS
-      BIGNUM = ONE / SMLNUM
+      EPS = DLAMCH( 'P' );
+      SMLNUM = DLAMCH( 'S' );
+      BIGNUM = ONE / SMLNUM;
+      SMLNUM = SQRT( SMLNUM ) / EPS;
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
+      ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK );
       ILASCL = false;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
-         ANRMTO = SMLNUM
+         ANRMTO = SMLNUM;
          ILASCL = true;
       } else if ( ANRM > BIGNUM ) {
-         ANRMTO = BIGNUM
+         ANRMTO = BIGNUM;
          ILASCL = true;
       }
 
@@ -164,13 +164,13 @@
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
-      BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
+      BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK );
       ILBSCL = false;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
-         BNRMTO = SMLNUM
+         BNRMTO = SMLNUM;
          ILBSCL = true;
       } else if ( BNRM > BIGNUM ) {
-         BNRMTO = BIGNUM
+         BNRMTO = BIGNUM;
          ILBSCL = true;
       }
 
@@ -178,17 +178,17 @@
 
       // Permute the matrix to make it more nearly triangular
 
-      ILEFT = 1
-      IRIGHT = N + 1
-      IRWRK = IRIGHT + N
+      ILEFT = 1;
+      IRIGHT = N + 1;
+      IRWRK = IRIGHT + N;
       zggbal('P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR );
 
       // Reduce B to triangular form (QR decomposition of B)
 
-      IROWS = IHI + 1 - ILO
-      ICOLS = N + 1 - ILO
-      ITAU = 1
-      IWRK = ITAU + IROWS
+      IROWS = IHI + 1 - ILO;
+      ICOLS = N + 1 - ILO;
+      ITAU = 1;
+      IWRK = ITAU + IROWS;
       zgeqrf(IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
 
       // Apply the orthogonal transformation to matrix A
@@ -213,21 +213,21 @@
 
       zgghd3(JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR );
 
-      SDIM = 0
+      SDIM = 0;
 
       // Perform QZ algorithm, computing Schur vectors if desired
 
-      IWRK = ITAU
+      IWRK = ITAU;
       zlaqz0('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR );
       if ( IERR != 0 ) {
          if ( IERR > 0 && IERR <= N ) {
-            INFO = IERR
+            INFO = IERR;
          } else if ( IERR > N && IERR <= 2*N ) {
-            INFO = IERR - N
+            INFO = IERR - N;
          } else {
-            INFO = N + 1
+            INFO = N + 1;
          }
-         GO TO 30
+         GO TO 30;
       }
 
       // Sort eigenvalues ALPHA/BETA if desired
@@ -241,7 +241,7 @@
          // Select eigenvalues
 
          for (I = 1; I <= N; I++) { // 10
-            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
+            BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) );
          } // 10
 
          ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
@@ -270,20 +270,20 @@
          // Check if reordering is correct
 
          LASTSL = true;
-         SDIM = 0
+         SDIM = 0;
          for (I = 1; I <= N; I++) { // 20
-            CURSL = SELCTG( ALPHA( I ), BETA( I ) )
+            CURSL = SELCTG( ALPHA( I ), BETA( I ) );
             if (CURSL) SDIM = SDIM + 1             IF( CURSL && !LASTSL ) INFO = N + 2;
-            LASTSL = CURSL
+            LASTSL = CURSL;
          } // 20
 
       }
 
       } // 30
 
-      WORK( 1 ) = DCMPLX( LWKOPT )
+      WORK( 1 ) = DCMPLX( LWKOPT );
 
-      RETURN
+      RETURN;
 
       // End of ZGGES3
 

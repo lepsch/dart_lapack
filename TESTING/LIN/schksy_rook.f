@@ -1,4 +1,4 @@
-      SUBROUTINE SCHKSY_ROOK( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SCHKSY_ROOK( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,20 +7,20 @@
       // .. Scalar Arguments ..
       bool               TSTERR;
       int                NMAX, NN, NNB, NNS, NOUT;
-      REAL               THRESH
+      REAL               THRESH;
       // ..
       // .. Array Arguments ..
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
+      REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      REAL               EIGHT, SEVTEN
+      REAL               EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
       int                NTYPES;
       const              NTYPES = 10 ;
@@ -32,15 +32,15 @@
       String             DIST, TYPE, UPLO, XTYPE;
       String             PATH, MATPATH;
       int                I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
-      REAL               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP
+      REAL               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP;
       // ..
       // .. Local Arrays ..
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
-      REAL               BLOCK( 2, 2 ), RESULT( NTESTS ), SDUMMY( 1 )
+      REAL               BLOCK( 2, 2 ), RESULT( NTESTS ), SDUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SGET06, SLANGE, SLANSY
+      REAL               SGET06, SLANGE, SLANSY;
       // EXTERNAL SGET06, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..
@@ -59,36 +59,36 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA               UPLOS / 'U', 'L' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA               UPLOS / 'U', 'L' /;
       // ..
       // .. Executable Statements ..
 
       // Initialize constants and the random number seed.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
+      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
 
       // Test path
 
-      PATH( 1: 1 ) = 'Single precision'
-      PATH( 2: 3 ) = 'SR'
+      PATH( 1: 1 ) = 'Single precision';
+      PATH( 2: 3 ) = 'SR';
 
       // Path to generate matrices
 
-      MATPATH( 1: 1 ) = 'Single precision'
-      MATPATH( 2: 3 ) = 'SY'
+      MATPATH( 1: 1 ) = 'Single precision';
+      MATPATH( 2: 3 ) = 'SY';
 
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL SERRSY( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
@@ -98,13 +98,13 @@
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 270
-         N = NVAL( IN )
-         LDA = MAX( N, 1 )
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         N = NVAL( IN );
+         LDA = MAX( N, 1 );
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
-         IZERO = 0
+         IZERO = 0;
 
          // Do for each value of matrix type IMAT
 
@@ -112,17 +112,17 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 260
+            IF( !DOTYPE( IMAT ) ) GO TO 260;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6
+            ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 260;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 250
-               UPLO = UPLOS( IUPLO )
+               UPLO = UPLOS( IUPLO );
 
                // Begin generate the test matrix A.
 
@@ -133,7 +133,7 @@
 
                // Generate a matrix with SLATMS.
 
-               SRNAMT = 'SLATMS'
+               SRNAMT = 'SLATMS';
                slatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from SLATMS and handle error.
@@ -143,7 +143,7 @@
 
                   // Skip all tests for this generated matrix
 
-                  GO TO 250
+                  GO TO 250;
                }
 
                // For matrix types 3-6, zero one or more rows and
@@ -152,11 +152,11 @@
 
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
-                     IZERO = 1
+                     IZERO = 1;
                   } else if ( IMAT == 4 ) {
-                     IZERO = N
+                     IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1
+                     IZERO = N / 2 + 1;
                   }
 
                   if ( IMAT < 6 ) {
@@ -164,24 +164,24 @@
                      // Set row and column IZERO to zero.
 
                      if ( IUPLO == 1 ) {
-                        IOFF = ( IZERO-1 )*LDA
+                        IOFF = ( IZERO-1 )*LDA;
                         for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A( IOFF+I ) = ZERO
+                           A( IOFF+I ) = ZERO;
                         } // 20
-                        IOFF = IOFF + IZERO
+                        IOFF = IOFF + IZERO;
                         for (I = IZERO; I <= N; I++) { // 30
-                           A( IOFF ) = ZERO
-                           IOFF = IOFF + LDA
+                           A( IOFF ) = ZERO;
+                           IOFF = IOFF + LDA;
                         } // 30
                      } else {
-                        IOFF = IZERO
+                        IOFF = IZERO;
                         for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A( IOFF ) = ZERO
-                           IOFF = IOFF + LDA
+                           A( IOFF ) = ZERO;
+                           IOFF = IOFF + LDA;
                         } // 40
-                        IOFF = IOFF - IZERO
+                        IOFF = IOFF - IZERO;
                         for (I = IZERO; I <= N; I++) { // 50
-                           A( IOFF+I ) = ZERO
+                           A( IOFF+I ) = ZERO;
                         } // 50
                      }
                   } else {
@@ -189,30 +189,30 @@
 
                         // Set the first IZERO rows and columns to zero.
 
-                        IOFF = 0
+                        IOFF = 0;
                         for (J = 1; J <= N; J++) { // 70
-                           I2 = MIN( J, IZERO )
+                           I2 = MIN( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 60
-                           IOFF = IOFF + LDA
+                           IOFF = IOFF + LDA;
                         } // 70
                      } else {
 
                         // Set the last IZERO rows and columns to zero.
 
-                        IOFF = 0
+                        IOFF = 0;
                         for (J = 1; J <= N; J++) { // 90
-                           I1 = MAX( J, IZERO )
+                           I1 = MAX( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
-                              A( IOFF+I ) = ZERO
+                              A( IOFF+I ) = ZERO;
                            } // 80
-                           IOFF = IOFF + LDA
+                           IOFF = IOFF + LDA;
                         } // 90
                      }
                   }
                } else {
-                  IZERO = 0
+                  IZERO = 0;
                }
 
                // End generate the test matrix A.
@@ -225,7 +225,7 @@
                   // Set the optimal blocksize, which will be later
                   // returned by ILAENV.
 
-                  NB = NBVAL( INB )
+                  NB = NBVAL( INB );
                   xlaenv(1, NB );
 
                   // Copy the test matrix A into matrix AFAC which
@@ -239,24 +239,24 @@
                   // the block structure of D. AINV is a work array for
                   // block factorization, LWORK is the length of AINV.
 
-                  LWORK = MAX( 2, NB )*LDA
-                  SRNAMT = 'SSYTRF_ROOK'
+                  LWORK = MAX( 2, NB )*LDA;
+                  SRNAMT = 'SSYTRF_ROOK';
                   ssytrf_rook(UPLO, N, AFAC, LDA, IWORK, AINV, LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
                   // pivoting.
 
-                  K = IZERO
+                  K = IZERO;
                   if ( K > 0 ) {
                      } // 100
                      if ( IWORK( K ) < 0 ) {
                         if ( IWORK( K ) != -K ) {
-                           K = -IWORK( K )
-                           GO TO 100
+                           K = -IWORK( K );
+                           GO TO 100;
                         }
                      } else if ( IWORK( K ) != K ) {
-                        K = IWORK( K )
-                        GO TO 100
+                        K = IWORK( K );
+                        GO TO 100;
                      }
                   }
 
@@ -276,7 +276,7 @@
                   // Reconstruct matrix from factors and compute residual.
 
                   ssyt01_rook(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
-                  NT = 1
+                  NT = 1;
 
 *+    TEST 2
                   // Form the inverse and compute the residual,
@@ -286,7 +286,7 @@
 
                   if ( INB == 1 && !TRFCON ) {
                      slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
-                     SRNAMT = 'SSYTRI_ROOK'
+                     SRNAMT = 'SSYTRI_ROOK';
                      ssytri_rook(UPLO, N, AINV, LDA, IWORK, WORK, INFO );
 
                      // Check error code from SSYTRI_ROOK and handle error.
@@ -297,7 +297,7 @@
                      // its inverse.
 
                      spot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
-                     NT = 2
+                     NT = 2;
                   }
 
                   // Print information about the tests that did not pass
@@ -306,24 +306,24 @@
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 110
-                  NRUN = NRUN + NT
+                  NRUN = NRUN + NT;
 
 *+    TEST 3
                   // Compute largest element in U or L
 
-                  RESULT( 3 ) = ZERO
-                  STEMP = ZERO
+                  RESULT( 3 ) = ZERO;
+                  STEMP = ZERO;
 
-                  CONST = ONE / ( ONE-ALPHA )
+                  CONST = ONE / ( ONE-ALPHA );
 
                   if ( IUPLO == 1 ) {
 
                   // Compute largest element in U
 
-                     K = N
+                     K = N;
                      } // 120
                      if (K <= 1) GO TO 130;
 
@@ -332,32 +332,32 @@
                         // Get max absolute value from elements
                         // in column k in in U
 
-                        STEMP = SLANGE( 'M', K-1, 1, AFAC( ( K-1 )*LDA+1 ), LDA, RWORK )
+                        STEMP = SLANGE( 'M', K-1, 1, AFAC( ( K-1 )*LDA+1 ), LDA, RWORK );
                      } else {
 
                         // Get max absolute value from elements
                         // in columns k and k-1 in U
 
-                        STEMP = SLANGE( 'M', K-2, 2, AFAC( ( K-2 )*LDA+1 ), LDA, RWORK )
-                        K = K - 1
+                        STEMP = SLANGE( 'M', K-2, 2, AFAC( ( K-2 )*LDA+1 ), LDA, RWORK );
+                        K = K - 1;
 
                      }
 
                      // STEMP should be bounded by CONST
 
-                     STEMP = STEMP - CONST + THRESH
-                     IF( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP
+                     STEMP = STEMP - CONST + THRESH;
+                     IF( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP;
 
-                     K = K - 1
+                     K = K - 1;
 
-                     GO TO 120
+                     GO TO 120;
                      } // 130
 
                   } else {
 
                   // Compute largest element in L
 
-                     K = 1
+                     K = 1;
                      } // 140
                      if (K >= N) GO TO 150;
 
@@ -366,25 +366,25 @@
                         // Get max absolute value from elements
                         // in column k in in L
 
-                        STEMP = SLANGE( 'M', N-K, 1, AFAC( ( K-1 )*LDA+K+1 ), LDA, RWORK )
+                        STEMP = SLANGE( 'M', N-K, 1, AFAC( ( K-1 )*LDA+K+1 ), LDA, RWORK );
                      } else {
 
                         // Get max absolute value from elements
                         // in columns k and k+1 in L
 
-                        STEMP = SLANGE( 'M', N-K-1, 2, AFAC( ( K-1 )*LDA+K+2 ), LDA, RWORK )
-                        K = K + 1
+                        STEMP = SLANGE( 'M', N-K-1, 2, AFAC( ( K-1 )*LDA+K+2 ), LDA, RWORK );
+                        K = K + 1;
 
                      }
 
                      // STEMP should be bounded by CONST
 
-                     STEMP = STEMP - CONST + THRESH
-                     IF( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP
+                     STEMP = STEMP - CONST + THRESH;
+                     IF( STEMP > RESULT( 3 ) ) RESULT( 3 ) = STEMP;
 
-                     K = K + 1
+                     K = K + 1;
 
-                     GO TO 140
+                     GO TO 140;
                      } // 150
                   }
 
@@ -393,17 +393,17 @@
                   // Compute largest 2-Norm (condition number)
                   // of 2-by-2 diag blocks
 
-                  RESULT( 4 ) = ZERO
-                  STEMP = ZERO
+                  RESULT( 4 ) = ZERO;
+                  STEMP = ZERO;
 
-                  CONST = ( ONE+ALPHA ) / ( ONE-ALPHA )
+                  CONST = ( ONE+ALPHA ) / ( ONE-ALPHA );
                   slacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
 
                   if ( IUPLO == 1 ) {
 
                      // Loop backward for UPLO = 'U'
 
-                     K = N
+                     K = N;
                      } // 160
                      if (K <= 1) GO TO 170;
 
@@ -413,37 +413,37 @@
                         // (real and non-negative) of a 2-by-2 block,
                         // store them in RWORK array
 
-                        BLOCK( 1, 1 ) = AFAC( ( K-2 )*LDA+K-1 )
-                        BLOCK( 1, 2 ) = AFAC( (K-1)*LDA+K-1 )
-                        BLOCK( 2, 1 ) = BLOCK( 1, 2 )
-                        BLOCK( 2, 2 ) = AFAC( (K-1)*LDA+K )
+                        BLOCK( 1, 1 ) = AFAC( ( K-2 )*LDA+K-1 );
+                        BLOCK( 1, 2 ) = AFAC( (K-1)*LDA+K-1 );
+                        BLOCK( 2, 1 ) = BLOCK( 1, 2 );
+                        BLOCK( 2, 2 ) = AFAC( (K-1)*LDA+K );
 
                         sgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, SDUMMY, 1, SDUMMY, 1, WORK, 10, INFO );
 
 
-                        SING_MAX = RWORK( 1 )
-                        SING_MIN = RWORK( 2 )
+                        SING_MAX = RWORK( 1 );
+                        SING_MIN = RWORK( 2 );
 
-                        STEMP = SING_MAX / SING_MIN
+                        STEMP = SING_MAX / SING_MIN;
 
                         // STEMP should be bounded by CONST
 
-                        STEMP = STEMP - CONST + THRESH
-                        IF( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP
-                        K = K - 1
+                        STEMP = STEMP - CONST + THRESH;
+                        IF( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP;
+                        K = K - 1;
 
                      }
 
-                     K = K - 1
+                     K = K - 1;
 
-                     GO TO 160
+                     GO TO 160;
                      } // 170
 
                   } else {
 
                      // Loop forward for UPLO = 'L'
 
-                     K = 1
+                     K = 1;
                      } // 180
                      if (K >= N) GO TO 190;
 
@@ -453,30 +453,30 @@
                         // (real and non-negative) of a 2-by-2 block,
                         // store them in RWORK array
 
-                        BLOCK( 1, 1 ) = AFAC( ( K-1 )*LDA+K )
-                        BLOCK( 2, 1 ) = AFAC( ( K-1 )*LDA+K+1 )
-                        BLOCK( 1, 2 ) = BLOCK( 2, 1 )
-                        BLOCK( 2, 2 ) = AFAC( K*LDA+K+1 )
+                        BLOCK( 1, 1 ) = AFAC( ( K-1 )*LDA+K );
+                        BLOCK( 2, 1 ) = AFAC( ( K-1 )*LDA+K+1 );
+                        BLOCK( 1, 2 ) = BLOCK( 2, 1 );
+                        BLOCK( 2, 2 ) = AFAC( K*LDA+K+1 );
 
                         sgesvd('N', 'N', 2, 2, BLOCK, 2, RWORK, SDUMMY, 1, SDUMMY, 1, WORK, 10, INFO );
 
 
-                        SING_MAX = RWORK( 1 )
-                        SING_MIN = RWORK( 2 )
+                        SING_MAX = RWORK( 1 );
+                        SING_MIN = RWORK( 2 );
 
-                        STEMP = SING_MAX / SING_MIN
+                        STEMP = SING_MAX / SING_MIN;
 
                         // STEMP should be bounded by CONST
 
-                        STEMP = STEMP - CONST + THRESH
-                        IF( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP
-                        K = K + 1
+                        STEMP = STEMP - CONST + THRESH;
+                        IF( STEMP > RESULT( 4 ) ) RESULT( 4 ) = STEMP;
+                        K = K + 1;
 
                      }
 
-                     K = K + 1
+                     K = K + 1;
 
-                     GO TO 180
+                     GO TO 180;
                      } // 190
                   }
 
@@ -486,10 +486,10 @@
                   for (K = 3; K <= 4; K++) { // 200
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 200
-                  NRUN = NRUN + 2
+                  NRUN = NRUN + 2;
 
                   // Skip the other tests if this is not the first block
                   // size.
@@ -499,14 +499,14 @@
                   // Do only the condition estimate if INFO is not 0.
 
                   if ( TRFCON ) {
-                     RCONDC = ZERO
-                     GO TO 230
+                     RCONDC = ZERO;
+                     GO TO 230;
                   }
 
                   // Do for each value of NRHS in NSVAL.
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 220
-                     NRHS = NSVAL( IRHS )
+                     NRHS = NSVAL( IRHS );
 
 *+    TEST 5 ( Using TRS_ROOK)
                   // Solve and compute residual for  A * X = B.
@@ -514,11 +514,11 @@
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'SLARHS'
+                     SRNAMT = 'SLARHS';
                      slarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'SSYTRS_ROOK'
+                     SRNAMT = 'SSYTRS_ROOK';
                      ssytrs_rook(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO );
 
                      // Check error code from SSYTRS_ROOK and handle error.
@@ -542,10 +542,10 @@
                      for (K = 5; K <= 6; K++) { // 210
                         if ( RESULT( K ) >= THRESH ) {
                            if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
-                           NFAIL = NFAIL + 1
+                           NFAIL = NFAIL + 1;
                         }
                      } // 210
-                     NRUN = NRUN + 2
+                     NRUN = NRUN + 2;
 
                   // End do for each value of NRHS in NSVAL.
 
@@ -555,8 +555,8 @@
                   // Get an estimate of RCOND = 1/CNDNUM.
 
                   } // 230
-                  ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK )
-                  SRNAMT = 'SSYCON_ROOK'
+                  ANORM = SLANSY( '1', UPLO, N, A, LDA, RWORK );
+                  SRNAMT = 'SSYCON_ROOK';
                   ssycon_rook(UPLO, N, AFAC, LDA, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
 
                   // Check error code from SSYCON_ROOK and handle error.
@@ -565,16 +565,16 @@
 
                   // Compute the test ratio to compare values of RCOND
 
-                  RESULT( 7 ) = SGET06( RCOND, RCONDC )
+                  RESULT( 7 ) = SGET06( RCOND, RCONDC );
 
                   // Print information about the tests that did not pass
                   // the threshold.
 
                   if ( RESULT( 7 ) >= THRESH ) {
                      if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 );
-                     NFAIL = NFAIL + 1
+                     NFAIL = NFAIL + 1;
                   }
-                  NRUN = NRUN + 1
+                  NRUN = NRUN + 1;
                } // 240
 
             } // 250
@@ -585,10 +585,10 @@
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
- 9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )
- 9997 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') =', G12.5 )
-      RETURN
+ 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+ 9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 );
+ 9997 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ',', 10X, ' type ', I2, ', test(', I2, ') =', G12.5 );
+      RETURN;
 
       // End of SCHKSY_ROOK
 

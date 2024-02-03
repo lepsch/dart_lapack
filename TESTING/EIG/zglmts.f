@@ -1,4 +1,4 @@
-      SUBROUTINE ZGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,12 +13,12 @@
 *  ====================================================================
 
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
       // ..
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = 1.0 ;
       // ..
       // .. Local Scalars ..
@@ -38,10 +38,10 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = DLAMCH( 'Epsilon' )
-      UNFL = DLAMCH( 'Safe minimum' )
-      ANORM = MAX( ZLANGE( '1', N, M, A, LDA, RWORK ), UNFL )
-      BNORM = MAX( ZLANGE( '1', N, P, B, LDB, RWORK ), UNFL )
+      EPS = DLAMCH( 'Epsilon' );
+      UNFL = DLAMCH( 'Safe minimum' );
+      ANORM = MAX( ZLANGE( '1', N, M, A, LDA, RWORK ), UNFL );
+      BNORM = MAX( ZLANGE( '1', N, P, B, LDB, RWORK ), UNFL );
 
       // Copy the matrices A and B to the arrays AF and BF,
       // and the vector D the array DF.
@@ -65,17 +65,17 @@
 
       zgemv('No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 );
 
-      DNORM = DZASUM( N, DF, 1 )
-      XNORM = DZASUM( M, X, 1 ) + DZASUM( P, U, 1 )
-      YNORM = ANORM + BNORM
+      DNORM = DZASUM( N, DF, 1 );
+      XNORM = DZASUM( M, X, 1 ) + DZASUM( P, U, 1 );
+      YNORM = ANORM + BNORM;
 
       if ( XNORM <= ZERO ) {
-         RESULT = ZERO
+         RESULT = ZERO;
       } else {
-         RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS
+         RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS;
       }
 
-      RETURN
+      RETURN;
 
       // End of ZGLMTS
 

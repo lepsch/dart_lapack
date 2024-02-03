@@ -1,4 +1,4 @@
-      SUBROUTINE CPTCON( N, D, E, ANORM, RCOND, RWORK, INFO )
+      SUBROUTINE CPTCON( N, D, E, ANORM, RCOND, RWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,22 +6,22 @@
 
       // .. Scalar Arguments ..
       int                INFO, N;
-      REAL               ANORM, RCOND
+      REAL               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), RWORK( * )
-      COMPLEX            E( * )
+      REAL               D( * ), RWORK( * );
+      COMPLEX            E( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX;
-      REAL               AINVNM
+      REAL               AINVNM;
       // ..
       // .. External Functions ..
       int                ISAMAX;
@@ -37,31 +37,31 @@
 
       // Test the input arguments.
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ANORM < ZERO ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('CPTCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM == ZERO ) {
-         RETURN
+         RETURN;
       }
 
       // Check that D(1:N) is positive.
 
       for (I = 1; I <= N; I++) { // 10
-         IF( D( I ) <= ZERO ) RETURN
+         IF( D( I ) <= ZERO ) RETURN;
       } // 10
 
       // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
@@ -73,28 +73,28 @@
 
       // Solve M(L) * x = e.
 
-      RWORK( 1 ) = ONE
+      RWORK( 1 ) = ONE;
       for (I = 2; I <= N; I++) { // 20
-         RWORK( I ) = ONE + RWORK( I-1 )*ABS( E( I-1 ) )
+         RWORK( I ) = ONE + RWORK( I-1 )*ABS( E( I-1 ) );
       } // 20
 
       // Solve D * M(L)**H * x = b.
 
-      RWORK( N ) = RWORK( N ) / D( N )
-      DO 30 I = N - 1, 1, -1
-         RWORK( I ) = RWORK( I ) / D( I ) + RWORK( I+1 )*ABS( E( I ) )
+      RWORK( N ) = RWORK( N ) / D( N );
+      DO 30 I = N - 1, 1, -1;
+         RWORK( I ) = RWORK( I ) / D( I ) + RWORK( I+1 )*ABS( E( I ) );
       } // 30
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.
 
-      IX = ISAMAX( N, RWORK, 1 )
-      AINVNM = ABS( RWORK( IX ) )
+      IX = ISAMAX( N, RWORK, 1 );
+      AINVNM = ABS( RWORK( IX ) );
 
       // Compute the reciprocal condition number.
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      RETURN
+      RETURN;
 
       // End of CPTCON
 

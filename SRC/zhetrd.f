@@ -1,4 +1,4 @@
-      SUBROUTINE ZHETRD( UPLO, N, A, LDA, D, E, TAU, WORK, LWORK, INFO )
+      SUBROUTINE ZHETRD( UPLO, N, A, LDA, D, E, TAU, WORK, LWORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -40,71 +40,71 @@
 
       // Test the input parameters
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LWORK < 1 && !LQUERY ) {
-         INFO = -9
+         INFO = -9;
       }
 
       if ( INFO == 0 ) {
 
          // Determine the block size.
 
-         NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 )
-         LWKOPT = N*NB
-         WORK( 1 ) = LWKOPT
+         NB = ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 );
+         LWKOPT = N*NB;
+         WORK( 1 ) = LWKOPT;
       }
 
       if ( INFO != 0 ) {
          xerbla('ZHETRD', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( N == 0 ) {
-         WORK( 1 ) = 1
-         RETURN
+         WORK( 1 ) = 1;
+         RETURN;
       }
 
-      NX = N
-      IWS = 1
+      NX = N;
+      IWS = 1;
       if ( NB > 1 && NB < N ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code).
 
-         NX = MAX( NB, ILAENV( 3, 'ZHETRD', UPLO, N, -1, -1, -1 ) )
+         NX = MAX( NB, ILAENV( 3, 'ZHETRD', UPLO, N, -1, -1, -1 ) );
          if ( NX < N ) {
 
             // Determine if workspace is large enough for blocked code.
 
-            LDWORK = N
-            IWS = LDWORK*NB
+            LDWORK = N;
+            IWS = LDWORK*NB;
             if ( LWORK < IWS ) {
 
                // Not enough workspace to use optimal NB:  determine the
                // minimum value of NB, and reduce NB or force use of
                // unblocked code by setting NX = N.
 
-               NB = MAX( LWORK / LDWORK, 1 )
-               NBMIN = ILAENV( 2, 'ZHETRD', UPLO, N, -1, -1, -1 )
+               NB = MAX( LWORK / LDWORK, 1 );
+               NBMIN = ILAENV( 2, 'ZHETRD', UPLO, N, -1, -1, -1 );
                if (NB < NBMIN) NX = N;
             }
          } else {
-            NX = N
+            NX = N;
          }
       } else {
-         NB = 1
+         NB = 1;
       }
 
       if ( UPPER ) {
@@ -112,8 +112,8 @@
          // Reduce the upper triangle of A.
          // Columns 1:kk are handled by the unblocked method.
 
-         KK = N - ( ( N-NX+NB-1 ) / NB )*NB
-         DO 20 I = N - NB + 1, KK + 1, -NB
+         KK = N - ( ( N-NX+NB-1 ) / NB )*NB;
+         DO 20 I = N - NB + 1, KK + 1, -NB;
 
             // Reduce columns i:i+nb-1 to tridiagonal form and form the
             // matrix W which is needed to update the unreduced part of
@@ -130,8 +130,8 @@
             // elements into D
 
             for (J = I; J <= I + NB - 1; J++) { // 10
-               A( J-1, J ) = E( J-1 )
-               D( J ) = DBLE( A( J, J ) )
+               A( J-1, J ) = E( J-1 );
+               D( J ) = DBLE( A( J, J ) );
             } // 10
          } // 20
 
@@ -142,7 +142,7 @@
 
          // Reduce the lower triangle of A
 
-         DO 40 I = 1, N - NX, NB
+         DO 40 I = 1, N - NX, NB;
 
             // Reduce columns i:i+nb-1 to tridiagonal form and form the
             // matrix W which is needed to update the unreduced part of
@@ -159,8 +159,8 @@
             // elements into D
 
             for (J = I; J <= I + NB - 1; J++) { // 30
-               A( J+1, J ) = E( J )
-               D( J ) = DBLE( A( J, J ) )
+               A( J+1, J ) = E( J );
+               D( J ) = DBLE( A( J, J ) );
             } // 30
          } // 40
 
@@ -169,8 +169,8 @@
          zhetd2(UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO );
       }
 
-      WORK( 1 ) = LWKOPT
-      RETURN
+      WORK( 1 ) = LWKOPT;
+      RETURN;
 
       // End of ZHETRD
 

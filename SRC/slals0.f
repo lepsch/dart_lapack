@@ -1,4 +1,4 @@
-      SUBROUTINE SLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B, LDB, BX, LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, INFO )
+      SUBROUTINE SLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B, LDB, BX, LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,28 +6,28 @@
 
       // .. Scalar Arguments ..
       int                GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE;
-      REAL               C, S
+      REAL               C, S;
       // ..
       // .. Array Arguments ..
       int                GIVCOL( LDGCOL, * ), PERM( * );
-      REAL               B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * )
+      REAL               B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO, NEGONE
+      REAL               ONE, ZERO, NEGONE;
       const              ONE = 1.0, ZERO = 0.0, NEGONE = -1.0 ;
       // ..
       // .. Local Scalars ..
       int                I, J, M, N, NLP1;
-      REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
+      REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMC3, SNRM2
+      REAL               SLAMC3, SNRM2;
       // EXTERNAL SLAMC3, SNRM2
       // ..
       // .. Intrinsic Functions ..
@@ -37,39 +37,39 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      N = NL + NR + 1
+      INFO = 0;
+      N = NL + NR + 1;
 
       if ( ( ICOMPQ < 0 ) || ( ICOMPQ > 1 ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( NL < 1 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( NR < 1 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRHS < 1 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDB < N ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LDBX < N ) {
-         INFO = -9
+         INFO = -9;
       } else if ( GIVPTR < 0 ) {
-         INFO = -11
+         INFO = -11;
       } else if ( LDGCOL < N ) {
-         INFO = -13
+         INFO = -13;
       } else if ( LDGNUM < N ) {
-         INFO = -15
+         INFO = -15;
       } else if ( K < 1 ) {
-         INFO = -20
+         INFO = -20;
       }
       if ( INFO != 0 ) {
          xerbla('SLALS0', -INFO );
-         RETURN
+         RETURN;
       }
 
-      M = N + SQRE
-      NLP1 = NL + 1
+      M = N + SQRE;
+      NLP1 = NL + 1;
 
       if ( ICOMPQ == 0 ) {
 
@@ -98,39 +98,39 @@
             }
          } else {
             for (J = 1; J <= K; J++) { // 50
-               DIFLJ = DIFL( J )
-               DJ = POLES( J, 1 )
-               DSIGJ = -POLES( J, 2 )
+               DIFLJ = DIFL( J );
+               DJ = POLES( J, 1 );
+               DSIGJ = -POLES( J, 2 );
                if ( J < K ) {
-                  DIFRJ = -DIFR( J, 1 )
-                  DSIGJP = -POLES( J+1, 2 )
+                  DIFRJ = -DIFR( J, 1 );
+                  DSIGJP = -POLES( J+1, 2 );
                }
                if ( ( Z( J ) == ZERO ) || ( POLES( J, 2 ) == ZERO ) ) {
-                  WORK( J ) = ZERO
+                  WORK( J ) = ZERO;
                } else {
-                  WORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
+                  WORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ );
                }
                for (I = 1; I <= J - 1; I++) { // 30
                   if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
-                     WORK( I ) = ZERO
+                     WORK( I ) = ZERO;
                   } else {
 
                      // Use calls to the subroutine SLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
 
-                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
+                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ );
                   }
                } // 30
                for (I = J + 1; I <= K; I++) { // 40
                   if ( ( Z( I ) == ZERO ) || ( POLES( I, 2 ) == ZERO ) ) {
-                     WORK( I ) = ZERO
+                     WORK( I ) = ZERO;
                   } else {
-                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
+                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ );
                   }
                } // 40
-               WORK( 1 ) = NEGONE
-               TEMP = SNRM2( K, WORK, 1 )
+               WORK( 1 ) = NEGONE;
+               TEMP = SNRM2( K, WORK, 1 );
                sgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB );
                slascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
             } // 50
@@ -138,7 +138,7 @@
 
          // Move the deflated rows of BX to B also.
 
-         IF( K < MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
+         IF( K < MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB );
       } else {
 
          // Apply back the right orthogonal transformations.
@@ -150,29 +150,29 @@
             scopy(NRHS, B, LDB, BX, LDBX );
          } else {
             for (J = 1; J <= K; J++) { // 80
-               DSIGJ = POLES( J, 2 )
+               DSIGJ = POLES( J, 2 );
                if ( Z( J ) == ZERO ) {
-                  WORK( J ) = ZERO
+                  WORK( J ) = ZERO;
                } else {
-                  WORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
+                  WORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 );
                }
                for (I = 1; I <= J - 1; I++) { // 60
                   if ( Z( J ) == ZERO ) {
-                     WORK( I ) = ZERO
+                     WORK( I ) = ZERO;
                   } else {
 
                      // Use calls to the subroutine SLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
                      // optimizing compilers from doing x+(y+z).
 
-                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
+                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
                   }
                } // 60
                for (I = J + 1; I <= K; I++) { // 70
                   if ( Z( J ) == ZERO ) {
-                     WORK( I ) = ZERO
+                     WORK( I ) = ZERO;
                   } else {
-                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
+                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 );
                   }
                } // 70
                sgemv('T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX );
@@ -186,7 +186,7 @@
             scopy(NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX );
             srot(NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S );
          }
-         IF( K < MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
+         IF( K < MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX );
 
          // Step (3R): permute rows of B.
 
@@ -200,12 +200,12 @@
 
          // Step (4R): apply back the Givens rotations performed.
 
-         DO 100 I = GIVPTR, 1, -1
+         DO 100 I = GIVPTR, 1, -1;
             srot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
          } // 100
       }
 
-      RETURN
+      RETURN;
 
       // End of SLALS0
 

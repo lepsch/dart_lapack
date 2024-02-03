@@ -1,4 +1,4 @@
-      SUBROUTINE SGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
+      SUBROUTINE SGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,27 +9,27 @@
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), WORK( * )
+      REAL               A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, TPSD;
       int                BROW, I, IASCL, IBSCL, J, MN, NB, SCLLEN, WSIZE;
-      REAL               ANRM, BIGNUM, BNRM, SMLNUM
+      REAL               ANRM, BIGNUM, BNRM, SMLNUM;
       // ..
       // .. Local Arrays ..
-      REAL               RWORK( 1 )
+      REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK
+      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -42,23 +42,23 @@
 
       // Test the input arguments.
 
-      INFO = 0
-      MN = MIN( M, N )
-      LQUERY = ( LWORK == -1 )
+      INFO = 0;
+      MN = MIN( M, N );
+      LQUERY = ( LWORK == -1 );
       if ( !( LSAME( TRANS, 'N' ) || LSAME( TRANS, 'T' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( M < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, M, N ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LWORK < MAX( 1, MN + MAX( MN, NRHS ) ) && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
 
       // Figure out optimal block size
@@ -69,85 +69,85 @@
          IF( LSAME( TRANS, 'N' ) ) TPSD = false;
 
          if ( M >= N ) {
-            NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
+            NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) );
             } else {
-               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) );
             }
          } else {
-            NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )
+            NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 );
             if ( TPSD ) {
-               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) );
             } else {
-               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) );
             }
          }
 
-         WSIZE = MAX( 1, MN + MAX( MN, NRHS )*NB )
-         WORK( 1 ) = SROUNDUP_LWORK( WSIZE )
+         WSIZE = MAX( 1, MN + MAX( MN, NRHS )*NB );
+         WORK( 1 ) = SROUNDUP_LWORK( WSIZE );
 
       }
 
       if ( INFO != 0 ) {
          xerbla('SGELS ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
       if ( MIN( M, N, NRHS ) == 0 ) {
          slaset('Full', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         RETURN
+         RETURN;
       }
 
       // Get machine parameters
 
-      SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'P' )
-      BIGNUM = ONE / SMLNUM
+      SMLNUM = SLAMCH( 'S' ) / SLAMCH( 'P' );
+      BIGNUM = ONE / SMLNUM;
 
       // Scale A, B if max element outside range [SMLNUM,BIGNUM]
 
-      ANRM = SLANGE( 'M', M, N, A, LDA, RWORK )
-      IASCL = 0
+      ANRM = SLANGE( 'M', M, N, A, LDA, RWORK );
+      IASCL = 0;
       if ( ANRM > ZERO && ANRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
-         IASCL = 1
+         IASCL = 1;
       } else if ( ANRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          slascl('G', 0, 0, ANRM, BIGNUM, M, N, A, LDA, INFO );
-         IASCL = 2
+         IASCL = 2;
       } else if ( ANRM == ZERO ) {
 
          // Matrix all zero. Return zero solution.
 
          slaset('F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB );
-         GO TO 50
+         GO TO 50;
       }
 
-      BROW = M
+      BROW = M;
       if (TPSD) BROW = N;
-      BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
-      IBSCL = 0
+      BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, RWORK );
+      IBSCL = 0;
       if ( BNRM > ZERO && BNRM < SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
          slascl('G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 1
+         IBSCL = 1;
       } else if ( BNRM > BIGNUM ) {
 
          // Scale matrix norm down to BIGNUM
 
          slascl('G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO );
-         IBSCL = 2
+         IBSCL = 2;
       }
 
       if ( M >= N ) {
@@ -173,10 +173,10 @@
             strtrs('Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
-            SCLLEN = N
+            SCLLEN = N;
 
          } else {
 
@@ -187,14 +187,14 @@
             strtrs('Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
             // B(N+1:M,1:NRHS) = ZERO
 
             for (J = 1; J <= NRHS; J++) { // 20
                for (I = N + 1; I <= M; I++) { // 10
-                  B( I, J ) = ZERO
+                  B( I, J ) = ZERO;
                } // 10
             } // 20
 
@@ -204,7 +204,7 @@
 
             // workspace at least NRHS, optimally NRHS*NB
 
-            SCLLEN = M
+            SCLLEN = M;
 
          }
 
@@ -225,14 +225,14 @@
             strtrs('Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
             // B(M+1:N,1:NRHS) = 0
 
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = M + 1; I <= N; I++) { // 30
-                  B( I, J ) = ZERO
+                  B( I, J ) = ZERO;
                } // 30
             } // 40
 
@@ -242,7 +242,7 @@
 
             // workspace at least NRHS, optimally NRHS*NB
 
-            SCLLEN = N
+            SCLLEN = N;
 
          } else {
 
@@ -259,10 +259,10 @@
             strtrs('Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO );
 
             if ( INFO > 0 ) {
-               RETURN
+               RETURN;
             }
 
-            SCLLEN = M
+            SCLLEN = M;
 
          }
 
@@ -282,9 +282,9 @@
       }
 
       } // 50
-      WORK( 1 ) = SROUNDUP_LWORK( WSIZE )
+      WORK( 1 ) = SROUNDUP_LWORK( WSIZE );
 
-      RETURN
+      RETURN;
 
       // End of SGELS
 

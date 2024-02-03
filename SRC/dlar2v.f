@@ -1,4 +1,4 @@
-      SUBROUTINE DLAR2V( N, X, Y, Z, INCX, C, S, INCC )
+      SUBROUTINE DLAR2V( N, X, Y, Z, INCX, C, S, INCC );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -19,28 +19,28 @@
       // ..
       // .. Executable Statements ..
 
-      IX = 1
-      IC = 1
+      IX = 1;
+      IC = 1;
       for (I = 1; I <= N; I++) { // 10
-         XI = X( IX )
-         YI = Y( IX )
-         ZI = Z( IX )
-         CI = C( IC )
-         SI = S( IC )
-         T1 = SI*ZI
-         T2 = CI*ZI
-         T3 = T2 - SI*XI
-         T4 = T2 + SI*YI
-         T5 = CI*XI + T1
-         T6 = CI*YI - T1
-         X( IX ) = CI*T5 + SI*T4
-         Y( IX ) = CI*T6 - SI*T3
-         Z( IX ) = CI*T4 - SI*T5
-         IX = IX + INCX
-         IC = IC + INCC
+         XI = X( IX );
+         YI = Y( IX );
+         ZI = Z( IX );
+         CI = C( IC );
+         SI = S( IC );
+         T1 = SI*ZI;
+         T2 = CI*ZI;
+         T3 = T2 - SI*XI;
+         T4 = T2 + SI*YI;
+         T5 = CI*XI + T1;
+         T6 = CI*YI - T1;
+         X( IX ) = CI*T5 + SI*T4;
+         Y( IX ) = CI*T6 - SI*T3;
+         Z( IX ) = CI*T4 - SI*T5;
+         IX = IX + INCX;
+         IC = IC + INCC;
       } // 10
 
       // End of DLAR2V
 
-      RETURN
+      RETURN;
       }

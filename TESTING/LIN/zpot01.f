@@ -1,4 +1,4 @@
-      SUBROUTINE ZPOT01( UPLO, N, A, LDA, AFAC, LDAFAC, RWORK, RESID )
+      SUBROUTINE ZPOT01( UPLO, N, A, LDA, AFAC, LDAFAC, RWORK, RESID );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * )
+      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 *  =====================================================================
@@ -23,12 +23,12 @@
       // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, EPS, TR;
-      COMPLEX*16         TC
+      COMPLEX*16         TC;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHE;
-      COMPLEX*16         ZDOTC
+      COMPLEX*16         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANHE, ZDOTC
       // ..
       // .. External Subroutines ..
@@ -42,17 +42,17 @@
       // Quick exit if N = 0.
 
       if ( N <= 0 ) {
-         RESID = ZERO
-         RETURN
+         RESID = ZERO;
+         RETURN;
       }
 
       // Exit with RESID = 1/EPS if ANORM = 0.
 
-      EPS = DLAMCH( 'Epsilon' )
-      ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
+      EPS = DLAMCH( 'Epsilon' );
+      ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK );
       if ( ANORM <= ZERO ) {
-         RESID = ONE / EPS
-         RETURN
+         RESID = ONE / EPS;
+         RETURN;
       }
 
       // Check the imaginary parts of the diagonal elements and return with
@@ -60,20 +60,20 @@
 
       for (J = 1; J <= N; J++) { // 10
          if ( DIMAG( AFAC( J, J ) ) != ZERO ) {
-            RESID = ONE / EPS
-            RETURN
+            RESID = ONE / EPS;
+            RETURN;
          }
       } // 10
 
       // Compute the product U**H * U, overwriting U.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 K = N, 1, -1
+         DO 20 K = N, 1, -1;
 
             // Compute the (K,K) element of the result.
 
-            TR = DBLE( ZDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) )
-            AFAC( K, K ) = TR
+            TR = DBLE( ZDOTC( K, AFAC( 1, K ), 1, AFAC( 1, K ), 1 ) );
+            AFAC( K, K ) = TR;
 
             // Compute the rest of column K.
 
@@ -84,7 +84,7 @@
       // Compute the product L * L**H, overwriting L.
 
       } else {
-         DO 30 K = N, 1, -1
+         DO 30 K = N, 1, -1;
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
@@ -93,7 +93,7 @@
 
             // Scale column K by the diagonal element.
 
-            TC = AFAC( K, K )
+            TC = AFAC( K, K );
             zscal(N-K+1, TC, AFAC( K, K ), 1 );
 
          } // 30
@@ -104,26 +104,26 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= J - 1; I++) { // 40
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 40
-            AFAC( J, J ) = AFAC( J, J ) - DBLE( A( J, J ) )
+            AFAC( J, J ) = AFAC( J, J ) - DBLE( A( J, J ) );
          } // 50
       } else {
          for (J = 1; J <= N; J++) { // 70
-            AFAC( J, J ) = AFAC( J, J ) - DBLE( A( J, J ) )
+            AFAC( J, J ) = AFAC( J, J ) - DBLE( A( J, J ) );
             for (I = J + 1; I <= N; I++) { // 60
-               AFAC( I, J ) = AFAC( I, J ) - A( I, J )
+               AFAC( I, J ) = AFAC( I, J ) - A( I, J );
             } // 60
          } // 70
       }
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
-      RESID = ZLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK )
+      RESID = ZLANHE( '1', UPLO, N, AFAC, LDAFAC, RWORK );
 
-      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
+      RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
-      RETURN
+      RETURN;
 
       // End of ZPOT01
 

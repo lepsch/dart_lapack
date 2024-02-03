@@ -1,4 +1,4 @@
-      SUBROUTINE DLAVSP( UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, INFO )
+      SUBROUTINE DLAVSP( UPLO, TRANS, DIAG, N, NRHS, A, IPIV, B, LDB, INFO );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -38,28 +38,28 @@
 
       // Test the input parameters.
 
-      INFO = 0
+      INFO = 0;
       if ( !LSAME( UPLO, 'U' ) && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LSAME( TRANS, 'N' ) && !LSAME( TRANS, 'T' ) && !LSAME( TRANS, 'C' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !LSAME( DIAG, 'U' ) && !LSAME( DIAG, 'N' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('DLAVSP ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
 
       if (N == 0) RETURN;
 
-      NOUNIT = LSAME( DIAG, 'N' )
+      NOUNIT = LSAME( DIAG, 'N' );
 *------------------------------------------
 
       // Compute  B := A * B  (No transpose)
@@ -74,8 +74,8 @@
 
          // Loop forward applying the transformations.
 
-            K = 1
-            KC = 1
+            K = 1;
+            KC = 1;
             } // 10
             if (K > N) GO TO 30;
 
@@ -97,29 +97,29 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = IPIV( K )
+                  KP = IPIV( K );
                   if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               KC = KC + K
-               K = K + 1
+               KC = KC + K;
+               K = K + 1;
             } else {
 
                // 2 x 2 pivot block
 
-               KCNEXT = KC + K
+               KCNEXT = KC + K;
 
                // Multiply by the diagonal block if forming U * D.
 
                if ( NOUNIT ) {
-                  D11 = A( KCNEXT-1 )
-                  D22 = A( KCNEXT+K )
-                  D12 = A( KCNEXT+K-1 )
-                  D21 = D12
+                  D11 = A( KCNEXT-1 );
+                  D22 = A( KCNEXT+K );
+                  D12 = A( KCNEXT+K-1 );
+                  D21 = D12;
                   for (J = 1; J <= NRHS; J++) { // 20
-                     T1 = B( K, J )
-                     T2 = B( K+1, J )
-                     B( K, J ) = D11*T1 + D12*T2
-                     B( K+1, J ) = D21*T1 + D22*T2
+                     T1 = B( K, J );
+                     T2 = B( K+1, J );
+                     B( K, J ) = D11*T1 + D12*T2;
+                     B( K+1, J ) = D21*T1 + D22*T2;
                   } // 20
                }
 
@@ -134,13 +134,13 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               KC = KCNEXT + K + 1
-               K = K + 2
+               KC = KCNEXT + K + 1;
+               K = K + 2;
             }
-            GO TO 10
+            GO TO 10;
             } // 30
 
          // Compute  B := L*B
@@ -150,11 +150,11 @@
 
             // Loop backward applying the transformations to B.
 
-            K = N
-            KC = N*( N+1 ) / 2 + 1
+            K = N;
+            KC = N*( N+1 ) / 2 + 1;
             } // 40
             if (K < 1) GO TO 60;
-            KC = KC - ( N-K+1 )
+            KC = KC - ( N-K+1 );
 
             // Test the pivot index.  If greater than zero, a 1 x 1
             // pivot was used, otherwise a 2 x 2 pivot was used.
@@ -170,7 +170,7 @@
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
                if ( K != N ) {
-                  KP = IPIV( K )
+                  KP = IPIV( K );
 
                   // Apply the transformation.
 
@@ -181,26 +181,26 @@
 
                   if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               K = K - 1
+               K = K - 1;
 
             } else {
 
                // 2 x 2 pivot block:
 
-               KCNEXT = KC - ( N-K+2 )
+               KCNEXT = KC - ( N-K+2 );
 
                // Multiply by the diagonal block if forming L * D.
 
                if ( NOUNIT ) {
-                  D11 = A( KCNEXT )
-                  D22 = A( KC )
-                  D21 = A( KCNEXT+1 )
-                  D12 = D21
+                  D11 = A( KCNEXT );
+                  D22 = A( KC );
+                  D21 = A( KCNEXT+1 );
+                  D12 = D21;
                   for (J = 1; J <= NRHS; J++) { // 50
-                     T1 = B( K-1, J )
-                     T2 = B( K, J )
-                     B( K-1, J ) = D11*T1 + D12*T2
-                     B( K, J ) = D21*T1 + D22*T2
+                     T1 = B( K-1, J );
+                     T2 = B( K, J );
+                     B( K-1, J ) = D11*T1 + D12*T2;
+                     B( K, J ) = D21*T1 + D22*T2;
                   } // 50
                }
 
@@ -216,13 +216,13 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
-               KC = KCNEXT
-               K = K - 2
+               KC = KCNEXT;
+               K = K - 2;
             }
-            GO TO 40
+            GO TO 40;
             } // 60
          }
 *----------------------------------------
@@ -240,11 +240,11 @@
 
             // Loop backward applying the transformations.
 
-            K = N
-            KC = N*( N+1 ) / 2 + 1
+            K = N;
+            KC = N*( N+1 ) / 2 + 1;
             } // 70
             if (K < 1) GO TO 90;
-            KC = KC - K
+            KC = KC - K;
 
             // 1 x 1 pivot block.
 
@@ -253,7 +253,7 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = IPIV( K )
+                  KP = IPIV( K );
                   if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
@@ -261,17 +261,17 @@
                   dgemv('Transpose', K-1, NRHS, ONE, B, LDB, A( KC ), 1, ONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) CALL DSCAL( NRHS, A( KC+K-1 ), B( K, 1 ), LDB );
-               K = K - 1
+               K = K - 1;
 
             // 2 x 2 pivot block.
 
             } else {
-               KCNEXT = KC - ( K-1 )
+               KCNEXT = KC - ( K-1 );
                if ( K > 2 ) {
 
                   // Interchange if P(K) != I.
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K-1) CALL DSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
@@ -283,21 +283,21 @@
                // Multiply by the diagonal block if non-unit.
 
                if ( NOUNIT ) {
-                  D11 = A( KC-1 )
-                  D22 = A( KC+K-1 )
-                  D12 = A( KC+K-2 )
-                  D21 = D12
+                  D11 = A( KC-1 );
+                  D22 = A( KC+K-1 );
+                  D12 = A( KC+K-2 );
+                  D21 = D12;
                   for (J = 1; J <= NRHS; J++) { // 80
-                     T1 = B( K-1, J )
-                     T2 = B( K, J )
-                     B( K-1, J ) = D11*T1 + D12*T2
-                     B( K, J ) = D21*T1 + D22*T2
+                     T1 = B( K-1, J );
+                     T2 = B( K, J );
+                     B( K-1, J ) = D11*T1 + D12*T2;
+                     B( K, J ) = D21*T1 + D22*T2;
                   } // 80
                }
-               KC = KCNEXT
-               K = K - 2
+               KC = KCNEXT;
+               K = K - 2;
             }
-            GO TO 70
+            GO TO 70;
             } // 90
 
          // Form  B := L'*B
@@ -308,8 +308,8 @@
 
             // Loop forward applying the L-transformations.
 
-            K = 1
-            KC = 1
+            K = 1;
+            KC = 1;
             } // 100
             if (K > N) GO TO 120;
 
@@ -320,7 +320,7 @@
 
                   // Interchange if P(K) != I.
 
-                  KP = IPIV( K )
+                  KP = IPIV( K );
                   if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
@@ -328,18 +328,18 @@
                   dgemv('Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( KC+1 ), 1, ONE, B( K, 1 ), LDB );
                }
                if (NOUNIT) CALL DSCAL( NRHS, A( KC ), B( K, 1 ), LDB );
-               KC = KC + N - K + 1
-               K = K + 1
+               KC = KC + N - K + 1;
+               K = K + 1;
 
             // 2 x 2 pivot block.
 
             } else {
-               KCNEXT = KC + N - K + 1
+               KCNEXT = KC + N - K + 1;
                if ( K < N-1 ) {
 
                // Interchange if P(K) != I.
 
-                  KP = ABS( IPIV( K ) )
+                  KP = ABS( IPIV( K ) );
                   if (KP != K+1) CALL DSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
@@ -351,26 +351,26 @@
                // Multiply by the diagonal block if non-unit.
 
                if ( NOUNIT ) {
-                  D11 = A( KC )
-                  D22 = A( KCNEXT )
-                  D21 = A( KC+1 )
-                  D12 = D21
+                  D11 = A( KC );
+                  D22 = A( KCNEXT );
+                  D21 = A( KC+1 );
+                  D12 = D21;
                   for (J = 1; J <= NRHS; J++) { // 110
-                     T1 = B( K, J )
-                     T2 = B( K+1, J )
-                     B( K, J ) = D11*T1 + D12*T2
-                     B( K+1, J ) = D21*T1 + D22*T2
+                     T1 = B( K, J );
+                     T2 = B( K+1, J );
+                     B( K, J ) = D11*T1 + D12*T2;
+                     B( K+1, J ) = D21*T1 + D22*T2;
                   } // 110
                }
-               KC = KCNEXT + ( N-K )
-               K = K + 2
+               KC = KCNEXT + ( N-K );
+               K = K + 2;
             }
-            GO TO 100
+            GO TO 100;
             } // 120
          }
 
       }
-      RETURN
+      RETURN;
 
       // End of DLAVSP
 

@@ -1,10 +1,10 @@
-      SUBROUTINE DLASYF_AA( UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK )
+      SUBROUTINE DLASYF_AA( UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       String             UPLO;
@@ -37,12 +37,12 @@
       // ..
       // .. Executable Statements ..
 
-      J = 1
+      J = 1;
 
       // K1 is the first column of the panel to be factorized
       // i.e.,  K1 is 2 for the first block column, and 1 for the rest of the blocks
 
-      K1 = (2-J1)+1
+      K1 = (2-J1)+1;
 
       if ( LSAME( UPLO, 'U' ) ) {
 
@@ -51,21 +51,21 @@
          // .....................................................
 
          } // 10
-         IF ( J > MIN(M, NB) ) GO TO 20
+         IF ( J > MIN(M, NB) ) GO TO 20;
 
          // K is the column to be factorized
           // when being called from DSYTRF_AA,
           // > for the first block column, J1 is 1, hence J1+J-1 is J,
           // > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
 
-         K = J1+J-1
+         K = J1+J-1;
          if ( J == M ) {
 
              // Only need to compute T(J, J)
 
-             MJ = 1
+             MJ = 1;
          } else {
-             MJ = M-J+1
+             MJ = M-J+1;
          }
 
          // H(J:M, J) := A(J, J:M) - H(J:M, 1:(J-1)) * L(J1:(J-1), J),
@@ -91,13 +91,13 @@
             // Compute WORK := WORK - L(J-1, J:M) * T(J-1,J),
              // where A(J-1, J) stores T(J-1, J) and A(J-2, J:M) stores U(J-1, J:M)
 
-            ALPHA = -A( K-1, J )
+            ALPHA = -A( K-1, J );
             daxpy(MJ, ALPHA, A( K-2, J ), LDA, WORK( 1 ), 1 );
          }
 
          // Set A(J, J) = T(J, J)
 
-         A( K, J ) = WORK( 1 )
+         A( K, J ) = WORK( 1 );
 
          if ( J < M ) {
 
@@ -105,14 +105,14 @@
              // where A(J, J) stores T(J, J) and A(J-1, (J+1):M) stores U(J, (J+1):M)
 
             if ( K > 1 ) {
-               ALPHA = -A( K, J )
+               ALPHA = -A( K, J );
                daxpy(M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 );
             }
 
             // Find max(|WORK(2:M)|)
 
-            I2 = IDAMAX( M-J, WORK( 2 ), 1 ) + 1
-            PIV = WORK( I2 )
+            I2 = IDAMAX( M-J, WORK( 2 ), 1 ) + 1;
+            PIV = WORK( I2 );
 
             // Apply symmetric pivot
 
@@ -120,14 +120,14 @@
 
                // Swap WORK(I1) and WORK(I2)
 
-               I1 = 2
-               WORK( I2 ) = WORK( I1 )
-               WORK( I1 ) = PIV
+               I1 = 2;
+               WORK( I2 ) = WORK( I1 );
+               WORK( I1 ) = PIV;
 
                // Swap A(I1, I1+1:M) with A(I1+1:M, I2)
 
-               I1 = I1+J-1
-               I2 = I2+J-1
+               I1 = I1+J-1;
+               I2 = I2+J-1;
                dswap(I2-I1-1, A( J1+I1-1, I1+1 ), LDA, A( J1+I1, I2 ), 1 );
 
                // Swap A(I1, I2+1:M) with A(I2, I2+1:M)
@@ -136,14 +136,14 @@
 
                // Swap A(I1, I1) with A(I2,I2)
 
-               PIV = A( I1+J1-1, I1 )
-               A( J1+I1-1, I1 ) = A( J1+I2-1, I2 )
-               A( J1+I2-1, I2 ) = PIV
+               PIV = A( I1+J1-1, I1 );
+               A( J1+I1-1, I1 ) = A( J1+I2-1, I2 );
+               A( J1+I2-1, I2 ) = PIV;
 
                // Swap H(I1, 1:J1) with H(I2, 1:J1)
 
                dswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
-               IPIV( I1 ) = I2
+               IPIV( I1 ) = I2;
 
                if ( I1 > (K1-1) ) {
 
@@ -153,12 +153,12 @@
                   dswap(I1-K1+1, A( 1, I1 ), 1, A( 1, I2 ), 1 );
                }
             } else {
-               IPIV( J+1 ) = J+1
+               IPIV( J+1 ) = J+1;
             }
 
             // Set A(J, J+1) = T(J, J+1)
 
-            A( K, J+1 ) = WORK( 2 )
+            A( K, J+1 ) = WORK( 2 );
 
             if ( J < NB ) {
 
@@ -172,7 +172,7 @@
 
             if ( J < (M-1) ) {
                if ( A( K, J+1 ) != ZERO ) {
-                  ALPHA = ONE / A( K, J+1 )
+                  ALPHA = ONE / A( K, J+1 );
                   dcopy(M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA );
                   dscal(M-J-1, ALPHA, A( K, J+2 ), LDA );
                } else {
@@ -180,8 +180,8 @@
                }
             }
          }
-         J = J + 1
-         GO TO 10
+         J = J + 1;
+         GO TO 10;
          } // 20
 
       } else {
@@ -191,21 +191,21 @@
          // .....................................................
 
          } // 30
-         IF( J > MIN( M, NB ) ) GO TO 40
+         IF( J > MIN( M, NB ) ) GO TO 40;
 
          // K is the column to be factorized
           // when being called from DSYTRF_AA,
           // > for the first block column, J1 is 1, hence J1+J-1 is J,
           // > for the rest of the columns, J1 is 2, and J1+J-1 is J+1,
 
-         K = J1+J-1
+         K = J1+J-1;
          if ( J == M ) {
 
              // Only need to compute T(J, J)
 
-             MJ = 1
+             MJ = 1;
          } else {
-             MJ = M-J+1
+             MJ = M-J+1;
          }
 
          // H(J:M, J) := A(J:M, J) - H(J:M, 1:(J-1)) * L(J, J1:(J-1))^T,
@@ -231,13 +231,13 @@
             // Compute WORK := WORK - L(J:M, J-1) * T(J-1,J),
              // where A(J-1, J) = T(J-1, J) and A(J, J-2) = L(J, J-1)
 
-            ALPHA = -A( J, K-1 )
+            ALPHA = -A( J, K-1 );
             daxpy(MJ, ALPHA, A( J, K-2 ), 1, WORK( 1 ), 1 );
          }
 
          // Set A(J, J) = T(J, J)
 
-         A( J, K ) = WORK( 1 )
+         A( J, K ) = WORK( 1 );
 
          if ( J < M ) {
 
@@ -245,14 +245,14 @@
              // where A(J, J) = T(J, J) and A((J+1):M, J-1) = L((J+1):M, J)
 
             if ( K > 1 ) {
-               ALPHA = -A( J, K )
+               ALPHA = -A( J, K );
                daxpy(M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 );
             }
 
             // Find max(|WORK(2:M)|)
 
-            I2 = IDAMAX( M-J, WORK( 2 ), 1 ) + 1
-            PIV = WORK( I2 )
+            I2 = IDAMAX( M-J, WORK( 2 ), 1 ) + 1;
+            PIV = WORK( I2 );
 
             // Apply symmetric pivot
 
@@ -260,14 +260,14 @@
 
                // Swap WORK(I1) and WORK(I2)
 
-               I1 = 2
-               WORK( I2 ) = WORK( I1 )
-               WORK( I1 ) = PIV
+               I1 = 2;
+               WORK( I2 ) = WORK( I1 );
+               WORK( I1 ) = PIV;
 
                // Swap A(I1+1:M, I1) with A(I2, I1+1:M)
 
-               I1 = I1+J-1
-               I2 = I2+J-1
+               I1 = I1+J-1;
+               I2 = I2+J-1;
                dswap(I2-I1-1, A( I1+1, J1+I1-1 ), 1, A( I2, J1+I1 ), LDA );
 
                // Swap A(I2+1:M, I1) with A(I2+1:M, I2)
@@ -276,14 +276,14 @@
 
                // Swap A(I1, I1) with A(I2, I2)
 
-               PIV = A( I1, J1+I1-1 )
-               A( I1, J1+I1-1 ) = A( I2, J1+I2-1 )
-               A( I2, J1+I2-1 ) = PIV
+               PIV = A( I1, J1+I1-1 );
+               A( I1, J1+I1-1 ) = A( I2, J1+I2-1 );
+               A( I2, J1+I2-1 ) = PIV;
 
                // Swap H(I1, I1:J1) with H(I2, I2:J1)
 
                dswap(I1-1, H( I1, 1 ), LDH, H( I2, 1 ), LDH );
-               IPIV( I1 ) = I2
+               IPIV( I1 ) = I2;
 
                if ( I1 > (K1-1) ) {
 
@@ -293,12 +293,12 @@
                   dswap(I1-K1+1, A( I1, 1 ), LDA, A( I2, 1 ), LDA );
                }
             } else {
-               IPIV( J+1 ) = J+1
+               IPIV( J+1 ) = J+1;
             }
 
             // Set A(J+1, J) = T(J+1, J)
 
-            A( J+1, K ) = WORK( 2 )
+            A( J+1, K ) = WORK( 2 );
 
             if ( J < NB ) {
 
@@ -312,7 +312,7 @@
 
             if ( J < (M-1) ) {
                if ( A( J+1, K ) != ZERO ) {
-                  ALPHA = ONE / A( J+1, K )
+                  ALPHA = ONE / A( J+1, K );
                   dcopy(M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 );
                   dscal(M-J-1, ALPHA, A( J+2, K ), 1 );
                } else {
@@ -320,11 +320,11 @@
                }
             }
          }
-         J = J + 1
-         GO TO 30
+         J = J + 1;
+         GO TO 30;
          } // 40
       }
-      RETURN
+      RETURN;
 
       // End of DLASYF_AA
 

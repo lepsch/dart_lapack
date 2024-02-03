@@ -1,29 +1,29 @@
-      SUBROUTINE CCHKHE_AA( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE CCHKHE_AA( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
       // .. Scalar Arguments ..
       bool         TSTERR;
       int          NMAX, NN, NNB, NNS, NOUT;
-      REAL         THRESH
+      REAL         THRESH;
       // ..
       // .. Array Arguments ..
       bool         DOTYPE( * );
       int          IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
-      REAL         RWORK( * )
-      COMPLEX      A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
+      REAL         RWORK( * );
+      COMPLEX      A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL         ZERO
+      REAL         ZERO;
       const        ZERO = 0.0 ;
-      COMPLEX      CZERO
+      COMPLEX      CZERO;
       const        CZERO = ( 0.0, 0.0 ) ;
       int          NTYPES;
       const        NTYPES = 10 ;
@@ -35,12 +35,12 @@
       String       DIST, TYPE, UPLO, XTYPE;
       String       PATH, MATPATH;
       int          I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT;
-      REAL         ANORM, CNDNUM
+      REAL         ANORM, CNDNUM;
       // ..
       // .. Local Arrays ..
       String       UPLOS( 2 );
       int          ISEED( 4 ), ISEEDY( 4 );
-      REAL         RESULT( NTESTS )
+      REAL         RESULT( NTESTS );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAERH, ALAHD, ALASUM, XLAENV, CERRHE, CHET01_AA, CHETRF_AA, CHETRS_AA, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPOT02
@@ -58,8 +58,8 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA         ISEEDY / 1988, 1989, 1990, 1991 /
-      DATA         UPLOS / 'U', 'L' /
+      DATA         ISEEDY / 1988, 1989, 1990, 1991 /;
+      DATA         UPLOS / 'U', 'L' /;
       // ..
       // .. Executable Statements ..
 
@@ -68,24 +68,24 @@
 
       // Test path
 
-      PATH( 1: 1 ) = 'Complex precision'
-      PATH( 2: 3 ) = 'HA'
+      PATH( 1: 1 ) = 'Complex precision';
+      PATH( 2: 3 ) = 'HA';
 
       // Path to generate matrices
 
-      MATPATH( 1: 1 ) = 'Complex precision'
-      MATPATH( 2: 3 ) = 'HE'
-      NRUN = 0
-      NFAIL = 0
-      NERRS = 0
+      MATPATH( 1: 1 ) = 'Complex precision';
+      MATPATH( 2: 3 ) = 'HE';
+      NRUN = 0;
+      NFAIL = 0;
+      NERRS = 0;
       for (I = 1; I <= 4; I++) { // 10
-         ISEED( I ) = ISEEDY( I )
+         ISEED( I ) = ISEEDY( I );
       } // 10
 
       // Test the error exits
 
       if (TSTERR) CALL CERRHE( PATH, NOUT );
-      INFOT = 0
+      INFOT = 0;
 
       // Set the minimum block size for which the block routine should
       // be used, which will be later returned by ILAENV
@@ -95,33 +95,33 @@
       // Do for each value of N in NVAL
 
       for (IN = 1; IN <= NN; IN++) { // 180
-         N = NVAL( IN )
+         N = NVAL( IN );
          if ( N > NMAX ) {
-            NFAIL = NFAIL + 1
-            WRITE(NOUT, 9995) 'M ', N, NMAX
-            GO TO 180
+            NFAIL = NFAIL + 1;
+            WRITE(NOUT, 9995) 'M ', N, NMAX;
+            GO TO 180;
          }
-         LDA = MAX( N, 1 )
-         XTYPE = 'N'
-         NIMAT = NTYPES
+         LDA = MAX( N, 1 );
+         XTYPE = 'N';
+         NIMAT = NTYPES;
          if (N <= 0) NIMAT = 1;
 
-         IZERO = 0
+         IZERO = 0;
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( !DOTYPE( IMAT ) ) GO TO 170
+            IF( !DOTYPE( IMAT ) ) GO TO 170;
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT <= 6
+            ZEROT = IMAT >= 3 && IMAT <= 6;
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
             for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 160
-               UPLO = UPLOS( IUPLO )
+               UPLO = UPLOS( IUPLO );
 
                // Set up parameters with CLATB4 for the matrix generator
                // based on the type of matrix to be generated.
@@ -130,7 +130,7 @@
 
                // Generate a matrix with CLATMS.
 
-               SRNAMT = 'CLATMS'
+               SRNAMT = 'CLATMS';
                clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO );
 
                // Check error code from CLATMS and handle error.
@@ -140,7 +140,7 @@
 
                   // Skip all tests for this generated matrix
 
-                  GO TO 160
+                  GO TO 160;
                }
 
                // For types 3-6, zero one or more rows and columns of
@@ -148,11 +148,11 @@
 
                if ( ZEROT ) {
                   if ( IMAT == 3 ) {
-                     IZERO = 1
+                     IZERO = 1;
                   } else if ( IMAT == 4 ) {
-                     IZERO = N
+                     IZERO = N;
                   } else {
-                     IZERO = N / 2 + 1
+                     IZERO = N / 2 + 1;
                   }
 
                   if ( IMAT < 6 ) {
@@ -160,24 +160,24 @@
                      // Set row and column IZERO to zero.
 
                      if ( IUPLO == 1 ) {
-                        IOFF = ( IZERO-1 )*LDA
+                        IOFF = ( IZERO-1 )*LDA;
                         for (I = 1; I <= IZERO - 1; I++) { // 20
-                           A( IOFF+I ) = CZERO
+                           A( IOFF+I ) = CZERO;
                         } // 20
-                        IOFF = IOFF + IZERO
+                        IOFF = IOFF + IZERO;
                         for (I = IZERO; I <= N; I++) { // 30
-                           A( IOFF ) = CZERO
-                           IOFF = IOFF + LDA
+                           A( IOFF ) = CZERO;
+                           IOFF = IOFF + LDA;
                         } // 30
                      } else {
-                        IOFF = IZERO
+                        IOFF = IZERO;
                         for (I = 1; I <= IZERO - 1; I++) { // 40
-                           A( IOFF ) = CZERO
-                           IOFF = IOFF + LDA
+                           A( IOFF ) = CZERO;
+                           IOFF = IOFF + LDA;
                         } // 40
-                        IOFF = IOFF - IZERO
+                        IOFF = IOFF - IZERO;
                         for (I = IZERO; I <= N; I++) { // 50
-                           A( IOFF+I ) = CZERO
+                           A( IOFF+I ) = CZERO;
                         } // 50
                      }
                   } else {
@@ -185,31 +185,31 @@
 
                         // Set the first IZERO rows and columns to zero.
 
-                        IOFF = 0
+                        IOFF = 0;
                         for (J = 1; J <= N; J++) { // 70
-                           I2 = MIN( J, IZERO )
+                           I2 = MIN( J, IZERO );
                            for (I = 1; I <= I2; I++) { // 60
-                              A( IOFF+I ) = CZERO
+                              A( IOFF+I ) = CZERO;
                            } // 60
-                           IOFF = IOFF + LDA
+                           IOFF = IOFF + LDA;
                         } // 70
-                        IZERO = 1
+                        IZERO = 1;
                      } else {
 
                         // Set the last IZERO rows and columns to zero.
 
-                        IOFF = 0
+                        IOFF = 0;
                         for (J = 1; J <= N; J++) { // 90
-                           I1 = MAX( J, IZERO )
+                           I1 = MAX( J, IZERO );
                            for (I = I1; I <= N; I++) { // 80
-                              A( IOFF+I ) = CZERO
+                              A( IOFF+I ) = CZERO;
                            } // 80
-                           IOFF = IOFF + LDA
+                           IOFF = IOFF + LDA;
                         } // 90
                      }
                   }
                } else {
-                  IZERO = 0
+                  IZERO = 0;
                }
 
                // End generate test matrix A.
@@ -226,7 +226,7 @@
                   // Set the optimal blocksize, which will be later
                   // returned by ILAENV.
 
-                  NB = NBVAL( INB )
+                  NB = NBVAL( INB );
                   xlaenv(1, NB );
 
                   // Copy the test matrix A into matrix AFAC which
@@ -240,8 +240,8 @@
                   // the block structure of D. AINV is a work array for
                   // block factorization, LWORK is the length of AINV.
 
-                  LWORK = MAX( 1, ( NB+1 )*LDA )
-                  SRNAMT = 'CHETRF_AA'
+                  LWORK = MAX( 1, ( NB+1 )*LDA );
+                  SRNAMT = 'CHETRF_AA';
                   chetrf_aa(UPLO, N, AFAC, LDA, IWORK, AINV,  LWORK, INFO );
 
                   // Adjust the expected value of INFO to account for
@@ -261,7 +261,7 @@ c  100                CONTINUE
                          // GO TO 100
                       // END IF
                    // ELSE
-                     K = 0
+                     K = 0;
                    // END IF
 
                   // Check error code from CHETRF and handle error.
@@ -274,7 +274,7 @@ c  100                CONTINUE
                   // Reconstruct matrix from factors and compute residual.
 
                   chet01_aa(UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) );
-                  NT = 1
+                  NT = 1;
 
 
                   // Print information about the tests that did not pass
@@ -283,21 +283,21 @@ c  100                CONTINUE
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
                         if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
-                        NFAIL = NFAIL + 1
+                        NFAIL = NFAIL + 1;
                      }
                   } // 110
-                  NRUN = NRUN + NT
+                  NRUN = NRUN + NT;
 
                   // Skip solver test if INFO is not 0.
 
                   if ( INFO != 0 ) {
-                     GO TO 140
+                     GO TO 140;
                   }
 
                   // Do for each value of NRHS in NSVAL.
 
                   for (IRHS = 1; IRHS <= NNS; IRHS++) { // 130
-                     NRHS = NSVAL( IRHS )
+                     NRHS = NSVAL( IRHS );
 
 *+    TEST 2 (Using TRS)
                   // Solve and compute residual for  A * X = B.
@@ -305,12 +305,12 @@ c  100                CONTINUE
                      // Choose a set of NRHS random solution vectors
                      // stored in XACT and set up the right hand side B
 
-                     SRNAMT = 'CLARHS'
+                     SRNAMT = 'CLARHS';
                      clarhs(MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO );
                      clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
-                     SRNAMT = 'CHETRS_AA'
-                     LWORK = MAX( 1, 3*N-2 )
+                     SRNAMT = 'CHETRS_AA';
+                     LWORK = MAX( 1, 3*N-2 );
                      chetrs_aa(UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO );
 
                      // Check error code from CHETRS and handle error.
@@ -332,11 +332,11 @@ c  100                CONTINUE
                         for (K = 2; K <= 2; K++) { // 120
                            if ( RESULT( K ) >= THRESH ) {
                               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
-                              NFAIL = NFAIL + 1
+                              NFAIL = NFAIL + 1;
                            }
                         } // 120
                      }
-                     NRUN = NRUN + 1
+                     NRUN = NRUN + 1;
 
                   // End do for each value of NRHS in NSVAL.
 
@@ -351,10 +351,10 @@ c  100                CONTINUE
 
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
- 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
- 9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 )
+ 9999 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
+ 9998 FORMAT( ' UPLO = ''', A1, ''', N =', I5, ', NRHS=', I3, ', type ', I2, ', test(', I2, ') =', G12.5 );
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
-      RETURN
+      RETURN;
 
       // End of CCHKHE_AA
 

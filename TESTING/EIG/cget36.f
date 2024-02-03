@@ -1,4 +1,4 @@
-      SUBROUTINE CGET36( RMAX, LMAX, NINFO, KNT, NIN )
+      SUBROUTINE CGET36( RMAX, LMAX, NINFO, KNT, NIN );
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,30 +6,30 @@
 
       // .. Scalar Arguments ..
       int                KNT, LMAX, NIN, NINFO;
-      REAL               RMAX
+      REAL               RMAX;
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                LDT, LWORK;
       const              LDT = 10, LWORK = 2*LDT*LDT ;
       // ..
       // .. Local Scalars ..
       int                I, IFST, ILST, INFO1, INFO2, J, N;
-      REAL               EPS, RES
-      COMPLEX            CTEMP
+      REAL               EPS, RES;
+      COMPLEX            CTEMP;
       // ..
       // .. Local Arrays ..
-      REAL               RESULT( 2 ), RWORK( LDT )
-      COMPLEX            DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK )
+      REAL               RESULT( 2 ), RWORK( LDT );
+      COMPLEX            DIAG( LDT ), Q( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH
+      REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -37,24 +37,24 @@
       // ..
       // .. Executable Statements ..
 
-      EPS = SLAMCH( 'P' )
-      RMAX = ZERO
-      LMAX = 0
-      KNT = 0
-      NINFO = 0
+      EPS = SLAMCH( 'P' );
+      RMAX = ZERO;
+      LMAX = 0;
+      KNT = 0;
+      NINFO = 0;
 
       // Read input data until N=0
 
       } // 10
-      READ( NIN, FMT = * )N, IFST, ILST
+      READ( NIN, FMT = * )N, IFST, ILST;
       if (N == 0) RETURN;
-      KNT = KNT + 1
+      KNT = KNT + 1;
       for (I = 1; I <= N; I++) { // 20
-         READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
+         READ( NIN, FMT = * )( TMP( I, J ), J = 1, N );
       } // 20
       clacpy('F', N, N, TMP, LDT, T1, LDT );
       clacpy('F', N, N, TMP, LDT, T2, LDT );
-      RES = ZERO
+      RES = ZERO;
 
       // Test without accumulating Q
 
@@ -62,7 +62,7 @@
       ctrexc('N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1 );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J && Q( I, J ) != CONE ) RES = RES + ONE / EPS             IF( I != J && Q( I, J ) != CZERO ) RES = RES + ONE / EPS
+            IF( I == J && Q( I, J ) != CONE ) RES = RES + ONE / EPS             IF( I != J && Q( I, J ) != CZERO ) RES = RES + ONE / EPS;
          } // 30
       } // 40
 
@@ -75,7 +75,7 @@
 
       for (I = 1; I <= N; I++) { // 60
          for (J = 1; J <= N; J++) { // 50
-            IF( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS
+            IF( T1( I, J ) != T2( I, J ) ) RES = RES + ONE / EPS;
          } // 50
       } // 60
       if (INFO1 != 0 || INFO2 != 0) NINFO = NINFO + 1       IF( INFO1 != INFO2 ) RES = RES + ONE / EPS;
@@ -85,38 +85,38 @@
       ccopy(N, TMP, LDT+1, DIAG, 1 );
       if ( IFST < ILST ) {
          for (I = IFST + 1; I <= ILST; I++) { // 70
-            CTEMP = DIAG( I )
-            DIAG( I ) = DIAG( I-1 )
-            DIAG( I-1 ) = CTEMP
+            CTEMP = DIAG( I );
+            DIAG( I ) = DIAG( I-1 );
+            DIAG( I-1 ) = CTEMP;
          } // 70
       } else if ( IFST > ILST ) {
-         DO 80 I = IFST - 1, ILST, -1
-            CTEMP = DIAG( I+1 )
-            DIAG( I+1 ) = DIAG( I )
-            DIAG( I ) = CTEMP
+         DO 80 I = IFST - 1, ILST, -1;
+            CTEMP = DIAG( I+1 );
+            DIAG( I+1 ) = DIAG( I );
+            DIAG( I ) = CTEMP;
          } // 80
       }
       for (I = 1; I <= N; I++) { // 90
-         IF( T2( I, I ) != DIAG( I ) ) RES = RES + ONE / EPS
+         IF( T2( I, I ) != DIAG( I ) ) RES = RES + ONE / EPS;
       } // 90
 
       // Test for small residual, and orthogonality of Q
 
       chst01(N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT );
-      RES = RES + RESULT( 1 ) + RESULT( 2 )
+      RES = RES + RESULT( 1 ) + RESULT( 2 );
 
       // Test for T2 being in Schur form
 
       for (J = 1; J <= N - 1; J++) { // 110
          for (I = J + 1; I <= N; I++) { // 100
-            IF( T2( I, J ) != CZERO ) RES = RES + ONE / EPS
+            IF( T2( I, J ) != CZERO ) RES = RES + ONE / EPS;
          } // 100
       } // 110
       if ( RES > RMAX ) {
-         RMAX = RES
-         LMAX = KNT
+         RMAX = RES;
+         LMAX = KNT;
       }
-      GO TO 10
+      GO TO 10;
 
       // End of CGET36
 

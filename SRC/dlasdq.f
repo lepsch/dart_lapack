@@ -1,4 +1,4 @@
-      SUBROUTINE DLASDQ( UPLO, SQRE, N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO )
+      SUBROUTINE DLASDQ( UPLO, SQRE, N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO );
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,39 +37,39 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      IUPLO = 0
-      IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
+      INFO = 0;
+      IUPLO = 0;
+      IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2;
       if ( IUPLO == 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ( SQRE < 0 ) || ( SQRE > 1 ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NCVT < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( NRU < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( NCC < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( ( NCVT == 0 && LDVT < 1 ) || ( NCVT > 0 && LDVT < MAX( 1, N ) ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDU < MAX( 1, NRU ) ) {
-         INFO = -12
+         INFO = -12;
       } else if ( ( NCC == 0 && LDC < 1 ) || ( NCC > 0 && LDC < MAX( 1, N ) ) ) {
-         INFO = -14
+         INFO = -14;
       }
       if ( INFO != 0 ) {
          xerbla('DLASDQ', -INFO );
-         RETURN
+         RETURN;
       }
       if (N == 0) RETURN;
 
       // ROTATE is true if any singular vectors desired, false otherwise
 
-      ROTATE = ( NCVT > 0 ) || ( NRU > 0 ) || ( NCC > 0 )
-      NP1 = N + 1
-      SQRE1 = SQRE
+      ROTATE = ( NCVT > 0 ) || ( NRU > 0 ) || ( NCC > 0 );
+      NP1 = N + 1;
+      SQRE1 = SQRE;
 
       // If matrix non-square upper bidiagonal, rotate to be lower
       // bidiagonal.  The rotations are on the right.
@@ -77,23 +77,23 @@
       if ( ( IUPLO == 1 ) && ( SQRE1 == 1 ) ) {
          for (I = 1; I <= N - 1; I++) { // 10
             dlartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R
-            E( I ) = SN*D( I+1 )
-            D( I+1 ) = CS*D( I+1 )
+            D( I ) = R;
+            E( I ) = SN*D( I+1 );
+            D( I+1 ) = CS*D( I+1 );
             if ( ROTATE ) {
-               WORK( I ) = CS
-               WORK( N+I ) = SN
+               WORK( I ) = CS;
+               WORK( N+I ) = SN;
             }
          } // 10
          dlartg(D( N ), E( N ), CS, SN, R );
-         D( N ) = R
-         E( N ) = ZERO
+         D( N ) = R;
+         E( N ) = ZERO;
          if ( ROTATE ) {
-            WORK( N ) = CS
-            WORK( N+N ) = SN
+            WORK( N ) = CS;
+            WORK( N+N ) = SN;
          }
-         IUPLO = 2
-         SQRE1 = 0
+         IUPLO = 2;
+         SQRE1 = 0;
 
          // Update singular vectors if desired.
 
@@ -106,12 +106,12 @@
       if ( IUPLO == 2 ) {
          for (I = 1; I <= N - 1; I++) { // 20
             dlartg(D( I ), E( I ), CS, SN, R );
-            D( I ) = R
-            E( I ) = SN*D( I+1 )
-            D( I+1 ) = CS*D( I+1 )
+            D( I ) = R;
+            E( I ) = SN*D( I+1 );
+            D( I+1 ) = CS*D( I+1 );
             if ( ROTATE ) {
-               WORK( I ) = CS
-               WORK( N+I ) = SN
+               WORK( I ) = CS;
+               WORK( N+I ) = SN;
             }
          } // 20
 
@@ -120,10 +120,10 @@
 
          if ( SQRE1 == 1 ) {
             dlartg(D( N ), E( N ), CS, SN, R );
-            D( N ) = R
+            D( N ) = R;
             if ( ROTATE ) {
-               WORK( N ) = CS
-               WORK( N+N ) = SN
+               WORK( N ) = CS;
+               WORK( N+N ) = SN;
             }
          }
 
@@ -157,25 +157,25 @@
 
          // Scan for smallest D(I).
 
-         ISUB = I
-         SMIN = D( I )
+         ISUB = I;
+         SMIN = D( I );
          for (J = I + 1; J <= N; J++) { // 30
             if ( D( J ) < SMIN ) {
-               ISUB = J
-               SMIN = D( J )
+               ISUB = J;
+               SMIN = D( J );
             }
          } // 30
          if ( ISUB != I ) {
 
             // Swap singular values and vectors.
 
-            D( ISUB ) = D( I )
-            D( I ) = SMIN
+            D( ISUB ) = D( I );
+            D( I ) = SMIN;
             if (NCVT > 0) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU > 0 ) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC > 0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
          }
       } // 40
 
-      RETURN
+      RETURN;
 
       // End of DLASDQ
 

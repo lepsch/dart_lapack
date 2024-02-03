@@ -1,10 +1,10 @@
-      subroutine scasumsub(n,x,incx,asum)
+      subroutine scasumsub(n,x,incx,asum);
 
       // external scasum
-      real scasum,asum
+      real scasum,asum;
       int     n,incx;
-      complex x(*)
+      complex x(*);
 
-      asum=scasum(n,x,incx)
-      return
-      end
+      asum=scasum(n,x,incx);
+      return;
+      end;

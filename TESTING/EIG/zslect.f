@@ -5,7 +5,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         Z
+      COMPLEX*16         Z;
       // ..
 
 *  =====================================================================
@@ -34,19 +34,19 @@
       // .. Executable Statements ..
 
       if ( SELOPT == 0 ) {
-         ZSLECT = ( DBLE( Z ) < ZERO )
+         ZSLECT = ( DBLE( Z ) < ZERO );
       } else {
-         RMIN = ABS( Z-DCMPLX( SELWR( 1 ), SELWI( 1 ) ) )
-         ZSLECT = SELVAL( 1 )
+         RMIN = ABS( Z-DCMPLX( SELWR( 1 ), SELWI( 1 ) ) );
+         ZSLECT = SELVAL( 1 );
          for (I = 2; I <= SELDIM; I++) { // 10
-            X = ABS( Z-DCMPLX( SELWR( I ), SELWI( I ) ) )
+            X = ABS( Z-DCMPLX( SELWR( I ), SELWI( I ) ) );
             if ( X <= RMIN ) {
-               RMIN = X
-               ZSLECT = SELVAL( I )
+               RMIN = X;
+               ZSLECT = SELVAL( I );
             }
          } // 10
       }
-      RETURN
+      RETURN;
 
       // End of ZSLECT
 

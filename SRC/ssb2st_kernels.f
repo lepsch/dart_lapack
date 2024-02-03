@@ -1,6 +1,6 @@
-      SUBROUTINE  SSB2ST_KERNELS( UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK)
+      SUBROUTINE  SSB2ST_KERNELS( UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK);
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,19 +12,19 @@
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), V( * ), TAU( * ), WORK( * )
+      REAL               A( LDA, * ), V( * ), TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ZERO, ONE
+      REAL               ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER;
-      REAL               CTMP
+      REAL               CTMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLARFG, SLARFX, SLARFY
@@ -38,15 +38,15 @@
       // ..
       // .. Executable Statements ..
 
-      AJETER = IB + LDVT
-      UPPER = LSAME( UPLO, 'U' )
+      AJETER = IB + LDVT;
+      UPPER = LSAME( UPLO, 'U' );
 
       if ( UPPER ) {
-          DPOS    = 2 * NB + 1
-          OFDPOS  = 2 * NB
+          DPOS    = 2 * NB + 1;
+          OFDPOS  = 2 * NB;
       } else {
-          DPOS    = 1
-          OFDPOS  = 2
+          DPOS    = 1;
+          OFDPOS  = 2;
       }
 
 
@@ -55,59 +55,59 @@
       if ( UPPER ) {
 
           if ( WANTZ ) {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
+              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
+              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
           } else {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
+              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
+              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
           }
 
           if ( TTYPE == 1 ) {
-              LM = ED - ST + 1
+              LM = ED - ST + 1;
 
-              V( VPOS ) = ONE
+              V( VPOS ) = ONE;
               for (I = 1; I <= LM-1; I++) { // 10
-                  V( VPOS+I )         = ( A( OFDPOS-I, ST+I ) )
-                  A( OFDPOS-I, ST+I ) = ZERO
+                  V( VPOS+I )         = ( A( OFDPOS-I, ST+I ) );
+                  A( OFDPOS-I, ST+I ) = ZERO;
               } // 10
-              CTMP = ( A( OFDPOS, ST ) )
+              CTMP = ( A( OFDPOS, ST ) );
               slarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-              A( OFDPOS, ST ) = CTMP
+              A( OFDPOS, ST ) = CTMP;
 
-              LM = ED - ST + 1
+              LM = ED - ST + 1;
               slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           }
 
           if ( TTYPE == 3 ) {
 
-              LM = ED - ST + 1
+              LM = ED - ST + 1;
               slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
           }
 
           if ( TTYPE == 2 ) {
-              J1 = ED+1
-              J2 = MIN( ED+NB, N )
-              LN = ED-ST+1
-              LM = J2-J1+1
+              J1 = ED+1;
+              J2 = MIN( ED+NB, N );
+              LN = ED-ST+1;
+              LM = J2-J1+1;
               if ( LM > 0) {
                   slarfx('Left', LN, LM, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK);
 
                   if ( WANTZ ) {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
+                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
+                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
                   } else {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
+                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
+                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
                   }
 
-                  V( VPOS ) = ONE
+                  V( VPOS ) = ONE;
                   for (I = 1; I <= LM-1; I++) { // 30
-                      V( VPOS+I )          = ( A( DPOS-NB-I, J1+I ) )
-                      A( DPOS-NB-I, J1+I ) = ZERO
+                      V( VPOS+I )          = ( A( DPOS-NB-I, J1+I ) );
+                      A( DPOS-NB-I, J1+I ) = ZERO;
                   } // 30
-                  CTMP = ( A( DPOS-NB, J1 ) )
+                  CTMP = ( A( DPOS-NB, J1 ) );
                   slarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
-                  A( DPOS-NB, J1 ) = CTMP
+                  A( DPOS-NB, J1 ) = CTMP;
 
                   slarfx('Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK);
               }
@@ -118,57 +118,57 @@
       } else {
 
           if ( WANTZ ) {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
+              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
+              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
           } else {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
+              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
+              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
           }
 
           if ( TTYPE == 1 ) {
-              LM = ED - ST + 1
+              LM = ED - ST + 1;
 
-              V( VPOS ) = ONE
+              V( VPOS ) = ONE;
               for (I = 1; I <= LM-1; I++) { // 20
-                  V( VPOS+I )         = A( OFDPOS+I, ST-1 )
-                  A( OFDPOS+I, ST-1 ) = ZERO
+                  V( VPOS+I )         = A( OFDPOS+I, ST-1 );
+                  A( OFDPOS+I, ST-1 ) = ZERO;
               } // 20
               slarfg(LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
-              LM = ED - ST + 1
+              LM = ED - ST + 1;
 
               slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           }
 
           if ( TTYPE == 3 ) {
-              LM = ED - ST + 1
+              LM = ED - ST + 1;
 
               slarfy(UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK);
 
           }
 
           if ( TTYPE == 2 ) {
-              J1 = ED+1
-              J2 = MIN( ED+NB, N )
-              LN = ED-ST+1
-              LM = J2-J1+1
+              J1 = ED+1;
+              J2 = MIN( ED+NB, N );
+              LN = ED-ST+1;
+              LM = J2-J1+1;
 
               if ( LM > 0) {
                   slarfx('Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK);
 
                   if ( WANTZ ) {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
+                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
+                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
                   } else {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
+                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
+                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
                   }
 
-                  V( VPOS ) = ONE
+                  V( VPOS ) = ONE;
                   for (I = 1; I <= LM-1; I++) { // 40
-                      V( VPOS+I )        = A( DPOS+NB+I, ST )
-                      A( DPOS+NB+I, ST ) = ZERO
+                      V( VPOS+I )        = A( DPOS+NB+I, ST );
+                      A( DPOS+NB+I, ST ) = ZERO;
                   } // 40
                   slarfg(LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
@@ -178,7 +178,7 @@
           }
       }
 
-      RETURN
+      RETURN;
 
       // End of SSB2ST_KERNELS
 

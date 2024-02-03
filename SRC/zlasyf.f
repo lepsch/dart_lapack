@@ -1,4 +1,4 @@
-      SUBROUTINE ZLASYF( UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, INFO )
+      SUBROUTINE ZLASYF( UPLO, N, NB, KB, A, LDA, IPIV, W, LDW, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), W( LDW, * )
+      COMPLEX*16         A( LDA, * ), W( LDW, * );
       // ..
 
 *  =====================================================================
@@ -20,13 +20,13 @@
       const              ZERO = 0.0, ONE = 1.0 ;
       double             EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IMAX, J, JB, JJ, JMAX, JP, K, KK, KKW, KP, KSTEP, KW;
       double             ABSAKK, ALPHA, COLMAX, ROWMAX;
-      COMPLEX*16         D11, D21, D22, R1, T, Z
+      COMPLEX*16         D11, D21, D22, R1, T, Z;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -43,15 +43,15 @@
       double             CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) )
+      CABS1( Z ) = ABS( DBLE( Z ) ) + ABS( DIMAG( Z ) );
       // ..
       // .. Executable Statements ..
 
-      INFO = 0
+      INFO = 0;
 
       // Initialize ALPHA for use in choosing pivot block size.
 
-      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT
+      ALPHA = ( ONE+SQRT( SEVTEN ) ) / EIGHT;
 
       if ( LSAME( UPLO, 'U' ) ) {
 
@@ -63,34 +63,34 @@
 
          // KW is the column of W which corresponds to column K of A
 
-         K = N
+         K = N;
          } // 10
-         KW = NB + K - N
+         KW = NB + K - N;
 
          // Exit from loop
 
-         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30
+         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30;
 
          // Copy column K of A to column KW of W and update it
 
          zcopy(K, A( 1, K ), 1, W( 1, KW ), 1 );
          if (K < N) CALL ZGEMV( 'No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
 
-         KSTEP = 1
+         KSTEP = 1;
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = CABS1( W( K, KW ) )
+         ABSAKK = CABS1( W( K, KW ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
 
 
          if ( K > 1 ) {
-            IMAX = IZAMAX( K-1, W( 1, KW ), 1 )
-            COLMAX = CABS1( W( IMAX, KW ) )
+            IMAX = IZAMAX( K-1, W( 1, KW ), 1 );
+            COLMAX = CABS1( W( IMAX, KW ) );
          } else {
-            COLMAX = ZERO
+            COLMAX = ZERO;
          }
 
          if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
@@ -98,13 +98,13 @@
             // Column K is zero or underflow: set INFO and continue
 
             if (INFO == 0) INFO = K;
-            KP = K
+            KP = K;
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
-               KP = K
+               KP = K;
             } else {
 
                // Copy column IMAX to column KW-1 of W and update it
@@ -115,24 +115,24 @@
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = IMAX + IZAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
-               ROWMAX = CABS1( W( JMAX, KW-1 ) )
+               JMAX = IMAX + IZAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 );
+               ROWMAX = CABS1( W( JMAX, KW-1 ) );
                if ( IMAX > 1 ) {
-                  JMAX = IZAMAX( IMAX-1, W( 1, KW-1 ), 1 )
-                  ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) )
+                  JMAX = IZAMAX( IMAX-1, W( 1, KW-1 ), 1 );
+                  ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, KW-1 ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
-                  KP = K
+                  KP = K;
                } else if ( CABS1( W( IMAX, KW-1 ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
 
-                  KP = IMAX
+                  KP = IMAX;
 
                   // copy column KW-1 of W to column KW of W
 
@@ -142,8 +142,8 @@
                   // interchange rows and columns K-1 and IMAX, use 2-by-2
                   // pivot block
 
-                  KP = IMAX
-                  KSTEP = 2
+                  KP = IMAX;
+                  KSTEP = 2;
                }
             }
 
@@ -151,11 +151,11 @@
 
             // KK is the column of A where pivoting step stopped
 
-            KK = K - KSTEP + 1
+            KK = K - KSTEP + 1;
 
             // KKW is the column of W which corresponds to column KK of A
 
-            KKW = NB + KK - N
+            KKW = NB + KK - N;
 
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KKW of W.
@@ -167,7 +167,7 @@
                // (or K and K-1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A( KP, KP ) = A( KK, KK )
+               A( KP, KP ) = A( KK, KK );
                zcopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )                IF( KP > 1 ) CALL ZCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last K+1 to N columns of A
@@ -195,7 +195,7 @@
                   // A(1:k-1,k) := U(1:k-1,k) = W(1:k-1,kw)/D(k,k)
 
                zcopy(K, W( 1, KW ), 1, A( 1, K ), 1 );
-               R1 = CONE / A( K, K )
+               R1 = CONE / A( K, K );
                zscal(K-1, R1, A( 1, K ), 1 );
 
             } else {
@@ -242,27 +242,27 @@
                   // = D21 * ( ( D11 ) (  -1 ) )
                           // ( (  -1 ) ( D22 ) )
 
-                  D21 = W( K-1, KW )
-                  D11 = W( K, KW ) / D21
-                  D22 = W( K-1, KW-1 ) / D21
-                  T = CONE / ( D11*D22-CONE )
-                  D21 = T / D21
+                  D21 = W( K-1, KW );
+                  D11 = W( K, KW ) / D21;
+                  D22 = W( K-1, KW-1 ) / D21;
+                  T = CONE / ( D11*D22-CONE );
+                  D21 = T / D21;
 
                   // Update elements in columns A(k-1) and A(k) as
                   // dot products of rows of ( W(kw-1) W(kw) ) and columns
                   // of D**(-1)
 
                   for (J = 1; J <= K - 2; J++) { // 20
-                     A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) )
-                     A( J, K ) = D21*( D22*W( J, KW )-W( J, KW-1 ) )
+                     A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) );
+                     A( J, K ) = D21*( D22*W( J, KW )-W( J, KW-1 ) );
                   } // 20
                }
 
                // Copy D(k) to A
 
-               A( K-1, K-1 ) = W( K-1, KW-1 )
-               A( K-1, K ) = W( K-1, KW )
-               A( K, K ) = W( K, KW )
+               A( K-1, K-1 ) = W( K-1, KW-1 );
+               A( K-1, K ) = W( K-1, KW );
+               A( K, K ) = W( K, KW );
 
             }
 
@@ -271,16 +271,16 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP
+            IPIV( K ) = KP;
          } else {
-            IPIV( K ) = -KP
-            IPIV( K-1 ) = -KP
+            IPIV( K ) = -KP;
+            IPIV( K-1 ) = -KP;
          }
 
          // Decrease K and return to the start of the main loop
 
-         K = K - KSTEP
-         GO TO 10
+         K = K - KSTEP;
+         GO TO 10;
 
          } // 30
 
@@ -290,8 +290,8 @@
 
          // computing blocks of NB columns at a time
 
-         DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB
-            JB = MIN( NB, K-J+1 )
+         DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB;
+            JB = MIN( NB, K-J+1 );
 
             // Update the upper triangle of the diagonal block
 
@@ -307,28 +307,28 @@
          // Put U12 in standard form by partially undoing the interchanges
          // in columns k+1:n looping backwards from k+1 to n
 
-         J = K + 1
+         J = K + 1;
          } // 60
 
             // Undo the interchanges (if any) of rows JJ and JP at each
             // step J
 
             // (Here, J is a diagonal index)
-            JJ = J
-            JP = IPIV( J )
+            JJ = J;
+            JP = IPIV( J );
             if ( JP < 0 ) {
-               JP = -JP
+               JP = -JP;
                // (Here, J is a diagonal index)
-               J = J + 1
+               J = J + 1;
             }
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
-            J = J + 1
+            J = J + 1;
             if (JP != JJ && J <= N) CALL ZSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J < N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
-         KB = N - K
+         KB = N - K;
 
       } else {
 
@@ -338,33 +338,33 @@
 
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
-         K = 1
+         K = 1;
          } // 70
 
          // Exit from loop
 
-         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90
+         IF( ( K >= NB && NB < N ) || K > N ) GO TO 90;
 
          // Copy column K of A to column K of W and update it
 
          zcopy(N-K+1, A( K, K ), 1, W( K, K ), 1 );
          zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
 
-         KSTEP = 1
+         KSTEP = 1;
 
          // Determine rows and columns to be interchanged and whether
          // a 1-by-1 or 2-by-2 pivot block will be used
 
-         ABSAKK = CABS1( W( K, K ) )
+         ABSAKK = CABS1( W( K, K ) );
 
          // IMAX is the row-index of the largest off-diagonal element in
 
 
          if ( K < N ) {
-            IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 )
-            COLMAX = CABS1( W( IMAX, K ) )
+            IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 );
+            COLMAX = CABS1( W( IMAX, K ) );
          } else {
-            COLMAX = ZERO
+            COLMAX = ZERO;
          }
 
          if ( MAX( ABSAKK, COLMAX ) == ZERO ) {
@@ -372,13 +372,13 @@
             // Column K is zero or underflow: set INFO and continue
 
             if (INFO == 0) INFO = K;
-            KP = K
+            KP = K;
          } else {
             if ( ABSAKK >= ALPHA*COLMAX ) {
 
                // no interchange, use 1-by-1 pivot block
 
-               KP = K
+               KP = K;
             } else {
 
                // Copy column IMAX to column K+1 of W and update it
@@ -390,24 +390,24 @@
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
 
-               JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 )
-               ROWMAX = CABS1( W( JMAX, K+1 ) )
+               JMAX = K - 1 + IZAMAX( IMAX-K, W( K, K+1 ), 1 );
+               ROWMAX = CABS1( W( JMAX, K+1 ) );
                if ( IMAX < N ) {
-                  JMAX = IMAX + IZAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 )
-                  ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) )
+                  JMAX = IMAX + IZAMAX( N-IMAX, W( IMAX+1, K+1 ), 1 );
+                  ROWMAX = MAX( ROWMAX, CABS1( W( JMAX, K+1 ) ) );
                }
 
                if ( ABSAKK >= ALPHA*COLMAX*( COLMAX / ROWMAX ) ) {
 
                   // no interchange, use 1-by-1 pivot block
 
-                  KP = K
+                  KP = K;
                } else if ( CABS1( W( IMAX, K+1 ) ) >= ALPHA*ROWMAX ) {
 
                   // interchange rows and columns K and IMAX, use 1-by-1
                   // pivot block
 
-                  KP = IMAX
+                  KP = IMAX;
 
                   // copy column K+1 of W to column K of W
 
@@ -417,8 +417,8 @@
                   // interchange rows and columns K+1 and IMAX, use 2-by-2
                   // pivot block
 
-                  KP = IMAX
-                  KSTEP = 2
+                  KP = IMAX;
+                  KSTEP = 2;
                }
             }
 
@@ -426,7 +426,7 @@
 
             // KK is the column of A where pivoting step stopped
 
-            KK = K + KSTEP - 1
+            KK = K + KSTEP - 1;
 
             // Interchange rows and columns KP and KK.
             // Updated column KP is already stored in column KK of W.
@@ -438,7 +438,7 @@
                // (or K and K+1 for 2-by-2 pivot) of A, since these columns
                // will be later overwritten.
 
-               A( KP, KP ) = A( KK, KK )
+               A( KP, KP ) = A( KK, KK );
                zcopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )                IF( KP < N ) CALL ZCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
@@ -467,7 +467,7 @@
 
                zcopy(N-K+1, W( K, K ), 1, A( K, K ), 1 );
                if ( K < N ) {
-                  R1 = CONE / A( K, K )
+                  R1 = CONE / A( K, K );
                   zscal(N-K, R1, A( K+1, K ), 1 );
                }
 
@@ -515,27 +515,27 @@
                   // = D21 * ( ( D11 ) (  -1 ) )
                           // ( (  -1 ) ( D22 ) )
 
-                  D21 = W( K+1, K )
-                  D11 = W( K+1, K+1 ) / D21
-                  D22 = W( K, K ) / D21
-                  T = CONE / ( D11*D22-CONE )
-                  D21 = T / D21
+                  D21 = W( K+1, K );
+                  D11 = W( K+1, K+1 ) / D21;
+                  D22 = W( K, K ) / D21;
+                  T = CONE / ( D11*D22-CONE );
+                  D21 = T / D21;
 
                   // Update elements in columns A(k) and A(k+1) as
                   // dot products of rows of ( W(k) W(k+1) ) and columns
                   // of D**(-1)
 
                   for (J = K + 2; J <= N; J++) { // 80
-                     A( J, K ) = D21*( D11*W( J, K )-W( J, K+1 ) )
-                     A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) )
+                     A( J, K ) = D21*( D11*W( J, K )-W( J, K+1 ) );
+                     A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) );
                   } // 80
                }
 
                // Copy D(k) to A
 
-               A( K, K ) = W( K, K )
-               A( K+1, K ) = W( K+1, K )
-               A( K+1, K+1 ) = W( K+1, K+1 )
+               A( K, K ) = W( K, K );
+               A( K+1, K ) = W( K+1, K );
+               A( K+1, K+1 ) = W( K+1, K+1 );
 
             }
 
@@ -544,16 +544,16 @@
          // Store details of the interchanges in IPIV
 
          if ( KSTEP == 1 ) {
-            IPIV( K ) = KP
+            IPIV( K ) = KP;
          } else {
-            IPIV( K ) = -KP
-            IPIV( K+1 ) = -KP
+            IPIV( K ) = -KP;
+            IPIV( K+1 ) = -KP;
          }
 
          // Increase K and return to the start of the main loop
 
-         K = K + KSTEP
-         GO TO 70
+         K = K + KSTEP;
+         GO TO 70;
 
          } // 90
 
@@ -563,8 +563,8 @@
 
          // computing blocks of NB columns at a time
 
-         DO 110 J = K, N, NB
-            JB = MIN( NB, N-J+1 )
+         DO 110 J = K, N, NB;
+            JB = MIN( NB, N-J+1 );
 
             // Update the lower triangle of the diagonal block
 
@@ -580,31 +580,31 @@
          // Put L21 in standard form by partially undoing the interchanges
          // of rows in columns 1:k-1 looping backwards from k-1 to 1
 
-         J = K - 1
+         J = K - 1;
          } // 120
 
             // Undo the interchanges (if any) of rows JJ and JP at each
             // step J
 
             // (Here, J is a diagonal index)
-            JJ = J
-            JP = IPIV( J )
+            JJ = J;
+            JP = IPIV( J );
             if ( JP < 0 ) {
-               JP = -JP
+               JP = -JP;
                // (Here, J is a diagonal index)
-               J = J - 1
+               J = J - 1;
             }
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
-            J = J - 1
+            J = J - 1;
             if (JP != JJ && J >= 1) CALL ZSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J > 1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 
-         KB = K - 1
+         KB = K - 1;
 
       }
-      RETURN
+      RETURN;
 
       // End of ZLASYF
 

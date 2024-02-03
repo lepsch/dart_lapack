@@ -1,6 +1,6 @@
-      SUBROUTINE CHEGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, RWORK, INFO )
+      SUBROUTINE CHEGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, RWORK, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,14 +11,14 @@
       int                INFO, ITYPE, LDA, LDB, LWORK, N;
       // ..
       // .. Array Arguments ..
-      REAL               RWORK( * ), W( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * )
+      REAL               RWORK( * ), W( * );
+      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            ONE
+      COMPLEX            ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -42,43 +42,43 @@
 
       // Test the input parameters.
 
-      WANTZ = LSAME( JOBZ, 'V' )
-      UPPER = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      WANTZ = LSAME( JOBZ, 'V' );
+      UPPER = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
 
-      INFO = 0
+      INFO = 0;
       if ( ITYPE < 1 || ITYPE > 3 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( LSAME( JOBZ, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( UPPER || LSAME( UPLO, 'L' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -8
+         INFO = -8;
       }
 
       if ( INFO == 0 ) {
-         KD    = ILAENV2STAGE( 1, 'CHETRD_2STAGE', JOBZ, N, -1, -1, -1 )
-         IB    = ILAENV2STAGE( 2, 'CHETRD_2STAGE', JOBZ, N, KD, -1, -1 )
-         LHTRD = ILAENV2STAGE( 3, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 )
-         LWTRD = ILAENV2STAGE( 4, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 )
-         LWMIN = N + LHTRD + LWTRD
-         WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
+         KD    = ILAENV2STAGE( 1, 'CHETRD_2STAGE', JOBZ, N, -1, -1, -1 );
+         IB    = ILAENV2STAGE( 2, 'CHETRD_2STAGE', JOBZ, N, KD, -1, -1 );
+         LHTRD = ILAENV2STAGE( 3, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 );
+         LWTRD = ILAENV2STAGE( 4, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 );
+         LWMIN = N + LHTRD + LWTRD;
+         WORK( 1 )  = SROUNDUP_LWORK(LWMIN);
 
          if ( LWORK < LWMIN && !LQUERY ) {
-            INFO = -11
+            INFO = -11;
          }
       }
 
       if ( INFO != 0 ) {
          xerbla('CHEGV_2STAGE ', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -89,8 +89,8 @@
 
       cpotrf(UPLO, N, B, LDB, INFO );
       if ( INFO != 0 ) {
-         INFO = N + INFO
-         RETURN
+         INFO = N + INFO;
+         RETURN;
       }
 
       // Transform problem to standard eigenvalue problem and solve.
@@ -102,7 +102,7 @@
 
          // Backtransform eigenvectors to the original problem.
 
-         NEIG = N
+         NEIG = N;
          if (INFO > 0) NEIG = INFO - 1;
          if ( ITYPE == 1 || ITYPE == 2 ) {
 
@@ -110,9 +110,9 @@
             // backtransform eigenvectors: x = inv(L)**H *y or inv(U)*y
 
             if ( UPPER ) {
-               TRANS = 'N'
+               TRANS = 'N';
             } else {
-               TRANS = 'C'
+               TRANS = 'C';
             }
 
             ctrsm('Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA );
@@ -123,18 +123,18 @@
             // backtransform eigenvectors: x = L*y or U**H *y
 
             if ( UPPER ) {
-               TRANS = 'C'
+               TRANS = 'C';
             } else {
-               TRANS = 'N'
+               TRANS = 'N';
             }
 
             ctrmm('Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA );
          }
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
+      WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
-      RETURN
+      RETURN;
 
       // End of CHEGV_2STAGE
 

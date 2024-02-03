@@ -1,4 +1,4 @@
-      SUBROUTINE CGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, TAU, WORK, INFO )
+      SUBROUTINE CGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, TAU, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,24 +7,24 @@
       // .. Scalar Arguments ..
       String             JOBQ, JOBU, JOBV;
       int                INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P;
-      REAL               TOLA, TOLB
+      REAL               TOLA, TOLB;
       // ..
       // .. Array Arguments ..
       int                IWORK( * );
-      REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      REAL               RWORK( * );
+      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      COMPLEX            CZERO, CONE
+      COMPLEX            CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               FORWRD, WANTQ, WANTU, WANTV;
       int                I, J;
-      COMPLEX            T
+      COMPLEX            T;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -37,54 +37,54 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. Statement Functions ..
-      REAL               CABS1
+      REAL               CABS1;
       // ..
       // .. Statement Function definitions ..
-      CABS1( T ) = ABS( REAL( T ) ) + ABS( AIMAG( T ) )
+      CABS1( T ) = ABS( REAL( T ) ) + ABS( AIMAG( T ) );
       // ..
       // .. Executable Statements ..
 
       // Test the input parameters
 
-      WANTU = LSAME( JOBU, 'U' )
-      WANTV = LSAME( JOBV, 'V' )
-      WANTQ = LSAME( JOBQ, 'Q' )
+      WANTU = LSAME( JOBU, 'U' );
+      WANTV = LSAME( JOBV, 'V' );
+      WANTQ = LSAME( JOBQ, 'Q' );
       FORWRD = true;
 
-      INFO = 0
+      INFO = 0;
       if ( !( WANTU || LSAME( JOBU, 'N' ) ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !( WANTV || LSAME( JOBV, 'N' ) ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !( WANTQ || LSAME( JOBQ, 'N' ) ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( M < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( P < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( N < 0 ) {
-         INFO = -6
+         INFO = -6;
       } else if ( LDA < MAX( 1, M ) ) {
-         INFO = -8
+         INFO = -8;
       } else if ( LDB < MAX( 1, P ) ) {
-         INFO = -10
+         INFO = -10;
       } else if ( LDU < 1 || ( WANTU && LDU < M ) ) {
-         INFO = -16
+         INFO = -16;
       } else if ( LDV < 1 || ( WANTV && LDV < P ) ) {
-         INFO = -18
+         INFO = -18;
       } else if ( LDQ < 1 || ( WANTQ && LDQ < N ) ) {
-         INFO = -20
+         INFO = -20;
       }
       if ( INFO != 0 ) {
          xerbla('CGGSVP', -INFO );
-         RETURN
+         RETURN;
       }
 
       // QR with column pivoting of B: B*P = V*( S11 S12 )
                                             // (  0   0  )
 
       for (I = 1; I <= N; I++) { // 10
-         IWORK( I ) = 0
+         IWORK( I ) = 0;
       } // 10
       cgeqpf(P, N, B, LDB, IWORK, TAU, WORK, RWORK, INFO );
 
@@ -94,9 +94,9 @@
 
       // Determine the effective rank of matrix B.
 
-      L = 0
-      DO 20 I = 1, MIN( P, N )
-         IF( CABS1( B( I, I ) ) > TOLB ) L = L + 1
+      L = 0;
+      DO 20 I = 1, MIN( P, N );
+         IF( CABS1( B( I, I ) ) > TOLB ) L = L + 1;
       } // 20
 
       if ( WANTV ) {
@@ -112,7 +112,7 @@
 
       for (J = 1; J <= L - 1; J++) { // 40
          for (I = J + 1; I <= L; I++) { // 30
-            B( I, J ) = CZERO
+            B( I, J ) = CZERO;
          } // 30
       } // 40
       if (P > L) CALL CLASET( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
@@ -146,7 +146,7 @@
          claset('Full', L, N-L, CZERO, CZERO, B, LDB );
          for (J = N - L + 1; J <= N; J++) { // 60
             for (I = J - N + L + 1; I <= L; I++) { // 50
-               B( I, J ) = CZERO
+               B( I, J ) = CZERO;
             } // 50
          } // 60
 
@@ -161,15 +161,15 @@
                        // (  0   0  )
 
       for (I = 1; I <= N - L; I++) { // 70
-         IWORK( I ) = 0
+         IWORK( I ) = 0;
       } // 70
       cgeqpf(M, N-L, A, LDA, IWORK, TAU, WORK, RWORK, INFO );
 
       // Determine the effective rank of A11
 
-      K = 0
-      DO 80 I = 1, MIN( M, N-L )
-         IF( CABS1( A( I, I ) ) > TOLA ) K = K + 1
+      K = 0;
+      DO 80 I = 1, MIN( M, N-L );
+         IF( CABS1( A( I, I ) ) > TOLA ) K = K + 1;
       } // 80
 
       // Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )
@@ -197,7 +197,7 @@
 
       for (J = 1; J <= K - 1; J++) { // 100
          for (I = J + 1; I <= K; I++) { // 90
-            A( I, J ) = CZERO
+            A( I, J ) = CZERO;
          } // 90
       } // 100
       if (M > K) CALL CLASET( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
@@ -220,7 +220,7 @@
          claset('Full', K, N-L-K, CZERO, CZERO, A, LDA );
          for (J = N - L - K + 1; J <= N - L; J++) { // 120
             for (I = J - N + L + K + 1; I <= K; I++) { // 110
-               A( I, J ) = CZERO
+               A( I, J ) = CZERO;
             } // 110
          } // 120
 
@@ -243,13 +243,13 @@
 
          for (J = N - L + 1; J <= N; J++) { // 140
             for (I = J - N + K + L + 1; I <= M; I++) { // 130
-               A( I, J ) = CZERO
+               A( I, J ) = CZERO;
             } // 130
          } // 140
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CGGSVP
 

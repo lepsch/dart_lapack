@@ -1,4 +1,4 @@
-      SUBROUTINE DPFTRS( TRANSR, UPLO, N, NRHS, A, B, LDB, INFO )
+      SUBROUTINE DPFTRS( TRANSR, UPLO, N, NRHS, A, B, LDB, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -35,23 +35,23 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NORMALTRANSR = LSAME( TRANSR, 'N' )
-      LOWER = LSAME( UPLO, 'L' )
+      INFO = 0;
+      NORMALTRANSR = LSAME( TRANSR, 'N' );
+      LOWER = LSAME( UPLO, 'L' );
       if ( !NORMALTRANSR && !LSAME( TRANSR, 'T' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( N < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( NRHS < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( LDB < MAX( 1, N ) ) {
-         INFO = -7
+         INFO = -7;
       }
       if ( INFO != 0 ) {
          xerbla('DPFTRS', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -68,7 +68,7 @@
          dtfsm(TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB );
       }
 
-      RETURN
+      RETURN;
 
       // End of DPFTRS
 

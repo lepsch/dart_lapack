@@ -1,31 +1,31 @@
-      SUBROUTINE CHFRK( TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C )
+      SUBROUTINE CHFRK( TRANSR, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      REAL               ALPHA, BETA
+      REAL               ALPHA, BETA;
       int                K, LDA, N;
       String             TRANS, TRANSR, UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX            A( LDA, * ), C( * )
+      COMPLEX            A( LDA, * ), C( * );
       // ..
 
 *  =====================================================================
 
       // ..
       // .. Parameters ..
-      REAL               ONE, ZERO
-      COMPLEX            CZERO
+      REAL               ONE, ZERO;
+      COMPLEX            CZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;
       int                INFO, NROWA, J, NK, N1, N2;
-      COMPLEX            CALPHA, CBETA
+      COMPLEX            CALPHA, CBETA;
       // ..
       // .. External Functions ..
       bool               LSAME;
@@ -42,33 +42,33 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      NORMALTRANSR = LSAME( TRANSR, 'N' )
-      LOWER = LSAME( UPLO, 'L' )
-      NOTRANS = LSAME( TRANS, 'N' )
+      INFO = 0;
+      NORMALTRANSR = LSAME( TRANSR, 'N' );
+      LOWER = LSAME( UPLO, 'L' );
+      NOTRANS = LSAME( TRANS, 'N' );
 
       if ( NOTRANS ) {
-         NROWA = N
+         NROWA = N;
       } else {
-         NROWA = K
+         NROWA = K;
       }
 
       if ( !NORMALTRANSR && !LSAME( TRANSR, 'C' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( !LOWER && !LSAME( UPLO, 'U' ) ) {
-         INFO = -2
+         INFO = -2;
       } else if ( !NOTRANS && !LSAME( TRANS, 'C' ) ) {
-         INFO = -3
+         INFO = -3;
       } else if ( N < 0 ) {
-         INFO = -4
+         INFO = -4;
       } else if ( K < 0 ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDA < MAX( 1, NROWA ) ) {
-         INFO = -8
+         INFO = -8;
       }
       if ( INFO != 0 ) {
          xerbla('CHFRK ', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible.
@@ -76,17 +76,17 @@
       // The quick return case: ((ALPHA == 0) && (BETA != ZERO)) is not
       // done (it is in CHERK for example) and left in the general case.
 
-      IF( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN
+      IF( ( N == 0 ) || ( ( ( ALPHA == ZERO ) || ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN;
 
       if ( ( ALPHA == ZERO ) && ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
-            C( J ) = CZERO
+            C( J ) = CZERO;
          }
-         RETURN
+         RETURN;
       }
 
-      CALPHA = CMPLX( ALPHA, ZERO )
-      CBETA = CMPLX( BETA, ZERO )
+      CALPHA = CMPLX( ALPHA, ZERO );
+      CBETA = CMPLX( BETA, ZERO );
 
       // C is N-by-N.
       // If N is odd, set NISODD = true , and N1 and N2.
@@ -94,15 +94,15 @@
 
       if ( MOD( N, 2 ) == 0 ) {
          NISODD = false;
-         NK = N / 2
+         NK = N / 2;
       } else {
          NISODD = true;
          if ( LOWER ) {
-            N2 = N / 2
-            N1 = N - N2
+            N2 = N / 2;
+            N1 = N - N2;
          } else {
-            N1 = N / 2
-            N2 = N - N1
+            N1 = N / 2;
+            N2 = N - N1;
          }
       }
 
@@ -320,7 +320,7 @@
 
       }
 
-      RETURN
+      RETURN;
 
       // End of CHFRK
 

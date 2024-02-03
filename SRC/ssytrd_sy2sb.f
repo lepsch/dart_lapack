@@ -1,6 +1,6 @@
-      SUBROUTINE SSYTRD_SY2SB( UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO )
+      SUBROUTINE SSYTRD_SY2SB( UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO );
 
-      IMPLICIT NONE
+      IMPLICIT NONE;
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,14 +11,14 @@
       int                INFO, LDA, LDAB, LWORK, N, KD;
       // ..
       // .. Array Arguments ..
-      REAL               A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * )
+      REAL               A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               RONE
-      REAL               ZERO, ONE, HALF
+      REAL               RONE;
+      REAL               ZERO, ONE, HALF;
       const              RONE = 1.0, ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
@@ -34,7 +34,7 @@
       // .. External Functions ..
       bool               LSAME;
       int                ILAENV2STAGE;
-      REAL               SROUNDUP_LWORK
+      REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..
@@ -42,35 +42,35 @@
       // Determine the minimal workspace size required
       // and test the input parameters
 
-      INFO   = 0
-      UPPER  = LSAME( UPLO, 'U' )
-      LQUERY = ( LWORK == -1 )
+      INFO   = 0;
+      UPPER  = LSAME( UPLO, 'U' );
+      LQUERY = ( LWORK == -1 );
       if ( N <= KD+1 ) {
-         LWMIN = 1
+         LWMIN = 1;
       } else {
-         LWMIN = ILAENV2STAGE( 4, 'SSYTRD_SY2SB', '', N, KD, -1, -1 )
+         LWMIN = ILAENV2STAGE( 4, 'SSYTRD_SY2SB', '', N, KD, -1, -1 );
       }
 
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( KD < 0 ) {
-         INFO = -3
+         INFO = -3;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -5
+         INFO = -5;
       } else if ( LDAB < MAX( 1, KD+1 ) ) {
-         INFO = -7
+         INFO = -7;
       } else if ( LWORK < LWMIN && !LQUERY ) {
-         INFO = -10
+         INFO = -10;
       }
 
       if ( INFO != 0 ) {
          xerbla('SSYTRD_SY2SB', -INFO );
-         RETURN
+         RETURN;
       } else if ( LQUERY ) {
-         WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-         RETURN
+         WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+         RETURN;
       }
 
       // Quick return if possible
@@ -79,38 +79,38 @@
       if ( N <= KD+1 ) {
           if ( UPPER ) {
               for (I = 1; I <= N; I++) { // 100
-                  LK = MIN( KD+1, I )
+                  LK = MIN( KD+1, I );
                   scopy(LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 );
               } // 100
           } else {
               for (I = 1; I <= N; I++) { // 110
-                  LK = MIN( KD+1, N-I+1 )
+                  LK = MIN( KD+1, N-I+1 );
                   scopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
               } // 110
           }
-          WORK( 1 ) = 1
-          RETURN
+          WORK( 1 ) = 1;
+          RETURN;
       }
 
       // Determine the pointer position for the workspace
 
-      LDT    = KD
-      LDS1   = KD
-      LT     = LDT*KD
-      LW     = N*KD
-      LS1    = LDS1*KD
-      LS2    = LWMIN - LT - LW - LS1
+      LDT    = KD;
+      LDS1   = KD;
+      LT     = LDT*KD;
+      LW     = N*KD;
+      LS1    = LDS1*KD;
+      LS2    = LWMIN - LT - LW - LS1;
        // LS2 = N*MAX(KD,FACTOPTNB)
-      TPOS   = 1
-      WPOS   = TPOS  + LT
-      S1POS  = WPOS  + LW
-      S2POS  = S1POS + LS1
+      TPOS   = 1;
+      WPOS   = TPOS  + LT;
+      S1POS  = WPOS  + LW;
+      S2POS  = S1POS + LS1;
       if ( UPPER ) {
-          LDW    = KD
-          LDS2   = KD
+          LDW    = KD;
+          LDS2   = KD;
       } else {
-          LDW    = N
-          LDS2   = N
+          LDW    = N;
+          LDS2   = N;
       }
 
 
@@ -120,9 +120,9 @@
       slaset("A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT );
 
       if ( UPPER ) {
-          DO 10 I = 1, N - KD, KD
-             PN = N-I-KD+1
-             PK = MIN( N-I-KD+1, KD )
+          DO 10 I = 1, N - KD, KD;
+             PN = N-I-KD+1;
+             PK = MIN( N-I-KD+1, KD );
 
              // Compute the LQ factorization of the current block
 
@@ -131,7 +131,7 @@
              // Copy the upper portion of A into AB
 
              for (J = I; J <= I+PK-1; J++) { // 20
-                LK = MIN( KD, N-J ) + 1
+                LK = MIN( KD, N-J ) + 1;
                 scopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
              } // 20
 
@@ -161,7 +161,7 @@
          // Copy the upper band to AB which is the band storage matrix
 
          for (J = N-KD+1; J <= N; J++) { // 30
-            LK = MIN(KD, N-J) + 1
+            LK = MIN(KD, N-J) + 1;
             scopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
          } // 30
 
@@ -169,9 +169,9 @@
 
           // Reduce the lower triangle of A to lower band matrix
 
-          DO 40 I = 1, N - KD, KD
-             PN = N-I-KD+1
-             PK = MIN( N-I-KD+1, KD )
+          DO 40 I = 1, N - KD, KD;
+             PN = N-I-KD+1;
+             PK = MIN( N-I-KD+1, KD );
 
              // Compute the QR factorization of the current block
 
@@ -180,7 +180,7 @@
              // Copy the upper portion of A into AB
 
              for (J = I; J <= I+PK-1; J++) { // 50
-                LK = MIN( KD, N-J ) + 1
+                LK = MIN( KD, N-J ) + 1;
                 scopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
              } // 50
 
@@ -217,14 +217,14 @@
          // Copy the lower band to AB which is the band storage matrix
 
          for (J = N-KD+1; J <= N; J++) { // 60
-            LK = MIN(KD, N-J) + 1
+            LK = MIN(KD, N-J) + 1;
             scopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
          } // 60
 
       }
 
-      WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-      RETURN
+      WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
+      RETURN;
 
       // End of SSYTRD_SY2SB
 

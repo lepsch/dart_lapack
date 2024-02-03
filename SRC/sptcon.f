@@ -1,4 +1,4 @@
-      SUBROUTINE SPTCON( N, D, E, ANORM, RCOND, WORK, INFO )
+      SUBROUTINE SPTCON( N, D, E, ANORM, RCOND, WORK, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -6,21 +6,21 @@
 
       // .. Scalar Arguments ..
       int                INFO, N;
-      REAL               ANORM, RCOND
+      REAL               ANORM, RCOND;
       // ..
       // .. Array Arguments ..
-      REAL               D( * ), E( * ), WORK( * )
+      REAL               D( * ), E( * ), WORK( * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               ONE, ZERO
+      REAL               ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX;
-      REAL               AINVNM
+      REAL               AINVNM;
       // ..
       // .. External Functions ..
       int                ISAMAX;
@@ -36,31 +36,31 @@
 
       // Test the input arguments.
 
-      INFO = 0
+      INFO = 0;
       if ( N < 0 ) {
-         INFO = -1
+         INFO = -1;
       } else if ( ANORM < ZERO ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('SPTCON', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
 
-      RCOND = ZERO
+      RCOND = ZERO;
       if ( N == 0 ) {
-         RCOND = ONE
-         RETURN
+         RCOND = ONE;
+         RETURN;
       } else if ( ANORM == ZERO ) {
-         RETURN
+         RETURN;
       }
 
       // Check that D(1:N) is positive.
 
       for (I = 1; I <= N; I++) { // 10
-         IF( D( I ) <= ZERO ) RETURN
+         IF( D( I ) <= ZERO ) RETURN;
       } // 10
 
       // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
@@ -72,28 +72,28 @@
 
       // Solve M(L) * x = e.
 
-      WORK( 1 ) = ONE
+      WORK( 1 ) = ONE;
       for (I = 2; I <= N; I++) { // 20
-         WORK( I ) = ONE + WORK( I-1 )*ABS( E( I-1 ) )
+         WORK( I ) = ONE + WORK( I-1 )*ABS( E( I-1 ) );
       } // 20
 
       // Solve D * M(L)**T * x = b.
 
-      WORK( N ) = WORK( N ) / D( N )
-      DO 30 I = N - 1, 1, -1
-         WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*ABS( E( I ) )
+      WORK( N ) = WORK( N ) / D( N );
+      DO 30 I = N - 1, 1, -1;
+         WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*ABS( E( I ) );
       } // 30
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.
 
-      IX = ISAMAX( N, WORK, 1 )
-      AINVNM = ABS( WORK( IX ) )
+      IX = ISAMAX( N, WORK, 1 );
+      AINVNM = ABS( WORK( IX ) );
 
       // Compute the reciprocal condition number.
 
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
-      RETURN
+      RETURN;
 
       // End of SPTCON
 

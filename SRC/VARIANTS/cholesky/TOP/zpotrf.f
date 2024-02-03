@@ -1,4 +1,4 @@
-      SUBROUTINE ZPOTRF ( UPLO, N, A, LDA, INFO )
+      SUBROUTINE ZPOTRF ( UPLO, N, A, LDA, INFO );
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,14 +9,14 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * )
+      COMPLEX*16         A( LDA, * );
       // ..
 
 *  =====================================================================
 
       // .. Parameters ..
       double             ONE;
-      COMPLEX*16         CONE
+      COMPLEX*16         CONE;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -38,18 +38,18 @@
 
       // Test the input parameters.
 
-      INFO = 0
-      UPPER = LSAME( UPLO, 'U' )
+      INFO = 0;
+      UPPER = LSAME( UPLO, 'U' );
       if ( !UPPER && !LSAME( UPLO, 'L' ) ) {
-         INFO = -1
+         INFO = -1;
       } else if ( N < 0 ) {
-         INFO = -2
+         INFO = -2;
       } else if ( LDA < MAX( 1, N ) ) {
-         INFO = -4
+         INFO = -4;
       }
       if ( INFO != 0 ) {
          xerbla('ZPOTRF', -INFO );
-         RETURN
+         RETURN;
       }
 
       // Quick return if possible
@@ -58,7 +58,7 @@
 
       // Determine the block size for this environment.
 
-      NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 )
+      NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 );
       if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.
@@ -72,9 +72,9 @@
 
             // Compute the Cholesky factorization A = U'*U.
 
-            DO 10 J = 1, N, NB
+            DO 10 J = 1, N, NB;
 
-               JB = MIN( NB, N-J+1 )
+               JB = MIN( NB, N-J+1 );
 
                // Compute the current block.
 
@@ -93,9 +93,9 @@
 
             // Compute the Cholesky factorization A = L*L'.
 
-            DO 20 J = 1, N, NB
+            DO 20 J = 1, N, NB;
 
-               JB = MIN( NB, N-J+1 )
+               JB = MIN( NB, N-J+1 );
 
                // Compute the current block.
 
@@ -111,13 +111,13 @@
             } // 20
          }
       }
-      GO TO 40
+      GO TO 40;
 
       } // 30
-      INFO = INFO + J - 1
+      INFO = INFO + J - 1;
 
       } // 40
-      RETURN
+      RETURN;
 
       // End of ZPOTRF
 
