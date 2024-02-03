@@ -342,9 +342,7 @@
       // and only normalize the blocks. In case of a rare convergence failure,
       // the single shift might perform better.
 
-   80 CALL ZHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK,
-     $             NORM_INFO )
+   80 CALL ZHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, NORM_INFO )
 
       INFO = NORM_INFO
 

@@ -116,8 +116,7 @@
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 
  9999 FORMAT( ' DLATMS in DCKGSV   INFO = ', I5 )
- 9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2,
-     $      ', test ', I2, ', ratio=', G13.6 )
+ 9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )
       RETURN
 
       // End of DCKGSV

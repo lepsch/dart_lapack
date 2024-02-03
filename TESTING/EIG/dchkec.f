@@ -124,41 +124,23 @@
       NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC + KTRSNA + KTRSEN + KLAQTR + KTGEXC       IF( OK ) WRITE( NOUT, FMT = 9990 )PATH, NTESTS
 
       RETURN
- 9999 FORMAT( ' Error in DLALN2: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', 2I8, ' KNT=', I8 )
- 9998 FORMAT( ' Error in DLASY2: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', I8, ' KNT=', I8 )
- 9997 FORMAT( ' Error in DLANV2: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', I8, ' KNT=', I8 )
- 9996 FORMAT( ' Error in DLAEXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', 2I8, ' KNT=', I8 )
- 9995 FORMAT( ' Error in DTRSYL: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', I8, ' KNT=', I8 )
- 9994 FORMAT( ' Error in DTREXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', 3I8, ' KNT=', I8 )
- 9993 FORMAT( ' Error in DTRSNA: RMAX =', 3D12.3, / ' LMAX = ', 3I8,
-     $      ' NINFO=', 3I8, ' KNT=', I8 )
- 9992 FORMAT( ' Error in DTRSEN: RMAX =', 3D12.3, / ' LMAX = ', 3I8,
-     $      ' NINFO=', 3I8, ' KNT=', I8 )
- 9991 FORMAT( ' Error in DLAQTR: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', I8, ' KNT=', I8 )
- 9990 FORMAT( / 1X, 'All tests for ', A3, ' routines passed the thresh',
-     $      'old ( ', I6, ' tests run)' )
- 9989 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estim',
-     $      'ation routines', / ' DLALN2, DLASY2, DLANV2, DLAEXC, DTRS',
-     $      'YL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC', / )
- 9988 FORMAT( ' Relative machine precision (EPS) = ', D16.6, / ' Safe ',
-     $      'minimum (SFMIN)             = ', D16.6, / )
- 9987 FORMAT( ' Routines pass computational tests if test ratio is les',
-     $      's than', F8.2, / / )
- 9986 FORMAT( ' Error in DTGEXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N',
-     $      'INFO=', 2I8, ' KNT=', I8 )
- 9972 FORMAT( 'DTRSYL and DTRSYL3 compute an inconsistent result ',
-     $      'factor in ', I8, ' tests.')
- 9971 FORMAT( 'Error in DTRSYL3: ', I8, ' tests fail the threshold.', /
-     $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
- 9970 FORMAT( 'Error in DTRSYL: ', I8, ' tests fail the threshold.', /
-     $      'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
+ 9999 FORMAT( ' Error in DLALN2: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 )
+ 9998 FORMAT( ' Error in DLASY2: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 )
+ 9997 FORMAT( ' Error in DLANV2: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 )
+ 9996 FORMAT( ' Error in DLAEXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 )
+ 9995 FORMAT( ' Error in DTRSYL: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 )
+ 9994 FORMAT( ' Error in DTREXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 3I8, ' KNT=', I8 )
+ 9993 FORMAT( ' Error in DTRSNA: RMAX =', 3D12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 )
+ 9992 FORMAT( ' Error in DTRSEN: RMAX =', 3D12.3, / ' LMAX = ', 3I8, ' NINFO=', 3I8, ' KNT=', I8 )
+ 9991 FORMAT( ' Error in DLAQTR: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', I8, ' KNT=', I8 )
+ 9990 FORMAT( / 1X, 'All tests for ', A3, ' routines passed the thresh', 'old ( ', I6, ' tests run)' )
+ 9989 FORMAT( ' Tests of the Nonsymmetric eigenproblem condition estim', 'ation routines', / ' DLALN2, DLASY2, DLANV2, DLAEXC, DTRS', 'YL, DTREXC, DTRSNA, DTRSEN, DLAQTR, DTGEXC', / )
+ 9988 FORMAT( ' Relative machine precision (EPS) = ', D16.6, / ' Safe ', 'minimum (SFMIN)             = ', D16.6, / )
+ 9987 FORMAT( ' Routines pass computational tests if test ratio is les', 's than', F8.2, / / )
+ 9986 FORMAT( ' Error in DTGEXC: RMAX =', D12.3, / ' LMAX = ', I8, ' N', 'INFO=', 2I8, ' KNT=', I8 )
+ 9972 FORMAT( 'DTRSYL and DTRSYL3 compute an inconsistent result ', 'factor in ', I8, ' tests.')
+ 9971 FORMAT( 'Error in DTRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
+ 9970 FORMAT( 'Error in DTRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 )
 
       // End of DCHKEC
 

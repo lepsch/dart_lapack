@@ -177,12 +177,8 @@
 
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 
- 9999 FORMAT( 'ZUNGTSQR and ZUNHR_COL: M=', I5, ', N=', I5,
-     $        ', MB1=', I5, ', NB1=', I5, ', NB2=', I5,
-     $        ' test(', I2, ')=', G12.5 )
- 9998 FORMAT( 'ZUNGTSQR_ROW and ZUNHR_COL: M=', I5, ', N=', I5,
-     $        ', MB1=', I5, ', NB1=', I5, ', NB2=', I5,
-     $        ' test(', I2, ')=', G12.5 )
+ 9999 FORMAT( 'ZUNGTSQR and ZUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )
+ 9998 FORMAT( 'ZUNGTSQR_ROW and ZUNHR_COL: M=', I5, ', N=', I5, ', MB1=', I5, ', NB1=', I5, ', NB2=', I5, ' test(', I2, ')=', G12.5 )
       RETURN
 
       // End of ZCHKUNHR_COL

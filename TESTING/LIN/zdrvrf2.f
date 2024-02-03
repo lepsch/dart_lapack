@@ -157,14 +157,10 @@
          WRITE( NOUT, FMT = 9996 ) NERRS, NRUN
       }
 
- 9999 FORMAT( 1X, ' *** Error(s) while testing the RFP conversion',
-     +         ' routines ***')
- 9998 FORMAT( 1X, '     Error in RFP,conversion routines N=',I5,
-     +        ' UPLO=''', A1, ''', FORM =''',A1,'''')
- 9997 FORMAT( 1X, 'All tests for the RFP conversion routines passed (',
-     +        I5,' tests run)')
- 9996 FORMAT( 1X, 'RFP conversion routines:',I5,' out of ',I5,
-     +        ' error message recorded')
+ 9999 FORMAT( 1X, ' *** Error(s) while testing the RFP conversion', ' routines ***')
+ 9998 FORMAT( 1X, '     Error in RFP,conversion routines N=',I5, ' UPLO=''', A1, ''', FORM =''',A1,'''')
+ 9997 FORMAT( 1X, 'All tests for the RFP conversion routines passed (', I5,' tests run)')
+ 9996 FORMAT( 1X, 'RFP conversion routines:',I5,' out of ',I5, ' error message recorded')
 
       RETURN
 

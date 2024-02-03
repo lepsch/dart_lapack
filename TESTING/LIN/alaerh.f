@@ -549,278 +549,199 @@
 
       // SUBNAM, INFO, FACT, N, NRHS, IMAT
 
- 9999 FORMAT( ' *** Error code from ', A, '=', I5, ', FACT=''', A1,
-     $      ''', N=', I5, ', NRHS=', I4, ', type ', I2 )
+ 9999 FORMAT( ' *** Error code from ', A, '=', I5, ', FACT=''', A1, ''', N=', I5, ', NRHS=', I4, ', type ', I2 )
 
       // SUBNAM, INFO, FACT, TRANS, N, KL, KU, NRHS, IMAT
 
- 9998 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
-     $      A1, ''', TRANS=''', A1, ''', N=', I5, ', KL=', I5, ', KU=',
-     $      I5, ', NRHS=', I4, ', type ', I1 )
+ 9998 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ', NRHS=', I4, ', type ', I1 )
 
       // SUBNAM, INFO, FACT, TRANS, N, NRHS, IMAT
 
- 9997 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
-     $      A1, ''', TRANS=''', A1, ''', N =', I5, ', NRHS =', I4,
-     $      ', type ', I2 )
+ 9997 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, FACT, UPLO, N, KD, NRHS, IMAT
 
- 9996 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
-     $      A1, ''', UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=',
-     $      I4, ', type ', I2 )
+ 9996 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
 
       // SUBNAM, INFO, FACT, UPLO, N, NRHS, IMAT
 
- 9995 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''',
-     $      A1, ''', UPLO=''', A1, ''', N =', I5, ', NRHS =', I4,
-     $      ', type ', I2 )
+ 9995 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, FACT, N, NRHS, IMAT
 
- 9994 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> FACT=''', A1, ''', N =', I5, ', NRHS =', I4,
-     $      ', type ', I2 )
+ 9994 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> FACT=''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, FACT, TRANS, N, KL, KU, NRHS, IMAT
 
- 9993 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5,
-     $      ', KL=', I5, ', KU=', I5, ', NRHS=', I4, ', type ', I1 )
+ 9993 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ', NRHS=', I4, ', type ', I1 )
 
       // SUBNAM, INFO, INFOE, FACT, TRANS, N, NRHS, IMAT
 
- 9992 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5,
-     $      ', NRHS =', I4, ', type ', I2 )
+ 9992 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> FACT=''', A1, ''', TRANS=''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, FACT, UPLO, N, KD, NRHS, IMAT
 
- 9991 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5,
-     $      ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
+ 9991 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, FACT, UPLO, N, NRHS, IMAT
 
- 9990 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5,
-     $      ', NRHS =', I4, ', type ', I2 )
+ 9990 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> FACT=''', A1, ''', UPLO=''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, M, N, KL, KU, NB, IMAT
 
- 9989 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> M = ', I5, ', N =', I5, ', KL =', I5, ', KU =',
-     $      I5, ', NB =', I4, ', type ', I2 )
+ 9989 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> M = ', I5, ', N =', I5, ', KL =', I5, ', KU =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, M, N, NB, IMAT
 
- 9988 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> M =', I5, ', N =', I5, ', NB =', I4, ', type ',
-     $      I2 )
+ 9988 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> M =', I5, ', N =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, N, IMAT
 
- 9987 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, ' for N=', I5, ', type ', I2 )
+ 9987 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, ' for N=', I5, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, N, KL, KU, NRHS, IMAT
 
- 9986 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> N =', I5, ', KL =', I5, ', KU =', I5,
-     $      ', NRHS =', I4, ', type ', I2 )
+ 9986 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> N =', I5, ', KL =', I5, ', KU =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, N, NB, IMAT
 
- 9985 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> N =', I5, ', NB =', I4, ', type ', I2 )
+ 9985 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> N =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, N, NRHS, IMAT
 
- 9984 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> N =', I5, ', NRHS =', I4, ', type ', I2 )
+ 9984 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, UPLO, N, IMAT
 
- 9983 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', type ', I2 )
+ 9983 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, UPLO, N, KD, NB, IMAT
 
- 9982 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', KD =', I5,
-     $      ', NB =', I4, ', type ', I2 )
+ 9982 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', KD =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, UPLO, N, KD, NRHS, IMAT
 
- 9981 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> UPLO=''', A1, ''', N =', I5, ', KD =', I5,
-     $      ', NRHS =', I4, ', type ', I2 )
+ 9981 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> UPLO=''', A1, ''', N =', I5, ', KD =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, UPLO, N, NB, IMAT
 
- 9980 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NB =', I4,
-     $      ', type ', I2 )
+ 9980 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, INFOE, UPLO, N, NRHS, IMAT
 
- 9979 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ',
-     $      I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NRHS =', I4,
-     $      ', type ', I2 )
+ 9979 FORMAT( ' *** ', A, ' returned with INFO =', I5, ' instead of ', I2, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, M, N, IMAT
 
- 9978 FORMAT( ' *** Error code from ', A, ' =', I5, ' for M =', I5,
-     $      ', N =', I5, ', type ', I2 )
+ 9978 FORMAT( ' *** Error code from ', A, ' =', I5, ' for M =', I5, ', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, M, N, KL, KU, IMAT
 
- 9977 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> M = ', I5,
-     $      ', N =', I5, ', KL =', I5, ', KU =', I5, ', type ', I2 )
+ 9977 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> M = ', I5, ', N =', I5, ', KL =', I5, ', KU =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, M, N, KL, KU, NB, IMAT
 
- 9976 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> M = ', I5,
-     $      ', N =', I5, ', KL =', I5, ', KU =', I5, ', NB =', I4,
-     $      ', type ', I2 )
+ 9976 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> M = ', I5, ', N =', I5, ', KL =', I5, ', KU =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, M, N, NB, IMAT
 
- 9975 FORMAT( ' *** Error code from ', A, '=', I5, ' for M=', I5,
-     $      ', N=', I5, ', NB=', I4, ', type ', I2 )
+ 9975 FORMAT( ' *** Error code from ', A, '=', I5, ' for M=', I5, ', N=', I5, ', NB=', I4, ', type ', I2 )
 
       // SUBNAM, INFO, M, N, NRHS, NB, IMAT
 
- 9974 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5,
-     $      ', N =', I5, ', NRHS =', I4, ', NB =', I4, ', type ', I2 )
+ 9974 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5, ', N =', I5, ', NRHS =', I4, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, N, IMAT
 
- 9973 FORMAT( ' *** Error code from ', A, ' =', I5, ' for N =', I5,
-     $      ', type ', I2 )
+ 9973 FORMAT( ' *** Error code from ', A, ' =', I5, ' for N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, N, KL, KU, NRHS, IMAT
 
- 9972 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> N =', I5,
-     $      ', KL =', I5, ', KU =', I5, ', NRHS =', I4, ', type ', I2 )
+ 9972 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> N =', I5, ', KL =', I5, ', KU =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, N, NB, IMAT
 
- 9971 FORMAT( ' *** Error code from ', A, '=', I5, ' for N=', I5,
-     $      ', NB=', I4, ', type ', I2 )
+ 9971 FORMAT( ' *** Error code from ', A, '=', I5, ' for N=', I5, ', NB=', I4, ', type ', I2 )
 
       // SUBNAM, INFO, N, NRHS, IMAT
 
- 9970 FORMAT( ' *** Error code from ', A, ' =', I5, ' for N =', I5,
-     $      ', NRHS =', I4, ', type ', I2 )
+ 9970 FORMAT( ' *** Error code from ', A, ' =', I5, ' for N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, NORM, N, IMAT
 
- 9969 FORMAT( ' *** Error code from ', A, ' =', I5, ' for NORM = ''',
-     $      A1, ''', N =', I5, ', type ', I2 )
+ 9969 FORMAT( ' *** Error code from ', A, ' =', I5, ' for NORM = ''', A1, ''', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, NORM, N, KL, KU, IMAT
 
- 9968 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM =''',
-     $      A1, ''', N =', I5, ', KL =', I5, ', KU =', I5, ', type ',
-     $      I2 )
+ 9968 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM =''', A1, ''', N =', I5, ', KL =', I5, ', KU =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, NORM, UPLO, DIAG, N, IMAT
 
- 9967 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM=''',
-     $      A1, ''', UPLO =''', A1, ''', DIAG=''', A1, ''', N =', I5,
-     $      ', type ', I2 )
+ 9967 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM=''', A1, ''', UPLO =''', A1, ''', DIAG=''', A1, ''', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, NORM, UPLO, DIAG, N, KD, IMAT
 
- 9966 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM=''',
-     $      A1, ''', UPLO =''', A1, ''', DIAG=''', A1, ''', N=', I5,
-     $      ', KD=', I5, ', type ', I2 )
+ 9966 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> NORM=''', A1, ''', UPLO =''', A1, ''', DIAG=''', A1, ''', N=', I5, ', KD=', I5, ', type ', I2 )
 
       // SUBNAM, INFO, TRANS, M, N, NRHS, NB, IMAT
 
- 9965 FORMAT( ' *** Error code from ', A, ' =', I5,
-     $      / ' ==> TRANS = ''', A1, ''', M =', I5, ', N =', I5,
-     $      ', NRHS =', I4, ', NB =', I4, ', type ', I2 )
+ 9965 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> TRANS = ''', A1, ''', M =', I5, ', N =', I5, ', NRHS =', I4, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, TRANS, N, KL, KU, NRHS, IMAT
 
- 9964 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> TRANS=''',
-     $      A1, ''', N =', I5, ', KL =', I5, ', KU =', I5, ', NRHS =',
-     $      I4, ', type ', I2 )
+ 9964 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> TRANS=''', A1, ''', N =', I5, ', KL =', I5, ', KU =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, TRANS, N, NRHS, IMAT
 
- 9963 FORMAT( ' *** Error code from ', A, ' =', I5,
-     $      / ' ==> TRANS = ''', A1, ''', N =', I5, ', NRHS =', I4,
-     $      ', type ', I2 )
+ 9963 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> TRANS = ''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, DIAG, N, IMAT
 
- 9962 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
-     $      A1, ''', DIAG =''', A1, ''', N =', I5, ', type ', I2 )
+ 9962 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''', A1, ''', DIAG =''', A1, ''', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, DIAG, N, NB, IMAT
 
- 9961 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
-     $      A1, ''', DIAG =''', A1, ''', N =', I5, ', NB =', I4,
-     $      ', type ', I2 )
+ 9961 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''', A1, ''', DIAG =''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, N, IMAT
 
- 9960 FORMAT( ' *** Error code from ', A, ' =', I5, ' for UPLO = ''',
-     $      A1, ''', N =', I5, ', type ', I2 )
+ 9960 FORMAT( ' *** Error code from ', A, ' =', I5, ' for UPLO = ''', A1, ''', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, N, KD, IMAT
 
- 9959 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
-     $      A1, ''', N =', I5, ', KD =', I5, ', type ', I2 )
+ 9959 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''', A1, ''', N =', I5, ', KD =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, N, KD, NB, IMAT
 
- 9958 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
-     $      A1, ''', N =', I5, ', KD =', I5, ', NB =', I4, ', type ',
-     $      I2 )
+ 9958 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''', A1, ''', N =', I5, ', KD =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, N, KD, NRHS, IMAT
 
- 9957 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> UPLO = ''',
-     $      A1, ''', N =', I5, ', KD =', I5, ', NRHS =', I4, ', type ',
-     $      I2 )
+ 9957 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> UPLO = ''', A1, ''', N =', I5, ', KD =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, N, NB, IMAT
 
- 9956 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
-     $      A1, ''', N =', I5, ', NB =', I4, ', type ', I2 )
+ 9956 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NB =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, N, NRHS, IMAT
 
- 9955 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''',
-     $      A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
+ 9955 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO = ''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, N, KD, NRHS, IMAT
 
- 9954 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
-     $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5,
-     $      ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
+ 9954 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N=', I5, ', KD=', I5, ', NRHS=', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, N, NRHS, IMAT
 
- 9953 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
-     $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N =', I5,
-     $      ', NRHS =', I4, ', type ', I2 )
+ 9953 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', N =', I5, ', NRHS =', I4, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, IMAT
 
- 9952 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
-     $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', NORMIN=''',
-     $      A1, ''', N =', I5, ', type ', I2 )
+ 9952 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', NORMIN=''', A1, ''', N =', I5, ', type ', I2 )
 
       // SUBNAM, INFO, UPLO, TRANS, DIAG, NORMIN, N, KD, IMAT
 
- 9951 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''',
-     $      A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', NORMIN=''',
-     $      A1, ''', N=', I5, ', KD=', I5, ', type ', I2 )
+ 9951 FORMAT( ' *** Error code from ', A, ' =', I5, / ' ==> UPLO=''', A1, ''', TRANS=''', A1, ''', DIAG=''', A1, ''', NORMIN=''', A1, ''', N=', I5, ', KD=', I5, ', type ', I2 )
 
       // Unknown type
 
@@ -832,8 +753,7 @@
 
       // SUBNAM, INFO, M, N, NB, IMAT
 
- 9930 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5,
-     $      ', N =', I5, ', NX =', I5, ', NB =', I4, ', type ', I2 )
+ 9930 FORMAT( ' *** Error code from ', A, '=', I5, / ' ==> M =', I5, ', N =', I5, ', NX =', I5, ', NB =', I4, ', type ', I2 )
 
       RETURN
 

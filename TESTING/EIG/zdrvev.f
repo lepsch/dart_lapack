@@ -441,44 +441,14 @@
 
       CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
 
- 9999 FORMAT( / 1X, A3, ' -- Complex Eigenvalue-Eigenvector ',
-     $      'Decomposition Driver', /
-     $      ' Matrix types (see ZDRVEV for details): ' )
+ 9999 FORMAT( / 1X, A3, ' -- Complex Eigenvalue-Eigenvector ', 'Decomposition Driver', / ' Matrix types (see ZDRVEV for details): ' )
 
- 9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
-     $      '           ', '  5=Diagonal: geometr. spaced entries.',
-     $      / '  2=Identity matrix.                    ', '  6=Diagona',
-     $      'l: clustered entries.', / '  3=Transposed Jordan block.  ',
-     $      '          ', '  7=Diagonal: large, evenly spaced.', / '  ',
-     $      '4=Diagonal: evenly spaced entries.    ', '  8=Diagonal: s',
-     $      'mall, evenly spaced.' )
- 9997 FORMAT( ' Dense, Non-Symmetric Matrices:', / '  9=Well-cond., ev',
-     $      'enly spaced eigenvals.', ' 14=Ill-cond., geomet. spaced e',
-     $      'igenals.', / ' 10=Well-cond., geom. spaced eigenvals. ',
-     $      ' 15=Ill-conditioned, clustered e.vals.', / ' 11=Well-cond',
-     $      'itioned, clustered e.vals. ', ' 16=Ill-cond., random comp',
-     $      'lex ', A6, / ' 12=Well-cond., random complex ', A6, '   ',
-     $      ' 17=Ill-cond., large rand. complx ', A4, / ' 13=Ill-condi',
-     $      'tioned, evenly spaced.     ', ' 18=Ill-cond., small rand.',
-     $      ' complx ', A4 )
- 9996 FORMAT( ' 19=Matrix with random O(1) entries.    ', ' 21=Matrix ',
-     $      'with small random entries.', / ' 20=Matrix with large ran',
-     $      'dom entries.   ', / )
- 9995 FORMAT( ' Tests performed with test threshold =', F8.2,
-     $      / / ' 1 = | A VR - VR W | / ( n |A| ulp ) ',
-     $      / ' 2 = | conj-trans(A) VL - VL conj-trans(W) | /',
-     $      ' ( n |A| ulp ) ', / ' 3 = | |VR(i)| - 1 | / ulp ',
-     $      / ' 4 = | |VL(i)| - 1 | / ulp ',
-     $      / ' 5 = 0 if W same no matter if VR or VL computed,',
-     $      ' 1/ulp otherwise', /
-     $      ' 6 = 0 if VR same no matter if VL computed,',
-     $      '  1/ulp otherwise', /
-     $      ' 7 = 0 if VL same no matter if VR computed,',
-     $      '  1/ulp otherwise', / )
- 9994 FORMAT( ' N=', I5, ', IWK=', I2, ', seed=', 4( I4, ',' ),
-     $      ' type ', I2, ', test(', I2, ')=', G10.3 )
- 9993 FORMAT( ' ZDRVEV: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ', '           ', '  5=Diagonal: geometr. spaced entries.', / '  2=Identity matrix.                    ', '  6=Diagona', 'l: clustered entries.', / '  3=Transposed Jordan block.  ', '          ', '  7=Diagonal: large, evenly spaced.', / '  ', '4=Diagonal: evenly spaced entries.    ', '  8=Diagonal: s', 'mall, evenly spaced.' )
+ 9997 FORMAT( ' Dense, Non-Symmetric Matrices:', / '  9=Well-cond., ev', 'enly spaced eigenvals.', ' 14=Ill-cond., geomet. spaced e', 'igenals.', / ' 10=Well-cond., geom. spaced eigenvals. ', ' 15=Ill-conditioned, clustered e.vals.', / ' 11=Well-cond', 'itioned, clustered e.vals. ', ' 16=Ill-cond., random comp', 'lex ', A6, / ' 12=Well-cond., random complex ', A6, '   ', ' 17=Ill-cond., large rand. complx ', A4, / ' 13=Ill-condi', 'tioned, evenly spaced.     ', ' 18=Ill-cond., small rand.', ' complx ', A4 )
+ 9996 FORMAT( ' 19=Matrix with random O(1) entries.    ', ' 21=Matrix ', 'with small random entries.', / ' 20=Matrix with large ran', 'dom entries.   ', / )
+ 9995 FORMAT( ' Tests performed with test threshold =', F8.2, / / ' 1 = | A VR - VR W | / ( n |A| ulp ) ', / ' 2 = | conj-trans(A) VL - VL conj-trans(W) | /', ' ( n |A| ulp ) ', / ' 3 = | |VR(i)| - 1 | / ulp ', / ' 4 = | |VL(i)| - 1 | / ulp ', / ' 5 = 0 if W same no matter if VR or VL computed,', ' 1/ulp otherwise', / ' 6 = 0 if VR same no matter if VL computed,', '  1/ulp otherwise', / ' 7 = 0 if VL same no matter if VR computed,', '  1/ulp otherwise', / )
+ 9994 FORMAT( ' N=', I5, ', IWK=', I2, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
+ 9993 FORMAT( ' ZDRVEV: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 
       RETURN
 

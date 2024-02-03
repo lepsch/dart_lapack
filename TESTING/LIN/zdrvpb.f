@@ -440,13 +440,9 @@
 
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 
- 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', KD =', I5,
-     $      ', type ', I1, ', test(', I1, ')=', G12.5 )
- 9998 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ', I5, ', ', I5,
-     $      ', ... ), type ', I1, ', test(', I1, ')=', G12.5 )
- 9997 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ', I5, ', ', I5,
-     $      ', ... ), EQUED=''', A1, ''', type ', I1, ', test(', I1,
-     $      ')=', G12.5 )
+ 9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', KD =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
+ 9998 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ', I5, ', ', I5, ', ... ), type ', I1, ', test(', I1, ')=', G12.5 )
+ 9997 FORMAT( 1X, A, '( ''', A1, ''', ''', A1, ''', ', I5, ', ', I5, ', ... ), EQUED=''', A1, ''', type ', I1, ', test(', I1, ')=', G12.5 )
       RETURN
 
       // End of ZDRVPB

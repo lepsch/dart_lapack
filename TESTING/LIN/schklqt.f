@@ -94,8 +94,7 @@
 
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 
- 9999 FORMAT( ' M=', I5, ', N=', I5, ', NB=', I4,
-     $      ' test(', I2, ')=', G12.5 )
+ 9999 FORMAT( ' M=', I5, ', N=', I5, ', NB=', I4, ' test(', I2, ')=', G12.5 )
       RETURN
 
       // End of SCHKLQT

@@ -218,10 +218,8 @@
          WRITE( NOUT, FMT = 9998 )
       }
 
- 9999 FORMAT( 1X, 'double           RFP routines passed the tests of ',;
-     $        'the error exits' )
- 9998 FORMAT( ' *** RFP routines failed the tests of the error ',
-     $        'exits ***' )
+ 9999 FORMAT( 1X, 'double           RFP routines passed the tests of ',; 'the error exits' )
+ 9998 FORMAT( ' *** RFP routines failed the tests of the error ', 'exits ***' )
       RETURN
 
       // End of DERRRFP

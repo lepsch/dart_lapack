@@ -171,10 +171,8 @@
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 
  9999 FORMAT( ' SLATMS in SCKGQR:    INFO = ', I5 )
- 9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2,
-     $      ', test ', I2, ', ratio=', G13.6 )
- 9997 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2,
-     $      ', test ', I2, ', ratio=', G13.6 )
+ 9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )
+ 9997 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )
       RETURN
 
       // End of SCKGQR

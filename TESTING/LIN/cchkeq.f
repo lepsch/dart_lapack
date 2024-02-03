@@ -347,18 +347,12 @@
       } else {
          IF( RESLTS( 1 ).GT.THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH          IF( RESLTS( 2 ).GT.THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH          IF( RESLTS( 3 ).GT.THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH          IF( RESLTS( 4 ).GT.THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH          IF( RESLTS( 5 ).GT.THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH
       }
- 9999 FORMAT( 1X, 'All tests for ', A3,
-     $      ' routines passed the threshold' )
- 9998 FORMAT( ' CGEEQU failed test with value ', E10.3, ' exceeding',
-     $      ' threshold ', E10.3 )
- 9997 FORMAT( ' CGBEQU failed test with value ', E10.3, ' exceeding',
-     $      ' threshold ', E10.3 )
- 9996 FORMAT( ' CPOEQU failed test with value ', E10.3, ' exceeding',
-     $      ' threshold ', E10.3 )
- 9995 FORMAT( ' CPPEQU failed test with value ', E10.3, ' exceeding',
-     $      ' threshold ', E10.3 )
- 9994 FORMAT( ' CPBEQU failed test with value ', E10.3, ' exceeding',
-     $      ' threshold ', E10.3 )
+ 9999 FORMAT( 1X, 'All tests for ', A3, ' routines passed the threshold' )
+ 9998 FORMAT( ' CGEEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 )
+ 9997 FORMAT( ' CGBEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 )
+ 9996 FORMAT( ' CPOEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 )
+ 9995 FORMAT( ' CPPEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 )
+ 9994 FORMAT( ' CPBEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 )
       RETURN
 
       // End of CCHKEQ

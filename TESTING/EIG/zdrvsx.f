@@ -377,62 +377,16 @@
 
       CALL DLASUM( PATH, NOUNIT, NERRS, NTESTT )
 
- 9999 FORMAT( / 1X, A3, ' -- Complex Schur Form Decomposition Expert ',
-     $      'Driver', / ' Matrix types (see ZDRVSX for details): ' )
+ 9999 FORMAT( / 1X, A3, ' -- Complex Schur Form Decomposition Expert ', 'Driver', / ' Matrix types (see ZDRVSX for details): ' )
 
- 9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ',
-     $      '           ', '  5=Diagonal: geometr. spaced entries.',
-     $      / '  2=Identity matrix.                    ', '  6=Diagona',
-     $      'l: clustered entries.', / '  3=Transposed Jordan block.  ',
-     $      '          ', '  7=Diagonal: large, evenly spaced.', / '  ',
-     $      '4=Diagonal: evenly spaced entries.    ', '  8=Diagonal: s',
-     $      'mall, evenly spaced.' )
- 9997 FORMAT( ' Dense, Non-Symmetric Matrices:', / '  9=Well-cond., ev',
-     $      'enly spaced eigenvals.', ' 14=Ill-cond., geomet. spaced e',
-     $      'igenals.', / ' 10=Well-cond., geom. spaced eigenvals. ',
-     $      ' 15=Ill-conditioned, clustered e.vals.', / ' 11=Well-cond',
-     $      'itioned, clustered e.vals. ', ' 16=Ill-cond., random comp',
-     $      'lex ', / ' 12=Well-cond., random complex ', '         ',
-     $      ' 17=Ill-cond., large rand. complx ', / ' 13=Ill-condi',
-     $      'tioned, evenly spaced.     ', ' 18=Ill-cond., small rand.',
-     $      ' complx ' )
- 9996 FORMAT( ' 19=Matrix with random O(1) entries.    ', ' 21=Matrix ',
-     $      'with small random entries.', / ' 20=Matrix with large ran',
-     $      'dom entries.   ', / )
- 9995 FORMAT( ' Tests performed with test threshold =', F8.2,
-     $      / ' ( A denotes A on input and T denotes A on output)',
-     $      / / ' 1 = 0 if T in Schur form (no sort), ',
-     $      '  1/ulp otherwise', /
-     $      ' 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)',
-     $      / ' 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) ',
-     $      / ' 4 = 0 if W are eigenvalues of T (no sort),',
-     $      '  1/ulp otherwise', /
-     $      ' 5 = 0 if T same no matter if VS computed (no sort),',
-     $      '  1/ulp otherwise', /
-     $      ' 6 = 0 if W same no matter if VS computed (no sort)',
-     $      ',  1/ulp otherwise' )
- 9994 FORMAT( ' 7 = 0 if T in Schur form (sort), ', '  1/ulp otherwise',
-     $      / ' 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)',
-     $      / ' 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) ',
-     $      / ' 10 = 0 if W are eigenvalues of T (sort),',
-     $      '  1/ulp otherwise', /
-     $      ' 11 = 0 if T same no matter what else computed (sort),',
-     $      '  1/ulp otherwise', /
-     $      ' 12 = 0 if W same no matter what else computed ',
-     $      '(sort), 1/ulp otherwise', /
-     $      ' 13 = 0 if sorting successful, 1/ulp otherwise',
-     $      / ' 14 = 0 if RCONDE same no matter what else computed,',
-     $      ' 1/ulp otherwise', /
-     $      ' 15 = 0 if RCONDv same no matter what else computed,',
-     $      ' 1/ulp otherwise', /
-     $      ' 16 = | RCONDE - RCONDE(precomputed) | / cond(RCONDE),',
-     $      / ' 17 = | RCONDV - RCONDV(precomputed) | / cond(RCONDV),' )
- 9993 FORMAT( ' N=', I5, ', IWK=', I2, ', seed=', 4( I4, ',' ),
-     $      ' type ', I2, ', test(', I2, ')=', G10.3 )
- 9992 FORMAT( ' N=', I5, ', input example =', I3, ',  test(', I2, ')=',
-     $      G10.3 )
- 9991 FORMAT( ' ZDRVSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9998 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.             ', '           ', '  5=Diagonal: geometr. spaced entries.', / '  2=Identity matrix.                    ', '  6=Diagona', 'l: clustered entries.', / '  3=Transposed Jordan block.  ', '          ', '  7=Diagonal: large, evenly spaced.', / '  ', '4=Diagonal: evenly spaced entries.    ', '  8=Diagonal: s', 'mall, evenly spaced.' )
+ 9997 FORMAT( ' Dense, Non-Symmetric Matrices:', / '  9=Well-cond., ev', 'enly spaced eigenvals.', ' 14=Ill-cond., geomet. spaced e', 'igenals.', / ' 10=Well-cond., geom. spaced eigenvals. ', ' 15=Ill-conditioned, clustered e.vals.', / ' 11=Well-cond', 'itioned, clustered e.vals. ', ' 16=Ill-cond., random comp', 'lex ', / ' 12=Well-cond., random complex ', '         ', ' 17=Ill-cond., large rand. complx ', / ' 13=Ill-condi', 'tioned, evenly spaced.     ', ' 18=Ill-cond., small rand.', ' complx ' )
+ 9996 FORMAT( ' 19=Matrix with random O(1) entries.    ', ' 21=Matrix ', 'with small random entries.', / ' 20=Matrix with large ran', 'dom entries.   ', / )
+ 9995 FORMAT( ' Tests performed with test threshold =', F8.2, / ' ( A denotes A on input and T denotes A on output)', / / ' 1 = 0 if T in Schur form (no sort), ', '  1/ulp otherwise', / ' 2 = | A - VS T transpose(VS) | / ( n |A| ulp ) (no sort)', / ' 3 = | I - VS transpose(VS) | / ( n ulp ) (no sort) ', / ' 4 = 0 if W are eigenvalues of T (no sort),', '  1/ulp otherwise', / ' 5 = 0 if T same no matter if VS computed (no sort),', '  1/ulp otherwise', / ' 6 = 0 if W same no matter if VS computed (no sort)', ',  1/ulp otherwise' )
+ 9994 FORMAT( ' 7 = 0 if T in Schur form (sort), ', '  1/ulp otherwise', / ' 8 = | A - VS T transpose(VS) | / ( n |A| ulp ) (sort)', / ' 9 = | I - VS transpose(VS) | / ( n ulp ) (sort) ', / ' 10 = 0 if W are eigenvalues of T (sort),', '  1/ulp otherwise', / ' 11 = 0 if T same no matter what else computed (sort),', '  1/ulp otherwise', / ' 12 = 0 if W same no matter what else computed ', '(sort), 1/ulp otherwise', / ' 13 = 0 if sorting successful, 1/ulp otherwise', / ' 14 = 0 if RCONDE same no matter what else computed,', ' 1/ulp otherwise', / ' 15 = 0 if RCONDv same no matter what else computed,', ' 1/ulp otherwise', / ' 16 = | RCONDE - RCONDE(precomputed) | / cond(RCONDE),', / ' 17 = | RCONDV - RCONDV(precomputed) | / cond(RCONDV),' )
+ 9993 FORMAT( ' N=', I5, ', IWK=', I2, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
+ 9992 FORMAT( ' N=', I5, ', input example =', I3, ',  test(', I2, ')=', G10.3 )
+ 9991 FORMAT( ' ZDRVSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 
       RETURN
 

@@ -75,11 +75,9 @@
  9999 FORMAT( ' Time for ', G10.3,' DAXPY ops = ', G10.3, ' seconds' )
  9998 FORMAT( ' DAXPY performance rate        = ', G10.3, ' mflops ' )
  9997 FORMAT( ' Including DSECND, time        = ', G10.3, ' seconds' )
- 9996 FORMAT( ' Average time for DSECND       = ', G10.3,
-     $      ' milliseconds' )
+ 9996 FORMAT( ' Average time for DSECND       = ', G10.3, ' milliseconds' )
  9995 FORMAT( ' Equivalent floating point ops = ', G10.3, ' ops' )
- 9994 FORMAT( ' *** Warning:  Time for operations was less or equal',
-     $        ' than zero => timing in TESTING might be dubious' )
+ 9994 FORMAT( ' *** Warning:  Time for operations was less or equal', ' than zero => timing in TESTING might be dubious' )
       CALL MYSUB(NMAX,X,Y)
       }
       SUBROUTINE MYSUB(N,X,Y)

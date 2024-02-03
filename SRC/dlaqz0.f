@@ -377,9 +377,7 @@
       // and only normalize the blocks. In case of a rare convergence failure,
       // the single shift might perform better.
 
-   80 CALL DHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK,
-     $             NORM_INFO )
+   80 CALL DHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, NORM_INFO )
 
       INFO = NORM_INFO
 

@@ -480,10 +480,7 @@
 
       // End of CCHKBD
 
- 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=',
-     $      4( I4, ',' ), ' test(', I2, ')=', G11.4 )
- 9998 FORMAT( ' CCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=',
-     $      I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ),
-     $      I5, ')' )
+ 9999 FORMAT( ' M=', I5, ', N=', I5, ', type ', I2, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 )
+ 9998 FORMAT( ' CCHKBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 
       }

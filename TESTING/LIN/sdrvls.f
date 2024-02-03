@@ -624,13 +624,9 @@
 
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 
- 9999 FORMAT( ' TRANS=''', A1, ''', M=', I5, ', N=', I5, ', NRHS=', I4,
-     $      ', NB=', I4, ', type', I2, ', test(', I2, ')=', G12.5 )
- 9998 FORMAT( ' M=', I5, ', N=', I5, ', NRHS=', I4, ', NB=', I4,
-     $      ', type', I2, ', test(', I2, ')=', G12.5 )
- 9997 FORMAT( ' TRANS=''', A1,' M=', I5, ', N=', I5, ', NRHS=', I4,
-     $      ', MB=', I4,', NB=', I4,', type', I2,
-     $      ', test(', I2, ')=', G12.5 )
+ 9999 FORMAT( ' TRANS=''', A1, ''', M=', I5, ', N=', I5, ', NRHS=', I4, ', NB=', I4, ', type', I2, ', test(', I2, ')=', G12.5 )
+ 9998 FORMAT( ' M=', I5, ', N=', I5, ', NRHS=', I4, ', NB=', I4, ', type', I2, ', test(', I2, ')=', G12.5 )
+ 9997 FORMAT( ' TRANS=''', A1,' M=', I5, ', N=', I5, ', NRHS=', I4, ', MB=', I4,', NB=', I4,', type', I2, ', test(', I2, ')=', G12.5 )
 
       DEALLOCATE( WORK )
       DEALLOCATE( IWORK )

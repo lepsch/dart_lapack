@@ -459,58 +459,23 @@
 
       RETURN
 
- 9999 FORMAT( ' CDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', JTYPE=', I6, ')' )
+ 9999 FORMAT( ' CDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' )
 
- 9998 FORMAT( ' CDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', Input Example #', I2, ')' )
+ 9998 FORMAT( ' CDRGSX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', Input Example #', I2, ')' )
 
- 9997 FORMAT( ' CDRGSX: S not in Schur form at eigenvalue ', I6, '.',
-     $      / 9X, 'N=', I6, ', JTYPE=', I6, ')' )
+ 9997 FORMAT( ' CDRGSX: S not in Schur form at eigenvalue ', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ')' )
 
- 9996 FORMAT( / 1X, A3, ' -- Complex Expert Generalized Schur form',
-     $      ' problem driver' )
+ 9996 FORMAT( / 1X, A3, ' -- Complex Expert Generalized Schur form', ' problem driver' )
 
  9995 FORMAT( 'Input Example' )
 
- 9994 FORMAT( ' Matrix types: ', /
-     $      '  1:  A is a block diagonal matrix of Jordan blocks ',
-     $      'and B is the identity ', / '      matrix, ',
-     $      / '  2:  A and B are upper triangular matrices, ',
-     $      / '  3:  A and B are as type 2, but each second diagonal ',
-     $      'block in A_11 and ', /
-     $      '      each third diagonal block in A_22 are 2x2 blocks,',
-     $      / '  4:  A and B are block diagonal matrices, ',
-     $      / '  5:  (A,B) has potentially close or common ',
-     $      'eigenvalues.', / )
+ 9994 FORMAT( ' Matrix types: ', / '  1:  A is a block diagonal matrix of Jordan blocks ', 'and B is the identity ', / '      matrix, ', / '  2:  A and B are upper triangular matrices, ', / '  3:  A and B are as type 2, but each second diagonal ', 'block in A_11 and ', / '      each third diagonal block in A_22 are 2x2 blocks,', / '  4:  A and B are block diagonal matrices, ', / '  5:  (A,B) has potentially close or common ', 'eigenvalues.', / )
 
- 9993 FORMAT( / ' Tests performed:  (S is Schur, T is triangular, ',
-     $      'Q and Z are ', A, ',', / 19X,
-     $      ' a is alpha, b is beta, and ', A, ' means ', A, '.)',
-     $      / '  1 = | A - Q S Z', A,
-     $      ' | / ( |A| n ulp )      2 = | B - Q T Z', A,
-     $      ' | / ( |B| n ulp )', / '  3 = | I - QQ', A,
-     $      ' | / ( n ulp )             4 = | I - ZZ', A,
-     $      ' | / ( n ulp )', / '  5 = 1/ULP  if A is not in ',
-     $      'Schur form S', / '  6 = difference between (alpha,beta)',
-     $      ' and diagonals of (S,T)', /
-     $      '  7 = 1/ULP  if SDIM is not the correct number of ',
-     $      'selected eigenvalues', /
-     $      '  8 = 1/ULP  if DIFEST/DIFTRU > 10*THRESH or ',
-     $      'DIFTRU/DIFEST > 10*THRESH',
-     $      / '  9 = 1/ULP  if DIFEST <> 0 or DIFTRU > ULP*norm(A,B) ',
-     $      'when reordering fails', /
-     $      ' 10 = 1/ULP  if PLEST/PLTRU > THRESH or ',
-     $      'PLTRU/PLEST > THRESH', /
-     $      '    ( Test 10 is only for input examples )', / )
- 9992 FORMAT( ' Matrix order=', I2, ', type=', I2, ', a=', E10.3,
-     $      ', order(A_11)=', I2, ', result ', I2, ' is ', 0P, F8.2 )
- 9991 FORMAT( ' Matrix order=', I2, ', type=', I2, ', a=', E10.3,
-     $      ', order(A_11)=', I2, ', result ', I2, ' is ', 0P, E10.3 )
- 9990 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',',
-     $      ' result ', I2, ' is', 0P, F8.2 )
- 9989 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',',
-     $      ' result ', I2, ' is', 1P, E10.3 )
+ 9993 FORMAT( / ' Tests performed:  (S is Schur, T is triangular, ', 'Q and Z are ', A, ',', / 19X, ' a is alpha, b is beta, and ', A, ' means ', A, '.)', / '  1 = | A - Q S Z', A, ' | / ( |A| n ulp )      2 = | B - Q T Z', A, ' | / ( |B| n ulp )', / '  3 = | I - QQ', A, ' | / ( n ulp )             4 = | I - ZZ', A, ' | / ( n ulp )', / '  5 = 1/ULP  if A is not in ', 'Schur form S', / '  6 = difference between (alpha,beta)', ' and diagonals of (S,T)', / '  7 = 1/ULP  if SDIM is not the correct number of ', 'selected eigenvalues', / '  8 = 1/ULP  if DIFEST/DIFTRU > 10*THRESH or ', 'DIFTRU/DIFEST > 10*THRESH', / '  9 = 1/ULP  if DIFEST <> 0 or DIFTRU > ULP*norm(A,B) ', 'when reordering fails', / ' 10 = 1/ULP  if PLEST/PLTRU > THRESH or ', 'PLTRU/PLEST > THRESH', / '    ( Test 10 is only for input examples )', / )
+ 9992 FORMAT( ' Matrix order=', I2, ', type=', I2, ', a=', E10.3, ', order(A_11)=', I2, ', result ', I2, ' is ', 0P, F8.2 )
+ 9991 FORMAT( ' Matrix order=', I2, ', type=', I2, ', a=', E10.3, ', order(A_11)=', I2, ', result ', I2, ' is ', 0P, E10.3 )
+ 9990 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',', ' result ', I2, ' is', 0P, F8.2 )
+ 9989 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',', ' result ', I2, ' is', 1P, E10.3 )
 
       // End of CDRGSX
 

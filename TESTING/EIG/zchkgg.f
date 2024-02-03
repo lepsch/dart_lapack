@@ -549,58 +549,21 @@
       CALL DLASUM( 'ZGG', NOUNIT, NERRS, NTESTT )
       RETURN
 
- 9999 FORMAT( ' ZCHKGG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' ZCHKGG: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 
- 9998 FORMAT( ' ZCHKGG: ', A, ' Eigenvectors from ', A, ' incorrectly ',
-     $      'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X,
-     $      'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5,
-     $      ')' )
+ 9998 FORMAT( ' ZCHKGG: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 
  9997 FORMAT( 1X, A3, ' -- Complex Generalized eigenvalue problem' )
 
  9996 FORMAT( ' Matrix types (see ZCHKGG for details): ' )
 
- 9995 FORMAT( ' Special Matrices:', 23X,
-     $      '(J''=transposed Jordan block)',
-     $      / '   1=(0,0)  2=(I,0)  3=(0,I)  4=(I,I)  5=(J'',J'')  ',
-     $      '6=(diag(J'',I), diag(I,J''))', / ' Diagonal Matrices:  ( ',
-     $      'D=diag(0,1,2,...) )', / '   7=(D,I)   9=(large*D, small*I',
-     $      ')  11=(large*I, small*D)  13=(large*D, large*I)', /
-     $      '   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D) ',
-     $      ' 14=(small*D, small*I)', / '  15=(D, reversed D)' )
- 9994 FORMAT( ' Matrices Rotated by Random ', A, ' Matrices U, V:',
-     $      / '  16=Transposed Jordan Blocks             19=geometric ',
-     $      'alpha, beta=0,1', / '  17=arithm. alpha&beta             ',
-     $      '      20=arithmetic alpha, beta=0,1', / '  18=clustered ',
-     $      'alpha, beta=0,1            21=random alpha, beta=0,1',
-     $      / ' Large & Small Matrices:', / '  22=(large, small)   ',
-     $      '23=(small,large)    24=(small,small)    25=(large,large)',
-     $      / '  26=random O(1) matrices.' )
+ 9995 FORMAT( ' Special Matrices:', 23X, '(J''=transposed Jordan block)', / '   1=(0,0)  2=(I,0)  3=(0,I)  4=(I,I)  5=(J'',J'')  ', '6=(diag(J'',I), diag(I,J''))', / ' Diagonal Matrices:  ( ', 'D=diag(0,1,2,...) )', / '   7=(D,I)   9=(large*D, small*I', ')  11=(large*I, small*D)  13=(large*D, large*I)', / '   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D) ', ' 14=(small*D, small*I)', / '  15=(D, reversed D)' )
+ 9994 FORMAT( ' Matrices Rotated by Random ', A, ' Matrices U, V:', / '  16=Transposed Jordan Blocks             19=geometric ', 'alpha, beta=0,1', / '  17=arithm. alpha&beta             ', '      20=arithmetic alpha, beta=0,1', / '  18=clustered ', 'alpha, beta=0,1            21=random alpha, beta=0,1', / ' Large & Small Matrices:', / '  22=(large, small)   ', '23=(small,large)    24=(small,small)    25=(large,large)', / '  26=random O(1) matrices.' )
 
- 9993 FORMAT( / ' Tests performed:   (H is Hessenberg, S is Schur, B, ',
-     $      'T, P are triangular,', / 20X, 'U, V, Q, and Z are ', A,
-     $      ', l and r are the', / 20X,
-     $      'appropriate left and right eigenvectors, resp., a is',
-     $      / 20X, 'alpha, b is beta, and ', A, ' means ', A, '.)',
-     $      / ' 1 = | A - U H V', A,
-     $      ' | / ( |A| n ulp )      2 = | B - U T V', A,
-     $      ' | / ( |B| n ulp )', / ' 3 = | I - UU', A,
-     $      ' | / ( n ulp )             4 = | I - VV', A,
-     $      ' | / ( n ulp )', / ' 5 = | H - Q S Z', A,
-     $      ' | / ( |H| n ulp )', 6X, '6 = | T - Q P Z', A,
-     $      ' | / ( |T| n ulp )', / ' 7 = | I - QQ', A,
-     $      ' | / ( n ulp )             8 = | I - ZZ', A,
-     $      ' | / ( n ulp )', / ' 9 = max | ( b S - a P )', A,
-     $      ' l | / const.  10 = max | ( b H - a T )', A,
-     $      ' l | / const.', /
-     $      ' 11= max | ( b S - a P ) r | / const.   12 = max | ( b H',
-     $      ' - a T ) r | / const.', / 1X )
+ 9993 FORMAT( / ' Tests performed:   (H is Hessenberg, S is Schur, B, ', 'T, P are triangular,', / 20X, 'U, V, Q, and Z are ', A, ', l and r are the', / 20X, 'appropriate left and right eigenvectors, resp., a is', / 20X, 'alpha, b is beta, and ', A, ' means ', A, '.)', / ' 1 = | A - U H V', A, ' | / ( |A| n ulp )      2 = | B - U T V', A, ' | / ( |B| n ulp )', / ' 3 = | I - UU', A, ' | / ( n ulp )             4 = | I - VV', A, ' | / ( n ulp )', / ' 5 = | H - Q S Z', A, ' | / ( |H| n ulp )', 6X, '6 = | T - Q P Z', A, ' | / ( |T| n ulp )', / ' 7 = | I - QQ', A, ' | / ( n ulp )             8 = | I - ZZ', A, ' | / ( n ulp )', / ' 9 = max | ( b S - a P )', A, ' l | / const.  10 = max | ( b H - a T )', A, ' l | / const.', / ' 11= max | ( b S - a P ) r | / const.   12 = max | ( b H', ' - a T ) r | / const.', / 1X )
 
- 9992 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
-     $      4( I4, ',' ), ' result ', I2, ' is', 0P, F8.2 )
- 9991 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
-     $      4( I4, ',' ), ' result ', I2, ' is', 1P, D10.3 )
+ 9992 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I2, ' is', 0P, F8.2 )
+ 9991 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I2, ' is', 1P, D10.3 )
 
       // End of ZCHKGG
 

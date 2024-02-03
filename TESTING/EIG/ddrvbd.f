@@ -648,73 +648,11 @@
 
       CALL ALASVM( PATH, NOUT, NFAIL, NTEST, 0 )
 
- 9999 FORMAT( ' SVD -- Real Singular Value Decomposition Driver ',
-     $      / ' Matrix types (see DDRVBD for details):',
-     $      / / ' 1 = Zero matrix', / ' 2 = Identity matrix',
-     $      / ' 3 = Evenly spaced singular values near 1',
-     $      / ' 4 = Evenly spaced singular values near underflow',
-     $      / ' 5 = Evenly spaced singular values near overflow', / /
-     $      ' Tests performed: ( A is dense, U and V are orthogonal,',
-     $      / 19X, ' S is an array, and Upartial, VTpartial, and',
-     $      / 19X, ' Spartial are partially computed U, VT and S),', / )
- 9998 FORMAT( ' 1 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',
-     $      / ' 2 = | I - U**T U | / ( M ulp ) ',
-     $      / ' 3 = | I - VT VT**T | / ( N ulp ) ',
-     $      / ' 4 = 0 if S contains min(M,N) nonnegative values in',
-     $      ' decreasing order, else 1/ulp',
-     $      / ' 5 = | U - Upartial | / ( M ulp )',
-     $      / ' 6 = | VT - VTpartial | / ( N ulp )',
-     $      / ' 7 = | S - Spartial | / ( min(M,N) ulp |S| )',
-     $      / ' 8 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',
-     $      / ' 9 = | I - U**T U | / ( M ulp ) ',
-     $      / '10 = | I - VT VT**T | / ( N ulp ) ',
-     $      / '11 = 0 if S contains min(M,N) nonnegative values in',
-     $      ' decreasing order, else 1/ulp',
-     $      / '12 = | U - Upartial | / ( M ulp )',
-     $      / '13 = | VT - VTpartial | / ( N ulp )',
-     $      / '14 = | S - Spartial | / ( min(M,N) ulp |S| )',
-     $      / '15 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',
-     $      / '16 = | I - U**T U | / ( M ulp ) ',
-     $      / '17 = | I - VT VT**T | / ( N ulp ) ',
-     $      / '18 = 0 if S contains min(M,N) nonnegative values in',
-     $      ' decreasing order, else 1/ulp',
-     $      / '19 = | U - Upartial | / ( M ulp )',
-     $      / '20 = | VT - VTpartial | / ( N ulp )',
-     $      / '21 = | S - Spartial | / ( min(M,N) ulp |S| )',
-     $      / '22 = 0 if S contains min(M,N) nonnegative values in',
-     $      ' decreasing order, else 1/ulp',
-     $      / '23 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ),',
-     $      ' DGESVDX(V,V,A) ',
-     $      / '24 = | I - U**T U | / ( M ulp ) ',
-     $      / '25 = | I - VT VT**T | / ( N ulp ) ',
-     $      / '26 = 0 if S contains min(M,N) nonnegative values in',
-     $      ' decreasing order, else 1/ulp',
-     $      / '27 = | U - Upartial | / ( M ulp )',
-     $      / '28 = | VT - VTpartial | / ( N ulp )',
-     $      / '29 = | S - Spartial | / ( min(M,N) ulp |S| )',
-     $      / '30 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),',
-     $      ' DGESVDX(V,V,I) ',
-     $      / '31 = | I - U**T U | / ( M ulp ) ',
-     $      / '32 = | I - VT VT**T | / ( N ulp ) ',
-     $      / '33 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),',
-     $      ' DGESVDX(V,V,V) ',
-     $      / '34 = | I - U**T U | / ( M ulp ) ',
-     $      / '35 = | I - VT VT**T | / ( N ulp ) ',
-     $      ' DGESVDQ(H,N,N,A,A',
-     $      / '36 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',
-     $      / '37 = | I - U**T U | / ( M ulp ) ',
-     $      / '38 = | I - VT VT**T | / ( N ulp ) ',
-     $      / '39 = 0 if S contains min(M,N) nonnegative values in',
-     $      ' decreasing order, else 1/ulp',
-     $      / / )
- 9997 FORMAT( ' M=', I5, ', N=', I5, ', type ', I1, ', IWS=', I1,
-     $      ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 )
- 9996 FORMAT( ' DDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=',
-     $      I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ),
-     $      I5, ')' )
- 9995 FORMAT( ' DDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=',
-     $      I6, ', N=', I6, ', JTYPE=', I6, ', LSWORK=', I6, / 9X,
-     $      'ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9999 FORMAT( ' SVD -- Real Singular Value Decomposition Driver ', / ' Matrix types (see DDRVBD for details):', / / ' 1 = Zero matrix', / ' 2 = Identity matrix', / ' 3 = Evenly spaced singular values near 1', / ' 4 = Evenly spaced singular values near underflow', / ' 5 = Evenly spaced singular values near overflow', / / ' Tests performed: ( A is dense, U and V are orthogonal,', / 19X, ' S is an array, and Upartial, VTpartial, and', / 19X, ' Spartial are partially computed U, VT and S),', / )
+ 9998 FORMAT( ' 1 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / ' 2 = | I - U**T U | / ( M ulp ) ', / ' 3 = | I - VT VT**T | / ( N ulp ) ', / ' 4 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / ' 5 = | U - Upartial | / ( M ulp )', / ' 6 = | VT - VTpartial | / ( N ulp )', / ' 7 = | S - Spartial | / ( min(M,N) ulp |S| )', / ' 8 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / ' 9 = | I - U**T U | / ( M ulp ) ', / '10 = | I - VT VT**T | / ( N ulp ) ', / '11 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / '12 = | U - Upartial | / ( M ulp )', / '13 = | VT - VTpartial | / ( N ulp )', / '14 = | S - Spartial | / ( min(M,N) ulp |S| )', / '15 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ', / '16 = | I - U**T U | / ( M ulp ) ', / '17 = | I - VT VT**T | / ( N ulp ) ', / '18 = 0 if S contains min(M,N) nonnegative values in', ' decreasing order, else 1/ulp', / '19 = | U - Upartial | / ( M ulp )', / '20 = | VT - VTpartial | / ( N ulp )',/ '21 = | S - Spartial | / ( min(M,N) ulp |S| )',/ '22 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ '23 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ),',' DGESVDX(V,V,A) ',/ '24 = | I - U**T U | / ( M ulp ) ',/ '25 = | I - VT VT**T | / ( N ulp ) ',/ '26 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ '27 = | U - Upartial | / ( M ulp )',/ '28 = | VT - VTpartial | / ( N ulp )',/ '29 = | S - Spartial | / ( min(M,N) ulp |S| )',/ '30 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),',' DGESVDX(V,V,I) ',/ '31 = | I - U**T U | / ( M ulp ) ',/ '32 = | I - VT VT**T | / ( N ulp ) ',/ '33 = | U**T A VT**T - diag(S) | / ( |A| max(M,N) ulp ),',' DGESVDX(V,V,V) ',/ '34 = | I - U**T U | / ( M ulp ) ',/ '35 = | I - VT VT**T | / ( N ulp ) ',' DGESVDQ(H,N,N,A,A',/ '36 = | A - U diag(S) VT | / ( |A| max(M,N) ulp ) ',/ '37 = | I - U**T U | / ( M ulp ) ',/ '38 = | I - VT VT**T | / ( N ulp ) ',/ '39 = 0 if S contains min(M,N) nonnegative values in',' decreasing order, else 1/ulp',/ / )
+ 9997 FORMAT( ' M=', I5, ', N=', I5, ', type ', I1, ', IWS=', I1, ', seed=', 4( I4, ',' ), ' test(', I2, ')=', G11.4 )
+ 9996 FORMAT( ' DDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9995 FORMAT( ' DDRVBD: ', A, ' returned INFO=', I6, '.', / 9X, 'M=', I6, ', N=', I6, ', JTYPE=', I6, ', LSWORK=', I6, / 9X, 'ISEED=(', 3( I5, ',' ), I5, ')' )
 
       RETURN
 

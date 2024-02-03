@@ -444,61 +444,22 @@
 
       RETURN
 
- 9999 FORMAT( ' SDRGES3: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', JTYPE=', I6, ', ISEED=(', 4( I4, ',' ), I5, ')' )
+ 9999 FORMAT( ' SDRGES3: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 4( I4, ',' ), I5, ')' )
 
- 9998 FORMAT( ' SDRGES3: SGET53 returned INFO=', I1, ' for eigenvalue ',
-     $      I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(',
-     $      4( I4, ',' ), I5, ')' )
+ 9998 FORMAT( ' SDRGES3: SGET53 returned INFO=', I1, ' for eigenvalue ', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 4( I4, ',' ), I5, ')' )
 
- 9997 FORMAT( ' SDRGES3: S not in Schur form at eigenvalue ', I6, '.',
-     $      / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ),
-     $      I5, ')' )
+ 9997 FORMAT( ' SDRGES3: S not in Schur form at eigenvalue ', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
 
  9996 FORMAT( / 1X, A3, ' -- Real Generalized Schur form driver' )
 
  9995 FORMAT( ' Matrix types (see SDRGES3 for details): ' )
 
- 9994 FORMAT( ' Special Matrices:', 23X,
-     $      '(J''=transposed Jordan block)',
-     $      / '   1=(0,0)  2=(I,0)  3=(0,I)  4=(I,I)  5=(J'',J'')  ',
-     $      '6=(diag(J'',I), diag(I,J''))', / ' Diagonal Matrices:  ( ',
-     $      'D=diag(0,1,2,...) )', / '   7=(D,I)   9=(large*D, small*I',
-     $      ')  11=(large*I, small*D)  13=(large*D, large*I)', /
-     $      '   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D) ',
-     $      ' 14=(small*D, small*I)', / '  15=(D, reversed D)' )
- 9993 FORMAT( ' Matrices Rotated by Random ', A, ' Matrices U, V:',
-     $      / '  16=Transposed Jordan Blocks             19=geometric ',
-     $      'alpha, beta=0,1', / '  17=arithm. alpha&beta             ',
-     $      '      20=arithmetic alpha, beta=0,1', / '  18=clustered ',
-     $      'alpha, beta=0,1            21=random alpha, beta=0,1',
-     $      / ' Large & Small Matrices:', / '  22=(large, small)   ',
-     $      '23=(small,large)    24=(small,small)    25=(large,large)',
-     $      / '  26=random O(1) matrices.' )
+ 9994 FORMAT( ' Special Matrices:', 23X, '(J''=transposed Jordan block)', / '   1=(0,0)  2=(I,0)  3=(0,I)  4=(I,I)  5=(J'',J'')  ', '6=(diag(J'',I), diag(I,J''))', / ' Diagonal Matrices:  ( ', 'D=diag(0,1,2,...) )', / '   7=(D,I)   9=(large*D, small*I', ')  11=(large*I, small*D)  13=(large*D, large*I)', / '   8=(I,D)  10=(small*D, large*I)  12=(small*I, large*D) ', ' 14=(small*D, small*I)', / '  15=(D, reversed D)' )
+ 9993 FORMAT( ' Matrices Rotated by Random ', A, ' Matrices U, V:', / '  16=Transposed Jordan Blocks             19=geometric ', 'alpha, beta=0,1', / '  17=arithm. alpha&beta             ', '      20=arithmetic alpha, beta=0,1', / '  18=clustered ', 'alpha, beta=0,1            21=random alpha, beta=0,1', / ' Large & Small Matrices:', / '  22=(large, small)   ', '23=(small,large)    24=(small,small)    25=(large,large)', / '  26=random O(1) matrices.' )
 
- 9992 FORMAT( / ' Tests performed:  (S is Schur, T is triangular, ',
-     $      'Q and Z are ', A, ',', / 19X,
-     $      'l and r are the appropriate left and right', / 19X,
-     $      'eigenvectors, resp., a is alpha, b is beta, and', / 19X, A,
-     $      ' means ', A, '.)', / ' Without ordering: ',
-     $      / '  1 = | A - Q S Z', A,
-     $      ' | / ( |A| n ulp )      2 = | B - Q T Z', A,
-     $      ' | / ( |B| n ulp )', / '  3 = | I - QQ', A,
-     $      ' | / ( n ulp )             4 = | I - ZZ', A,
-     $      ' | / ( n ulp )', / '  5 = A is in Schur form S',
-     $      / '  6 = difference between (alpha,beta)',
-     $      ' and diagonals of (S,T)', / ' With ordering: ',
-     $      / '  7 = | (A,B) - Q (S,T) Z', A,
-     $      ' | / ( |(A,B)| n ulp )  ', / '  8 = | I - QQ', A,
-     $      ' | / ( n ulp )            9 = | I - ZZ', A,
-     $      ' | / ( n ulp )', / ' 10 = A is in Schur form S',
-     $      / ' 11 = difference between (alpha,beta) and diagonals',
-     $      ' of (S,T)', / ' 12 = SDIM is the correct number of ',
-     $      'selected eigenvalues', / )
- 9991 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
-     $      4( I4, ',' ), ' result ', I2, ' is', 0P, F8.2 )
- 9990 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=',
-     $      4( I4, ',' ), ' result ', I2, ' is', 1P, E10.3 )
+ 9992 FORMAT( / ' Tests performed:  (S is Schur, T is triangular, ', 'Q and Z are ', A, ',', / 19X, 'l and r are the appropriate left and right', / 19X, 'eigenvectors, resp., a is alpha, b is beta, and', / 19X, A, ' means ', A, '.)', / ' Without ordering: ', / '  1 = | A - Q S Z', A, ' | / ( |A| n ulp )      2 = | B - Q T Z', A, ' | / ( |B| n ulp )', / '  3 = | I - QQ', A, ' | / ( n ulp )             4 = | I - ZZ', A, ' | / ( n ulp )', / '  5 = A is in Schur form S', / '  6 = difference between (alpha,beta)', ' and diagonals of (S,T)', / ' With ordering: ', / '  7 = | (A,B) - Q (S,T) Z', A, ' | / ( |(A,B)| n ulp )  ', / '  8 = | I - QQ', A, ' | / ( n ulp )            9 = | I - ZZ', A, ' | / ( n ulp )', / ' 10 = A is in Schur form S', / ' 11 = difference between (alpha,beta) and diagonals', ' of (S,T)', / ' 12 = SDIM is the correct number of ', 'selected eigenvalues', / )
+ 9991 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I2, ' is', 0P, F8.2 )
+ 9990 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I2, ' is', 1P, E10.3 )
 
       // End of SDRGES3
 

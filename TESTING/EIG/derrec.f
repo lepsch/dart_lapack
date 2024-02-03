@@ -229,10 +229,8 @@
       }
 
       RETURN
- 9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (',
-     $      I3, ' tests done)' )
- 9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ex',
-     $      'its ***' )
+ 9999 FORMAT( 1X, A3, ' routines passed the tests of the error exits (', I3, ' tests done)' )
+ 9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ex', 'its ***' )
 
       // End of DERREC
 

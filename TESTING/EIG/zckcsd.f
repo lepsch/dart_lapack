@@ -145,8 +145,7 @@
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, 0 )
 
  9999 FORMAT( ' ZLAROR in ZCKCSD: M = ', I5, ', INFO = ', I15 )
- 9998 FORMAT( ' M=', I4, ' P=', I4, ', Q=', I4, ', type ', I2,
-     $      ', test ', I2, ', ratio=', G13.6 )
+ 9998 FORMAT( ' M=', I4, ' P=', I4, ', Q=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 )
       RETURN
 
       // End of ZCKCSD

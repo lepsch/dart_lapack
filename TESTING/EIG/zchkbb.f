@@ -309,11 +309,8 @@
       CALL DLASUM( 'ZBB', NOUNIT, NERRS, NTESTT )
       RETURN
 
- 9999 FORMAT( ' ZCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=',
-     $      I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(',
-     $      3( I5, ',' ), I5, ')' )
- 9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=',
-     $      4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
+ 9999 FORMAT( ' ZCHKBB: ', A, ' returned INFO=', I5, '.', / 9X, 'M=', I5, ' N=', I5, ' K=', I5, ', JTYPE=', I5, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9998 FORMAT( ' M =', I4, ' N=', I4, ', K=', I3, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
 
       // End of ZCHKBB
 

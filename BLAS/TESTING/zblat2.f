@@ -221,43 +221,25 @@
             FATAL = .FALSE.
             GO TO ( 140, 140, 150, 150, 150, 160, 160, 160, 160, 160, 160, 170, 170, 180, 180, 190, 190 )ISNUM
             // Test ZGEMV, 01, and ZGBMV, 02.
-  140       CALL ZCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF,
-     $                  NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS,
-     $                  X, XX, XS, Y, YY, YS, YT, G )
+  140       CALL ZCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
             GO TO 200
             // Test ZHEMV, 03, ZHBMV, 04, and ZHPMV, 05.
-  150       CALL ZCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF,
-     $                  NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS,
-     $                  X, XX, XS, Y, YY, YS, YT, G )
+  150       CALL ZCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
             GO TO 200
             // Test ZTRMV, 06, ZTBMV, 07, ZTPMV, 08,
             // ZTRSV, 09, ZTBSV, 10, and ZTPSV, 11.
-  160       CALL ZCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, Y, YY, YS, YT, G, Z )
+  160       CALL ZCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, Y, YY, YS, YT, G, Z )
             GO TO 200
             // Test ZGERC, 12, ZGERU, 13.
-  170       CALL ZCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
-     $                  YT, G, Z )
+  170       CALL ZCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
             GO TO 200
             // Test ZHER, 14, and ZHPR, 15.
-  180       CALL ZCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
-     $                  YT, G, Z )
+  180       CALL ZCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
             GO TO 200
             // Test ZHER2, 16, and ZHPR2, 17.
-  190       CALL ZCHK6( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
-     $                  YT, G, Z )
+  190       CALL ZCHK6( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
-  200       IF( FATAL.AND.SFATAL )
-     $         GO TO 220
+  200       IF( FATAL.AND.SFATAL ) GO TO 220
          }
   210 CONTINUE
       WRITE( NOUT, FMT = 9982 )
@@ -275,33 +257,21 @@
       CLOSE ( NOUT )
       STOP
 
- 9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES',
-     $      'S THAN', F8.2 )
+ 9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES', 'S THAN', F8.2 )
  9998 FORMAT( ' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, D9.1 )
- 9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ',
-     $      'THAN ', I2 )
+ 9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ', 'THAN ', I2 )
  9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 )
  9995 FORMAT( ' VALUE OF K IS LESS THAN 0' )
- 9994 FORMAT( ' ABSOLUTE VALUE OF INCX OR INCY IS 0 OR GREATER THAN ',
-     $      I2 )
- 9993 FORMAT( ' TESTS OF THE COMPLEX*16       LEVEL 2 BLAS', //' THE F',
-     $      'OLLOWING PARAMETER VALUES WILL BE USED:' )
+ 9994 FORMAT( ' ABSOLUTE VALUE OF INCX OR INCY IS 0 OR GREATER THAN ', I2 )
+ 9993 FORMAT( ' TESTS OF THE COMPLEX*16       LEVEL 2 BLAS', //' THE F', 'OLLOWING PARAMETER VALUES WILL BE USED:' )
  9992 FORMAT( '   FOR N              ', 9I6 )
  9991 FORMAT( '   FOR K              ', 7I6 )
  9990 FORMAT( '   FOR INCX AND INCY  ', 7I6 )
- 9989 FORMAT( '   FOR ALPHA          ',
-     $      7( '(', F4.1, ',', F4.1, ')  ', : ) )
- 9988 FORMAT( '   FOR BETA           ',
-     $      7( '(', F4.1, ',', F4.1, ')  ', : ) )
- 9987 FORMAT( ' AMEND DATA FILE OR INCREASE ARRAY SIZES IN PROGRAM',
-     $      /' ******* TESTS ABANDONED *******' )
- 9986 FORMAT( ' SUBPROGRAM NAME ', A6, ' NOT RECOGNIZED', /' ******* T',
-     $      'ESTS ABANDONED *******' )
- 9985 FORMAT( ' ERROR IN ZMVCH -  IN-LINE DOT PRODUCTS ARE BEING EVALU',
-     $      'ATED WRONGLY.', /' ZMVCH WAS CALLED WITH TRANS = ', A1,
-     $      ' AND RETURNED SAME = ', L1, ' AND ERR = ', F12.3, '.', /
-     $   ' THIS MAY BE DUE TO FAULTS IN THE ARITHMETIC OR THE COMPILER.'
-     $      , /' ******* TESTS ABANDONED *******' )
+ 9989 FORMAT( '   FOR ALPHA          ', 7( '(', F4.1, ',', F4.1, ')  ', : ) )
+ 9988 FORMAT( '   FOR BETA           ', 7( '(', F4.1, ',', F4.1, ')  ', : ) )
+ 9987 FORMAT( ' AMEND DATA FILE OR INCREASE ARRAY SIZES IN PROGRAM', /' ******* TESTS ABANDONED *******' )
+ 9986 FORMAT( ' SUBPROGRAM NAME ', A6, ' NOT RECOGNIZED', /' ******* T', 'ESTS ABANDONED *******' )
+ 9985 FORMAT( ' ERROR IN ZMVCH -  IN-LINE DOT PRODUCTS ARE BEING EVALU', 'ATED WRONGLY.', /' ZMVCH WAS CALLED WITH TRANS = ', A1, ' AND RETURNED SAME = ', L1, ' AND ERR = ', F12.3, '.', / ' THIS MAY BE DUE TO FAULTS IN THE ARITHMETIC OR THE COMPILER.' , /' ******* TESTS ABANDONED *******' )
  9984 FORMAT( A6, L2 )
  9983 FORMAT( 1X, A6, ' WAS NOT TESTED' )
  9982 FORMAT( /' END OF TESTS' )
@@ -608,22 +578,13 @@
   140 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 4( I3, ',' ), '(',
-     $      F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',',
-     $      F4.1, '), Y,', I2, ') .' )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), '(',
-     $      F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',',
-     $      F4.1, '), Y,', I2, ')         .' )
- 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 4( I3, ',' ), '(', F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',', F4.1, '), Y,', I2, ') .' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), '(', F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',', F4.1, '), Y,', I2, ')         .' )
+ 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of ZCHK1
 
@@ -910,25 +871,14 @@
   130 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',',
-     $      F4.1, '), AP, X,', I2, ',(', F4.1, ',', F4.1, '), Y,', I2,
-     $      ')                .' )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), '(',
-     $      F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',',
-     $      F4.1, '), Y,', I2, ')         .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',',
-     $      F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',', F4.1, '), ',
-     $      'Y,', I2, ')             .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',', F4.1, '), AP, X,', I2, ',(', F4.1, ',', F4.1, '), Y,', I2, ')                .' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), '(', F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',', F4.1, '), Y,', I2, ')         .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',', F4.1, '), A,', I3, ', X,', I2, ',(', F4.1, ',', F4.1, '), ', 'Y,', I2, ')             .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of ZCHK2
 
@@ -1216,22 +1166,14 @@
   130 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', AP, ',
-     $      'X,', I2, ')                                      .' )
- 9994 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), 2( I3, ',' ),
-     $      ' A,', I3, ', X,', I2, ')                               .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', A,',
-     $      I3, ', X,', I2, ')                                   .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9995 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', AP, ', 'X,', I2, ')                                      .' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), 2( I3, ',' ), ' A,', I3, ', X,', I2, ')                               .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', A,', I3, ', X,', I2, ')                                   .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of ZCHK3
 
@@ -1461,20 +1403,13 @@
   150 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A6, '(', 2( I3, ',' ), '(', F4.1, ',', F4.1,
-     $      '), X,', I2, ', Y,', I2, ', A,', I3, ')                   ',
-     $      '      .' )
- 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(', 2( I3, ',' ), '(', F4.1, ',', F4.1, '), X,', I2, ', Y,', I2, ', A,', I3, ')                   ', '      .' )
+ 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of ZCHK4
 
@@ -1718,21 +1653,14 @@
   130 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,',
-     $      I2, ', AP)                                         .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,',
-     $      I2, ', A,', I3, ')                                      .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', AP)                                         .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', A,', I3, ')                                      .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of ZCHK5
 
@@ -2004,23 +1932,14 @@
   170 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',',
-     $      F4.1, '), X,', I2, ', Y,', I2, ', AP)                     ',
-     $      '       .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',',
-     $      F4.1, '), X,', I2, ', Y,', I2, ', A,', I3, ')             ',
-     $      '            .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',', F4.1, '), X,', I2, ', Y,', I2, ', AP)                     ', '       .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',(', F4.1, ',', F4.1, '), X,', I2, ', Y,', I2, ', A,', I3, ')             ', '            .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of ZCHK6
 
@@ -2358,8 +2277,7 @@
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' )
- 9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****',
-     $      '**' )
+ 9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****', '**' )
 
       // End of ZCHKE
 
@@ -2663,9 +2581,7 @@
    80 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL',
-     $      'F ACCURATE *******', /'                       EXPECTED RE',
-     $      'SULT                    COMPUTED RESULT' )
+ 9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'                       EXPECTED RE', 'SULT                    COMPUTED RESULT' )
  9998 FORMAT( 1X, I7, 2( '  (', G15.6, ',', G15.6, ')' ) )
 
       // End of ZMVCH
@@ -2846,8 +2762,7 @@
       LERR = .FALSE.
       RETURN
 
- 9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D',
-     $      'ETECTED BY ', A6, ' *****' )
+ 9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' )
 
       // End of CHKXER
 
@@ -2927,12 +2842,9 @@
       }
       RETURN
 
- 9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD',
-     $      ' OF ', I2, ' *******' )
- 9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE',
-     $      'AD OF ', A6, ' *******' )
- 9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6,
-     $      ' *******' )
+ 9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD', ' OF ', I2, ' *******' )
+ 9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE', 'AD OF ', A6, ' *******' )
+ 9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' *******' )
 
       // End of XERBLA
 

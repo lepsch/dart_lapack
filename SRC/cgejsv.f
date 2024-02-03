@@ -828,8 +828,7 @@
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   DO 4949 p = 1, N
                      IF ( ( (p.GT.q) .AND. (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
-      // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) )
-     $                     A(p,q) = CTEMP
+      // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
  4949             CONTINUE
  4947          CONTINUE
             } else {
@@ -859,8 +858,7 @@
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   DO 1949 p = 1, NR
                      IF ( ( (p.GT.q) .AND. (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
-      // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) )
-     $                   A(p,q) = CTEMP
+      // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
  1949             CONTINUE
  1947          CONTINUE
             } else {
@@ -1025,8 +1023,7 @@
                   CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                   DO 2968 p = 1, N
                      IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
-      // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) )
-     $                   V(p,q) = CTEMP
+      // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      IF ( p .LT. q ) V(p,q) = - V(p,q)
  2968             CONTINUE
  2969          CONTINUE
@@ -1066,8 +1063,7 @@
                      DO 3958 q = 1, p - 1
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                         IF ( ABS(V(q,p)) .LE. TEMP1 )
-      // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) )
-     $                     V(q,p) = CTEMP
+      // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
  3958                CONTINUE
  3959             CONTINUE
                }
@@ -1106,8 +1102,7 @@
                      DO 3968 q = 1, p - 1
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
                         IF ( ABS(V(q,p)) .LE. TEMP1 )
-      // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) )
-     $                     V(q,p) = CTEMP
+      // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
  3968                CONTINUE
  3969             CONTINUE
                }
@@ -1391,8 +1386,7 @@
                CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                DO 5968 p = 1, N
                   IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
-      // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) )
-     $                V(p,q) = CTEMP
+      // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   IF ( p .LT. q ) V(p,q) = - V(p,q)
  5968          CONTINUE
  5969       CONTINUE

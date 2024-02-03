@@ -211,15 +211,10 @@
          WRITE( NOUT, FMT = 9995 ) 'CHFRK', NFAIL, NRUN
       }
 
- 9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing CHFRK
-     +         ***')
- 9997 FORMAT( 1X, '     Failure in ',A5,', CFORM=''',A1,''',',
-     + ' UPLO=''',A1,''',',' TRANS=''',A1,''',', ' N=',I3,', K =', I3,
-     + ', test=',G12.5)
- 9996 FORMAT( 1X, 'All tests for ',A5,' auxiliary routine passed the ',
-     +        'threshold ( ',I5,' tests run)')
- 9995 FORMAT( 1X, A6, ' auxiliary routine: ',I5,' out of ',I5,
-     +        ' tests failed to pass the threshold')
+ 9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing CHFRK ***')
+ 9997 FORMAT( 1X, '     Failure in ',A5,', CFORM=''',A1,''',', ' UPLO=''',A1,''',',' TRANS=''',A1,''',', ' N=',I3,', K =', I3, ', test=',G12.5)
+ 9996 FORMAT( 1X, 'All tests for ',A5,' auxiliary routine passed the ', 'threshold ( ',I5,' tests run)')
+ 9995 FORMAT( 1X, A6, ' auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold')
 
       RETURN
 

@@ -240,8 +240,7 @@
 
             K = N
             KC = N*( N+1 ) / 2 + 1
-   70       IF( K.LT.1 )
-     $         GO TO 90
+   70       IF( K.LT.1 ) GO TO 90
             KC = KC - K
 
             // 1 x 1 pivot block.

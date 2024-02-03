@@ -8,6 +8,12 @@
       $1 $3
 ```
 
+### Format continuation lines
+```
+^([\s\d][\s\d][\s\d][\s\d][\s\d]\s+.+)(\n\s    [^\s]\s*(.*))$
+$1 $3
+```
+
 ### DOUBLE PRECISION -> double
 ```
 ^\s(.*)DOUBLE PRECISION(.*)$

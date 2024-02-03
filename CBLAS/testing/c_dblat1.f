@@ -479,15 +479,12 @@
          PASS = .FALSE.
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
-   20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I),
-     +     STRUE(I), SD, SSIZE(I)
+   20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
    40 CONTINUE
       RETURN
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ',
-     +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
-     +       '     SIZE(I)',/1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2D36.8,2D12.4)
       }
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
@@ -561,8 +558,6 @@
       RETURN
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE                               ',
-     +       ' COMP                                TRUE     DIFFERENCE',
-     +       /1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
       }

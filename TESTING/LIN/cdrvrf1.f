@@ -167,16 +167,11 @@
          WRITE( NOUT, FMT = 9994 ) NERRS, 'CLANHF'
       }
 
- 9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing CLANHF
-     +         ***')
- 9998 FORMAT( 1X, '     Error in ',A6,' with UPLO=''',A1,''', FORM=''',
-     +        A1,''', N=',I5)
- 9997 FORMAT( 1X, '     Failure in ',A6,' N=',I5,' TYPE=',I5,' UPLO=''',
-     +        A1, ''', FORM =''',A1,''', NORM=''',A1,''', test=',G12.5)
- 9996 FORMAT( 1X, 'All tests for ',A6,' auxiliary routine passed the ',
-     +        'threshold ( ',I5,' tests run)')
- 9995 FORMAT( 1X, A6, ' auxiliary routine: ',I5,' out of ',I5,
-     +        ' tests failed to pass the threshold')
+ 9999 FORMAT( 1X, ' *** Error(s) or Failure(s) while testing CLANHF ***')
+ 9998 FORMAT( 1X, '     Error in ',A6,' with UPLO=''',A1,''', FORM=''', A1,''', N=',I5)
+ 9997 FORMAT( 1X, '     Failure in ',A6,' N=',I5,' TYPE=',I5,' UPLO=''', A1, ''', FORM =''',A1,''', NORM=''',A1,''', test=',G12.5)
+ 9996 FORMAT( 1X, 'All tests for ',A6,' auxiliary routine passed the ', 'threshold ( ',I5,' tests run)')
+ 9995 FORMAT( 1X, A6, ' auxiliary routine: ',I5,' out of ',I5, ' tests failed to pass the threshold')
  9994 FORMAT( 26X, I5,' error message recorded (',A6,')')
 
       RETURN

@@ -558,10 +558,7 @@
 
       CALL ALASUM( PATH, NOUT, NFAIL, NRUN, NERRS )
 
- 9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5,
-     $        ', KMAX =', I5, ', ABSTOL =', G12.5,
-     $        ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4,
-     $        ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
+ 9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NRHS =', I5, ', KMAX =', I5, ', ABSTOL =', G12.5, ', RELTOL =', G12.5, ', NB =', I4, ', NX =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 )
 
       // End of ZCHKQP3RK
 

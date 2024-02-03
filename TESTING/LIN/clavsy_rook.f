@@ -245,8 +245,7 @@
             // Loop backward applying the transformations.
 
             K = N
-   70       IF( K.LT.1 )
-     $         GO TO 90
+   70       IF( K.LT.1 ) GO TO 90
 
             // 1 x 1 pivot block.
 

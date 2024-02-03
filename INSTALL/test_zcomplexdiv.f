@@ -311,13 +311,9 @@
       if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or. (caseEFails .gt. 0) .or. (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
 
       // .. Formats ..
- 9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ',
-     $         (ES24.16E3,SP,ES24.16E3,"*I"), ' = ',
-     $         (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )
+ 9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ', (ES24.16E3,SP,ES24.16E3,"*I"), ' = ', (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )
 
- 9999 FORMAT( '[',A2,I1, '] X = ', ES24.16E3, ' : ', A15, ' = ',
-     $         (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ',
-     $         (ES24.16E3,SP,ES24.16E3,"*I") )
+ 9999 FORMAT( '[',A2,I1, '] X = ', ES24.16E3, ' : ', A15, ' = ', (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', (ES24.16E3,SP,ES24.16E3,"*I") )
 
       // End of zdiv
 

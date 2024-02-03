@@ -373,15 +373,12 @@
          PASS = .FALSE.
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
-   20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I),
-     +     STRUE(I), SD, SSIZE(I)
+   20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
    40 CONTINUE
       RETURN
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ',
-     +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
-     +       '     SIZE(I)',/1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2E36.8,2E12.4)
 
       // End of STEST
@@ -497,9 +494,7 @@
       RETURN
 
 99999 FORMAT ('                                       FAIL')
-99998 FORMAT (/' CASE  N INCX INCY MODE                               ',
-     +       ' COMP                                TRUE     DIFFERENCE',
-     +       /1X)
+99998 FORMAT (/' CASE  N INCX INCY MODE                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
 
       // End of ITEST1
@@ -696,10 +691,8 @@
          END DO
       END DO
 99999 FORMAT ('                                       FAIL')
-   99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6,
-     + ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 )
-   98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=',
-     +  I2, ', test=', E15.8 )
+   99 FORMAT ( ' Not enough space to test ', A6, ': NMAX = ',I6, ', INCX = ',I6,/,'   N = ',I6,', must be at least ',I6 )
+   98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 )
       RETURN
       CONTAINS
       REAL FUNCTION SXVALS(XX,K)

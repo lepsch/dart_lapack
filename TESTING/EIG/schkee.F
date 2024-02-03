@@ -1218,66 +1218,42 @@
 
  9999 FORMAT( / ' Execution not attempted due to input errors' )
  9997 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4 )
- 9996 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NS =', I4,
-     $      ', MAXB =', I4, ', IACC22 =', I4, ', NBCOL =', I4 )
- 9995 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4,
-     $      ', NRHS =', I4 )
+ 9996 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NS =', I4, ', MAXB =', I4, ', IACC22 =', I4, ', NBCOL =', I4 )
+ 9995 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', NRHS =', I4 )
  9994 FORMAT( / / ' End of tests' )
  9993 FORMAT( ' Total time used = ', F12.2, ' seconds', / )
  9992 FORMAT( 1X, A3, ':  Unrecognized path name' )
- 9991 FORMAT( / / ' *** Invalid int     value in column ', I2,;
-     $      ' of input', ' line:', / A79 )
+ 9991 FORMAT( / / ' *** Invalid int     value in column ', I2,; ' of input', ' line:', / A79 )
  9990 FORMAT( / / 1X, A3, ' routines were not tested' )
- 9989 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be >=',
-     $      I6 )
- 9988 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be <=',
-     $      I6 )
+ 9989 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be >=', I6 )
+ 9988 FORMAT( ' Invalid input value: ', A, '=', I6, '; must be <=', I6 )
  9987 FORMAT( ' Tests of the Nonsymmetric Eigenvalue Problem routines' )
  9986 FORMAT( ' Tests of the Symmetric Eigenvalue Problem routines' )
  9985 FORMAT( ' Tests of the Singular Value Decomposition routines' )
  9984 FORMAT( / ' The following parameter values will be used:' )
  9983 FORMAT( 4X, A, 10I6, / 10X, 10I6 )
- 9982 FORMAT( / ' Routines pass computational tests if test ratio is ',
-     $      'less than', F8.2, / )
+ 9982 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / )
  9981 FORMAT( ' Relative machine ', A, ' is taken to be', E16.6 )
  9980 FORMAT( ' *** Error code from ', A, ' = ', I4 )
- 9979 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver',
-     $      / '    SGEEV (eigenvalues and eigevectors)' )
- 9978 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver',
-     $      / '    SGEES (Schur form)' )
- 9977 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert',
-     $      ' Driver', / '    SGEEVX (eigenvalues, eigenvectors and',
-     $      ' condition numbers)' )
- 9976 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert',
-     $      ' Driver', / '    SGEESX (Schur form and condition',
-     $      ' numbers)' )
- 9975 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ',
-     $      'Problem routines' )
- 9974 FORMAT( ' Tests of SSBTRD', / ' (reduction of a symmetric band ',
-     $      'matrix to tridiagonal form)' )
+ 9979 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver', / '    SGEEV (eigenvalues and eigevectors)' )
+ 9978 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Driver', / '    SGEES (Schur form)' )
+ 9977 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert', ' Driver', / '    SGEEVX (eigenvalues, eigenvectors and', ' condition numbers)' )
+ 9976 FORMAT( / ' Tests of the Nonsymmetric Eigenvalue Problem Expert', ' Driver', / '    SGEESX (Schur form and condition', ' numbers)' )
+ 9975 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem routines' )
+ 9974 FORMAT( ' Tests of SSBTRD', / ' (reduction of a symmetric band ', 'matrix to tridiagonal form)' )
  9973 FORMAT( / 1X, 71( '-' ) )
  9972 FORMAT( / ' LAPACK VERSION ', I1, '.', I1, '.', I1 )
- 9971 FORMAT( / ' Tests of the Generalized Linear Regression Model ',
-     $      'routines' )
+ 9971 FORMAT( / ' Tests of the Generalized Linear Regression Model ', 'routines' )
  9970 FORMAT( / ' Tests of the Generalized QR and RQ routines' )
- 9969 FORMAT( / ' Tests of the Generalized Singular Value',
-     $      ' Decomposition routines' )
+ 9969 FORMAT( / ' Tests of the Generalized Singular Value', ' Decomposition routines' )
  9968 FORMAT( / ' Tests of the Linear Least Squares routines' )
- 9967 FORMAT( ' Tests of SGBBRD', / ' (reduction of a general band ',
-     $      'matrix to real bidiagonal form)' )
+ 9967 FORMAT( ' Tests of SGBBRD', / ' (reduction of a general band ', 'matrix to real bidiagonal form)' )
  9966 FORMAT( / / 1X, A3, ':  NRHS =', I4 )
- 9965 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ',
-     $      'Problem Expert Driver SGGESX' )
- 9964 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ',
-     $      'Problem Driver SGGES' )
- 9963 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ',
-     $      'Problem Driver SGGEV' )
- 9962 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ',
-     $      'Problem Expert Driver SGGEVX' )
- 9961 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4,
-     $      ', INMIN=', I4,
-     $      ', INWIN =', I4, ', INIBL =', I4, ', ISHFTS =', I4,
-     $      ', IACC22 =', I4)
+ 9965 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver SGGESX' )
+ 9964 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Driver SGGES' )
+ 9963 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Driver SGGEV' )
+ 9962 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver SGGEVX' )
+ 9961 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', INMIN=', I4, ', INWIN =', I4, ', INIBL =', I4, ', ISHFTS =', I4, ', IACC22 =', I4)
  9960 FORMAT( / ' Tests of the CS Decomposition routines' )
 
       // End of SCHKEE

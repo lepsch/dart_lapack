@@ -526,19 +526,11 @@
 
       CALL ALASVM( PATH, NOUT, NFAIL, NRUN, NERRS )
 
- 9999 FORMAT( ' *** In ZDRVGB, LA=', I5, ' is too small for N=', I5,
-     $      ', KU=', I5, ', KL=', I5, / ' ==> Increase LA to at least ',
-     $      I5 )
- 9998 FORMAT( ' *** In ZDRVGB, LAFB=', I5, ' is too small for N=', I5,
-     $      ', KU=', I5, ', KL=', I5, /
-     $      ' ==> Increase LAFB to at least ', I5 )
- 9997 FORMAT( 1X, A, ', N=', I5, ', KL=', I5, ', KU=', I5, ', type ',
-     $      I1, ', test(', I1, ')=', G12.5 )
- 9996 FORMAT( 1X, A, '( ''', A1, ''',''', A1, ''',', I5, ',', I5, ',',
-     $      I5, ',...), type ', I1, ', test(', I1, ')=', G12.5 )
- 9995 FORMAT( 1X, A, '( ''', A1, ''',''', A1, ''',', I5, ',', I5, ',',
-     $      I5, ',...), EQUED=''', A1, ''', type ', I1, ', test(', I1,
-     $      ')=', G12.5 )
+ 9999 FORMAT( ' *** In ZDRVGB, LA=', I5, ' is too small for N=', I5, ', KU=', I5, ', KL=', I5, / ' ==> Increase LA to at least ', I5 )
+ 9998 FORMAT( ' *** In ZDRVGB, LAFB=', I5, ' is too small for N=', I5, ', KU=', I5, ', KL=', I5, / ' ==> Increase LAFB to at least ', I5 )
+ 9997 FORMAT( 1X, A, ', N=', I5, ', KL=', I5, ', KU=', I5, ', type ', I1, ', test(', I1, ')=', G12.5 )
+ 9996 FORMAT( 1X, A, '( ''', A1, ''',''', A1, ''',', I5, ',', I5, ',', I5, ',...), type ', I1, ', test(', I1, ')=', G12.5 )
+ 9995 FORMAT( 1X, A, '( ''', A1, ''',''', A1, ''',', I5, ',', I5, ',', I5, ',...), EQUED=''', A1, ''', type ', I1, ', test(', I1, ')=', G12.5 )
 
       RETURN
 

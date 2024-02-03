@@ -351,39 +351,15 @@
       CALL DLASUM( 'ZHB', NOUNIT, NERRS, NTESTT )
       RETURN
 
- 9999 FORMAT( ' ZCHKHB: ', A, ' returned INFO=', I6, '.', / 9X, 'N=',
-     $      I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
- 9998 FORMAT( / 1X, A3,
-     $     ' -- Complex Hermitian Banded Tridiagonal Reduction Routines'
-     $       )
+ 9999 FORMAT( ' ZCHKHB: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' )
+ 9998 FORMAT( / 1X, A3, ' -- Complex Hermitian Banded Tridiagonal Reduction Routines' )
  9997 FORMAT( ' Matrix types (see DCHK23 for details): ' )
 
- 9996 FORMAT( / ' Special Matrices:',
-     $      / '  1=Zero matrix.                        ',
-     $      '  5=Diagonal: clustered entries.',
-     $      / '  2=Identity matrix.                    ',
-     $      '  6=Diagonal: large, evenly spaced.',
-     $      / '  3=Diagonal: evenly spaced entries.    ',
-     $      '  7=Diagonal: small, evenly spaced.',
-     $      / '  4=Diagonal: geometr. spaced entries.' )
- 9995 FORMAT( ' Dense ', A, ' Banded Matrices:',
-     $      / '  8=Evenly spaced eigenvals.            ',
-     $      ' 12=Small, evenly spaced eigenvals.',
-     $      / '  9=Geometrically spaced eigenvals.     ',
-     $      ' 13=Matrix with random O(1) entries.',
-     $      / ' 10=Clustered eigenvalues.              ',
-     $      ' 14=Matrix with large random entries.',
-     $      / ' 11=Large, evenly spaced eigenvals.     ',
-     $      ' 15=Matrix with small random entries.' )
+ 9996 FORMAT( / ' Special Matrices:', / '  1=Zero matrix.                        ', '  5=Diagonal: clustered entries.', / '  2=Identity matrix.                    ', '  6=Diagonal: large, evenly spaced.', / '  3=Diagonal: evenly spaced entries.    ', '  7=Diagonal: small, evenly spaced.', / '  4=Diagonal: geometr. spaced entries.' )
+ 9995 FORMAT( ' Dense ', A, ' Banded Matrices:', / '  8=Evenly spaced eigenvals.            ', ' 12=Small, evenly spaced eigenvals.', / '  9=Geometrically spaced eigenvals.     ', ' 13=Matrix with random O(1) entries.', / ' 10=Clustered eigenvalues.              ', ' 14=Matrix with large random entries.', / ' 11=Large, evenly spaced eigenvals.     ', ' 15=Matrix with small random entries.' )
 
- 9994 FORMAT( / ' Tests performed:   (S is Tridiag,  U is ', A, ',',
-     $      / 20X, A, ' means ', A, '.', / ' UPLO=''U'':',
-     $      / '  1= | A - U S U', A1, ' | / ( |A| n ulp )     ',
-     $      '  2= | I - U U', A1, ' | / ( n ulp )', / ' UPLO=''L'':',
-     $      / '  3= | A - U S U', A1, ' | / ( |A| n ulp )     ',
-     $      '  4= | I - U U', A1, ' | / ( n ulp )' )
- 9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ',
-     $      I2, ', test(', I2, ')=', G10.3 )
+ 9994 FORMAT( / ' Tests performed:   (S is Tridiag,  U is ', A, ',', / 20X, A, ' means ', A, '.', / ' UPLO=''U'':', / '  1= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  2= | I - U U', A1, ' | / ( n ulp )', / ' UPLO=''L'':', / '  3= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  4= | I - U U', A1, ' | / ( n ulp )' )
+ 9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 )
 
       // End of ZCHKHB
 

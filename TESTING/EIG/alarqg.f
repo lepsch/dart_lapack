@@ -101,8 +101,7 @@
                DOTYPE( NT ) = .TRUE.
             } else {
                WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES
- 9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ',
-     $               I4, ': must satisfy  1 <= type <= ', I2 )
+ 9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ', I4, ': must satisfy  1 <= type <= ', I2 )
             }
    70    CONTINUE
    80    CONTINUE
@@ -111,16 +110,11 @@
 
    90 CONTINUE
       WRITE( NOUT, FMT = 9998 )PATH
- 9998 FORMAT( /' *** End of file reached when trying to read matrix ',
-     $      'types for ', A3, /' *** Check that you are requesting the',
-     $      ' right number of types for each path', / )
- 9997 FORMAT( ' *** Warning:  duplicate request of matrix type ', I2,
-     $      ' for ', A3 )
- 9996 FORMAT( //' *** Invalid int     value in column ', I2,;
-     $      ' of input', ' line:', /A79 )
+ 9998 FORMAT( /' *** End of file reached when trying to read matrix ', 'types for ', A3, /' *** Check that you are requesting the', ' right number of types for each path', / )
+ 9997 FORMAT( ' *** Warning:  duplicate request of matrix type ', I2, ' for ', A3 )
+ 9996 FORMAT( //' *** Invalid int     value in column ', I2,; ' of input', ' line:', /A79 )
  9995 FORMAT( //' *** Not enough matrix types on input line', /A79 )
- 9994 FORMAT( ' ==> Specify ', I4, ' matrix types on this line or ',
-     $      'adjust NTYPES on previous line' )
+ 9994 FORMAT( ' ==> Specify ', I4, ' matrix types on this line or ', 'adjust NTYPES on previous line' )
       WRITE( NOUT, FMT = * )
       STOP
 

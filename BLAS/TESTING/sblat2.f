@@ -218,43 +218,25 @@
             FATAL = .FALSE.
             GO TO ( 140, 140, 150, 150, 150, 160, 160, 160, 160, 160, 160, 170, 180, 180, 190, 190 )ISNUM
             // Test SGEMV, 01, and SGBMV, 02.
-  140       CALL SCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF,
-     $                  NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS,
-     $                  X, XX, XS, Y, YY, YS, YT, G )
+  140       CALL SCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
             GO TO 200
             // Test SSYMV, 03, SSBMV, 04, and SSPMV, 05.
-  150       CALL SCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF,
-     $                  NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS,
-     $                  X, XX, XS, Y, YY, YS, YT, G )
+  150       CALL SCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
             GO TO 200
             // Test STRMV, 06, STBMV, 07, STPMV, 08,
             // STRSV, 09, STBSV, 10, and STPSV, 11.
-  160       CALL SCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, Y, YY, YS, YT, G, Z )
+  160       CALL SCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, Y, YY, YS, YT, G, Z )
             GO TO 200
             // Test SGER, 12.
-  170       CALL SCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
-     $                  YT, G, Z )
+  170       CALL SCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
             GO TO 200
             // Test SSYR, 13, and SSPR, 14.
-  180       CALL SCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
-     $                  YT, G, Z )
+  180       CALL SCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
             GO TO 200
             // Test SSYR2, 15, and SSPR2, 16.
-  190       CALL SCHK6( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC,
-     $                  NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS,
-     $                  YT, G, Z )
+  190       CALL SCHK6( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
-  200       IF( FATAL.AND.SFATAL )
-     $         GO TO 220
+  200       IF( FATAL.AND.SFATAL ) GO TO 220
          }
   210 CONTINUE
       WRITE( NOUT, FMT = 9982 )
@@ -272,31 +254,21 @@
       CLOSE ( NOUT )
       STOP
 
- 9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES',
-     $      'S THAN', F8.2 )
+ 9999 FORMAT( ' ROUTINES PASS COMPUTATIONAL TESTS IF TEST RATIO IS LES', 'S THAN', F8.2 )
  9998 FORMAT( ' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, E9.1 )
- 9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ',
-     $      'THAN ', I2 )
+ 9997 FORMAT( ' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ', 'THAN ', I2 )
  9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 )
  9995 FORMAT( ' VALUE OF K IS LESS THAN 0' )
- 9994 FORMAT( ' ABSOLUTE VALUE OF INCX OR INCY IS 0 OR GREATER THAN ',
-     $      I2 )
- 9993 FORMAT( ' TESTS OF THE REAL             LEVEL 2 BLAS', //' THE F',
-     $      'OLLOWING PARAMETER VALUES WILL BE USED:' )
+ 9994 FORMAT( ' ABSOLUTE VALUE OF INCX OR INCY IS 0 OR GREATER THAN ', I2 )
+ 9993 FORMAT( ' TESTS OF THE REAL             LEVEL 2 BLAS', //' THE F', 'OLLOWING PARAMETER VALUES WILL BE USED:' )
  9992 FORMAT( '   FOR N              ', 9I6 )
  9991 FORMAT( '   FOR K              ', 7I6 )
  9990 FORMAT( '   FOR INCX AND INCY  ', 7I6 )
  9989 FORMAT( '   FOR ALPHA          ', 7F6.1 )
  9988 FORMAT( '   FOR BETA           ', 7F6.1 )
- 9987 FORMAT( ' AMEND DATA FILE OR INCREASE ARRAY SIZES IN PROGRAM',
-     $      /' ******* TESTS ABANDONED *******' )
- 9986 FORMAT( ' SUBPROGRAM NAME ', A6, ' NOT RECOGNIZED', /' ******* T',
-     $      'ESTS ABANDONED *******' )
- 9985 FORMAT( ' ERROR IN SMVCH -  IN-LINE DOT PRODUCTS ARE BEING EVALU',
-     $      'ATED WRONGLY.', /' SMVCH WAS CALLED WITH TRANS = ', A1,
-     $      ' AND RETURNED SAME = ', L1, ' AND ERR = ', F12.3, '.', /
-     $   ' THIS MAY BE DUE TO FAULTS IN THE ARITHMETIC OR THE COMPILER.'
-     $      , /' ******* TESTS ABANDONED *******' )
+ 9987 FORMAT( ' AMEND DATA FILE OR INCREASE ARRAY SIZES IN PROGRAM', /' ******* TESTS ABANDONED *******' )
+ 9986 FORMAT( ' SUBPROGRAM NAME ', A6, ' NOT RECOGNIZED', /' ******* T', 'ESTS ABANDONED *******' )
+ 9985 FORMAT( ' ERROR IN SMVCH -  IN-LINE DOT PRODUCTS ARE BEING EVALU', 'ATED WRONGLY.', /' SMVCH WAS CALLED WITH TRANS = ', A1, ' AND RETURNED SAME = ', L1, ' AND ERR = ', F12.3, '.', / ' THIS MAY BE DUE TO FAULTS IN THE ARITHMETIC OR THE COMPILER.' , /' ******* TESTS ABANDONED *******' )
  9984 FORMAT( A6, L2 )
  9983 FORMAT( 1X, A6, ' WAS NOT TESTED' )
  9982 FORMAT( /' END OF TESTS' )
@@ -599,21 +571,13 @@
   140 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 4( I3, ',' ), F4.1,
-     $      ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ') .' )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), F4.1,
-     $      ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2,
-     $      ')         .' )
- 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 4( I3, ',' ), F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ') .' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')         .' )
+ 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of SCHK1
 
@@ -896,23 +860,14 @@
   130 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', AP',
-     $      ', X,', I2, ',', F4.1, ', Y,', I2, ')                .' )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), F4.1,
-     $      ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2,
-     $      ')         .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', A,',
-     $      I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')             .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', AP', ', X,', I2, ',', F4.1, ', Y,', I2, ')                .' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')         .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')             .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of SCHK2
 
@@ -1196,22 +1151,14 @@
   130 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
- 9995 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', AP, ',
-     $      'X,', I2, ')                        .' )
- 9994 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), 2( I3, ',' ),
-     $      ' A,', I3, ', X,', I2, ')                 .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', A,',
-     $      I3, ', X,', I2, ')                     .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9995 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', AP, ', 'X,', I2, ')                        .' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), 2( I3, ',' ), ' A,', I3, ', X,', I2, ')                 .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', A,', I3, ', X,', I2, ')                     .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of SCHK3
 
@@ -1432,19 +1379,13 @@
   150 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A6, '(', 2( I3, ',' ), F4.1, ', X,', I2,
-     $      ', Y,', I2, ', A,', I3, ')                  .' )
- 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(', 2( I3, ',' ), F4.1, ', X,', I2, ', Y,', I2, ', A,', I3, ')                  .' )
+ 9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of SCHK4
 
@@ -1683,21 +1624,14 @@
   130 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,',
-     $      I2, ', AP)                           .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,',
-     $      I2, ', A,', I3, ')                        .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', AP)                           .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', A,', I3, ')                        .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of SCHK5
 
@@ -1965,21 +1899,14 @@
   170 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL',
-     $      'S)' )
- 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH',
-     $      'ANGED INCORRECTLY *******' )
- 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C',
-     $      'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2,
-     $      ' - SUSPECT *******' )
+ 9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
+ 9998 FORMAT( ' ******* FATAL ERROR - PARAMETER NUMBER ', I2, ' WAS CH', 'ANGED INCORRECTLY *******' )
+ 9997 FORMAT( ' ', A6, ' COMPLETED THE COMPUTATIONAL TESTS (', I6, ' C', 'ALLS)', /' ******* BUT WITH MAXIMUM TEST RATIO', F8.2, ' - SUSPECT *******' )
  9996 FORMAT( ' ******* ', A6, ' FAILED ON CALL NUMBER:' )
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 )
- 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,',
-     $      I2, ', Y,', I2, ', AP)                     .' )
- 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,',
-     $      I2, ', Y,', I2, ', A,', I3, ')                  .' )
- 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *',
-     $      '******' )
+ 9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', Y,', I2, ', AP)                     .' )
+ 9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', Y,', I2, ', A,', I3, ')                  .' )
+ 9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' )
 
       // End of SCHK6
 
@@ -2300,8 +2227,7 @@
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' )
- 9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****',
-     $      '**' )
+ 9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****', '**' )
 
       // End of SCHKE
 
@@ -2577,9 +2503,7 @@
    70 CONTINUE
       RETURN
 
- 9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL',
-     $      'F ACCURATE *******', /'           EXPECTED RESULT   COMPU',
-     $      'TED RESULT' )
+ 9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'           EXPECTED RESULT   COMPU', 'TED RESULT' )
  9998 FORMAT( 1X, I7, 2G18.6 )
 
       // End of SMVCH
@@ -2754,8 +2678,7 @@
       LERR = .FALSE.
       RETURN
 
- 9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D',
-     $      'ETECTED BY ', A6, ' *****' )
+ 9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' )
 
       // End of CHKXER
 
@@ -2835,12 +2758,9 @@
       }
       RETURN
 
- 9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD',
-     $      ' OF ', I2, ' *******' )
- 9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE',
-     $      'AD OF ', A6, ' *******' )
- 9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6,
-     $      ' *******' )
+ 9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD', ' OF ', I2, ' *******' )
+ 9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE', 'AD OF ', A6, ' *******' )
+ 9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' *******' )
 
       // End of XERBLA
 

@@ -20,8 +20,7 @@
       LERR = .FALSE.
       RETURN
 
- 9999 FORMAT( ' *** Illegal value of parameter number ', I2,
-     $      ' not detected by ', A, ' ***' )
+ 9999 FORMAT( ' *** Illegal value of parameter number ', I2, ' not detected by ', A, ' ***' )
 
       // End of CHKXER
 
