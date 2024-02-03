@@ -36,7 +36,7 @@
          // code for increment not equal to 1
 
          NINCX = N*INCX;
-         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
+         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
             STEMP = STEMP + DCABS1(ZX(I));
          }
       }

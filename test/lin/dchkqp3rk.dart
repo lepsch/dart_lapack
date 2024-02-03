@@ -302,7 +302,7 @@
                      // (NB_ZERO+1:NB_ZERO+JB_ZERO)
                      // into columns (1:JB_ZERO-1).
 
-                     for (J = 1; J <= JB_ZERO-1; J++) { //
+                     for (J = 1; J <= JB_ZERO-1; J++) {
                         dswap(M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 );
                      }
 
@@ -318,7 +318,7 @@
                      // NB_GEN-size block into the odd zero colums in the
                      // left NB_ZERO-size block.
 
-                     for (J = 1; J <= NB_GEN; J += 1) { //
+                     for (J = 1; J <= NB_GEN; J += 1) {
                         IND_OUT = ( NB_ZERO+J-1 )*LDA + 1;
                         IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1;
                         dswap(M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 );
@@ -363,7 +363,7 @@
                   // when KMAX is larger than min(M,N), KMAX should be
                   // KMAX = min(M,N)
 
-                  for (KMAX = 0; KMAX <= min(M,N)+1; KMAX++) { //
+                  for (KMAX = 0; KMAX <= min(M,N)+1; KMAX++) {
 
                   // Get a working copy of COPYA into A( 1:M,1:N ).
                   // Get a working copy of COPYB into A( 1:M, (N+1):NRHS ).
@@ -467,7 +467,7 @@
 
                   if ( min(KFACT, MINMN) >= 2 ) {
 
-                     for (J = 1; J <= KFACT-1; J++) { //
+                     for (J = 1; J <= KFACT-1; J++) {
                          DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ( A(1) ) ).abs();
 
                         if ( DTEMP < ZERO ) {

@@ -425,7 +425,7 @@
                   for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO;
                   }
-                  for (J = K - 1; J >= 0; J--) { //
+                  for (J = K - 1; J >= 0; J--) {
                      S = ZERO;
                      for (I = 0; I <= J - 2; I++) {
                         AA = ( A( I+J*LDA ) ).abs();
@@ -502,7 +502,7 @@
                   for (I = K; I <= N - 1; I++) {
                      WORK( I ) = ZERO;
                   }
-                  for (J = K - 1; J >= 0; J--) { //
+                  for (J = K - 1; J >= 0; J--) {
                      S = ZERO;
                      for (I = 0; I <= J - 1; I++) {
                         AA = ( A( I+J*LDA ) ).abs();

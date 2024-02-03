@@ -90,12 +90,12 @@
       SCALE3 = ONE;
       LIWORK = MAXM + MAXN + 2;
       for (J = 1; J <= 2; J++) {
-         for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) { //
+         for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
             // Reset seed (overwritten by LATMR)
             for (I = 1; I <= 4; I++) {
                ISEED( I ) = 1;
             }
-            for (M = 32; M <= MAXM; M += 71) { //
+            for (M = 32; M <= MAXM; M += 71) {
                KLA = 0;
                KUA = M - 1;
                slatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
@@ -103,7 +103,7 @@
                   A( I, I ) = A( I, I ) * VM( J );
                }
                ANRM = SLANGE( 'M', M, M, A, MAXM, DUM );
-               for (N = 51; N <= MAXN; N += 47) { //
+               for (N = 51; N <= MAXN; N += 47) {
                   KLB = 0;
                   KUB = N - 1;
                   slatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );

@@ -70,15 +70,15 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
                if ( CMODE == 1 ) {
-                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                      TMP = TMP + ABS( AB( KD+I-J, J ) * C( J ) );
                   }
                } else if ( CMODE == 0 ) {
-                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                      TMP = TMP + ( AB( KD+I-J, J ) ).abs();
                   }
                } else {
-                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+                  for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                      TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) );
                   }
                }
@@ -88,15 +88,15 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             if ( CMODE == 1 ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + ABS( AB( KE-I+J, I ) * C( J ) );
                }
             } else if ( CMODE == 0 ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + ( AB( KE-I+J, I ) ).abs();
                }
             } else {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) );
                }
             }

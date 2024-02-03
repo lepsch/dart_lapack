@@ -74,11 +74,11 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             if ( CAPPLY ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + CABS1( AB( KD+I-J, J ) ) / C( J );
                }
             } else {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + CABS1( AB( KD+I-J, J ) );
                }
             }
@@ -89,11 +89,11 @@
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
             if ( CAPPLY ) {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + CABS1( AB( KE-I+J, I ) ) / C( J );
                }
             } else {
-               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) {
                   TMP = TMP + CABS1( AB( KE-I+J, I ) );
                }
             }

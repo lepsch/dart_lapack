@@ -87,7 +87,7 @@
             // Search for rows isolating an eigenvalue and push them down.
 
             NOCONV = false;
-            for (I = L; I >= 1; I--) { //
+            for (I = L; I >= 1; I--) {
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
                   if ( I != J && ( DBLE( A( I, J ) ) != ZERO || DIMAG( A( I, J ) ) != ZERO ) ) {

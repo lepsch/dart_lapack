@@ -37,7 +37,7 @@
          }
          if (N < 4) return;
          MP1 = M + 1;
-         for (I = MP1; I <= N; I += 4) { //
+         for (I = MP1; I <= N; I += 4) {
             SY(I) = SY(I) + SA*SX(I);
             SY(I+1) = SY(I+1) + SA*SX(I+1);
             SY(I+2) = SY(I+2) + SA*SX(I+2);

@@ -85,11 +85,11 @@
 
          // Apply hermitian pivots
 
-         for (J = N; J >= 1; J--) { //
+         for (J = N; J >= 1; J--) {
             I = IPIV( J );
             if (I != J) zswap( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
          }
-         for (J = N; J >= 1; J--) { //
+         for (J = N; J >= 1; J--) {
             I = IPIV( J );
             if (I != J) zswap( N, C( 1, J ), 1, C( 1, I ), 1 );
          }

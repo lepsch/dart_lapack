@@ -135,7 +135,7 @@
       if ( KWTOP != ILO && S != CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND ) );
-         for (K = KWBOT-1; K >= KWTOP; K--) { //
+         for (K = KWBOT-1; K >= KWTOP; K--) {
             zlartg(A( K, KWTOP-1 ), A( K+1, KWTOP-1 ), C1, S1, TEMP );
             A( K, KWTOP-1 ) = TEMP;
             A( K+1, KWTOP-1 ) = CZERO;

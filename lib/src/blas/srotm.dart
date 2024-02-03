@@ -31,7 +31,7 @@
             SH12 = SPARAM(4);
             SH21 = SPARAM(3);
             SH22 = SPARAM(5);
-            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) { //
+            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) {
                W = SX(I);
                Z = SY(I);
                SX(I) = W*SH11 + Z*SH12;
@@ -40,7 +40,7 @@
          } else if (SFLAG == ZERO) {
             SH12 = SPARAM(4);
             SH21 = SPARAM(3);
-            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) { //
+            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) {
                W = SX(I);
                Z = SY(I);
                SX(I) = W + Z*SH12;
@@ -49,7 +49,7 @@
          } else {
             SH11 = SPARAM(2);
             SH22 = SPARAM(5);
-            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) { //
+            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) {
                W = SX(I);
                Z = SY(I);
                SX(I) = W*SH11 + Z;

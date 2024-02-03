@@ -56,7 +56,7 @@
 
       slaset('Full', M, N, ZERO, ZERO, WORK, M );
       for (J = 1; J <= N; J++) {
-         for (I = 1; I <= min( J, M ); I++) { //
+         for (I = 1; I <= min( J, M ); I++) {
             WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }

@@ -170,7 +170,7 @@
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
-         for (K = NBA; K >= 1; K--) { //
+         for (K = NBA; K >= 1; K--) {
 
             // K1: row index of the first row in X( K, L )
             // K2: row index of the first row in X( K+1, L )
@@ -212,7 +212,7 @@
                SWORK( K, L ) = SCALOC * SWORK( K, L );
                XNRM = ZLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM );
 
-               for (I = K - 1; I >= 1; I--) { //
+               for (I = K - 1; I >= 1; I--) {
 
                   // C( I, L ) := C( I, L ) - A( I, K ) * C( K, L )
 
@@ -518,7 +518,7 @@
 
             K1 = (K - 1) * NB + 1;
             K2 = min( K * NB, M ) + 1;
-            for (L = NBB; L >= 1; L--) { //
+            for (L = NBB; L >= 1; L--) {
 
                // L1: column index of the first column in X( K, L )
                // L2: column index of the first column in X( K, L + 1)
@@ -680,7 +680,7 @@
 
          // Start loop over block rows (index = K) and block columns (index = L)
 
-         for (K = NBA; K >= 1; K--) { //
+         for (K = NBA; K >= 1; K--) {
 
             // K1: row index of the first row in X( K, L )
             // K2: row index of the first row in X( K+1, L )
@@ -688,7 +688,7 @@
 
             K1 = (K - 1) * NB + 1;
             K2 = min( K * NB, M ) + 1;
-            for (L = NBB; L >= 1; L--) { //
+            for (L = NBB; L >= 1; L--) {
 
                // L1: column index of the first column in X( K, L )
                // L2: column index of the first column in X( K, L + 1)

@@ -123,7 +123,7 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          if ( K < N ) {
-            for (I = K; I >= ( K - KB + 1 ); I--) { //
+            for (I = K; I >= ( K - KB + 1 ); I--) {
                IP = ( IPIV( I ) ).abs();
                if ( IP != I ) {
                   sswap(N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA );
@@ -197,7 +197,7 @@
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
          if ( K > 1 ) {
-            for (I = K; I <= ( K + KB - 1 ); I++) { //
+            for (I = K; I <= ( K + KB - 1 ); I++) {
                IP = ( IPIV( I ) ).abs();
                if ( IP != I ) {
                   sswap(K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA );

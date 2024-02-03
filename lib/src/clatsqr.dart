@@ -90,7 +90,7 @@
       cgeqrt(MB, N, NB, A(1,1), LDA, T, LDT, WORK, INFO );
       CTR = 1;
 
-      for (I = MB+1; (MB-N) < 0 ? I >= II-MB+N : I <= II-MB+N; I += (MB-N)) { //
+      for (I = MB+1; (MB-N) < 0 ? I >= II-MB+N : I <= II-MB+N; I += (MB-N)) {
 
         // Compute the QR factorization of the current block A(I:I+MB-N,1:N)
 

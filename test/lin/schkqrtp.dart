@@ -67,7 +67,7 @@
             // Do for each value of L
 
             MINMN = min( M, N );
-            for (L = 0; max( MINMN, 1 ) < 0 ? L >= MINMN : L <= MINMN; L += max( MINMN, 1 )) { //
+            for (L = 0; max( MINMN, 1 ) < 0 ? L >= MINMN : L <= MINMN; L += max( MINMN, 1 )) {
 
                // Do for each possible value of NB
 

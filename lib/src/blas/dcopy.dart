@@ -35,7 +35,7 @@
             if (N < 7) return;
          }
          MP1 = M + 1;
-         for (I = MP1; I <= N; I += 7) { //
+         for (I = MP1; I <= N; I += 7) {
             DY(I) = DX(I);
             DY(I+1) = DX(I+1);
             DY(I+2) = DX(I+2);

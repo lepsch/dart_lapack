@@ -28,10 +28,10 @@
       for (J = 1; J <= NCOLS; J++) {
          AMAX = 0.0;
          UMAX = 0.0;
-         for (I = max( J-KU, 1 ); I <= min( J+KL, N ); I++) { //
+         for (I = max( J-KU, 1 ); I <= min( J+KL, N ); I++) {
             AMAX = max( ( AB( KD+I-J, J)).abs(), AMAX );
          }
-         for (I = max( J-KU, 1 ); I <= J; I++) { //
+         for (I = max( J-KU, 1 ); I <= J; I++) {
             UMAX = max( ( AFB( KD+I-J, J ) ).abs(), UMAX );
          }
          if ( UMAX /= 0.0 ) {

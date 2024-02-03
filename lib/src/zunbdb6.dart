@@ -100,10 +100,10 @@
       }
 
       if ( NORM_NEW <= N * EPS * NORM ) {
-         for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) { //
+         for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) {
            X1( IX ) = ZERO;
          }
-         for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) { //
+         for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) {
            X2( IX ) = ZERO;
          }
          return;
@@ -138,10 +138,10 @@
       // truncate it to zero.
 
       if ( NORM_NEW < ALPHA * NORM ) {
-         for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) { //
+         for (IX = 1; INCX1 < 0 ? IX >= 1 + (M1-1)*INCX1 : IX <= 1 + (M1-1)*INCX1; IX += INCX1) {
             X1(IX) = ZERO;
          }
-         for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) { //
+         for (IX = 1; INCX2 < 0 ? IX >= 1 + (M2-1)*INCX2 : IX <= 1 + (M2-1)*INCX2; IX += INCX2) {
             X2(IX) = ZERO;
          }
       }

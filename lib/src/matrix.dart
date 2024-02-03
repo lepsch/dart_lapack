@@ -42,9 +42,9 @@ class Array<T> {
     } as List<T>);
   }
 
-  Array<T> call(int index) {
-    return slice(index);
-  }
+  // Array<T> call(int index) {
+  //   return slice(index);
+  // }
 
   Array<T> oneIndexed({int offset = 1}) {
     return Array.fromSlice(_array, offset: offset);

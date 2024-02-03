@@ -29,7 +29,7 @@
          ILAZLC = N;
       } else {
       // Now scan each column from the end, returning with the first non-zero.
-         for (ILAZLC = N; ILAZLC >= 1; ILAZLC--) { //
+         for (ILAZLC = N; ILAZLC >= 1; ILAZLC--) {
             for (I = 1; I <= M; I++) {
                if( A(I, ILAZLC) != ZERO ) return;
             }

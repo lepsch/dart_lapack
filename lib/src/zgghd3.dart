@@ -141,7 +141,7 @@
 
          KACC22 = ILAENV( 16, 'ZGGHD3', ' ', N, ILO, IHI, -1 );
          BLK22 = KACC22 == 2;
-         for (JCOL = ILO; NB < 0 ? JCOL >= IHI-2 : JCOL <= IHI-2; JCOL += NB) { //
+         for (JCOL = ILO; NB < 0 ? JCOL >= IHI-2 : JCOL <= IHI-2; JCOL += NB) {
             NNB = min( NB, IHI-JCOL-1 );
 
             // Initialize small unitary factors that will hold the
@@ -166,7 +166,7 @@
                // Reduce Jth column of A. Store cosines and sines in Jth
                // column of A and B, respectively.
 
-               for (I = IHI; I >= J+2; I--) { //
+               for (I = IHI; I >= J+2; I--) {
                   TEMP = A( I-1, J );
                   zlartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
                   A( I, J ) = DCMPLX( C );
@@ -178,7 +178,7 @@
                PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1;
                LEN  = 2 + J - JCOL;
                JROW = J + N2NB*NNB + 2;
-               for (I = IHI; I >= JROW; I--) { //
+               for (I = IHI; I >= JROW; I--) {
                   CTEMP = A( I, J );
                   S = B( I, J );
                   for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
@@ -192,10 +192,10 @@
 
                PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB;
                J0 = JROW - NNB;
-               for (JROW = J0; -NNB < 0 ? JROW >= J+2 : JROW <= J+2; JROW += -NNB) { //
+               for (JROW = J0; -NNB < 0 ? JROW >= J+2 : JROW <= J+2; JROW += -NNB) {
                   PPW = PPWO;
                   LEN  = 2 + J - JCOL;
-                  for (I = JROW+NNB-1; I >= JROW; I--) { //
+                  for (I = JROW+NNB-1; I >= JROW; I--) {
                      CTEMP = A( I, J );
                      S = B( I, J );
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
@@ -221,11 +221,11 @@
                // Propagate transformations through B and replace stored
                // left sines/cosines by right sines/cosines.
 
-               for (JJ = N; JJ >= J+1; JJ--) { //
+               for (JJ = N; JJ >= J+1; JJ--) {
 
                   // Update JJth column of B.
 
-                  for (I = min( JJ+1, IHI ); I >= J+2; I--) { //
+                  for (I = min( JJ+1, IHI ); I >= J+2; I--) {
                      CTEMP = A( I, J );
                      S = B( I, J );
                      TEMP = B( I, JJ );
@@ -248,7 +248,7 @@
                // Update A by transformations from right.
 
                JJ = (IHI-J-1 % 3);
-               for (I = IHI-J-3; I >= JJ+1; I -= 3) { //
+               for (I = IHI-J-3; I >= JJ+1; I -= 3) {
                   CTEMP = A( J+1+I, J );
                   S = -B( J+1+I, J );
                   C1 = A( J+2+I, J );
@@ -271,7 +271,7 @@
                }
 
                if ( JJ > 0 ) {
-                  for (I = JJ; I >= 1; I--) { //
+                  for (I = JJ; I >= 1; I--) {
                      C = DBLE( A( J+1+I, J ) );
                      zrot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -DCONJG( B( J+1+I, J ) ) );
                   }
@@ -322,7 +322,7 @@
 
                   PPWO = 1 + NBLST*NBLST;
                   J0 = JROW - NNB;
-                  for (JROW = J0; -NNB < 0 ? JROW >= JCOL+1 : JROW <= JCOL+1; JROW += -NNB) { //
+                  for (JROW = J0; -NNB < 0 ? JROW >= JCOL+1 : JROW <= JCOL+1; JROW += -NNB) {
                      PPW = PW + LEN;
                      for (I = JROW; I <= JROW+NNB-1; I++) {
                         WORK( PPW ) = A( I, J+1 );
@@ -355,7 +355,7 @@
             zlacpy('All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA );
             PPWO = NBLST*NBLST + 1;
             J0 = J - NNB;
-            for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
+            for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) {
                if ( BLK22 ) {
 
                   // Exploit the structure of
@@ -393,7 +393,7 @@
                zlacpy('All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) {
                   if ( INITQ ) {
                      TOPQ = max( 2, J - JCOL + 1 );
                      NH  = IHI - TOPQ + 1;
@@ -434,7 +434,7 @@
                   PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1;
                   LEN  = 2 + J - JCOL;
                   JROW = J + N2NB*NNB + 2;
-                  for (I = IHI; I >= JROW; I--) { //
+                  for (I = IHI; I >= JROW; I--) {
                      CTEMP = A( I, J );
                      A( I, J ) = CZERO;
                      S = B( I, J );
@@ -450,10 +450,10 @@
 
                   PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB;
                   J0 = JROW - NNB;
-                  for (JROW = J0; -NNB < 0 ? JROW >= J+2 : JROW <= J+2; JROW += -NNB) { //
+                  for (JROW = J0; -NNB < 0 ? JROW >= J+2 : JROW <= J+2; JROW += -NNB) {
                      PPW = PPWO;
                      LEN  = 2 + J - JCOL;
-                     for (I = JROW+NNB-1; I >= JROW; I--) { //
+                     for (I = JROW+NNB-1; I >= JROW; I--) {
                         CTEMP = A( I, J );
                         A( I, J ) = CZERO;
                         S = B( I, J );
@@ -483,7 +483,7 @@
                zlacpy('All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) {
                   if ( BLK22 ) {
 
                      // Exploit the structure of U.
@@ -504,7 +504,7 @@
                zlacpy('All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) {
                   if ( BLK22 ) {
 
                      // Exploit the structure of U.
@@ -536,7 +536,7 @@
                zlacpy('All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) {
                      if ( INITQ ) {
                      TOPQ = max( 2, J - JCOL + 1 );
                      NH  = IHI - TOPQ + 1;

@@ -39,7 +39,7 @@
             if (N < 5) return;
          }
          MP1 = M + 1;
-         for (I = MP1; I <= N; I += 5) { //
+         for (I = MP1; I <= N; I += 5) {
             DX(I) = DA*DX(I);
             DX(I+1) = DA*DX(I+1);
             DX(I+2) = DA*DX(I+2);
@@ -51,7 +51,7 @@
          // code for increment not equal to 1
 
          NINCX = N*INCX;
-         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
+         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
             DX(I) = DA*DX(I);
          }
       }

@@ -40,7 +40,7 @@
             }
          }
          MP1 = M + 1;
-         for (I = MP1; I <= N; I += 6) { //
+         for (I = MP1; I <= N; I += 6) {
             STEMP = STEMP + (SX(I)).abs() + (SX(I+1)).abs() + (SX(I+2)).abs() + (SX(I+3)).abs() + (SX(I+4)).abs() + (SX(I+5)).abs();
          }
       } else {
@@ -48,7 +48,7 @@
          // code for increment not equal to 1
 
          NINCX = N*INCX;
-         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
+         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) {
             STEMP = STEMP + (SX(I)).abs();
          }
       }

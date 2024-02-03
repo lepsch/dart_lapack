@@ -71,7 +71,7 @@
 
          // Upper triangular storage: examine D from bottom to top
 
-         for (INFO = N; INFO >= 1; INFO--) { //
+         for (INFO = N; INFO >= 1; INFO--) {
             if( IPIV( INFO ) > 0 && A( INFO, INFO ) == CZERO ) return;
          }
       } else {
@@ -444,7 +444,7 @@
          // and 2x2 pivot cases, i.e. we don't need separate code branches
          // for 1x1 and 2x2 pivot cases )
 
-         for (I = N; I >= 1; I--) { //
+         for (I = N; I >= 1; I--) {
              IP = ( IPIV( I ) ).abs();
              if ( IP != I ) {
                 if (I < IP) zheswapr( UPLO, N, A, LDA, I ,IP );

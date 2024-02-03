@@ -254,7 +254,7 @@
       // Check for splits in two levels, outer level
       // in E and inner level in D.
 
-      for (IEPTR = 2; 2 < 0 ? IEPTR >= N*2 : IEPTR <= N*2; IEPTR += 2) { //
+      for (IEPTR = 2; 2 < 0 ? IEPTR >= N*2 : IEPTR <= N*2; IEPTR += 2) {
          if ( WORK( IETGK+IEPTR-1 ) == ZERO ) {
 
             // Split in E (this piece of B is square) or bottom
@@ -262,7 +262,7 @@
 
             ISPLT = IDBEG;
             IDEND = IEPTR - 1;
-            for (IDPTR = IDBEG; IDPTR <= IDEND; IDPTR += 2) { //
+            for (IDPTR = IDBEG; IDPTR <= IDEND; IDPTR += 2) {
                if ( WORK( IETGK+IDPTR-1 ) == ZERO ) {
 
                   // Split in D (rectangular submatrix). Set the number
@@ -377,7 +377,7 @@
                         // END IF
                      }
 
-                     for (I = 0; I <= min( NSL-1, NRU-1 ); I++) { //
+                     for (I = 0; I <= min( NSL-1, NRU-1 ); I++) {
                         NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 );
                         if ( NRMU == ZERO ) {
                            INFO = N*2 + 1;
@@ -392,7 +392,7 @@
                            dscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
                         }
                      }
-                     for (I = 0; I <= min( NSL-1, NRV-1 ); I++) { //
+                     for (I = 0; I <= min( NSL-1, NRV-1 ); I++) {
                         NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 );
                         if ( NRMV == ZERO ) {
                            INFO = N*2 + 1;

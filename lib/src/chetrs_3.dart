@@ -74,7 +74,7 @@
          // since the ABS value of IPIV(I) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         for (K = N; K >= 1; K--) { //
+         for (K = N; K >= 1; K--) {
             KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
@@ -121,7 +121,7 @@
          // since the ABS value of IPIV(I) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         for (K = 1; K <= N; K += 1) { //
+         for (K = 1; K <= N; K += 1) {
             KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
@@ -142,7 +142,7 @@
          // since the ABS value of IPIV(I) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         for (K = 1; K <= N; K += 1) { //
+         for (K = 1; K <= N; K += 1) {
             KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
@@ -189,7 +189,7 @@
          // since the ABS value of IPIV(I) represents the row index
          // of the interchange with row i in both 1x1 and 2x2 pivot cases)
 
-         for (K = N; K >= 1; K--) { //
+         for (K = N; K >= 1; K--) {
             KP = ( IPIV( K ) ).abs();
             if ( KP != K ) {
                cswap(NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );

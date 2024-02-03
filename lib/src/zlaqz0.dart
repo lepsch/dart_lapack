@@ -206,7 +206,7 @@
 
          // Check interior deflations
          ISTART2 = ISTART;
-         for (K = ISTOP; K >= ISTART+1; K--) { //
+         for (K = ISTOP; K >= ISTART+1; K--) {
             if ( ( A( K, K-1 ) ).abs() <= max( SMLNUM, ULP*( ( A( K, K ) ).abs()+( A( K-1, K-1 ) ) ) ) ).abs() {
                A( K, K-1 ) = CZERO;
                ISTART2 = K;
@@ -232,7 +232,7 @@
                // A diagonal element of B is negligible, move it
                // to the top and deflate it
 
-               for (K2 = K; K2 >= ISTART2+1; K2--) { //
+               for (K2 = K; K2 >= ISTART2+1; K2--) {
                   zlartg(B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP );
                   B( K2-1, K2 ) = TEMP;
                   B( K2-1, K2-1 ) = CZERO;

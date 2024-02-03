@@ -76,7 +76,7 @@
 
          // Upper triangular storage: examine D from bottom to top
 
-         for (I = N; I >= 1; I--) { //
+         for (I = N; I >= 1; I--) {
             if( IPIV( I ) > 0 && A( I, I ) == CZERO ) return;
          }
       } else {

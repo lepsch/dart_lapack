@@ -97,13 +97,13 @@
       SCALE = ONE;
       SCALE3 = ONE;
       for (J = 1; J <= 2; J++) {
-         for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) { //
+         for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) {
             // Reset seed (overwritten by LATMR)
             ISEED( 1 ) = 1;
             ISEED( 2 ) = 1;
             ISEED( 3 ) = 1;
             ISEED( 4 ) = 1;
-            for (M = 32; M <= MAXM; M += 51) { //
+            for (M = 32; M <= MAXM; M += 51) {
                KLA = 0;
                KUA = M - 1;
                zlatmr(M, M, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO );
@@ -111,7 +111,7 @@
                   A( I, I ) = A( I, I ) * VM( J );
                }
                ANRM = ZLANGE( 'M', M, M, A, MAXM, DUM );
-               for (N = 51; N <= MAXN; N += 47) { //
+               for (N = 51; N <= MAXN; N += 47) {
                   KLB = 0;
                   KUB = N - 1;
                   zlatmr(N, N, 'S', ISEED, 'N', D, 6, ONE, CONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO );

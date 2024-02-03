@@ -115,7 +115,7 @@
                // N is odd, TRANSR = 'N', and UPLO = 'U'
 
                IJ = NT - N;
-               for (J = N - 1; J >= N1; J--) { //
+               for (J = N - 1; J >= N1; J--) {
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J );
                      IJ = IJ + 1;
@@ -210,7 +210,7 @@
                // N is even, TRANSR = 'N', and UPLO = 'U'
 
                IJ = NT - N - 1;
-               for (J = N - 1; J >= K; J--) { //
+               for (J = N - 1; J >= K; J--) {
                   for (I = 0; I <= J; I++) {
                      ARF( IJ ) = A( I, J );
                      IJ = IJ + 1;
