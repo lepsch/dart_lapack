@@ -1,5 +1,4 @@
-      PROGRAM DCHKEE
-
+void main() {
 #if defined(_OPENMP)
       use omp_lib
 #endif

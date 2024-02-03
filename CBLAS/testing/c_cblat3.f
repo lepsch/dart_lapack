@@ -1,5 +1,4 @@
-      PROGRAM CBLAT3
-
+void main() {
 *  Test program for the COMPLEX          Level 3 Blas.
 
 *  The program must be driven by a short data file. The first 13 records

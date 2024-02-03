@@ -1,5 +1,4 @@
-      PROGRAM ZBLAT3
-
+void main() {
 *  -- Reference BLAS test routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
