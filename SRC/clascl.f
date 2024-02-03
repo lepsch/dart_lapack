@@ -202,7 +202,7 @@
          K3 = 2*KL + KU + 1;
          K4 = KL + KU + 1 + M;
          for (J = 1; J <= N; J++) { // 150
-            DO 140 I = max( K1-J, K2 ), min( K3, K4-J );
+            for (I = max( K1-J, K2 ); I <= min( K3, K4-J ); I++) { // 140
                A( I, J ) = A( I, J )*MUL;
             } // 140
          } // 150

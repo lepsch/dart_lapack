@@ -136,7 +136,7 @@
             for (K = 1; K <= N; K++) { // 50
                KK = KU + 1 - K;
                XK = ( X( K, J ) ).abs();
-               DO 40 I = max( 1, K-KU ), min( N, K+KL );
+               for (I = max( 1, K-KU ); I <= min( N, K+KL ); I++) { // 40
                   WORK( I ) = WORK( I ) + ( AB( KK+I, K ) ).abs()*XK;
                } // 40
             } // 50
@@ -144,7 +144,7 @@
             for (K = 1; K <= N; K++) { // 70
                S = ZERO;
                KK = KU + 1 - K;
-               DO 60 I = max( 1, K-KU ), min( N, K+KL );
+               for (I = max( 1, K-KU ); I <= min( N, K+KL ); I++) { // 60
                   S = S + ( AB( KK+I, K ) ).abs()*( X( I, J ) ).abs();
                } // 60
                WORK( K ) = WORK( K ) + S;

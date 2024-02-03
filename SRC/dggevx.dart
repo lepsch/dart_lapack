@@ -415,7 +415,7 @@ void dggevx(String BALANC, String JOBVL, JOBVR, String SENSE, int N, A, int LDA,
 
       // Undo scaling if necessary
 
-      } // 130
+      //} // 130
 
       if ( ILASCL ) {
          dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );

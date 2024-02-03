@@ -28,7 +28,7 @@
       for (J = 1; J <= NCOLS; J++) {
          AMAX = 0.0;
          UMAX = 0.0;
-         DO I = max( J-KU, 1 ), min( J+KL, N );
+         for (I = max( J-KU, 1 ); I <= min( J+KL, N ); I++) { //
             AMAX = max( ( AB( KD+I-J, J)).abs(), AMAX );
          }
          DO I = max( J-KU, 1 ), J;

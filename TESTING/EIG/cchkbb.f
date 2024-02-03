@@ -253,7 +253,7 @@
                // Copy A to band storage.
 
                for (J = 1; J <= N; J++) { // 110
-                  DO 100 I = max( 1, J-KU ), min( M, J+KL );
+                  for (I = max( 1, J-KU ); I <= min( M, J+KL ); I++) { // 100
                      AB( KU+1+I-J, J ) = A( I, J );
                   } // 100
                } // 110

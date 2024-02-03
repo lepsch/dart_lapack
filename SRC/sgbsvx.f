@@ -176,7 +176,7 @@
 
             ANORM = ZERO;
             for (J = 1; J <= INFO; J++) { // 90
-               DO 80 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 );
+               for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 80
                   ANORM = max( ANORM, ( AB( I, J ) ) ).abs();
                } // 80
             } // 90

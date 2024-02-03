@@ -73,7 +73,7 @@
       if ( NOTRANS ) {
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
-            DO J = max( I-KL, 1 ), min( I+KU, N );
+            for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
                TMP = TMP + CABS1( AB( KD+I-J, J) * X( J ) );
             }
             RWORK( I ) = TMP;
@@ -82,7 +82,7 @@
       } else {
          for (I = 1; I <= N; I++) {
             TMP = 0.0;
-            DO J = max( I-KL, 1 ), min( I+KU, N );
+            for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { //
                TMP = TMP + CABS1( AB( KE-I+J, I ) * X( J ) );
             }
             RWORK( I ) = TMP;

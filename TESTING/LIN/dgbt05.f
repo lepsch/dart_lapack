@@ -86,11 +86,11 @@
          for (I = 1; I <= N; I++) { // 60
             TMP = ( B( I, K ) ).abs();
             if ( NOTRAN ) {
-               DO 40 J = max( I-KL, 1 ), min( I+KU, N );
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { // 40
                   TMP = TMP + ( AB( KU+1+I-J, J ) ).abs()*( X( J, K ) ).abs();
                } // 40
             } else {
-               DO 50 J = max( I-KU, 1 ), min( I+KL, N );
+               for (J = max( I-KU, 1 ); J <= min( I+KL, N ); J++) { // 50
                   TMP = TMP + ( AB( KU+1+J-I, I ) ).abs()*( X( J, K ) ).abs();
                } // 50
             }

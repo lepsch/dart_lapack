@@ -79,7 +79,7 @@
          } // 12
          for (J = 1; J <= N; J++) { // 16
             KD = KU + 1 - J;
-            DO 14 I1 = max( 1, J-KU ), min( M, J+KL );
+            for (I1 = max( 1, J-KU ); I1 <= min( M, J+KL ); I1++) { // 14
                RWORK( I1 ) = RWORK( I1 ) + CABS1( A( KD+I1, J ) );
             } // 14
          } // 16

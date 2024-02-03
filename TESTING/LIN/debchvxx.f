@@ -76,7 +76,7 @@
             }
          }
          for (J = 1; J <= N; J++) {
-            DO I = max( 1, J-KU ), min( N, J+KL );
+            for (I = max( 1, J-KU ); I <= min( N, J+KL ); I++) { //
                AB( KU+1+I-J, J ) = A( I, J );
             }
          }

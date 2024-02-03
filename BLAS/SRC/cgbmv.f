@@ -131,7 +131,7 @@
               for (J = 1; J <= N; J++) { // 60
                   TEMP = ALPHA*X(JX);
                   K = KUP1 - J;
-                  DO 50 I = max(1,J-KU),min(M,J+KL);
+                  for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 50
                       Y(I) = Y(I) + TEMP*A(K+I,J);
                   } // 50
                   JX = JX + INCX;
@@ -141,7 +141,7 @@
                   TEMP = ALPHA*X(JX);
                   IY = KY;
                   K = KUP1 - J;
-                  DO 70 I = max(1,J-KU),min(M,J+KL);
+                  for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 70
                       Y(IY) = Y(IY) + TEMP*A(K+I,J);
                       IY = IY + INCY;
                   } // 70
@@ -159,11 +159,11 @@
                   TEMP = ZERO;
                   K = KUP1 - J;
                   if (NOCONJ) {
-                      DO 90 I = max(1,J-KU),min(M,J+KL);
+                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 90
                           TEMP = TEMP + A(K+I,J)*X(I);
                       } // 90
                   } else {
-                      DO 100 I = max(1,J-KU),min(M,J+KL);
+                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 100
                           TEMP = TEMP + CONJG(A(K+I,J))*X(I);
                       } // 100
                   }
@@ -176,12 +176,12 @@
                   IX = KX;
                   K = KUP1 - J;
                   if (NOCONJ) {
-                      DO 120 I = max(1,J-KU),min(M,J+KL);
+                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 120
                           TEMP = TEMP + A(K+I,J)*X(IX);
                           IX = IX + INCX;
                       } // 120
                   } else {
-                      DO 130 I = max(1,J-KU),min(M,J+KL);
+                      for (I = max(1,J-KU); I <= min(M,J+KL); I++) { // 130
                           TEMP = TEMP + CONJG(A(K+I,J))*X(IX);
                           IX = IX + INCX;
                       } // 130

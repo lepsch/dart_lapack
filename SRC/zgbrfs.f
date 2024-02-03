@@ -146,7 +146,7 @@
             for (K = 1; K <= N; K++) { // 50
                KK = KU + 1 - K;
                XK = CABS1( X( K, J ) );
-               DO 40 I = max( 1, K-KU ), min( N, K+KL );
+               for (I = max( 1, K-KU ); I <= min( N, K+KL ); I++) { // 40
                   RWORK( I ) = RWORK( I ) + CABS1( AB( KK+I, K ) )*XK;
                } // 40
             } // 50
@@ -154,7 +154,7 @@
             for (K = 1; K <= N; K++) { // 70
                S = ZERO;
                KK = KU + 1 - K;
-               DO 60 I = max( 1, K-KU ), min( N, K+KL );
+               for (I = max( 1, K-KU ); I <= min( N, K+KL ); I++) { // 60
                   S = S + CABS1( AB( KK+I, K ) )*CABS1( X( I, J ) );
                } // 60
                RWORK( K ) = RWORK( K ) + S;

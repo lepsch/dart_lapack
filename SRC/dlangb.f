@@ -43,7 +43,7 @@
 
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 );
+            for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 10
                TEMP = ( AB( I, J ) ).abs();
                if( VALUE < TEMP || DISNAN( TEMP ) ) VALUE = TEMP;
             } // 10
@@ -55,7 +55,7 @@
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 40
             SUM = ZERO;
-            DO 30 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 );
+            for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 30
                SUM = SUM + ( AB( I, J ) ).abs();
             } // 30
             if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
@@ -69,7 +69,7 @@
          } // 50
          for (J = 1; J <= N; J++) { // 70
             K = KU + 1 - J;
-            DO 60 I = max( 1, J-KU ), min( N, J+KL );
+            for (I = max( 1, J-KU ); I <= min( N, J+KL ); I++) { // 60
                WORK( I ) = WORK( I ) + ( AB( K+I, J ) ).abs();
             } // 60
          } // 70

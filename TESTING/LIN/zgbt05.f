@@ -94,11 +94,11 @@
          for (I = 1; I <= N; I++) { // 60
             TMP = CABS1( B( I, K ) );
             if ( NOTRAN ) {
-               DO 40 J = max( I-KL, 1 ), min( I+KU, N );
+               for (J = max( I-KL, 1 ); J <= min( I+KU, N ); J++) { // 40
                   TMP = TMP + CABS1( AB( KU+1+I-J, J ) )* CABS1( X( J, K ) );
                } // 40
             } else {
-               DO 50 J = max( I-KU, 1 ), min( I+KL, N );
+               for (J = max( I-KU, 1 ); J <= min( I+KL, N ); J++) { // 50
                   TMP = TMP + CABS1( AB( KU+1+J-I, I ) )* CABS1( X( J, K ) );
                } // 50
             }
