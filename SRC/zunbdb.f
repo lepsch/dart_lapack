@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             PHI( * ), THETA( * );
-      COMPLEX*16         TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
+      Complex         TAUP1( * ), TAUP2( * ), TAUQ1( * ), TAUQ2( * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 
 // ====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             REALONE;
       const              REALONE = 1.0 ;
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..

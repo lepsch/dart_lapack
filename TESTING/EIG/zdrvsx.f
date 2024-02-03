@@ -12,15 +12,15 @@
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * );
       double             RESULT( 17 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
+      Complex         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;

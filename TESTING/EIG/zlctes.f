@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         D, Z;
+      Complex         D, Z;
       // ..
 
 // =====================================================================
@@ -14,7 +14,7 @@
 
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

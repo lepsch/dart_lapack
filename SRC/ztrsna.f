@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       double             RWORK( * ), S( * ), SEP( * );
-      COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * );
+      Complex         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
@@ -25,17 +25,17 @@
       String             NORMIN;
       int                I, IERR, IX, J, K, KASE, KS;
       double             BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM;
-      COMPLEX*16         CDUM, PROD;
+      Complex         CDUM, PROD;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
-      COMPLEX*16         DUMMY( 1 );
+      Complex         DUMMY( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH, DZNRM2;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, DZNRM2, ZDOTC
       // ..
       // .. External Subroutines ..

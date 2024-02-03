@@ -26,7 +26,7 @@
       bool               BW( NMAX ), SEL( NMAX );
       int                IW( LW ), IDUM(NMAX);
       double             LS( NMAX ), R1( NMAX ), R2( NMAX ), RCE( NMAX ), RCV( NMAX ), RS( NMAX ), RW( LW );
-      COMPLEX*16         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
+      Complex         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN, ZLCTES, ZLCTSX;

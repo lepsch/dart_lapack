@@ -10,18 +10,18 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), S( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * );
+      Complex         H( LDH, * ), S( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * );
       // ..
 
 // ================================================================
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, BETA, CDUM, REFSUM, T1, T2, T3;
+      Complex         ALPHA, BETA, CDUM, REFSUM, T1, T2, T3;
       double             H11, H12, H21, H22, SAFMAX, SAFMIN, SCL, SMLNUM, TST1, TST2, ULP;
       int                I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU;
       bool               ACCUM, BMP22;
@@ -35,7 +35,7 @@
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, MOD
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         VT( 3 );
+      Complex         VT( 3 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZLACPY, ZLAQR1, ZLARFG, ZLASET, ZTRMM

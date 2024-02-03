@@ -7,20 +7,20 @@
       double             SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * );
+      Complex         A( LDA, * ), B( LDB, * ), C( LDC, * );
       double             SWORK( LDSWORK, * );
       // ..
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY;
       int                AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB;
       double             ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM;
-      COMPLEX*16         CSGN;
+      Complex         CSGN;
       // ..
       // .. Local Arrays ..
       double             WNRM( max( M, N ) );

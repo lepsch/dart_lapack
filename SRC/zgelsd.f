@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

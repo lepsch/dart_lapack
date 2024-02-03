@@ -13,7 +13,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * );
-      COMPLEX*16         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
+      Complex         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -29,12 +29,12 @@
       String             SENSE;
       int                I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN;
       double             ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST;
-      COMPLEX*16         CTMP;
+      Complex         CTMP;
       // ..
       // .. Local Arrays ..
       String             SENS( 2 );
       double             RES( 2 );
-      COMPLEX*16         CDUM( 1 );
+      Complex         CDUM( 1 );
       // ..
       // .. External Functions ..
       bool               LSAME;

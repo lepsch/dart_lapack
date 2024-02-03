@@ -6,7 +6,7 @@
 
       // .. Scalar Arguments ..
       double             CS1, RT1, RT2;
-      COMPLEX*16         A, B, C, SN1;
+      Complex         A, B, C, SN1;
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // ..
       // .. Local Scalars ..
       double             T;
-      COMPLEX*16         W;
+      Complex         W;
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLAEV2

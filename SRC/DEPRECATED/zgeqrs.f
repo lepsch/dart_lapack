@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK );
+      Complex         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. External Subroutines ..

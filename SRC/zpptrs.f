@@ -9,7 +9,7 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AP( * ), B( LDB, * );
+      Complex         AP( * ), B( LDB, * );
       // ..
 
 // =====================================================================

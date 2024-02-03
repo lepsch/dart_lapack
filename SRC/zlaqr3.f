@@ -9,19 +9,19 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
+      Complex         H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * );
       // ..
 
 // ================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         BETA, CDUM, S, TAU;
+      Complex         BETA, CDUM, S, TAU;
       double             FOO, SAFMAX, SAFMIN, SMLNUM, ULP;
       int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN;
       // ..

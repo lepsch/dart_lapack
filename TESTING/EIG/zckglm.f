@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AF( * ), B( * ), BF( * ), WORK( * ), X( * );
+      Complex         A( * ), AF( * ), B( * ), BF( * ), WORK( * ), X( * );
       // ..
 
 // =====================================================================
@@ -31,7 +31,7 @@
       bool               DOTYPE( NTYPES );
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL ZLARND
       // ..
       // .. External Subroutines ..

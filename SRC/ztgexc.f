@@ -9,7 +9,7 @@
       int                IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      Complex         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
 // =====================================================================

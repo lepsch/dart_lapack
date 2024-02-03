@@ -9,7 +9,7 @@
       int                INFO, K, L, LDA, LDC, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ;
-      COMPLEX*16         TAUI;
+      Complex         TAUI;
       // ..
       // .. External Functions ..
       bool               LSAME;

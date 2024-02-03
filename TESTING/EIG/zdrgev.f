@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), NN( * );
       double             RESULT( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
+      Complex         A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 26 ;
@@ -29,7 +29,7 @@
       bool               BADNN;
       int                I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT;
       double             SAFMAX, SAFMIN, ULP, ULPINV;
-      COMPLEX*16         CTEMP;
+      Complex         CTEMP;
       // ..
       // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
@@ -39,7 +39,7 @@
       // .. External Functions ..
       int                ILAENV;
       double             DLAMCH;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL ILAENV, DLAMCH, ZLARND
       // ..
       // .. External Subroutines ..

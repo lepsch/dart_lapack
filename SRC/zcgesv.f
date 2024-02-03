@@ -11,7 +11,7 @@
       int                IPIV( * );
       double             RWORK( * );
       COMPLEX            SWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -26,13 +26,13 @@
       double             BWDMAX;
       const              BWDMAX = 1.0e+00 ;
 
-      COMPLEX*16         NEGONE, ONE;
+      Complex         NEGONE, ONE;
       const              NEGONE = ( -1.0e+00, 0.0e+00 ), ONE = ( 1.0e+00, 0.0e+00 ) ;
 
       // .. Local Scalars ..
       int                I, IITER, PTSA, PTSX;
       double             ANRM, CTE, EPS, RNRM, XNRM;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
 
       // .. External Subroutines ..
       // EXTERNAL CGETRS, CGETRF, CLAG2Z, XERBLA, ZAXPY, ZGEMM, ZLACPY, ZLAG2C, ZGETRF, ZGETRS

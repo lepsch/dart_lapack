@@ -9,7 +9,7 @@
       double             AMAX, SCOND;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       double             S( * );
       // ..
 

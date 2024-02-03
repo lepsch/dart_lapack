@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX*16         D( * );
+      Complex         D( * );
       // ..
 
 // =====================================================================
@@ -22,11 +22,11 @@
       // .. Local Scalars ..
       int                I;
       double             ALPHA, TEMP;
-      COMPLEX*16         CTEMP;
+      Complex         CTEMP;
       // ..
       // .. External Functions ..
       double             DLARAN;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL DLARAN, ZLARND
       // ..
       // .. External Subroutines ..

@@ -10,26 +10,26 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         AP( * ), TAU( * );
+      Complex         AP( * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO, HALF;
+      Complex         ONE, ZERO, HALF;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, I1, I1I1, II;
-      COMPLEX*16         ALPHA, TAUI;
+      Complex         ALPHA, TAUI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZAXPY, ZHPMV, ZHPR2, ZLARFG
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. Intrinsic Functions ..

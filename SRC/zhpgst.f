@@ -9,7 +9,7 @@
       int                INFO, ITYPE, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AP( * ), BP( * );
+      Complex         AP( * ), BP( * );
       // ..
 
 // =====================================================================
@@ -17,14 +17,14 @@
       // .. Parameters ..
       double             ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, J1, J1J1, JJ, K, K1, K1K1, KK;
       double             AJJ, AKK, BJJ, BKK;
-      COMPLEX*16         CT;
+      Complex         CT;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZAXPY, ZDSCAL, ZHPMV, ZHPR2, ZTPMV, ZTPSV
@@ -34,7 +34,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. Executable Statements ..

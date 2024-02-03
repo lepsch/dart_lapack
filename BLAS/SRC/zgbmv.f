@@ -5,24 +5,24 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16 ALPHA,BETA;
+      Complex ALPHA,BETA;
       int     INCX,INCY,KL,KU,LDA,M,N;
       String    TRANS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A(LDA,*),X(*),Y(*);
+      Complex A(LDA,*),X(*),Y(*);
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16 ONE;
+      Complex ONE;
       const     ONE= (1.0,0.0);
-      COMPLEX*16 ZERO;
+      Complex ZERO;
       const     ZERO= (0.0,0.0);
       // ..
       // .. Local Scalars ..
-      COMPLEX*16 TEMP;
+      Complex TEMP;
       int     I,INFO,IX,IY,J,JX,JY,K,KUP1,KX,KY,LENX,LENY;
       bool    NOCONJ;
       // ..

@@ -10,7 +10,7 @@
       double             RDSCAL, RDSUM, SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
+      Complex         A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * );
       // ..
 
 // =====================================================================
@@ -24,11 +24,11 @@
       bool               NOTRAN;
       int                I, IERR, J, K;
       double             SCALOC;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. Local Arrays ..
       int                IPIV( LDZ ), JPIV( LDZ );
-      COMPLEX*16         RHS( LDZ ), Z( LDZ, LDZ );
+      Complex         RHS( LDZ ), Z( LDZ, LDZ );
       // ..
       // .. External Functions ..
       bool               LSAME;

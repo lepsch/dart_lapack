@@ -12,7 +12,7 @@
       bool               DOTYPE( * ), SELECT( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             RESULT( 16 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), EVECTL( LDU, * ), EVECTR( LDU, * ), EVECTX( LDU, * ), EVECTY( LDU, * ), H( LDA, * ), T1( LDA, * ), T2( LDA, * ), TAU( * ), U( LDU, * ), UU( LDU, * ), UZ( LDU, * ), W1( * ), W3( * ), WORK( * ), Z( LDU, * );
+      Complex         A( LDA, * ), EVECTL( LDU, * ), EVECTR( LDU, * ), EVECTX( LDU, * ), EVECTY( LDU, * ), H( LDA, * ), T1( LDA, * ), T2( LDA, * ), TAU( * ), U( LDU, * ), UU( LDU, * ), UZ( LDU, * ), W1( * ), W3( * ), WORK( * ), Z( LDU, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 21 ;
@@ -33,7 +33,7 @@
       // .. Local Arrays ..
       int                IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       double             DUMMA( 4 );
-      COMPLEX*16         CDUMMA( 4 );
+      Complex         CDUMMA( 4 );
       // ..
       // .. External Functions ..
       double             DLAMCH;

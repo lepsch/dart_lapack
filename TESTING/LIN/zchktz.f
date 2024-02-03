@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                MVAL( * ), NVAL( * );
       double             S( * ), RWORK( * );
-      COMPLEX*16         A( * ), COPYA( * ), TAU( * ), WORK( * );
+      Complex         A( * ), COPYA( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================

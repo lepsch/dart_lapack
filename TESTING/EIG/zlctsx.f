@@ -5,7 +5,7 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         ALPHA, BETA;
+      Complex         ALPHA, BETA;
       // ..
 
 // =====================================================================
@@ -13,7 +13,7 @@
       // .. Parameters ..
       // double                         ZERO;
       // PARAMETER          ( ZERO = 0.0 )
-      // COMPLEX*16            CZERO
+      // Complex            CZERO
       // PARAMETER          ( CZERO = ( 0.0, 0.0 ) )
       // ..
       // .. Scalars in Common ..

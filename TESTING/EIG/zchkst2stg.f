@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), IWORK( * ), NN( * );
       double             D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), RWORK( * ), SD( * ), SE( * ), WA1( * ), WA2( * ), WA3( * ), WR( * );
-      COMPLEX*16         A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * );
+      Complex         A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO, EIGHT, TEN, HUN;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0, TEN = 10.0, HUN = 100.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             HALF;
       const              HALF = ONE / TWO ;

@@ -5,11 +5,11 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16 ZA;
+      Complex ZA;
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*),ZY(*);
+      Complex ZX(*),ZY(*);
       // ..
 
 // =====================================================================

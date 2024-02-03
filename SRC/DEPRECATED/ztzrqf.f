@@ -8,18 +8,18 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * );
+      Complex         A( LDA, * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE, CZERO;
+      Complex         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, K, M1;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MAX, MIN

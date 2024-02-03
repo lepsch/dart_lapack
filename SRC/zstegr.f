@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                ISUPPZ( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
-      COMPLEX*16         Z( LDZ, * );
+      Complex         Z( LDZ, * );
       // ..
 
 // =====================================================================

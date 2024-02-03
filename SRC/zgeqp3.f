@@ -10,7 +10,7 @@
       // .. Array Arguments ..
       int                JPVT( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================

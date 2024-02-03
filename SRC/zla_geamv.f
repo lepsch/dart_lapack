@@ -10,21 +10,21 @@
       int                TRANS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), X( * );
+      Complex         A( LDA, * ), X( * );
       double             Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               SYMB_ZERO;
       double             TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY, LENX, LENY;
-      COMPLEX*16         CDUM;
+      Complex         CDUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, DLAMCH

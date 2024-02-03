@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX*16         D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( LDWORK, * );
+      Complex         D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       // .. Local Scalars ..
       int                I, IP, J, LASTJ;
       double             ANORM, EPS;
-      COMPLEX*16         LI;
+      Complex         LI;
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGT, ZLANHS;

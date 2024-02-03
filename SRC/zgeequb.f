@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             C( * ), R( * );
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, J;
       double             BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. External Functions ..
       double             DLAMCH;

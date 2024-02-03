@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex         U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       // .. Local Scalars ..
       int                I, IRC, J, LMX;
       double             RES1, RES2, ULP;
-      COMPLEX*16         S, SU, SV;
+      Complex         S, SU, SV;
       // ..
       // .. External Functions ..
       bool               LSAME;

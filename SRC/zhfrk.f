@@ -10,21 +10,21 @@
       String             TRANS, TRANSR, UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), C( * );
+      Complex         A( LDA, * ), C( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       double             ONE, ZERO;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LOWER, NORMALTRANSR, NISODD, NOTRANS;
       int                INFO, NROWA, J, NK, N1, N2;
-      COMPLEX*16         CALPHA, CBETA;
+      Complex         CALPHA, CBETA;
       // ..
       // .. External Functions ..
       bool               LSAME;

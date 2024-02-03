@@ -8,7 +8,7 @@
       int                N, KL, KU, NCOLS, LDAB, LDAFB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * );
+      Complex         AB( LDAB, * ), AFB( LDAFB, * );
       // ..
 
 // =====================================================================
@@ -16,7 +16,7 @@
       // .. Local Scalars ..
       int                I, J, KD;
       double             AMAX, UMAX, RPVGRW;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, DIMAG

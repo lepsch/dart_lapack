@@ -8,12 +8,12 @@
       String             DIST, RSIGN, SIM, UPPER;
       int                INFO, KL, KU, LDA, MODE, MODES, N;
       double             ANORM, COND, CONDS;
-      COMPLEX*16         DMAX;
+      Complex         DMAX;
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             DS( * );
-      COMPLEX*16         A( LDA, * ), D( * ), WORK( * );
+      Complex         A( LDA, * ), D( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -23,16 +23,16 @@
       const              ZERO = 0.0 ;
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               BADS;
       int                I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR;
       double             RALPHA, TEMP;
-      COMPLEX*16         ALPHA, TAU, XNORMS;
+      Complex         ALPHA, TAU, XNORMS;
       // ..
       // .. Local Arrays ..
       double             TEMPA( 1 );
@@ -40,7 +40,7 @@
       // .. External Functions ..
       bool               LSAME;
       double             ZLANGE;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL LSAME, ZLANGE, ZLARND
       // ..
       // .. External Subroutines ..

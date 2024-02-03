@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             C( * );
-      COMPLEX*16         S( * ), X( * ), Y( * ), Z( * );
+      Complex         S( * ), X( * ), Y( * ), Z( * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       int                I, IC, IX;
       double             CI, SII, SIR, T1I, T1R, T5, T6, XI, YI, ZII, ZIR;
-      COMPLEX*16         SI, T2, T3, T4, ZI;
+      Complex         SI, T2, T3, T4, ZI;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DCONJG, DIMAG

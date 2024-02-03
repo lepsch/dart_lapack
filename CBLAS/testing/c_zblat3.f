@@ -1,5 +1,5 @@
       void main() {
-// Test program for the COMPLEX*16          Level 3 Blas.
+// Test program for the Complex          Level 3 Blas.
 
 // The program must be driven by a short data file. The first 13 records
 // of the file are read using list-directed input, the last 9 records
@@ -49,7 +49,7 @@
       const              NIN = 5, NOUT = 6 ;
       int                NSUBS;
       const              NSUBS = 9 ;
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO, RHALF, RONE;
       const              RZERO = 0.0, RHALF = 0.5, RONE = 1.0 ;
@@ -65,7 +65,7 @@
       String             SNAMET;
       String             SNAPS;
       // .. Local Arrays ..
-      COMPLEX*16         AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
+      Complex         AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
       double             G( NMAX );
       int                IDIM( NIDMAX );
       bool               LTEST( NSUBS );
@@ -339,7 +339,7 @@
  9998 FORMAT(' RELATIVE MACHINE PRECISION IS TAKEN TO BE', 1P, E9.1 );
  9997 FORMAT(' NUMBER OF VALUES OF ', A, ' IS LESS THAN 1 OR GREATER ', 'THAN ', I2 );
  9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 );
- 9995 FORMAT('TESTS OF THE COMPLEX*16        LEVEL 3 BLAS', //' THE F', 'OLLOWING PARAMETER VALUES WILL BE USED:' );
+ 9995 FORMAT('TESTS OF THE Complex        LEVEL 3 BLAS', //' THE F', 'OLLOWING PARAMETER VALUES WILL BE USED:' );
  9994 FORMAT( '   FOR N              ', 9I6 );
  9993 FORMAT( '   FOR ALPHA          ', 7( '(', F4.1, ',', F4.1, ')  ', : ) );
  9992 FORMAT( '   FOR BETA           ', 7( '(', F4.1, ',', F4.1, ')  ', : ) );
@@ -368,7 +368,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -378,11 +378,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, BETA, BLS;
+      Complex         ALPHA, ALS, BETA, BLS;
       double             ERR, ERRMAX;
       int                I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS;
       bool               NULL, RESET, SAME, TRANA, TRANB;
@@ -655,7 +655,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -665,11 +665,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, BETA, BLS;
+      Complex         ALPHA, ALS, BETA, BLS;
       double             ERR, ERRMAX;
       int                I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS;
       bool               CONJ, LEFT, NULL, RESET, SAME;
@@ -929,7 +929,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16    ZERO, ONE;
+      Complex    ZERO, ONE;
       const         ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double            RZERO;
       const         RZERO = 0.0 ;
@@ -939,11 +939,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS;
+      Complex         ALPHA, ALS;
       double             ERR, ERRMAX;
       int               I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS;
       bool               LEFT, NULL, RESET, SAME;
@@ -1231,7 +1231,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RONE, RZERO;
       const              RONE = 1.0, RZERO = 0.0 ;
@@ -1241,11 +1241,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, BETA, BETS;
+      Complex         ALPHA, ALS, BETA, BETS;
       double             ERR, ERRMAX, RALPHA, RALS, RBETA, RBETS;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
@@ -1581,7 +1581,7 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16    ZERO, ONE;
+      Complex    ZERO, ONE;
       const         ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double           RONE, RZERO;
       const         RONE = 1.0, RZERO = 0.0 ;
@@ -1591,11 +1591,11 @@
       bool              FATAL, REWI, TRACE;
       String            SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
+      Complex         AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), W( 2*NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, BETA, BETS;
+      Complex         ALPHA, ALS, BETA, BETS;
       double             ERR, ERRMAX, RBETA, RBETS;
       int                I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS;
       bool               CONJ, NULL, RESET, SAME, TRAN, UPPER;
@@ -1961,27 +1961,27 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         ROGUE;
+      Complex         ROGUE;
       const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       double             RROGUE;
       const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
-      COMPLEX*16         TRANSL;
+      Complex         TRANSL;
       int                LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, * ), AA( * );
+      Complex         A( NMAX, * ), AA( * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J, JJ;
       bool               GEN, HER, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      COMPLEX*16         ZBEG;
+      Complex         ZBEG;
       // EXTERNAL ZBEG
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, DCONJG, DBLE
@@ -2079,21 +2079,21 @@
       // Sven Hammarling, Numerical Algorithms Group Ltd.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
-      COMPLEX*16         ALPHA, BETA;
+      Complex         ALPHA, BETA;
       double             EPS, ERR;
       int                KK, LDA, LDB, LDC, LDCC, M, N, NOUT;
       bool               FATAL, MV;
       String             TRANSA, TRANSB;
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * );
+      Complex         A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * );
       double             G( * );
       // .. Local Scalars ..
-      COMPLEX*16         CL;
+      Complex         CL;
       double             ERRI;
       int                I, J, K;
       bool               CTRANA, CTRANB, TRANA, TRANB;
@@ -2248,7 +2248,7 @@
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
-      COMPLEX*16         RI( * ), RJ( * );
+      Complex         RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
@@ -2283,7 +2283,7 @@
       String             UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      COMPLEX*16         AA( LDA, * ), AS( LDA, * );
+      Complex         AA( LDA, * ), AS( LDA, * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
@@ -2323,7 +2323,7 @@
       // End of LZERES.
 
       }
-      COMPLEX*16     FUNCTION ZBEG( RESET );
+      Complex     FUNCTION ZBEG( RESET );
 
 // Generates complex numbers as pairs of random numbers uniformly
 // distributed between -0.5 and 0.5.

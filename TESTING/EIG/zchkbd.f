@@ -12,7 +12,7 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), MVAL( * ), NVAL( * );
       double             BD( * ), BE( * ), RWORK( * ), S1( * ), S2( * );
-      COMPLEX*16         A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * );
+      Complex         A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), U( LDPT, * ), VT( LDPT, * ), WORK( * ), X( LDX, * ), Y( LDX, * ), Z( LDX, * );
       // ..
 
 // ======================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 16 ;

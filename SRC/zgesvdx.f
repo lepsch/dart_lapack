@@ -12,13 +12,13 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             S( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      Complex         A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;

@@ -7,23 +7,23 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCX, INCY, K, LDA, N;
-      COMPLEX*16         ALPHA, BETA;
+      Complex         ALPHA, BETA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), X( * ), Y( * );
+      Complex         A( LDA, * ), X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, IX, IY, J, JX, JY, KPLUS1, KX, KY, L;
-      COMPLEX*16         TEMP1, TEMP2;
+      Complex         TEMP1, TEMP2;
       // ..
       // .. External Functions ..
       bool               LSAME;

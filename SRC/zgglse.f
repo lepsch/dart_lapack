@@ -8,13 +8,13 @@
       int                INFO, LDA, LDB, LWORK, M, N, P;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( * ), D( * ), WORK( * ), X( * );
+      Complex         A( LDA, * ), B( LDB, * ), C( * ), D( * ), WORK( * ), X( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

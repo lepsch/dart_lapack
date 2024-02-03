@@ -12,12 +12,12 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..

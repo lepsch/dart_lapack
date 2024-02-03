@@ -9,7 +9,7 @@
       double             SSMIN;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         X( * ), Y( * );
+      Complex         X( * ), Y( * );
       // ..
 
 // =====================================================================
@@ -17,18 +17,18 @@
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       double             SSMAX;
-      COMPLEX*16         A11, A12, A22, C, TAU;
+      Complex         A11, A12, A22, C, TAU;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL ZDOTC
       // ..
       // .. External Subroutines ..

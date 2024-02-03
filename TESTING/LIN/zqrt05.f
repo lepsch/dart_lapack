@@ -14,12 +14,12 @@
 
       // ..
       // .. Local allocatable arrays
-      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
+      Complex, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:);
       double          , ALLOCATABLE :: RWORK(:);
 
       // .. Parameters ..
       double           ZERO;
-      COMPLEX*16 ONE, CZERO;
+      Complex ONE, CZERO;
       const    ZERO = 0.0, ONE = (1.0,0.0), CZERO=(0.0,0.0) ;
       // ..
       // .. Local Scalars ..

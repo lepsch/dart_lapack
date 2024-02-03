@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( 4 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * );
+      Complex         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * );
       // ..
 
 // =====================================================================
@@ -17,9 +17,9 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         CROGUE;
+      Complex         CROGUE;
       const              CROGUE = ( -1.0e+10, 0.0 ) ;
       // ..
       // .. Local Scalars ..

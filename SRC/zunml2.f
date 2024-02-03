@@ -9,19 +9,19 @@
       int                INFO, K, LDA, LDC, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LEFT, NOTRAN;
       int                I, I1, I2, I3, IC, JC, MI, NI, NQ;
-      COMPLEX*16         AII, TAUI;
+      Complex         AII, TAUI;
       // ..
       // .. External Functions ..
       bool               LSAME;

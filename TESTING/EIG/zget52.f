@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( 2 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * );
+      Complex         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       String             NORMAB, TRANS;
       int                J, JVEC;
       double             ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP;
-      COMPLEX*16         ACOEFF, ALPHAI, BCOEFF, BETAI, X;
+      Complex         ACOEFF, ALPHAI, BCOEFF, BETAI, X;
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGE;

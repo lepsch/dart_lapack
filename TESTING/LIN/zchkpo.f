@@ -13,13 +13,13 @@
       bool               DOTYPE( * );
       int                NBVAL( * ), NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 9 ;

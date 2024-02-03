@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AINV( LDAINV, * );
+      Complex         A( LDA, * ), AINV( LDAINV, * );
       // ..
 
 // =====================================================================

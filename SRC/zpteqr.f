@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * );
-      COMPLEX*16         Z( LDZ, * );
+      Complex         Z( LDZ, * );
       // ..
 
 // ====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. External Functions ..
@@ -27,7 +27,7 @@
       // EXTERNAL DPTTRF, XERBLA, ZBDSQR, ZLASET
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         C( 1, 1 ), VT( 1, 1 );
+      Complex         C( 1, 1 ), VT( 1, 1 );
       // ..
       // .. Local Scalars ..
       int                I, ICOMPZ, NRU;

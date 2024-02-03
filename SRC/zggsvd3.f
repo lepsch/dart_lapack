@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             ALPHA( * ), BETA( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================

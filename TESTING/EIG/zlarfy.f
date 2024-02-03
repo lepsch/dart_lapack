@@ -7,26 +7,26 @@
       // .. Scalar Arguments ..
       String             UPLO;
       int                INCV, LDC, N;
-      COMPLEX*16         TAU;
+      Complex         TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         C( LDC, * ), V( * ), WORK( * );
+      Complex         C( LDC, * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO, HALF;
+      Complex         ONE, ZERO, HALF;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZHEMV, ZHER2
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL ZDOTC
       // ..
       // .. Executable Statements ..

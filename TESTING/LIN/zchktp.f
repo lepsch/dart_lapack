@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         AINVP( * ), AP( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex         AINVP( * ), AP( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================

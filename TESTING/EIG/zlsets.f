@@ -12,7 +12,7 @@
 // ====================================================================
 
       double             RESULT( 2 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), WORK( LWORK ), X( * );
+      Complex         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), WORK( LWORK ), X( * );
       // ..
       // .. Local Scalars ..
       int                INFO;

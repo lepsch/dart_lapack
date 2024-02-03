@@ -9,7 +9,7 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -27,7 +27,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME, DISNAN;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC, DISNAN
       // ..
       // .. External Subroutines ..

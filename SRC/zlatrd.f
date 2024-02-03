@@ -10,25 +10,25 @@
       // ..
       // .. Array Arguments ..
       double             E( * );
-      COMPLEX*16         A( LDA, * ), TAU( * ), W( LDW, * );
+      Complex         A( LDA, * ), TAU( * ), W( LDW, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE, HALF;
+      Complex         ZERO, ONE, HALF;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IW;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZGEMV, ZHEMV, ZLACGV, ZLARFG, ZSCAL
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. Intrinsic Functions ..

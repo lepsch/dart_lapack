@@ -9,7 +9,7 @@
       int                INCX, INCY, LDA, N, UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), X( * );
+      Complex         A( LDA, * ), X( * );
       double             Y( * );
       // ..
 
@@ -23,7 +23,7 @@
       bool               SYMB_ZERO;
       double             TEMP, SAFE1;
       int                I, INFO, IY, J, JX, KX, KY;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, DLAMCH

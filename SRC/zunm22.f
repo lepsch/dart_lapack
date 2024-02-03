@@ -11,13 +11,13 @@
       int                M, N, N1, N2, LDQ, LDC, LWORK, INFO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         Q( LDQ, * ), C( LDC, * ), WORK( * );
+      Complex         Q( LDQ, * ), C( LDC, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
 
       // .. Local Scalars ..

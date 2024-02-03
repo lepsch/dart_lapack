@@ -8,7 +8,7 @@
       int                IHI, ILO, INFO, LDA, LWORK, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -16,13 +16,13 @@
       // .. Parameters ..
       int                NBMAX, LDT, TSIZE;
       const              NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX ;
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY;
       int                I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX;
-      COMPLEX*16         EI;
+      Complex         EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZGEHD2, ZGEMM, ZLAHR2, ZLARFB, ZTRMM, XERBLA

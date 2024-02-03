@@ -10,22 +10,22 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( * );
-      COMPLEX*16         X( LDX, * );
+      Complex         X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         EYE;
+      Complex         EYE;
       const              EYE = ( 0.0, 1.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, N5;
       double             ALPHA, ALPHA3, BETA;
-      COMPLEX*16         A, B, C, R;
+      Complex         A, B, C, R;
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL ZLARND
       // ..
       // .. Intrinsic Functions ..

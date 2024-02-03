@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * );
+      Complex         A( LDA, * ), B( LDB, * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

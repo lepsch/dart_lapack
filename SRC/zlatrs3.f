@@ -6,7 +6,7 @@
       int                INFO, LDA, LWORK, LDX, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), X( LDX, * );
+      Complex         A( LDA, * ), X( LDX, * );
       double             CNORM( * ), SCALE( * ), WORK( * );
       // ..
 
@@ -15,7 +15,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       const              CZERO = ( 0.0, 0.0 ) ;
       int                NBMAX, NBMIN, NBRHS, NRHSMIN;

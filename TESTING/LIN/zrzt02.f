@@ -8,7 +8,7 @@
       int                LDA, LWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AF( LDA, * ), TAU( * ), WORK( LWORK );
+      Complex         AF( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================

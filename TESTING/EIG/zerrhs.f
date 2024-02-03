@@ -23,7 +23,7 @@
       bool               SEL( NMAX );
       int                IFAILL( NMAX ), IFAILR( NMAX );
       double             RW( NMAX ), S( NMAX );
-      COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX );
+      Complex         A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;

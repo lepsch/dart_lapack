@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX*16         A( LDA, * ), X( * );
+      Complex         A( LDA, * ), X( * );
       // ..
 
 // =====================================================================
@@ -18,18 +18,18 @@
       // .. Parameters ..
       double             ZERO, ONE, TOOSML;
       const              ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;
       double             FACTOR, XABS, XNORM;
-      COMPLEX*16         CSIGN, XNORMS;
+      Complex         CSIGN, XNORMS;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DZNRM2;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL LSAME, DZNRM2, ZLARND
       // ..
       // .. External Subroutines ..

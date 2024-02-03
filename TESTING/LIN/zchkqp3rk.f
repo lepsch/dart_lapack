@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * );
       double             S( * ), RWORK( * );
-      COMPLEX*16         A( * ), COPYA( * ), B( * ), COPYB( * ), TAU( * ), WORK( * );
+      Complex         A( * ), COPYA( * ), B( * ), COPYB( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       int                NTESTS;
       const              NTESTS = 5 ;
       double             ONE, ZERO, BIGNUM;
-      COMPLEX*16         CONE, CZERO;
+      Complex         CONE, CZERO;
       const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), BIGNUM = 1.0e+38 ;
       // ..
       // .. Local Scalars ..

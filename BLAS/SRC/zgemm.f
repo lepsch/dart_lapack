@@ -5,12 +5,12 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16 ALPHA,BETA;
+      Complex ALPHA,BETA;
       int     K,LDA,LDB,LDC,M,N;
       String    TRANSA,TRANSB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*);
+      Complex A(LDA,*),B(LDB,*),C(LDC,*);
       // ..
 
 // =====================================================================
@@ -26,14 +26,14 @@
       // INTRINSIC DCONJG,MAX
       // ..
       // .. Local Scalars ..
-      COMPLEX*16 TEMP;
+      Complex TEMP;
       int     I,INFO,J,L,NROWA,NROWB;
       bool    CONJA,CONJB,NOTA,NOTB;
       // ..
       // .. Parameters ..
-      COMPLEX*16 ONE;
+      Complex ONE;
       const     ONE= (1.0,0.0);
-      COMPLEX*16 ZERO;
+      Complex ZERO;
       const     ZERO= (0.0,0.0);
       // ..
 

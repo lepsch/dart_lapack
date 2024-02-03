@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), RESULT( 2 ), RWORK( * );
-      COMPLEX*16         AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
+      Complex         AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
       double             HALF;
       const              HALF = 1.0 / 2.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -28,12 +28,12 @@
       String             CUPLO;
       int                IINFO, J, JP, JP1, JR, LAP;
       double             ANORM, ULP, UNFL, WNORM;
-      COMPLEX*16         TEMP, VSAVE;
+      Complex         TEMP, VSAVE;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANHP;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP, ZDOTC
       // ..
       // .. External Subroutines ..

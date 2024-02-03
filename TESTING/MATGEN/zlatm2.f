@@ -1,4 +1,4 @@
-      COMPLEX*16   FUNCTION ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
+      Complex   FUNCTION ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE );
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,14 +13,14 @@
       // .. Array Arguments ..
 
       int                ISEED( 4 ), IWORK( * );
-      COMPLEX*16         D( * ), DL( * ), DR( * );
+      Complex         D( * ), DL( * ), DR( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
 
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       double             ZERO;
       const              ZERO = 0.0 ;
@@ -29,13 +29,13 @@
       // .. Local Scalars ..
 
       int                ISUB, JSUB;
-      COMPLEX*16         CTEMP;
+      Complex         CTEMP;
       // ..
 
       // .. External Functions ..
 
       double             DLARAN;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL DLARAN, ZLARND
       // ..
 

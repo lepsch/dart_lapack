@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * );
-      COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      Complex         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

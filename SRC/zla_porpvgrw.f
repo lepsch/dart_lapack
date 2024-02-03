@@ -9,7 +9,7 @@
       int                NCOLS, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * );
+      Complex         A( LDA, * ), AF( LDAF, * );
       double             WORK( * );
       // ..
 
@@ -19,7 +19,7 @@
       int                I, J;
       double             AMAX, UMAX, RPVGRW;
       bool               UPPER;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. External Functions ..
       // EXTERNAL LSAME

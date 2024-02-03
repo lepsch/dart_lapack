@@ -8,18 +8,18 @@
       int                INFO, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, K;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLARF, ZLARFG

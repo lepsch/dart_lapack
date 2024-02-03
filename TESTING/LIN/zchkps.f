@@ -10,7 +10,7 @@
       bool               TSTERR;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( * ), AFAC( * ), PERM( * ), WORK( * );
+      Complex         A( * ), AFAC( * ), PERM( * ), WORK( * );
       double             RWORK( * );
       int                NBVAL( * ), NVAL( * ), PIV( * ), RANKVAL( * );
       bool               DOTYPE( * );

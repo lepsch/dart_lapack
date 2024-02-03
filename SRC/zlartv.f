@@ -9,14 +9,14 @@
       // ..
       // .. Array Arguments ..
       double             C( * );
-      COMPLEX*16         S( * ), X( * ), Y( * );
+      Complex         S( * ), X( * ), Y( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IC, IX, IY;
-      COMPLEX*16         XI, YI;
+      Complex         XI, YI;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG

@@ -10,7 +10,7 @@
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       double             WORK( 2*N );
       int                PIV( N );
       // ..
@@ -20,11 +20,11 @@
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         ZTEMP;
+      Complex         ZTEMP;
       double             AJJ, DSTOP, DTEMP;
       int                I, ITEMP, J, JB, K, NB, PVT;
       bool               UPPER;

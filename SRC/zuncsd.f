@@ -12,13 +12,13 @@
       int                IWORK( * );
       double             THETA( * );
       double             RWORK( * );
-      COMPLEX*16         U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
+      Complex         U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( * ), X11( LDX11, * ), X12( LDX12, * ), X21( LDX21, * ), X22( LDX22, * );
       // ..
 
 // ===================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..

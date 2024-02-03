@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
+      Complex         A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         ROGUE;
+      Complex         ROGUE;
       const              ROGUE = ( -1.0e+10, -1.0e+10 ) ;
       // ..
       // .. Local Scalars ..

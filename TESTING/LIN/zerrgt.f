@@ -23,7 +23,7 @@
       // .. Local Arrays ..
       int                IP( NMAX );
       double             D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ), RW( NMAX );
-      COMPLEX*16         B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ), DU2( NMAX ), DUF( NMAX ), E( NMAX ), EF( NMAX ), W( NMAX ), X( NMAX );
+      Complex         B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ), DU2( NMAX ), DUF( NMAX ), E( NMAX ), EF( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;

@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       double             WORK( * );
-      COMPLEX*16         A( LDA, * ), ARF( * );
+      Complex         A( LDA, * ), ARF( * );
       // ..
 
 // =====================================================================
@@ -33,7 +33,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       double             DLAMCH, ZLANHE, ZLANHF;
       // EXTERNAL DLAMCH, ZLARND, ZLANHE, ZLANHF
       // ..

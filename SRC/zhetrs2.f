@@ -10,20 +10,20 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16       A( LDA, * ), B( LDB, * ), WORK( * );
+      Complex       A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = (1.0,0.0) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, IINFO, J, K, KP;
       double             S;
-      COMPLEX*16         AK, AKM1, AKM1K, BK, BKM1, DENOM;
+      Complex         AK, AKM1, AKM1K, BK, BKM1, DENOM;
       // ..
       // .. External Functions ..
       bool               LSAME;

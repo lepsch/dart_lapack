@@ -8,13 +8,13 @@
       int                N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         X( * ), Y( * ), W( * );
+      Complex         X( * ), Y( * ), W( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      COMPLEX*16         S;
+      Complex         S;
       int                I;
       // ..
       // .. Executable Statements ..

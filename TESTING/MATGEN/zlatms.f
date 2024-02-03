@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             D( * );
-      COMPLEX*16         A( LDA, * ), WORK( * );
+      Complex         A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       const              ZERO = 0.0 ;
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       double             TWOPI;
       const      TWOPI = 6.28318530717958647692528676655900576839 ;
@@ -31,12 +31,12 @@
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN, ZSYM;
       int                I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB;
       double             ALPHA, ANGLE, REALC, TEMP;
-      COMPLEX*16         C, CT, CTEMP, DUMMY, EXTRA, S, ST;
+      Complex         C, CT, CTEMP, DUMMY, EXTRA, S, ST;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLARND;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL LSAME, DLARND, ZLARND
       // ..
       // .. External Subroutines ..

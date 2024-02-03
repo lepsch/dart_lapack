@@ -12,7 +12,7 @@
       bool               BWORK( * );
       int                IWORK( * );
       double             RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * );
+      Complex         A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TEN;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -28,7 +28,7 @@
       String             SENSE;
       int                BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB;
       double             ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT;
-      COMPLEX*16         X;
+      Complex         X;
       // ..
       // .. Local Arrays ..
       double             DIFEST( 2 ), PL( 2 ), RESULT( 10 );

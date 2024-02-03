@@ -19,8 +19,8 @@
       // ..
       // .. Local Arrays ..
       int                IP( NMAX );
-      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
-      COMPLEX*16         WORK(1);
+      Complex         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX );
+      Complex         WORK(1);
       COMPLEX            SWORK(1);
       double             RWORK(1);
       // ..

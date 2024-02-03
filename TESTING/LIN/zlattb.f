@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), B( * ), WORK( * );
+      Complex         AB( LDAB, * ), B( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,13 +26,13 @@
       String             PATH;
       int                I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE;
       double             ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL;
-      COMPLEX*16         PLUS1, PLUS2, STAR1;
+      Complex         PLUS1, PLUS2, STAR1;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH, DLARND;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
       // ..
       // .. External Subroutines ..

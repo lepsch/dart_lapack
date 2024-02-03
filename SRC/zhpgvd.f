@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), W( * );
-      COMPLEX*16         AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
+      Complex         AP( * ), BP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================

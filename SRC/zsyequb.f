@@ -10,7 +10,7 @@
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), WORK( * );
+      Complex         A( LDA, * ), WORK( * );
       double             S( * );
       // ..
 
@@ -26,7 +26,7 @@
       int                I, J, ITER;
       double             AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ;
       bool               UP;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. External Functions ..
       double             DLAMCH;

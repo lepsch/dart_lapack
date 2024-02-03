@@ -12,7 +12,7 @@
       // ..
       // .. Array Arguments ..
       double             RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * );
-      COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
+      Complex         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,7 +26,7 @@
       String             JOB, SIDE;
       int                HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT;
       double             ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM;
-      COMPLEX*16         TMP;
+      Complex         TMP;
       // ..
       // .. Local Arrays ..
       bool               SELECT( 1 );

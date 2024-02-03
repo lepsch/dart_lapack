@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             B11D( * ), B11E( * ), B12D( * ), B12E( * ), B21D( * ), B21E( * ), B22D( * ), B22E( * ), PHI( * ), THETA( * ), RWORK( * );
-      COMPLEX*16         U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * );
+      Complex         U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * );
       // ..
 
 // ===================================================================
@@ -20,7 +20,7 @@
       const              MAXITR = 6 ;
       double             HUNDRED, MEIGHTH, ONE, TEN, ZERO;
       const              HUNDRED = 100.0, MEIGHTH = -0.125, ONE = 1.0, TEN = 10.0, ZERO = 0.0 ;
-      COMPLEX*16         NEGONECOMPLEX;
+      Complex         NEGONECOMPLEX;
       const              NEGONECOMPLEX = (-1.0,0.0) ;
       double             PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;

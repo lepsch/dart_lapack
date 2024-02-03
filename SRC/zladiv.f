@@ -1,11 +1,11 @@
-      COMPLEX*16     FUNCTION ZLADIV( X, Y );
+      Complex     FUNCTION ZLADIV( X, Y );
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         X, Y;
+      Complex         X, Y;
       // ..
 
 // =====================================================================

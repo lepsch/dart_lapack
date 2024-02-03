@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex         AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       String             TRANSN, TRANST;
       int                I, J, K, KASE, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

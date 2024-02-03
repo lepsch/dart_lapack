@@ -14,7 +14,7 @@
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             RWORK( * ), W( * );
-      COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
+      Complex         AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -30,7 +30,7 @@
       String             ORDER;
       int                I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, J, JJ, NSPLIT;
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
-      COMPLEX*16         CTMP1;
+      Complex         CTMP1;
       // ..
       // .. External Functions ..
       bool               LSAME;

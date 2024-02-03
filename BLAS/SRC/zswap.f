@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*),ZY(*);
+      Complex ZX(*),ZY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      COMPLEX*16 ZTEMP;
+      Complex ZTEMP;
       int     I,IX,IY;
       // ..
       if (N <= 0) return;

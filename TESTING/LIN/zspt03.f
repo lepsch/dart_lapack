@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( * ), AINV( * ), WORK( LDW, * );
+      Complex         A( * ), AINV( * ), WORK( LDW, * );
       // ..
 
 // =====================================================================
@@ -23,12 +23,12 @@
       // .. Local Scalars ..
       int                I, ICOL, J, JCOL, K, KCOL, NALL;
       double             AINVNM, ANORM, EPS;
-      COMPLEX*16         T;
+      Complex         T;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE, ZLANSP;
-      COMPLEX*16         ZDOTU;
+      Complex         ZDOTU;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
       // ..
       // .. Intrinsic Functions ..

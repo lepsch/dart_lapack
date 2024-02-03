@@ -9,13 +9,13 @@
       // ..
       // .. Array Arguments ..
       double             PHI(*), THETA(*);
-      COMPLEX*16         PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
+      Complex         PHANTOM(*), TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*);
       // ..
 
 // ====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         NEGONE, ONE, ZERO;
+      Complex         NEGONE, ONE, ZERO;
       const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..

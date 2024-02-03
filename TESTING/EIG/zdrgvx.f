@@ -12,7 +12,7 @@
       bool               BWORK( * );
       int                IWORK( * );
       double             DIF( * ), DIFTRU( * ), DTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
+      Complex         A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,7 +26,7 @@
       double             ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         WEIGHT( 5 );
+      Complex         WEIGHT( 5 );
       // ..
       // .. External Functions ..
       int                ILAENV;

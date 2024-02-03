@@ -1,5 +1,5 @@
       void main() {
-      // Test program for the COMPLEX*16 Level 1 CBLAS.
+      // Test program for the Complex Level 1 CBLAS.
       // Based upon the original CBLAS test routine together with:
       // F06GAF Example Program Text
       // .. Parameters ..
@@ -83,11 +83,11 @@
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      COMPLEX*16        CA;
+      Complex        CA;
       double            SA;
       int               I, J, LEN, NP1;
       // .. Local Arrays ..
-      COMPLEX*16        CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CX(8), MWPCS(5), MWPCT(5);
+      Complex        CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CX(8), MWPCS(5), MWPCT(5);
       double            STRUE2(5), STRUE4(5);
       int               ITRUE3(5);
       // .. External Functions ..
@@ -195,10 +195,10 @@
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      COMPLEX*16        CA,ZTEMP;
+      Complex        CA,ZTEMP;
       int               I, J, KI, KN, KSIZE, LENX, LENY, MX, MY;
       // .. Local Arrays ..
-      COMPLEX*16        CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CX(7), CX1(7), CY(7), CY1(7);
+      Complex        CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CX(7), CX1(7), CY(7), CY1(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
       // EXTERNAL ZDOTCTEST, ZDOTUTEST
@@ -377,7 +377,7 @@
       double           SFAC;
       int              LEN;
       // .. Array Arguments ..
-      COMPLEX*16       CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
+      Complex       CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
       // .. Local Scalars ..
       int              I;
       // .. Local Arrays ..

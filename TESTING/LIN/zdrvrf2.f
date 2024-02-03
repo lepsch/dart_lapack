@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                NVAL( NN );
-      COMPLEX*16         A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
+      Complex         A( LDA, * ), ARF( * ), AP(*), ASAV( LDA, * );
       // ..
 
 // =====================================================================
@@ -24,7 +24,7 @@
       int                ISEED( 4 ), ISEEDY( 4 );
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL ZLARND
       // ..
       // .. External Subroutines ..

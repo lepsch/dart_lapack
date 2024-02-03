@@ -8,18 +8,18 @@
       int                L, LDA, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLACGV, ZLARFG, ZLARZ

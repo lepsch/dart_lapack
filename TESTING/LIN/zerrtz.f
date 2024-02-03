@@ -20,7 +20,7 @@
       int                INFO;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
+      Complex         A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;

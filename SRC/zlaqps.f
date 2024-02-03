@@ -10,20 +10,20 @@
       // .. Array Arguments ..
       int                JPVT( * );
       double             VN1( * ), VN2( * );
-      COMPLEX*16         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
+      Complex         A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       double             ZERO, ONE;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              ZERO = 0.0, ONE = 1.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                ITEMP, J, K, LASTRK, LSTICC, PVT, RK;
       double             TEMP, TEMP2, TOL3Z;
-      COMPLEX*16         AKK;
+      Complex         AKK;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZGEMV, ZLARFG, ZSWAP

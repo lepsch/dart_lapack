@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             BERR( * ), FERR( * ), RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       const              ITMAX = 5 ;
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       double             TWO;
       const              TWO = 2.0 ;
@@ -33,7 +33,7 @@
       String             TRANSN, TRANST;
       int                COUNT, I, J, K, KASE, KK, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN, XK;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), S( * );
-      COMPLEX*16         U( LDU, * ), VT( LDVT, * ), WORK( * );
+      Complex         U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // ======================================================================

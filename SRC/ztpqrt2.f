@@ -8,18 +8,18 @@
       int       INFO, LDA, LDB, LDT, N, M, L;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * );
+      Complex   A( LDA, * ), B( LDB, * ), T( LDT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16  ONE, ZERO;
+      Complex  ONE, ZERO;
       const    ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       int       I, J, P, MP, NP;
-      COMPLEX*16   ALPHA;
+      Complex   ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLARFG, ZGEMV, ZGERC, ZTRMV, XERBLA

@@ -8,18 +8,18 @@
       int                K, LDA, LDT, LDY, N, NB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16        A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
+      Complex        A( LDA, * ), T( LDT, NB ), TAU( NB ), Y( LDY, NB );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16        ZERO, ONE;
+      Complex        ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX*16        EI;
+      Complex        EI;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZGEMM, ZGEMV, ZLACPY, ZLARFG, ZSCAL, ZTRMM, ZTRMV, ZLACGV

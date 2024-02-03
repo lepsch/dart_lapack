@@ -20,7 +20,7 @@
       int                I, INFO, J;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX );
+      Complex         A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALAESM, CHKXER, ZGEQRT2, ZGEQRT3, ZGEQRT, ZGEMQRT

@@ -12,19 +12,19 @@
       int                TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), V( * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), V( * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER;
-      COMPLEX*16         CTMP;
+      Complex         CTMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLARFG, ZLARFX, ZLARFY

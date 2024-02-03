@@ -11,14 +11,14 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       double             D_WORK_ZLANGE( * );
-      COMPLEX*16         A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * );
-      COMPLEX*16         Z_WORK_ZGEQRF( * ), TAU( * );
+      Complex         A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * );
+      Complex         Z_WORK_ZGEQRF( * ), TAU( * );
       // ..
 
 // =====================================================================
       // ..
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ) , ONE  = ( 1.0, 0.0 ) ;
       int                NTESTS;
       const              NTESTS = 1 ;
@@ -26,7 +26,7 @@
       // .. Local Scalars ..
       String             UPLO, CFORM, DIAG, TRANS, SIDE;
       int                I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       double             EPS;
       // ..
       // .. Local Arrays ..
@@ -37,7 +37,7 @@
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL DLAMCH, ZLARND, ZLANGE, LSAME
       // ..
       // .. External Subroutines ..

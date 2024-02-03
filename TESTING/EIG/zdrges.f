@@ -12,7 +12,7 @@
       bool               BWORK( * ), DOTYPE( * );
       int                ISEED( 4 ), NN( * );
       double             RESULT( 13 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
+      Complex         A( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), Q( LDQ, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 26 ;
@@ -30,7 +30,7 @@
       String             SORT;
       int                I, IADD, IINFO, IN, ISORT, J, JC, JR, JSIZE, JTYPE, KNTEIG, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTEST, NTESTT, RSUB, SDIM;
       double             SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV;
-      COMPLEX*16         CTEMP, X;
+      Complex         CTEMP, X;
       // ..
       // .. Local Arrays ..
       bool               LASIGN( MAXTYP ), LBSIGN( MAXTYP );
@@ -41,7 +41,7 @@
       bool               ZLCTES;
       int                ILAENV;
       double             DLAMCH;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL ZLCTES, ILAENV, DLAMCH, ZLARND
       // ..
       // .. External Subroutines ..

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * );
-      COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
+      Complex         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -31,7 +31,7 @@
       bool               UPPER;
       int                COUNT, I, IX, J, NZ;
       double             EPS, LSTRES, S, SAFE1, SAFE2, SAFMIN;
-      COMPLEX*16         BI, CX, DX, EX, ZDUM;
+      Complex         BI, CX, DX, EX, ZDUM;
       // ..
       // .. External Functions ..
       bool               LSAME;

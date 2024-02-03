@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         U( LDU, * ), WORK( * );
+      Complex         U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -24,12 +24,12 @@
       String             TRANSU;
       int                I, J, K, LDWORK, MNMIN;
       double             EPS;
-      COMPLEX*16         TMP, ZDUM;
+      Complex         TMP, ZDUM;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANSY;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANSY, ZDOTC
       // ..
       // .. External Subroutines ..

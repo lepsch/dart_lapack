@@ -9,7 +9,7 @@
       int                INFO, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

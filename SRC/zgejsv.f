@@ -9,7 +9,7 @@
       int         INFO, LDA, LDU, LDV, LWORK, LRWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK );
+      Complex       A( LDA, * ), U( LDU, * ), V( LDV, * ), CWORK( LWORK );
       double           SVA( N ), RWORK( LRWORK );
       int              IWORK( * );
       String           JOBA, JOBP, JOBR, JOBT, JOBU, JOBV;
@@ -20,11 +20,11 @@
       // .. Local Parameters ..
       double           ZERO, ONE;
       const     ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16 CZERO, CONE;
+      Complex CZERO, CONE;
       const     CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16       CTEMP;
+      Complex       CTEMP;
       double           AAPP,    AAQQ,   AATMAX, AATMIN, BIG,    BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN, MAXPRJ,  SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1, USCAL1,  USCAL2, XSC;
       int     IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING;
       bool    ALMORT, DEFR,   ERREST, GOSCAL,  JRACC,  KILL,   LQUERY, LSVEC,  L2ABER, L2KILL, L2PERT,  L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP;
@@ -34,7 +34,7 @@
       int     LWRK_ZGELQF, LWRK_ZGEQP3,  LWRK_ZGEQP3N, LWRK_ZGEQRF,   LWRK_ZGESVJ, LWRK_ZGESVJV, LWRK_ZGESVJU, LWRK_ZUNMLQ, LWRK_ZUNMQR, LWRK_ZUNMQRM;
       // ..
       // .. Local Arrays
-      COMPLEX*16         CDUMMY(1);
+      Complex         CDUMMY(1);
       double             RDUMMY(1);
 
       // .. Intrinsic Functions ..

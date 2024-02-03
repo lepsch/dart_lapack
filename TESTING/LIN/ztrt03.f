@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             CNORM( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

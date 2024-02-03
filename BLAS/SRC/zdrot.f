@@ -9,14 +9,14 @@
       double             C, S;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         ZX( * ), ZY( * );
+      Complex         ZX( * ), ZY( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IX, IY;
-      COMPLEX*16         CTEMP;
+      Complex         CTEMP;
       // ..
       // .. Executable Statements ..
 

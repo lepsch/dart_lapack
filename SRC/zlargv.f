@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             C( * );
-      COMPLEX*16         X( * ), Y( * );
+      Complex         X( * ), Y( * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             TWO, ONE, ZERO;
       const              TWO = 2.0, ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -25,7 +25,7 @@
 
       int                COUNT, I, IC, IX, IY, J;
       double             CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE;
-      COMPLEX*16         F, FF, FS, G, GS, R, SN;
+      Complex         F, FF, FS, G, GS, R, SN;
       // ..
       // .. External Functions ..
       double             DLAMCH, DLAPY2;

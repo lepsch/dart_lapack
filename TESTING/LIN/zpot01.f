@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * );
+      Complex         A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================
@@ -23,12 +23,12 @@
       // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, EPS, TR;
-      COMPLEX*16         TC;
+      Complex         TC;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANHE;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANHE, ZDOTC
       // ..
       // .. External Subroutines ..

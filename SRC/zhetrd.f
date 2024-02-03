@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

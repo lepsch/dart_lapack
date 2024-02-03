@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * );
       double             D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * );
-      COMPLEX*16        Z( LDZ, * );
+      Complex        Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       int                MAXITR;
       const              MAXITR = 10 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       double             ZERO, ONE, TWO, THREE, FOUR, HALF;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;

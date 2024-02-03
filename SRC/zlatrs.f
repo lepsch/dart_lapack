@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             CNORM( * );
-      COMPLEX*16         A( LDA, * ), X( * );
+      Complex         A( LDA, * ), X( * );
       // ..
 
 // =====================================================================
@@ -24,13 +24,13 @@
       bool               NOTRAN, NOUNIT, UPPER;
       int                I, IMAX, J, JFIRST, JINC, JLAST;
       double             BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX;
-      COMPLEX*16         CSUMJ, TJJS, USCAL, ZDUM;
+      Complex         CSUMJ, TJJS, USCAL, ZDUM;
       // ..
       // .. External Functions ..
       bool               LSAME;
       int                IDAMAX, IZAMAX;
       double             DLAMCH, DZASUM;
-      COMPLEX*16         ZDOTC, ZDOTU, ZLADIV;
+      Complex         ZDOTC, ZDOTU, ZLADIV;
       // EXTERNAL LSAME, IDAMAX, IZAMAX, DLAMCH, DZASUM, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..

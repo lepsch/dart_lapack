@@ -11,7 +11,7 @@
       String             JOBV;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK );
+      Complex         A( LDA, * ), D( N ), V( LDV, * ), WORK( LWORK );
       double             SVA( N );
       // ..
 
@@ -20,11 +20,11 @@
       // .. Local Parameters ..
       double             ZERO, HALF, ONE;
       const              ZERO = 0.0, HALF = 0.5, ONE = 1.0;
-      COMPLEX*16   CZERO,                  CONE;
+      Complex   CZERO,                  CONE;
       const      CZERO = (0.0, 0.0), CONE = (1.0, 0.0) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         AAPQ, OMPQ;
+      Complex         AAPQ, OMPQ;
       double             AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN;
       int                BLSKIP, EMPTSW, i, ibr, IERR, igl, IJBLSK, ir1, ISWROT, jbc, jgl, KBL, LKAHEAD, MVL, NBL, NOTROT, p, PSKIPPED, q, ROWSKIP, SWBAND;
       bool               APPLV, ROTOK, RSVEC;
@@ -35,7 +35,7 @@
       // ..
       // .. External Functions ..
       double             DZNRM2;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       int                IDAMAX;
       bool               LSAME;
       // EXTERNAL IDAMAX, LSAME, ZDOTC, DZNRM2

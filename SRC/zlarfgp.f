@@ -6,10 +6,10 @@
 
       // .. Scalar Arguments ..
       int                INCX, N;
-      COMPLEX*16         ALPHA, TAU;
+      Complex         ALPHA, TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         X( * );
+      Complex         X( * );
       // ..
 
 // =====================================================================
@@ -21,11 +21,11 @@
       // .. Local Scalars ..
       int                J, KNT;
       double             ALPHI, ALPHR, BETA, BIGNUM, EPS, SMLNUM, XNORM;
-      COMPLEX*16         SAVEALPHA;
+      Complex         SAVEALPHA;
       // ..
       // .. External Functions ..
       double             DLAMCH, DLAPY3, DLAPY2, DZNRM2;
-      COMPLEX*16         ZLADIV;
+      Complex         ZLADIV;
       // EXTERNAL DLAMCH, DLAPY3, DLAPY2, DZNRM2, ZLADIV
       // ..
       // .. Intrinsic Functions ..

@@ -10,7 +10,7 @@
       double             SCALE;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), C( LDC, * );
+      Complex         A( LDA, * ), B( LDB, * ), C( LDC, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       bool               NOTRNA, NOTRNB;
       int                J, K, L;
       double             BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM;
-      COMPLEX*16         A11, SUML, SUMR, VEC, X11;
+      Complex         A11, SUML, SUMR, VEC, X11;
       // ..
       // .. Local Arrays ..
       double             DUM( 1 );
@@ -31,7 +31,7 @@
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH, ZLANGE;
-      COMPLEX*16         ZDOTC, ZDOTU, ZLADIV;
+      Complex         ZDOTC, ZDOTU, ZLADIV;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..

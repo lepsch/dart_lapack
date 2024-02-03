@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * );
+      Complex         AB( LDAB, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               INITQ, UPPER, WANTQ;
       int                I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT;
       double             ABST;
-      COMPLEX*16         T, TEMP;
+      Complex         T, TEMP;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLACGV, ZLAR2V, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL

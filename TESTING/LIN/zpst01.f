@@ -10,7 +10,7 @@
       String             UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * );
+      Complex         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * );
       double             RWORK( * );
       int                PIV( * );
       // ..
@@ -20,16 +20,16 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         TC;
+      Complex         TC;
       double             ANORM, EPS, TR;
       int                I, J, K;
       // ..
       // .. External Functions ..
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       double             DLAMCH, ZLANHE;
       bool               LSAME;
       // EXTERNAL ZDOTC, DLAMCH, ZLANHE, LSAME

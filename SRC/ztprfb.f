@@ -9,13 +9,13 @@
       int       K, L, LDA, LDB, LDT, LDV, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
+      Complex   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * );
       // ..
 
 // ==========================================================================
 
       // .. Parameters ..
-      COMPLEX*16   ONE, ZERO;
+      Complex   ONE, ZERO;
       const     ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..

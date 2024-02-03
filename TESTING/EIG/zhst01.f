@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( 2 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), H( LDH, * ), Q( LDQ, * ), WORK( LWORK );
+      Complex         A( LDA, * ), H( LDH, * ), Q( LDQ, * ), WORK( LWORK );
       // ..
 
 // =====================================================================

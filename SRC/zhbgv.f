@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * ), W( * );
-      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * );
+      Complex         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================

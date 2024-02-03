@@ -9,13 +9,13 @@
       int                N, INFO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( 0: * );
+      Complex         A( 0: * );
 
 // =====================================================================
 
       // .. Parameters ..
       double             ONE;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

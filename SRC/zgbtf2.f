@@ -9,13 +9,13 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         AB( LDAB, * );
+      Complex         AB( LDAB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

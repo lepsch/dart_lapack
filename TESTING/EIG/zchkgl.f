@@ -23,7 +23,7 @@
       // .. Local Arrays ..
       int                LMAX( 3 );
       double             LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
-      COMPLEX*16         A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
+      Complex         A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGE;

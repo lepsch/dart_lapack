@@ -9,14 +9,14 @@
       int              I1, I2, LDA, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16       A( LDA, * );
+      Complex       A( LDA, * );
 
 // =====================================================================
 
       // ..
       // .. Local Scalars ..
       bool               UPPER;
-      COMPLEX*16         TMP;
+      Complex         TMP;
 
       // .. External Functions ..
       bool               LSAME;

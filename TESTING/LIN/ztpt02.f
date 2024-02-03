@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex         AP( * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

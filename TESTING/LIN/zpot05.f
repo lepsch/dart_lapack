@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             BERR( * ), FERR( * ), RESLTS( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * );
+      Complex         A( LDA, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       bool               UPPER;
       int                I, IMAX, J, K;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. External Functions ..
       bool               LSAME;

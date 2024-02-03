@@ -19,12 +19,12 @@
       // .. Local Scalars ..
       int                I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO;
       double             ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX;
-      COMPLEX*16         CDUM;
+      Complex         CDUM;
       // ..
       // .. Local Arrays ..
       int                LMAX( 3 );
       double             DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
-      COMPLEX*16         A( LDA, LDA ), AIN( LDA, LDA );
+      Complex         A( LDA, LDA ), AIN( LDA, LDA );
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGE;

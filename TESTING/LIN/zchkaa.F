@@ -36,8 +36,8 @@
       // .. Allocatable Arrays ..
       int     AllocateStatus;
       double          , DIMENSION(:), ALLOCATABLE::  RWORK, S;
-      COMPLEX*16, DIMENSION(:), ALLOCATABLE :: E;
-      COMPLEX*16, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK;
+      Complex, DIMENSION(:), ALLOCATABLE :: E;
+      Complex, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK;
       // ..
       // .. External Functions ..
       bool               LSAME, LSAMEN;
@@ -971,7 +971,7 @@
  9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / );
  9996 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be >=', I6 )
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
- 9994 FORMAT( ' Tests of the COMPLEX*16 LAPACK routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
+ 9994 FORMAT( ' Tests of the Complex LAPACK routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
  9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 );
  9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 );

@@ -13,12 +13,12 @@
 // ====================================================================
 
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
+      Complex         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * );
       // ..
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = 1.0 ;
       // ..
       // .. Local Scalars ..

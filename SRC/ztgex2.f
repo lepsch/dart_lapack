@@ -9,13 +9,13 @@
       int                INFO, J1, LDA, LDB, LDQ, LDZ, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
+      Complex         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             TWENTY;
       const              TWENTY = 2.0e+1 ;
@@ -28,10 +28,10 @@
       bool               STRONG, WEAK;
       int                I, M;
       double             CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB;
-      COMPLEX*16         CDUM, F, G, SQ, SZ;
+      Complex         CDUM, F, G, SQ, SZ;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         S( LDST, LDST ), T( LDST, LDST ), WORK( 8 );
+      Complex         S( LDST, LDST ), T( LDST, LDST ), WORK( 8 );
       // ..
       // .. External Functions ..
       double             DLAMCH;

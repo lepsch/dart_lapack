@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       const              ONEHALF = 0.5 ;
       double             EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 11 ;
@@ -43,7 +43,7 @@
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-      COMPLEX*16         BLOCK( 2, 2 ), ZDUMMY( 1 );
+      Complex         BLOCK( 2, 2 ), ZDUMMY( 1 );
       // ..
       // .. External Functions ..
       double             DGET06, ZLANGE, ZLANSY;

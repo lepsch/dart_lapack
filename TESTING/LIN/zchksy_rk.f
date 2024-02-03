@@ -1,37 +1,37 @@
 // > \param[out] AFAC
 // > \verbatim
-// >          AFAC is COMPLEX*16 array, dimension (NMAX*NMAX)
+// >          AFAC is Complex array, dimension (NMAX*NMAX)
 // > \endverbatim
 // >
 // > \param[out] E
 // > \verbatim
-// >          E is COMPLEX*16 array, dimension (NMAX)
+// >          E is Complex array, dimension (NMAX)
 // > \endverbatim
 // >
 // > \param[out] AINV
 // > \verbatim
-// >          AINV is COMPLEX*16 array, dimension (NMAX*NMAX)
+// >          AINV is Complex array, dimension (NMAX*NMAX)
 // > \endverbatim
 // >
 // > \param[out] B
 // > \verbatim
-// >          B is COMPLEX*16 array, dimension (NMAX*NSMAX)
+// >          B is Complex array, dimension (NMAX*NSMAX)
 // >          where NSMAX is the largest entry in NSVAL.
 // > \endverbatim
 // >
 // > \param[out] X
 // > \verbatim
-// >          X is COMPLEX*16 array, dimension (NMAX*NSMAX)
+// >          X is Complex array, dimension (NMAX*NSMAX)
 // > \endverbatim
 // >
 // > \param[out] XACT
 // > \verbatim
-// >          XACT is COMPLEX*16 array, dimension (NMAX*NSMAX)
+// >          XACT is Complex array, dimension (NMAX*NSMAX)
 // > \endverbatim
 // >
 // > \param[out] WORK
 // > \verbatim
-// >          WORK is COMPLEX*16 array, dimension (NMAX*max(3,NSMAX))
+// >          WORK is Complex array, dimension (NMAX*max(3,NSMAX))
 // > \endverbatim
 // >
 // > \param[out] RWORK
@@ -76,7 +76,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
+      Complex         A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -88,7 +88,7 @@
       const              ONEHALF = 0.5 ;
       double             EIGHT, SEVTEN;
       const              EIGHT = 8.0, SEVTEN = 17.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 11 ;
@@ -106,7 +106,7 @@
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-      COMPLEX*16         BLOCK( 2, 2 ), ZDUMMY( 1 );
+      Complex         BLOCK( 2, 2 ), ZDUMMY( 1 );
       // ..
       // .. External Functions ..
       double             DGET06, ZLANGE, ZLANSY;

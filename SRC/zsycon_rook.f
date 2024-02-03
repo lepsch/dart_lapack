@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), WORK( * );
+      Complex         A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // .. Parameters ..
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16            CZERO;
+      Complex            CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

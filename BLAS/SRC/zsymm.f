@@ -5,12 +5,12 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16 ALPHA,BETA;
+      Complex ALPHA,BETA;
       int     LDA,LDB,LDC,M,N;
       String    SIDE,UPLO;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A(LDA,*),B(LDB,*),C(LDC,*);
+      Complex A(LDA,*),B(LDB,*),C(LDC,*);
       // ..
 
 // =====================================================================
@@ -26,14 +26,14 @@
       // INTRINSIC MAX
       // ..
       // .. Local Scalars ..
-      COMPLEX*16 TEMP1,TEMP2;
+      Complex TEMP1,TEMP2;
       int     I,INFO,J,K,NROWA;
       bool    UPPER;
       // ..
       // .. Parameters ..
-      COMPLEX*16 ONE;
+      Complex ONE;
       const     ONE= (1.0,0.0);
-      COMPLEX*16 ZERO;
+      Complex ZERO;
       const     ZERO= (0.0,0.0);
       // ..
 

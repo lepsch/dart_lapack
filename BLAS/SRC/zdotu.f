@@ -1,4 +1,4 @@
-      COMPLEX*16 FUNCTION ZDOTU(N,ZX,INCX,ZY,INCY);
+      Complex FUNCTION ZDOTU(N,ZX,INCX,ZY,INCY);
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -8,13 +8,13 @@
       int     INCX,INCY,N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 ZX(*),ZY(*);
+      Complex ZX(*),ZY(*);
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
-      COMPLEX*16 ZTEMP;
+      Complex ZTEMP;
       int     I,IX,IY;
       // ..
       ZTEMP = (0.0,0.0);

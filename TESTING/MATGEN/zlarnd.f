@@ -1,4 +1,4 @@
-      COMPLEX*16   FUNCTION ZLARND( IDIST, ISEED );
+      Complex   FUNCTION ZLARND( IDIST, ISEED );
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

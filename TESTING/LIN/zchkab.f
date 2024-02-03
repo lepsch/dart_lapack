@@ -34,7 +34,7 @@
       bool               DOTYPE( MATMAX );
       int                IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN );
       double             RWORK(NMAX);
-      COMPLEX*16         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 );
+      Complex         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 );
       COMPLEX            SWORK(NMAX*(NMAX+MAXRHS));
       // ..
       // .. External Functions ..
@@ -259,7 +259,7 @@
  9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / );
  9996 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be >=', I6 )
  9995 FORMAT( ' Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
- 9994 FORMAT( ' Tests of the COMPLEX*16 LAPACK ZCGESV/ZCPOSV routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
+ 9994 FORMAT( ' Tests of the Complex LAPACK ZCGESV/ZCPOSV routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
  9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 );
  9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 );

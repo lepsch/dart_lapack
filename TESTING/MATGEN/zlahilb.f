@@ -8,7 +8,7 @@
       int     N, NRHS, LDA, LDX, LDB, INFO;
       // .. Array Arguments ..
       double           WORK(N);
-      COMPLEX*16 A(LDA,N), X(LDX, NRHS), B(LDB, NRHS);
+      Complex A(LDA,N), X(LDX, NRHS), B(LDB, NRHS);
       String      PATH;
       // ..
 
@@ -17,7 +17,7 @@
       int     TM, TI, R;
       int     M;
       int     I, J;
-      COMPLEX*16 TMP;
+      Complex TMP;
       String      C2;
       // ..
       // .. Parameters ..
@@ -30,7 +30,7 @@
       const     NMAX_EXACT = 6, NMAX_APPROX = 11, SIZE_D = 8;
 
       // D's are generated from random permutation of those eight elements.
-      COMPLEX*16 D1(8), D2(8), INVD1(8), INVD2(8);
+      Complex D1(8), D2(8), INVD1(8), INVD2(8);
       const D1 = [(-1.0,0.0),(0.0,1.0),(-1.0,-1.0), (0.0,-1.0),(1.0,0.0),(-1.0,1.0),(1.0,1.0), (1.0,-1.0)];
       const D2 = [(-1.0,0.0),(0.0,-1.0),(-1.0,1.0), (0.0,1.0),(1.0,0.0),(-1.0,-1.0),(1.0,-1.0), (1.0,1.0)];
       const INVD1 = [(-1.0,0.0),(0.0,-1.0),(-0.5,0.5), (0.0,1.0),(1.0,0.0),(-0.5,-0.5),(0.5,-0.5), (0.5,0.5)];

@@ -9,7 +9,7 @@
       int                INFO, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         AP( * );
+      Complex         AP( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. External Subroutines ..

@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                NVAL( NN );
       double             D_WORK_ZLANGE( * );
-      COMPLEX*16         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
+      Complex         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * );
       // ..
 
 // =====================================================================
@@ -34,7 +34,7 @@
       // ..
       // .. External Functions ..
       double             DLAMCH, DLARND, ZLANGE;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL DLAMCH, DLARND, ZLANGE, ZLARND
       // ..
       // .. External Subroutines ..

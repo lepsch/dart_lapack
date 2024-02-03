@@ -5,23 +5,23 @@
 // -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
       // .. Scalar Arguments ..
-      COMPLEX*16         S1, S2;
+      Complex         S1, S2;
       int                LDH, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), V( * );
+      Complex         H( LDH, * ), V( * );
       // ..
 
 // ================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         CDUM, H21S, H31S;
+      Complex         CDUM, H21S, H31S;
       double             S;
       // ..
       // .. Intrinsic Functions ..

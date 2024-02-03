@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), DF( * );
-      COMPLEX*16         E( * ), EF( * ), WORK( * );
+      Complex         E( * ), EF( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I;
       double             ANORM, EPS;
-      COMPLEX*16         DE;
+      Complex         DE;
       // ..
       // .. External Functions ..
       double             DLAMCH;

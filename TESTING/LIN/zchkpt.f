@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                NSVAL( * ), NVAL( * );
       double             D( * ), RWORK( * );
-      COMPLEX*16         A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
+      Complex         A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -37,7 +37,7 @@
       String             UPLOS( 2 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-      COMPLEX*16         Z( 3 );
+      Complex         Z( 3 );
       // ..
       // .. External Functions ..
       int                IDAMAX;

@@ -4,13 +4,13 @@
       // Arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;
       int    , INTENT( IN ) :: N, ILO, IHI, NW, LDA, LDB, LDQ, LDZ, LDQC, LDZC, LWORK, REC;
-       COMPLEX*16, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * );
+       Complex, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * );
       int    , INTENT( OUT ) :: NS, ND, INFO;
-      COMPLEX*16 :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
+      Complex :: QC( LDQC, * ), ZC( LDZC, * ), WORK( * );
       double           :: RWORK( * );
 
       // Parameters
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double           :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
@@ -18,7 +18,7 @@
       // Local Scalars
       int     :: JW, KWTOP, KWBOT, ISTOPM, ISTARTM, K, K2, ZTGEXC_INFO, IFST, ILST, LWORKREQ, QZ_SMALL_INFO;
       double           ::SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR;
-      COMPLEX*16 :: S, S1, TEMP;
+      Complex :: S, S1, TEMP;
 
       // External Functions
       // EXTERNAL :: XERBLA, ZLAQZ0, ZLAQZ1, ZLACPY, ZLASET, ZGEMM, ZTGEXC, ZLARTG, ZROT

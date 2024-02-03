@@ -13,7 +13,7 @@
       bool               SELECT( * );
       int                IWORK( * );
       double             DIF( * );
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
+      Complex         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -28,7 +28,7 @@
       bool               LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP;
       int                I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2;
       double             DSCALE, DSUM, RDSCAL, SAFMIN;
-      COMPLEX*16         TEMP1, TEMP2;
+      Complex         TEMP1, TEMP2;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NSVAL( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex         A( * ), AF( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -37,7 +37,7 @@
       String             TRANSS( 3 );
       int                ISEED( 4 ), ISEEDY( 4 );
       double             RESULT( NTESTS );
-      COMPLEX*16         Z( 3 );
+      Complex         Z( 3 );
       // ..
       // .. External Functions ..
       double             DGET06, DZASUM, ZLANGT;

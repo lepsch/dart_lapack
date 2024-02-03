@@ -26,20 +26,20 @@
       // ..
       // .. Local Arrays ..
       int                NVAL( MAXIN ), NSVAL( MAXIN ), NTVAL( NTYPES );
-      COMPLEX*16         WORKA( NMAX, NMAX );
-      COMPLEX*16         WORKASAV( NMAX, NMAX );
-      COMPLEX*16         WORKB( NMAX, MAXRHS );
-      COMPLEX*16         WORKXACT( NMAX, MAXRHS );
-      COMPLEX*16         WORKBSAV( NMAX, MAXRHS );
-      COMPLEX*16         WORKX( NMAX, MAXRHS );
-      COMPLEX*16         WORKAFAC( NMAX, NMAX );
-      COMPLEX*16         WORKAINV( NMAX, NMAX );
-      COMPLEX*16         WORKARF( (NMAX*(NMAX+1))/2 );
-      COMPLEX*16         WORKAP( (NMAX*(NMAX+1))/2 );
-      COMPLEX*16         WORKARFINV( (NMAX*(NMAX+1))/2 );
-      COMPLEX*16         Z_WORK_ZLATMS( 3 * NMAX );
-      COMPLEX*16         Z_WORK_ZPOT02( NMAX, MAXRHS );
-      COMPLEX*16         Z_WORK_ZPOT03( NMAX, NMAX );
+      Complex         WORKA( NMAX, NMAX );
+      Complex         WORKASAV( NMAX, NMAX );
+      Complex         WORKB( NMAX, MAXRHS );
+      Complex         WORKXACT( NMAX, MAXRHS );
+      Complex         WORKBSAV( NMAX, MAXRHS );
+      Complex         WORKX( NMAX, MAXRHS );
+      Complex         WORKAFAC( NMAX, NMAX );
+      Complex         WORKAINV( NMAX, NMAX );
+      Complex         WORKARF( (NMAX*(NMAX+1))/2 );
+      Complex         WORKAP( (NMAX*(NMAX+1))/2 );
+      Complex         WORKARFINV( (NMAX*(NMAX+1))/2 );
+      Complex         Z_WORK_ZLATMS( 3 * NMAX );
+      Complex         Z_WORK_ZPOT02( NMAX, MAXRHS );
+      Complex         Z_WORK_ZPOT03( NMAX, NMAX );
       double             D_WORK_ZLATMS( NMAX );
       double             D_WORK_ZLANHE( NMAX );
       double             D_WORK_ZPOT01( NMAX );
@@ -200,7 +200,7 @@
  9997 FORMAT( ' Total time used = ', F12.2, ' seconds', / );
  9996 FORMAT( ' !! Invalid input value: ', A4, '=', I6, '; must be >=', I6 )
  9995 FORMAT( ' !! Invalid input value: ', A4, '=', I6, '; must be <=', I6 )
- 9994 FORMAT( /  ' Tests of the COMPLEX*16 LAPACK RFP routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
+ 9994 FORMAT( /  ' Tests of the Complex LAPACK RFP routines ', / ' LAPACK VERSION ', I1, '.', I1, '.', I1, / / ' The following parameter values will be used:' );
  9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 );
  9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 );

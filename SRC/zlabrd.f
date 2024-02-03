@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * );
-      COMPLEX*16         A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
+      Complex         A( LDA, * ), TAUP( * ), TAUQ( * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I;
-      COMPLEX*16         ALPHA;
+      Complex         ALPHA;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMV, ZLACGV, ZLARFG, ZSCAL

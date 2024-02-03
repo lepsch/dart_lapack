@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       double             RWORK( * );
-      COMPLEX*16         P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      Complex         P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 
@@ -20,19 +20,19 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB;
       int                I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR;
       double             ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX;
-      COMPLEX*16         BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
+      Complex         BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
       // ..
       // .. External Functions ..
       bool               LSAME;
       double             DLAMCH;
-      COMPLEX*16         ZLADIV;
+      Complex         ZLADIV;
       // EXTERNAL LSAME, DLAMCH, ZLADIV
       // ..
       // .. External Subroutines ..

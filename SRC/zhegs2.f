@@ -9,7 +9,7 @@
       int                INFO, ITYPE, LDA, LDB, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * );
+      Complex         A( LDA, * ), B( LDB, * );
       // ..
 
 // =====================================================================
@@ -17,14 +17,14 @@
       // .. Parameters ..
       double             ONE, HALF;
       const              ONE = 1.0, HALF = 0.5 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                K;
       double             AKK, BKK;
-      COMPLEX*16         CT;
+      Complex         CT;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZAXPY, ZDSCAL, ZHER2, ZLACGV, ZTRMV, ZTRSV

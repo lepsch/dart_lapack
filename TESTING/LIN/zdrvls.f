@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * );
       double             COPYS( * ), S( * );
-      COMPLEX*16         A( * ), B( * ), C( * ), COPYA( * ), COPYB( * );
+      Complex         A( * ), B( * ), C( * ), COPYA( * ), COPYB( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       const              SMLSIZ = 25 ;
       double             ONE, ZERO;
       const              ONE = 1.0, ZERO = 0.0 ;
-      COMPLEX*16         CONE, CZERO;
+      Complex         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -37,10 +37,10 @@
       // .. Local Arrays ..
       int                ISEED( 4 ), ISEEDY( 4 ), IWQ( 1 );
       double             RESULT( NTESTS ), RWQ( 1 );
-      COMPLEX*16         WQ( 1 );
+      Complex         WQ( 1 );
       // ..
       // .. Allocatable Arrays ..
-      COMPLEX*16, ALLOCATABLE :: WORK (:);
+      Complex, ALLOCATABLE :: WORK (:);
       double          , ALLOCATABLE :: RWORK (:), WORK2 (:);
       int    , ALLOCATABLE :: IWORK (:);
       // ..

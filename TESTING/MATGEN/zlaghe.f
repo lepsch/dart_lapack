@@ -10,26 +10,26 @@
       // .. Array Arguments ..
       int                ISEED( 4 );
       double             D( * );
-      COMPLEX*16         A( LDA, * ), WORK( * );
+      Complex         A( LDA, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE, HALF;
+      Complex         ZERO, ONE, HALF;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J;
       double             WN;
-      COMPLEX*16         ALPHA, TAU, WA, WB;
+      Complex         ALPHA, TAU, WA, WB;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZAXPY, ZGEMV, ZGERC, ZHEMV, ZHER2, ZLARNV, ZSCAL
       // ..
       // .. External Functions ..
       double             DZNRM2;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL DZNRM2, ZDOTC
       // ..
       // .. Intrinsic Functions ..

@@ -10,13 +10,13 @@
       int                K, LDA, LDB, LDT, LDWORK, M, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
+      Complex         A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE, CZERO;
+      Complex         CONE, CZERO;
       const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

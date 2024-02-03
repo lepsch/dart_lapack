@@ -9,14 +9,14 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
+      Complex         B( LDB, * ), D( * ), DL( * ), DU( * ), DU2( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, J;
-      COMPLEX*16         TEMP;
+      Complex         TEMP;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG

@@ -9,7 +9,7 @@
       bool               WANTT, WANTZ;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
+      Complex         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // ================================================================
@@ -38,13 +38,13 @@
       // .    shifts. ====
       double             WILK1;
       const              WILK1 = 0.75 ;
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             TWO;
       const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
-      COMPLEX*16         AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2;
+      Complex         AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2;
       double             S;
       int                I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD;
       bool               SORTED;
@@ -55,7 +55,7 @@
       // EXTERNAL ILAENV
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         ZDUM( 1, 1 );
+      Complex         ZDUM( 1, 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZLACPY, ZLAHQR, ZLAQR2, ZLAQR5

@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * );
+      Complex         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * );
       double             S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 

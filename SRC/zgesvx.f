@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
+      Complex         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================

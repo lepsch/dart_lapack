@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             LSCALE( * ), RSCALE( * );
-      COMPLEX*16         V( LDV, * );
+      Complex         V( LDV, * );
       // ..
 
 // =====================================================================

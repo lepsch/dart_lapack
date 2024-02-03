@@ -9,7 +9,7 @@
       int                IFST, ILST, INFO, LDQ, LDT, N;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         Q( LDQ, * ), T( LDT, * );
+      Complex         Q( LDQ, * ), T( LDT, * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       bool               WANTQ;
       int                K, M1, M2, M3;
       double             CS;
-      COMPLEX*16         SN, T11, T22, TEMP;
+      Complex         SN, T11, T22, TEMP;
       // ..
       // .. External Functions ..
       bool               LSAME;

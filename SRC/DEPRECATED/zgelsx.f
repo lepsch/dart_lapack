@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                JPVT( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -21,13 +21,13 @@
       const              IMAX = 1, IMIN = 2 ;
       double             ZERO, ONE, DONE, NTDONE;
       const              ZERO = 0.0, ONE = 1.0, DONE = ZERO, NTDONE = ONE ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;
       double             ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM;
-      COMPLEX*16         C1, C2, S1, S2, T1, T2;
+      Complex         C1, C2, S1, S2, T1, T2;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQPF, ZLAIC1, ZLASCL, ZLASET, ZLATZM, ZTRSM, ZTZRQF, ZUNM2R

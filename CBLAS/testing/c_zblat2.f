@@ -1,5 +1,5 @@
       void main() {
-// Test program for the COMPLEX*16          Level 2 Blas.
+// Test program for the Complex          Level 2 Blas.
 
 // The program must be driven by a short data file. The first 17 records
 // of the file are read using list-directed input, the last 17 records
@@ -67,7 +67,7 @@
       const              NIN = 5, NOUT = 6 ;
       int                NSUBS;
       const              NSUBS = 17 ;
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO, RHALF, RONE;
       const              RZERO = 0.0, RHALF = 0.5, RONE = 1.0 ;
@@ -83,7 +83,7 @@
       String             SNAMET;
       String             SNAPS;
       // .. Local Arrays ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BET( NBEMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( 2*NMAX );
       double             G( NMAX );
       int                IDIM( NIDMAX ), INC( NINMAX ), KB( NKBMAX );
       bool               LTEST( NSUBS );
@@ -369,7 +369,7 @@
  9996 FORMAT( ' VALUE OF N IS LESS THAN 0 OR GREATER THAN ', I2 );
  9995 FORMAT( ' VALUE OF K IS LESS THAN 0' );
  9994 FORMAT( ' ABSOLUTE VALUE OF INCX OR INCY IS 0 OR GREATER THAN ', I2 );
- 9993 FORMAT(' TESTS OF THE COMPLEX*16      LEVEL 2 BLAS', //' THE F', 'OLLOWING PARAMETER VALUES WILL BE USED:' );
+ 9993 FORMAT(' TESTS OF THE Complex      LEVEL 2 BLAS', //' THE F', 'OLLOWING PARAMETER VALUES WILL BE USED:' );
  9992 FORMAT( '   FOR N              ', 9I6 );
  9991 FORMAT( '   FOR K              ', 7I6 );
  9990 FORMAT( '   FOR INCX AND INCY  ', 7I6 );
@@ -398,7 +398,7 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16        ZERO, HALF;
+      Complex        ZERO, HALF;
       const             ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       double            RZERO;
       const             RZERO = 0.0 ;
@@ -408,11 +408,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
       double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, BETA, BLS, TRANSL;
+      Complex         ALPHA, ALS, BETA, BLS, TRANSL;
       double             ERR, ERRMAX;
       int                I, IA, IB, IC, IKU, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, KL, KLS, KU, KUS, LAA, LDA, LDAS, LX, LY, M, ML, MS, N, NARGS, NC, ND, NK, NL, NS;
       bool               BANDED, FULL, NULL, RESET, SAME, TRAN;
@@ -702,7 +702,7 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, HALF;
+      Complex         ZERO, HALF;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -712,11 +712,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BET( NBET ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX );
       double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, BETA, BLS, TRANSL;
+      Complex         ALPHA, ALS, BETA, BLS, TRANSL;
       double             ERR, ERRMAX;
       int                I, IA, IB, IC, IK, IN, INCX, INCXS, INCY, INCYS, IX, IY, K, KS, LAA, LDA, LDAS, LX, LY, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
@@ -1005,7 +1005,7 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, HALF, ONE;
+      Complex         ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -1015,11 +1015,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XT( NMAX ), XX( NMAX*INCMAX ), Z( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC ), KB( NKB );
       // .. Local Scalars ..
-      COMPLEX*16         TRANSL;
+      Complex         TRANSL;
       double             ERR, ERRMAX;
       int                I, ICD, ICT, ICU, IK, IN, INCX, INCXS, IX, K, KS, LAA, LDA, LDAS, LX, N, NARGS, NC, NK, NS;
       bool               BANDED, FULL, NULL, PACKED, RESET, SAME;
@@ -1324,7 +1324,7 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, HALF, ONE;
+      Complex         ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -1334,16 +1334,16 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, ALS, TRANSL;
+      Complex         ALPHA, ALS, TRANSL;
       double             ERR, ERRMAX;
       int                I, IA, IM, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, LAA, LDA, LDAS, LX, LY, M, MS, N, NARGS, NC, ND, NS;
       bool               CONJ, NULL, RESET, SAME;
       // .. Local Arrays ..
-      COMPLEX*16         W( 1 );
+      Complex         W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
       bool               LZE, LZERES;
@@ -1564,7 +1564,7 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, HALF, ONE;
+      Complex         ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -1574,11 +1574,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX );
       double             G( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
-      COMPLEX*16         ALPHA, TRANSL;
+      Complex         ALPHA, TRANSL;
       double             ERR, ERRMAX, RALPHA, RALS;
       int               I, IA, IC, IN, INCX, INCXS, IX, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
@@ -1586,7 +1586,7 @@
       String             CUPLO;
       String             ICH;
       // .. Local Arrays ..
-      COMPLEX*16         W( 1 );
+      Complex         W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
       bool               LZE, LZERES;
@@ -1821,7 +1821,7 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, HALF, ONE;
+      Complex         ZERO, HALF, ONE;
       const              ZERO = ( 0.0, 0.0 ), HALF = ( 0.5, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -1831,11 +1831,11 @@
       bool               FATAL, REWI, TRACE;
       String             SNAME;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 );
+      Complex         A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), X( NMAX ), XS( NMAX*INCMAX ), XX( NMAX*INCMAX ), Y( NMAX ), YS( NMAX*INCMAX ), YT( NMAX ), YY( NMAX*INCMAX ), Z( NMAX, 2 );
       double                         G( NMAX );
       int                IDIM( NIDIM ), INC( NINC );
       // .. Local Scalars ..
-      COMPLEX*16            ALPHA, ALS, TRANSL;
+      Complex            ALPHA, ALS, TRANSL;
       double                         ERR, ERRMAX;
       int                I, IA, IC, IN, INCX, INCXS, INCY, INCYS, IX, IY, J, JA, JJ, LAA, LDA, LDAS, LJ, LX, LY, N, NARGS, NC, NS;
       bool               FULL, NULL, PACKED, RESET, SAME, UPPER;
@@ -1843,7 +1843,7 @@
       String             CUPLO;
       String             ICH;
       // .. Local Arrays ..
-      COMPLEX*16         W( 2 );
+      Complex         W( 2 );
       bool               ISAME( 13 );
       // .. External Functions ..
       bool               LZE, LZERES;
@@ -2108,21 +2108,21 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO, RONE;
       const              RZERO = 0.0, RONE = 1.0 ;
       // .. Scalar Arguments ..
-      COMPLEX*16         ALPHA, BETA;
+      Complex         ALPHA, BETA;
       double             EPS, ERR;
       int                INCX, INCY, M, N, NMAX, NOUT;
       bool               FATAL, MV;
       String             TRANS;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, * ), X( * ), Y( * ), YT( * ), YY( * );
+      Complex         A( NMAX, * ), X( * ), Y( * ), YT( * ), YY( * );
       double             G( * );
       // .. Local Scalars ..
-      COMPLEX*16         C;
+      Complex         C;
       double             ERRI;
       int                I, INCXL, INCYL, IY, J, JX, KX, KY, ML, NL;
       bool               CTRAN, TRAN;
@@ -2235,7 +2235,7 @@
       // .. Scalar Arguments ..
       int                LR;
       // .. Array Arguments ..
-      COMPLEX*16         RI( * ), RJ( * );
+      Complex         RI( * ), RJ( * );
       // .. Local Scalars ..
       int                I;
       // .. Executable Statements ..
@@ -2268,7 +2268,7 @@
       String             UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      COMPLEX*16         AA( LDA, * ), AS( LDA, * );
+      Complex         AA( LDA, * ), AS( LDA, * );
       // .. Local Scalars ..
       int                I, IBEG, IEND, J;
       bool               UPPER;
@@ -2308,7 +2308,7 @@
       // End of LZERES.
 
       }
-      COMPLEX*16 FUNCTION ZBEG( RESET );
+      Complex FUNCTION ZBEG( RESET );
 
 // Generates complex numbers as pairs of random numbers uniformly
 // distributed between -0.5 and 0.5.
@@ -2392,27 +2392,27 @@
       // Jeremy Du Croz, NAG Central Office.
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         ROGUE;
+      Complex         ROGUE;
       const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       double             RROGUE;
       const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
-      COMPLEX*16         TRANSL;
+      Complex         TRANSL;
       int                KL, KU, LDA, M, N, NMAX;
       bool               RESET;
       String             DIAG, UPLO;
       String             TYPE;
       // .. Array Arguments ..
-      COMPLEX*16         A( NMAX, * ), AA( * );
+      Complex         A( NMAX, * ), AA( * );
       // .. Local Scalars ..
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      COMPLEX*16         ZBEG;
+      Complex         ZBEG;
       // EXTERNAL ZBEG
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, DCONJG, MAX, MIN, DBLE

@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                ISEED( 4 );
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       // ..
 
 // =====================================================================
@@ -19,17 +19,17 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN;
       double             ALPHA;
-      COMPLEX*16         CTEMP;
+      Complex         CTEMP;
       // ..
       // .. External Functions ..
       double             DLARAN;
-      COMPLEX*16         ZLARND;
+      Complex         ZLARND;
       // EXTERNAL DLARAN, ZLARND
       // ..
       // .. External Subroutines ..

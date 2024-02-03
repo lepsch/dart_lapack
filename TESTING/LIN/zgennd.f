@@ -8,7 +8,7 @@
       int     M, N, LDA;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16 A( LDA, * );
+      Complex A( LDA, * );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       // ..
       // .. Local Scalars ..
       int     I, K;
-      COMPLEX*16 AII;
+      Complex AII;
       // ..
       // .. Intrinsics ..
       // INTRINSIC MIN, DBLE, DIMAG

@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       double             RWORK( * );
       COMPLEX            SWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * );
       // ..
 
 // =====================================================================
@@ -26,13 +26,13 @@
       double             BWDMAX;
       const              BWDMAX = 1.0e+00 ;
 
-      COMPLEX*16         NEGONE, ONE;
+      Complex         NEGONE, ONE;
       const              NEGONE = ( -1.0e+00, 0.0e+00 ), ONE = ( 1.0e+00, 0.0e+00 ) ;
 
       // .. Local Scalars ..
       int                I, IITER, PTSA, PTSX;
       double             ANRM, CTE, EPS, RNRM, XNRM;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
 
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZHEMM, ZLACPY, ZLAT2C, ZLAG2C, CLAG2Z, CPOTRF, CPOTRS, XERBLA, ZPOTRF, ZPOTRS
@@ -132,7 +132,7 @@
 
       cpotrs(UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO );
 
-      // Convert SX back to COMPLEX*16
+      // Convert SX back to Complex
 
       clag2z(N, NRHS, SWORK( PTSX ), N, X, LDX, INFO );
 

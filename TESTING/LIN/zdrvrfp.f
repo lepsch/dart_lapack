@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                NVAL( NN ), NSVAL( NNS ), NTVAL( NNT );
-      COMPLEX*16         A( * );
-      COMPLEX*16         AINV( * );
-      COMPLEX*16         ASAV( * );
-      COMPLEX*16         B( * );
-      COMPLEX*16         BSAV( * );
-      COMPLEX*16         AFAC( * );
-      COMPLEX*16         ARF( * );
-      COMPLEX*16         ARFINV( * );
-      COMPLEX*16         XACT( * );
-      COMPLEX*16         X( * );
-      COMPLEX*16         Z_WORK_ZLATMS( * );
-      COMPLEX*16         Z_WORK_ZPOT02( * );
-      COMPLEX*16         Z_WORK_ZPOT03( * );
+      Complex         A( * );
+      Complex         AINV( * );
+      Complex         ASAV( * );
+      Complex         B( * );
+      Complex         BSAV( * );
+      Complex         AFAC( * );
+      Complex         ARF( * );
+      Complex         ARFINV( * );
+      Complex         XACT( * );
+      Complex         X( * );
+      Complex         Z_WORK_ZLATMS( * );
+      Complex         Z_WORK_ZPOT02( * );
+      Complex         Z_WORK_ZPOT03( * );
       double             D_WORK_ZLATMS( * );
       double             D_WORK_ZLANHE( * );
       double             D_WORK_ZPOT01( * );

@@ -26,7 +26,7 @@
       bool               B( NMAX );
       int                IW( 4*NMAX );
       double             R1( NMAX ), R2( NMAX ), RW( LW ), S( NMAX );
-      COMPLEX*16         A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX );
+      Complex         A( NMAX, NMAX ), U( NMAX, NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), VT( NMAX, NMAX ), W( 10*NMAX ), X( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, ZGEES, ZGEESX, ZGEEV, ZGEEVX, ZGESVJ, ZGESDD, ZGESVD, ZGESVDX, ZGESVDQ

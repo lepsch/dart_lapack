@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), C( LDC, * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
+      Complex         AB( LDAB, * ), C( LDC, * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               WANTB, WANTC, WANTPT, WANTQ;
       int                I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MU, MU0, NR, NRT;
       double             ABST, RC;
-      COMPLEX*16         RA, RB, RS, T;
+      Complex         RA, RB, RS, T;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZLARGV, ZLARTG, ZLARTV, ZLASET, ZROT, ZSCAL

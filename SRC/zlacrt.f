@@ -6,17 +6,17 @@
 
       // .. Scalar Arguments ..
       int                INCX, INCY, N;
-      COMPLEX*16         C, S;
+      Complex         C, S;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         CX( * ), CY( * );
+      Complex         CX( * ), CY( * );
       // ..
 
 // =====================================================================
 
       // .. Local Scalars ..
       int                I, IX, IY;
-      COMPLEX*16         CTEMP;
+      Complex         CTEMP;
       // ..
       // .. Executable Statements ..
 

@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RESULT( 2 ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), E( LDE, * ), W( * ), WORK( * );
+      Complex         A( LDA, * ), E( LDE, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,14 +18,14 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       String             NORMA, NORME;
       int                ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC;
       double             ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL;
-      COMPLEX*16         WTEMP;
+      Complex         WTEMP;
       // ..
       // .. External Functions ..
       bool               LSAME;

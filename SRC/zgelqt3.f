@@ -8,13 +8,13 @@
       int       INFO, LDA, M, N, LDT;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16   A( LDA, * ), T( LDT, * );
+      Complex   A( LDA, * ), T( LDT, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16   ONE, ZERO;
+      Complex   ONE, ZERO;
       const     ONE = (1.0e+00,0.0e+00) ;
       const     ZERO = (0.0e+00,0.0e+00);
       // ..

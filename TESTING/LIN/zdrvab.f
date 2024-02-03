@@ -13,7 +13,7 @@
       int                MVAL( * ), NSVAL( * ), IWORK( * );
       double             RWORK( * );
       COMPLEX            SWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * );
+      Complex         A( * ), AFAC( * ), B( * ), WORK( * ), X( * );
       // ..
 
 // =====================================================================

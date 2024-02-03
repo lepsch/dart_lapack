@@ -12,13 +12,13 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
+      Complex         A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
@@ -32,7 +32,7 @@
       // .. Local Arrays ..
       int                IDUM( 1 );
       double             DUM( 1 );
-      COMPLEX*16         CDUM( 1 );
+      Complex         CDUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL DBDSDC, DLASCL, XERBLA, ZGEBRD, ZGELQF, ZGEMM, ZGEQRF, ZLACP2, ZLACPY, ZLACRM, ZLARCM, ZLASCL, ZLASET, ZUNGBR, ZUNGLQ, ZUNGQR, ZUNMBR

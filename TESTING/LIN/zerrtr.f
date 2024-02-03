@@ -22,7 +22,7 @@
       // ..
       // .. Local Arrays ..
       double             R1( NMAX ), R2( NMAX ), RW( NMAX );
-      COMPLEX*16         A( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
+      Complex         A( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
       bool               LSAMEN;

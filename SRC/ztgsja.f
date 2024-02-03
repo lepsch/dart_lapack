@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             ALPHA( * ), BETA( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       const              MAXIT = 40 ;
       double             ZERO, ONE, HUGENUM;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -29,7 +29,7 @@
       bool               INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV;
       int                I, J, KCYCLE;
       double             A1, A3, B1, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SSMIN;
-      COMPLEX*16         A2, B2, SNQ, SNU, SNV;
+      Complex         A2, B2, SNQ, SNU, SNV;
       // ..
       // .. External Functions ..
       bool               LSAME;

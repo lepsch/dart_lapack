@@ -13,7 +13,7 @@
       bool               DOTYPE( * );
       int                IWORK( * ), NVAL( * );
       double             RWORK( * );
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
+      Complex         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Parameters ..
       double             ZERO;
       const              ZERO = 0.0 ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = 0.0 ;
       int                NTYPES, NTESTS;
       const              NTYPES = 10, NTESTS = 3 ;

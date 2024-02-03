@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * ), S( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -28,7 +28,7 @@
       double             ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         DUM( 1 );
+      Complex         DUM( 1 );
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLASCL, DLASET, XERBLA, ZBDSQR, ZCOPY, ZDRSCL, ZGEBRD, ZGELQF, ZGEMM, ZGEMV, ZGEQRF, ZLACPY, ZLASCL, ZLASET, ZUNGBR, ZUNMBR, ZUNMLQ

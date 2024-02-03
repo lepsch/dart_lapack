@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         AB( LDAB, * ), B( LDB, * );
+      Complex         AB( LDAB, * ), B( LDB, * );
       // ..
 
 // =====================================================================

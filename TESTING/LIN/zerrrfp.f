@@ -14,10 +14,10 @@
       // .. Local Scalars ..
       int                INFO;
       double             ALPHA, BETA;
-      COMPLEX*16         CALPHA;
+      Complex         CALPHA;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         A( 1, 1), B( 1, 1);
+      Complex         A( 1, 1), B( 1, 1);
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, ZTFSM, ZTFTRI, ZHFRK, ZTFTTP, ZTFTTR, ZPFTRI, ZPFTRF, ZPFTRS, ZTPTTF, ZTPTTR, ZTRTTF, ZTRTTP
@@ -223,7 +223,7 @@
          WRITE( NOUT, FMT = 9998 );
       }
 
- 9999 FORMAT( 1X, 'COMPLEX*16 RFP routines passed the tests of the ', 'error exits' );
+ 9999 FORMAT( 1X, 'Complex RFP routines passed the tests of the ', 'error exits' );
  9998 FORMAT( ' *** RFP routines failed the tests of the error ', 'exits ***' );
       return;
 

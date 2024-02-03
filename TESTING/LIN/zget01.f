@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * );
+      Complex         A( LDA, * ), AFAC( LDAFAC, * );
       // ..
 
 // =====================================================================
@@ -19,17 +19,17 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, J, K;
       double             ANORM, EPS;
-      COMPLEX*16         T;
+      Complex         T;
       // ..
       // .. External Functions ..
       double             DLAMCH, ZLANGE;
-      COMPLEX*16         ZDOTU;
+      Complex         ZDOTU;
       // EXTERNAL DLAMCH, ZLANGE, ZDOTU
       // ..
       // .. External Subroutines ..

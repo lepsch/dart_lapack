@@ -6,11 +6,11 @@
 
       // .. Scalar Arguments ..
       int                LDA, LDX, LDY, N, TYPE;
-      COMPLEX*16         ALPHA, BETA, WX, WY;
+      Complex         ALPHA, BETA, WX, WY;
       // ..
       // .. Array Arguments ..
       double             DIF( * ), S( * );
-      COMPLEX*16         A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * );
+      Complex         A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             RONE, TWO, THREE;
       const              RONE = 1.0, TWO = 2.0, THREE = 3.0 ;
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,7 +26,7 @@
       // ..
       // .. Local Arrays ..
       double             RWORK( 50 );
-      COMPLEX*16         WORK( 26 ), Z( 8, 8 );
+      Complex         WORK( 26 ), Z( 8, 8 );
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC CDABS, DBLE, DCMPLX, DCONJG, SQRT

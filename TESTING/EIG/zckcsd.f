@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * );
       double             RWORK( * ), THETA( * );
-      COMPLEX*16         U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
+      Complex         U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * );
       // ..
 
 // =====================================================================
@@ -23,7 +23,7 @@
       const              NTYPES = 4 ;
       double             GAPDIGIT, ORTH, REALONE, REALZERO, TEN;
       const              GAPDIGIT = 18.0, ORTH = 1.0e-12, REALONE = 1.0, REALZERO = 0.0, TEN = 10.0 ;
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       double             PIOVER2;
       const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
@@ -160,9 +160,9 @@
       int                LDX, M, P, Q;
       int                ISEED( 4 );
       double             THETA( * );
-      COMPLEX*16         WORK( * ), X( LDX, * );
+      Complex         WORK( * ), X( LDX, * );
 
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
 
       int                I, INFO, R;

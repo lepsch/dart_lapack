@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), WORK( * );
+      Complex         AB( LDAB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       String             NORMIN;
       int                IX, KASE;
       double             AINVNM, SCALE, SCALEL, SCALEU, SMLNUM;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

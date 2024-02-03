@@ -19,12 +19,12 @@
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;
       double             EPS, RMAX, SAFMIN, VMAX, X;
-      COMPLEX*16         CDUM;
+      Complex         CDUM;
       // ..
       // .. Local Arrays ..
       int                LMAX( 2 );
       double             SCALE( LDE );
-      COMPLEX*16         E( LDE, LDE ), EIN( LDE, LDE );
+      Complex         E( LDE, LDE ), EIN( LDE, LDE );
       // ..
       // .. External Functions ..
       double             DLAMCH;

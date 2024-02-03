@@ -5,18 +5,18 @@
       String   , INTENT( IN ) :: WANTS, WANTQ, WANTZ;
       int    , INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, REC;
       int    , INTENT( OUT ) :: INFO;
-      COMPLEX*16, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * ), WORK( * );
+      Complex, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), ALPHA( * ), BETA( * ), WORK( * );
       double          , INTENT( OUT ) :: RWORK( * );
 
       // Parameters
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double           :: ZERO, ONE, HALF;
       const    ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
 
       // Local scalars
       double           :: SMLNUM, ULP, SAFMIN, SAFMAX, C1, TEMPR, BNORM, BTOL;
-      COMPLEX*16 :: ESHIFT, S1, TEMP;
+      Complex :: ESHIFT, S1, TEMP;
       int     :: ISTART, ISTOP, IITER, MAXIT, ISTART2, K, LD, NSHIFTS, NBLOCK, NW, NMIN, NIBBLE, N_UNDEFLATED, N_DEFLATED, NS, SWEEP_INFO, SHIFTPOS, LWORKREQ, K2, ISTARTM, ISTOPM, IWANTS, IWANTQ, IWANTZ, NORM_INFO, AED_INFO, NWR, NBR, NSR, ITEMP1, ITEMP2, RCOST;
       bool    :: ILSCHUR, ILQ, ILZ;
       String    :: JBCMPZ*3;

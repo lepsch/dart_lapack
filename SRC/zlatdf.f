@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), JPIV( * );
-      COMPLEX*16         RHS( * ), Z( LDZ, * );
+      Complex         RHS( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -20,24 +20,24 @@
       const              MAXDIM = 2 ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, J, K;
       double             RTEMP, SCALE, SMINU, SPLUS;
-      COMPLEX*16         BM, BP, PMONE, TEMP;
+      Complex         BM, BP, PMONE, TEMP;
       // ..
       // .. Local Arrays ..
       double             RWORK( MAXDIM );
-      COMPLEX*16         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
+      Complex         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM );
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
       // ..
       // .. External Functions ..
       double             DZASUM;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL DZASUM, ZDOTC
       // ..
       // .. Intrinsic Functions ..

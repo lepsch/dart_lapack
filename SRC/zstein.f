@@ -10,13 +10,13 @@
       // .. Array Arguments ..
       int                IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * );
       double             D( * ), E( * ), W( * ), WORK( * );
-      COMPLEX*16         Z( LDZ, * );
+      Complex         Z( LDZ, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE, TEN, ODM3, ODM1;
       const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1 ;

@@ -10,7 +10,7 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             D( * ), E( * ), RWORK( * );
-      COMPLEX*16         Q( LDQ, * ), QSTORE( LDQS, * );
+      Complex         Q( LDQ, * ), QSTORE( LDQS, * );
       // ..
 
 // =====================================================================

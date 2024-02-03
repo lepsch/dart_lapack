@@ -9,7 +9,7 @@
       int                N, INFO, LDA, LDAF;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * );
+      Complex         A( LDA, * ), AF( LDAF, * );
       double             WORK( * );
       int                IPIV( * );
       // ..
@@ -20,7 +20,7 @@
       int                NCOLS, I, J, K, KP;
       double             AMAX, UMAX, RPVGRW, TMP;
       bool               UPPER;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, DIMAG, MAX, MIN

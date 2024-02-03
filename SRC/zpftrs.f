@@ -9,13 +9,13 @@
       int                INFO, LDB, N, NRHS;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( 0: * ), B( LDB, * );
+      Complex         A( 0: * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

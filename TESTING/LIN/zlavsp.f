@@ -10,19 +10,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( * ), B( LDB, * );
+      Complex         A( * ), B( LDB, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE;
+      Complex         ONE;
       const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               NOUNIT;
       int                J, K, KC, KCNEXT, KP;
-      COMPLEX*16         D11, D12, D21, D22, T1, T2;
+      Complex         D11, D12, D21, D22, T1, T2;
       // ..
       // .. External Functions ..
       bool               LSAME;

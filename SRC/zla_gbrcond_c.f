@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * );
+      Complex         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * );
       double             C( * ), RWORK( * );
 
 
@@ -21,7 +21,7 @@
       bool               NOTRANS;
       int                KASE, I, J;
       double             AINVNM, ANORM, TMP;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );

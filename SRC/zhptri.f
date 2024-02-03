@@ -10,25 +10,25 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         AP( * ), WORK( * );
+      Complex         AP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       double             ONE;
-      COMPLEX*16         CONE, ZERO;
+      Complex         CONE, ZERO;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP;
       double             AK, AKP1, D, T;
-      COMPLEX*16         AKKP1, TEMP;
+      Complex         AKKP1, TEMP;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. External Subroutines ..

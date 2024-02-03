@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * );
-      COMPLEX*16         U( LDU, * ), WORK( * );
+      Complex         U( LDU, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

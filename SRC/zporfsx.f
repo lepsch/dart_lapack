@@ -10,7 +10,7 @@
       double             RCOND;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * );
+      Complex         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * );
       double             RWORK( * ), S( * ), PARAMS(*), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * );
       // ..
 

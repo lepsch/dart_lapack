@@ -10,7 +10,7 @@
       double             RESID;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
+      Complex         B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * );
       // ..
 
 // =====================================================================

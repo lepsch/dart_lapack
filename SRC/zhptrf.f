@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         AP( * );
+      Complex         AP( * );
       // ..
 
 // =====================================================================
@@ -25,7 +25,7 @@
       bool               UPPER;
       int                I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP;
       double             ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT;
-      COMPLEX*16         D12, D21, T, WK, WKM1, WKP1, ZDUM;
+      Complex         D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
       bool               LSAME;

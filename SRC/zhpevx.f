@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IFAIL( * ), IWORK( * );
       double             RWORK( * ), W( * );
-      COMPLEX*16         AP( * ), WORK( * ), Z( LDZ, * );
+      Complex         AP( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

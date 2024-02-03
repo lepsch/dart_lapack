@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       bool               SELECT( * );
       double             RWORK( * );
-      COMPLEX*16         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
+      Complex         T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -20,7 +20,7 @@
       // .. Parameters ..
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE  = ( 1.0, 0.0 ) ;
       int                NBMIN, NBMAX;
       const              NBMIN = 8, NBMAX = 128 ;
@@ -29,7 +29,7 @@
       bool               ALLV, BOTHV, LEFTV, LQUERY, OVER, RIGHTV, SOMEV;
       int                I, II, IS, J, K, KI, IV, MAXWRK, NB;
       double             OVFL, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL;
-      COMPLEX*16         CDUM;
+      Complex         CDUM;
       // ..
       // .. External Functions ..
       bool               LSAME;

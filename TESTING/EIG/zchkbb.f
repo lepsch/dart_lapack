@@ -12,13 +12,13 @@
       bool               DOTYPE( * );
       int                ISEED( 4 ), KK( * ), MVAL( * ), NVAL( * );
       double             BD( * ), BE( * ), RESULT( * ), RWORK( * );
-      COMPLEX*16         A( LDA, * ), AB( LDAB, * ), C( LDC, * ), CC( LDC, * ), P( LDP, * ), Q( LDQ, * ), WORK( * );
+      Complex         A( LDA, * ), AB( LDAB, * ), C( LDC, * ), CC( LDC, * ), P( LDP, * ), Q( LDQ, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       double             ZERO, ONE;
       const              ZERO = 0.0, ONE = 1.0 ;

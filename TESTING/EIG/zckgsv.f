@@ -11,7 +11,7 @@
       // .. Array Arguments ..
       int                ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * );
       double             ALPHA( * ), BETA( * ), RWORK( * );
-      COMPLEX*16         A( * ), AF( * ), B( * ), BF( * ), Q( * ), R( * ), U( * ), V( * ), WORK( * );
+      Complex         A( * ), AF( * ), B( * ), BF( * ), Q( * ), R( * ), U( * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================

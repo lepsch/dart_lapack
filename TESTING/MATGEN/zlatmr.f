@@ -8,11 +8,11 @@
       String             DIST, GRADE, PACK, PIVTNG, RSIGN, SYM;
       int                INFO, KL, KU, LDA, M, MODE, MODEL, MODER, N;
       double             ANORM, COND, CONDL, CONDR, SPARSE;
-      COMPLEX*16         DMAX;
+      Complex         DMAX;
       // ..
       // .. Array Arguments ..
       int                IPIVOT( * ), ISEED( 4 ), IWORK( * );
-      COMPLEX*16         A( LDA, * ), D( * ), DL( * ), DR( * );
+      Complex         A( LDA, * ), D( * ), DL( * ), DR( * );
       // ..
 
 // =====================================================================
@@ -22,16 +22,16 @@
       const              ZERO = 0.0 ;
       double             ONE;
       const              ONE = 1.0 ;
-      COMPLEX*16         CONE;
+      Complex         CONE;
       const              CONE = ( 1.0, 0.0 ) ;
-      COMPLEX*16         CZERO;
+      Complex         CZERO;
       const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               BADPVT, DZERO, FULBND;
       int                I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS;
       double             ONORM, TEMP;
-      COMPLEX*16         CALPHA, CTEMP;
+      Complex         CALPHA, CTEMP;
       // ..
       // .. Local Arrays ..
       double             TEMPA( 1 );
@@ -39,7 +39,7 @@
       // .. External Functions ..
       bool               LSAME;
       double             ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY;
-      COMPLEX*16         ZLATM2, ZLATM3;
+      Complex         ZLATM2, ZLATM3;
       // EXTERNAL LSAME, ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY, ZLATM2, ZLATM3
       // ..
       // .. External Subroutines ..

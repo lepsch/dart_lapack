@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             BERR( * ), D( * ), FERR( * ), RESLTS( * );
-      COMPLEX*16         B( LDB, * ), E( * ), X( LDX, * ), XACT( LDXACT, * );
+      Complex         B( LDB, * ), E( * ), X( LDX, * ), XACT( LDXACT, * );
       // ..
 
 // =====================================================================
@@ -21,7 +21,7 @@
       // .. Local Scalars ..
       int                I, IMAX, J, K, NZ;
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
-      COMPLEX*16         ZDUM;
+      Complex         ZDUM;
       // ..
       // .. External Functions ..
       int                IZAMAX;

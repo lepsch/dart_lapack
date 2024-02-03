@@ -11,7 +11,7 @@
       // ..
       // .. Array Arguments ..
       bool               SELECT( * );
-      COMPLEX*16         Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * );
+      Complex         Q( LDQ, * ), T( LDT, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================

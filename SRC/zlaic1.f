@@ -7,10 +7,10 @@
       // .. Scalar Arguments ..
       int                J, JOB;
       double             SEST, SESTPR;
-      COMPLEX*16         C, GAMMA, S;
+      Complex         C, GAMMA, S;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         W( J ), X( J );
+      Complex         W( J ), X( J );
       // ..
 
 // =====================================================================
@@ -23,14 +23,14 @@
       // ..
       // .. Local Scalars ..
       double             ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2;
-      COMPLEX*16         ALPHA, COSINE, SINE;
+      Complex         ALPHA, COSINE, SINE;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DCONJG, MAX, SQRT
       // ..
       // .. External Functions ..
       double             DLAMCH;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL DLAMCH, ZDOTC
       // ..
       // .. Executable Statements ..

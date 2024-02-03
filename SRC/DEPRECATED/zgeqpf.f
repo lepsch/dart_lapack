@@ -10,7 +10,7 @@
       // .. Array Arguments ..
       int                JPVT( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), TAU( * ), WORK( * );
+      Complex         A( LDA, * ), TAU( * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -22,7 +22,7 @@
       // .. Local Scalars ..
       int                I, ITEMP, J, MA, MN, PVT;
       double             TEMP, TEMP2, TOL3Z;
-      COMPLEX*16         AII;
+      Complex         AII;
       // ..
       // .. External Subroutines ..
       // EXTERNAL XERBLA, ZGEQR2, ZLARF, ZLARFG, ZSWAP, ZUNM2R

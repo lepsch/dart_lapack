@@ -93,11 +93,11 @@
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      COMPLEX*16        CA;
+      Complex        CA;
       double            SA;
       int               I, IX, J, LEN, NP1;
       // .. Local Arrays ..
-      COMPLEX*16        CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5);
+      Complex        CTRUE5(8,5,2), CTRUE6(8,5,2), CV(8,5,2), CVR(8), CX(8), CXR(15), MWPCS(5), MWPCT(5);
       double            STRUE2(5), STRUE4(5);
       int               ITRUE3(5), ITRUEC(5);
       // .. External Functions ..
@@ -227,13 +227,13 @@
       int               ICASE, INCX, INCY, MODE, N;
       bool              PASS;
       // .. Local Scalars ..
-      COMPLEX*16        CA;
+      Complex        CA;
       int               I, J, KI, KN, KSIZE, LENX, LENY, LINCX, LINCY, MX, MY;
       // .. Local Arrays ..
-      COMPLEX*16        CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7);
+      Complex        CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
-      COMPLEX*16        ZDOTC, ZDOTU;
+      Complex        ZDOTC, ZDOTU;
       // EXTERNAL ZDOTC, ZDOTU
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZSWAP, CTEST
@@ -438,7 +438,7 @@
       double           SFAC;
       int              LEN;
       // .. Array Arguments ..
-      COMPLEX*16       CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
+      Complex       CCOMP(LEN), CSIZE(LEN), CTRUE(LEN);
       // .. Local Scalars ..
       int              I;
       // .. Local Arrays ..
@@ -539,12 +539,12 @@
       double            BIGNUM, SAFMAX, SAFMIN, SMLNUM, ULP;
       const             BIGNUM=0.99792015476735990583e+292, SAFMAX=0.44942328371557897693e+308, SAFMIN=0.22250738585072013831e-307, SMLNUM=0.10020841800044863890e-291, ULP=0.22204460492503130808e-015;
       // .. Local Scalars ..
-      COMPLEX*16        ROGUE;
+      Complex        ROGUE;
       double            SNRM, TRAT, V0, V1, WORKSSQ, Y1, Y2, YMAX, YMIN, YNRM, ZNRM;
       int               I, IV, IW, IX, KS;
       bool              FIRST;
       // .. Local Arrays ..
-      COMPLEX*16        X(NMAX), Z(NMAX);
+      Complex        X(NMAX), Z(NMAX);
       double            VALUES(NV), WORK(NMAX);
       // .. Executable Statements ..
       VALUES(1) = ZERO;

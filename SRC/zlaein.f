@@ -8,11 +8,11 @@
       bool               NOINIT, RIGHTV;
       int                INFO, LDB, LDH, N;
       double             EPS3, SMLNUM;
-      COMPLEX*16         W;
+      Complex         W;
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         B( LDB, * ), H( LDH, * ), V( * );
+      Complex         B( LDB, * ), H( LDH, * ), V( * );
       // ..
 
 // =====================================================================
@@ -20,19 +20,19 @@
       // .. Parameters ..
       double             ONE, TENTH;
       const              ONE = 1.0, TENTH = 1.0e-1 ;
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       String             NORMIN, TRANS;
       int                I, IERR, ITS, J;
       double             GROWTO, NRMSML, ROOTN, RTEMP, SCALE, VNORM;
-      COMPLEX*16         CDUM, EI, EJ, TEMP, X;
+      Complex         CDUM, EI, EJ, TEMP, X;
       // ..
       // .. External Functions ..
       int                IZAMAX;
       double             DZASUM, DZNRM2;
-      COMPLEX*16         ZLADIV;
+      Complex         ZLADIV;
       // EXTERNAL IZAMAX, DZASUM, DZNRM2, ZLADIV
       // ..
       // .. External Subroutines ..

@@ -9,7 +9,7 @@
       double             EST;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         V( N ), X( N );
+      Complex         V( N ), X( N );
       // ..
 
 // =====================================================================
@@ -19,7 +19,7 @@
       const              ITMAX = 5 ;
       double             ONE, TWO;
       const              ONE = 1.0, TWO = 2.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..

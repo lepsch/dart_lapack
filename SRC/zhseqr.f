@@ -9,7 +9,7 @@
       String             COMPZ, JOB;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
+      Complex         H( LDH, * ), W( * ), WORK( * ), Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -30,13 +30,13 @@
       // .    deflation window.  ====
       int                NL;
       const              NL = 49 ;
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
-      COMPLEX*16         HL( NL, NL ), WORKL( NL );
+      Complex         HL( NL, NL ), WORKL( NL );
       // ..
       // .. Local Scalars ..
       int                KBOT, NMIN;

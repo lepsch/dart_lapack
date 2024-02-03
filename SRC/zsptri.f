@@ -10,23 +10,23 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         AP( * ), WORK( * );
+      Complex         AP( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
       int                J, K, KC, KCNEXT, KP, KPC, KSTEP, KX, NPP;
-      COMPLEX*16         AK, AKKP1, AKP1, D, T, TEMP;
+      Complex         AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
       bool               LSAME;
-      COMPLEX*16         ZDOTU;
+      Complex         ZDOTU;
       // EXTERNAL LSAME, ZDOTU
       // ..
       // .. External Subroutines ..

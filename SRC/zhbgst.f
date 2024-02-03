@@ -10,13 +10,13 @@
       // ..
       // .. Array Arguments ..
       double             RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), X( LDX, * );
+      Complex         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), X( LDX, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       double             ONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), ONE = 1.0 ;
       // ..
@@ -24,7 +24,7 @@
       bool               UPDATE, UPPER, WANTX;
       int                I, I0, I1, I2, INCA, J, J1, J1T, J2, J2T, K, KA1, KB1, KBT, L, M, NR, NRT, NX;
       double             BII;
-      COMPLEX*16         RA, RA1, T;
+      Complex         RA, RA1, T;
       // ..
       // .. External Functions ..
       bool               LSAME;

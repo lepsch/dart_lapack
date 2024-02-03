@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             A( LDA, * ), RWORK( * );
-      COMPLEX*16         B( LDB, * ), C( LDC, * );
+      Complex         B( LDB, * ), C( LDC, * );
       // ..
 
 // =====================================================================

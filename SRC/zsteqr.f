@@ -10,7 +10,7 @@
       // ..
       // .. Array Arguments ..
       double             D( * ), E( * ), WORK( * );
-      COMPLEX*16         Z( LDZ, * );
+      Complex         Z( LDZ, * );
       // ..
 
 // =====================================================================
@@ -18,7 +18,7 @@
       // .. Parameters ..
       double             ZERO, ONE, TWO, THREE;
       const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXIT;
       const              MAXIT = 30 ;

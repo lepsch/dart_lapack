@@ -12,13 +12,13 @@
       bool               SELECT( * );
       int                IFAILL( * ), IFAILR( * );
       double             RWORK( * );
-      COMPLEX*16         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
+      Complex         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO;
+      Complex         ZERO;
       const              ZERO = ( 0.0, 0.0 ) ;
       double             RZERO;
       const              RZERO = 0.0 ;
@@ -27,7 +27,7 @@
       bool               BOTHV, FROMQR, LEFTV, NOINIT, RIGHTV;
       int                I, IINFO, K, KL, KLN, KR, KS, LDWORK;
       double             EPS3, HNORM, SMLNUM, ULP, UNFL;
-      COMPLEX*16         CDUM, WK;
+      Complex         CDUM, WK;
       // ..
       // .. External Functions ..
       bool               LSAME, DISNAN;

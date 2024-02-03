@@ -12,7 +12,7 @@
       // .. Array Arguments ..
       int                IPIV( * );
       double             RWORK( * );
-      COMPLEX*16         AB( LDAB, * ), WORK( * );
+      Complex         AB( LDAB, * ), WORK( * );
       // ..
 
 // =====================================================================
@@ -26,7 +26,7 @@
       String             NORMIN;
       int                IX, J, JP, KASE, KASE1, KD, LM;
       double             AINVNM, SCALE, SMLNUM;
-      COMPLEX*16         T, ZDUM;
+      Complex         T, ZDUM;
       // ..
       // .. Local Arrays ..
       int                ISAVE( 3 );
@@ -35,7 +35,7 @@
       bool               LSAME;
       int                IZAMAX;
       double             DLAMCH;
-      COMPLEX*16         ZDOTC;
+      Complex         ZDOTC;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, ZDOTC
       // ..
       // .. External Subroutines ..

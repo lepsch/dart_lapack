@@ -12,19 +12,19 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * ), IPIV2( * );
-      COMPLEX*16         A( LDA, * ), TB( * ), WORK( * );
+      Complex         A( LDA, * ), TB( * ), WORK( * );
       // ..
 
 // =====================================================================
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE  = ( 1.0, 0.0 ) ;
 
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;
       int                I, J, K, I1, I2, TD;
       int                LWKOPT, LDTB, NB, KB, JB, NT, IINFO;
-      COMPLEX*16         PIV;
+      Complex         PIV;
       // ..
       // .. External Functions ..
       bool               LSAME;

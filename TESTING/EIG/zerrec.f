@@ -24,7 +24,7 @@
       // .. Local Arrays ..
       bool               SEL( NMAX );
       double             RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX );
-      COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX );
+      Complex         A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX );
       // ..
       // .. External Subroutines ..
       // EXTERNAL CHKXER, ZTREXC, ZTRSEN, ZTRSNA, ZTRSYL

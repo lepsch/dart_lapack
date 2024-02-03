@@ -12,19 +12,19 @@
       // .. Array Arguments ..
       int                IWORK( * );
       double             RWORK( * );
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
+      Complex         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         CZERO, CONE;
+      Complex         CZERO, CONE;
       const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               FORWRD, WANTQ, WANTU, WANTV;
       int                I, J;
-      COMPLEX*16         T;
+      Complex         T;
       // ..
       // .. External Functions ..
       bool               LSAME;

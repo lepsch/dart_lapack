@@ -9,18 +9,18 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16         A( LDA, * );
+      Complex         A( LDA, * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ONE, ZERO;
+      Complex         ONE, ZERO;
       const              ONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       double             SFMIN;
-      COMPLEX*16         TEMP;
+      Complex         TEMP;
       int                I, IINFO, N1, N2;
       // ..
       // .. External Functions ..

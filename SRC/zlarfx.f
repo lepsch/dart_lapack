@@ -7,21 +7,21 @@
       // .. Scalar Arguments ..
       String             SIDE;
       int                LDC, M, N;
-      COMPLEX*16         TAU;
+      Complex         TAU;
       // ..
       // .. Array Arguments ..
-      COMPLEX*16         C( LDC, * ), V( * ), WORK( * );
+      Complex         C( LDC, * ), V( * ), WORK( * );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
-      COMPLEX*16         ZERO, ONE;
+      Complex         ZERO, ONE;
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                J;
-      COMPLEX*16         SUM, T1, T10, T2, T3, T4, T5, T6, T7, T8, T9, V1, V10, V2, V3, V4, V5, V6, V7, V8, V9;
+      Complex         SUM, T1, T10, T2, T3, T4, T5, T6, T7, T8, T9, V1, V10, V2, V3, V4, V5, V6, V7, V8, V9;
       // ..
       // .. External Functions ..
       bool               LSAME;

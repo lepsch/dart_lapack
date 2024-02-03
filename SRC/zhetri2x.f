@@ -10,14 +10,14 @@
       // ..
       // .. Array Arguments ..
       int                IPIV( * );
-      COMPLEX*16            A( LDA, * ), WORK( N+NB+1,* );
+      Complex            A( LDA, * ), WORK( N+NB+1,* );
       // ..
 
 // =====================================================================
 
       // .. Parameters ..
       double             ONE;
-      COMPLEX*16            CONE, ZERO;
+      Complex            CONE, ZERO;
       const              ONE = 1.0, CONE = ( 1.0, 0.0 ), ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
@@ -26,9 +26,9 @@
       int                COUNT;
       int                J, U11, INVD;
 
-      COMPLEX*16   AK, AKKP1, AKP1, D, T;
-      COMPLEX*16   U01_I_J, U01_IP1_J;
-      COMPLEX*16   U11_I_J, U11_IP1_J;
+      Complex   AK, AKKP1, AKP1, D, T;
+      Complex   U01_I_J, U01_IP1_J;
+      Complex   U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
       bool               LSAME;

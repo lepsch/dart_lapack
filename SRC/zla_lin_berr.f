@@ -9,7 +9,7 @@
       // ..
       // .. Array Arguments ..
       double             AYB( N, NRHS ), BERR( NRHS );
-      COMPLEX*16         RES( N, NRHS );
+      Complex         RES( N, NRHS );
       // ..
 
 // =====================================================================
@@ -17,7 +17,7 @@
       // .. Local Scalars ..
       double             TMP;
       int                I, J;
-      COMPLEX*16         CDUM;
+      Complex         CDUM;
       // ..
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, REAL, DIMAG, MAX
@@ -28,7 +28,7 @@
       double             SAFE1;
       // ..
       // .. Statement Functions ..
-      COMPLEX*16         CABS1;
+      Complex         CABS1;
       // ..
       // .. Statement Function Definitions ..
       CABS1( CDUM ) = ABS( DBLE( CDUM ) ) + ABS( DIMAG( CDUM ) );
