@@ -45,28 +45,28 @@ void main() {
           nTests = nTests + 3
           Y = cInf(i)
           R = czero * Y
-          if (R .eq. R) then;
+          if (R .eq. R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'ia',i, czero, Y, R, 'NaN'
           }
           R = cone * Y
-          if( (R .ne. Y) .and. (R .eq. R) ) then
+          if ( (R .ne. Y) .and. (R .eq. R) ) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'the input and NaN'
           }
           R = Y * Y
-          if( (i.eq.1) .or. (i.eq.2) ) then
-              if( (R .ne. cInf(1)) .and. (R .eq. R) ) then
+          if ( (i.eq.1) .or. (i.eq.2) ) {
+              if ( (R .ne. cInf(1)) .and. (R .eq. R) ) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'Inf and NaN'
               }
           } else if ( (i.eq.3) .or. (i.eq.4) ) {
-              if( (R .ne. cInf(2)) .and. (R .eq. R) ) then
+              if ( (R .ne. cInf(2)) .and. (R .eq. R) ) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, '-Inf and NaN'
               }
-          else
-              if (R .eq. R) then;
+          } else {
+              if (R .eq. R) {
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
               }
@@ -78,25 +78,25 @@ void main() {
           nTests = nTests + 3
           Y = cNaN(i)
           R = czero * Y
-          if (R .eq. R) then;
+          if (R .eq. R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'na',i, czero, Y, R, 'NaN'
           }
           R = cone * Y
-          if (R .eq. R) then;
+          if (R .eq. R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'nb',i, cone, Y, R, 'NaN'
           }
           R = Y * Y
-          if (R .eq. R) then;
+          if (R .eq. R) {
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           }
       } // 20
 
-      if (nFailingTests .gt. 0) then;
+      if (nFailingTests .gt. 0) {
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex multiplication,", nFailingTests," fail."
-      else
+      } else {
          print *, "# All tests pass for complex multiplication."
       }
 

@@ -68,7 +68,7 @@
 
       for (J = 1; J <= NRHS; J++) {
          Y_PREC_STATE = EXTRA_RESIDUAL
-         if (Y_PREC_STATE .EQ. EXTRA_Y) then;
+         if (Y_PREC_STATE .EQ. EXTRA_Y) {
             for (I = 1; I <= N; I++) {
                Y_TAIL( I ) = 0.0
             }

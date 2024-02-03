@@ -75,24 +75,24 @@ void main() {
 
       // .. Tests ..
 
-      if (debug) then;
+      if (debug) {
         print *, '# X :=', X
         print *, '# Blue min constant :=', blueMin
         print *, '# Blue max constant :=', blueMax
       }
 
       Xj = X(1)
-      if (Xj .eq. 0.0d0) then;
+      if (Xj .eq. 0.0d0) {
         subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-        if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+        if (debug .or. subnormalTreatedAs0 .eq. 1) {
             print *, "!! fl( subnormal ) may be 0"
         }
-      else
+      } else {
         for (i = 1; i <= N; i++) { // 100
             Xj = X(i)
-            if (Xj .eq. 0.0d0) then;
+            if (Xj .eq. 0.0d0) {
                 subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-                if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+                if (debug .or. subnormalTreatedAs0 .eq. 1) {
                     print *, "!! fl( subnormal ) may be 0"
                 }
             }
@@ -102,19 +102,19 @@ void main() {
       // Test (a) y = x + 0 * I, |y| = x
       for (i = 1; i <= N; i++) { // 10
         Xj = X(i)
-        if (Xj .eq. 0.0d0) then;
+        if (Xj .eq. 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+            if (debug .or. subnormalTreatedAs0 .eq. 1) {
                 print *, "!! [a] fl( subnormal ) may be 0"
             }
-        else
+        } else {
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( Xj, 0.0d0 )
                 R = ABS( Y )
-                if (R .ne. Xj) then;
+                if (R .ne. Xj) {
                     caseAFails = caseAFails + 1
-                    if (caseAFails .eq. 1) then;
+                    if (caseAFails .eq. 1) {
                         print *, "!! Some ABS(x+0*I) differ from ABS(x)"
                     }
                     WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(1+0*I)', R, Xj
@@ -127,19 +127,19 @@ void main() {
       // Test (b) y = 0 + x * I, |y| = x
       for (i = 1; i <= N; i++) { // 20
         Xj = X(i)
-        if (Xj .eq. 0.0d0) then;
+        if (Xj .eq. 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+            if (debug .or. subnormalTreatedAs0 .eq. 1) {
                 print *, "!! [b] fl( subnormal ) may be 0"
             }
-        else
+        } else {
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
                 Y = DCMPLX( 0.0d0, Xj )
                 R = ABS( Y )
-                if (R .ne. Xj) then;
+                if (R .ne. Xj) {
                     caseBFails = caseBFails + 1
-                    if (caseBFails .eq. 1) then;
+                    if (caseBFails .eq. 1) {
                         print *, "!! Some ABS(0+x*I) differ from ABS(x)"
                     }
                     WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+1*I)', R, Xj
@@ -152,25 +152,25 @@ void main() {
       // Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
       for (i = 1; i <= N; i++) { // 30
         if (i .eq. 3) go to 30;
-        if (i .eq. 1) then;
+        if (i .eq. 1) {
             Xj = 4*X(i)
-        else
+        } else {
             Xj = X(i)
         }
-        if (Xj .eq. 0.0d0) then;
+        if (Xj .eq. 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+            if (debug .or. subnormalTreatedAs0 .eq. 1) {
                 print *, "!! [c] fl( subnormal ) may be 0"
             }
-        else
+        } else {
             do while( Xj .ne. limX(i) )
                 nTests = nTests + 1
                 answerC = fiveFourth * Xj
                 Y = DCMPLX( threeFourth * Xj, Xj )
                 R = ABS( Y )
-                if (R .ne. answerC) then;
+                if (R .ne. answerC) {
                     caseCFails = caseCFails + 1
-                    if (caseCFails .eq. 1) then;
+                    if (caseCFails .eq. 1) {
                         print *,  "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)"
                     }
                     WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC
@@ -182,32 +182,32 @@ void main() {
 
       // Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
       for (i = 1; i <= N; i++) { // 40
-        if (i .eq. 1) then;
+        if (i .eq. 1) {
             Xj = 2*X(i)
-        else
+        } else {
             Xj = X(i)
         }
-        if (Xj .eq. 0.0d0) then;
+        if (Xj .eq. 0.0d0) {
             subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-            if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+            if (debug .or. subnormalTreatedAs0 .eq. 1) {
                 print *, "!! [d] fl( subnormal ) may be 0"
             }
-        else
+        } else {
             do while( Xj .ne. limX(i) )
                 answerD = (oneHalf * Xj) * SQRT(2.0d0)
-                if (answerD .eq. 0.0d0) then;
+                if (answerD .eq. 0.0d0) {
                     subnormalTreatedAs0 = subnormalTreatedAs0 + 1
-                    if (debug .or. subnormalTreatedAs0 .eq. 1) then;
+                    if (debug .or. subnormalTreatedAs0 .eq. 1) {
                         print *, "!! [d] fl( subnormal ) may be 0"
                     }
-                else
+                } else {
                     nTests = nTests + 1
                     Y = DCMPLX( oneHalf * Xj, oneHalf * Xj )
                     R = ABS( Y )
                     relDiff = ABS(R-answerD)/answerD
-                    if( relDiff .ge. (0.5*eps) ) then
+                    if ( relDiff .ge. (0.5*eps) ) {
                         caseDFails = caseDFails + 1
-                        if (caseDFails .eq. 1) then;
+                        if (caseDFails .eq. 1) {
                             print *,  "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)"
                         }
                         WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj), '(1+1*I)', R, answerD
@@ -223,7 +223,7 @@ void main() {
         nTests = nTests + 1
         Y = cInf(i)
         R = ABS( Y )
-        if( .not.(R .gt. HUGE(0.0d0)) ) then
+        if ( .not.(R .gt. HUGE(0.0d0)) ) {
             caseEFails = caseEFails + 1
             WRITE( *, FMT = 9997 ) 'i',i, Y, R
         }
@@ -234,7 +234,7 @@ void main() {
         nTests = nTests + 1
         Y = cNaN(i)
         R = ABS( Y )
-        if (R .eq. R) then;
+        if (R .eq. R) {
             caseFFails = caseFFails + 1
             WRITE( *, FMT = 9998 ) 'n',i, Y, R
         }
@@ -242,14 +242,14 @@ void main() {
 
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails
-      if (nFailingTests .gt. 0) then;
+      if (nFailingTests .gt. 0) {
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for ABS(a+b*I),", nFailingTests, " tests fail."
-      else
+      } else {
          print *, "# All tests pass for ABS(a+b*I)"
       }
 
       // If anything was written to stderr, print the message
-      if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) ) then
+      if ( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) ) {
          print *, "# Please check the failed ABS(a+b*I) in [stderr]"
       }
 
