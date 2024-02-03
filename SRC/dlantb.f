@@ -45,7 +45,7 @@
             VALUE = ONE;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
-                  DO 10 I = max( K+2-J, 1 ), K;
+                  for (I = max( K+2-J, 1 ); I <= K; I++) { // 10
                      SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 10
@@ -62,7 +62,7 @@
             VALUE = ZERO;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
-                  DO 50 I = max( K+2-J, 1 ), K + 1;
+                  for (I = max( K+2-J, 1 ); I <= K + 1; I++) { // 50
                      SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 50
@@ -86,12 +86,12 @@
             for (J = 1; J <= N; J++) { // 110
                if ( UDIAG ) {
                   SUM = ONE;
-                  DO 90 I = max( K+2-J, 1 ), K;
+                  for (I = max( K+2-J, 1 ); I <= K; I++) { // 90
                      SUM = SUM + ( AB( I, J ) ).abs();
                   } // 90
                } else {
                   SUM = ZERO;
-                  DO 100 I = max( K+2-J, 1 ), K + 1;
+                  for (I = max( K+2-J, 1 ); I <= K + 1; I++) { // 100
                      SUM = SUM + ( AB( I, J ) ).abs();
                   } // 100
                }
@@ -125,7 +125,7 @@
                } // 150
                for (J = 1; J <= N; J++) { // 170
                   L = K + 1 - J;
-                  DO 160 I = max( 1, J-K ), J - 1;
+                  for (I = max( 1, J-K ); I <= J - 1; I++) { // 160
                      WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 160
                } // 170
@@ -135,7 +135,7 @@
                } // 180
                for (J = 1; J <= N; J++) { // 200
                   L = K + 1 - J;
-                  DO 190 I = max( 1, J-K ), J;
+                  for (I = max( 1, J-K ); I <= J; I++) { // 190
                      WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 190
                } // 200

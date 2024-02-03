@@ -116,7 +116,7 @@
                   TEMP1 = ALPHA*X(J);
                   TEMP2 = ZERO;
                   L = KPLUS1 - J;
-                  DO 50 I = max(1,J-K),J - 1;
+                  for (I = max(1,J-K); I <= J - 1; I++) { // 50
                       Y(I) = Y(I) + TEMP1*A(L+I,J);
                       TEMP2 = TEMP2 + DCONJG(A(L+I,J))*X(I);
                   } // 50
@@ -131,7 +131,7 @@
                   IX = KX;
                   IY = KY;
                   L = KPLUS1 - J;
-                  DO 70 I = max(1,J-K),J - 1;
+                  for (I = max(1,J-K); I <= J - 1; I++) { // 70
                       Y(IY) = Y(IY) + TEMP1*A(L+I,J);
                       TEMP2 = TEMP2 + DCONJG(A(L+I,J))*X(IX);
                       IX = IX + INCX;

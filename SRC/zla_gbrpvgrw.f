@@ -38,7 +38,7 @@
          for (I = max( J-KU, 1 ); I <= min( J+KL, N ); I++) { //
             AMAX = max( CABS1( AB( KD+I-J, J ) ), AMAX );
          }
-         DO I = max( J-KU, 1 ), J;
+         for (I = max( J-KU, 1 ); I <= J; I++) { //
             UMAX = max( CABS1( AFB( KD+I-J, J ) ), UMAX );
          }
          if ( UMAX /= 0.0 ) {

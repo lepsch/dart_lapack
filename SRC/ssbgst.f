@@ -174,19 +174,19 @@
             for (J = I; J <= I1; J++) { // 20
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII;
             } // 20
-            DO 30 J = max( 1, I-KA ), I;
+            for (J = max( 1, I-KA ); J <= I; J++) { // 30
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII;
             } // 30
             for (K = I - KBT; K <= I - 1; K++) { // 60
                for (J = I - KBT; J <= K; J++) { // 40
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( J-I+KB1, I )*AB( K-I+KA1, I ) - BB( K-I+KB1, I )*AB( J-I+KA1, I ) + AB( KA1, I )*BB( J-I+KB1, I )* BB( K-I+KB1, I );
                } // 40
-               DO 50 J = max( 1, I-KA ), I - KBT - 1;
+               for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 50
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( K-I+KB1, I )*AB( J-I+KA1, I );
                } // 50
             } // 60
             for (J = I; J <= I1; J++) { // 80
-               DO 70 K = max( J-KA, I-KBT ), I - 1;
+               for (K = max( J-KA, I-KBT ); K <= I - 1; K++) { // 70
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( K-I+KB1, I )*AB( I-J+KA1, J );
                } // 70
             } // 80
@@ -395,19 +395,19 @@
             for (J = I; J <= I1; J++) { // 250
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII;
             } // 250
-            DO 260 J = max( 1, I-KA ), I;
+            for (J = max( 1, I-KA ); J <= I; J++) { // 260
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII;
             } // 260
             for (K = I - KBT; K <= I - 1; K++) { // 290
                for (J = I - KBT; J <= K; J++) { // 270
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( I-J+1, J )*AB( I-K+1, K ) - BB( I-K+1, K )*AB( I-J+1, J ) + AB( 1, I )*BB( I-J+1, J )* BB( I-K+1, K );
                } // 270
-               DO 280 J = max( 1, I-KA ), I - KBT - 1;
+               for (J = max( 1, I-KA ); J <= I - KBT - 1; J++) { // 280
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( I-K+1, K )*AB( I-J+1, J );
                } // 280
             } // 290
             for (J = I; J <= I1; J++) { // 310
-               DO 300 K = max( J-KA, I-KBT ), I - 1;
+               for (K = max( J-KA, I-KBT ); K <= I - 1; K++) { // 300
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( I-K+1, K )*AB( J-I+1, I );
                } // 300
             } // 310

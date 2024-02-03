@@ -99,7 +99,7 @@
             TMP = CABS1( B( I, K ) );
             if ( UPPER ) {
                if ( !NOTRAN ) {
-                  DO 40 J = max( I-KD, 1 ), I - IFU;
+                  for (J = max( I-KD, 1 ); J <= I - IFU; J++) { // 40
                      TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) );
                   } // 40
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );
@@ -111,7 +111,7 @@
                }
             } else {
                if ( NOTRAN ) {
-                  DO 60 J = max( I-KD, 1 ), I - IFU;
+                  for (J = max( I-KD, 1 ); J <= I - IFU; J++) { // 60
                      TMP = TMP + CABS1( AB( 1+I-J, J ) )* CABS1( X( J, K ) );
                   } // 60
                   if (UNIT) TMP = TMP + CABS1( X( I, K ) );

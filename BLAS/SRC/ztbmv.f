@@ -87,7 +87,7 @@
                       if (X(J) != ZERO) {
                           TEMP = X(J);
                           L = KPLUS1 - J;
-                          DO 10 I = max(1,J-K),J - 1;
+                          for (I = max(1,J-K); I <= J - 1; I++) { // 10
                               X(I) = X(I) + TEMP*A(L+I,J);
                           } // 10
                           if (NOUNIT) X(J) = X(J)*A(KPLUS1,J);
@@ -100,7 +100,7 @@
                           TEMP = X(JX);
                           IX = KX;
                           L = KPLUS1 - J;
-                          DO 30 I = max(1,J-K),J - 1;
+                          for (I = max(1,J-K); I <= J - 1; I++) { // 30
                               X(IX) = X(IX) + TEMP*A(L+I,J);
                               IX = IX + INCX;
                           } // 30

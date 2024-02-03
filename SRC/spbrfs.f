@@ -127,7 +127,7 @@
                S = ZERO;
                XK = ( X( K, J ) ).abs();
                L = KD + 1 - K;
-               DO 40 I = max( 1, K-KD ), K - 1;
+               for (I = max( 1, K-KD ); I <= K - 1; I++) { // 40
                   WORK( I ) = WORK( I ) + ( AB( L+I, K ) ).abs()*XK;
                   S = S + ( AB( L+I, K ) ).abs()*( X( I, J ) ).abs();
                } // 40

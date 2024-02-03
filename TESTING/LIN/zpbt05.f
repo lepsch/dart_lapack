@@ -94,7 +94,7 @@
          for (I = 1; I <= N; I++) { // 80
             TMP = CABS1( B( I, K ) );
             if ( UPPER ) {
-               DO 40 J = max( I-KD, 1 ), I - 1;
+               for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 40
                   TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) );
                } // 40
                TMP = TMP + ABS( DBLE( AB( KD+1, I ) ) )* CABS1( X( I, K ) );
@@ -102,7 +102,7 @@
                   TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) );
                } // 50
             } else {
-               DO 60 J = max( I-KD, 1 ), I - 1;
+               for (J = max( I-KD, 1 ); J <= I - 1; J++) { // 60
                   TMP = TMP + CABS1( AB( 1+I-J, J ) )*CABS1( X( J, K ) );
                } // 60
                TMP = TMP + ABS( DBLE( AB( 1, I ) ) )*CABS1( X( I, K ) );

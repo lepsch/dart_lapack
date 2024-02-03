@@ -31,7 +31,7 @@
          for (I = max( J-KU, 1 ); I <= min( J+KL, N ); I++) { //
             AMAX = max( ( AB( KD+I-J, J)).abs(), AMAX );
          }
-         DO I = max( J-KU, 1 ), J;
+         for (I = max( J-KU, 1 ); I <= J; I++) { //
             UMAX = max( ( AFB( KD+I-J, J ) ).abs(), UMAX );
          }
          if ( UMAX /= 0.0 ) {

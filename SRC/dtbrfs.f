@@ -130,14 +130,14 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 40
                      XK = ( X( K, J ) ).abs();
-                     DO 30 I = max( 1, K-KD ), K;
+                     for (I = max( 1, K-KD ); I <= K; I++) { // 30
                         WORK( I ) = WORK( I ) + ( AB( KD+1+I-K, K ) ).abs()*XK;
                      } // 30
                   } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = ( X( K, J ) ).abs();
-                     DO 50 I = max( 1, K-KD ), K - 1;
+                     for (I = max( 1, K-KD ); I <= K - 1; I++) { // 50
                         WORK( I ) = WORK( I ) + ( AB( KD+1+I-K, K ) ).abs()*XK;
                      } // 50
                      WORK( K ) = WORK( K ) + XK;
@@ -169,7 +169,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 120
                      S = ZERO;
-                     DO 110 I = max( 1, K-KD ), K;
+                     for (I = max( 1, K-KD ); I <= K; I++) { // 110
                         S = S + ( AB( KD+1+I-K, K ) ).abs()* ( X( I, J ) ).abs();
                      } // 110
                      WORK( K ) = WORK( K ) + S;
@@ -177,7 +177,7 @@
                } else {
                   for (K = 1; K <= N; K++) { // 140
                      S = ( X( K, J ) ).abs();
-                     DO 130 I = max( 1, K-KD ), K - 1;
+                     for (I = max( 1, K-KD ); I <= K - 1; I++) { // 130
                         S = S + ( AB( KD+1+I-K, K ) ).abs()* ( X( I, J ) ).abs();
                      } // 130
                      WORK( K ) = WORK( K ) + S;

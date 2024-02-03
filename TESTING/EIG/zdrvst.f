@@ -867,7 +867,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 570
-                     DO 560 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 560
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 560
                   } // 570
@@ -900,7 +900,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 610
-                     DO 600 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 600
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 600
                   } // 610
@@ -941,7 +941,7 @@
                } // 650
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 670
-                     DO 660 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 660
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 660
                   } // 670
@@ -976,7 +976,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 710
-                     DO 700 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 700
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 700
                   } // 710
@@ -1017,7 +1017,7 @@
                NTEST = NTEST + 1;
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 770
-                     DO 760 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 760
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 760
                   } // 770
@@ -1051,7 +1051,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 810
-                     DO 800 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 800
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 800
                   } // 810
@@ -1092,7 +1092,7 @@
                NTEST = NTEST + 1;
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 860
-                     DO 850 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 850
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 850
                   } // 860
@@ -1125,7 +1125,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 900
-                     DO 890 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 890
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 890
                   } // 900
@@ -1320,7 +1320,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1070
-                     DO 1060 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 1060
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 1060
                   } // 1070
@@ -1353,7 +1353,7 @@
 
                if ( IUPLO == 1 ) {
                   for (J = 1; J <= N; J++) { // 1110
-                     DO 1100 I = max( 1, J-KD ), J;
+                     for (I = max( 1, J-KD ); I <= J; I++) { // 1100
                         V( KD+1+I-J, J ) = A( I, J );
                      } // 1100
                   } // 1110

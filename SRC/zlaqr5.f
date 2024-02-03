@@ -214,7 +214,7 @@
 
                if ( ACCUM ) {
                   KMS = K - INCOL;
-                  DO 50 J = max( 1, KTOP-INCOL ), KDU;
+                  for (J = max( 1, KTOP-INCOL ); J <= KDU; J++) { // 50
                      REFSUM = V( 1, M22 )*( U( J, KMS+1 )+ V( 2, M22 )*U( J, KMS+2 ) );
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM;
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*DCONJG( V( 2, M22 ) );
@@ -384,7 +384,7 @@
                T1 = DCONJG( V( 1, M ) );
                T2 = T1*V( 2, M );
                T3 = T1*V( 3, M );
-               DO 90 J = max( KTOP, KRCOL + 2*M ), JBOT;
+               for (J = max( KTOP, KRCOL + 2*M ); J <= JBOT; J++) { // 90
                   REFSUM = H( K+1, J ) + DCONJG( V( 2, M ) )*H( K+2, J ) + DCONJG( V( 3, M ) )*H( K+3, J );
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1;
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2;

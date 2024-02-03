@@ -152,12 +152,12 @@
                       TEMP = X(J);
                       L = KPLUS1 - J;
                       if (NOCONJ) {
-                          DO 90 I = max(1,J-K),J - 1;
+                          for (I = max(1,J-K); I <= J - 1; I++) { // 90
                               TEMP = TEMP - A(L+I,J)*X(I);
                           } // 90
                           if (NOUNIT) TEMP = TEMP/A(KPLUS1,J);
                       } else {
-                          DO 100 I = max(1,J-K),J - 1;
+                          for (I = max(1,J-K); I <= J - 1; I++) { // 100
                               TEMP = TEMP - CONJG(A(L+I,J))*X(I);
                           } // 100
                           if (NOUNIT) TEMP = TEMP/CONJG(A(KPLUS1,J));
@@ -171,13 +171,13 @@
                       IX = KX;
                       L = KPLUS1 - J;
                       if (NOCONJ) {
-                          DO 120 I = max(1,J-K),J - 1;
+                          for (I = max(1,J-K); I <= J - 1; I++) { // 120
                               TEMP = TEMP - A(L+I,J)*X(IX);
                               IX = IX + INCX;
                           } // 120
                           if (NOUNIT) TEMP = TEMP/A(KPLUS1,J);
                       } else {
-                          DO 130 I = max(1,J-K),J - 1;
+                          for (I = max(1,J-K); I <= J - 1; I++) { // 130
                               TEMP = TEMP - CONJG(A(L+I,J))*X(IX);
                               IX = IX + INCX;
                           } // 130

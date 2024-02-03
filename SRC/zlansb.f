@@ -44,7 +44,7 @@
          VALUE = ZERO;
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = max( K+2-J, 1 ), K + 1;
+               for (I = max( K+2-J, 1 ); I <= K + 1; I++) { // 10
                   SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 10
@@ -66,7 +66,7 @@
             for (J = 1; J <= N; J++) { // 60
                SUM = ZERO;
                L = K + 1 - J;
-               DO 50 I = max( 1, J-K ), J - 1;
+               for (I = max( 1, J-K ); I <= J - 1; I++) { // 50
                   ABSA = ( AB( L+I, J ) ).abs();
                   SUM = SUM + ABSA;
                   WORK( I ) = WORK( I ) + ABSA;

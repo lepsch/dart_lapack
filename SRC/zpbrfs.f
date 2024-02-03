@@ -134,7 +134,7 @@
                S = ZERO;
                XK = CABS1( X( K, J ) );
                L = KD + 1 - K;
-               DO 40 I = max( 1, K-KD ), K - 1;
+               for (I = max( 1, K-KD ); I <= K - 1; I++) { // 40
                   RWORK( I ) = RWORK( I ) + CABS1( AB( L+I, K ) )*XK;
                   S = S + CABS1( AB( L+I, K ) )*CABS1( X( I, J ) );
                } // 40

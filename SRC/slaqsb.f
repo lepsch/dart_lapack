@@ -60,7 +60,7 @@
 
             for (J = 1; J <= N; J++) { // 20
                CJ = S( J );
-               DO 10 I = max( 1, J-KD ), J;
+               for (I = max( 1, J-KD ); I <= J; I++) { // 10
                   AB( KD+1+I-J, J ) = CJ*S( I )*AB( KD+1+I-J, J );
                } // 10
             } // 20

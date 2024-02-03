@@ -91,7 +91,7 @@
             TMP = ( B( I, K ) ).abs();
             if ( UPPER ) {
                if ( !NOTRAN ) {
-                  DO 40 J = max( I-KD, 1 ), I - IFU;
+                  for (J = max( I-KD, 1 ); J <= I - IFU; J++) { // 40
                      TMP = TMP + ( AB( KD+1-I+J, I ) ).abs()* ( X( J, K ) ).abs();
                   } // 40
                   if (UNIT) TMP = TMP + ( X( I, K ) ).abs();
@@ -103,7 +103,7 @@
                }
             } else {
                if ( NOTRAN ) {
-                  DO 60 J = max( I-KD, 1 ), I - IFU;
+                  for (J = max( I-KD, 1 ); J <= I - IFU; J++) { // 60
                      TMP = TMP + ( AB( 1+I-J, J ) ).abs()*( X( J, K ) ).abs();
                   } // 60
                   if (UNIT) TMP = TMP + ( X( I, K ) ).abs();

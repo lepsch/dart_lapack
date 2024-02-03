@@ -79,7 +79,7 @@
       for (I = 1; I <= ILO - 1; I++) { // 10
          TAU( I ) = ZERO;
       } // 10
-      DO 20 I = max( 1, IHI ), N - 1;
+      for (I = max( 1, IHI ); I <= N - 1; I++) { // 20
          TAU( I ) = ZERO;
       } // 20
 

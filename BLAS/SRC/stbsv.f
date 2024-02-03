@@ -150,7 +150,7 @@
                   for (J = 1; J <= N; J++) { // 100
                       TEMP = X(J);
                       L = KPLUS1 - J;
-                      DO 90 I = max(1,J-K),J - 1;
+                      for (I = max(1,J-K); I <= J - 1; I++) { // 90
                           TEMP = TEMP - A(L+I,J)*X(I);
                       } // 90
                       if (NOUNIT) TEMP = TEMP/A(KPLUS1,J);
@@ -162,7 +162,7 @@
                       TEMP = X(JX);
                       IX = KX;
                       L = KPLUS1 - J;
-                      DO 110 I = max(1,J-K),J - 1;
+                      for (I = max(1,J-K); I <= J - 1; I++) { // 110
                           TEMP = TEMP - A(L+I,J)*X(IX);
                           IX = IX + INCX;
                       } // 110

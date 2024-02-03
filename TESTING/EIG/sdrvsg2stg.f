@@ -671,10 +671,10 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 340
-                           DO 320 I = max( 1, J-KA ), J;
+                           for (I = max( 1, J-KA ); I <= J; I++) { // 320
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 320
-                           DO 330 I = max( 1, J-KB ), J;
+                           for (I = max( 1, J-KB ); I <= J; I++) { // 330
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 330
                         } // 340
@@ -713,10 +713,10 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 400
-                           DO 380 I = max( 1, J-KA ), J;
+                           for (I = max( 1, J-KA ); I <= J; I++) { // 380
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 380
-                           DO 390 I = max( 1, J-KB ), J;
+                           for (I = max( 1, J-KB ); I <= J; I++) { // 390
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 390
                         } // 400
@@ -755,10 +755,10 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 460
-                           DO 440 I = max( 1, J-KA ), J;
+                           for (I = max( 1, J-KA ); I <= J; I++) { // 440
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 440
-                           DO 450 I = max( 1, J-KB ), J;
+                           for (I = max( 1, J-KB ); I <= J; I++) { // 450
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 450
                         } // 460
@@ -796,10 +796,10 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 520
-                           DO 500 I = max( 1, J-KA ), J;
+                           for (I = max( 1, J-KA ); I <= J; I++) { // 500
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 500
-                           DO 510 I = max( 1, J-KB ), J;
+                           for (I = max( 1, J-KB ); I <= J; I++) { // 510
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 510
                         } // 520
@@ -838,10 +838,10 @@
 
                      if ( LSAME( UPLO, 'U' ) ) {
                         for (J = 1; J <= N; J++) { // 580
-                           DO 560 I = max( 1, J-KA ), J;
+                           for (I = max( 1, J-KA ); I <= J; I++) { // 560
                               AB( KA+1+I-J, J ) = A( I, J );
                            } // 560
-                           DO 570 I = max( 1, J-KB ), J;
+                           for (I = max( 1, J-KB ); I <= J; I++) { // 570
                               BB( KB+1+I-J, J ) = B( I, J );
                            } // 570
                         } // 580

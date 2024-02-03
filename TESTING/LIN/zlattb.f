@@ -90,7 +90,7 @@
       } else if ( IMAT == 6 ) {
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 20
-               DO 10 I = max( 1, KD+2-J ), KD;
+               for (I = max( 1, KD+2-J ); I <= KD; I++) { // 10
                   AB( I, J ) = ZERO;
                } // 10
                AB( KD+1, J ) = J;
@@ -116,7 +116,7 @@
 
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 60
-               DO 50 I = max( 1, KD+2-J ), KD;
+               for (I = max( 1, KD+2-J ); I <= KD; I++) { // 50
                   AB( I, J ) = ZERO;
                } // 50
                AB( KD+1, J ) = DBLE( J );
@@ -350,7 +350,7 @@
          zlarnv(4, ISEED, N, B );
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 250
-               DO 240 I = max( 1, KD+2-J ), KD;
+               for (I = max( 1, KD+2-J ); I <= KD; I++) { // 240
                   AB( I, J ) = ZERO;
                } // 240
                if (J > 1 && KD > 0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
