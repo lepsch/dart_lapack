@@ -34,7 +34,7 @@
       double             DUM( 1 ), DUMMA( 1 ), RESULT( 40 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLARND, DSXT1;
+      //- double             DLAMCH, DLARND, DSXT1;
       // EXTERNAL DLAMCH, DLARND, DSXT1
       // ..
       // .. External Subroutines ..

@@ -24,7 +24,7 @@
       int     I,INFO,IX,IY,J,JX,JY,K,KK,KX,KY;
       // ..
       // .. External Functions ..
-      bool    LSAME;
+      //- bool    LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

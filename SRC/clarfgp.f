@@ -24,8 +24,8 @@
       COMPLEX            SAVEALPHA;
       // ..
       // .. External Functions ..
-      REAL               SCNRM2, SLAMCH, SLAPY3, SLAPY2;
-      COMPLEX            CLADIV;
+      //- REAL               SCNRM2, SLAMCH, SLAPY3, SLAPY2;
+      //- COMPLEX            CLADIV;
       // EXTERNAL SCNRM2, SLAMCH, SLAPY3, SLAPY2, CLADIV
       // ..
       // .. Intrinsic Functions ..

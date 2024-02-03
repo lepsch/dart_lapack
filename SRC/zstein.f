@@ -31,8 +31,8 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH, DNRM2;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DNRM2;
       // EXTERNAL IDAMAX, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..

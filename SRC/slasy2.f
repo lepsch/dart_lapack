@@ -32,8 +32,8 @@
       REAL               BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SLAMCH;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH;
       // EXTERNAL ISAMAX, SLAMCH
       // ..
       // .. External Subroutines ..

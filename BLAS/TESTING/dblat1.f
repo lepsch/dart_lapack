@@ -188,8 +188,8 @@
       double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
       int               ITRUE2(5), ITRUEC(5);
       // .. External Functions ..
-      double            DASUM, DNRM2;
-      int               IDAMAX;
+      //- double            DASUM, DNRM2;
+      //- int               IDAMAX;
       // EXTERNAL DASUM, DNRM2, IDAMAX
       // .. External Subroutines ..
       // EXTERNAL ITEST1, DB1NRM2, DSCAL, STEST, STEST1
@@ -275,7 +275,7 @@
       double            DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), STY0(1), SX0(1), SY0(1);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
-      double            DDOT, DSDOT;
+      //- double            DDOT, DSDOT;
       // EXTERNAL DDOT, DSDOT
       // .. External Subroutines ..
       // EXTERNAL DAXPY, DCOPY, DROTM, DSWAP, STEST, STEST1, TESTDSDOT
@@ -604,7 +604,7 @@
       double           SD;
       int              I;
       // .. External Functions ..
-      double           SDIFF;
+      //- double           SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -776,7 +776,7 @@
       double            HALF, ONE, TWO, ZERO;
       const             HALF=0.5, ONE=1.0, TWO= 2.0, ZERO=0.0;
       // .. External Functions ..
-      double            DNRM2;
+      //- double            DNRM2;
       // EXTERNAL DNRM2
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, DBLE, MAX, MIN, SQRT

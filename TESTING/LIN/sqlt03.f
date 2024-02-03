@@ -25,8 +25,8 @@
       REAL               CNORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANGE;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL LSAME, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

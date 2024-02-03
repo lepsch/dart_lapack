@@ -31,9 +31,9 @@
       // EXTERNAL SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, STGEVC, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

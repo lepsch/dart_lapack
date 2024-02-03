@@ -33,8 +33,8 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARND, CLANGE;
-      COMPLEX            CLARND;
+      //- REAL               SLAMCH, SLARND, CLANGE;
+      //- COMPLEX            CLARND;
       // EXTERNAL SLAMCH, SLARND, CLANGE, CLARND
       // ..
       // .. External Subroutines ..

@@ -26,7 +26,7 @@
       double             DUMMY( 1 );
       // ..
       // .. External Functions ..
-      double             DASUM, DLAMCH, DNRM2, ZLANGE;
+      //- double             DASUM, DLAMCH, DNRM2, ZLANGE;
       // EXTERNAL DASUM, DLAMCH, DNRM2, ZLANGE
       // ..
       // .. External Subroutines ..

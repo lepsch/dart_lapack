@@ -27,8 +27,8 @@
       // EXTERNAL SAXPY, SLARFG, SSYMV, SSYR2, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT;
+      //- bool               LSAME;
+      //- REAL               SDOT;
       // EXTERNAL LSAME, SDOT
       // ..
       // .. Intrinsic Functions ..

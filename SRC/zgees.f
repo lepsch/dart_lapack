@@ -36,9 +36,9 @@
       // EXTERNAL XERBLA, ZCOPY, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZTRSEN, ZUNGHR
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, ZLANGE;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
       // ..
       // .. Intrinsic Functions ..

@@ -34,10 +34,10 @@
       // INTRINSIC ABS, MAX, CONJG, REAL, MIN, SIGN, SQRT
       // ..
       // .. External Functions ..
-      REAL               SCNRM2;
-      COMPLEX            CDOTC;
-      int                ISAMAX;
-      bool               LSAME;
+      //- REAL               SCNRM2;
+      //- COMPLEX            CDOTC;
+      //- int                ISAMAX;
+      //- bool               LSAME;
       // EXTERNAL ISAMAX, LSAME, CDOTC, SCNRM2
       // ..
       // ..

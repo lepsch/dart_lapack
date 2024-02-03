@@ -36,9 +36,9 @@
       // EXTERNAL DCOPY, DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLASCL, DORGHR, DSWAP, DTRSEN, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..

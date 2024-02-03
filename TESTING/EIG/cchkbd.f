@@ -37,7 +37,7 @@
       REAL               DUMMA( 1 ), RESULT( 14 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARND;
+      //- REAL               SLAMCH, SLARND;
       // EXTERNAL SLAMCH, SLARND
       // ..
       // .. External Subroutines ..

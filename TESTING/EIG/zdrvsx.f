@@ -47,7 +47,7 @@
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

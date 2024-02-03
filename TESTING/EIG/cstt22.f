@@ -26,7 +26,7 @@
       COMPLEX            AUKJ;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANSY, SLAMCH;
+      //- REAL               CLANGE, CLANSY, SLAMCH;
       // EXTERNAL CLANGE, CLANSY, SLAMCH
       // ..
       // .. External Subroutines ..

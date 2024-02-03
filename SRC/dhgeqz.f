@@ -28,8 +28,8 @@
       double             V( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANHS, DLAPY2, DLAPY3;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANHS, DLAPY2, DLAPY3;
       // EXTERNAL LSAME, DLAMCH, DLANHS, DLAPY2, DLAPY3
       // ..
       // .. External Subroutines ..

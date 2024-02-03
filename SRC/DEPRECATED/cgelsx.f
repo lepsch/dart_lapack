@@ -33,7 +33,7 @@
       // EXTERNAL CGEQPF, CLAIC1, CLASCL, CLASET, CLATZM, CTRSM, CTZRQF, CUNM2R, XERBLA
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. Intrinsic Functions ..

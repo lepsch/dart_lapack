@@ -34,7 +34,7 @@
       COMPLEX            A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

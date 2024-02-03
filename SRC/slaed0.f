@@ -26,7 +26,7 @@
       // EXTERNAL SCOPY, SGEMM, SLACPY, SLAED1, SLAED7, SSTEQR, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

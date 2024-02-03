@@ -26,7 +26,7 @@
       Complex         TEMP1, TEMP2;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

@@ -38,8 +38,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DGET06, DLANSP;
+      //- bool               LSAME;
+      //- double             DGET06, DLANSP;
       // EXTERNAL LSAME, DGET06, DLANSP
       // ..
       // .. External Subroutines ..

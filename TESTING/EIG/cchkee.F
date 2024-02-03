@@ -52,8 +52,8 @@
       COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, C;
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
-      REAL               SECOND, SLAMCH;
+      //- bool               LSAMEN;
+      //- REAL               SECOND, SLAMCH;
       // EXTERNAL LSAMEN, SECOND, SLAMCH
       // ..
       // .. External Subroutines ..

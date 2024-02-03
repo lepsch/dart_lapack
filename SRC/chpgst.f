@@ -33,8 +33,8 @@
       // INTRINSIC REAL
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CDOTC
       // ..
       // .. Executable Statements ..

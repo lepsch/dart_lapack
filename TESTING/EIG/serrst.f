@@ -25,7 +25,7 @@
       REAL               A( NMAX, NMAX ), C( NMAX, NMAX ), D( NMAX ), E( NMAX ), Q( NMAX, NMAX ), R( NMAX ), TAU( NMAX ), W( LW ), X( NMAX ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
+      //- bool               LSAMEN;
       // EXTERNAL LSAMEN
       // ..
       // .. External Subroutines ..

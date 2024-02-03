@@ -34,9 +34,9 @@
       double             DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
-      bool               ZLCTSX;
-      int                ILAENV;
-      double             DLAMCH, ZLANGE;
+      //- bool               ZLCTSX;
+      //- int                ILAENV;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL ZLCTSX, ILAENV, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

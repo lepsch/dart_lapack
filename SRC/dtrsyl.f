@@ -28,8 +28,8 @@
       double             DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT, DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- double             DDOT, DLAMCH, DLANGE;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

@@ -35,7 +35,7 @@
       // EXTERNAL SLACN2, SLACPY, SLAG2, SLASSQ, STGEXC, STGSYL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SROUNDUP_LWORK;
+      //- REAL               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

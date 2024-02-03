@@ -26,7 +26,7 @@
       // EXTERNAL DAXPY, DSYMV, DSYR2
       // ..
       // .. External Functions ..
-      double             DDOT;
+      //- double             DDOT;
       // EXTERNAL DDOT
       // ..
       // .. Executable Statements ..

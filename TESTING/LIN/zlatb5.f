@@ -27,7 +27,7 @@
       String             C2;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Intrinsic Functions ..

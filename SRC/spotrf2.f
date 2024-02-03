@@ -23,7 +23,7 @@
       int                N1, N2, IINFO;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
+      //- bool               LSAME, SISNAN;
       // EXTERNAL LSAME, SISNAN
       // ..
       // .. External Subroutines ..

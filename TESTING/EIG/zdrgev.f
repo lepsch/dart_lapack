@@ -37,9 +37,9 @@
       double             RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH;
-      Complex         ZLARND;
+      //- int                ILAENV;
+      //- double             DLAMCH;
+      //- Complex         ZLARND;
       // EXTERNAL ILAENV, DLAMCH, ZLARND
       // ..
       // .. External Subroutines ..

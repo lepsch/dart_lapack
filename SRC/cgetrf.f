@@ -25,7 +25,7 @@
       // EXTERNAL CGEMM, CGETRF2, CLASWP, CTRSM, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

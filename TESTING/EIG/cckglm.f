@@ -31,7 +31,7 @@
       bool               DOTYPE( NTYPES );
       // ..
       // .. External Functions ..
-      COMPLEX            CLARND;
+      //- COMPLEX            CLARND;
       // EXTERNAL CLARND
       // ..
       // .. External Subroutines ..

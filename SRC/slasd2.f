@@ -27,7 +27,7 @@
       REAL               C, EPS, HLFTOL, S, TAU, TOL, Z1;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLAPY2;
+      //- REAL               SLAMCH, SLAPY2;
       // EXTERNAL SLAMCH, SLAPY2
       // ..
       // .. External Subroutines ..

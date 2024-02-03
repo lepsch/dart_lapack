@@ -23,7 +23,7 @@
       double             A( NMAX, NMAX ), TAU( NMAX ), W( NMAX );
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
+      //- bool               LSAMEN;
       // EXTERNAL LSAMEN
       // ..
       // .. External Subroutines ..

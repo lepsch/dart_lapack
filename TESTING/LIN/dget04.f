@@ -23,8 +23,8 @@
       double             DIFFNM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH;
+      //- int                IDAMAX;
+      //- double             DLAMCH;
       // EXTERNAL IDAMAX, DLAMCH
       // ..
       // .. Intrinsic Functions ..

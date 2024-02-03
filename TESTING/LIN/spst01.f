@@ -25,8 +25,8 @@
       int                I, J, K;
       // ..
       // .. External Functions ..
-      REAL               SDOT, SLAMCH, SLANSY;
-      bool               LSAME;
+      //- REAL               SDOT, SLAMCH, SLANSY;
+      //- bool               LSAME;
       // EXTERNAL SDOT, SLAMCH, SLANSY, LSAME
       // ..
       // .. External Subroutines ..

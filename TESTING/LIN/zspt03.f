@@ -26,9 +26,9 @@
       Complex         T;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE, ZLANSP;
-      Complex         ZDOTU;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE, ZLANSP;
+      //- Complex         ZDOTU;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANSP, ZDOTU
       // ..
       // .. Intrinsic Functions ..

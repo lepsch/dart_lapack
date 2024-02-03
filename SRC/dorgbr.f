@@ -23,7 +23,7 @@
       int                I, IINFO, J, LWKOPT, MN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

@@ -26,7 +26,7 @@
       COMPLEX            LI;
       // ..
       // .. External Functions ..
-      REAL               CLANGT, CLANHS, SLAMCH;
+      //- REAL               CLANGT, CLANHS, SLAMCH;
       // EXTERNAL CLANGT, CLANHS, SLAMCH
       // ..
       // .. Intrinsic Functions ..

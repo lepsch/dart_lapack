@@ -25,7 +25,7 @@
       REAL               M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

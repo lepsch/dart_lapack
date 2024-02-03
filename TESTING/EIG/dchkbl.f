@@ -25,7 +25,7 @@
       double             A( LDA, LDA ), AIN( LDA, LDA ), DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

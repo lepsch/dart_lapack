@@ -27,8 +27,8 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL LSAME, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

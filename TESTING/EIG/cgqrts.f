@@ -27,7 +27,7 @@
       REAL               ANORM, BNORM, ULP, UNFL, RESID;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, CLANGE, CLANHE;
+      //- REAL               SLAMCH, CLANGE, CLANHE;
       // EXTERNAL SLAMCH, CLANGE, CLANHE
       // ..
       // .. External Subroutines ..

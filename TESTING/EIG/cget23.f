@@ -37,8 +37,8 @@
       COMPLEX            CDUM( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SCNRM2, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               SCNRM2, SLAMCH;
       // EXTERNAL LSAME, SCNRM2, SLAMCH
       // ..
       // .. External Subroutines ..

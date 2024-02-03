@@ -27,8 +27,8 @@
       REAL               ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE;
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

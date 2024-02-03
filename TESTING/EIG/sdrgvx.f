@@ -28,8 +28,8 @@
       REAL               WEIGHT( 5 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SLAMCH, SLANGE;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL ILAENV, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

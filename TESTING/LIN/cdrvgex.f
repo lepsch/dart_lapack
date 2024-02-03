@@ -41,8 +41,8 @@
       REAL               RDUM( 1 ), RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, CLANTR, SGET06, SLAMCH, CLA_GERPVGRW;
+      //- bool               LSAME;
+      //- REAL               CLANGE, CLANTR, SGET06, SLAMCH, CLA_GERPVGRW;
       // EXTERNAL LSAME, CLANGE, CLANTR, SGET06, SLAMCH, CLA_GERPVGRW
       // ..
       // .. External Subroutines ..

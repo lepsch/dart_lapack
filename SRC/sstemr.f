@@ -29,8 +29,8 @@
       // ..
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

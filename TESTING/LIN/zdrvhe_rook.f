@@ -40,7 +40,7 @@
 
       // ..
       // .. External Functions ..
-      double             ZLANHE;
+      //- double             ZLANHE;
       // EXTERNAL ZLANHE
       // ..
       // .. External Subroutines ..

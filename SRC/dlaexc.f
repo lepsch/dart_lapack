@@ -30,7 +30,7 @@
       double             D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

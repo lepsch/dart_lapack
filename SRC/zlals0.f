@@ -28,7 +28,7 @@
       // EXTERNAL DGEMV, XERBLA, ZCOPY, ZDROT, ZDSCAL, ZLACPY, ZLASCL
       // ..
       // .. External Functions ..
-      double             DLAMC3, DNRM2;
+      //- double             DLAMC3, DNRM2;
       // EXTERNAL DLAMC3, DNRM2
       // ..
       // .. Intrinsic Functions ..

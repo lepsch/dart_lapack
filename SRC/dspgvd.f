@@ -21,7 +21,7 @@
       int                J, LIWMIN, LWMIN, NEIG;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

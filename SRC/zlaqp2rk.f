@@ -35,9 +35,9 @@
       // INTRINSIC ABS, DBLE, DCONJG, DIMAG, MAX, MIN, SQRT
       // ..
       // .. External Functions ..
-      bool               DISNAN;
-      int                IDAMAX;
-      double             DLAMCH, DZNRM2;
+      //- bool               DISNAN;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DZNRM2;
       // EXTERNAL DISNAN, DLAMCH, IDAMAX, DZNRM2
       // ..
       // .. Executable Statements ..

@@ -30,7 +30,7 @@
       // INTRINSIC ABS, MAX, REAL
       // ..
       // .. External Functions ..
-      REAL               SCNRM2;
+      //- REAL               SCNRM2;
       // EXTERNAL SCNRM2
       // ..
       // .. Executable Statements ..

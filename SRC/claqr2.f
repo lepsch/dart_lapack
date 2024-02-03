@@ -26,7 +26,7 @@
       int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

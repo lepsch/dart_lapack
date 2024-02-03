@@ -30,8 +30,8 @@
       REAL               DMINUS, DPLUS, EPS, S, TMP;
       // ..
       // .. External Functions ..
-      bool    SISNAN;
-      REAL               SLAMCH;
+      //- bool    SISNAN;
+      //- REAL               SLAMCH;
       // EXTERNAL SISNAN, SLAMCH
       // ..
       // .. Intrinsic Functions ..

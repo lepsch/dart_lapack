@@ -25,7 +25,7 @@
       // EXTERNAL DLAG2, DLARTG, DLASV2, DROT
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY2;
+      //- double             DLAMCH, DLAPY2;
       // EXTERNAL DLAMCH, DLAPY2
       // ..
       // .. Intrinsic Functions ..

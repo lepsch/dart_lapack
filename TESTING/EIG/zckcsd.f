@@ -44,7 +44,7 @@
       // INTRINSIC ABS, MIN
       // ..
       // .. External Functions ..
-      double             DLARAN, DLARND;
+      //- double             DLARAN, DLARND;
       // EXTERNAL DLARAN, DLARND
       // ..
       // .. Executable Statements ..

@@ -21,7 +21,7 @@
       // EXTERNAL XERBLA, ZGEQRF, ZGERQF, ZUNMQR
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

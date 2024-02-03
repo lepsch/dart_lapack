@@ -40,8 +40,8 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW       EXTERNAL           LSAME, SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW;
+      //- bool               LSAME;
+      //- REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW       EXTERNAL           LSAME, SGET06, SLAMCH, SLANGB, SLANGE, SLANTB, SLA_GBRPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, SERRVX, SGBEQU, SGBSV, SGBSVX, SGBT01, SGBT02, SGBT05, SGBTRF, SGBTRS, SGET04, SLACPY, SLAQGB, SLARHS, SLASET, SLATB4, SLATMS, XLAENV, SGBSVXX

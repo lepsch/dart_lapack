@@ -25,8 +25,8 @@
       REAL               BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      REAL               SLAMCH;
+      //- bool               LSAME, SISNAN;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH, SISNAN
       // ..
       // .. Intrinsic Functions ..

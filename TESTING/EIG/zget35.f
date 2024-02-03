@@ -32,7 +32,7 @@
       Complex         A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

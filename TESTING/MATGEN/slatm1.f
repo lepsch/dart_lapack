@@ -26,7 +26,7 @@
       REAL               ALPHA, TEMP;
       // ..
       // .. External Functions ..
-      REAL               SLARAN;
+      //- REAL               SLARAN;
       // EXTERNAL SLARAN
       // ..
       // .. External Subroutines ..

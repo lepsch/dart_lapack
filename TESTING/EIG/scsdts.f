@@ -28,7 +28,7 @@
       REAL               EPS2, RESID, ULP, ULPINV;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY;
+      //- REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..

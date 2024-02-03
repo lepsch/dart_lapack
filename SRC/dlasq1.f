@@ -25,7 +25,7 @@
       // EXTERNAL DCOPY, DLAS2, DLASCL, DLASQ2, DLASRT, XERBLA
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Intrinsic Functions ..

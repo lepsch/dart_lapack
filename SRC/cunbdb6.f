@@ -24,7 +24,7 @@
       REAL               EPS, NORM, NORM_NEW, SCL, SSQ;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // ..
       // .. External Subroutines ..
       // EXTERNAL CGEMV, CLASSQ, XERBLA

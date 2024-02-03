@@ -29,9 +29,9 @@
       COMPLEX            CDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
-      REAL               SCASUM, SLAMCH;
+      //- bool               LSAME;
+      //- int                ICAMAX;
+      //- REAL               SCASUM, SLAMCH;
       // EXTERNAL LSAME, ICAMAX, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..

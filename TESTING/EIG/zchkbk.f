@@ -27,7 +27,7 @@
       Complex         E( LDE, LDE ), EIN( LDE, LDE );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

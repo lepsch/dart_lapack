@@ -23,7 +23,7 @@
       REAL               RHO, TEMP;
       // ..
       // .. External Functions ..
-      REAL               SNRM2;
+      //- REAL               SNRM2;
       // EXTERNAL SNRM2
       // ..
       // .. External Subroutines ..

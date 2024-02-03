@@ -31,7 +31,7 @@
       Complex         A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

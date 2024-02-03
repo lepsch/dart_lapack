@@ -39,8 +39,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLANTP;
+      //- bool               LSAME;
+      //- double             DLANTP;
       // EXTERNAL LSAME, DLANTP
       // ..
       // .. External Subroutines ..

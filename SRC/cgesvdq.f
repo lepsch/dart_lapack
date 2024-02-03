@@ -32,9 +32,9 @@
       // EXTERNAL CGELQF, CGEQP3, CGEQRF, CGESVD, CLACPY, CLAPMT, CLASCL, CLASET, CLASWP, CSSCAL, SLASET, SLASCL, CPOCON, CUNMLQ, CUNMQR, XERBLA
       // ..
       // .. External Functions (BLAS, LAPACK)
-      bool       LSAME;
-      int        ISAMAX;
-      REAL       CLANGE, SCNRM2, SLAMCH;
+      //- bool       LSAME;
+      //- int        ISAMAX;
+      //- REAL       CLANGE, SCNRM2, SLAMCH;
       // EXTERNAL CLANGE, LSAME, ISAMAX, SCNRM2, SLAMCH
       // ..
       // .. Intrinsic Functions ..

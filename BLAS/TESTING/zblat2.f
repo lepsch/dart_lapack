@@ -32,8 +32,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      double             DDIFF;
-      bool               LZE;
+      //- double             DDIFF;
+      //- bool               LZE;
       // EXTERNAL DDIFF, LZE
       // .. External Subroutines ..
       // EXTERNAL ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHK6, ZCHKE, ZMVCH
@@ -311,7 +311,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZGBMV, ZGEMV, ZMAKE, ZMVCH, ZREGR1
@@ -621,7 +621,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZHBMV, ZHEMV, ZHPMV, ZMAKE, ZMVCH
@@ -916,7 +916,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZMAKE, ZMVCH, ZTBMV, ZTBSV, ZTPMV, ZTPSV, ZTRMV, ZTRSV
@@ -1212,7 +1212,7 @@
       Complex         W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZGERC, ZGERU, ZMAKE, ZMVCH
@@ -1451,7 +1451,7 @@
       Complex         W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZHER, ZHPR, ZMAKE, ZMVCH
@@ -1699,7 +1699,7 @@
       Complex         W( 2 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZHER2, ZHPR2, ZMAKE, ZMVCH
@@ -2313,7 +2313,7 @@
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      Complex         ZBEG;
+      //- Complex         ZBEG;
       // EXTERNAL ZBEG
       // .. Intrinsic Functions ..
       // INTRINSIC DBLE, DCMPLX, DCONJG, MAX, MIN

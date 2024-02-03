@@ -21,7 +21,7 @@
       int                INFO, J;
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

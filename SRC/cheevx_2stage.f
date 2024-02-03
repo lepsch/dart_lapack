@@ -32,9 +32,9 @@
       REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV2STAGE;
-      REAL               SLAMCH, CLANHE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV2STAGE;
+      //- REAL               SLAMCH, CLANHE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, CLANHE, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

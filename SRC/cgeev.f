@@ -35,9 +35,9 @@
       // EXTERNAL XERBLA, CSSCAL, CGEBAK, CGEBAL, CGEHRD, CHSEQR, CLACPY, CLASCL, CSCAL, CTREVC3, CUNGHR
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX, ILAENV;
-      REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ISAMAX, ILAENV;
+      //- REAL               SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ISAMAX, ILAENV, SLAMCH, SCNRM2, CLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

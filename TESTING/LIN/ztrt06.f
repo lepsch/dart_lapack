@@ -24,7 +24,7 @@
       double             ANORM, BIGNUM, EPS, RMAX, RMIN;
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANTR;
+      //- double             DLAMCH, ZLANTR;
       // EXTERNAL DLAMCH, ZLANTR
       // ..
       // .. Intrinsic Functions ..

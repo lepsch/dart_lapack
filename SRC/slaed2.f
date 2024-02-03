@@ -27,8 +27,8 @@
       REAL               C, EPS, S, T, TAU, TOL;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SLAMCH, SLAPY2;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH, SLAPY2;
       // EXTERNAL ISAMAX, SLAMCH, SLAPY2
       // ..
       // .. External Subroutines ..

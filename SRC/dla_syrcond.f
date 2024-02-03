@@ -25,8 +25,8 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. External Subroutines ..

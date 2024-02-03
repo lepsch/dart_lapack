@@ -40,7 +40,7 @@
       // INTRINSIC ABS, DCMPLX, DCONJG, MAX, SQRT
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..

@@ -28,7 +28,7 @@
       // EXTERNAL CCOPY, CLACPY, CLASCL, CSROT, CSSCAL, SGEMV, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMC3, SNRM2;
+      //- REAL               SLAMC3, SNRM2;
       // EXTERNAL SLAMC3, SNRM2
       // ..
       // .. Intrinsic Functions ..

@@ -25,7 +25,7 @@
       REAL               AK, AKM1, AKM1K, BK, BKM1, DENOM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

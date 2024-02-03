@@ -33,7 +33,7 @@
       COMPLEX            CDUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

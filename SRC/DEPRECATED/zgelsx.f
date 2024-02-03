@@ -33,7 +33,7 @@
       // EXTERNAL XERBLA, ZGEQPF, ZLAIC1, ZLASCL, ZLASET, ZLATZM, ZTRSM, ZTZRQF, ZUNM2R
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. Intrinsic Functions ..

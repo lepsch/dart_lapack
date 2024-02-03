@@ -146,8 +146,8 @@
       double            DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8);
       int               ITRUE2(5);
       // .. External Functions ..
-      double            DASUMTEST, DNRM2TEST;
-      int               IDAMAXTEST;
+      //- double            DASUMTEST, DNRM2TEST;
+      //- int               IDAMAXTEST;
       // EXTERNAL DASUMTEST, DNRM2TEST, IDAMAXTEST
       // .. External Subroutines ..
       // EXTERNAL ITEST1, DSCALTEST, STEST, STEST1
@@ -472,7 +472,7 @@
       double           SD;
       int              I;
       // .. External Functions ..
-      double           SDIFF;
+      //- double           SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

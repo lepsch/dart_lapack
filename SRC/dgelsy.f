@@ -27,8 +27,8 @@
       double             ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE;
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH, DLANGE;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL ILAENV, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

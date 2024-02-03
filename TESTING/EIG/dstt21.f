@@ -22,7 +22,7 @@
       double             ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE, DLANSY;
+      //- double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
       // ..
       // .. External Subroutines ..

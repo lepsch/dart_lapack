@@ -27,7 +27,7 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

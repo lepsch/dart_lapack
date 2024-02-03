@@ -26,9 +26,9 @@
       REAL               AKK, ANORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANHB, SLAMCH;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- REAL               CLANHB, SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CLANHB, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..

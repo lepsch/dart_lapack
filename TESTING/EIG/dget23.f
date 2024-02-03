@@ -35,8 +35,8 @@
       double             DUM( 1 ), RES( 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLAPY2, DNRM2;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL LSAME, DLAMCH, DLAPY2, DNRM2
       // ..
       // .. External Subroutines ..

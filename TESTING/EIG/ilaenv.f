@@ -15,7 +15,7 @@
       // INTRINSIC INT, MIN, REAL
       // ..
       // .. External Functions ..
-      int                IEEECK, IPARAM2STAGE;
+      //- int                IEEECK, IPARAM2STAGE;
       // EXTERNAL IEEECK, IPARAM2STAGE
       // ..
       // .. Arrays in Common ..
@@ -105,7 +105,7 @@
       // .. Local variables ..
       int                IISPEC;
       // .. External Functions ..
-      int                IPARAM2STAGE;
+      //- int                IPARAM2STAGE;
       // EXTERNAL IPARAM2STAGE
       // ..
       // .. Arrays in Common ..

@@ -25,7 +25,7 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      REAL               CLANHT, SCASUM, SLAMCH;
+      //- REAL               CLANHT, SCASUM, SLAMCH;
       // EXTERNAL CLANHT, SCASUM, SLAMCH
       // ..
       // .. Intrinsic Functions ..

@@ -25,8 +25,8 @@
       Complex         AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      Complex         ZDOTU;
+      //- bool               LSAME;
+      //- Complex         ZDOTU;
       // EXTERNAL LSAME, ZDOTU
       // ..
       // .. External Subroutines ..

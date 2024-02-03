@@ -41,8 +41,8 @@
       double             DUMMA( 1 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH, DLARND, DSXT1;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLARND, DSXT1;
       // EXTERNAL ILAENV, DLAMCH, DLARND, DSXT1
       // ..
       // .. External Subroutines ..

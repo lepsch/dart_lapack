@@ -32,9 +32,9 @@
       Complex         DUMMY( 1 ), DUMMY1( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLAPY2, DZNRM2;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLAPY2, DZNRM2;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, DLAPY2, DZNRM2, ZDOTC
       // ..
       // .. External Subroutines ..

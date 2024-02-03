@@ -27,7 +27,7 @@
       // INTRINSIC ABS, MAX, SIGN, SQRT
       // ..
       // .. External Functions ..
-      double             DDOT, DLAMCH;
+      //- double             DDOT, DLAMCH;
       // EXTERNAL DDOT, DLAMCH
       // ..
       // .. Executable Statements ..

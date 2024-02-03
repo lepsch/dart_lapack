@@ -23,7 +23,7 @@
       // EXTERNAL SAXPY, SCOPY, SGEMV, SGER
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

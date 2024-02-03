@@ -41,8 +41,8 @@
       REAL               RDUM( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, CLANTR, SGET06, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANGE, CLANTR, SGET06, SLAMCH;
       // EXTERNAL LSAME, CLANGE, CLANTR, SGET06, SLAMCH
       // ..
       // .. External Subroutines ..

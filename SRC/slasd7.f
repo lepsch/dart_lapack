@@ -28,7 +28,7 @@
       // EXTERNAL SCOPY, SLAMRG, SROT, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLAPY2;
+      //- REAL               SLAMCH, SLAPY2;
       // EXTERNAL SLAMCH, SLAPY2
       // ..
       // .. Intrinsic Functions ..

@@ -41,9 +41,9 @@
       // INTRINSIC ABS, CMPLX, CONJG, ALOG, MAX, MIN, REAL, NINT, SQRT
       // ..
       // .. External Functions ..
-      REAL      SLAMCH, SCNRM2;
-      int       ISAMAX, ICAMAX;
-      bool      LSAME;
+      //- REAL      SLAMCH, SCNRM2;
+      //- int       ISAMAX, ICAMAX;
+      //- bool      LSAME;
       // EXTERNAL ISAMAX, ICAMAX, LSAME, SLAMCH, SCNRM2
       // ..
       // .. External Subroutines ..

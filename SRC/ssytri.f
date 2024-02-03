@@ -25,8 +25,8 @@
       REAL               AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT;
+      //- bool               LSAME;
+      //- REAL               SDOT;
       // EXTERNAL LSAME, SDOT
       // ..
       // .. External Subroutines ..

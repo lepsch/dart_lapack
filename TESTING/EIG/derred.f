@@ -30,7 +30,7 @@
       // EXTERNAL CHKXER, DGEES, DGEESX, DGEEV, DGEEVX, DGEJSV, DGESDD, DGESVD, DGESVDX, DGESVDQ
       // ..
       // .. External Functions ..
-      bool               DSLECT, LSAMEN;
+      //- bool               DSLECT, LSAMEN;
       // EXTERNAL DSLECT, LSAMEN
       // ..
       // .. Intrinsic Functions ..

@@ -23,7 +23,7 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

@@ -28,8 +28,8 @@
       double             ANORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANSP, ZLANSY;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANSP, ZLANSY;
       // EXTERNAL LSAME, DLAMCH, ZLANSP, ZLANSY
       // ..
       // .. External Subroutines ..

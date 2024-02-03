@@ -40,8 +40,8 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB;
+      //- bool               LSAME;
+      //- REAL               SGET06, SLAMCH, SLANGB, SLANGE, SLANTB;
       // EXTERNAL LSAME, SGET06, SLAMCH, SLANGB, SLANGE, SLANTB
       // ..
       // .. External Subroutines ..

@@ -27,8 +27,8 @@
       double             C, EPS, S, T, TAU, TOL;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH, DLAPY2;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DLAPY2;
       // EXTERNAL IDAMAX, DLAMCH, DLAPY2
       // ..
       // .. External Subroutines ..

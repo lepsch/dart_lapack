@@ -34,8 +34,8 @@
       COMPLEX            V( 2 );
       // ..
       // .. External Functions ..
-      COMPLEX            CLADIV;
-      REAL               SLAMCH;
+      //- COMPLEX            CLADIV;
+      //- REAL               SLAMCH;
       // EXTERNAL CLADIV, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
-      REAL               SASUM, SGET06, SLANGT;
+      //- REAL               SASUM, SGET06, SLANGT;
       // EXTERNAL SASUM, SGET06, SLANGT
       // ..
       // .. External Subroutines ..

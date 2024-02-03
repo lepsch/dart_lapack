@@ -34,7 +34,7 @@
       COMPLEX            S( LDST, LDST ), T( LDST, LDST ), WORK( 8 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

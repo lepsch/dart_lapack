@@ -27,7 +27,7 @@
       double             C, EPS, HLFTOL, S, TAU, TOL, Z1;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY2;
+      //- double             DLAMCH, DLAPY2;
       // EXTERNAL DLAMCH, DLAPY2
       // ..
       // .. External Subroutines ..

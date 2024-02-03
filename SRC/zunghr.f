@@ -25,7 +25,7 @@
       // EXTERNAL XERBLA, ZUNGQR
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

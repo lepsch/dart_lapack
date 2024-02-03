@@ -22,7 +22,7 @@
       REAL               ANRM, BIGNUM, NRMSVL, SMLNUM;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE, SNRM2;
+      //- REAL               SASUM, SLAMCH, SLANGE, SNRM2;
       // EXTERNAL SASUM, SLAMCH, SLANGE, SNRM2
       // ..
       // .. External Subroutines ..

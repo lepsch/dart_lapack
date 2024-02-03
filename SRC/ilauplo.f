@@ -15,7 +15,7 @@
       const     BLAS_UPPER = 121, BLAS_LOWER = 122 ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

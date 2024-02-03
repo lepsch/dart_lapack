@@ -29,8 +29,8 @@
       REAL               BDIAG( 2 ), SUM( 2, 2 ), SUMS( 2, 2 ), SUMP( 2, 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH;
+      //- bool               LSAME;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -28,9 +28,9 @@
       double             WORK(1);
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DASUM, DDOT, DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DASUM, DDOT, DLAMCH, DLANGE;
       // EXTERNAL LSAME, IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

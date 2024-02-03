@@ -29,9 +29,9 @@
       double             ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DDOT, DLAMCH, DNRM2;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DDOT, DLAMCH, DNRM2;
       // EXTERNAL IDAMAX, LSAME, DAXPY, DDOT, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..

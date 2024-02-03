@@ -28,8 +28,8 @@
       // EXTERNAL XERBLA, ZAXPY, ZHPMV, ZHPR2, ZLARFG
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. Intrinsic Functions ..

@@ -32,8 +32,8 @@
 
       // ..
       // .. External Functions ..
-      REAL               SCNRM2, SROUNDUP_LWORK;
-      bool               LSAME;
+      //- REAL               SCNRM2, SROUNDUP_LWORK;
+      //- bool               LSAME;
       // EXTERNAL SCNRM2, SROUNDUP_LWORK, LSAME
       // ..
       // .. Intrinsic Functions

@@ -28,8 +28,8 @@
       // EXTERNAL SGEBRD, SGELQF, SGEQRF, SLACPY, SLALSD, SLASCL, SLASET, SORMBR, SORMLQ, SORMQR, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SLANGE, ILAENV, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

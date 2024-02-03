@@ -24,8 +24,8 @@
       double             AII;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT;
+      //- bool               LSAME;
+      //- double             DDOT;
       // EXTERNAL LSAME, DDOT
       // ..
       // .. External Subroutines ..

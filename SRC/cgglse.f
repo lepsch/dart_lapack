@@ -25,8 +25,8 @@
       // EXTERNAL CAXPY, CCOPY, CGEMV, CGGRQF, CTRMV, CTRTRS, CUNMQR, CUNMRQ, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SROUNDUP_LWORK;
+      //- int                ILAENV;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

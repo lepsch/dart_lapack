@@ -27,8 +27,8 @@
       // EXTERNAL CGEMV, CGERC
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILACLR, ILACLC;
+      //- bool               LSAME;
+      //- int                ILACLR, ILACLC;
       // EXTERNAL LSAME, ILACLR, ILACLC
       // ..
       // .. Executable Statements ..

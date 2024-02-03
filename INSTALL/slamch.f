@@ -18,7 +18,7 @@
       REAL               RND, EPS, SFMIN, SMALL, RMACH;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Functions ..

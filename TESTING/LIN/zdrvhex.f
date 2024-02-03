@@ -39,7 +39,7 @@
       double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      double             DGET06, ZLANHE;
+      //- double             DGET06, ZLANHE;
       // EXTERNAL DGET06, ZLANHE
       // ..
       // .. External Subroutines ..

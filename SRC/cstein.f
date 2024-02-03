@@ -31,8 +31,8 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SLAMCH, SNRM2;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH, SNRM2;
       // EXTERNAL ISAMAX, SLAMCH, SNRM2
       // ..
       // .. External Subroutines ..

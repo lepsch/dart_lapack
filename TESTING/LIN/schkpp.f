@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SGET06, SLANSP;
+      //- REAL               SGET06, SLANSP;
       // EXTERNAL SGET06, SLANSP
       // ..
       // .. External Subroutines ..

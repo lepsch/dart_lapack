@@ -38,8 +38,8 @@
       double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X, SWORK;
       // ..
       // .. External Functions ..
-      bool               DISNAN;
-      double             DLAMCH, DLANGE;
+      //- bool               DISNAN;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

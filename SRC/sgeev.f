@@ -33,9 +33,9 @@
       // EXTERNAL SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLARTG, SLASCL, SORGHR, SROT, SSCAL, STREVC3, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX, ILAENV;
-      REAL               SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ISAMAX, ILAENV;
+      //- REAL               SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ISAMAX, ILAENV, SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

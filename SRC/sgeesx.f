@@ -37,9 +37,9 @@
       // EXTERNAL SCOPY, SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLASCL, SORGHR, SSWAP, STRSEN, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

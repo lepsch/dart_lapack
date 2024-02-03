@@ -26,9 +26,9 @@
       double             WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLARMM, ZLANGE;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLARMM, ZLANGE;
       // EXTERNAL DLAMCH, DLARMM, ILAENV, LSAME, ZLANGE
       // ..
       // .. External Subroutines ..

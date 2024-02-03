@@ -24,8 +24,8 @@
       REAL               AII;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT;
+      //- bool               LSAME;
+      //- REAL               SDOT;
       // EXTERNAL LSAME, SDOT
       // ..
       // .. External Subroutines ..

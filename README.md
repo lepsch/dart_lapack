@@ -379,6 +379,19 @@ $1$2.abs()
 $1$2.abs()
 ```
 
+### Comment out external functions
+1st step
+```
+^(      //.*External Functions.*)\n      ([^/\s].*)$
+$1\n      //- $2
+```
+
+nth step
+```
+^(      //.*External Functions.*)\n      (//- .*)\n      ([^/\s].*)$
+$1\n      $2\n      //- $3
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

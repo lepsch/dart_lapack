@@ -30,8 +30,8 @@
       bool               GIVENS, ILEXTR, ILTEMP, TOPDWN;
       // ..
       // .. External Functions ..
-      double             DLARND;
-      bool               LSAME;
+      //- double             DLARND;
+      //- bool               LSAME;
       // EXTERNAL DLARND, LSAME
       // ..
       // .. External Subroutines ..

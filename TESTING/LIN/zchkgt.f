@@ -40,7 +40,7 @@
       Complex         Z( 3 );
       // ..
       // .. External Functions ..
-      double             DGET06, DZASUM, ZLANGT;
+      //- double             DGET06, DZASUM, ZLANGT;
       // EXTERNAL DGET06, DZASUM, ZLANGT
       // ..
       // .. External Subroutines ..

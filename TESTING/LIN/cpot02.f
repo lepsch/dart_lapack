@@ -27,7 +27,7 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      REAL               CLANHE, SCASUM, SLAMCH;
+      //- REAL               CLANHE, SCASUM, SLAMCH;
       // EXTERNAL CLANHE, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..

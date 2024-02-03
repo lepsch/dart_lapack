@@ -23,7 +23,7 @@
       double             AINVNM;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
+      //- int                IDAMAX;
       // EXTERNAL IDAMAX
       // ..
       // .. External Subroutines ..

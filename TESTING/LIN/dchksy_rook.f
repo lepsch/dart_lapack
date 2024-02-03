@@ -40,7 +40,7 @@
       double             BLOCK( 2, 2 ), DDUMMY( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DGET06, DLANGE, DLANSY;
+      //- double             DGET06, DLANGE, DLANSY;
       // EXTERNAL DGET06, DLANGE, DLANSY
       // ..
       // .. External Subroutines ..

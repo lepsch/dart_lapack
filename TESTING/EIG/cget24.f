@@ -36,8 +36,8 @@
       int                IPNT( 20 );
       // ..
       // .. External Functions ..
-      bool               CSLECT;
-      REAL               CLANGE, SLAMCH;
+      //- bool               CSLECT;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CSLECT, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

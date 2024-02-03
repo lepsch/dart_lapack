@@ -39,8 +39,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DGET06, ZLANHE;
+      //- bool               LSAME;
+      //- double             DGET06, ZLANHE;
       // EXTERNAL LSAME, DGET06, ZLANHE
       // ..
       // .. External Subroutines ..

@@ -28,8 +28,8 @@
       // EXTERNAL DGEBRD, DGELQF, DGEQRF, DLACPY, DLALSD, DLASCL, DLASET, DORMBR, DORMLQ, DORMQR, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH, DLANGE;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL ILAENV, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..

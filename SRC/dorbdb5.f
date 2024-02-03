@@ -27,7 +27,7 @@
       // EXTERNAL DLASSQ, DORBDB6, DSCAL, XERBLA
       // ..
       // .. External Functions ..
-      double             DLAMCH, DNRM2;
+      //- double             DLAMCH, DNRM2;
       // EXTERNAL DLAMCH, DNRM2
       // ..
       // .. Intrinsic Function ..

@@ -23,7 +23,7 @@
       bool               BULGE, SORTED;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SROUNDUP_LWORK;
+      //- REAL               SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

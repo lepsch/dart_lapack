@@ -40,8 +40,8 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SGET06, SLAMCH, SLANGE, SLANTR, SLA_GERPVGRW;
+      //- bool               LSAME;
+      //- REAL               SGET06, SLAMCH, SLANGE, SLANTR, SLA_GERPVGRW;
       // EXTERNAL LSAME, SGET06, SLAMCH, SLANGE, SLANTR, SLA_GERPVGRW
       // ..
       // .. External Subroutines ..

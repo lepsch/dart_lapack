@@ -36,8 +36,8 @@
       int                IPNT( 20 );
       // ..
       // .. External Functions ..
-      bool               ZSLECT;
-      double             DLAMCH, ZLANGE;
+      //- bool               ZSLECT;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL ZSLECT, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

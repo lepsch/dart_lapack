@@ -25,7 +25,7 @@
       REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANHE, SLAMCH;
+      //- REAL               CLANGE, CLANHE, SLAMCH;
       // EXTERNAL CLANGE, CLANHE, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -28,7 +28,7 @@
       Complex         WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
-      int                ILAENV, IZAMAX;
+      //- int                ILAENV, IZAMAX;
       // EXTERNAL ILAENV, IZAMAX
       // ..
       // .. External Subroutines ..

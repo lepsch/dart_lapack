@@ -22,7 +22,7 @@
       COMPLEX            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX );
 
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
 
       // .. External Subroutines ..
       // EXTERNAL CLAHILB, CGESVXX, CSYSVXX, CPOSVXX, CGBSVXX, CLACPY, LSAMEN

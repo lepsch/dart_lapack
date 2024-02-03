@@ -25,7 +25,7 @@
       int                I, LDWORK, LEN, LWKOPT, NB, NQ, NW;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

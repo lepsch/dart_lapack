@@ -26,9 +26,9 @@
       REAL               ANORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH, SLANSY, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANSY, SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

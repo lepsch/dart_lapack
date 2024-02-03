@@ -25,8 +25,8 @@
       double             CJ, LARGE, SMALL;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. Executable Statements ..

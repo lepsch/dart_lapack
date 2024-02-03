@@ -25,7 +25,7 @@
       COMPLEX            A, B, C, R;
       // ..
       // .. External Functions ..
-      COMPLEX            CLARND;
+      //- COMPLEX            CLARND;
       // EXTERNAL CLARND
       // ..
       // .. Intrinsic Functions ..

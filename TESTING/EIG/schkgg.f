@@ -33,7 +33,7 @@
       REAL               DUMMA( 4 ), RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLARND;
+      //- REAL               SLAMCH, SLANGE, SLARND;
       // EXTERNAL SLAMCH, SLANGE, SLARND
       // ..
       // .. External Subroutines ..

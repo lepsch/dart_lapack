@@ -39,7 +39,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               CLANHE, SGET06;
+      //- REAL               CLANHE, SGET06;
       // EXTERNAL CLANHE, SGET06
       // ..
       // .. External Subroutines ..

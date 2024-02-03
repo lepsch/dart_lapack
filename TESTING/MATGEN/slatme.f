@@ -34,8 +34,8 @@
       REAL               TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLANGE, SLARAN;
+      //- bool               LSAME;
+      //- REAL               SLANGE, SLARAN;
       // EXTERNAL LSAME, SLANGE, SLARAN
       // ..
       // .. External Subroutines ..

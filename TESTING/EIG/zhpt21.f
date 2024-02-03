@@ -31,9 +31,9 @@
       Complex         TEMP, VSAVE;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE, ZLANHP;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE, ZLANHP;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHP, ZDOTC
       // ..
       // .. External Subroutines ..

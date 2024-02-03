@@ -40,7 +40,7 @@
 
       // ..
       // .. External Functions ..
-      double             ZLANSY;
+      //- double             ZLANSY;
       // EXTERNAL ZLANSY
       // ..
       // .. External Subroutines ..

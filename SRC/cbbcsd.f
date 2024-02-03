@@ -34,8 +34,8 @@
       // EXTERNAL CLASR, CSCAL, CSWAP, SLARTGP, SLARTGS, SLAS2, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      bool               LSAME;
+      //- REAL               SLAMCH;
+      //- bool               LSAME;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. Intrinsic Functions ..

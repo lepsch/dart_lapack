@@ -24,8 +24,8 @@
       double             AJJ;
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      double             DDOT;
+      //- bool               LSAME, DISNAN;
+      //- double             DDOT;
       // EXTERNAL LSAME, DDOT, DISNAN
       // ..
       // .. External Subroutines ..

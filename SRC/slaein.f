@@ -25,8 +25,8 @@
       REAL               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SASUM, SLAPY2, SNRM2;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SLAPY2, SNRM2;
       // EXTERNAL ISAMAX, SASUM, SLAPY2, SNRM2
       // ..
       // .. External Subroutines ..

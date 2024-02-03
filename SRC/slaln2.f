@@ -31,7 +31,7 @@
       REAL               CI( 2, 2 ), CIV( 4 ), CR( 2, 2 ), CRV( 4 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

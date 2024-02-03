@@ -25,8 +25,8 @@
       REAL               AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL, FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA, MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX, RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2;
       // ..
       // .. External Functions ..
-      bool    SISNAN;
-      REAL               SLAMCH;
+      //- bool    SISNAN;
+      //- REAL               SLAMCH;
       // EXTERNAL SISNAN, SLAMCH
       // ..
       // .. External Subroutines ..

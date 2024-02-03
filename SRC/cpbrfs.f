@@ -43,8 +43,8 @@
       // INTRINSIC ABS, AIMAG, MAX, MIN, REAL
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH;
+      //- bool               LSAME;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. Statement Functions ..

@@ -29,9 +29,9 @@
       // INTRINSIC ABS, ALOG, MAX, MIN, FLOAT, NINT, SIGN, SQRT
       // ..
       // .. External Functions ..
-      REAL      SLAMCH, SNRM2;
-      int       ISAMAX;
-      bool      LSAME;
+      //- REAL      SLAMCH, SNRM2;
+      //- int       ISAMAX;
+      //- bool      LSAME;
       // EXTERNAL ISAMAX, LSAME, SLAMCH, SNRM2
       // ..
       // .. External Subroutines ..

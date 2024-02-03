@@ -26,8 +26,8 @@
       double             AJJ;
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      Complex         ZDOTC;
+      //- bool               LSAME, DISNAN;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC, DISNAN
       // ..
       // .. External Subroutines ..

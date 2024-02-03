@@ -11,7 +11,7 @@
       REAL               TARRAY( 2 );
       // ..
       // .. External Functions ..
-      REAL               ETIME_;
+      //- REAL               ETIME_;
       // EXTERNAL ETIME_
       // ..
       // .. Executable Statements ..

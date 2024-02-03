@@ -22,8 +22,8 @@
       REAL               ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL LSAME, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -33,7 +33,7 @@
       COMPLEX            WORKQUERY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, CLANGE, CLANSY;
+      //- REAL               SLAMCH, CLANGE, CLANSY;
       // EXTERNAL SLAMCH, CLANGE, CLANSY
       // ..
       // .. External Subroutines ..

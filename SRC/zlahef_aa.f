@@ -25,8 +25,8 @@
       Complex   PIV, ALPHA;
       // ..
       // .. External Functions ..
-      bool         LSAME;
-      int          IZAMAX, ILAENV;
+      //- bool         LSAME;
+      //- int          IZAMAX, ILAENV;
       // EXTERNAL LSAME, ILAENV, IZAMAX
       // ..
       // .. External Subroutines ..

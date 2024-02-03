@@ -29,9 +29,9 @@
       int                I, J, K;
       // ..
       // .. External Functions ..
-      Complex         ZDOTC;
-      double             DLAMCH, ZLANHE;
-      bool               LSAME;
+      //- Complex         ZDOTC;
+      //- double             DLAMCH, ZLANHE;
+      //- bool               LSAME;
       // EXTERNAL ZDOTC, DLAMCH, ZLANHE, LSAME
       // ..
       // .. External Subroutines ..

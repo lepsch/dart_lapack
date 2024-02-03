@@ -25,7 +25,7 @@
       double             EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

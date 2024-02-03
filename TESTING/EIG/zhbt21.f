@@ -28,8 +28,8 @@
       double             ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE, ZLANHB, ZLANHP;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE, ZLANHB, ZLANHP;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHB, ZLANHP
       // ..
       // .. External Subroutines ..

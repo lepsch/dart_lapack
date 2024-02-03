@@ -35,9 +35,9 @@
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               CLANGE, SLAMCH;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL ILAENV, LSAME, CLANGE, SLAMCH
       // ..
       // .. Intrinsic Functions ..

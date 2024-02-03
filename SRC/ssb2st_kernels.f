@@ -32,7 +32,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // ..

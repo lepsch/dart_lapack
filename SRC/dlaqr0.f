@@ -48,7 +48,7 @@
       String             JBCMPZ*2;
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Local Arrays ..

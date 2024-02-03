@@ -30,8 +30,8 @@
       COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, Z;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      int                ICAMAX;
+      //- bool               LSAME, SISNAN;
+      //- int                ICAMAX;
       // EXTERNAL LSAME, ICAMAX, SISNAN
       // ..
       // .. External Subroutines ..

@@ -19,7 +19,7 @@
       int                I, II, KK, CTR, MINMN, LWMIN;
       // ..
       // .. EXTERNAL FUNCTIONS ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. EXTERNAL SUBROUTINES ..

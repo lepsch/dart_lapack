@@ -26,7 +26,7 @@
       Complex         A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

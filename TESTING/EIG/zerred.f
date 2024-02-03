@@ -32,7 +32,7 @@
       // EXTERNAL CHKXER, ZGEES, ZGEESX, ZGEEV, ZGEEVX, ZGESVJ, ZGESDD, ZGESVD, ZGESVDX, ZGESVDQ
       // ..
       // .. External Functions ..
-      bool               LSAMEN, ZSLECT;
+      //- bool               LSAMEN, ZSLECT;
       // EXTERNAL LSAMEN, ZSLECT
       // ..
       // .. Intrinsic Functions ..

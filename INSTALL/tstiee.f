@@ -3,7 +3,7 @@
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
 
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Local Scalars ..

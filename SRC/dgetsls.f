@@ -25,8 +25,8 @@
       double             ANRM, BIGNUM, BNRM, SMLNUM, TQ( 5 ), WORKQ( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

@@ -29,7 +29,7 @@
       const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..
-      REAL               SLAPY2;
+      //- REAL               SLAPY2;
       // EXTERNAL SLAPY2
       // ..
       // .. Executable Statements ..

@@ -26,7 +26,7 @@
       // EXTERNAL ZAXPY, ZHEMV, ZHER2
       // ..
       // .. External Functions ..
-      Complex         ZDOTC;
+      //- Complex         ZDOTC;
       // EXTERNAL ZDOTC
       // ..
       // .. Executable Statements ..

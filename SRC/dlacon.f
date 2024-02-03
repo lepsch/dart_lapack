@@ -26,8 +26,8 @@
       double             ALTSGN, ESTOLD, TEMP;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DASUM;
+      //- int                IDAMAX;
+      //- double             DASUM;
       // EXTERNAL IDAMAX, DASUM
       // ..
       // .. External Subroutines ..

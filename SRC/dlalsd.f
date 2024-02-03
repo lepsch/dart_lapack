@@ -25,8 +25,8 @@
       double             CS, EPS, ORGNRM, R, RCND, SN, TOL;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH, DLANST;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DLANST;
       // EXTERNAL IDAMAX, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..

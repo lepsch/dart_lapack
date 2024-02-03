@@ -188,8 +188,8 @@
       REAL              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), DVR(8), SA(10), STEMP(1), STRUE(8), SX(8), SXR(15);
       int               ITRUE2(5), ITRUEC(5);
       // .. External Functions ..
-      REAL              SASUM, SNRM2;
-      int               ISAMAX;
+      //- REAL              SASUM, SNRM2;
+      //- int               ISAMAX;
       // EXTERNAL SASUM, SNRM2, ISAMAX
       // .. External Subroutines ..
       // EXTERNAL ITEST1, SB1NRM2, SSCAL, STEST, STEST1
@@ -275,7 +275,7 @@
       REAL              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), SSIZE3(4), SSIZE(7), STX(7), STY(7), SX(7), SY(7), DPAR(5,4), DT19X(7,4,16),DT19XA(7,4,4), DT19XB(7,4,4), DT19XC(7,4,4),DT19XD(7,4,4), DT19Y(7,4,16), DT19YA(7,4,4),DT19YB(7,4,4), DT19YC(7,4,4), DT19YD(7,4,4), DTEMP(5), ST7B(4,4), STY0(1), SX0(1), SY0(1);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
-      REAL              SDOT, SDSDOT;
+      //- REAL              SDOT, SDSDOT;
       // EXTERNAL SDOT, SDSDOT
       // .. External Subroutines ..
       // EXTERNAL SAXPY, SCOPY, SROTM, SSWAP, STEST, STEST1
@@ -606,7 +606,7 @@
       REAL             SD;
       int              I;
       // .. External Functions ..
-      REAL             SDIFF;
+      //- REAL             SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -735,7 +735,7 @@
       REAL              HALF, ONE, TWO, ZERO;
       const             HALF=0.5, ONE=1.0, TWO= 2.0, ZERO=0.0;
       // .. External Functions ..
-      REAL              SNRM2;
+      //- REAL              SNRM2;
       // EXTERNAL SNRM2
       // .. Intrinsic Functions ..
       // INTRINSIC ABS, MAX, MIN, REAL, SQRT

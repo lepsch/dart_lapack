@@ -24,7 +24,7 @@
       int                ISEED( 4 ), ISEEDY( 4 );
       // ..
       // .. External Functions ..
-      COMPLEX            CLARND;
+      //- COMPLEX            CLARND;
       // EXTERNAL CLARND
       // ..
       // .. External Subroutines ..

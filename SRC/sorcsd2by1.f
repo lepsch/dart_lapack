@@ -31,7 +31,7 @@
       // EXTERNAL SBBCSD, SCOPY, SLACPY, SLAPMR, SLAPMT, SORBDB1, SORBDB2, SORBDB3, SORBDB4, SORGLQ, SORGQR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Function ..

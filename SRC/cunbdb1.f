@@ -47,7 +47,7 @@
       // EXTERNAL CLACGV
       // ..
       // .. External Functions ..
-      REAL               SCNRM2, SROUNDUP_LWORK;
+      //- REAL               SCNRM2, SROUNDUP_LWORK;
       // EXTERNAL SCNRM2, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Function ..

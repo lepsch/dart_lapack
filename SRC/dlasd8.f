@@ -25,7 +25,7 @@
       // EXTERNAL DCOPY, DLASCL, DLASD4, DLASET, XERBLA
       // ..
       // .. External Functions ..
-      double             DDOT, DLAMC3, DNRM2;
+      //- double             DDOT, DLAMC3, DNRM2;
       // EXTERNAL DDOT, DLAMC3, DNRM2
       // ..
       // .. Intrinsic Functions ..

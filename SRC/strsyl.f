@@ -28,8 +28,8 @@
       REAL               DUM( 1 ), VEC( 2, 2 ), X( 2, 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT, SLAMCH, SLANGE;
+      //- bool               LSAME;
+      //- REAL               SDOT, SLAMCH, SLANGE;
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

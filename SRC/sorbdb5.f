@@ -27,7 +27,7 @@
       // EXTERNAL SLASSQ, SORBDB6, SSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SNRM2;
+      //- REAL               SLAMCH, SNRM2;
       // EXTERNAL SLAMCH, SNRM2
       // ..
       // .. Intrinsic Function ..

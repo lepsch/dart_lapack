@@ -45,7 +45,7 @@
       int    , ALLOCATABLE :: IWORK (:);
       // ..
       // .. External Functions ..
-      double             DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17;
+      //- double             DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17;
       // EXTERNAL DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17
       // ..
       // .. External Subroutines ..

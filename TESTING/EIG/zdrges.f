@@ -38,10 +38,10 @@
       double             RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      bool               ZLCTES;
-      int                ILAENV;
-      double             DLAMCH;
-      Complex         ZLARND;
+      //- bool               ZLCTES;
+      //- int                ILAENV;
+      //- double             DLAMCH;
+      //- Complex         ZLARND;
       // EXTERNAL ZLCTES, ILAENV, DLAMCH, ZLARND
       // ..
       // .. External Subroutines ..

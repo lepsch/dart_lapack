@@ -36,7 +36,7 @@
       double             AI( 2 ), AR( 2 ), BE( 2 ), IR( LDST, LDST ), IRCOP( LDST, LDST ), LI( LDST, LDST ), LICOP( LDST, LDST ), S( LDST, LDST ), SCPY( LDST, LDST ), T( LDST, LDST ), TAUL( LDST ), TAUR( LDST ), TCPY( LDST, LDST );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

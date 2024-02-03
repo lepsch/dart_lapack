@@ -28,8 +28,8 @@
       // EXTERNAL DLASQ3, DLASRT, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH;
+      //- int                ILAENV;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH, ILAENV
       // ..
       // .. Intrinsic Functions ..

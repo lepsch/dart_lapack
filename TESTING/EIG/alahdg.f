@@ -16,7 +16,7 @@
       int               ITYPE;
       // ..
       // .. External Functions ..
-      bool              LSAMEN;
+      //- bool              LSAMEN;
       // EXTERNAL LSAMEN
       // ..
       // .. Executable Statements ..

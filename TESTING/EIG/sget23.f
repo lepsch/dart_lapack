@@ -35,8 +35,8 @@
       REAL               DUM( 1 ), RES( 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLAPY2, SNRM2;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLAPY2, SNRM2;
       // EXTERNAL LSAME, SLAMCH, SLAPY2, SNRM2
       // ..
       // .. External Subroutines ..

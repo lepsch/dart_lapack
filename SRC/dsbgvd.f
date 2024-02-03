@@ -25,7 +25,7 @@
       int                IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLWRK2, LWMIN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

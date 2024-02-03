@@ -22,8 +22,8 @@
       REAL               SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR , UI;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      COMPLEX            CLADIV;
+      //- REAL               SLAMCH;
+      //- COMPLEX            CLADIV;
       // EXTERNAL SLAMCH, CLADIV
       // ..
       // .. External Subroutines ..

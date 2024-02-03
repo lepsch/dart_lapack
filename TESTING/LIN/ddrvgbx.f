@@ -40,8 +40,8 @@
       double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DGET06, DLAMCH, DLANGB, DLANGE, DLANTB, DLA_GBRPVGRW       EXTERNAL           LSAME, DGET06, DLAMCH, DLANGB, DLANGE, DLANTB, DLA_GBRPVGRW;
+      //- bool               LSAME;
+      //- double             DGET06, DLAMCH, DLANGB, DLANGE, DLANTB, DLA_GBRPVGRW       EXTERNAL           LSAME, DGET06, DLAMCH, DLANGB, DLANGE, DLANTB, DLA_GBRPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, DERRVX, DGBEQU, DGBSV, DGBSVX, DGBT01, DGBT02, DGBT05, DGBTRF, DGBTRS, DGET04, DLACPY, DLAQGB, DLARHS, DLASET, DLATB4, DLATMS, XLAENV, DGBSVXX, DGBEQUB

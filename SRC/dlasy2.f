@@ -32,8 +32,8 @@
       double             BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 );
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH;
+      //- int                IDAMAX;
+      //- double             DLAMCH;
       // EXTERNAL IDAMAX, DLAMCH
       // ..
       // .. External Subroutines ..

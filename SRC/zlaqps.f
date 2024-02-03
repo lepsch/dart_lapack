@@ -32,8 +32,8 @@
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN, NINT, SQRT
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH, DZNRM2;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DZNRM2;
       // EXTERNAL IDAMAX, DLAMCH, DZNRM2
       // ..
       // .. Executable Statements ..

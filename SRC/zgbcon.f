@@ -32,10 +32,10 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IZAMAX;
-      double             DLAMCH;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- int                IZAMAX;
+      //- double             DLAMCH;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, ZDOTC
       // ..
       // .. External Subroutines ..

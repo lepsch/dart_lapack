@@ -39,7 +39,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               CLANSP, SGET06;
+      //- REAL               CLANSP, SGET06;
       // EXTERNAL CLANSP, SGET06
       // ..
       // .. External Subroutines ..

@@ -32,7 +32,7 @@
       double             DUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), T( LDT, LDT ), TMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WIIN( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRIN( LDT ), WRTMP( LDT );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

@@ -43,7 +43,7 @@
       double             RESULT( 39 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLARND;
+      //- double             DLAMCH, DLARND;
       // EXTERNAL DLAMCH, DLARND
       // ..
       // .. External Subroutines ..

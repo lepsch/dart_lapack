@@ -26,9 +26,9 @@
       double             EPS, ORGNRM, P, TINY;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLANST;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANST;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..

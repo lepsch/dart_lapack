@@ -27,9 +27,9 @@
       double             ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLANGE, DLARMM;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE, DLARMM;
       // EXTERNAL DLAMCH, DLANGE, DLARMM, ILAENV, LSAME
       // ..
       // .. External Subroutines ..

@@ -25,7 +25,7 @@
       REAL               ANORM, EPS, RESID;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANSY, SLAMCH;
+      //- REAL               CLANGE, CLANSY, SLAMCH;
       // EXTERNAL CLANGE, CLANSY, SLAMCH
       // ..
       // .. External Subroutines ..

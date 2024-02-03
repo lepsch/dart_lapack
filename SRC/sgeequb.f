@@ -23,7 +23,7 @@
       REAL               BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

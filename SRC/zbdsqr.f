@@ -39,8 +39,8 @@
       double             ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. External Subroutines ..

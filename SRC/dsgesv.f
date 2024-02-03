@@ -36,8 +36,8 @@
       // EXTERNAL DAXPY, DGEMM, DLACPY, DLAG2S, DGETRF, DGETRS, SGETRF, SGETRS, SLAG2D, XERBLA
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH, DLANGE;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL IDAMAX, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..

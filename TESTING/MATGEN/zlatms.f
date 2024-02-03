@@ -34,9 +34,9 @@
       Complex         C, CT, CTEMP, DUMMY, EXTRA, S, ST;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLARND;
-      Complex         ZLARND;
+      //- bool               LSAME;
+      //- double             DLARND;
+      //- Complex         ZLARND;
       // EXTERNAL LSAME, DLARND, ZLARND
       // ..
       // .. External Subroutines ..

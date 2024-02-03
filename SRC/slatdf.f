@@ -33,7 +33,7 @@
       // EXTERNAL SAXPY, SCOPY, SGECON, SGESC2, SLASSQ, SLASWP, SSCAL
       // ..
       // .. External Functions ..
-      REAL               SASUM, SDOT;
+      //- REAL               SASUM, SDOT;
       // EXTERNAL SASUM, SDOT
       // ..
       // .. Intrinsic Functions ..

@@ -26,8 +26,8 @@
       bool               UPPER;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      bool               LSAME, SISNAN;
+      //- REAL               SLAMCH;
+      //- bool               LSAME, SISNAN;
       // EXTERNAL SLAMCH, LSAME, SISNAN
       // ..
       // .. External Subroutines ..

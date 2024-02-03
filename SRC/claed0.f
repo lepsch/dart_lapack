@@ -29,7 +29,7 @@
       // EXTERNAL CCOPY, CLACRM, CLAED7, SCOPY, SSTEQR, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

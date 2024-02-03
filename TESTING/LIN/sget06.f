@@ -18,7 +18,7 @@
       REAL               EPS, RAT;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

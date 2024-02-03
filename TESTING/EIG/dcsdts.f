@@ -28,7 +28,7 @@
       double             EPS2, RESID, ULP, ULPINV;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE, DLANSY;
+      //- double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
       // ..
       // .. External Subroutines ..

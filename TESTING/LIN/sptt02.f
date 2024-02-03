@@ -23,7 +23,7 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANST;
+      //- REAL               SASUM, SLAMCH, SLANST;
       // EXTERNAL SASUM, SLAMCH, SLANST
       // ..
       // .. Intrinsic Functions ..

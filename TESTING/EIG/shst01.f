@@ -22,7 +22,7 @@
       REAL               ANORM, EPS, OVFL, SMLNUM, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

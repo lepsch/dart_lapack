@@ -43,8 +43,8 @@
       REAL,    DIMENSION(:,:), ALLOCATABLE :: SWORK;
       // ..
       // .. External Functions ..
-      bool               SISNAN;
-      REAL               SLAMCH, CLANGE;
+      //- bool               SISNAN;
+      //- REAL               SLAMCH, CLANGE;
       // EXTERNAL SISNAN, SLAMCH, CLANGE
       // ..
       // .. External Subroutines ..

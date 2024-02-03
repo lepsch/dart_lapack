@@ -23,7 +23,7 @@
       int                HERE, NBF, NBL, NBNEXT;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

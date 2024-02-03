@@ -23,8 +23,8 @@
       REAL               DIFFNM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SLAMCH;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH;
       // EXTERNAL ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..

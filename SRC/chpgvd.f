@@ -22,8 +22,8 @@
       int                J, LIWMIN, LRWMIN, LWMIN, NEIG;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

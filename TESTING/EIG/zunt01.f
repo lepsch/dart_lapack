@@ -27,9 +27,9 @@
       Complex         TMP, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANSY;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANSY;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANSY, ZDOTC
       // ..
       // .. External Subroutines ..

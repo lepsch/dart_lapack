@@ -91,8 +91,8 @@
       double            STRUE2(5), STRUE4(5);
       int               ITRUE3(5);
       // .. External Functions ..
-      double            DZASUMTEST, DZNRM2TEST;
-      int               IZAMAXTEST;
+      //- double            DZASUMTEST, DZNRM2TEST;
+      //- int               IZAMAXTEST;
       // EXTERNAL DZASUMTEST, DZNRM2TEST, IZAMAXTEST
       // .. External Subroutines ..
       // EXTERNAL ZSCALTEST, ZDSCALTEST, CTEST, ITEST1, STEST1
@@ -306,7 +306,7 @@
       double           SD;
       int              I;
       // .. External Functions ..
-      double           SDIFF;
+      //- double           SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

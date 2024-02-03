@@ -21,8 +21,8 @@
       double             ANORM, BNORM, SMAX, TEMP, TOLA, TOLB, ULP, UNFL;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

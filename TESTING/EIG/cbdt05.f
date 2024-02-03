@@ -29,9 +29,9 @@
       REAL               DUM( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SASUM, SCASUM, SLAMCH, CLANGE;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SCASUM, SLAMCH, CLANGE;
       // EXTERNAL LSAME, ISAMAX, SASUM, SCASUM, SLAMCH, CLANGE
       // ..
       // .. External Subroutines ..

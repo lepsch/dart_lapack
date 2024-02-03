@@ -23,9 +23,9 @@
       int                I, I1, I2, I3, IB, IC, IINFO, IWT, JC, LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

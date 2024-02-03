@@ -29,9 +29,9 @@
       int                I, J, K;
       // ..
       // .. External Functions ..
-      COMPLEX            CDOTC;
-      REAL               CLANHE, SLAMCH;
-      bool               LSAME;
+      //- COMPLEX            CDOTC;
+      //- REAL               CLANHE, SLAMCH;
+      //- bool               LSAME;
       // EXTERNAL CDOTC, CLANHE, SLAMCH, LSAME
       // ..
       // .. External Subroutines ..

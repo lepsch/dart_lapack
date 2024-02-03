@@ -31,8 +31,8 @@
       // INTRINSIC ABS, CMPLX, CONJG, MAX, MIN, SQRT
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SCNRM2, SLAMCH;
+      //- int                ISAMAX;
+      //- REAL               SCNRM2, SLAMCH;
       // EXTERNAL ISAMAX, SCNRM2, SLAMCH
       // ..
       // .. Executable Statements ..

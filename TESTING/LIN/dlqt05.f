@@ -28,8 +28,8 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      double           DLAMCH, DLANGE, DLANSY;
-      bool     LSAME;
+      //- double           DLAMCH, DLANGE, DLANSY;
+      //- bool     LSAME;
       // EXTERNAL DLAMCH, DLANGE, DLANSY, LSAME
       // ..
       // .. Data statements ..

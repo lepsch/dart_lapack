@@ -29,9 +29,9 @@
       REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
       // ..
       // .. External Functions ..
-      bool               SISNAN, LSAME;
-      int                ICAMAX;
-      REAL               SLAMCH, SCNRM2;
+      //- bool               SISNAN, LSAME;
+      //- int                ICAMAX;
+      //- REAL               SLAMCH, SCNRM2;
       // EXTERNAL SISNAN, LSAME, ICAMAX, SLAMCH, SCNRM2
       // ..
       // .. External Subroutines ..

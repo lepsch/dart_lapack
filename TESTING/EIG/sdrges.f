@@ -33,9 +33,9 @@
       REAL               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      bool               SLCTES;
-      int                ILAENV;
-      REAL               SLAMCH, SLARND;
+      //- bool               SLCTES;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLARND;
       // EXTERNAL SLCTES, ILAENV, SLAMCH, SLARND
       // ..
       // .. External Subroutines ..

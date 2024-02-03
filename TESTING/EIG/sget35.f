@@ -27,7 +27,7 @@
       REAL               A( 6, 6 ), B( 6, 6 ), C( 6, 6 ), CC( 6, 6 ), DUM( 1 ), VM1( 3 ), VM2( 3 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

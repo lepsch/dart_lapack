@@ -27,8 +27,8 @@
       // EXTERNAL SGEMV, SGER
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILASLR, ILASLC;
+      //- bool               LSAME;
+      //- int                ILASLR, ILASLC;
       // EXTERNAL LSAME, ILASLR, ILASLC
       // ..
       // .. Executable Statements ..

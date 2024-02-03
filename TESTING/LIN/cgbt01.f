@@ -25,7 +25,7 @@
       COMPLEX            T;
       // ..
       // .. External Functions ..
-      REAL               SCASUM, SLAMCH;
+      //- REAL               SCASUM, SLAMCH;
       // EXTERNAL SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..

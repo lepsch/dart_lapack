@@ -23,7 +23,7 @@
       double             EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

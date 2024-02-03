@@ -18,7 +18,7 @@
       String             SYM;
       // ..
       // .. External Functions ..
-      bool               LSAME, LSAMEN;
+      //- bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
       // ..
       // .. Executable Statements ..

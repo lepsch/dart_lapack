@@ -27,7 +27,7 @@
       int                J, MB, NX;
       // ..
       // .. External Functions ..
-      bool               LSAME, LSAMEN;
+      //- bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
       // ..
       // .. External Subroutines ..

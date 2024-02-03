@@ -23,8 +23,8 @@
       REAL               ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM;
       // ..
       // .. External Functions ..
-      REAL               SCNRM2, SLAMCH, SLAPY3;
-      COMPLEX            CLADIV;
+      //- REAL               SCNRM2, SLAMCH, SLAPY3;
+      //- COMPLEX            CLADIV;
       // EXTERNAL SCNRM2, SLAMCH, SLAPY3, CLADIV
       // ..
       // .. Intrinsic Functions ..

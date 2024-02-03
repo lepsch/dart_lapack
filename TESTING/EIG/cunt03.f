@@ -27,9 +27,9 @@
       COMPLEX            S, SU, SV;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
-      REAL               SLAMCH;
+      //- bool               LSAME;
+      //- int                ICAMAX;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, ICAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..

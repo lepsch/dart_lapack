@@ -28,8 +28,8 @@
       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANHP, SLAMCH, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               CLANHP, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL LSAME, CLANHP, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

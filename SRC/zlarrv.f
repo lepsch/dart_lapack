@@ -31,7 +31,7 @@
       double             BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

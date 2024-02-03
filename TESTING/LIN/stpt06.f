@@ -23,7 +23,7 @@
       REAL               ANORM, BIGNUM, EPS, RMAX, RMIN, SMLNUM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANTP;
+      //- REAL               SLAMCH, SLANTP;
       // EXTERNAL SLAMCH, SLANTP
       // ..
       // .. Intrinsic Functions ..

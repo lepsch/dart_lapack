@@ -40,7 +40,7 @@
 
       // ..
       // .. External Functions ..
-      REAL               CLANSY;
+      //- REAL               CLANSY;
       // EXTERNAL CLANSY
       // ..
       // .. External Subroutines ..

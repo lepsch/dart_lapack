@@ -28,8 +28,8 @@
       // EXTERNAL ZLASWP, ZSCAL
       // ..
       // .. External Functions ..
-      int                IZAMAX;
-      double             DLAMCH;
+      //- int                IZAMAX;
+      //- double             DLAMCH;
       // EXTERNAL IZAMAX, DLAMCH
       // ..
       // .. Intrinsic Functions ..

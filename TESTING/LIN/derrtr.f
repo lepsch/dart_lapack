@@ -25,7 +25,7 @@
       double             A( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX );
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
+      //- bool               LSAMEN;
       // EXTERNAL LSAMEN
       // ..
       // .. External Subroutines ..

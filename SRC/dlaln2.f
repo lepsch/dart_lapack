@@ -31,7 +31,7 @@
       double             CI( 2, 2 ), CIV( 4 ), CR( 2, 2 ), CRV( 4 );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

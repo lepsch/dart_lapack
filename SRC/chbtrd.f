@@ -34,7 +34,7 @@
       // INTRINSIC ABS, CONJG, MAX, MIN, REAL
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

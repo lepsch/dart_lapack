@@ -25,8 +25,8 @@
       REAL               PIV, ALPHA;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX, ILAENV;
+      //- bool               LSAME;
+      //- int                ISAMAX, ILAENV;
       // EXTERNAL LSAME, ILAENV, ISAMAX
       // ..
       // .. External Subroutines ..

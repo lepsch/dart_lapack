@@ -33,7 +33,7 @@
       double             DUMMA( 4 ), RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE, DLARND;
+      //- double             DLAMCH, DLANGE, DLARND;
       // EXTERNAL DLAMCH, DLANGE, DLARND
       // ..
       // .. External Subroutines ..

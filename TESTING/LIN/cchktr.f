@@ -40,8 +40,8 @@
       REAL               RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANTR;
+      //- bool               LSAME;
+      //- REAL               CLANTR;
       // EXTERNAL LSAME, CLANTR
       // ..
       // .. External Subroutines ..

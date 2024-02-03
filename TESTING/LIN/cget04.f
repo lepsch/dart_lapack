@@ -24,8 +24,8 @@
       COMPLEX            ZDUM;
       // ..
       // .. External Functions ..
-      int                ICAMAX;
-      REAL               SLAMCH;
+      //- int                ICAMAX;
+      //- REAL               SLAMCH;
       // EXTERNAL ICAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..

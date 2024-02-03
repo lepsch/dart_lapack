@@ -27,8 +27,8 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

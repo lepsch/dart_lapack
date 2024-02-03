@@ -25,9 +25,9 @@
       REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SASUM, SDOT, SLAMCH;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SDOT, SLAMCH;
       // EXTERNAL LSAME, ISAMAX, SASUM, SDOT, SLAMCH
       // ..
       // .. External Subroutines ..

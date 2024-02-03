@@ -18,7 +18,7 @@
       int     I,NINCX;
       // ..
       // .. External Functions ..
-      double           DCABS1;
+      //- double           DCABS1;
       // EXTERNAL DCABS1
       // ..
       DZASUM = 0.0;

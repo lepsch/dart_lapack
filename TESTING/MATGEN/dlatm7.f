@@ -28,7 +28,7 @@
       int                I;
       // ..
       // .. External Functions ..
-      double             DLARAN;
+      //- double             DLARAN;
       // EXTERNAL DLARAN
       // ..
       // .. External Subroutines ..

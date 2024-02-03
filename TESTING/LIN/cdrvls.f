@@ -45,7 +45,7 @@
       int    , ALLOCATABLE :: IWORK (:);
       // ..
       // .. External Functions ..
-      REAL               CQRT12, CQRT14, CQRT17, SASUM, SLAMCH;
+      //- REAL               CQRT12, CQRT14, CQRT17, SASUM, SLAMCH;
       // EXTERNAL CQRT12, CQRT14, CQRT17, SASUM, SLAMCH
       // ..
       // .. External Subroutines ..

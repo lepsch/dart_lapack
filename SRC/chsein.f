@@ -30,8 +30,8 @@
       COMPLEX            CDUM, WK;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      REAL               CLANHS, SLAMCH;
+      //- bool               LSAME, SISNAN;
+      //- REAL               CLANHS, SLAMCH;
       // EXTERNAL LSAME, CLANHS, SLAMCH, SISNAN
       // ..
       // .. External Subroutines ..

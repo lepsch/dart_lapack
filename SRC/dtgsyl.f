@@ -28,8 +28,8 @@
       double             DSCALE, DSUM, SCALE2, SCALOC;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
+      //- bool               LSAME;
+      //- int                ILAENV;
       // EXTERNAL LSAME, ILAENV
       // ..
       // .. External Subroutines ..

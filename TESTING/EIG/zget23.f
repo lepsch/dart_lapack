@@ -37,8 +37,8 @@
       Complex         CDUM( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DZNRM2;
+      //- bool               LSAME;
+      //- double             DLAMCH, DZNRM2;
       // EXTERNAL LSAME, DLAMCH, DZNRM2
       // ..
       // .. External Subroutines ..

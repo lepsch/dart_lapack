@@ -26,7 +26,7 @@
       // EXTERNAL CAXPY, CHEMV, CHER2
       // ..
       // .. External Functions ..
-      COMPLEX            CDOTC;
+      //- COMPLEX            CDOTC;
       // EXTERNAL CDOTC
       // ..
       // .. Executable Statements ..

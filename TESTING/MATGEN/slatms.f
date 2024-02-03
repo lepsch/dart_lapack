@@ -30,8 +30,8 @@
       REAL               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLARND;
+      //- bool               LSAME;
+      //- REAL               SLARND;
       // EXTERNAL LSAME, SLARND
       // ..
       // .. External Subroutines ..

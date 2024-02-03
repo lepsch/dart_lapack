@@ -27,7 +27,7 @@
       REAL               A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), LSCALE( LDA ), RSCALE( LDA ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

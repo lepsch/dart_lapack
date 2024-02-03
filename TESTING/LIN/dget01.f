@@ -25,7 +25,7 @@
       double             ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      double             DDOT, DLAMCH, DLANGE;
+      //- double             DDOT, DLAMCH, DLANGE;
       // EXTERNAL DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

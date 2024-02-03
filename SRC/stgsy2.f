@@ -34,7 +34,7 @@
       REAL               RHS( LDZ ), Z( LDZ, LDZ );
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

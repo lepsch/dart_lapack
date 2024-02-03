@@ -28,9 +28,9 @@
       // EXTERNAL SGELQF, SGEQP3, SGEQRF, SGESVD, SLACPY, SLAPMT, SLASCL, SLASET, SLASWP, SSCAL,  SPOCON, SORMLQ, SORMQR, XERBLA
       // ..
       // .. External Functions (BLAS, LAPACK)
-      bool       LSAME;
-      int        ISAMAX;
-      REAL        SLANGE, SNRM2, SLAMCH;
+      //- bool       LSAME;
+      //- int        ISAMAX;
+      //- REAL        SLANGE, SNRM2, SLAMCH;
       // EXTERNAL SLANGE, LSAME, ISAMAX, SNRM2, SLAMCH
       // ..
       // .. Intrinsic Functions ..

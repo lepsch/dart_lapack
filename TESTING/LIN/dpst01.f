@@ -25,8 +25,8 @@
       int                I, J, K;
       // ..
       // .. External Functions ..
-      double             DDOT, DLAMCH, DLANSY;
-      bool               LSAME;
+      //- double             DDOT, DLAMCH, DLANSY;
+      //- bool               LSAME;
       // EXTERNAL DDOT, DLAMCH, DLANSY, LSAME
       // ..
       // .. External Subroutines ..

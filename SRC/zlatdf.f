@@ -36,8 +36,8 @@
       // EXTERNAL ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
       // ..
       // .. External Functions ..
-      double             DZASUM;
-      Complex         ZDOTC;
+      //- double             DZASUM;
+      //- Complex         ZDOTC;
       // EXTERNAL DZASUM, ZDOTC
       // ..
       // .. Intrinsic Functions ..

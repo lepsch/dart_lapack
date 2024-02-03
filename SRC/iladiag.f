@@ -15,7 +15,7 @@
       const     BLAS_NON_UNIT_DIAG = 131, BLAS_UNIT_DIAG = 132 ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

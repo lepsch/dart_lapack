@@ -26,9 +26,9 @@
       Complex         TC;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANHE;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANHE;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANHE, ZDOTC
       // ..
       // .. External Subroutines ..

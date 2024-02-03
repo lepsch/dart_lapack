@@ -35,9 +35,9 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, CLANGE;
-      COMPLEX            CLARND;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, CLANGE;
+      //- COMPLEX            CLARND;
       // EXTERNAL SLAMCH, CLARND, CLANGE, LSAME
       // ..
       // .. External Subroutines ..

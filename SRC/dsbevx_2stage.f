@@ -29,9 +29,9 @@
       double             ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV2STAGE;
-      double             DLAMCH, DLANSB;
+      //- bool               LSAME;
+      //- int                ILAENV2STAGE;
+      //- double             DLAMCH, DLANSB;
       // EXTERNAL LSAME, DLAMCH, DLANSB, ILAENV2STAGE
       // ..
       // .. External Subroutines ..

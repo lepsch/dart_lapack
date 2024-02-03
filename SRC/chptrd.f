@@ -28,8 +28,8 @@
       // EXTERNAL CAXPY, CHPMV, CHPR2, CLARFG, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CDOTC
       // ..
       // .. Intrinsic Functions ..

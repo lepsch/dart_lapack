@@ -31,9 +31,9 @@
       COMPLEX            TEMP, VSAVE;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, CLANHP, SLAMCH;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- REAL               CLANGE, CLANHP, SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..

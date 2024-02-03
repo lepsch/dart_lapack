@@ -16,7 +16,7 @@
       int                IISPEC;
       // ..
       // .. External Functions ..
-      int                IPARAM2STAGE;
+      //- int                IPARAM2STAGE;
       // EXTERNAL IPARAM2STAGE
       // ..
       // .. Executable Statements ..

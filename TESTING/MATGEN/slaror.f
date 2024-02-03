@@ -24,8 +24,8 @@
       REAL               FACTOR, XNORM, XNORMS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLARND, SNRM2;
+      //- bool               LSAME;
+      //- REAL               SLARND, SNRM2;
       // EXTERNAL LSAME, SLARND, SNRM2
       // ..
       // .. External Subroutines ..

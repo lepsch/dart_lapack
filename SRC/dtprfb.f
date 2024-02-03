@@ -23,7 +23,7 @@
       bool      LEFT, FORWARD, COLUMN, RIGHT, BACKWARD, ROW;
       // ..
       // .. External Functions ..
-      bool      LSAME;
+      //- bool      LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

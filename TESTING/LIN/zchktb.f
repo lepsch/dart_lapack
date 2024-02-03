@@ -40,8 +40,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             ZLANTB, ZLANTR;
+      //- bool               LSAME;
+      //- double             ZLANTB, ZLANTR;
       // EXTERNAL LSAME, ZLANTB, ZLANTR
       // ..
       // .. External Subroutines ..

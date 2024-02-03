@@ -21,8 +21,8 @@
       bool               UPPER;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      bool               LSAME;
+      //- REAL               SLAMCH;
+      //- bool               LSAME;
       // EXTERNAL SLAMCH, LSAME
       // ..
       // .. Intrinsic Functions ..

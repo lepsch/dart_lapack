@@ -24,7 +24,7 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANSY;
+      //- REAL               SASUM, SLAMCH, SLANSY;
       // EXTERNAL SASUM, SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..

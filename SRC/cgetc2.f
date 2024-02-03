@@ -26,7 +26,7 @@
       // EXTERNAL CGERU, CSWAP
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

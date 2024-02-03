@@ -28,8 +28,8 @@
       double             AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE, ZLANTR;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE, ZLANTR;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANTR
       // ..
       // .. External Subroutines ..

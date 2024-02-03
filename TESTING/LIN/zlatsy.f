@@ -25,7 +25,7 @@
       Complex         A, B, C, R;
       // ..
       // .. External Functions ..
-      Complex         ZLARND;
+      //- Complex         ZLARND;
       // EXTERNAL ZLARND
       // ..
       // .. Intrinsic Functions ..

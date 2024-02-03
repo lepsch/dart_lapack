@@ -23,7 +23,7 @@
       double             BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

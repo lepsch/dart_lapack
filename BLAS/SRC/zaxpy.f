@@ -18,7 +18,7 @@
       int     I,IX,IY;
       // ..
       // .. External Functions ..
-      double           DCABS1;
+      //- double           DCABS1;
       // EXTERNAL DCABS1
       // ..
       if (N <= 0) return;

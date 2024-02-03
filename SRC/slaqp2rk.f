@@ -31,9 +31,9 @@
       // INTRINSIC ABS, MAX, MIN, SQRT
       // ..
       // .. External Functions ..
-      bool               SISNAN;
-      int                ISAMAX;
-      REAL               SLAMCH, SNRM2;
+      //- bool               SISNAN;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH, SNRM2;
       // EXTERNAL SISNAN, SLAMCH, ISAMAX, SNRM2
       // ..
       // .. Executable Statements ..

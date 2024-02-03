@@ -32,10 +32,10 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
-      REAL               SLAMCH;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- int                ICAMAX;
+      //- REAL               SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, ICAMAX, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..

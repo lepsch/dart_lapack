@@ -26,7 +26,7 @@
       double             ALPHA, TEMP;
       // ..
       // .. External Functions ..
-      double             DLARAN;
+      //- double             DLARAN;
       // EXTERNAL DLARAN
       // ..
       // .. External Subroutines ..

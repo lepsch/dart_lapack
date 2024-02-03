@@ -27,7 +27,7 @@
       double             B( 2, 2 ), TL( 2, 2 ), TR( 2, 2 ), VAL( 3 ), X( 2, 2 );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

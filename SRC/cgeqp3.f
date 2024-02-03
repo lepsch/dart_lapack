@@ -27,8 +27,8 @@
       // EXTERNAL CGEQRF, CLAQP2, CLAQPS, CSWAP, CUNMQR, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SCNRM2;
+      //- int                ILAENV;
+      //- REAL               SCNRM2;
       // EXTERNAL ILAENV, SCNRM2
       // ..
       // .. Intrinsic Functions ..

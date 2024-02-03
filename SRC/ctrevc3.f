@@ -32,9 +32,9 @@
       COMPLEX            CDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV, ICAMAX;
-      REAL               SLAMCH, SCASUM, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV, ICAMAX;
+      //- REAL               SLAMCH, SCASUM, SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, ICAMAX, SLAMCH, SCASUM, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

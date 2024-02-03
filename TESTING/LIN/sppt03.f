@@ -24,8 +24,8 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANGE, SLANSP;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANGE, SLANSP;
       // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSP
       // ..
       // .. Intrinsic Functions ..

@@ -34,10 +34,10 @@
       // INTRINSIC ABS, MAX, CONJG, DBLE, MIN, SIGN, SQRT
       // ..
       // .. External Functions ..
-      double             DZNRM2;
-      Complex         ZDOTC;
-      int                IDAMAX;
-      bool               LSAME;
+      //- double             DZNRM2;
+      //- Complex         ZDOTC;
+      //- int                IDAMAX;
+      //- bool               LSAME;
       // EXTERNAL IDAMAX, LSAME, ZDOTC, DZNRM2
       // ..
       // ..

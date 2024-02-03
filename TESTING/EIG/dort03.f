@@ -24,9 +24,9 @@
       double             RES1, RES2, S, ULP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DLAMCH
       // ..
       // .. Intrinsic Functions ..

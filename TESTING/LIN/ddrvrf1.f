@@ -32,7 +32,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANSY, DLANSF, DLARND;
+      //- double             DLAMCH, DLANSY, DLANSF, DLARND;
       // EXTERNAL DLAMCH, DLANSY, DLANSF, DLARND
       // ..
       // .. External Subroutines ..

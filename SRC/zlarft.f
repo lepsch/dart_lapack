@@ -25,7 +25,7 @@
       // EXTERNAL ZGEMV, ZTRMV, ZGEMM
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

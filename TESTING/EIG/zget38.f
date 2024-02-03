@@ -35,7 +35,7 @@
       Complex         Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

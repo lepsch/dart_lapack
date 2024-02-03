@@ -41,8 +41,8 @@
       REAL               DUMMA( 1 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SLAMCH, SLARND, SSXT1;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLARND, SSXT1;
       // EXTERNAL ILAENV, SLAMCH, SLARND, SSXT1
       // ..
       // .. External Subroutines ..

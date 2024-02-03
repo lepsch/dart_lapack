@@ -25,7 +25,7 @@
       double             E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

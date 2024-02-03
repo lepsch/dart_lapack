@@ -29,9 +29,9 @@
       REAL               DUM( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, SLAMCH;
-      COMPLEX            CDOTC, CDOTU, CLADIV;
+      //- bool               LSAME;
+      //- REAL               CLANGE, SLAMCH;
+      //- COMPLEX            CDOTC, CDOTU, CLADIV;
       // EXTERNAL LSAME, CLANGE, SLAMCH, CDOTC, CDOTU, CLADIV
       // ..
       // .. External Subroutines ..

@@ -29,8 +29,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      double             DDIFF;
-      bool               LDE;
+      //- double             DDIFF;
+      //- bool               LDE;
       // EXTERNAL DDIFF, LDE
       // .. External Subroutines ..
       // EXTERNAL DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, DCHK6, DCHKE, DMVCH
@@ -304,7 +304,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LDE, LDERES;
+      //- bool               LDE, LDERES;
       // EXTERNAL LDE, LDERES
       // .. External Subroutines ..
       // EXTERNAL DGBMV, DGEMV, DMAKE, DMVCH, DREGR1
@@ -610,7 +610,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LDE, LDERES;
+      //- bool               LDE, LDERES;
       // EXTERNAL LDE, LDERES
       // .. External Subroutines ..
       // EXTERNAL DMAKE, DMVCH, DSBMV, DSPMV, DSYMV
@@ -901,7 +901,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LDE, LDERES;
+      //- bool               LDE, LDERES;
       // EXTERNAL LDE, LDERES
       // .. External Subroutines ..
       // EXTERNAL DMAKE, DMVCH, DTBMV, DTBSV, DTPMV, DTPSV, DTRMV, DTRSV
@@ -1193,7 +1193,7 @@
       double             W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LDE, LDERES;
+      //- bool               LDE, LDERES;
       // EXTERNAL LDE, LDERES
       // .. External Subroutines ..
       // EXTERNAL DGER, DMAKE, DMVCH
@@ -1421,7 +1421,7 @@
       double             W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LDE, LDERES;
+      //- bool               LDE, LDERES;
       // EXTERNAL LDE, LDERES
       // .. External Subroutines ..
       // EXTERNAL DMAKE, DMVCH, DSPR, DSYR
@@ -1664,7 +1664,7 @@
       double             W( 2 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LDE, LDERES;
+      //- bool               LDE, LDERES;
       // EXTERNAL LDE, LDERES
       // .. External Subroutines ..
       // EXTERNAL DMAKE, DMVCH, DSPR2, DSYR2
@@ -2257,7 +2257,7 @@
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      double             DBEG;
+      //- double             DBEG;
       // EXTERNAL DBEG
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

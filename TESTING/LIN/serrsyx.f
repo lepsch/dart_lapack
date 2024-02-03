@@ -26,7 +26,7 @@
       REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
+      //- bool               LSAMEN;
       // EXTERNAL LSAMEN
       // ..
       // .. External Subroutines ..

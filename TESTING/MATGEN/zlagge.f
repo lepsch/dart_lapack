@@ -31,7 +31,7 @@
       // INTRINSIC ABS, DBLE, MAX, MIN
       // ..
       // .. External Functions ..
-      double             DZNRM2;
+      //- double             DZNRM2;
       // EXTERNAL DZNRM2
       // ..
       // .. Executable Statements ..

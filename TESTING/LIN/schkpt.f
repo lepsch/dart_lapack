@@ -37,8 +37,8 @@
       REAL               RESULT( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SASUM, SGET06, SLANST;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SGET06, SLANST;
       // EXTERNAL ISAMAX, SASUM, SGET06, SLANST
       // ..
       // .. External Subroutines ..

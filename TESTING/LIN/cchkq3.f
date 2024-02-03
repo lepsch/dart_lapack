@@ -36,7 +36,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               CQPT01, CQRT11, CQRT12, SLAMCH;
+      //- REAL               CQPT01, CQRT11, CQRT12, SLAMCH;
       // EXTERNAL CQPT01, CQRT11, CQRT12, SLAMCH
       // ..
       // .. External Subroutines ..

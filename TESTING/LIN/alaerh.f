@@ -19,7 +19,7 @@
       String             C3;
       // ..
       // .. External Functions ..
-      bool               LSAME, LSAMEN;
+      //- bool               LSAME, LSAMEN;
       // EXTERNAL LSAME, LSAMEN
       // ..
       // .. Intrinsic Functions ..

@@ -31,9 +31,9 @@
       // INTRINSIC ABS, MAX, FLOAT, MIN, SIGN, SQRT
       // ..
       // .. External Functions ..
-      REAL               SDOT, SNRM2;
-      int                ISAMAX;
-      bool               LSAME;
+      //- REAL               SDOT, SNRM2;
+      //- int                ISAMAX;
+      //- bool               LSAME;
       // EXTERNAL ISAMAX, LSAME, SDOT, SNRM2
       // ..
       // .. External Subroutines ..

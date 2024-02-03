@@ -23,7 +23,7 @@
       REAL               BIGNUM, CDEN, CDEN1, CNUM, CNUM1, MUL, SMLNUM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

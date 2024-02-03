@@ -34,7 +34,7 @@
       double             Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), RESULT( 2 ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), VAL( 3 ), WI( LDT ), WITMP( LDT ), WORK( LWORK ), WR( LDT ), WRTMP( LDT );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

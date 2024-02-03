@@ -27,8 +27,8 @@
       // EXTERNAL DAXPY, DSCAL, DSPMV, DSPR2, DTPMV, DTPSV, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT;
+      //- bool               LSAME;
+      //- double             DDOT;
       // EXTERNAL LSAME, DDOT
       // ..
       // .. Executable Statements ..

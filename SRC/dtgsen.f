@@ -35,7 +35,7 @@
       // EXTERNAL DLACN2, DLACPY, DLAG2, DLASSQ, DTGEXC, DTGSYL, XERBLA
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Intrinsic Functions ..

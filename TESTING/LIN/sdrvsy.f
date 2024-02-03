@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SGET06, SLANSY;
+      //- REAL               SGET06, SLANSY;
       // EXTERNAL SGET06, SLANSY
       // ..
       // .. External Subroutines ..

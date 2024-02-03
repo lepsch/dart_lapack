@@ -34,8 +34,8 @@
       // EXTERNAL CBBCSD, CCOPY, CLACPY, CLAPMR, CLAPMT, CUNBDB1, CUNBDB2, CUNBDB3, CUNBDB4, CUNGLQ, CUNGQR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Function ..

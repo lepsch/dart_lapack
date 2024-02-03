@@ -24,7 +24,7 @@
       double             ANORM, EPS, LI;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGT, DLANHS;
+      //- double             DLAMCH, DLANGT, DLANHS;
       // EXTERNAL DLAMCH, DLANGT, DLANHS
       // ..
       // .. Intrinsic Functions ..

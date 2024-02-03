@@ -46,7 +46,7 @@
       COMPLEX            BLOCK( 2, 2 ), CDUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, CLANHE, SGET06;
+      //- REAL               CLANGE, CLANHE, SGET06;
       // EXTERNAL CLANGE, CLANHE, SGET06
       // ..
       // .. External Subroutines ..

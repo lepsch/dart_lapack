@@ -28,7 +28,7 @@
       int                I;
       // ..
       // .. External Functions ..
-      REAL               SLARAN;
+      //- REAL               SLARAN;
       // EXTERNAL SLARAN
       // ..
       // .. External Subroutines ..

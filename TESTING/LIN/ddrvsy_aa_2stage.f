@@ -39,7 +39,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DLANSY, SGET06;
+      //- double             DLANSY, SGET06;
       // EXTERNAL DLANSY, SGET06
       // ..
       // .. External Subroutines ..

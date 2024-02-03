@@ -29,9 +29,9 @@
       COMPLEX            C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

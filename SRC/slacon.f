@@ -26,8 +26,8 @@
       REAL               ALTSGN, ESTOLD, TEMP;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SASUM;
+      //- int                ISAMAX;
+      //- REAL               SASUM;
       // EXTERNAL ISAMAX, SASUM
       // ..
       // .. External Subroutines ..

@@ -24,7 +24,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK

@@ -21,7 +21,7 @@
       int                INFO, J;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

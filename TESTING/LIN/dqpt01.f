@@ -26,7 +26,7 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

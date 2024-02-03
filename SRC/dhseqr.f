@@ -41,8 +41,8 @@
       bool               INITZ, LQUERY, WANTT, WANTZ;
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      bool               LSAME;
+      //- int                ILAENV;
+      //- bool               LSAME;
       // EXTERNAL ILAENV, LSAME
       // ..
       // .. External Subroutines ..

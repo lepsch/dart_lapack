@@ -25,7 +25,7 @@
       REAL               EPS, LOWER, OVFL, TUPPR, UNFL, UNFLEP, UPPER;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

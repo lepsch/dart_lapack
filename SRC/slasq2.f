@@ -28,7 +28,7 @@
       // EXTERNAL SLASQ3, SLASRT, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

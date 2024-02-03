@@ -26,9 +26,9 @@
       double             AKK, ANORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANHB;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANHB;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, DLAMCH, ZLANHB, ZDOTC
       // ..
       // .. External Subroutines ..

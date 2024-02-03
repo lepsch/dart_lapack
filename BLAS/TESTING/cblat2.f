@@ -32,8 +32,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      REAL               SDIFF;
-      bool               LCE;
+      //- REAL               SDIFF;
+      //- bool               LCE;
       // EXTERNAL SDIFF, LCE
       // .. External Subroutines ..
       // EXTERNAL CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CCHK6, CCHKE, CMVCH
@@ -311,7 +311,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CGBMV, CGEMV, CMAKE, CMVCH, CREGR1
@@ -621,7 +621,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CHBMV, CHEMV, CHPMV, CMAKE, CMVCH
@@ -916,7 +916,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CMAKE, CMVCH, CTBMV, CTBSV, CTPMV, CTPSV, CTRMV, CTRSV
@@ -1212,7 +1212,7 @@
       COMPLEX            W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CGERC, CGERU, CMAKE, CMVCH
@@ -1451,7 +1451,7 @@
       COMPLEX            W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CHER, CHPR, CMAKE, CMVCH
@@ -1699,7 +1699,7 @@
       COMPLEX            W( 2 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CHER2, CHPR2, CMAKE, CMVCH
@@ -2313,7 +2313,7 @@
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, JJ, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      COMPLEX            CBEG;
+      //- COMPLEX            CBEG;
       // EXTERNAL CBEG
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, MAX, MIN, REAL

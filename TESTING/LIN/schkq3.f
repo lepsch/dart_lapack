@@ -34,7 +34,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SQPT01, SQRT11, SQRT12;
+      //- REAL               SLAMCH, SQPT01, SQRT11, SQRT12;
       // EXTERNAL SLAMCH, SQPT01, SQRT11, SQRT12
       // ..
       // .. External Subroutines ..

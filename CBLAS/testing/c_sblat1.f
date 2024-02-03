@@ -146,8 +146,8 @@
       REAL              DTRUE1(5), DTRUE3(5), DTRUE5(8,5,2), DV(8,5,2), SA(10), STEMP(1), STRUE(8), SX(8);
       int               ITRUE2(5);
       // .. External Functions ..
-      REAL              SASUMTEST, SNRM2TEST;
-      int               ISAMAXTEST;
+      //- REAL              SASUMTEST, SNRM2TEST;
+      //- int               ISAMAXTEST;
       // EXTERNAL SASUMTEST, SNRM2TEST, ISAMAXTEST
       // .. External Subroutines ..
       // EXTERNAL ITEST1, SSCALTEST, STEST, STEST1
@@ -214,7 +214,7 @@
       REAL              DT10X(7,4,4), DT10Y(7,4,4), DT7(4,4), DT8(7,4,4), DX1(7), DY1(7), SSIZE1(4), SSIZE2(14,2), STX(7), STY(7), SX(7), SY(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
-      REAL              SDOTTEST;
+      //- REAL              SDOTTEST;
       // EXTERNAL SDOTTEST
       // .. External Subroutines ..
       // EXTERNAL SAXPYTEST, SCOPYTEST, SSWAPTEST, STEST, STEST1
@@ -472,7 +472,7 @@
       REAL             SD;
       int              I;
       // .. External Functions ..
-      REAL             SDIFF;
+      //- REAL             SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

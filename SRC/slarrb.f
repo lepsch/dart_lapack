@@ -25,7 +25,7 @@
       REAL               BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;
       // ..
       // .. External Functions ..
-      int                SLANEG;
+      //- int                SLANEG;
       // EXTERNAL SLANEG
 
       // ..

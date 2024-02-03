@@ -29,7 +29,7 @@
       // INTRINSIC MAX, MIN, SIGN
       // ..
       // .. External Functions ..
-      double             DNRM2;
+      //- double             DNRM2;
       // EXTERNAL DNRM2
       // ..
       // .. Executable Statements ..

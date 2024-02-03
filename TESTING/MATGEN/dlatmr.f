@@ -31,8 +31,8 @@
       double             TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
+      //- bool               LSAME;
+      //- double             DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3;
       // ..
       // .. External Subroutines ..
       // EXTERNAL DLATM1, DSCAL, XERBLA

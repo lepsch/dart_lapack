@@ -15,7 +15,7 @@
       int                I;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Functions ..

@@ -24,8 +24,8 @@
       REAL               ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT, SLAMCH, SLANSP;
+      //- bool               LSAME;
+      //- REAL               SDOT, SLAMCH, SLANSP;
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANSP
       // ..
       // .. External Subroutines ..

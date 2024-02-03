@@ -30,9 +30,9 @@
       Complex         CDUM, EI, EJ, TEMP, X;
       // ..
       // .. External Functions ..
-      int                IZAMAX;
-      double             DZASUM, DZNRM2;
-      Complex         ZLADIV;
+      //- int                IZAMAX;
+      //- double             DZASUM, DZNRM2;
+      //- Complex         ZLADIV;
       // EXTERNAL IZAMAX, DZASUM, DZNRM2, ZLADIV
       // ..
       // .. External Subroutines ..

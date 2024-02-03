@@ -24,7 +24,7 @@
       int                ISEED( 4 ), ISEEDY( 4 );
       // ..
       // .. External Functions ..
-      double             DLARND;
+      //- double             DLARND;
       // EXTERNAL DLARND
       // ..
       // .. External Subroutines ..

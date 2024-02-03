@@ -21,7 +21,7 @@
       COMPLEX            SN, T11, T22, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

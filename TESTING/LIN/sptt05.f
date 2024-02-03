@@ -22,8 +22,8 @@
       REAL               AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SLAMCH;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH;
       // EXTERNAL ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..

@@ -22,8 +22,8 @@
       double             AXBI, DIFF, EPS, ERRBND, OVFL, TMP, UNFL, XNORM;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH;
+      //- int                IDAMAX;
+      //- double             DLAMCH;
       // EXTERNAL IDAMAX, DLAMCH
       // ..
       // .. Intrinsic Functions ..

@@ -26,7 +26,7 @@
       REAL               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARAN, SLARND;
+      //- REAL               SLAMCH, SLARAN, SLARND;
       // EXTERNAL SLAMCH, SLARAN, SLARND
       // ..
       // .. External Subroutines ..

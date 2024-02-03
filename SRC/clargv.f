@@ -27,7 +27,7 @@
       COMPLEX            F, FF, FS, G, GS, R, SN;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLAPY2;
+      //- REAL               SLAMCH, SLAPY2;
       // EXTERNAL SLAMCH, SLAPY2
       // ..
       // .. Intrinsic Functions ..

@@ -24,9 +24,9 @@
       REAL               BNORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SASUM, SLAMCH;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SLAMCH;
       // EXTERNAL LSAME, ISAMAX, SASUM, SLAMCH
       // ..
       // .. External Subroutines ..

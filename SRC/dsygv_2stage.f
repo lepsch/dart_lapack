@@ -26,8 +26,8 @@
       int                NEIG, LWMIN, LHTRD, LWTRD, KD, IB;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV2STAGE;
+      //- bool               LSAME;
+      //- int                ILAENV2STAGE;
       // EXTERNAL LSAME, ILAENV2STAGE
       // ..
       // .. External Subroutines ..

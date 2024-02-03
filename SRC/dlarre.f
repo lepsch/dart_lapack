@@ -33,8 +33,8 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double                      DLAMCH;
+      //- bool               LSAME;
+      //- double                      DLAMCH;
       // EXTERNAL DLAMCH, LSAME
 
       // ..

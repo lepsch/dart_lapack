@@ -28,8 +28,8 @@
       Complex         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
+      //- bool               LSAME;
+      //- int                ILAENV;
       // EXTERNAL ILAENV, LSAME
       // ..
       // .. External Subroutines ..

@@ -34,7 +34,7 @@
       Complex         S( LDST, LDST ), T( LDST, LDST ), WORK( 8 );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

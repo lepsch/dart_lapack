@@ -26,7 +26,7 @@
       // EXTERNAL DERREC, DGET31, DGET32, DGET33, DGET34, DGET35, DGET36, DGET37, DGET38, DGET39, DGET40, DSYL01
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..

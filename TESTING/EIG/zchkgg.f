@@ -39,8 +39,8 @@
       Complex         CDUMMA( 4 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
-      Complex         ZLARND;
+      //- double             DLAMCH, ZLANGE;
+      //- Complex         ZLARND;
       // EXTERNAL DLAMCH, ZLANGE, ZLARND
       // ..
       // .. External Subroutines ..

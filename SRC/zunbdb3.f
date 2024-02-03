@@ -27,7 +27,7 @@
       // EXTERNAL ZLARF, ZLARFGP, ZUNBDB5, ZDROT, ZLACGV, XERBLA
       // ..
       // .. External Functions ..
-      double             DZNRM2;
+      //- double             DZNRM2;
       // EXTERNAL DZNRM2
       // ..
       // .. Intrinsic Function ..

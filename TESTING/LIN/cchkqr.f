@@ -37,7 +37,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               CGENND;
+      //- bool               CGENND;
       // EXTERNAL CGENND
       // ..
       // .. External Subroutines ..

@@ -31,9 +31,9 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
-      REAL               CLANTB, SLAMCH;
+      //- bool               LSAME;
+      //- int                ICAMAX;
+      //- REAL               CLANTB, SLAMCH;
       // EXTERNAL LSAME, ICAMAX, CLANTB, SLAMCH
       // ..
       // .. External Subroutines ..

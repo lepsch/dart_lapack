@@ -30,8 +30,8 @@
       Complex         CDUM, WK;
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      double             DLAMCH, ZLANHS;
+      //- bool               LSAME, DISNAN;
+      //- double             DLAMCH, ZLANHS;
       // EXTERNAL LSAME, DLAMCH, ZLANHS, DISNAN
       // ..
       // .. External Subroutines ..

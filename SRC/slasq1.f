@@ -25,7 +25,7 @@
       // EXTERNAL SCOPY, SLAS2, SLASCL, SLASQ2, SLASRT, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

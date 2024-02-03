@@ -28,9 +28,9 @@
       REAL               WORK(1);
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SASUM, SDOT, SLAMCH, SLANGE;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SDOT, SLAMCH, SLANGE;
       // EXTERNAL LSAME, ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

@@ -35,8 +35,8 @@
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLARND;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLARND;
       // EXTERNAL LSAME, DLAMCH, DLARND
       // ..
       // .. External Subroutines ..

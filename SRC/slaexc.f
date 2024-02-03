@@ -30,7 +30,7 @@
       REAL               D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

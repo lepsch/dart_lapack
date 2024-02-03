@@ -28,9 +28,9 @@
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      int                ICAMAX;
-      bool               SISNAN;
+      //- REAL               SLAMCH;
+      //- int                ICAMAX;
+      //- bool               SISNAN;
       // EXTERNAL SLAMCH, ICAMAX, SISNAN
       // ..
       // .. External Subroutines ..

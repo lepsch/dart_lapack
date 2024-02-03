@@ -28,8 +28,8 @@
       double             BADC1, BADC2, EPS, LARGE, SMALL;
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
-      double             DLAMCH;
+      //- bool               LSAMEN;
+      //- double             DLAMCH;
       // EXTERNAL LSAMEN, DLAMCH
       // ..
       // .. Intrinsic Functions ..

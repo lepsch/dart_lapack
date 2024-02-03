@@ -23,7 +23,7 @@
       REAL               T1, T2;
       // ..
       // .. External Functions ..
-      REAL               SLARAN;
+      //- REAL               SLARAN;
       // EXTERNAL SLARAN
       // ..
       // .. Intrinsic Functions ..

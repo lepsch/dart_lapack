@@ -19,7 +19,7 @@
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWOPT, LWREQ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..
@@ -29,7 +29,7 @@
       // INTRINSIC MAX, MIN, MOD
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Executable Statements ..

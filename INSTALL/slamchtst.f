@@ -1,7 +1,7 @@
       REAL               BASE, EMAX, EMIN, EPS, RMAX, RMIN, RND, SFMIN, T, PREC;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..

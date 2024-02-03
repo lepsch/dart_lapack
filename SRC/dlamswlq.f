@@ -20,7 +20,7 @@
       int                I, II, KK, CTR, LW, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // .. External Subroutines ..
       // EXTERNAL DTPMLQT, DGEMLQT, XERBLA

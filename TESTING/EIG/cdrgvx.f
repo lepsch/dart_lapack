@@ -28,8 +28,8 @@
       COMPLEX            WEIGHT( 5 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               CLANGE, SLAMCH;
+      //- int                ILAENV;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL ILAENV, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

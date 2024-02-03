@@ -38,8 +38,8 @@
       // INTRINSIC ABS, DBLE, DIMAG, MAX, MIN
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. Statement Functions ..

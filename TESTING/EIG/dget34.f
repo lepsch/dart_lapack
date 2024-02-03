@@ -30,7 +30,7 @@
       double             Q( 4, 4 ), RESULT( 2 ), T( 4, 4 ), T1( 4, 4 ), VAL( 9 ), VM( 2 ), WORK( LWORK );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

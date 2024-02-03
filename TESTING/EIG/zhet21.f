@@ -29,8 +29,8 @@
       Complex         VSAVE;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE, ZLANHE;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE, ZLANHE;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZLANHE
       // ..
       // .. External Subroutines ..

@@ -28,8 +28,8 @@
       Complex         ZDUM;
       // ..
       // .. External Functions ..
-      bool               DISNAN, LSAME;
-      double             DLAMCH, DZASUM;
+      //- bool               DISNAN, LSAME;
+      //- double             DLAMCH, DZASUM;
       // EXTERNAL DISNAN, DLAMCH, DZASUM, LSAME
       // ..
       // .. External Subroutines ..

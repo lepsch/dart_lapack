@@ -24,8 +24,8 @@
       double             ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. Intrinsic Functions ..

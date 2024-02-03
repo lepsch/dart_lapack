@@ -28,9 +28,9 @@
       Complex         D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IZAMAX;
-      double             DLAPY2;
+      //- bool               LSAME;
+      //- int                IZAMAX;
+      //- double             DLAPY2;
       // EXTERNAL LSAME, IZAMAX, DLAPY2
       // ..
       // .. External Subroutines ..

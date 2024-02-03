@@ -32,10 +32,10 @@
       COMPLEX            DUMMY( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
-      REAL               SCNRM2, SLAMCH;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- int                ICAMAX;
+      //- REAL               SCNRM2, SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, ICAMAX, SCNRM2, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..

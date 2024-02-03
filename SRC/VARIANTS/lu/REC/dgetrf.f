@@ -25,9 +25,9 @@
       int                KSTART, IPIVSTART, JPIVSTART, KCOLS;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      int                IDAMAX;
-      bool               DISNAN;
+      //- double             DLAMCH;
+      //- int                IDAMAX;
+      //- bool               DISNAN;
       // EXTERNAL DLAMCH, IDAMAX, DISNAN
       // ..
       // .. External Subroutines ..

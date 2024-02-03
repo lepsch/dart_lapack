@@ -33,7 +33,7 @@
       // EXTERNAL DAXPY, DCOPY, DGECON, DGESC2, DLASSQ, DLASWP, DSCAL
       // ..
       // .. External Functions ..
-      double             DASUM, DDOT;
+      //- double             DASUM, DDOT;
       // EXTERNAL DASUM, DDOT
       // ..
       // .. Intrinsic Functions ..

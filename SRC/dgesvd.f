@@ -31,9 +31,9 @@
       // EXTERNAL DBDSQR, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANGE
       // ..
       // .. Intrinsic Functions ..

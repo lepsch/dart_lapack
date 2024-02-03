@@ -25,7 +25,7 @@
       // EXTERNAL SGEMM, SLAORHR_COL_GETRFNP2, STRSM, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

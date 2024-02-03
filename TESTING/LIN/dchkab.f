@@ -37,9 +37,9 @@
       REAL               SWORK(NMAX*(NMAX+MAXRHS));
       // ..
       // .. External Functions ..
-      double             DLAMCH, DSECND;
-      bool               LSAME, LSAMEN;
-      REAL               SLAMCH;
+      //- double             DLAMCH, DSECND;
+      //- bool               LSAME, LSAMEN;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, LSAMEN, DLAMCH, DSECND, SLAMCH
       // ..
       // .. External Subroutines ..

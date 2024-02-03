@@ -32,7 +32,7 @@
       COMPLEX            A2, B2, SNQ, SNU, SNV;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

@@ -30,8 +30,8 @@
       REAL               AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANGB, SLANTB;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANGB, SLANTB;
       // EXTERNAL LSAME, SLAMCH, SLANGB, SLANTB
       // ..
       // .. External Subroutines ..

@@ -29,7 +29,7 @@
       // INTRINSIC DBLE, MAX, MIN
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Executable Statements ..

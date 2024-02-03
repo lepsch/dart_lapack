@@ -22,8 +22,8 @@
       double             SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR, UI;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      Complex         ZLADIV;
+      //- double             DLAMCH;
+      //- Complex         ZLADIV;
       // EXTERNAL DLAMCH, ZLADIV
       // ..
       // .. External Subroutines ..

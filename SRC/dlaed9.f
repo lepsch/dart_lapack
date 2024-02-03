@@ -19,7 +19,7 @@
       double             TEMP;
       // ..
       // .. External Functions ..
-      double             DNRM2;
+      //- double             DNRM2;
       // EXTERNAL DNRM2
       // ..
       // .. External Subroutines ..

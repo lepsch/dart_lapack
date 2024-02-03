@@ -26,7 +26,7 @@
       int                LIOPT, LIWMIN, LOPT, LROPT, LRWMIN, LWMIN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

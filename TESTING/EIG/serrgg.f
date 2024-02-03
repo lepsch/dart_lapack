@@ -28,7 +28,7 @@
       REAL               A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
-      bool               LSAMEN, SLCTES, SLCTSX;
+      //- bool               LSAMEN, SLCTES, SLCTSX;
       // EXTERNAL LSAMEN, SLCTES, SLCTSX
       // ..
       // .. External Subroutines ..

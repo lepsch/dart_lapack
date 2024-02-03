@@ -42,7 +42,7 @@
       // INTRINSIC ABS, MIN
       // ..
       // .. External Functions ..
-      REAL               SLARAN, SLARND;
+      //- REAL               SLARAN, SLARND;
       // EXTERNAL SLARAN, SLARND
       // ..
       // .. Executable Statements ..

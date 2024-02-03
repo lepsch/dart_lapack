@@ -25,7 +25,7 @@
       double             A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB ), LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

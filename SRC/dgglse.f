@@ -25,7 +25,7 @@
       // EXTERNAL DAXPY, DCOPY, DGEMV, DGGRQF, DORMQR, DORMRQ, DTRMV, DTRTRS, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

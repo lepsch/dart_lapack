@@ -24,7 +24,7 @@
       double             ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      double             DASUM, DLAMCH;
+      //- double             DASUM, DLAMCH;
       // EXTERNAL DASUM, DLAMCH
       // ..
       // .. External Subroutines ..

@@ -24,7 +24,7 @@
       double             ANORM, BNORM, RESID, ULP, UNFL;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANGE, DLANSY;
+      //- double             DLAMCH, DLANGE, DLANSY;
       // EXTERNAL DLAMCH, DLANGE, DLANSY
       // ..
       // .. External Subroutines ..

@@ -24,8 +24,8 @@
       int                I, IINFO, N1, N2;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      int                IZAMAX;
+      //- double             DLAMCH;
+      //- int                IZAMAX;
       // EXTERNAL DLAMCH, IZAMAX
       // ..
       // .. External Subroutines ..

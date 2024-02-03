@@ -23,8 +23,8 @@
       bool               BULGE, SORTED;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SROUNDUP_LWORK;
-      int                ILAENV;
+      //- REAL               SLAMCH, SROUNDUP_LWORK;
+      //- int                ILAENV;
       // EXTERNAL SLAMCH, SROUNDUP_LWORK, ILAENV
       // ..
       // .. External Subroutines ..

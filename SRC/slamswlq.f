@@ -20,7 +20,7 @@
       int                I, II, KK, LW, CTR, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK

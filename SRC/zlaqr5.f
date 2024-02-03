@@ -27,7 +27,7 @@
       bool               ACCUM, BMP22;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Intrinsic Functions ..

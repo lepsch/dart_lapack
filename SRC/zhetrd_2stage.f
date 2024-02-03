@@ -25,8 +25,8 @@
       // EXTERNAL XERBLA, ZHETRD_HE2HB, ZHETRD_HB2ST
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV2STAGE;
+      //- bool               LSAME;
+      //- int                ILAENV2STAGE;
       // EXTERNAL LSAME, ILAENV2STAGE
       // ..
       // .. Executable Statements ..

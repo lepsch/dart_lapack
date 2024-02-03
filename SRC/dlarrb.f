@@ -25,7 +25,7 @@
       double             BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH;
       // ..
       // .. External Functions ..
-      int                DLANEG;
+      //- int                DLANEG;
       // EXTERNAL DLANEG
 
       // ..

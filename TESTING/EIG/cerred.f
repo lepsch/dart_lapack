@@ -32,7 +32,7 @@
       // EXTERNAL CHKXER, CGEES, CGEESX, CGEEV, CGEEVX, CGEJSV, CGESDD, CGESVD, CGESVDX, CGESVDQ
       // ..
       // .. External Functions ..
-      bool               LSAMEN, CSLECT;
+      //- bool               LSAMEN, CSLECT;
       // EXTERNAL LSAMEN, CSLECT
       // ..
       // .. Intrinsic Functions ..

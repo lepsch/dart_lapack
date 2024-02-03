@@ -34,8 +34,8 @@
       Complex         V( 2 );
       // ..
       // .. External Functions ..
-      Complex         ZLADIV;
-      double             DLAMCH;
+      //- Complex         ZLADIV;
+      //- double             DLAMCH;
       // EXTERNAL ZLADIV, DLAMCH
       // ..
       // .. External Subroutines ..

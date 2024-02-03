@@ -29,8 +29,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      REAL               SDIFF;
-      bool               LSE;
+      //- REAL               SDIFF;
+      //- bool               LSE;
       // EXTERNAL SDIFF, LSE
       // .. External Subroutines ..
       // EXTERNAL SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, SCHK6, SCHKE, SMVCH
@@ -304,7 +304,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SGBMV, SGEMV, SMAKE, SMVCH, SREGR1
@@ -610,7 +610,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, SSBMV, SSPMV, SSYMV
@@ -901,7 +901,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, STBMV, STBSV, STPMV, STPSV, STRMV, STRSV
@@ -1193,7 +1193,7 @@
       REAL               W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SGER, SMAKE, SMVCH
@@ -1421,7 +1421,7 @@
       REAL               W( 1 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, SSPR, SSYR
@@ -1664,7 +1664,7 @@
       REAL               W( 2 );
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMVCH, SSPR2, SSYR2
@@ -2257,7 +2257,7 @@
       int                I, I1, I2, I3, IBEG, IEND, IOFF, J, KK;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      REAL               SBEG;
+      //- REAL               SBEG;
       // EXTERNAL SBEG
       // .. Intrinsic Functions ..
       // INTRINSIC MAX, MIN

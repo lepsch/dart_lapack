@@ -24,7 +24,7 @@
       double             ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN, RMAX;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLANST, DLAPY2;
+      //- double             DLAMCH, DLANST, DLAPY2;
       // EXTERNAL DLAMCH, DLANST, DLAPY2
       // ..
       // .. External Subroutines ..

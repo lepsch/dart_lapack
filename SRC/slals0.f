@@ -27,7 +27,7 @@
       // EXTERNAL SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMC3, SNRM2;
+      //- REAL               SLAMC3, SNRM2;
       // EXTERNAL SLAMC3, SNRM2
       // ..
       // .. Intrinsic Functions ..

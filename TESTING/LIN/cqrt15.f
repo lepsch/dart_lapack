@@ -30,7 +30,7 @@
       REAL               DUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SASUM, SCNRM2, SLAMCH, SLARND;
+      //- REAL               CLANGE, SASUM, SCNRM2, SLAMCH, SLARND;
       // EXTERNAL CLANGE, SASUM, SCNRM2, SLAMCH, SLARND
       // ..
       // .. External Subroutines ..

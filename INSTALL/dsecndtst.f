@@ -9,7 +9,7 @@
       double             X( NMAX ), Y( NMAX );
       // ..
       // .. External Functions ..
-      double             DSECND;
+      //- double             DSECND;
       // EXTERNAL DSECND
       // ..
       // .. External Subroutines ..

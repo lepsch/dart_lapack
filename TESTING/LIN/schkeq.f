@@ -29,7 +29,7 @@
       REAL               A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP ), C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

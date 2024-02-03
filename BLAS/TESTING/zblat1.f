@@ -95,8 +95,8 @@
       double            STRUE2(5), STRUE4(5);
       int               ITRUE3(5), ITRUEC(5);
       // .. External Functions ..
-      double            DZASUM, DZNRM2;
-      int               IZAMAX;
+      //- double            DZASUM, DZNRM2;
+      //- int               IZAMAX;
       // EXTERNAL DZASUM, DZNRM2, IZAMAX
       // .. External Subroutines ..
       // EXTERNAL ZB1NRM2, ZSCAL, ZDSCAL, CTEST, ITEST1, STEST1
@@ -224,7 +224,7 @@
       Complex        CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
-      Complex        ZDOTC, ZDOTU;
+      //- Complex        ZDOTC, ZDOTU;
       // EXTERNAL ZDOTC, ZDOTU
       // .. External Subroutines ..
       // EXTERNAL ZAXPY, ZCOPY, ZSWAP, CTEST
@@ -346,7 +346,7 @@
       double           SD;
       int              I;
       // .. External Functions ..
-      double           SDIFF;
+      //- double           SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -504,7 +504,7 @@
       double            HALF, ONE, THREE, TWO, ZERO;
       const             HALF=0.5, ONE=1.0, TWO= 2.0, THREE=3.0, ZERO=0.0;
       // .. External Functions ..
-      double            DZNRM2;
+      //- double            DZNRM2;
       // EXTERNAL DZNRM2
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, ABS, DCMPLX, DBLE, MAX, MIN, SQRT

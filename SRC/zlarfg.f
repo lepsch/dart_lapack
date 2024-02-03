@@ -23,8 +23,8 @@
       double             ALPHI, ALPHR, BETA, RSAFMN, SAFMIN, XNORM;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY3, DZNRM2;
-      Complex         ZLADIV;
+      //- double             DLAMCH, DLAPY3, DZNRM2;
+      //- Complex         ZLADIV;
       // EXTERNAL DLAMCH, DLAPY3, DZNRM2, ZLADIV
       // ..
       // .. Intrinsic Functions ..

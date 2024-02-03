@@ -30,9 +30,9 @@
       double             DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
-      bool               DLCTSX;
-      int                ILAENV;
-      double             DLAMCH, DLANGE;
+      //- bool               DLCTSX;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL DLCTSX, ILAENV, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

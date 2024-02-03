@@ -27,9 +27,9 @@
       REAL               CS, EPS, ORGNRM, P, R, SN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH, SLANST;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANST;
       // EXTERNAL SLAMCH, SLANST, ILAENV, LSAME
       // ..
       // .. External Subroutines ..

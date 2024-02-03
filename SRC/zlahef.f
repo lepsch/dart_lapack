@@ -29,8 +29,8 @@
       Complex         D11, D21, D22, Z;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IZAMAX;
+      //- bool               LSAME;
+      //- int                IZAMAX;
       // EXTERNAL LSAME, IZAMAX
       // ..
       // .. External Subroutines ..

@@ -22,7 +22,7 @@
       // INTRINSIC DBLE, DIMAG, CMPLX
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..

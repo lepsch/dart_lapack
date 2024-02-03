@@ -41,8 +41,8 @@
       double             RDUM( 1 ), RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB;
+      //- bool               LSAME;
+      //- double             DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB;
       // EXTERNAL LSAME, DGET06, DLAMCH, ZLANGB, ZLANGE, ZLANTB
       // ..
       // .. External Subroutines ..

@@ -14,8 +14,8 @@
       REAL :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2;
 
       // External Functions
-      REAL, EXTERNAL :: SLAMCH;
-      bool   , EXTERNAL :: SISNAN;
+      //- REAL, EXTERNAL :: SLAMCH;
+      //- bool   , EXTERNAL :: SISNAN;
 
       SAFMIN = SLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;

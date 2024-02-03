@@ -41,7 +41,7 @@
       COMPLEX            DUM( 1 );
       // ..
       // .. External Functions ..
-      REAL               SCNRM2, SLAMCH;
+      //- REAL               SCNRM2, SLAMCH;
       // EXTERNAL SCNRM2, SLAMCH
       // ..
       // .. External Subroutines ..

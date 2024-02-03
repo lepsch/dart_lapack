@@ -29,9 +29,9 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, ZLANGE;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, ILAENV, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

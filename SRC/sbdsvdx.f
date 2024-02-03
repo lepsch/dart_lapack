@@ -29,9 +29,9 @@
       REAL               ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SDOT, SLAMCH, SNRM2;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SDOT, SLAMCH, SNRM2;
       // EXTERNAL ISAMAX, LSAME, SAXPY, SDOT, SLAMCH, SNRM2
       // ..
       // .. External Subroutines ..

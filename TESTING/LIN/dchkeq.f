@@ -29,7 +29,7 @@
       double             A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP ), C( NSZ ), POW( NPOW ), R( NSZ ), RESLTS( 5 ), RPOW( NPOW );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

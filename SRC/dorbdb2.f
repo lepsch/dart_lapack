@@ -27,7 +27,7 @@
       // EXTERNAL DLARF, DLARFGP, DORBDB5, DROT, DSCAL, XERBLA
       // ..
       // .. External Functions ..
-      double             DNRM2;
+      //- double             DNRM2;
       // EXTERNAL DNRM2
       // ..
       // .. Intrinsic Function ..

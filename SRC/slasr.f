@@ -23,7 +23,7 @@
       REAL               CTEMP, STEMP, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

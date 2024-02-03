@@ -21,8 +21,8 @@
       // EXTERNAL SGEQRF, SGERQF, SORMRQ, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SROUNDUP_LWORK;
+      //- int                ILAENV;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

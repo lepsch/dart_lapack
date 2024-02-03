@@ -24,7 +24,7 @@
       REAL               ANORM, BIGNUM, EPS, RMAX, RMIN;
       // ..
       // .. External Functions ..
-      REAL               CLANTR, SLAMCH;
+      //- REAL               CLANTR, SLAMCH;
       // EXTERNAL CLANTR, SLAMCH
       // ..
       // .. Intrinsic Functions ..

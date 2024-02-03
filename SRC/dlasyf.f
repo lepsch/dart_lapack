@@ -26,8 +26,8 @@
       double             ABSAKK, ALPHA, COLMAX, D11, D21, D22, R1, ROWMAX, T;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
+      //- bool               LSAME;
+      //- int                IDAMAX;
       // EXTERNAL LSAME, IDAMAX
       // ..
       // .. External Subroutines ..

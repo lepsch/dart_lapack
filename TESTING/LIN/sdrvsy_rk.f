@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SLANSY;
+      //- REAL               SLANSY;
       // EXTERNAL SLANSY
       // ..
       // .. External Subroutines ..

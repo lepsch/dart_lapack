@@ -35,8 +35,8 @@
       // EXTERNAL CGEQRF, CGGBAK, CGGBAL, CGGHD3, CLAQZ0, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, SLAMCH, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               CLANGE, SLAMCH, SROUNDUP_LWORK;
       // EXTERNAL LSAME, CLANGE, SLAMCH, SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

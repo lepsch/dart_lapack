@@ -34,9 +34,9 @@
       REAL               DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
-      bool               CLCTSX;
-      int                ILAENV;
-      REAL               CLANGE, SLAMCH;
+      //- bool               CLCTSX;
+      //- int                ILAENV;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLCTSX, ILAENV, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

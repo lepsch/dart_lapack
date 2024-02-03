@@ -24,7 +24,7 @@
       REAL               ANORM, EPS;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SCASUM, SLAMCH;
+      //- REAL               CLANGE, SCASUM, SLAMCH;
       // EXTERNAL CLANGE, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..

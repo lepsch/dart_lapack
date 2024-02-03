@@ -25,7 +25,7 @@
       Complex         A( NMAX, NMAX ), C( NMAX, NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), W( LW ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
+      //- bool               LSAMEN;
       // EXTERNAL LSAMEN
       // ..
       // .. External Subroutines ..

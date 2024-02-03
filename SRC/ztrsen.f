@@ -30,8 +30,8 @@
       double             RWORK( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             ZLANGE;
+      //- bool               LSAME;
+      //- double             ZLANGE;
       // EXTERNAL LSAME, ZLANGE
       // ..
       // .. External Subroutines ..

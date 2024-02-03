@@ -26,8 +26,8 @@
       REAL               AJJ;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      COMPLEX            CDOTC;
+      //- bool               LSAME, SISNAN;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CDOTC, SISNAN
       // ..
       // .. External Subroutines ..

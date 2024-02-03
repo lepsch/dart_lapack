@@ -26,8 +26,8 @@
       double             BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      double             DLAMCH, DLANHS;
+      //- bool               LSAME, DISNAN;
+      //- double             DLAMCH, DLANHS;
       // EXTERNAL LSAME, DLAMCH, DLANHS, DISNAN
       // ..
       // .. External Subroutines ..

@@ -1,7 +1,7 @@
       double             BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND, SFMIN, T;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..

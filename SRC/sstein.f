@@ -28,8 +28,8 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SDOT, SLAMCH, SNRM2;
+      //- int                ISAMAX;
+      //- REAL               SDOT, SLAMCH, SNRM2;
       // EXTERNAL ISAMAX, SDOT, SLAMCH, SNRM2
       // ..
       // .. External Subroutines ..

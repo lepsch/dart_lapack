@@ -28,7 +28,7 @@
       // EXTERNAL DCOPY, DLAMRG, DROT, XERBLA
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY2;
+      //- double             DLAMCH, DLAPY2;
       // EXTERNAL DLAMCH, DLAPY2
       // ..
       // .. Intrinsic Functions ..

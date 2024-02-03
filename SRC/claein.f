@@ -30,9 +30,9 @@
       COMPLEX            CDUM, EI, EJ, TEMP, X;
       // ..
       // .. External Functions ..
-      int                ICAMAX;
-      REAL               SCASUM, SCNRM2;
-      COMPLEX            CLADIV;
+      //- int                ICAMAX;
+      //- REAL               SCASUM, SCNRM2;
+      //- COMPLEX            CLADIV;
       // EXTERNAL ICAMAX, SCASUM, SCNRM2, CLADIV
       // ..
       // .. External Subroutines ..

@@ -41,8 +41,8 @@
       REAL               RDUM( 1 ), RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS,3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGB, CLANGE, CLANTB, SGET06, SLAMCH, CLA_GBRPVGRW       EXTERNAL           LSAME, CLANGB, CLANGE, CLANTB, SGET06, SLAMCH, CLA_GBRPVGRW;
+      //- bool               LSAME;
+      //- REAL               CLANGB, CLANGE, CLANTB, SGET06, SLAMCH, CLA_GBRPVGRW       EXTERNAL           LSAME, CLANGB, CLANGE, CLANTB, SGET06, SLAMCH, CLA_GBRPVGRW;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ALADHD, ALAERH, ALASVM, CERRVX, CGBEQU, CGBSV, CGBSVX, CGBT01, CGBT02, CGBT05, CGBTRF, CGBTRS, CGET04, CLACPY, CLAQGB, CLARHS, CLASET, CLATB4, CLATMS, XLAENV, CGBSVXX

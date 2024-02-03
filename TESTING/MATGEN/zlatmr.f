@@ -37,9 +37,9 @@
       double             TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY;
-      Complex         ZLATM2, ZLATM3;
+      //- bool               LSAME;
+      //- double             ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY;
+      //- Complex         ZLATM2, ZLATM3;
       // EXTERNAL LSAME, ZLANGB, ZLANGE, ZLANSB, ZLANSP, ZLANSY, ZLATM2, ZLATM3
       // ..
       // .. External Subroutines ..

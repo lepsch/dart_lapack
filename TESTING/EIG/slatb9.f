@@ -24,8 +24,8 @@
       REAL               BADC1, BADC2, EPS, LARGE, SMALL;
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
-      REAL               SLAMCH;
+      //- bool               LSAMEN;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAMEN, SLAMCH
       // ..
       // .. Intrinsic Functions ..

@@ -30,8 +30,8 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

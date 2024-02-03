@@ -20,8 +20,8 @@
       int                I1, I2, IINFO, LWKOPT, MI, NB, NI, NQ, NW;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
+      //- bool               LSAME;
+      //- int                ILAENV;
       // EXTERNAL LSAME, ILAENV
       // ..
       // .. External Subroutines ..

@@ -34,7 +34,7 @@
       // INTRINSIC MIN, MAX
       // ..
       // .. External Functions ..
-      bool    SISNAN;
+      //- bool    SISNAN;
       // EXTERNAL SISNAN
       // ..
       // .. Executable Statements ..

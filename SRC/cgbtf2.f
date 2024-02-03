@@ -22,7 +22,7 @@
       int                I, J, JP, JU, KM, KV;
       // ..
       // .. External Functions ..
-      int                ICAMAX;
+      //- int                ICAMAX;
       // EXTERNAL ICAMAX
       // ..
       // .. External Subroutines ..

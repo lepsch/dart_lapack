@@ -31,8 +31,8 @@
       REAL               DUMMY( 1 ), DUMMY1( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT, SLAMCH, SLAPY2, SNRM2, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SDOT, SLAMCH, SLAPY2, SNRM2, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SDOT, SLAMCH, SLAPY2, SNRM2, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

@@ -30,9 +30,9 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DDOT, DLAMCH;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DDOT, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..

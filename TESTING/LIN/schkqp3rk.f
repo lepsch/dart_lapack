@@ -36,7 +36,7 @@
       REAL               RESULT( NTESTS ), RDUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SQPT01, SQRT11, SQRT12, SLANGE;
+      //- REAL               SLAMCH, SQPT01, SQRT11, SQRT12, SLANGE;
       // EXTERNAL SLAMCH, SQPT01, SQRT11, SQRT12, SLANGE
       // ..
       // .. External Subroutines ..

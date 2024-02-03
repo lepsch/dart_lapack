@@ -27,8 +27,8 @@
       double             ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT, DLAMCH, DLANGE, DLANSP;
+      //- bool               LSAME;
+      //- double             DDOT, DLAMCH, DLANGE, DLANSP;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANGE, DLANSP
       // ..
       // .. External Subroutines ..

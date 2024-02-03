@@ -24,8 +24,8 @@
       double             AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANGE, DLANSP;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANGE, DLANSP;
       // EXTERNAL LSAME, DLAMCH, DLANGE, DLANSP
       // ..
       // .. Intrinsic Functions ..

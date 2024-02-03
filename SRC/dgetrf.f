@@ -25,7 +25,7 @@
       // EXTERNAL DGEMM, DGETRF2, DLASWP, DTRSM, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

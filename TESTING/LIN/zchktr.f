@@ -40,8 +40,8 @@
       double             RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             ZLANTR;
+      //- bool               LSAME;
+      //- double             ZLANTR;
       // EXTERNAL LSAME, ZLANTR
       // ..
       // .. External Subroutines ..

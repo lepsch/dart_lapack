@@ -30,9 +30,9 @@
       REAL               DIFEST( 2 ), PL( 2 ), RESULT( 10 );
       // ..
       // .. External Functions ..
-      bool               SLCTSX;
-      int                ILAENV;
-      REAL               SLAMCH, SLANGE;
+      //- bool               SLCTSX;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLCTSX, ILAENV, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

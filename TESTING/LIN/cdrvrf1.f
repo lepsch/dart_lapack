@@ -33,8 +33,8 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      COMPLEX            CLARND;
-      REAL               SLAMCH, CLANHE, CLANHF;
+      //- COMPLEX            CLARND;
+      //- REAL               SLAMCH, CLANHE, CLANHF;
       // EXTERNAL SLAMCH, CLARND, CLANHE, CLANHF
       // ..
       // .. External Subroutines ..

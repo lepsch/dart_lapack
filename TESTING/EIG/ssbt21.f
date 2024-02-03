@@ -25,8 +25,8 @@
       REAL               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANGE, SLANSB, SLANSP;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANGE, SLANSB, SLANSP;
       // EXTERNAL LSAME, SLAMCH, SLANGE, SLANSB, SLANSP
       // ..
       // .. External Subroutines ..

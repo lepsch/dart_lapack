@@ -25,9 +25,9 @@
       REAL               EPS, ORGNRM, P, TINY;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLANST, SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

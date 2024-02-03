@@ -26,7 +26,7 @@
       // EXTERNAL SAXPY, SSYMV, SSYR2
       // ..
       // .. External Functions ..
-      REAL               SDOT;
+      //- REAL               SDOT;
       // EXTERNAL SDOT
       // ..
       // .. Executable Statements ..

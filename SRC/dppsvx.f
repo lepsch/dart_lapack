@@ -26,8 +26,8 @@
       double             AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANSP;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANSP;
       // EXTERNAL LSAME, DLAMCH, DLANSP
       // ..
       // .. External Subroutines ..

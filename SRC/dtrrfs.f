@@ -37,8 +37,8 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. Executable Statements ..

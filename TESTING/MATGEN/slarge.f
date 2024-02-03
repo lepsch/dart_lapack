@@ -29,7 +29,7 @@
       // INTRINSIC MAX, SIGN
       // ..
       // .. External Functions ..
-      REAL               SNRM2;
+      //- REAL               SNRM2;
       // EXTERNAL SNRM2
       // ..
       // .. Executable Statements ..

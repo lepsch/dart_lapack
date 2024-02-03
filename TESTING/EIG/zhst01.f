@@ -23,7 +23,7 @@
       double             ANORM, EPS, OVFL, SMLNUM, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

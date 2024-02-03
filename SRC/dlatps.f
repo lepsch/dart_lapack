@@ -25,9 +25,9 @@
       double             BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DASUM, DDOT, DLAMCH;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DASUM, DDOT, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DASUM, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..

@@ -25,7 +25,7 @@
       REAL               E( LDE, LDE ), EIN( LDE, LDE ), SCALE( LDE );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

@@ -25,8 +25,8 @@
       double             ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DASUM, DLAPY2, DNRM2;
+      //- int                IDAMAX;
+      //- double             DASUM, DLAPY2, DNRM2;
       // EXTERNAL IDAMAX, DASUM, DLAPY2, DNRM2
       // ..
       // .. External Subroutines ..

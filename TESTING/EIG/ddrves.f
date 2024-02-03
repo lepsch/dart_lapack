@@ -45,8 +45,8 @@
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. External Functions ..
-      bool               DSLECT;
-      double             DLAMCH;
+      //- bool               DSLECT;
+      //- double             DLAMCH;
       // EXTERNAL DSLECT, DLAMCH
       // ..
       // .. External Subroutines ..

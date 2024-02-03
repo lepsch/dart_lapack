@@ -34,9 +34,9 @@
       // EXTERNAL ZLAQP2RK, ZLAQP3RK, XERBLA
       // ..
       // .. External Functions ..
-      bool               DISNAN;
-      int                IDAMAX, ILAENV;
-      double             DLAMCH, DZNRM2;
+      //- bool               DISNAN;
+      //- int                IDAMAX, ILAENV;
+      //- double             DLAMCH, DZNRM2;
       // EXTERNAL DISNAN, DLAMCH, DZNRM2, IDAMAX, ILAENV
       // ..
       // .. Intrinsic Functions ..

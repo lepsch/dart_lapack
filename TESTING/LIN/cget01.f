@@ -28,8 +28,8 @@
       COMPLEX            T;
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
-      COMPLEX            CDOTU;
+      //- REAL               CLANGE, SLAMCH;
+      //- COMPLEX            CDOTU;
       // EXTERNAL CLANGE, SLAMCH, CDOTU
       // ..
       // .. External Subroutines ..

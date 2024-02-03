@@ -31,8 +31,8 @@
       COMPLEX            CTMP1;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANHB, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANHB, SLAMCH;
       // EXTERNAL LSAME, CLANHB, SLAMCH
       // ..
       // .. External Subroutines ..

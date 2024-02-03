@@ -45,8 +45,8 @@
       // COMMON / SSLCT / SELOPT, SELDIM, SELVAL, SELWR, SELWI
       // ..
       // .. External Functions ..
-      bool               SSLECT;
-      REAL               SLAMCH;
+      //- bool               SSLECT;
+      //- REAL               SLAMCH;
       // EXTERNAL SSLECT, SLAMCH
       // ..
       // .. External Subroutines ..

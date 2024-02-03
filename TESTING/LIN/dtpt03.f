@@ -24,9 +24,9 @@
       double             BIGNUM, EPS, ERR, SMLNUM, TNORM, XNORM, XSCAL;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DLAMCH
       // ..
       // .. External Subroutines ..

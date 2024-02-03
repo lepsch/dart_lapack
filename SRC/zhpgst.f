@@ -33,8 +33,8 @@
       // INTRINSIC DBLE
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, ZDOTC
       // ..
       // .. Executable Statements ..

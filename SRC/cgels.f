@@ -29,9 +29,9 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               CLANGE, SLAMCH;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL LSAME, ILAENV, CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -30,9 +30,9 @@
       COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH;
-      COMPLEX            CLADIV;
+      //- bool               LSAME;
+      //- REAL               SLAMCH;
+      //- COMPLEX            CLADIV;
       // EXTERNAL LSAME, SLAMCH, CLADIV
       // ..
       // .. External Subroutines ..

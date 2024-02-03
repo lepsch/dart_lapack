@@ -26,9 +26,9 @@
       COMPLEX            TC;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANHP, SLAMCH;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- REAL               CLANHP, SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CLANHP, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..

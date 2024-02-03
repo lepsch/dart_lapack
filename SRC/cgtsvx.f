@@ -27,8 +27,8 @@
       REAL               ANORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGT, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANGT, SLAMCH;
       // EXTERNAL LSAME, CLANGT, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -34,8 +34,8 @@
       // EXTERNAL CCOPY, CGEQP3, CLAIC1, CLASCL, CLASET, CTRSM, CTZRZF, CUNMQR, CUNMRZ, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               CLANGE, SLAMCH;
+      //- int                ILAENV;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, ILAENV, SLAMCH
       // ..
       // .. Intrinsic Functions ..

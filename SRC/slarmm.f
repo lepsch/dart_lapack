@@ -10,7 +10,7 @@
       REAL               BIGNUM, SMLNUM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..

@@ -22,7 +22,7 @@
       double             A11, A12, A22, C, SSMAX, TAU;
       // ..
       // .. External Functions ..
-      double             DDOT;
+      //- double             DDOT;
       // EXTERNAL DDOT
       // ..
       // .. External Subroutines ..

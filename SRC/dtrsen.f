@@ -30,8 +30,8 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLANGE;
+      //- bool               LSAME;
+      //- double             DLANGE;
       // EXTERNAL LSAME, DLANGE
       // ..
       // .. External Subroutines ..

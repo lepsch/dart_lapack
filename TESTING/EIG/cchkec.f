@@ -26,7 +26,7 @@
       // EXTERNAL CERREC, CGET35, CGET36, CGET37, CGET38, CSYL01
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..

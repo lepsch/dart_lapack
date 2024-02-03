@@ -32,7 +32,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC DCONJG, MOD
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // ..

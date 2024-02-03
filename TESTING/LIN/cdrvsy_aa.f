@@ -41,7 +41,7 @@
       REAL   RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               DGET06, CLANSY;
+      //- REAL               DGET06, CLANSY;
       // EXTERNAL DGET06, CLANSY
       // ..
       // .. External Subroutines ..

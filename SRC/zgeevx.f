@@ -36,9 +36,9 @@
       // EXTERNAL DLASCL, XERBLA, ZDSCAL, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZSCAL, ZTREVC3, ZTRSNA, ZUNGHR
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX, ILAENV;
-      double             DLAMCH, DZNRM2, ZLANGE;
+      //- bool               LSAME;
+      //- int                IDAMAX, ILAENV;
+      //- double             DLAMCH, DZNRM2, ZLANGE;
       // EXTERNAL LSAME, IDAMAX, ILAENV, DLAMCH, DZNRM2, ZLANGE
       // ..
       // .. Intrinsic Functions ..

@@ -43,8 +43,8 @@
       // INTRINSIC ABS, DBLE, DCMPLX, DIMAG, MAX
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. Statement Functions ..

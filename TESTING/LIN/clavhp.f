@@ -25,7 +25,7 @@
       COMPLEX            D11, D12, D21, D22, T1, T2;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

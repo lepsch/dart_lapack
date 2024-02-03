@@ -28,7 +28,7 @@
       REAL               WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
-      int                ILAENV, ISAMAX;
+      //- int                ILAENV, ISAMAX;
       // EXTERNAL ILAENV, ISAMAX
       // ..
       // .. External Subroutines ..

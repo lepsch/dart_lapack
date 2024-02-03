@@ -25,7 +25,7 @@
       REAL               A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB ), LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

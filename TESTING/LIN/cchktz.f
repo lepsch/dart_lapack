@@ -36,7 +36,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               CQRT12, CRZT01, CRZT02, SLAMCH;
+      //- REAL               CQRT12, CRZT01, CRZT02, SLAMCH;
       // EXTERNAL CQRT12, CRZT01, CRZT02, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -27,9 +27,9 @@
       Complex         S, SU, SV;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IZAMAX;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- int                IZAMAX;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, IZAMAX, DLAMCH
       // ..
       // .. Intrinsic Functions ..

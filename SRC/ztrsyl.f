@@ -29,9 +29,9 @@
       double             DUM( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE;
-      Complex         ZDOTC, ZDOTU, ZLADIV;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE;
+      //- Complex         ZDOTC, ZDOTU, ZLADIV;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..

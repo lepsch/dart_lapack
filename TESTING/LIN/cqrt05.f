@@ -30,9 +30,9 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      REAL SLAMCH;
-      REAL CLANGE, CLANSY;
-      bool     LSAME;
+      //- REAL SLAMCH;
+      //- REAL CLANGE, CLANSY;
+      //- bool     LSAME;
       // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME
       // ..
       // .. Data statements ..

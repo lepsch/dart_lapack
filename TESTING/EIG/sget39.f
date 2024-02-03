@@ -22,8 +22,8 @@
       REAL               BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SASUM, SDOT, SLAMCH, SLANGE;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SDOT, SLAMCH, SLANGE;
       // EXTERNAL ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

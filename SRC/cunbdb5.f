@@ -27,7 +27,7 @@
       // EXTERNAL CLASSQ, CUNBDB6, CSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SCNRM2;
+      //- REAL               SLAMCH, SCNRM2;
       // EXTERNAL SLAMCH, SCNRM2
       // ..
       // .. Intrinsic Function ..

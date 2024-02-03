@@ -25,9 +25,9 @@
       double             ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DDOT, DLAMCH;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DDOT, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DDOT, DLAMCH
       // ..
       // .. External Subroutines ..

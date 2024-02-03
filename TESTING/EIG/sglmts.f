@@ -22,7 +22,7 @@
       REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE;
+      //- REAL               SASUM, SLAMCH, SLANGE;
       // EXTERNAL SASUM, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

@@ -22,7 +22,7 @@
       REAL               AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..
@@ -101,7 +101,7 @@
       REAL               R, T;
       // ..
       // .. External Functions ..
-      REAL               SLADIV2;
+      //- REAL               SLADIV2;
       // EXTERNAL SLADIV2
       // ..
       // .. Executable Statements ..

@@ -30,8 +30,8 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               CLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, CLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

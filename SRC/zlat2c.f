@@ -24,8 +24,8 @@
       // INTRINSIC DBLE, DIMAG, CMPLX
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      bool               LSAME;
+      //- REAL               SLAMCH;
+      //- bool               LSAME;
       // EXTERNAL SLAMCH, LSAME
       // ..
       // .. Executable Statements ..

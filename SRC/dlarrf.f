@@ -25,8 +25,8 @@
       double             AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL, FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA, MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX, RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2;
       // ..
       // .. External Functions ..
-      bool    DISNAN;
-      double             DLAMCH;
+      //- bool    DISNAN;
+      //- double             DLAMCH;
       // EXTERNAL DISNAN, DLAMCH
       // ..
       // .. External Subroutines ..

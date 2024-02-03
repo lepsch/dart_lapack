@@ -25,7 +25,7 @@
       REAL               LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK )       COMPLEX            A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

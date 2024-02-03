@@ -28,8 +28,8 @@
       REAL               D( 2, 2 ), V( 2, 2 );
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SASUM, SDOT, SLAMCH, SLANGE;
+      //- int                ISAMAX;
+      //- REAL               SASUM, SDOT, SLAMCH, SLANGE;
       // EXTERNAL ISAMAX, SASUM, SDOT, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

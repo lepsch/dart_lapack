@@ -28,7 +28,7 @@
       Complex         F, FF, FS, G, GS, R, SN;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY2;
+      //- double             DLAMCH, DLAPY2;
       // EXTERNAL DLAMCH, DLAPY2
       // ..
       // .. Intrinsic Functions ..

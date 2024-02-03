@@ -28,8 +28,8 @@
       REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               SLAMCH, SLANST;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH, SLANST;
       // EXTERNAL ISAMAX, SLAMCH, SLANST
       // ..
       // .. External Subroutines ..

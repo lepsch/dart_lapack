@@ -30,8 +30,8 @@
       // EXTERNAL DAXPY, DLARF, DLARFGP, DSCAL, XERBLA
       // ..
       // .. External Functions ..
-      double             DNRM2;
-      bool               LSAME;
+      //- double             DNRM2;
+      //- bool               LSAME;
       // EXTERNAL DNRM2, LSAME
       // ..
       // .. Intrinsic Functions

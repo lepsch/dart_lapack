@@ -36,8 +36,8 @@
       // EXTERNAL CAXPY, CCOPY, CGECON, CGESC2, CLASSQ, CLASWP, CSCAL
       // ..
       // .. External Functions ..
-      REAL               SCASUM;
-      COMPLEX            CDOTC;
+      //- REAL               SCASUM;
+      //- COMPLEX            CDOTC;
       // EXTERNAL SCASUM, CDOTC
       // ..
       // .. Intrinsic Functions ..

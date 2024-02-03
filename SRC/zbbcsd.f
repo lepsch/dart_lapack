@@ -33,8 +33,8 @@
       // EXTERNAL DLARTGP, DLARTGS, DLAS2, XERBLA, ZLASR, ZSCAL, ZSWAP
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      bool               LSAME;
+      //- double             DLAMCH;
+      //- bool               LSAME;
       // EXTERNAL LSAME, DLAMCH
       // ..
       // .. Intrinsic Functions ..

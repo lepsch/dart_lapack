@@ -38,8 +38,8 @@
       // EXTERNAL CGEBRD, CGELQF, CGEMM, CGEQRF, CLACP2, CLACPY, CLACRM, CLARCM, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SBDSDC, SLASCL, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME, SISNAN;
+      //- REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, CLANGE, SISNAN,  SROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

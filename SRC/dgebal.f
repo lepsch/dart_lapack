@@ -28,9 +28,9 @@
       double             C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2;
       // ..
       // .. External Functions ..
-      bool               DISNAN, LSAME;
-      int                IDAMAX;
-      double             DLAMCH, DNRM2;
+      //- bool               DISNAN, LSAME;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DNRM2;
       // EXTERNAL DISNAN, LSAME, IDAMAX, DLAMCH, DNRM2
       // ..
       // .. External Subroutines ..

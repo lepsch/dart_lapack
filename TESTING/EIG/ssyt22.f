@@ -23,7 +23,7 @@
       REAL               ANORM, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANSY;
+      //- REAL               SLAMCH, SLANSY;
       // EXTERNAL SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..

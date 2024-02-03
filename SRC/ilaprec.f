@@ -15,7 +15,7 @@
       const     BLAS_PREC_SINGLE = 211, BLAS_PREC_DOUBLE = 212, BLAS_PREC_INDIGENOUS = 213, BLAS_PREC_EXTRA = 214 ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

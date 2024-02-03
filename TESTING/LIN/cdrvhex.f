@@ -39,7 +39,7 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      REAL               CLANHE, SGET06;
+      //- REAL               CLANHE, SGET06;
       // EXTERNAL CLANHE, SGET06
       // ..
       // .. External Subroutines ..

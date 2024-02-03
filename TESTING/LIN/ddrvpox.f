@@ -38,8 +38,8 @@
       double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DGET06, DLANSY;
+      //- bool               LSAME;
+      //- double             DGET06, DLANSY;
       // EXTERNAL LSAME, DGET06, DLANSY
       // ..
       // .. External Subroutines ..

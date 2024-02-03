@@ -41,7 +41,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SGET06;
+      //- REAL               CLANGE, SGET06;
       // EXTERNAL CLANGE, SGET06
       // ..
       // .. External Subroutines ..

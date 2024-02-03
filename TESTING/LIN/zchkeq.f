@@ -34,7 +34,7 @@
       Complex         A( NSZ, NSZ ), AB( NSZB, NSZ ), AP( NSZP );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

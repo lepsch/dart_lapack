@@ -27,8 +27,8 @@
       // EXTERNAL ZGEMV, ZGERC
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAZLR, ILAZLC;
+      //- bool               LSAME;
+      //- int                ILAZLR, ILAZLC;
       // EXTERNAL LSAME, ILAZLR, ILAZLC
       // ..
       // .. Executable Statements ..

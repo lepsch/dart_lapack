@@ -30,8 +30,8 @@
       double             ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLARND;
+      //- bool               LSAME;
+      //- double             DLARND;
       // EXTERNAL LSAME, DLARND
       // ..
       // .. External Subroutines ..

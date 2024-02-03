@@ -31,7 +31,7 @@
       COMPLEX   U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

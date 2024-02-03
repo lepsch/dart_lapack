@@ -31,7 +31,7 @@
       // INTRINSIC ABS, SIGN, SQRT
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..

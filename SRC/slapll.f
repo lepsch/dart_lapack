@@ -22,7 +22,7 @@
       REAL               A11, A12, A22, C, SSMAX, TAU;
       // ..
       // .. External Functions ..
-      REAL               SDOT;
+      //- REAL               SDOT;
       // EXTERNAL SDOT
       // ..
       // .. External Subroutines ..

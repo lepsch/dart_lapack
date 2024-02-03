@@ -37,7 +37,7 @@
       double             DUMMA( 1 ), RESULT( 14 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLARND;
+      //- double             DLAMCH, DLARND;
       // EXTERNAL DLAMCH, DLARND
       // ..
       // .. External Subroutines ..

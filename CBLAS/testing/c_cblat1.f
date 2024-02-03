@@ -91,8 +91,8 @@
       REAL              STRUE2(5), STRUE4(5);
       int               ITRUE3(5);
       // .. External Functions ..
-      REAL              SCASUMTEST, SCNRM2TEST;
-      int               ICAMAXTEST;
+      //- REAL              SCASUMTEST, SCNRM2TEST;
+      //- int               ICAMAXTEST;
       // EXTERNAL SCASUMTEST, SCNRM2TEST, ICAMAXTEST
       // .. External Subroutines ..
       // EXTERNAL CSCAL, CSSCALTEST, CTEST, ITEST1, STEST1
@@ -306,7 +306,7 @@
       REAL             SD;
       int              I;
       // .. External Functions ..
-      REAL             SDIFF;
+      //- REAL             SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS

@@ -23,7 +23,7 @@
       double             BIGNUM, RCMAX, RCMIN, SMLNUM;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

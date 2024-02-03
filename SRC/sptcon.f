@@ -23,7 +23,7 @@
       REAL               AINVNM;
       // ..
       // .. External Functions ..
-      int                ISAMAX;
+      //- int                ISAMAX;
       // EXTERNAL ISAMAX
       // ..
       // .. External Subroutines ..

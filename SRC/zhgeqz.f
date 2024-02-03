@@ -30,9 +30,9 @@
       Complex         ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y;
       // ..
       // .. External Functions ..
-      Complex         ZLADIV;
-      bool               LSAME;
-      double             DLAMCH, ZLANHS;
+      //- Complex         ZLADIV;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANHS;
       // EXTERNAL ZLADIV, LSAME, DLAMCH, ZLANHS
       // ..
       // .. External Subroutines ..

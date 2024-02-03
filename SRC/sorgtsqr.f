@@ -23,7 +23,7 @@
       int                IINFO, LDC, LWORKOPT, LC, LW, NBLOCAL, J;
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

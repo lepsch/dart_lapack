@@ -34,8 +34,8 @@
       // EXTERNAL DBDSDC, DGEBRD, DGELQF, DGEMM, DGEQRF, DLACPY, DLASCL, DLASET, DORGBR, DORGLQ, DORGQR, DORMBR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      double             DLAMCH, DLANGE, DROUNDUP_LWORK;
+      //- bool               LSAME, DISNAN;
+      //- double             DLAMCH, DLANGE, DROUNDUP_LWORK;
       // EXTERNAL DLAMCH, DLANGE, LSAME, DISNAN,  DROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

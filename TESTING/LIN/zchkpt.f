@@ -40,8 +40,8 @@
       Complex         Z( 3 );
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DGET06, DZASUM, ZLANHT;
+      //- int                IDAMAX;
+      //- double             DGET06, DZASUM, ZLANHT;
       // EXTERNAL IDAMAX, DGET06, DZASUM, ZLANHT
       // ..
       // .. External Subroutines ..

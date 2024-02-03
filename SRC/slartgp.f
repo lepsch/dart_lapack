@@ -24,7 +24,7 @@
       REAL               EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Intrinsic Functions ..

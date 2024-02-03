@@ -34,7 +34,7 @@
       REAL               RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       COMPLEX            Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

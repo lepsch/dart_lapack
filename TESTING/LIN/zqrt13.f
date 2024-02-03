@@ -24,7 +24,7 @@
       double             BIGNUM, SMLNUM;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DZASUM, ZLANGE;
+      //- double             DLAMCH, DZASUM, ZLANGE;
       // EXTERNAL DLAMCH, DZASUM, ZLANGE
       // ..
       // .. External Subroutines ..

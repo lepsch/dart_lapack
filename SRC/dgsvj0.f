@@ -31,9 +31,9 @@
       // INTRINSIC DABS, MAX, DBLE, MIN, DSIGN, DSQRT
       // ..
       // .. External Functions ..
-      double             DDOT, DNRM2;
-      int                IDAMAX;
-      bool               LSAME;
+      //- double             DDOT, DNRM2;
+      //- int                IDAMAX;
+      //- bool               LSAME;
       // EXTERNAL IDAMAX, LSAME, DDOT, DNRM2
       // ..
       // .. External Subroutines ..

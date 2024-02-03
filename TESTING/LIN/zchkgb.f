@@ -39,7 +39,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DGET06, ZLANGB, ZLANGE;
+      //- double             DGET06, ZLANGB, ZLANGE;
       // EXTERNAL DGET06, ZLANGB, ZLANGE
       // ..
       // .. External Subroutines ..

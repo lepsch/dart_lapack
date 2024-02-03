@@ -29,8 +29,8 @@
       // INTRINSIC ABS, CONJG, MAX, SQRT
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      COMPLEX            CDOTC;
+      //- REAL               SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL SLAMCH, CDOTC
       // ..
       // .. Executable Statements ..

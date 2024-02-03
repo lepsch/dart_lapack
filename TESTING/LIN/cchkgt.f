@@ -40,7 +40,7 @@
       COMPLEX            Z( 3 );
       // ..
       // .. External Functions ..
-      REAL               CLANGT, SCASUM, SGET06;
+      //- REAL               CLANGT, SCASUM, SGET06;
       // EXTERNAL CLANGT, SCASUM, SGET06
       // ..
       // .. External Subroutines ..

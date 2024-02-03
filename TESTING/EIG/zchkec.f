@@ -26,7 +26,7 @@
       // EXTERNAL ZERREC, ZGET35, ZGET36, ZGET37, ZGET38, ZSYL01
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..

@@ -24,7 +24,7 @@
       REAL               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANST, SLAPY2;
+      //- REAL               SLAMCH, SLANST, SLAPY2;
       // EXTERNAL SLAMCH, SLANST, SLAPY2
       // ..
       // .. External Subroutines ..

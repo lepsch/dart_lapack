@@ -42,7 +42,7 @@
       REAL               RESULT( 39 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARND;
+      //- REAL               SLAMCH, SLARND;
       // EXTERNAL SLAMCH, SLARND
       // ..
       // .. External Subroutines ..

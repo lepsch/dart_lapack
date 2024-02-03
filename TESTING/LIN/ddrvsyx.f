@@ -38,7 +38,7 @@
       double             RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      double             DGET06, DLANSY;
+      //- double             DGET06, DLANSY;
       // EXTERNAL DGET06, DLANSY
       // ..
       // .. External Subroutines ..

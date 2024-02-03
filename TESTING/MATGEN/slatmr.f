@@ -31,8 +31,8 @@
       REAL               TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3       EXTERNAL           LSAME, SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3;
+      //- bool               LSAME;
+      //- REAL               SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3       EXTERNAL           LSAME, SLANGB, SLANGE, SLANSB, SLANSP, SLANSY, SLATM2, SLATM3;
       // ..
       // .. External Subroutines ..
       // EXTERNAL SLATM1, SSCAL, XERBLA

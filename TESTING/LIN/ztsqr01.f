@@ -33,9 +33,9 @@
       Complex         TQUERY( 5 ), WORKQUERY( 1 );
       // ..
       // .. External Functions ..
-      double           DLAMCH, ZLANGE, ZLANSY;
-      bool     LSAME;
-      int     ILAENV;
+      //- double           DLAMCH, ZLANGE, ZLANSY;
+      //- bool     LSAME;
+      //- int     ILAENV;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME, ILAENV
       // ..
       // .. Intrinsic Functions ..

@@ -14,8 +14,8 @@
       double           :: W( 2 ), SAFMIN, SAFMAX, SCALE1, SCALE2;
 
       // External Functions
-      double          , EXTERNAL :: DLAMCH;
-      bool   , EXTERNAL :: DISNAN;
+      //- double          , EXTERNAL :: DLAMCH;
+      //- bool   , EXTERNAL :: DISNAN;
 
       SAFMIN = DLAMCH( 'SAFE MINIMUM' );
       SAFMAX = ONE/SAFMIN;

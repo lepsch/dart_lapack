@@ -28,8 +28,8 @@
       COMPLEX            CTEMP;
       // ..
       // .. External Functions ..
-      REAL               SLARAN;
-      COMPLEX            CLARND;
+      //- REAL               SLARAN;
+      //- COMPLEX            CLARND;
       // EXTERNAL SLARAN, CLARND
       // ..
       // .. External Subroutines ..

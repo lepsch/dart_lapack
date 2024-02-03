@@ -24,7 +24,7 @@
       int                ISEED( 4 ), ISEEDY( 4 );
       // ..
       // .. External Functions ..
-      REAL               SLARND;
+      //- REAL               SLARND;
       // EXTERNAL SLARND
       // ..
       // .. External Subroutines ..

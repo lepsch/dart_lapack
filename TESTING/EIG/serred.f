@@ -30,7 +30,7 @@
       // EXTERNAL CHKXER, SGEES, SGEESX, SGEEV, SGEEVX, SGEJSV, SGESDD, SGESVD, SGESVDX, SGESVDQ
       // ..
       // .. External Functions ..
-      bool               SSLECT, LSAMEN;
+      //- bool               SSLECT, LSAMEN;
       // EXTERNAL SSLECT, LSAMEN
       // ..
       // .. Intrinsic Functions ..

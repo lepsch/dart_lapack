@@ -33,7 +33,7 @@
       double             A( 2, 2 ), B( 2, 2 ), VAB( 3 ), VCA( 5 ), VDD( 4 ), VSMIN( 4 ), VWI( 4 ), VWR( 4 ), X( 2, 2 );
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..

@@ -40,8 +40,8 @@
       REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK;
       // ..
       // .. External Functions ..
-      bool               LSAME, LSAMEN;
-      REAL               SECOND, SLAMCH;
+      //- bool               LSAME, LSAMEN;
+      //- REAL               SECOND, SLAMCH;
       // EXTERNAL LSAME, LSAMEN, SECOND, SLAMCH
       // ..
       // .. External Subroutines ..

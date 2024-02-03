@@ -27,8 +27,8 @@
       double             WMAT( 2, 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANGE;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL LSAME, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

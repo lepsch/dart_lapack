@@ -28,8 +28,8 @@
       REAL               V( 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANHS, SLAPY2, SLAPY3, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANHS, SLAPY2, SLAPY3, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, SLANHS, SLAPY2, SLAPY3, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

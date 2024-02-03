@@ -34,8 +34,8 @@
       // EXTERNAL XERBLA, ZCOPY, ZGEQP3, ZLAIC1, ZLASCL, ZLASET, ZTRSM, ZTZRZF, ZUNMQR, ZUNMRZ
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH, ZLANGE;
+      //- int                ILAENV;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL ILAENV, DLAMCH, ZLANGE
       // ..
       // .. Intrinsic Functions ..

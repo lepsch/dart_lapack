@@ -23,8 +23,8 @@
       int                I, IINFO, J, LWKOPT, MN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

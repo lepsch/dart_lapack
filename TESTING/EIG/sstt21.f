@@ -22,7 +22,7 @@
       REAL               ANORM, TEMP1, TEMP2, ULP, UNFL, WNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE, SLANSY;
+      //- REAL               SLAMCH, SLANGE, SLANSY;
       // EXTERNAL SLAMCH, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..

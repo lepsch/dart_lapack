@@ -26,9 +26,9 @@
       bool               UPPER;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      int                ILAENV;
-      bool               LSAME, SISNAN;
+      //- REAL               SLAMCH;
+      //- int                ILAENV;
+      //- bool               LSAME, SISNAN;
       // EXTERNAL SLAMCH, ILAENV, LSAME, SISNAN
       // ..
       // .. External Subroutines ..

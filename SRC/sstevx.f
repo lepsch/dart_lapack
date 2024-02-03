@@ -27,8 +27,8 @@
       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, SLANST;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, SLANST;
       // EXTERNAL LSAME, SLAMCH, SLANST
       // ..
       // .. External Subroutines ..

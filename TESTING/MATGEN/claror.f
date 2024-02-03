@@ -27,9 +27,9 @@
       COMPLEX            CSIGN, XNORMS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SCNRM2;
-      COMPLEX            CLARND;
+      //- bool               LSAME;
+      //- REAL               SCNRM2;
+      //- COMPLEX            CLARND;
       // EXTERNAL LSAME, SCNRM2, CLARND
       // ..
       // .. External Subroutines ..

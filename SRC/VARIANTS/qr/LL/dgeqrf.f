@@ -24,8 +24,8 @@
       // INTRINSIC CEILING, MAX, MIN, REAL
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DROUNDUP_LWORK;
+      //- int                ILAENV;
+      //- double             DROUNDUP_LWORK;
       // EXTERNAL ILAENV, DROUNDUP_LWORK
       // ..
       // .. Executable Statements ..

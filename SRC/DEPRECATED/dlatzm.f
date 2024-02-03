@@ -23,7 +23,7 @@
       // EXTERNAL DAXPY, DCOPY, DGEMV, DGER
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Functions ..

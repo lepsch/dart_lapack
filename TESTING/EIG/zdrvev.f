@@ -41,7 +41,7 @@
       Complex         DUM( 1 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DZNRM2;
+      //- double             DLAMCH, DZNRM2;
       // EXTERNAL DLAMCH, DZNRM2
       // ..
       // .. External Subroutines ..

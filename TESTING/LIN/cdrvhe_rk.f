@@ -40,7 +40,7 @@
 
       // ..
       // .. External Functions ..
-      REAL               CLANHE;
+      //- REAL               CLANHE;
       // EXTERNAL CLANHE
       // ..
       // .. External Subroutines ..

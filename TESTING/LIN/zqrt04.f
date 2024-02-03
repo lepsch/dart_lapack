@@ -30,9 +30,9 @@
       int                ISEED( 4 );
       // ..
       // .. External Functions ..
-      double           DLAMCH;
-      double           ZLANGE, ZLANSY;
-      bool     LSAME;
+      //- double           DLAMCH;
+      //- double           ZLANGE, ZLANSY;
+      //- bool     LSAME;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY, LSAME
       // ..
       // .. Intrinsic Functions ..

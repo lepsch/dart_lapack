@@ -41,9 +41,9 @@
       // INTRINSIC ABS, DCMPLX, CONJG, DLOG, MAX, MIN, DBLE, NINT, SQRT
       // ..
       // .. External Functions ..
-      double                DLAMCH, DZNRM2;
-      int       IDAMAX, IZAMAX;
-      bool      LSAME;
+      //- double                DLAMCH, DZNRM2;
+      //- int       IDAMAX, IZAMAX;
+      //- bool      LSAME;
       // EXTERNAL IDAMAX, IZAMAX, LSAME, DLAMCH, DZNRM2
       // ..
       // .. External Subroutines ..

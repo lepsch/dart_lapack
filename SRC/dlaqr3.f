@@ -23,8 +23,8 @@
       bool               BULGE, SORTED;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      int                ILAENV;
+      //- double             DLAMCH;
+      //- int                ILAENV;
       // EXTERNAL DLAMCH, ILAENV
       // ..
       // .. External Subroutines ..

@@ -31,7 +31,7 @@
       bool               DOTYPE( NTYPES );
       // ..
       // .. External Functions ..
-      Complex         ZLARND;
+      //- Complex         ZLARND;
       // EXTERNAL ZLARND
       // ..
       // .. External Subroutines ..

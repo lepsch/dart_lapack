@@ -32,8 +32,8 @@
       REAL               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      REAL               SLAMCH, SLARND;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, SLARND;
       // EXTERNAL ILAENV, SLAMCH, SLARND
       // ..
       // .. External Subroutines ..

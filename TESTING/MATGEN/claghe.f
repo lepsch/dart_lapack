@@ -28,8 +28,8 @@
       // EXTERNAL CAXPY, CGEMV, CGERC, CHEMV, CHER2, CLARNV, CSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SCNRM2;
-      COMPLEX            CDOTC;
+      //- REAL               SCNRM2;
+      //- COMPLEX            CDOTC;
       // EXTERNAL SCNRM2, CDOTC
       // ..
       // .. Intrinsic Functions ..

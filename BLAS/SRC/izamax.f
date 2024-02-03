@@ -18,7 +18,7 @@
       int     I,IX;
       // ..
       // .. External Functions ..
-      double           DCABS1;
+      //- double           DCABS1;
       // EXTERNAL DCABS1
       // ..
       IZAMAX = 0;

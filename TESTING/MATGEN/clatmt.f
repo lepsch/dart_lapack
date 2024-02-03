@@ -34,9 +34,9 @@
       bool               CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN;
       // ..
       // .. External Functions ..
-      COMPLEX            CLARND;
-      REAL               SLARND;
-      bool               LSAME;
+      //- COMPLEX            CLARND;
+      //- REAL               SLARND;
+      //- bool               LSAME;
       // EXTERNAL CLARND, SLARND, LSAME
       // ..
       // .. External Subroutines ..

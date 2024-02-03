@@ -26,8 +26,8 @@
       REAL               BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      REAL               SLAMCH, SLANHS;
+      //- bool               LSAME, SISNAN;
+      //- REAL               SLAMCH, SLANHS;
       // EXTERNAL LSAME, SLAMCH, SLANHS, SISNAN
       // ..
       // .. External Subroutines ..

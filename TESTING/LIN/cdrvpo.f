@@ -39,8 +39,8 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANHE, SGET06;
+      //- bool               LSAME;
+      //- REAL               CLANHE, SGET06;
       // EXTERNAL LSAME, CLANHE, SGET06
       // ..
       // .. External Subroutines ..

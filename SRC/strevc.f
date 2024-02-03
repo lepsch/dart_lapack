@@ -25,9 +25,9 @@
       REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SDOT, SLAMCH;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SDOT, SLAMCH;
       // EXTERNAL LSAME, ISAMAX, SDOT, SLAMCH
       // ..
       // .. External Subroutines ..

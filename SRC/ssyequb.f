@@ -27,8 +27,8 @@
       bool               UP;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      bool               LSAME;
+      //- REAL               SLAMCH;
+      //- bool               LSAME;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. External Subroutines ..

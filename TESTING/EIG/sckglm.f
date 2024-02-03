@@ -30,7 +30,7 @@
       bool               DOTYPE( NTYPES );
       // ..
       // .. External Functions ..
-      REAL               SLARND;
+      //- REAL               SLARND;
       // EXTERNAL SLARND
       // ..
       // .. External Subroutines ..

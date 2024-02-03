@@ -39,8 +39,8 @@
       COMPLEX            CDUMMA( 4 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
-      COMPLEX            CLARND;
+      //- REAL               CLANGE, SLAMCH;
+      //- COMPLEX            CLARND;
       // EXTERNAL CLANGE, SLAMCH, CLARND
       // ..
       // .. External Subroutines ..

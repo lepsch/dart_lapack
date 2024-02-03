@@ -23,9 +23,9 @@
       REAL               WNRM( max( M, N ) );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLANGE, SLAMCH, SLARMM;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLANGE, SLAMCH, SLARMM;
       // EXTERNAL SLANGE, SLAMCH, SLARMM, ILAENV, LSAME
       // ..
       // .. External Subroutines ..

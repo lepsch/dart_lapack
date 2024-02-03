@@ -28,8 +28,8 @@
       Complex         T;
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE;
-      Complex         ZDOTU;
+      //- double             DLAMCH, ZLANGE;
+      //- Complex         ZDOTU;
       // EXTERNAL DLAMCH, ZLANGE, ZDOTU
       // ..
       // .. External Subroutines ..

@@ -37,9 +37,9 @@
       REAL               TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGB, CLANGE, CLANSB, CLANSP, CLANSY;
-      COMPLEX            CLATM2, CLATM3;
+      //- bool               LSAME;
+      //- REAL               CLANGB, CLANGE, CLANSB, CLANSP, CLANSY;
+      //- COMPLEX            CLATM2, CLATM3;
       // EXTERNAL LSAME, CLANGB, CLANGE, CLANSB, CLANSP, CLANSY, CLATM2, CLATM3
       // ..
       // .. External Subroutines ..

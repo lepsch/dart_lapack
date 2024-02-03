@@ -24,9 +24,9 @@
       REAL               RES1, RES2, S, ULP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SLAMCH;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, ISAMAX, SLAMCH
       // ..
       // .. Intrinsic Functions ..

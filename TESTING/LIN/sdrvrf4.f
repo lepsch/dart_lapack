@@ -32,7 +32,7 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARND, SLANGE;
+      //- REAL               SLAMCH, SLARND, SLANGE;
       // EXTERNAL SLAMCH, SLARND, SLANGE
       // ..
       // .. External Subroutines ..

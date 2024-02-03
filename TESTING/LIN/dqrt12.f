@@ -22,7 +22,7 @@
       double             ANRM, BIGNUM, NRMSVL, SMLNUM;
       // ..
       // .. External Functions ..
-      double             DASUM, DLAMCH, DLANGE, DNRM2;
+      //- double             DASUM, DLAMCH, DLANGE, DNRM2;
       // EXTERNAL DASUM, DLAMCH, DLANGE, DNRM2
       // ..
       // .. External Subroutines ..

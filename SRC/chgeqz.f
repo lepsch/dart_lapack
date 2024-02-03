@@ -30,9 +30,9 @@
       COMPLEX            ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y;
       // ..
       // .. External Functions ..
-      COMPLEX            CLADIV;
-      bool               LSAME;
-      REAL               CLANHS, SLAMCH;
+      //- COMPLEX            CLADIV;
+      //- bool               LSAME;
+      //- REAL               CLANHS, SLAMCH;
       // EXTERNAL CLADIV, LSAME, CLANHS, SLAMCH
       // ..
       // .. External Subroutines ..

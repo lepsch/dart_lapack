@@ -28,8 +28,8 @@
       double             D( 2, 2 ), V( 2, 2 );
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DASUM, DDOT, DLAMCH, DLANGE;
+      //- int                IDAMAX;
+      //- double             DASUM, DDOT, DLAMCH, DLANGE;
       // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

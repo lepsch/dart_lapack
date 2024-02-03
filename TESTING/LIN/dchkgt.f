@@ -38,7 +38,7 @@
       double             RESULT( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
-      double             DASUM, DGET06, DLANGT;
+      //- double             DASUM, DGET06, DLANGT;
       // EXTERNAL DASUM, DGET06, DLANGT
       // ..
       // .. External Subroutines ..

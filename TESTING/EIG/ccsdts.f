@@ -28,7 +28,7 @@
       REAL               EPS2, RESID, ULP, ULPINV;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, CLANGE, CLANHE;
+      //- REAL               SLAMCH, CLANGE, CLANHE;
       // EXTERNAL SLAMCH, CLANGE, CLANHE
       // ..
       // .. External Subroutines ..

@@ -25,7 +25,7 @@
       REAL               A( LDA, LDA ), AIN( LDA, LDA ), DUMMY( 1 ), SCALE( LDA ), SCALIN( LDA );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGE;
+      //- REAL               SLAMCH, SLANGE;
       // EXTERNAL SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

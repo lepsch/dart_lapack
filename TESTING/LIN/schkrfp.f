@@ -45,7 +45,7 @@
       REAL               S_WORK_SPOT03( NMAX );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SECOND;
+      //- REAL               SLAMCH, SECOND;
       // EXTERNAL SLAMCH, SECOND
       // ..
       // .. External Subroutines ..

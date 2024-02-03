@@ -33,9 +33,9 @@
       Complex         CTMP1;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV2STAGE;
-      double             DLAMCH, ZLANHB;
+      //- bool               LSAME;
+      //- int                ILAENV2STAGE;
+      //- double             DLAMCH, ZLANHB;
       // EXTERNAL LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
       // ..
       // .. External Subroutines ..

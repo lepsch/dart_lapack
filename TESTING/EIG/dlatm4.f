@@ -26,7 +26,7 @@
       double             ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLARAN, DLARND;
+      //- double             DLAMCH, DLARAN, DLARND;
       // EXTERNAL DLAMCH, DLARAN, DLARND
       // ..
       // .. External Subroutines ..

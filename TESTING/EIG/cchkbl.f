@@ -27,7 +27,7 @@
       COMPLEX            A( LDA, LDA ), AIN( LDA, LDA );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

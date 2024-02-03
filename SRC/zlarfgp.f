@@ -24,8 +24,8 @@
       Complex         SAVEALPHA;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY3, DLAPY2, DZNRM2;
-      Complex         ZLADIV;
+      //- double             DLAMCH, DLAPY3, DLAPY2, DZNRM2;
+      //- Complex         ZLADIV;
       // EXTERNAL DLAMCH, DLAPY3, DLAPY2, DZNRM2, ZLADIV
       // ..
       // .. Intrinsic Functions ..

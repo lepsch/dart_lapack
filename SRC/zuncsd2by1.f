@@ -34,7 +34,7 @@
       // EXTERNAL ZBBCSD, ZCOPY, ZLACPY, ZLAPMR, ZLAPMT, ZUNBDB1, ZUNBDB2, ZUNBDB3, ZUNBDB4, ZUNGLQ, ZUNGQR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Function ..

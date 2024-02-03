@@ -18,7 +18,7 @@
       int     I,IX,IY;
       // ..
       // .. External Functions ..
-      REAL SCABS1;
+      //- REAL SCABS1;
       // EXTERNAL SCABS1
       // ..
       if (N <= 0) return;

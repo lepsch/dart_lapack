@@ -20,7 +20,7 @@
       int                LWKMIN, LWKOPT, LWKOPT_SYTRF, LWKOPT_SYTRS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK

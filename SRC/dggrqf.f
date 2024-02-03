@@ -21,7 +21,7 @@
       // EXTERNAL DGEQRF, DGERQF, DORMRQ, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

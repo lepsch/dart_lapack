@@ -40,7 +40,7 @@
       const              LA_LINRX_RCOND_I = 3 ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL ILAUPLO
       int                ILAUPLO;
       // ..

@@ -20,7 +20,7 @@
       int                IWORK(NMAX), IPIV(NMAX);
 
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
 
       // .. External Subroutines ..
       // EXTERNAL SLAHILB, SGESVXX, SSYSVXX, SPOSVXX, SGBSVXX, SLACPY, LSAMEN

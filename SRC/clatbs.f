@@ -27,10 +27,10 @@
       COMPLEX            CSUMJ, TJJS, USCAL, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX, ISAMAX;
-      REAL               SCASUM, SLAMCH;
-      COMPLEX            CDOTC, CDOTU, CLADIV;
+      //- bool               LSAME;
+      //- int                ICAMAX, ISAMAX;
+      //- REAL               SCASUM, SLAMCH;
+      //- COMPLEX            CDOTC, CDOTU, CLADIV;
       // EXTERNAL LSAME, ICAMAX, ISAMAX, SCASUM, SLAMCH, CDOTC, CDOTU, CLADIV
       // ..
       // .. External Subroutines ..

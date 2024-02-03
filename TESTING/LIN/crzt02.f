@@ -24,7 +24,7 @@
       REAL               RWORK( 1 );
       // ..
       // .. External Functions ..
-      REAL               CLANGE, SLAMCH;
+      //- REAL               CLANGE, SLAMCH;
       // EXTERNAL CLANGE, SLAMCH
       // ..
       // .. External Subroutines ..

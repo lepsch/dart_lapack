@@ -32,8 +32,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      double             DDIFF;
-      bool               LZE;
+      //- double             DDIFF;
+      //- bool               LZE;
       // EXTERNAL DDIFF, LZE
       // .. External Subroutines ..
       // EXTERNAL ZCHK1, ZCHK2, ZCHK3, ZCHK4, ZCHK5, ZCHKE, ZMMCH
@@ -302,7 +302,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZGEMM, ZMAKE, ZMMCH
@@ -548,7 +548,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZHEMM, ZMAKE, ZMMCH, ZSYMM
@@ -786,7 +786,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZMAKE, ZMMCH, ZTRMM, ZTRSM
@@ -1038,7 +1038,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZHERK, ZMAKE, ZMMCH, ZSYRK
@@ -1317,7 +1317,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LZE, LZERES;
+      //- bool               LZE, LZERES;
       // EXTERNAL LZE, LZERES
       // .. External Subroutines ..
       // EXTERNAL ZHER2K, ZMAKE, ZMMCH, ZSYR2K
@@ -2560,7 +2560,7 @@
       int                I, IBEG, IEND, J, JJ;
       bool               GEN, HER, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      Complex         ZBEG;
+      //- Complex         ZBEG;
       // EXTERNAL ZBEG
       // .. Intrinsic Functions ..
       // INTRINSIC DCMPLX, DCONJG, DBLE

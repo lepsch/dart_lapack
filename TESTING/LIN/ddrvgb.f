@@ -40,8 +40,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DGET06, DLAMCH, DLANGB, DLANGE, DLANTB;
+      //- bool               LSAME;
+      //- double             DGET06, DLAMCH, DLANGB, DLANGE, DLANTB;
       // EXTERNAL LSAME, DGET06, DLAMCH, DLANGB, DLANGE, DLANTB
       // ..
       // .. External Subroutines ..

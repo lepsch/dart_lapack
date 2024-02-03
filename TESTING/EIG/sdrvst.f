@@ -34,7 +34,7 @@
       int                IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), ISEED3( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARND, SSXT1;
+      //- REAL               SLAMCH, SLARND, SSXT1;
       // EXTERNAL SLAMCH, SLARND, SSXT1
       // ..
       // .. External Subroutines ..

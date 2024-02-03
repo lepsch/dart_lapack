@@ -32,10 +32,10 @@
       Complex         DUMMY( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IZAMAX;
-      double             DLAMCH, DZNRM2;
-      Complex         ZDOTC;
+      //- bool               LSAME;
+      //- int                IZAMAX;
+      //- double             DLAMCH, DZNRM2;
+      //- Complex         ZDOTC;
       // EXTERNAL LSAME, IZAMAX, DLAMCH, DZNRM2, ZDOTC
       // ..
       // .. External Subroutines ..

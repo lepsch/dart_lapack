@@ -29,7 +29,7 @@
       Complex         A( NMAX, NMAX ), ALPHA( NMAX ), B( NMAX, NMAX ), BETA( NMAX ), Q( NMAX, NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX );
       // ..
       // .. External Functions ..
-      bool               LSAMEN, ZLCTES, ZLCTSX;
+      //- bool               LSAMEN, ZLCTES, ZLCTSX;
       // EXTERNAL LSAMEN, ZLCTES, ZLCTSX
       // ..
       // .. External Subroutines ..

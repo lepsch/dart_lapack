@@ -30,8 +30,8 @@
       COMPLEX            D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
+      //- bool               LSAME;
+      //- int                ICAMAX;
       // EXTERNAL LSAME, ICAMAX
       // ..
       // .. External Subroutines ..

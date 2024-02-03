@@ -22,8 +22,8 @@
       double             BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DASUM, DDOT, DLAMCH, DLANGE;
+      //- int                IDAMAX;
+      //- double             DASUM, DDOT, DLAMCH, DLANGE;
       // EXTERNAL IDAMAX, DASUM, DDOT, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

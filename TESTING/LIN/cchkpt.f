@@ -40,8 +40,8 @@
       COMPLEX            Z( 3 );
       // ..
       // .. External Functions ..
-      int                ISAMAX;
-      REAL               CLANHT, SCASUM, SGET06;
+      //- int                ISAMAX;
+      //- REAL               CLANHT, SCASUM, SGET06;
       // EXTERNAL ISAMAX, CLANHT, SCASUM, SGET06
       // ..
       // .. External Subroutines ..

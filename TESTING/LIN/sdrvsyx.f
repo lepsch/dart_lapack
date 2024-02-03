@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      REAL               SGET06, SLANSY;
+      //- REAL               SGET06, SLANSY;
       // EXTERNAL SGET06, SLANSY
       // ..
       // .. External Subroutines ..

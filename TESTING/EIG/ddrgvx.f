@@ -28,8 +28,8 @@
       double             WEIGHT( 5 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH, DLANGE;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANGE;
       // EXTERNAL ILAENV, DLAMCH, DLANGE
       // ..
       // .. External Subroutines ..

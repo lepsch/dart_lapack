@@ -38,7 +38,7 @@
       double             RESULT( NTESTS ), RDUMMY( 1 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE;
+      //- double             DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE;
       // EXTERNAL DLAMCH, ZQPT01, ZQRT11, ZQRT12, ZLANGE
       // ..
       // .. External Subroutines ..

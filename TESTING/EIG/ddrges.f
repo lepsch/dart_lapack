@@ -33,9 +33,9 @@
       double             RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      bool               DLCTES;
-      int                ILAENV;
-      double             DLAMCH, DLARND;
+      //- bool               DLCTES;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLARND;
       // EXTERNAL DLCTES, ILAENV, DLAMCH, DLARND
       // ..
       // .. External Subroutines ..

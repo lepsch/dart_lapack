@@ -27,9 +27,9 @@
       Complex         CSIGN, XNORMS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DZNRM2;
-      Complex         ZLARND;
+      //- bool               LSAME;
+      //- double             DZNRM2;
+      //- Complex         ZLARND;
       // EXTERNAL LSAME, DZNRM2, ZLARND
       // ..
       // .. External Subroutines ..

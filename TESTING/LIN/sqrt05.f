@@ -31,9 +31,9 @@
       // EXTERNAL SGEMM, SLARNV, STPMQRT, STPQRT, SGEMQRT, SSYRK, SLACPY, SLASET
       // ..
       // .. External Functions ..
-      REAL SLAMCH;
-      REAL SLANGE, SLANSY;
-      bool     LSAME;
+      //- REAL SLAMCH;
+      //- REAL SLANGE, SLANSY;
+      //- bool     LSAME;
       // EXTERNAL SLAMCH, SLANGE, SLANSY, LSAME
       // ..
       // .. Data statements ..

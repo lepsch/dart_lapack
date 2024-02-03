@@ -28,9 +28,9 @@
       COMPLEX            D12, D21, T, WK, WKM1, WKP1, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      int                ICAMAX;
-      REAL               SLAPY2;
+      //- bool               LSAME, SISNAN;
+      //- int                ICAMAX;
+      //- REAL               SLAPY2;
       // EXTERNAL LSAME, ICAMAX, SLAPY2, SISNAN
       // ..
       // .. External Subroutines ..

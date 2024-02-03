@@ -28,7 +28,7 @@
       COMPLEX            AKKP1, D, U01_I_J, U01_IP1_J, U11_I_J, U11_IP1_J;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

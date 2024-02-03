@@ -30,8 +30,8 @@
       double             DMINUS, DPLUS, EPS, S, TMP;
       // ..
       // .. External Functions ..
-      bool    DISNAN;
-      double             DLAMCH;
+      //- bool    DISNAN;
+      //- double             DLAMCH;
       // EXTERNAL DISNAN, DLAMCH
       // ..
       // .. Intrinsic Functions ..

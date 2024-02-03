@@ -20,8 +20,8 @@
       int                LWKMIN, LWKOPT, LWKOPT_HETRF, LWKOPT_HETRS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
+      //- bool               LSAME;
+      //- int                ILAENV;
       // EXTERNAL LSAME, ILAENV
       // ..
       // .. External Subroutines ..

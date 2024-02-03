@@ -34,7 +34,7 @@
       REAL               DUM( 1 ), DUMMA( 1 ), RESULT( 40 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLARND, SSXT1;
+      //- REAL               SLAMCH, SLARND, SSXT1;
       // EXTERNAL SLAMCH, SLARND, SSXT1
       // ..
       // .. External Subroutines ..

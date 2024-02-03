@@ -36,7 +36,7 @@
       double             DUM( 1 ), RES( 2 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY2, DNRM2;
+      //- double             DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL DLAMCH, DLAPY2, DNRM2
       // ..
       // .. External Subroutines ..

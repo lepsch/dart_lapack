@@ -25,7 +25,7 @@
       COMPLEX            CTEMP, S;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

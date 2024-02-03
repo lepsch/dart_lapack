@@ -24,7 +24,7 @@
       REAL               ANORM, EPS, LI;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLANGT, SLANHS;
+      //- REAL               SLAMCH, SLANGT, SLANHS;
       // EXTERNAL SLAMCH, SLANGT, SLANHS
       // ..
       // .. Intrinsic Functions ..

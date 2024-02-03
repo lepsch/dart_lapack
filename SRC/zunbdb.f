@@ -32,8 +32,8 @@
 
       // ..
       // .. External Functions ..
-      double             DZNRM2;
-      bool               LSAME;
+      //- double             DZNRM2;
+      //- bool               LSAME;
       // EXTERNAL DZNRM2, LSAME
       // ..
       // .. Intrinsic Functions

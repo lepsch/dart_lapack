@@ -26,8 +26,8 @@
       int                I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      int                ILAENV;
+      //- double             DLAMCH;
+      //- int                ILAENV;
       // EXTERNAL DLAMCH, ILAENV
       // ..
       // .. External Subroutines ..

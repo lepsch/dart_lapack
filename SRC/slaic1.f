@@ -27,7 +27,7 @@
       // INTRINSIC ABS, MAX, SIGN, SQRT
       // ..
       // .. External Functions ..
-      REAL               SDOT, SLAMCH;
+      //- REAL               SDOT, SLAMCH;
       // EXTERNAL SDOT, SLAMCH
       // ..
       // .. Executable Statements ..

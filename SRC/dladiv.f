@@ -22,7 +22,7 @@
       double             AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. External Subroutines ..
@@ -101,7 +101,7 @@
       double             R, T;
       // ..
       // .. External Functions ..
-      double             DLADIV2;
+      //- double             DLADIV2;
       // EXTERNAL DLADIV2
       // ..
       // .. Executable Statements ..

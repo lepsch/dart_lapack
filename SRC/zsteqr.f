@@ -28,8 +28,8 @@
       double             ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANST, DLAPY2;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANST, DLAPY2;
       // EXTERNAL LSAME, DLAMCH, DLANST, DLAPY2
       // ..
       // .. External Subroutines ..

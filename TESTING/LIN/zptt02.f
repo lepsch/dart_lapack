@@ -25,7 +25,7 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DZASUM, ZLANHT;
+      //- double             DLAMCH, DZASUM, ZLANHT;
       // EXTERNAL DLAMCH, DZASUM, ZLANHT
       // ..
       // .. Intrinsic Functions ..

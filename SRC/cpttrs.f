@@ -20,7 +20,7 @@
       int                IUPLO, J, JB, NB;
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. External Subroutines ..

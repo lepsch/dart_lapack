@@ -25,8 +25,8 @@
       double             AK, AKKP1, AKP1, D, T, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT;
+      //- bool               LSAME;
+      //- double             DDOT;
       // EXTERNAL LSAME, DDOT
       // ..
       // .. External Subroutines ..

@@ -25,8 +25,8 @@
       REAL               EPS, TMP;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT, SLAMCH, SLANSY;
+      //- bool               LSAME;
+      //- REAL               SDOT, SLAMCH, SLANSY;
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANSY
       // ..
       // .. External Subroutines ..

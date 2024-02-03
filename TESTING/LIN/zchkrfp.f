@@ -47,7 +47,7 @@
       double             D_WORK_ZPOT03( NMAX );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DSECND;
+      //- double             DLAMCH, DSECND;
       // EXTERNAL DLAMCH, DSECND
       // ..
       // .. External Subroutines ..

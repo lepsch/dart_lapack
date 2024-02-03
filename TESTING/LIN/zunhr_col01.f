@@ -33,7 +33,7 @@
       Complex         WORKQUERY( 1 );
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE, ZLANSY;
+      //- double             DLAMCH, ZLANGE, ZLANSY;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY
       // ..
       // .. External Subroutines ..

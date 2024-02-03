@@ -32,7 +32,7 @@
       // EXTERNAL DLAED6, DLASD5
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Intrinsic Functions ..

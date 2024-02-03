@@ -20,11 +20,11 @@
       int                MB, NB, LW, NBLCKS, MN, MINMNK, LWMIN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

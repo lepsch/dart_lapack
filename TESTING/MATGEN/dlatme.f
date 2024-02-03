@@ -34,8 +34,8 @@
       double             TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLANGE, DLARAN;
+      //- bool               LSAME;
+      //- double             DLANGE, DLARAN;
       // EXTERNAL LSAME, DLANGE, DLARAN
       // ..
       // .. External Subroutines ..

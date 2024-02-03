@@ -28,8 +28,8 @@
       COMPLEX            TQ( 5 ), WORKQ( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SLAMCH, CLANGE, SROUNDUP_LWORK;
       // EXTERNAL LSAME, SLAMCH, CLANGE, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

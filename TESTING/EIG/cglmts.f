@@ -25,7 +25,7 @@
       REAL               ANORM, BNORM, EPS, XNORM, YNORM, DNORM, UNFL;
       // ..
       // .. External Functions ..
-      REAL               SCASUM, SLAMCH, CLANGE;
+      //- REAL               SCASUM, SLAMCH, CLANGE;
       // EXTERNAL SCASUM, SLAMCH, CLANGE
       // ..
       // .. External Subroutines ..

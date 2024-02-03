@@ -24,7 +24,7 @@
       double             EPS, NORM, NORM_NEW, SCL, SSQ;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // ..
       // .. External Subroutines ..
       // EXTERNAL ZGEMV, ZLASSQ, XERBLA

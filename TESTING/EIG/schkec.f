@@ -26,7 +26,7 @@
       // EXTERNAL SERREC, SGET31, SGET32, SGET33, SGET34, SGET35, SGET36, SGET37, SGET38, SGET39, SGET40, SSYL01
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. Executable Statements ..

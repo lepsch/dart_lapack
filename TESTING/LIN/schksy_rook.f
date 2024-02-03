@@ -40,7 +40,7 @@
       REAL               BLOCK( 2, 2 ), RESULT( NTESTS ), SDUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SGET06, SLANGE, SLANSY;
+      //- REAL               SGET06, SLANGE, SLANSY;
       // EXTERNAL SGET06, SLANGE, SLANSY
       // ..
       // .. External Subroutines ..

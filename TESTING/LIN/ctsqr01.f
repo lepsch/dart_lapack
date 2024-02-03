@@ -33,9 +33,9 @@
       COMPLEX            TQUERY( 5 ), WORKQUERY( 1 );
       // ..
       // .. External Functions ..
-      REAL     SLAMCH, CLANGE, CLANSY;
-      bool     LSAME;
-      int      ILAENV;
+      //- REAL     SLAMCH, CLANGE, CLANSY;
+      //- bool     LSAME;
+      //- int      ILAENV;
       // EXTERNAL SLAMCH, CLANGE, CLANSY, LSAME, ILAENV
       // ..
       // .. Intrinsic Functions ..

@@ -27,9 +27,9 @@
       COMPLEX            TMP, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANSY, SLAMCH;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- REAL               CLANSY, SLAMCH;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CLANSY, SLAMCH, CDOTC
       // ..
       // .. External Subroutines ..

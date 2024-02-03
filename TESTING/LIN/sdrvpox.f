@@ -38,8 +38,8 @@
       REAL               RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SGET06, SLANSY;
+      //- bool               LSAME;
+      //- REAL               SGET06, SLANSY;
       // EXTERNAL LSAME, SGET06, SLANSY
       // ..
       // .. External Subroutines ..

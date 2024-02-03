@@ -38,7 +38,7 @@
       REAL               RESULT( NTESTS ), RDUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, CQPT01, CQRT11, CQRT12, CLANGE;
+      //- REAL               SLAMCH, CQPT01, CQRT11, CQRT12, CLANGE;
       // EXTERNAL SLAMCH, CQPT01, CQRT11, CQRT12, CLANGE
       // ..
       // .. External Subroutines ..

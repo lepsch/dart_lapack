@@ -27,8 +27,8 @@
       bool               UP;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      bool               LSAME;
+      //- double             DLAMCH;
+      //- bool               LSAME;
       // EXTERNAL DLAMCH, LSAME
       // ..
       // .. External Subroutines ..

@@ -65,8 +65,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      REAL               SDIFF;
-      bool               LSE;
+      //- REAL               SDIFF;
+      //- bool               LSE;
       // EXTERNAL SDIFF, LSE
       // .. External Subroutines ..
       // EXTERNAL SCHK1, SCHK2, SCHK3, SCHK4, SCHK5, CS3CHKE, SMMCH
@@ -381,7 +381,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL CSGEMM, SMAKE, SMMCH
@@ -666,7 +666,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMMCH, CSSYMM
@@ -933,7 +933,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMMCH, CSTRMM, CSTRSM
@@ -1231,7 +1231,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMMCH, CSSYRK
@@ -1503,7 +1503,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LSE, LSERES;
+      //- bool               LSE, LSERES;
       // EXTERNAL LSE, LSERES
       // .. External Subroutines ..
       // EXTERNAL SMAKE, SMMCH, CSSYR2K
@@ -1803,7 +1803,7 @@
       int                I, IBEG, IEND, J;
       bool               GEN, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      REAL               SBEG;
+      //- REAL               SBEG;
       // EXTERNAL SBEG
       // .. Executable Statements ..
       GEN = TYPE == 'GE';

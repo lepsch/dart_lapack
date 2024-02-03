@@ -21,7 +21,7 @@
       bool               X_IS_NAN, Y_IS_NAN;
       // ..
       // .. External Functions ..
-      bool               DISNAN;
+      //- bool               DISNAN;
       // EXTERNAL DISNAN
       // ..
       // .. External Subroutines ..

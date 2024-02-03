@@ -27,9 +27,9 @@
       COMPLEX      ALPHA;
       // ..
       // .. External Functions ..
-      bool         LSAME;
-      int          ILAENV;
-      REAL         SROUNDUP_LWORK;
+      //- bool         LSAME;
+      //- int          ILAENV;
+      //- REAL         SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

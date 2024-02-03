@@ -26,9 +26,9 @@
       double             ANORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLANSY;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANSY;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..

@@ -18,7 +18,7 @@
       int     I,IX;
       // ..
       // .. External Functions ..
-      REAL SCABS1;
+      //- REAL SCABS1;
       // EXTERNAL SCABS1
       // ..
       ICAMAX = 0;

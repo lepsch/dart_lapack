@@ -24,9 +24,9 @@
       double             BNORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DASUM, DLAMCH;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DASUM, DLAMCH;
       // EXTERNAL LSAME, IDAMAX, DASUM, DLAMCH
       // ..
       // .. External Subroutines ..

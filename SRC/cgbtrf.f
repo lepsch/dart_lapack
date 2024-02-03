@@ -28,7 +28,7 @@
       COMPLEX            WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX );
       // ..
       // .. External Functions ..
-      int                ICAMAX, ILAENV;
+      //- int                ICAMAX, ILAENV;
       // EXTERNAL ICAMAX, ILAENV
       // ..
       // .. External Subroutines ..

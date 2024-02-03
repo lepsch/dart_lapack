@@ -28,7 +28,7 @@
       // INTRINSIC ABS, DCONJG
       // ..
       // .. External Functions ..
-      Complex         ZDOTC;
+      //- Complex         ZDOTC;
       // EXTERNAL ZDOTC
       // ..
       // .. External Subroutines ..

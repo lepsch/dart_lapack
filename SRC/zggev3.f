@@ -35,8 +35,8 @@
       // EXTERNAL XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0, ZLACPY, ZLASCL, ZLASET, ZTGEVC, ZUNGQR, ZUNMQR
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, DLAMCH, ZLANGE
       // ..
       // .. Intrinsic Functions ..

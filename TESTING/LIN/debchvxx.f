@@ -20,7 +20,7 @@
       int                IPIV(NMAX), IWORK(3*NMAX);
 
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
 
       // .. External Subroutines ..
       // EXTERNAL DLAHILB, DGESVXX, DPOSVXX, DSYSVXX, DGBSVXX, DLACPY, LSAMEN

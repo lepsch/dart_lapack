@@ -9,7 +9,7 @@
       REAL               X( NMAX ), Y( NMAX );
       // ..
       // .. External Functions ..
-      REAL               SECOND;
+      //- REAL               SECOND;
       // EXTERNAL SECOND
       // ..
       // .. External Subroutines ..

@@ -34,7 +34,7 @@
       // INTRINSIC ABS, DBLE, DCONJG, MAX, MIN
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Executable Statements ..

@@ -23,7 +23,7 @@
       REAL               BETA, RSAFMN, SAFMIN, XNORM;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH, SLAPY2, SNRM2;
+      //- REAL               SLAMCH, SLAPY2, SNRM2;
       // EXTERNAL SLAMCH, SLAPY2, SNRM2
       // ..
       // .. Intrinsic Functions ..

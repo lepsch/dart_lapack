@@ -25,7 +25,7 @@
       REAL               ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      REAL               SDOT, SLAMCH, SLANGE;
+      //- REAL               SDOT, SLAMCH, SLANGE;
       // EXTERNAL SDOT, SLAMCH, SLANGE
       // ..
       // .. External Subroutines ..

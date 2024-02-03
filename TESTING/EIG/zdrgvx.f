@@ -29,8 +29,8 @@
       Complex         WEIGHT( 5 );
       // ..
       // .. External Functions ..
-      int                ILAENV;
-      double             DLAMCH, ZLANGE;
+      //- int                ILAENV;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL ILAENV, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

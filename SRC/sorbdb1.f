@@ -27,7 +27,7 @@
       // EXTERNAL SLARF, SLARFGP, SORBDB5, SROT, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SNRM2;
+      //- REAL               SNRM2;
       // EXTERNAL SNRM2
       // ..
       // .. Intrinsic Function ..

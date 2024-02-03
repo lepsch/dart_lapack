@@ -95,8 +95,8 @@
       REAL              STRUE2(5), STRUE4(5);
       int               ITRUE3(5), ITRUEC(5);
       // .. External Functions ..
-      REAL              SCASUM, SCNRM2;
-      int               ICAMAX;
+      //- REAL              SCASUM, SCNRM2;
+      //- int               ICAMAX;
       // EXTERNAL SCASUM, SCNRM2, ICAMAX
       // .. External Subroutines ..
       // EXTERNAL CB1NRM2, CSCAL, CSSCAL, CTEST, ITEST1, STEST1
@@ -224,7 +224,7 @@
       COMPLEX           CDOT(1), CSIZE1(4), CSIZE2(7,2), CSIZE3(14), CT10X(7,4,4), CT10Y(7,4,4), CT6(4,4), CT7(4,4), CT8(7,4,4), CTY0(1), CX(7), CX0(1), CX1(7), CY(7), CY0(1), CY1(7);
       int               INCXS(4), INCYS(4), LENS(4,2), NS(4);
       // .. External Functions ..
-      COMPLEX           CDOTC, CDOTU;
+      //- COMPLEX           CDOTC, CDOTU;
       // EXTERNAL CDOTC, CDOTU
       // .. External Subroutines ..
       // EXTERNAL CAXPY, CCOPY, CSWAP, CTEST
@@ -346,7 +346,7 @@
       REAL             SD;
       int              I;
       // .. External Functions ..
-      REAL             SDIFF;
+      //- REAL             SDIFF;
       // EXTERNAL SDIFF
       // .. Intrinsic Functions ..
       // INTRINSIC ABS
@@ -504,7 +504,7 @@
       REAL              HALF, ONE, THREE, TWO, ZERO;
       const             HALF=0.5, ONE=1.0, TWO= 2.0, THREE=3.0, ZERO=0.0;
       // .. External Functions ..
-      REAL              SCNRM2;
+      //- REAL              SCNRM2;
       // EXTERNAL SCNRM2
       // .. Intrinsic Functions ..
       // INTRINSIC AIMAG, ABS, CMPLX, MAX, MIN, REAL, SQRT

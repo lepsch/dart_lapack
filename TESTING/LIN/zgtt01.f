@@ -26,7 +26,7 @@
       Complex         LI;
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGT, ZLANHS;
+      //- double             DLAMCH, ZLANGT, ZLANHS;
       // EXTERNAL DLAMCH, ZLANGT, ZLANHS
       // ..
       // .. Intrinsic Functions ..

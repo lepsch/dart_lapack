@@ -30,9 +30,9 @@
       Complex         D11, D21, D22, Z;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IZAMAX;
-      double             DLAMCH;
+      //- bool               LSAME;
+      //- int                IZAMAX;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, IZAMAX, DLAMCH
       // ..
       // .. External Subroutines ..

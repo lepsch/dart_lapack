@@ -28,7 +28,7 @@
       // INTRINSIC ABS, CONJG
       // ..
       // .. External Functions ..
-      COMPLEX            CDOTC;
+      //- COMPLEX            CDOTC;
       // EXTERNAL CDOTC
       // ..
       // .. External Subroutines ..

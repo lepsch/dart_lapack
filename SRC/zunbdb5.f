@@ -27,7 +27,7 @@
       // EXTERNAL ZLASSQ, ZUNBDB6, ZSCAL, XERBLA
       // ..
       // .. External Functions ..
-      double             DLAMCH, DZNRM2;
+      //- double             DLAMCH, DZNRM2;
       // EXTERNAL DLAMCH, DZNRM2
       // ..
       // .. Intrinsic Function ..

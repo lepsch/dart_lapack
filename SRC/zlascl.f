@@ -25,8 +25,8 @@
       double             BIGNUM, CFROM1, CFROMC, CTO1, CTOC, MUL, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      double             DLAMCH;
+      //- bool               LSAME, DISNAN;
+      //- double             DLAMCH;
       // EXTERNAL LSAME, DLAMCH, DISNAN
       // ..
       // .. Intrinsic Functions ..

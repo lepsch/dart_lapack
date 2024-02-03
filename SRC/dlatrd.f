@@ -26,8 +26,8 @@
       // EXTERNAL DAXPY, DGEMV, DLARFG, DSCAL, DSYMV
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT;
+      //- bool               LSAME;
+      //- double             DDOT;
       // EXTERNAL LSAME, DDOT
       // ..
       // .. Intrinsic Functions ..

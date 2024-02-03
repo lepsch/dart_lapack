@@ -24,8 +24,8 @@
       REAL               ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGT, SCASUM, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANGT, SCASUM, SLAMCH;
       // EXTERNAL LSAME, CLANGT, SCASUM, SLAMCH
       // ..
       // .. External Subroutines ..

@@ -26,9 +26,9 @@
       COMPLEX            T;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, CLANSP, SLAMCH;
-      COMPLEX            CDOTU;
+      //- bool               LSAME;
+      //- REAL               CLANGE, CLANSP, SLAMCH;
+      //- COMPLEX            CDOTU;
       // EXTERNAL LSAME, CLANGE, CLANSP, SLAMCH, CDOTU
       // ..
       // .. Intrinsic Functions ..

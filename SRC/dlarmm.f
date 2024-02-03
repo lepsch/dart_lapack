@@ -10,7 +10,7 @@
        double             BIGNUM, SMLNUM;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Executable Statements ..

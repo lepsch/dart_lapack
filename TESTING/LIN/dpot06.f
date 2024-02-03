@@ -25,8 +25,8 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH, DLANSY;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DLANSY;
       // EXTERNAL IDAMAX, DLAMCH, DLANSY
       // ..
       // .. External Subroutines ..

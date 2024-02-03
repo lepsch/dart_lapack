@@ -24,7 +24,7 @@
       double             SCALE, S, VALUE, AA, TEMP;
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
+      //- bool               LSAME, DISNAN;
       // EXTERNAL LSAME, DISNAN
       // ..
       // .. External Subroutines ..

@@ -26,9 +26,9 @@
       bool               UPPER;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      int                ILAENV;
-      bool               LSAME, DISNAN;
+      //- double             DLAMCH;
+      //- int                ILAENV;
+      //- bool               LSAME, DISNAN;
       // EXTERNAL DLAMCH, ILAENV, LSAME, DISNAN
       // ..
       // .. External Subroutines ..

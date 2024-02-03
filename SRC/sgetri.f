@@ -23,7 +23,7 @@
       int                I, IWS, J, JB, JJ, JP, LDWORK, LWKOPT, NB, NBMIN, NN;
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK

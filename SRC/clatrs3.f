@@ -31,9 +31,9 @@
       REAL               ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH, CLANGE, SLARMM, SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH, CLANGE, SLARMM, SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, SLAMCH, CLANGE, SLARMM, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

@@ -26,7 +26,7 @@
       // EXTERNAL SAXPY, SGEMV, SGER, SLARNV, SSCAL, SSYMV, SSYR2, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SDOT, SNRM2;
+      //- REAL               SDOT, SNRM2;
       // EXTERNAL SDOT, SNRM2
       // ..
       // .. Intrinsic Functions ..

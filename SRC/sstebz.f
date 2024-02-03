@@ -31,9 +31,9 @@
       int                IDUMMA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SLAMCH;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, ILAENV, SLAMCH
       // ..
       // .. External Subroutines ..

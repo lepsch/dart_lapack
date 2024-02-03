@@ -27,10 +27,10 @@
       Complex         CSUMJ, TJJS, USCAL, ZDUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX, IZAMAX;
-      double             DLAMCH, DZASUM;
-      Complex         ZDOTC, ZDOTU, ZLADIV;
+      //- bool               LSAME;
+      //- int                IDAMAX, IZAMAX;
+      //- double             DLAMCH, DZASUM;
+      //- Complex         ZDOTC, ZDOTU, ZLADIV;
       // EXTERNAL LSAME, IDAMAX, IZAMAX, DLAMCH, DZASUM, ZDOTC, ZDOTU, ZLADIV
       // ..
       // .. External Subroutines ..

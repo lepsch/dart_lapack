@@ -50,8 +50,8 @@
       double          , DIMENSION(:,:), ALLOCATABLE :: A, B, C;
       // ..
       // .. External Functions ..
-      bool               LSAMEN;
-      double             DLAMCH, DSECND;
+      //- bool               LSAMEN;
+      //- double             DLAMCH, DSECND;
       // EXTERNAL LSAMEN, DLAMCH, DSECND
       // ..
       // .. External Subroutines ..

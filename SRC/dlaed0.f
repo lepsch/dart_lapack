@@ -26,7 +26,7 @@
       // EXTERNAL DCOPY, DGEMM, DLACPY, DLAED1, DLAED7, DSTEQR, XERBLA
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Intrinsic Functions ..

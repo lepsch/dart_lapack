@@ -24,8 +24,8 @@
       double             FACTOR, XNORM, XNORMS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLARND, DNRM2;
+      //- bool               LSAME;
+      //- double             DLARND, DNRM2;
       // EXTERNAL LSAME, DLARND, DNRM2
       // ..
       // .. External Subroutines ..

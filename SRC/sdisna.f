@@ -24,8 +24,8 @@
       REAL               ANORM, EPS, NEWGAP, OLDGAP, SAFMIN, THRESH;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLAMCH;
+      //- bool               LSAME;
+      //- REAL               SLAMCH;
       // EXTERNAL LSAME, SLAMCH
       // ..
       // .. Intrinsic Functions ..

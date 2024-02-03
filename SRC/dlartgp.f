@@ -24,7 +24,7 @@
       double             EPS, F1, G1, SAFMIN, SAFMN2, SAFMX2, SCALE;
       // ..
       // .. External Functions ..
-      double             DLAMCH;
+      //- double             DLAMCH;
       // EXTERNAL DLAMCH
       // ..
       // .. Intrinsic Functions ..

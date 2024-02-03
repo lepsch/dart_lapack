@@ -24,7 +24,7 @@
       // INTRINSIC MAX, MIN
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Executable Statements ..

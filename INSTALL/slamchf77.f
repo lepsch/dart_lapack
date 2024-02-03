@@ -17,7 +17,7 @@
       REAL               BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..
@@ -150,7 +150,7 @@
       REAL               A, B, C, F, ONE, QTR, SAVEC, T1, T2;
       // ..
       // .. External Functions ..
-      REAL               SLAMC3;
+      //- REAL               SLAMC3;
       // EXTERNAL SLAMC3
       // ..
       // .. Save statement ..
@@ -359,7 +359,7 @@
       REAL               A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO;
       // ..
       // .. External Functions ..
-      REAL               SLAMC3;
+      //- REAL               SLAMC3;
       // EXTERNAL SLAMC3
       // ..
       // .. External Subroutines ..
@@ -611,7 +611,7 @@
       REAL               A, B1, B2, C1, C2, D1, D2, ONE, RBASE, ZERO;
       // ..
       // .. External Functions ..
-      REAL               SLAMC3;
+      //- REAL               SLAMC3;
       // EXTERNAL SLAMC3
       // ..
       // .. Executable Statements ..
@@ -719,7 +719,7 @@
       REAL               OLDY, RECBAS, Y, Z;
       // ..
       // .. External Functions ..
-      REAL               SLAMC3;
+      //- REAL               SLAMC3;
       // EXTERNAL SLAMC3
       // ..
       // .. Intrinsic Functions ..

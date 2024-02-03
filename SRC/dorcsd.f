@@ -29,7 +29,7 @@
       // EXTERNAL DBBCSD, DLACPY, DLAPMR, DLAPMT, DORBDB, DORGLQ, DORGQR, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Functions

@@ -19,8 +19,8 @@
       int                MB, NB, MINTSZ, NBLCKS, LWMIN, LWREQ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..
@@ -30,7 +30,7 @@
       // INTRINSIC MAX, MIN, MOD
       // ..
       // .. External Functions ..
-      int                ILAENV;
+      //- int                ILAENV;
       // EXTERNAL ILAENV
       // ..
       // .. Executable Statements ..

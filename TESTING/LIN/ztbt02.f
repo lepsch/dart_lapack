@@ -25,8 +25,8 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DZASUM, ZLANTB;
+      //- bool               LSAME;
+      //- double             DLAMCH, DZASUM, ZLANTB;
       // EXTERNAL LSAME, DLAMCH, DZASUM, ZLANTB
       // ..
       // .. External Subroutines ..

@@ -23,7 +23,7 @@
       REAL               EMIN, EPS, LOWER, MX, TUPPR, UNFLEP, UPPER;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

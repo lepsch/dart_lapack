@@ -23,8 +23,8 @@
       int                I, IINFO, n1, n2;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
-      int                ISAMAX;
+      //- REAL               SLAMCH;
+      //- int                ISAMAX;
       // EXTERNAL SLAMCH, ISAMAX
       // ..
       // .. External Subroutines ..

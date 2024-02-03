@@ -39,8 +39,8 @@
       REAL               RESULT( NTESTS ), SCALE3( 2 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SLANTR;
+      //- bool               LSAME;
+      //- REAL               SLANTR;
       // EXTERNAL LSAME, SLANTR
       // ..
       // .. External Subroutines ..

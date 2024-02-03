@@ -32,9 +32,9 @@
       COMPLEX            DUMMY( 1 ), DUMMY1( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- REAL               SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, SCNRM2, SLAMCH, SLAPY2, SROUNDUP_LWORK, CDOTC
       // ..
       // .. External Subroutines ..

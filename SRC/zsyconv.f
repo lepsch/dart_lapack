@@ -20,7 +20,7 @@
       const              ZERO = (0.0,0.0) ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
 
       // .. External Subroutines ..

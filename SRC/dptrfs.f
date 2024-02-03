@@ -36,8 +36,8 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DLAMCH;
+      //- int                IDAMAX;
+      //- double             DLAMCH;
       // EXTERNAL IDAMAX, DLAMCH
       // ..
       // .. Executable Statements ..

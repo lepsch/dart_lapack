@@ -27,9 +27,9 @@
       double             BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      double             DLAMCH, DLANST;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- double             DLAMCH, DLANST;
       // EXTERNAL LSAME, ILAENV, DLAMCH, DLANST
       // ..
       // .. External Subroutines ..

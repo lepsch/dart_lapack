@@ -23,7 +23,7 @@
       int                HERE, LWMIN, NBF, NBL, NBNEXT;
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

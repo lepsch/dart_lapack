@@ -28,8 +28,8 @@
       // EXTERNAL XERBLA, ZAXPY, ZGEMV, ZGERC, ZHEMV, ZHER2, ZLARNV, ZSCAL
       // ..
       // .. External Functions ..
-      double             DZNRM2;
-      Complex         ZDOTC;
+      //- double             DZNRM2;
+      //- Complex         ZDOTC;
       // EXTERNAL DZNRM2, ZDOTC
       // ..
       // .. Intrinsic Functions ..

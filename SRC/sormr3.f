@@ -19,7 +19,7 @@
       int                I, I1, I2, I3, IC, JA, JC, MI, NI, NQ;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

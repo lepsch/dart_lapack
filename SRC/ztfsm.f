@@ -24,7 +24,7 @@
       int                M1, M2, N1, N2, K, INFO, I, J;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

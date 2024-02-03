@@ -27,9 +27,9 @@
       REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ISAMAX;
-      REAL               SLAMCH, SLARND;
+      //- bool               LSAME;
+      //- int                ISAMAX;
+      //- REAL               SLAMCH, SLARND;
       // EXTERNAL LSAME, ISAMAX, SLAMCH, SLARND
       // ..
       // .. External Subroutines ..

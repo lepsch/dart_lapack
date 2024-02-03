@@ -27,9 +27,9 @@
       int                LWKOPT, NB;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL ILAENV, LSAME, SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

@@ -28,7 +28,7 @@
       REAL               Q( LDT, LDT ), Z( LDT, LDT ), RESULT( 4 ), T( LDT, LDT ), T1( LDT, LDT ), T2( LDT, LDT ), S( LDT, LDT ), S1( LDT, LDT ), S2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK );
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

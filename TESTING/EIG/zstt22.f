@@ -26,7 +26,7 @@
       Complex         AUKJ;
       // ..
       // .. External Functions ..
-      double             DLAMCH, ZLANGE, ZLANSY;
+      //- double             DLAMCH, ZLANGE, ZLANSY;
       // EXTERNAL DLAMCH, ZLANGE, ZLANSY
       // ..
       // .. External Subroutines ..

@@ -34,7 +34,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DQPT01, DQRT11, DQRT12;
+      //- double             DLAMCH, DQPT01, DQRT11, DQRT12;
       // EXTERNAL DLAMCH, DQPT01, DQRT11, DQRT12
       // ..
       // .. External Subroutines ..

@@ -27,8 +27,8 @@
       REAL               ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
       // ..
       // .. External Functions ..
-      int                ICMAX1;
-      REAL               SCSUM1, SLAMCH;
+      //- int                ICMAX1;
+      //- REAL               SCSUM1, SLAMCH;
       // EXTERNAL ICMAX1, SCSUM1, SLAMCH
       // ..
       // .. External Subroutines ..

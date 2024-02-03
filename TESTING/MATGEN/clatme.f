@@ -38,9 +38,9 @@
       REAL               TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE;
-      COMPLEX            CLARND;
+      //- bool               LSAME;
+      //- REAL               CLANGE;
+      //- COMPLEX            CLARND;
       // EXTERNAL LSAME, CLANGE, CLARND
       // ..
       // .. External Subroutines ..

@@ -28,8 +28,8 @@
       Complex         TQ( 5 ), WORKQ( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, ZLANGE;
+      //- bool               LSAME;
+      //- double             DLAMCH, ZLANGE;
       // EXTERNAL LSAME, DLAMCH, ZLANGE
       // ..
       // .. External Subroutines ..

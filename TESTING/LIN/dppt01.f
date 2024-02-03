@@ -24,8 +24,8 @@
       double             ANORM, EPS, T;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT, DLAMCH, DLANSP;
+      //- bool               LSAME;
+      //- double             DDOT, DLAMCH, DLANSP;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLANSP
       // ..
       // .. External Subroutines ..

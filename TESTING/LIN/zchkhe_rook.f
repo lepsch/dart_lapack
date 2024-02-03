@@ -46,7 +46,7 @@
       Complex         BLOCK( 2, 2 ), ZDUMMY( 1 );
       // ..
       // .. External Functions ..
-      double             ZLANGE, ZLANHE, DGET06;
+      //- double             ZLANGE, ZLANHE, DGET06;
       // EXTERNAL ZLANGE, ZLANHE, DGET06
       // ..
       // .. External Subroutines ..

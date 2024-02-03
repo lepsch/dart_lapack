@@ -30,8 +30,8 @@
       // EXTERNAL SAXPY, SLARF, SLARFGP, SSCAL, XERBLA
       // ..
       // .. External Functions ..
-      REAL               SNRM2;
-      bool               LSAME;
+      //- REAL               SNRM2;
+      //- bool               LSAME;
       // EXTERNAL SNRM2, LSAME
       // ..
       // .. Intrinsic Functions

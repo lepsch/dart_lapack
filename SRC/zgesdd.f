@@ -38,8 +38,8 @@
       // EXTERNAL DBDSDC, DLASCL, XERBLA, ZGEBRD, ZGELQF, ZGEMM, ZGEQRF, ZLACP2, ZLACPY, ZLACRM, ZLARCM, ZLASCL, ZLASET, ZUNGBR, ZUNGLQ, ZUNGQR, ZUNMBR
       // ..
       // .. External Functions ..
-      bool               LSAME, DISNAN;
-      double             DLAMCH, ZLANGE, DROUNDUP_LWORK;
+      //- bool               LSAME, DISNAN;
+      //- double             DLAMCH, ZLANGE, DROUNDUP_LWORK;
       // EXTERNAL LSAME, DLAMCH, ZLANGE, DISNAN,  DROUNDUP_LWORK
       // ..
       // .. Intrinsic Functions ..

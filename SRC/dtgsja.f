@@ -28,7 +28,7 @@
       double             A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

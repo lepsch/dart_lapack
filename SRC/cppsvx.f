@@ -26,8 +26,8 @@
       REAL               AMAX, ANORM, BIGNUM, SCOND, SMAX, SMIN, SMLNUM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANHP, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANHP, SLAMCH;
       // EXTERNAL LSAME, CLANHP, SLAMCH
       // ..
       // .. External Subroutines ..

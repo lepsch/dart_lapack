@@ -37,7 +37,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               ZGENND;
+      //- bool               ZGENND;
       // EXTERNAL ZGENND
       // ..
       // .. External Subroutines ..

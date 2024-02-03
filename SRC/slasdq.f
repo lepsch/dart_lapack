@@ -27,7 +27,7 @@
       // EXTERNAL SBDSQR, SLARTG, SLASR, SSWAP, XERBLA
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. Intrinsic Functions ..

@@ -29,8 +29,8 @@
       // INTRINSIC ABS, DCONJG, MAX, SQRT
       // ..
       // .. External Functions ..
-      double             DLAMCH;
-      Complex         ZDOTC;
+      //- double             DLAMCH;
+      //- Complex         ZDOTC;
       // EXTERNAL DLAMCH, ZDOTC
       // ..
       // .. Executable Statements ..

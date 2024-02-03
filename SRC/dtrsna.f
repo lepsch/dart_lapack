@@ -30,8 +30,8 @@
       double             DUMMY( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DDOT, DLAMCH, DLAPY2, DNRM2;
+      //- bool               LSAME;
+      //- double             DDOT, DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL LSAME, DDOT, DLAMCH, DLAPY2, DNRM2
       // ..
       // .. External Subroutines ..

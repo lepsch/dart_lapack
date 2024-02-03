@@ -32,8 +32,8 @@
       bool               LTEST( NSUBS );
       String             SNAMES( NSUBS );
       // .. External Functions ..
-      REAL               SDIFF;
-      bool               LCE;
+      //- REAL               SDIFF;
+      //- bool               LCE;
       // EXTERNAL SDIFF, LCE
       // .. External Subroutines ..
       // EXTERNAL CCHK1, CCHK2, CCHK3, CCHK4, CCHK5, CCHKE, CMMCH
@@ -302,7 +302,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CGEMM, CMAKE, CMMCH
@@ -548,7 +548,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CHEMM, CMAKE, CMMCH, CSYMM
@@ -786,7 +786,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CMAKE, CMMCH, CTRMM, CTRSM
@@ -1038,7 +1038,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CHERK, CMAKE, CMMCH, CSYRK
@@ -1317,7 +1317,7 @@
       // .. Local Arrays ..
       bool               ISAME( 13 );
       // .. External Functions ..
-      bool               LCE, LCERES;
+      //- bool               LCE, LCERES;
       // EXTERNAL LCE, LCERES
       // .. External Subroutines ..
       // EXTERNAL CHER2K, CMAKE, CMMCH, CSYR2K
@@ -2557,7 +2557,7 @@
       int                I, IBEG, IEND, J, JJ;
       bool               GEN, HER, LOWER, SYM, TRI, UNIT, UPPER;
       // .. External Functions ..
-      COMPLEX            CBEG;
+      //- COMPLEX            CBEG;
       // EXTERNAL CBEG
       // .. Intrinsic Functions ..
       // INTRINSIC CMPLX, CONJG, REAL

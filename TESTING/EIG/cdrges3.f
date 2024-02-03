@@ -38,10 +38,10 @@
       REAL               RMAGN( 0: 3 );
       // ..
       // .. External Functions ..
-      bool               CLCTES;
-      int                ILAENV;
-      REAL               SLAMCH;
-      COMPLEX            CLARND;
+      //- bool               CLCTES;
+      //- int                ILAENV;
+      //- REAL               SLAMCH;
+      //- COMPLEX            CLARND;
       // EXTERNAL CLCTES, ILAENV, SLAMCH, CLARND
       // ..
       // .. External Subroutines ..

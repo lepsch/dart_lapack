@@ -27,9 +27,9 @@
       double             ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                IDAMAX;
-      double             DLAMCH, DLARND;
+      //- bool               LSAME;
+      //- int                IDAMAX;
+      //- double             DLAMCH, DLARND;
       // EXTERNAL LSAME, IDAMAX, DLAMCH, DLARND
       // ..
       // .. External Subroutines ..

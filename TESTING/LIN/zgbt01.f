@@ -25,7 +25,7 @@
       Complex         T;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DZASUM;
+      //- double             DLAMCH, DZASUM;
       // EXTERNAL DLAMCH, DZASUM
       // ..
       // .. External Subroutines ..

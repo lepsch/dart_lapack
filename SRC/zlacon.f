@@ -27,8 +27,8 @@
       double             ABSXI, ALTSGN, ESTOLD, SAFMIN, TEMP;
       // ..
       // .. External Functions ..
-      int                IZMAX1;
-      double             DLAMCH, DZSUM1;
+      //- int                IZMAX1;
+      //- double             DLAMCH, DZSUM1;
       // EXTERNAL IZMAX1, DLAMCH, DZSUM1
       // ..
       // .. External Subroutines ..

@@ -41,7 +41,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DGET06, ZLANSY;
+      //- double             DGET06, ZLANSY;
       // EXTERNAL DGET06, ZLANSY
       // ..
       // .. External Subroutines ..

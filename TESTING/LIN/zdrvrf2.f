@@ -24,7 +24,7 @@
       int                ISEED( 4 ), ISEEDY( 4 );
       // ..
       // .. External Functions ..
-      Complex         ZLARND;
+      //- Complex         ZLARND;
       // EXTERNAL ZLARND
       // ..
       // .. External Subroutines ..

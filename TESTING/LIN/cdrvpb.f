@@ -39,8 +39,8 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, CLANHB, SGET06;
+      //- bool               LSAME;
+      //- REAL               CLANGE, CLANHB, SGET06;
       // EXTERNAL LSAME, CLANGE, CLANHB, SGET06
       // ..
       // .. External Subroutines ..

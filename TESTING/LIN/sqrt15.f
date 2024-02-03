@@ -27,7 +27,7 @@
       REAL               DUMMY( 1 );
       // ..
       // .. External Functions ..
-      REAL               SASUM, SLAMCH, SLANGE, SLARND, SNRM2;
+      //- REAL               SASUM, SLAMCH, SLANGE, SLARND, SNRM2;
       // EXTERNAL SASUM, SLAMCH, SLANGE, SLARND, SNRM2
       // ..
       // .. External Subroutines ..

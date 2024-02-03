@@ -31,7 +31,7 @@
       REAL               BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ;
       // ..
       // .. External Functions ..
-      REAL               SLAMCH;
+      //- REAL               SLAMCH;
       // EXTERNAL SLAMCH
       // ..
       // .. External Subroutines ..

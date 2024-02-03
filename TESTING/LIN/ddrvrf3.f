@@ -32,8 +32,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             DLAMCH, DLANGE, DLARND;
+      //- bool               LSAME;
+      //- double             DLAMCH, DLANGE, DLARND;
       // EXTERNAL DLAMCH, DLANGE, DLARND, LSAME
       // ..
       // .. External Subroutines ..

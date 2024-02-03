@@ -24,7 +24,7 @@
       int                INFO, NROWA, J, NK, N1, N2;
       // ..
       // .. External Functions ..
-      bool               LSAME;
+      //- bool               LSAME;
       // EXTERNAL LSAME
       // ..
       // .. External Subroutines ..

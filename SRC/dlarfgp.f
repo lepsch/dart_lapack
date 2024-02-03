@@ -23,7 +23,7 @@
       double             BETA, BIGNUM, EPS, SAVEALPHA, SMLNUM, XNORM;
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLAPY2, DNRM2;
+      //- double             DLAMCH, DLAPY2, DNRM2;
       // EXTERNAL DLAMCH, DLAPY2, DNRM2
       // ..
       // .. Intrinsic Functions ..

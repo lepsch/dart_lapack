@@ -37,9 +37,9 @@
       // INTRINSIC MIN, MAX, CEILING, REAL
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ILAENV2STAGE;
-      REAL               SROUNDUP_LWORK;
+      //- bool               LSAME;
+      //- int                ILAENV2STAGE;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL LSAME, ILAENV2STAGE, SROUNDUP_LWORK
       // ..
       // .. Executable Statements ..

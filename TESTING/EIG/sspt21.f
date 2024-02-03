@@ -27,8 +27,8 @@
       REAL               ANORM, TEMP, ULP, UNFL, VSAVE, WNORM;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               SDOT, SLAMCH, SLANGE, SLANSP;
+      //- bool               LSAME;
+      //- REAL               SDOT, SLAMCH, SLANGE, SLANSP;
       // EXTERNAL LSAME, SDOT, SLAMCH, SLANGE, SLANSP
       // ..
       // .. External Subroutines ..

@@ -34,7 +34,7 @@
       int                ISAVE( 3 );
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

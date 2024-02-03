@@ -24,7 +24,7 @@
       double             ANORM, BNORM, EPS, XNORM;
       // ..
       // .. External Functions ..
-      double             DASUM, DLAMCH, DLANSB;
+      //- double             DASUM, DLAMCH, DLANSB;
       // EXTERNAL DASUM, DLAMCH, DLANSB
       // ..
       // .. External Subroutines ..

@@ -27,8 +27,8 @@
       REAL               AINVNM, ANORM, EPS;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANGE, CLANHP, SLAMCH;
+      //- bool               LSAME;
+      //- REAL               CLANGE, CLANHP, SLAMCH;
       // EXTERNAL LSAME, CLANGE, CLANHP, SLAMCH
       // ..
       // .. Intrinsic Functions ..

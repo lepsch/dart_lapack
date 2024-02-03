@@ -24,8 +24,8 @@
       REAL               AJJ;
       // ..
       // .. External Functions ..
-      bool               LSAME, SISNAN;
-      REAL               SDOT;
+      //- bool               LSAME, SISNAN;
+      //- REAL               SDOT;
       // EXTERNAL LSAME, SDOT, SISNAN
       // ..
       // .. External Subroutines ..

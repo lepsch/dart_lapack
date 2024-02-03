@@ -29,7 +29,7 @@
       const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..
-      double             DLAPY2;
+      //- double             DLAPY2;
       // EXTERNAL DLAPY2
       // ..
       // .. Executable Statements ..

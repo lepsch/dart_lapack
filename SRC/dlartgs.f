@@ -21,7 +21,7 @@
       // EXTERNAL DLARTGP
       // ..
       // .. External Functions ..
-      double                  DLAMCH;
+      //- double                  DLAMCH;
       // EXTERNAL DLAMCH
       // .. Executable Statements ..
 

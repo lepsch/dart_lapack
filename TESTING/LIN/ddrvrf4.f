@@ -32,7 +32,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLARND, DLANGE;
+      //- double             DLAMCH, DLARND, DLANGE;
       // EXTERNAL DLAMCH, DLARND, DLANGE
       // ..
       // .. External Subroutines ..

@@ -24,8 +24,8 @@
       REAL               AII;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      COMPLEX            CDOTC;
+      //- bool               LSAME;
+      //- COMPLEX            CDOTC;
       // EXTERNAL LSAME, CDOTC
       // ..
       // .. External Subroutines ..

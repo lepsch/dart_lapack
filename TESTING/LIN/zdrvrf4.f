@@ -33,8 +33,8 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DLAMCH, DLARND, ZLANGE;
-      Complex         ZLARND;
+      //- double             DLAMCH, DLARND, ZLANGE;
+      //- Complex         ZLARND;
       // EXTERNAL DLAMCH, DLARND, ZLANGE, ZLARND
       // ..
       // .. External Subroutines ..

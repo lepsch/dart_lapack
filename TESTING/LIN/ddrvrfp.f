@@ -50,7 +50,7 @@
       double             RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      double             DLANSY;
+      //- double             DLANSY;
       // EXTERNAL DLANSY
       // ..
       // .. External Subroutines ..

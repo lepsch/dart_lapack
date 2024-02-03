@@ -23,7 +23,7 @@
       double             T1, T2;
       // ..
       // .. External Functions ..
-      double             DLARAN;
+      //- double             DLARAN;
       // EXTERNAL DLARAN
       // ..
       // .. Intrinsic Functions ..

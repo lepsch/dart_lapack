@@ -38,9 +38,9 @@
       double             TEMPA( 1 );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      double             ZLANGE;
-      Complex         ZLARND;
+      //- bool               LSAME;
+      //- double             ZLANGE;
+      //- Complex         ZLARND;
       // EXTERNAL LSAME, ZLANGE, ZLARND
       // ..
       // .. External Subroutines ..

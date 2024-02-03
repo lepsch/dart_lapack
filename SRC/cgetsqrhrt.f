@@ -23,7 +23,7 @@
       int                I, IINFO, J, LW1, LW2, LWT, LDWT, LWORKOPT, NB1LOCAL, NB2LOCAL, NUM_ALL_ROW_BLOCKS;
       // ..
       // .. External Functions ..
-      REAL               SROUNDUP_LWORK;
+      //- REAL               SROUNDUP_LWORK;
       // EXTERNAL SROUNDUP_LWORK
       // ..
       // .. External Subroutines ..

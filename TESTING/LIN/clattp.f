@@ -29,10 +29,10 @@
       COMPLEX            CTEMP, PLUS1, PLUS2, RA, RB, S, STAR1;
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      int                ICAMAX;
-      REAL               SLAMCH;
-      COMPLEX            CLARND;
+      //- bool               LSAME;
+      //- int                ICAMAX;
+      //- REAL               SLAMCH;
+      //- COMPLEX            CLARND;
       // EXTERNAL LSAME, ICAMAX, SLAMCH, CLARND
       // ..
       // .. External Subroutines ..

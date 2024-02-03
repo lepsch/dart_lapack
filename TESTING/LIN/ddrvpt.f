@@ -37,8 +37,8 @@
       double             RESULT( NTESTS ), Z( 3 );
       // ..
       // .. External Functions ..
-      int                IDAMAX;
-      double             DASUM, DGET06, DLANST;
+      //- int                IDAMAX;
+      //- double             DASUM, DGET06, DLANST;
       // EXTERNAL IDAMAX, DASUM, DGET06, DLANST
       // ..
       // .. External Subroutines ..

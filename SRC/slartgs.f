@@ -21,7 +21,7 @@
       // EXTERNAL SLARTGP
       // ..
       // .. External Functions ..
-      REAL                    SLAMCH;
+      //- REAL                    SLAMCH;
       // EXTERNAL SLAMCH
       // .. Executable Statements ..
 

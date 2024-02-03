@@ -40,8 +40,8 @@
       REAL               RESULT( NTESTS );
       // ..
       // .. External Functions ..
-      bool               LSAME;
-      REAL               CLANTB, CLANTR;
+      //- bool               LSAME;
+      //- REAL               CLANTB, CLANTR;
       // EXTERNAL LSAME, CLANTB, CLANTR
       // ..
       // .. External Subroutines ..

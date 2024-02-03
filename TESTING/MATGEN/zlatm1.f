@@ -25,8 +25,8 @@
       Complex         CTEMP;
       // ..
       // .. External Functions ..
-      double             DLARAN;
-      Complex         ZLARND;
+      //- double             DLARAN;
+      //- Complex         ZLARND;
       // EXTERNAL DLARAN, ZLARND
       // ..
       // .. External Subroutines ..
