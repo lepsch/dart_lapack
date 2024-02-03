@@ -112,7 +112,4 @@
 
       ZLANSY = VALUE;
       return;
-
-      // End of ZLANSY
-
       }

@@ -437,7 +437,4 @@
       WORK( 1 ) = LWMIN;
       IWORK( 1 ) = LIWMIN;
       return;
-
-      // End of DSTEMR
-
       }

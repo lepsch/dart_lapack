@@ -123,7 +123,4 @@
       Z( J4+2 ) = DN;
       Z( 4*N0-PP ) = EMIN;
       return;
-
-      // End of DLASQ6
-
       }

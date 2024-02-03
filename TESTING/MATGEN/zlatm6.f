@@ -106,7 +106,4 @@
       DIF( 5 ) = RWORK( 8 );
 
       return;
-
-      // End of ZLATM6
-
       }

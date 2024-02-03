@@ -125,7 +125,4 @@
       } // 60
 
       return;
-
-      // End of ZGTT05
-
       }

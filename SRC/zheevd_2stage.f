@@ -174,7 +174,4 @@
       IWORK( 1 ) = LIWMIN;
 
       return;
-
-      // End of ZHEEVD_2STAGE
-
       }

@@ -61,7 +61,4 @@
          A( M-K+I, N-K+I ) = ALPHA;
       } // 10
       return;
-
-      // End of ZGEQL2
-
       }

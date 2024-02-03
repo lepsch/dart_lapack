@@ -243,7 +243,4 @@
       }
 
       return;
-
-      // End of DGGSVP
-
       }

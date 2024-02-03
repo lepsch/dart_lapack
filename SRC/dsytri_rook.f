@@ -280,7 +280,4 @@
       }
 
       return;
-
-      // End of DSYTRI_ROOK
-
       }

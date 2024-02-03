@@ -214,7 +214,4 @@
       SIGMA = T;
 
       return;
-
-      // End of DLASQ3
-
       }

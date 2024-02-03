@@ -76,7 +76,4 @@
          dger(N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ), LDA );
       } // 10
       return;
-
-      // End of DLARGE
-
       }

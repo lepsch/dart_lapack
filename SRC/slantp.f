@@ -224,7 +224,4 @@
 
       SLANTP = VALUE;
       return;
-
-      // End of SLANTP
-
       }

@@ -100,7 +100,4 @@
       }
       SLATM2 = TEMP;
       return;
-
-      // End of SLATM2
-
       }

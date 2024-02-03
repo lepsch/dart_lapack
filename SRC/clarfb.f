@@ -465,7 +465,4 @@
       }
 
       return;
-
-      // End of CLARFB
-
       }

@@ -139,7 +139,4 @@
 
       SLANSP = VALUE;
       return;
-
-      // End of SLANSP
-
       }

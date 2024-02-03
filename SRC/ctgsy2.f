@@ -194,7 +194,4 @@
          } // 80
       }
       return;
-
-      // End of CTGSY2
-
       }

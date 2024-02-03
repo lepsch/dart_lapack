@@ -182,7 +182,4 @@
       DEALLOCATE (SWORK, STAT = AllocateStatus);
 
       return;
-
-      // End of CSYL01
-
       }

@@ -116,7 +116,4 @@
          zlacgv(NQ-K+I-1, A( I, 1 ), LDA );
       } // 10
       return;
-
-      // End of ZUNMR2
-
       }

@@ -242,7 +242,4 @@
       }
 
       return;
-
-      // End of CLAED8
-
       }

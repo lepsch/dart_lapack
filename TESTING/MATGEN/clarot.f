@@ -101,7 +101,4 @@
       }
 
       return;
-
-      // End of CLAROT
-
       }

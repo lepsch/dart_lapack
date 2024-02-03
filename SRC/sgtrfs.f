@@ -235,7 +235,4 @@
       } // 110
 
       return;
-
-      // End of SGTRFS
-
       }

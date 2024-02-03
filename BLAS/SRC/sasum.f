@@ -54,7 +54,4 @@
       }
       SASUM = STEMP;
       return;
-
-      // End of SASUM
-
       }

@@ -681,7 +681,4 @@
       } // 70
 
       return;
-
-      // End of CHETF2_ROOK
-
       }

@@ -299,7 +299,4 @@
 
       } // 180
       return;
-
-      // End of DSTERF
-
       }

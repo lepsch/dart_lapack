@@ -167,7 +167,4 @@
       } // 20
       INFO = 1;
       return;
-
-      // End of ZTGEX2
-
       }

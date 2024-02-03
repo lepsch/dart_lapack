@@ -149,7 +149,4 @@
          }
       }
       return;
-
-      // End of CHEGST
-
       }

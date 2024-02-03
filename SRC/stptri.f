@@ -113,7 +113,4 @@
       }
 
       return;
-
-      // End of STPTRI
-
       }

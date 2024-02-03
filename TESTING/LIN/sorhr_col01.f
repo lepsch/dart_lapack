@@ -277,7 +277,4 @@
       DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T1, T2, DIAG, C, D, CF, DF );
 
       return;
-
-      // End of SORHR_COL01
-
       }

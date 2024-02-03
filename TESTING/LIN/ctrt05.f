@@ -136,7 +136,4 @@
       } // 90
 
       return;
-
-      // End of CTRT05
-
       }

@@ -103,7 +103,4 @@
          RESID = ( RESID / REAL( N ) ) / EPS;
       }
       return;
-
-      // End of SORT01
-
       }

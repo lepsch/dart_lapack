@@ -218,7 +218,4 @@
       cgemm('N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC );
       cgemm('N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF );
       cgemm('N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF );
-
-      // End of CLATM5
-
       }

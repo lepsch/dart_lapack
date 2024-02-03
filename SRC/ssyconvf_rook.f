@@ -327,7 +327,4 @@
       }
 
       return;
-
-      // End of SSYCONVF_ROOK
-
       }

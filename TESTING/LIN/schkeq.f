@@ -354,7 +354,4 @@
  9995 FORMAT( ' SPPEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 );
  9994 FORMAT( ' SPBEQU failed test with value ', E10.3, ' exceeding', ' threshold ', E10.3 );
       return;
-
-      // End of SCHKEQ
-
       }

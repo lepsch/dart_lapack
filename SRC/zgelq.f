@@ -146,7 +146,4 @@
       WORK( 1 ) = LWREQ;
 
       return;
-
-      // End of ZGELQ
-
       }

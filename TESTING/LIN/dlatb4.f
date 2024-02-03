@@ -515,7 +515,4 @@
       if (N <= 1) CNDNUM = ONE;
 
       return;
-
-      // End of DLATB4
-
       }

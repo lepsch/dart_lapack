@@ -39,7 +39,4 @@
          SLAPY3 = W*sqrt( ( XABS / W )**2+( YABS / W )**2+ ( ZABS / W )**2 );
       }
       return;
-
-      // End of SLAPY3
-
       }

@@ -61,7 +61,4 @@
       }
       SDOT = STEMP;
       return;
-
-      // End of SDOT
-
       }

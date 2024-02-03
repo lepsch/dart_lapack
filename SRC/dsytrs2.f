@@ -213,7 +213,4 @@
       dsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
       return;
-
-      // End of DSYTRS2
-
       }

@@ -81,7 +81,4 @@
          }
       } // 10
       return;
-
-      // End of CGETF2
-
       }

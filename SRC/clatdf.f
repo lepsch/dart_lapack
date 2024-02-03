@@ -143,7 +143,4 @@
 
       classq(N, RHS, 1, RDSCAL, RDSUM );
       return;
-
-      // End of CLATDF
-
       }

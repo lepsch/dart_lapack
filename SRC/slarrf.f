@@ -278,7 +278,4 @@
       }
 
       return;
-
-      // End of SLARRF
-
       }

@@ -105,7 +105,4 @@
          }
       }
       return;
-
-      // End of SSPGV
-
       }

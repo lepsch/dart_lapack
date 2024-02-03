@@ -48,7 +48,4 @@
          } // 10
       }
       return;
-
-      // End of SSLECT
-
       }

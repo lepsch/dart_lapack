@@ -137,7 +137,4 @@
 
       } // 20
       return;
-
-      // End of ZTBCON
-
       }

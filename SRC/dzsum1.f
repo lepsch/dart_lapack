@@ -50,7 +50,4 @@
       } // 30
       DZSUM1 = STEMP;
       return;
-
-      // End of DZSUM1
-
       }

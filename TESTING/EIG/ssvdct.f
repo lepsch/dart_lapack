@@ -115,7 +115,4 @@
          }
       } // 20
       return;
-
-      // End of SSVDCT
-
       }

@@ -90,7 +90,4 @@
 
       SLANHS = VALUE;
       return;
-
-      // End of SLANHS
-
       }

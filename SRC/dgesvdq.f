@@ -883,7 +883,4 @@
       NUMRANK = NR;
 
       return;
-
-      // End of DGESVDQ
-
       }

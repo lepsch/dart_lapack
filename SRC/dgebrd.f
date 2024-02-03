@@ -137,7 +137,4 @@
       dgebd2(M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, IINFO );
       WORK( 1 ) = WS;
       return;
-
-      // End of DGEBRD
-
       }

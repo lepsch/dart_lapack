@@ -991,7 +991,4 @@
       SWORK(2,1) = 2 * NBB + NBA;
 
       return;
-
-      // End of DTRSYL3
-
       }

@@ -179,7 +179,4 @@
       }
 
       return;
-
-      // End of DSB2ST_KERNELS
-
       }

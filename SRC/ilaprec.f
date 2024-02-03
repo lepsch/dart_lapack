@@ -31,7 +31,4 @@
          ILAPREC = -1;
       }
       return;
-
-      // End of ILAPREC
-
       }

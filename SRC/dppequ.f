@@ -115,7 +115,4 @@
          SCOND = sqrt( SMIN ) / sqrt( AMAX );
       }
       return;
-
-      // End of DPPEQU
-
       }

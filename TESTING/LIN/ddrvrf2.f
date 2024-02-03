@@ -163,7 +163,4 @@
  9996 FORMAT( 1X, 'RFP conversion routines: ',I5,' out of ',I5, ' error message recorded');
 
       return;
-
-      // End of DDRVRF2
-
       }

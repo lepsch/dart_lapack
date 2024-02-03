@@ -123,7 +123,4 @@
       } // 150
 
       return;
-
-      // End of DGET33
-
       }

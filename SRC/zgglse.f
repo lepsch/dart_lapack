@@ -154,7 +154,4 @@
       WORK( 1 ) = P + MN + max( LOPT, INT( WORK( P+MN+1 ) ) );
 
       return;
-
-      // End of ZGGLSE
-
       }

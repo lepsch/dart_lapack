@@ -162,7 +162,4 @@
       }
 
       return;
-
-      // End of CHPR2
-
       }

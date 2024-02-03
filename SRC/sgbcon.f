@@ -151,7 +151,4 @@
 
       } // 40
       return;
-
-      // End of SGBCON
-
       }

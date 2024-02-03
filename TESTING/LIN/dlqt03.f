@@ -113,7 +113,4 @@
       } // 30
 
       return;
-
-      // End of DLQT03
-
       }

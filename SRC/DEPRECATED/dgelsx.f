@@ -236,7 +236,4 @@
       } // 100
 
       return;
-
-      // End of DGELSX
-
       }

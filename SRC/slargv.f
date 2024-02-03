@@ -56,7 +56,4 @@
          IX = IX + INCX;
       } // 10
       return;
-
-      // End of SLARGV
-
       }

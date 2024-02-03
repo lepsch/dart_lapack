@@ -89,7 +89,4 @@
       DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( max( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) DQPT01 = DQPT01 / NORMA;
 
       return;
-
-      // End of DQPT01
-
       }

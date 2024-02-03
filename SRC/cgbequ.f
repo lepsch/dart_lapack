@@ -172,7 +172,4 @@
       }
 
       return;
-
-      // End of CGBEQU
-
       }

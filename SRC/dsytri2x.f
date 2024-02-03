@@ -440,7 +440,4 @@
       }
 
       return;
-
-      // End of DSYTRI2X
-
       }

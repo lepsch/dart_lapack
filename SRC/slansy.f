@@ -111,7 +111,4 @@
 
       SLANSY = VALUE;
       return;
-
-      // End of SLANSY
-
       }

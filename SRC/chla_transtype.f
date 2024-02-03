@@ -25,7 +25,4 @@
          CHLA_TRANSTYPE = 'X';
       }
       return;
-
-      // End of CHLA_TRANSTYPE
-
       }

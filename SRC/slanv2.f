@@ -170,7 +170,4 @@
          RT2I = -RT1I;
       }
       return;
-
-      // End of SLANV2
-
       }

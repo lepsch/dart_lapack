@@ -308,7 +308,4 @@
       }
 
       return;
-
-      // End of SSYTRS_ROOK
-
       }

@@ -26,7 +26,4 @@
          } // 10
       } // 20
       return;
-
-      // End of CLAG2Z
-
       }

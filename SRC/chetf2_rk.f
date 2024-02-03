@@ -756,7 +756,4 @@
       }
 
       return;
-
-      // End of CHETF2_RK
-
       }

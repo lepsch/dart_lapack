@@ -110,7 +110,4 @@
       } // 30
 
       return;
-
-      // End of SGBT02
-
       }

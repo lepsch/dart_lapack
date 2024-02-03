@@ -109,7 +109,4 @@
       } // 70
 
       return;
-
-      // End of SGBT05
-
       }

@@ -134,7 +134,4 @@
 
       ZLANHB = VALUE;
       return;
-
-      // End of ZLANHB
-
       }

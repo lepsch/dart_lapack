@@ -439,7 +439,4 @@
       }
 
       return;
-
-      // End of SSYTRI2X
-
       }

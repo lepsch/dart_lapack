@@ -345,7 +345,4 @@
       }
 
       return;
-
-      // End of ZHETRI_ROOK
-
       }

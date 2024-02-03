@@ -95,7 +95,4 @@
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       return;
-
-      // End of ZPTCON
-
       }

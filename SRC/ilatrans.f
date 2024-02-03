@@ -29,7 +29,4 @@
          ILATRANS = -1;
       }
       return;
-
-      // End of ILATRANS
-
       }

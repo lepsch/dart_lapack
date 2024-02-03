@@ -147,9 +147,6 @@
  9999 FORMAT( ' CLAROR in CCKCSD: M = ', I5, ', INFO = ', I15 );
  9998 FORMAT( ' M=', I4, ' P=', I4, ', Q=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
       return;
-
-      // End of CCKCSD
-
       }
 
 

@@ -40,7 +40,4 @@
          }
       }
       return;
-
-      // End of ZCOPY
-
       }

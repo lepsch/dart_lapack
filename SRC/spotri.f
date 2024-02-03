@@ -55,7 +55,4 @@
       slauum(UPLO, N, A, LDA, INFO );
 
       return;
-
-      // End of SPOTRI
-
       }

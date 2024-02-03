@@ -178,7 +178,4 @@
       RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of ZPST01
-
       }

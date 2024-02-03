@@ -299,7 +299,4 @@
       dlascl('G', 0, 0, ORGNRM, ONE, N, NRHS, B, LDB, INFO );
 
       return;
-
-      // End of DLALSD
-
       }

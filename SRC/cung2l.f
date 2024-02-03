@@ -75,7 +75,4 @@
          } // 30
       } // 40
       return;
-
-      // End of CUNG2L
-
       }

@@ -138,7 +138,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( WS );
       return;
-
-      // End of SGEBRD
-
       }

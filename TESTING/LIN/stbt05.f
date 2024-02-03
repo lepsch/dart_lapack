@@ -129,7 +129,4 @@
       } // 90
 
       return;
-
-      // End of STBT05
-
       }

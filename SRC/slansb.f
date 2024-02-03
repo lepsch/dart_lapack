@@ -119,7 +119,4 @@
 
       SLANSB = VALUE;
       return;
-
-      // End of SLANSB
-
       }

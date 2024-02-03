@@ -225,7 +225,4 @@
 
       ZLANTP = VALUE;
       return;
-
-      // End of ZLANTP
-
       }

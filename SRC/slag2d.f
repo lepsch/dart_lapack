@@ -26,7 +26,4 @@
          } // 10
       } // 20
       return;
-
-      // End of SLAG2D
-
       }

@@ -59,7 +59,4 @@
       dtrsm('Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A( M-N+1, 1 ), LDA, B( M-N+1, 1 ), LDB );
 
       return;
-
-      // End of DGEQLS
-
       }

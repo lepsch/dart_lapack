@@ -147,7 +147,4 @@
 
       WORK( 1 ) = IWS;
       return;
-
-      // End of ZUNGQR
-
       }

@@ -102,7 +102,4 @@
       RESULT( 2 ) = min( DBLE( N ), ZLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP );
 
       return;
-
-      // End of ZSTT21
-
       }

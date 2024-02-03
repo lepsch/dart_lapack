@@ -171,7 +171,4 @@
       if (AINVNM != 0.0) DLA_GBRCOND = ( 1.0 / AINVNM );
 
       return;
-
-      // End of DLA_GBRCOND
-
       }

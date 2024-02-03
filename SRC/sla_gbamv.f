@@ -202,7 +202,4 @@
       }
 
       return;
-
-      // End of SLA_GBAMV
-
       }

@@ -92,7 +92,4 @@
          zsteqr(JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO );
       }
       return;
-
-      // End of ZHBGV
-
       }

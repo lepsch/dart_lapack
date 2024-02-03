@@ -279,7 +279,4 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
       return;
-
-      // End of CHEEVX_2STAGE
-
       }

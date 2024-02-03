@@ -165,7 +165,4 @@
 
       DPARAM(1) = DFLAG;
       return;
-
-      // End of DROTMG
-
       }

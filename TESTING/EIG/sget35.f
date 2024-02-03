@@ -139,7 +139,4 @@
       } // 150
 
       return;
-
-      // End of SGET35
-
       }

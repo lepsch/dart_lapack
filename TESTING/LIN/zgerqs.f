@@ -63,7 +63,4 @@
       zunmrq('Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO );
 
       return;
-
-      // End of ZGERQS
-
       }

@@ -141,7 +141,4 @@
  9972 FORMAT( 'DTRSYL and DTRSYL3 compute an inconsistent result ', 'factor in ', I8, ' tests.');
  9971 FORMAT( 'Error in DTRSYL3: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
  9970 FORMAT( 'Error in DTRSYL: ', I8, ' tests fail the threshold.', / 'Maximum test ratio =', D12.3, ' threshold =', D12.3 );
-
-      // End of DCHKEC
-
       }

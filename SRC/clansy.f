@@ -112,7 +112,4 @@
 
       CLANSY = VALUE;
       return;
-
-      // End of CLANSY
-
       }

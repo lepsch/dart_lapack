@@ -94,7 +94,4 @@
 
       SLANGB = VALUE;
       return;
-
-      // End of SLANGB
-
       }

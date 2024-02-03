@@ -905,7 +905,4 @@
 
       }
       return;
-
-      // End of CLAHEF_RK
-
       }

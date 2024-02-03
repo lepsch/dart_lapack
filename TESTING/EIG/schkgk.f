@@ -161,7 +161,4 @@
  9991 FORMAT( ' total number of examples tested              =', I4 );
 
       return;
-
-      // End of SCHKGK
-
       }

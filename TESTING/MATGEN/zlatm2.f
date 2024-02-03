@@ -110,7 +110,4 @@
       }
       ZLATM2 = CTEMP;
       return;
-
-      // End of ZLATM2
-
       }

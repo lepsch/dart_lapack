@@ -78,7 +78,4 @@
       } // 10
 
       return;
-
-      // End of CTBT02
-
       }

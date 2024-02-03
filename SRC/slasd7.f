@@ -284,7 +284,4 @@
       scopy(N-1, VLW( 2 ), 1, VL( 2 ), 1 );
 
       return;
-
-      // End of SLASD7
-
       }

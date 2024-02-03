@@ -233,7 +233,4 @@
          }
       } // 70
       return;
-
-      // End of ZLAGGE
-
       }

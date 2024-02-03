@@ -48,7 +48,4 @@
 
          }
       }
-
-      // End of SLA_LIN_BERR
-
       }

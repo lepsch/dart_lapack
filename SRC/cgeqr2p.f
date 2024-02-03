@@ -62,7 +62,4 @@
          }
       } // 10
       return;
-
-      // End of CGEQR2P
-
       }

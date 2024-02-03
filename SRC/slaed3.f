@@ -134,7 +134,4 @@
 
       } // 120
       return;
-
-      // End of SLAED3
-
       }

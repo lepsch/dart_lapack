@@ -89,7 +89,4 @@
       RESID = ( ( RESID*RCOND ) / REAL( N ) ) / EPS;
 
       return;
-
-      // End of STRT01
-
       }

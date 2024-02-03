@@ -67,7 +67,4 @@
          }
       }
       return;
-
-      // End of SLAS2
-
       }

@@ -1243,7 +1243,4 @@
  9990 FORMAT( ' N=', I5, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
 
  9988 FORMAT( / 'Test performed:  see SCHKST2STG for details.', / );
-
-      // End of SCHKST2STG
-
       }

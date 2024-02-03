@@ -307,7 +307,4 @@
       }
 
       return;
-
-      // End of STPTTF
-
       }

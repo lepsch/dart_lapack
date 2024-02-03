@@ -39,8 +39,5 @@
          IX = IX + INCX;
          IC = IC + INCC;
       } // 10
-
-      // End of SLAR2V
-
       return;
       }

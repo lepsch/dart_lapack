@@ -62,7 +62,4 @@
       dlas2(ABS( A11 ), ABS( A12 ), ABS( A22 ), SSMIN, SSMAX );
 
       return;
-
-      // End of ZLAPLL
-
       }

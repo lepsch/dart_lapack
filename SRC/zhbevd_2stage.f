@@ -179,7 +179,4 @@
       RWORK( 1 ) = LRWMIN;
       IWORK( 1 ) = LIWMIN;
       return;
-
-      // End of ZHBEVD_2STAGE
-
       }

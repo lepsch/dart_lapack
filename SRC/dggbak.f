@@ -138,7 +138,4 @@
       } // 110
 
       return;
-
-      // End of DGGBAK
-
       }

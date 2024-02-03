@@ -86,7 +86,4 @@
       }
 
       return;
-
-      // End of SLAQGE
-
       }

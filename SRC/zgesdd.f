@@ -1753,7 +1753,4 @@
       WORK( 1 ) = DROUNDUP_LWORK( MAXWRK );
 
       return;
-
-      // End of ZGESDD
-
       }

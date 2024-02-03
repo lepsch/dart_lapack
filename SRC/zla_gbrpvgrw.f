@@ -46,7 +46,4 @@
          }
       }
       ZLA_GBRPVGRW = RPVGRW;
-
-      // End of ZLA_GBRPVGRW
-
       }

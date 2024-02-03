@@ -95,7 +95,4 @@
       }
 
       return;
-
-      // End of SGET01
-
       }

@@ -60,7 +60,4 @@
          SY( I+6 ) = SX( I+6 );
       } // 50
       return;
-
-      // End of ICOPY
-
       }

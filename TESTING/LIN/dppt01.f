@@ -105,7 +105,4 @@
       RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of DPPT01
-
       }

@@ -76,7 +76,4 @@
       }
 
       return;
-
-      // End of SSYTRI2
-
       }

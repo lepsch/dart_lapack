@@ -403,7 +403,4 @@
 
       } // 70
       return;
-
-      // End of CSYTF2
-
       }

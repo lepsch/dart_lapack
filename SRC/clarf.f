@@ -94,7 +94,4 @@
          }
       }
       return;
-
-      // End of CLARF
-
       }

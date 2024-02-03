@@ -177,7 +177,4 @@
          } // 20
       }
       return;
-
-      // End of DOPMTR
-
       }

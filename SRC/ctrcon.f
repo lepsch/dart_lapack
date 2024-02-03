@@ -135,7 +135,4 @@
 
       } // 20
       return;
-
-      // End of CTRCON
-
       }

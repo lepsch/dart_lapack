@@ -203,7 +203,4 @@
       scopy(N, RWORK, 1, D, 1 );
 
       return;
-
-      // End of CLAED0
-
       }

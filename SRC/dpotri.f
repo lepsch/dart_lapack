@@ -55,7 +55,4 @@
       dlauum(UPLO, N, A, LDA, INFO );
 
       return;
-
-      // End of DPOTRI
-
       }

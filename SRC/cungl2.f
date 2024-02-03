@@ -83,7 +83,4 @@
          } // 30
       } // 40
       return;
-
-      // End of CUNGL2
-
       }

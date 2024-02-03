@@ -139,7 +139,4 @@
       } // 150
 
       return;
-
-      // End of DGET35
-
       }

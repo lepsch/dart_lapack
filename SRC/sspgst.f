@@ -143,7 +143,4 @@
          }
       }
       return;
-
-      // End of SSPGST
-
       }

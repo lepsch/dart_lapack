@@ -101,7 +101,4 @@
       } // 40
 
       return;
-
-      // End of CTPT03
-
       }

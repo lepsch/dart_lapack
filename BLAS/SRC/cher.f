@@ -136,7 +136,4 @@
       }
 
       return;
-
-      // End of CHER
-
       }

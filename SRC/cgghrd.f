@@ -135,7 +135,4 @@
       } // 40
 
       return;
-
-      // End of CGGHRD
-
       }

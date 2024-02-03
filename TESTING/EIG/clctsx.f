@@ -59,7 +59,4 @@
        // END IF
 
       return;
-
-      // End of CLCTSX
-
       }

@@ -136,7 +136,4 @@
          LMAX = KNT;
       }
       GO TO 10;
-
-      // End of DGET36
-
       }

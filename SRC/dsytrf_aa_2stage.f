@@ -376,7 +376,4 @@
       dgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       return;
-
-      // End of DSYTRF_AA_2STAGE
-
       }

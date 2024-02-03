@@ -102,7 +102,4 @@
 
  9999 FORMAT( ' M=', I5, ', N=', I5, ', NB=', I4,' L=', I4, ' test(', I2, ')=', G12.5 );
       return;
-
-      // End of CCHKLQTP
-
       }

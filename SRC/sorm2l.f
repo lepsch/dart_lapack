@@ -109,7 +109,4 @@
          A( NQ-K+I, I ) = AII;
       } // 10
       return;
-
-      // End of SORM2L
-
       }

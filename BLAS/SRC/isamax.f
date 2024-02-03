@@ -51,7 +51,4 @@
          }
       }
       return;
-
-      // End of ISAMAX
-
       }

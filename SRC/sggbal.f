@@ -346,7 +346,4 @@
       } // 380
 
       return;
-
-      // End of SGGBAL
-
       }

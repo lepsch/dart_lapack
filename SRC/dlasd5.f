@@ -106,7 +106,4 @@
          // DELTA( 2 ) = DELTA( 2 ) / TEMP
       }
       return;
-
-      // End of DLASD5
-
       }

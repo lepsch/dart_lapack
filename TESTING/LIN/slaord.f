@@ -69,7 +69,4 @@
          } // 40
       }
       return;
-
-      // End of SLAORD
-
       }

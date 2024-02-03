@@ -82,7 +82,4 @@
       }
 
       return;
-
-      // End of SLARFG
-
       }

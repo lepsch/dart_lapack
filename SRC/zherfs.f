@@ -242,7 +242,4 @@
       } // 140
 
       return;
-
-      // End of ZHERFS
-
       }

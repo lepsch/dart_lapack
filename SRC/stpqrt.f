@@ -70,7 +70,4 @@
          }
       }
       return;
-
-      // End of STPQRT
-
       }

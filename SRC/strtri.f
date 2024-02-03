@@ -118,7 +118,4 @@
       }
 
       return;
-
-      // End of STRTRI
-
       }

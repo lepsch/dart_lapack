@@ -94,7 +94,4 @@
 
       ZLANGB = VALUE;
       return;
-
-      // End of ZLANGB
-
       }

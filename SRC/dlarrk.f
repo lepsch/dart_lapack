@@ -95,7 +95,4 @@
       WERR = HALF * ABS( RIGHT - LEFT );
 
       return;
-
-      // End of DLARRK
-
       }

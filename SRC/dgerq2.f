@@ -61,7 +61,4 @@
          A( M-K+I, N-K+I ) = AII;
       } // 10
       return;
-
-      // End of DGERQ2
-
       }

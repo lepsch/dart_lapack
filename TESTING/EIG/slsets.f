@@ -46,7 +46,4 @@
       sget02('No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) );
 
       return;
-
-      // End of SLSETS
-
       }

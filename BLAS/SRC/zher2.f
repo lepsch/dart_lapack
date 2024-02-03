@@ -156,7 +156,4 @@
       }
 
       return;
-
-      // End of ZHER2
-
       }

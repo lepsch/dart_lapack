@@ -360,7 +360,4 @@
       }
 
       return;
-
-      // End of SLAQP2RK
-
       }

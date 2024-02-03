@@ -939,7 +939,4 @@
       }
 
       return;
-
-      // End of STREVC3
-
       }

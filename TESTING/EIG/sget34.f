@@ -245,7 +245,4 @@
       } // 300
 
       return;
-
-      // End of SGET34
-
       }

@@ -70,7 +70,4 @@
          zsytri2x(UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO );
       }
       return;
-
-      // End of ZSYTRI2
-
       }

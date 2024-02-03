@@ -65,7 +65,4 @@
       SQRT11 = SLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) );
 
       return;
-
-      // End of SQRT11
-
       }

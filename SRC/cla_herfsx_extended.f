@@ -280,7 +280,4 @@
       }
 
       return;
-
-      // End of CLA_HERFSX_EXTENDED
-
       }

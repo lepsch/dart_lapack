@@ -287,7 +287,4 @@
       WORK( 1 ) = DCMPLX( LWKOPT );
 
       return;
-
-      // End of ZGGES3
-
       }

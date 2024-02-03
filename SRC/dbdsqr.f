@@ -546,7 +546,4 @@
       } // 210
       } // 220
       return;
-
-      // End of DBDSQR
-
       }

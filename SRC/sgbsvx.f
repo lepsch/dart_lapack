@@ -253,7 +253,4 @@
 
       WORK( 1 ) = RPVGRW;
       return;
-
-      // End of SGBSVX
-
       }

@@ -94,7 +94,4 @@
 
       DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N, NRHS ) ) );
       return;
-
-      // End of DQRT17
-
       }

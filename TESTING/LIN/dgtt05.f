@@ -117,7 +117,4 @@
       } // 60
 
       return;
-
-      // End of DGTT05
-
       }

@@ -212,7 +212,4 @@
       if ( !DONE) GO TO 10;
 
       return;
-
-      // End of SLASCL
-
       }

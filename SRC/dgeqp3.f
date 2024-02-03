@@ -193,7 +193,4 @@
 
       WORK( 1 ) = IWS;
       return;
-
-      // End of DGEQP3
-
       }

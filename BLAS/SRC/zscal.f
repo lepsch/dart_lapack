@@ -39,7 +39,4 @@
          }
       }
       return;
-
-      // End of ZSCAL
-
       }

@@ -84,7 +84,4 @@
          }
       } // 60
       return;
-
-      // End of CLARNV
-
       }

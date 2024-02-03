@@ -378,7 +378,4 @@
          }
       }
       return;
-
-      // End of ZLAVSY_ROOK
-
       }

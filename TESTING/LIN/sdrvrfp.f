@@ -303,7 +303,4 @@
  9999 FORMAT( 1X, A6, ', UPLO=''', A1, ''', N =', I5, ', type ', I1, ', test(', I1, ')=', G12.5 );
 
       return;
-
-      // End of SDRVRFP
-
       }

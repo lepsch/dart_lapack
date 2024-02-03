@@ -78,7 +78,4 @@
          } // 30
       } // 40
       return;
-
-      // End of SORGR2
-
       }

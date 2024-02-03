@@ -159,7 +159,4 @@
       RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP );
 
       return;
-
-      // End of DGET52
-
       }

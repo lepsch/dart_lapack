@@ -105,7 +105,4 @@
       }
 
       ZLA_PORPVGRW = RPVGRW;
-
-      // End of ZLA_PORPVGRW
-
       }

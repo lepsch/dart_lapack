@@ -60,7 +60,4 @@
          }
       }
       return;
-
-      // End of DCOPY
-
       }

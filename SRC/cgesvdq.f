@@ -891,7 +891,4 @@
       NUMRANK = NR;
 
       return;
-
-      // End of CGESVDQ
-
       }

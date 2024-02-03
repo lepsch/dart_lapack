@@ -124,7 +124,4 @@
       } // 90
 
       return;
-
-      // End of CPOT05
-
       }

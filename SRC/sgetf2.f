@@ -95,7 +95,4 @@
          }
       } // 10
       return;
-
-      // End of SGETF2
-
       }

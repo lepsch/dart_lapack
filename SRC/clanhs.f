@@ -91,7 +91,4 @@
 
       CLANHS = VALUE;
       return;
-
-      // End of CLANHS
-
       }

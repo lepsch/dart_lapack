@@ -137,7 +137,4 @@
  9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
  9997 FORMAT( ' *** Invalid input  for LSE:  M = ', I6, ', P = ', I6, ', N = ', I6, ';', / '     must satisfy P <= N <= P+M  ', '(this set of values will be skipped)' )
       return;
-
-      // End of SCKLSE
-
       }

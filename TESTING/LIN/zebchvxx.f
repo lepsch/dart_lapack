@@ -360,7 +360,4 @@
  9989 FORMAT( 3X, I2, ': Raw componentwise error estimate' );
 
  8000 FORMAT( ' Z', A2, 'SVXX: N =', I2, ', INFO = ', I3, ', ORCOND = ', G12.5, ', real RCOND = ', G12.5 );
-
-      // End of ZEBCHVXX
-
       }

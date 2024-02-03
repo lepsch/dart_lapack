@@ -60,7 +60,4 @@
          }
 
       }
-
-      // End of CLAQZ1
-
       END SUBROUTINE;

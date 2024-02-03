@@ -103,7 +103,4 @@
       RESULT( 2 ) = min( DBLE( M ), ZLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );
 
       return;
-
-      // End of ZSTT22
-
       }

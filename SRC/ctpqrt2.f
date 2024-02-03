@@ -117,7 +117,4 @@
          T( I, 1 ) = ZERO;
       }
 
-
-      // End of CTPQRT2
-
       }

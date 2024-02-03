@@ -158,7 +158,4 @@
       }
 
       return;
-
-      // End of DGEEQU
-
       }

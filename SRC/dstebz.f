@@ -459,7 +459,4 @@
       if (NCNVRG) INFO = INFO + 1;
       IF( TOOFEW ) INFO = INFO + 2;
       return;
-
-      // End of DSTEBZ
-
       }

@@ -79,7 +79,4 @@
 
       CLANHT = ANORM;
       return;
-
-      // End of CLANHT
-
       }

@@ -19,7 +19,4 @@
       cpu_time(T );
       SECOND = T;
       return;
-
-      // End of SECOND
-
       }

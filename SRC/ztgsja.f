@@ -247,7 +247,4 @@
       NCYCLE = KCYCLE;
 
       return;
-
-      // End of ZTGSJA
-
       }

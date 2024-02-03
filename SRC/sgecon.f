@@ -142,7 +142,4 @@
 
       } // 20
       return;
-
-      // End of SGECON
-
       }

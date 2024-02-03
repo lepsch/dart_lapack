@@ -362,7 +362,4 @@
       } // 380
 
       return;
-
-      // End of CGGBAL
-
       }

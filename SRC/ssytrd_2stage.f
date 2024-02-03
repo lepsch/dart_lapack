@@ -103,7 +103,4 @@
 
       WORK( 1 ) = LWMIN;
       return;
-
-      // End of SSYTRD_2STAGE
-
       }

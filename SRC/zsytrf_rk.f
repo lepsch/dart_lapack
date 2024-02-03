@@ -220,7 +220,4 @@
 
       WORK( 1 ) = LWKOPT;
       return;
-
-      // End of ZSYTRF_RK
-
       }

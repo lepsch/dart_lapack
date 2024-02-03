@@ -239,7 +239,4 @@
 
 
       return;
-
-      // End of CLAR1V
-
       }

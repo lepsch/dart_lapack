@@ -185,7 +185,4 @@
       }
 
       return;
-
-      // End of DSYRK
-
       }

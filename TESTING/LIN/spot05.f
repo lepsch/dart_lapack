@@ -114,7 +114,4 @@
       } // 90
 
       return;
-
-      // End of SPOT05
-
       }

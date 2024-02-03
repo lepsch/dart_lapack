@@ -506,7 +506,4 @@
       }
 
       return;
-
-      // End of SLAQP3RK
-
       }

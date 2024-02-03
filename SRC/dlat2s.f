@@ -56,7 +56,4 @@
       } // 50
 
       return;
-
-      // End of DLAT2S
-
       }

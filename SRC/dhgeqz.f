@@ -960,7 +960,4 @@
       } // 420
       WORK( 1 ) = DBLE( N );
       return;
-
-      // End of DHGEQZ
-
       }

@@ -229,7 +229,4 @@
       }
 
       return;
-
-      // End of CLASR
-
       }

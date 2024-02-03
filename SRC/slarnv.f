@@ -73,7 +73,4 @@
          }
       } // 40
       return;
-
-      // End of SLARNV
-
       }

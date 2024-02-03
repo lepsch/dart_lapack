@@ -21,7 +21,4 @@
       STOP;
 
  9999 FORMAT( ' ** On entry to ', A, ' parameter number ', I2, ' had ', 'an illegal value' );
-
-      // End of XERBLA
-
       }

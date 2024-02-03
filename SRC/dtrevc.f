@@ -745,7 +745,4 @@
       }
 
       return;
-
-      // End of DTREVC
-
       }

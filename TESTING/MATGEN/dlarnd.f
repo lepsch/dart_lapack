@@ -53,7 +53,4 @@
          DLARND = sqrt( -TWO*LOG( T1 ) )*COS( TWOPI*T2 );
       }
       return;
-
-      // End of DLARND
-
       }

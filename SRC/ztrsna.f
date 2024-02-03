@@ -193,7 +193,4 @@
          KS = KS + 1;
       } // 50
       return;
-
-      // End of ZTRSNA
-
       }

@@ -281,7 +281,4 @@
       }
 
       return;
-
-      // End of ZLA_HERFSX_EXTENDED
-
       }

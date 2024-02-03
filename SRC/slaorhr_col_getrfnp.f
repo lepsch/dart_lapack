@@ -88,7 +88,4 @@
          }
       }
       return;
-
-      // End of SLAORHR_COL_GETRFNP
-
       }

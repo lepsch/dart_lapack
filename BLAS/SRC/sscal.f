@@ -57,7 +57,4 @@
          }
       }
       return;
-
-      // End of SSCAL
-
       }

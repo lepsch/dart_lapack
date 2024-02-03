@@ -191,7 +191,4 @@
       alasum(PATH, NOUT, NFAIL, NRUN, NERRS );
 
  9999 FORMAT( 1X, A, ' M =', I5, ', N =', I5, ', NB =', I4, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
-
-      // End of CCHKQ3
-
       }

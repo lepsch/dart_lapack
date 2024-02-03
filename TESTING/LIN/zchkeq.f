@@ -359,7 +359,4 @@
  9995 FORMAT( ' ZPPEQU failed test with value ', D10.3, ' exceeding', ' threshold ', D10.3 );
  9994 FORMAT( ' ZPBEQU failed test with value ', D10.3, ' exceeding', ' threshold ', D10.3 );
       return;
-
-      // End of ZCHKEQ
-
       }

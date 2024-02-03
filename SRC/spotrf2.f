@@ -119,7 +119,4 @@
          }
       }
       return;
-
-      // End of SPOTRF2
-
       }

@@ -98,7 +98,4 @@
       }
 
       SLA_PORPVGRW = RPVGRW;
-
-      // End of SLA_PORPVGRW
-
       }

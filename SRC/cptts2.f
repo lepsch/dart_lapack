@@ -123,7 +123,4 @@
       }
 
       return;
-
-      // End of CPTTS2
-
       }

@@ -514,7 +514,4 @@
       alaesm(PATH, OK, NOUT );
 
       return;
-
-      // End of DERRSYX
-
       }

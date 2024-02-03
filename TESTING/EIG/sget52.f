@@ -159,7 +159,4 @@
       RESULT( 2 ) = ENRMER / ( REAL( N )*ULP );
 
       return;
-
-      // End of SGET52
-
       }

@@ -110,7 +110,4 @@
       }
       CLATM2 = CTEMP;
       return;
-
-      // End of CLATM2
-
       }

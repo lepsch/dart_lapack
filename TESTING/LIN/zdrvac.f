@@ -269,7 +269,4 @@
  8960 FORMAT( 3X, I2, ': norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS * sqrt(N) ) > 1 if ITERREF', / 4x, 'or norm_1( B - A * X )  / ', '( norm_1(A) * norm_1(X) * EPS ) > THRES if ZPOTRF' );
 
       return;
-
-      // End of ZDRVAC
-
       }

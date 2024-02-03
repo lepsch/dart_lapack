@@ -56,7 +56,4 @@
       dlas2(A11, A12, A22, SSMIN, SSMAX );
 
       return;
-
-      // End of DLAPLL
-
       }

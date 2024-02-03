@@ -123,7 +123,4 @@
       SQRT14 = ERR / ( REAL( max( M, N, NRHS ) )*SLAMCH( 'Epsilon' ) );
 
       return;
-
-      // End of SQRT14
-
       }

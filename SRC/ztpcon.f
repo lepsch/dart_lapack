@@ -133,7 +133,4 @@
 
       } // 20
       return;
-
-      // End of ZTPCON
-
       }

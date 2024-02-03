@@ -277,7 +277,4 @@
       WORK( 1 ) = LWMIN;
 
       return;
-
-      // End of DSYEVX_2STAGE
-
       }

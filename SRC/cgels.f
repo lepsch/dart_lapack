@@ -287,7 +287,4 @@
       WORK( 1 ) = REAL( WSIZE );
 
       return;
-
-      // End of CGELS
-
       }

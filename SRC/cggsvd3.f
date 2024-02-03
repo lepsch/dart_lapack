@@ -137,7 +137,4 @@
 
       WORK( 1 ) = CMPLX( LWKOPT );
       return;
-
-      // End of CGGSVD3
-
       }

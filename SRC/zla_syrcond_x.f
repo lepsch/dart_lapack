@@ -157,7 +157,4 @@
       if (AINVNM != 0.0) ZLA_SYRCOND_X = 1.0 / AINVNM;
 
       return;
-
-      // End of ZLA_SYRCOND_X
-
       }

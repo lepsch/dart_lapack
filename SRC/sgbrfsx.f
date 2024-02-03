@@ -285,7 +285,4 @@
       }
 
       return;
-
-      // End of SGBRFSX
-
       }

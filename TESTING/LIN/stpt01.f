@@ -97,7 +97,4 @@
       RESID = ( ( RESID*RCOND ) / REAL( N ) ) / EPS;
 
       return;
-
-      // End of STPT01
-
       }

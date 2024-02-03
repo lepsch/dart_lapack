@@ -189,7 +189,4 @@
       } // 20
       WORK( 1 ) = LWMIN;
       return;
-
-      // End of ZTGSNA
-
       }

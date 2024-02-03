@@ -237,7 +237,4 @@
       } // 140
 
       return;
-
-      // End of SPPRFS
-
       }

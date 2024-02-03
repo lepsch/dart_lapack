@@ -76,7 +76,4 @@
       CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( max( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) CQPT01 = CQPT01 / NORMA;
 
       return;
-
-      // End of CQPT01
-
       }

@@ -138,7 +138,4 @@
       }
 
       return;
-
-      // End of SORBDB4
-
       }

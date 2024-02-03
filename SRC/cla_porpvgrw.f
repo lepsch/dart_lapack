@@ -105,7 +105,4 @@
       }
 
       CLA_PORPVGRW = RPVGRW;
-
-      // End of CLA_PORPVGRW
-
       }

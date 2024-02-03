@@ -116,7 +116,4 @@
 
       } // 40
       return;
-
-      // End of CPOTF2
-
       }

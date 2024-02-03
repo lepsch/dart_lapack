@@ -415,7 +415,4 @@
       return;
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
-
-      // End of SLATRS3
-
       }

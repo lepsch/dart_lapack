@@ -133,7 +133,4 @@
       }
 
       return;
-
-      // End of SLATM6
-
       }

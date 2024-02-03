@@ -73,7 +73,4 @@
       sort01('Columns', N, N, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
 
       return;
-
-      // End of SHST01
-
       }

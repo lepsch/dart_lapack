@@ -72,7 +72,4 @@
       } // 10
 
       return;
-
-      // End of SPTT02
-
       }

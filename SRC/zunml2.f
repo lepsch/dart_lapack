@@ -120,7 +120,4 @@
          if (I < NQ) CALL ZLACGV( NQ-I, A( I, I+1 ), LDA );
       } // 10
       return;
-
-      // End of ZUNML2
-
       }

@@ -652,7 +652,4 @@
 
       }
       return;
-
-      // End of DLASYF_ROOK
-
       }

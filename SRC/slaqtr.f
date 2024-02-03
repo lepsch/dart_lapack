@@ -526,7 +526,4 @@
       }
 
       return;
-
-      // End of SLAQTR
-
       }

@@ -204,7 +204,4 @@
  9993 FORMAT( 4X, A4, ':  ', 10I6, / 11X, 10I6 );
  9992 FORMAT( / ' Routines pass computational tests if test ratio is ', 'less than', F8.2, / );
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 );
-
-      // End of CCHKRFP
-
       }

@@ -150,7 +150,4 @@
          }
       }
       return;
-
-      // End of ZHEGS2
-
       }

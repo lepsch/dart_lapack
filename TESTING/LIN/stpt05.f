@@ -137,7 +137,4 @@
       } // 90
 
       return;
-
-      // End of STPT05
-
       }

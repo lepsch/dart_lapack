@@ -596,7 +596,4 @@
       } // 70
 
       return;
-
-      // End of ZSYTF2_ROOK
-
       }

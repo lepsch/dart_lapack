@@ -114,7 +114,4 @@
       CQRT12 = SASUM( MN, RWORK( 1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) )       IF( NRMSVL != ZERO ) CQRT12 = CQRT12 / NRMSVL;
 
       return;
-
-      // End of CQRT12
-
       }

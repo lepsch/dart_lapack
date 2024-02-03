@@ -195,7 +195,4 @@
       }
 
       return;
-
-      // End of CSYR2K
-
       }

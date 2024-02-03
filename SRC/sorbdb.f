@@ -334,7 +334,4 @@
       }
 
       return;
-
-      // End of SORBDB
-
       }

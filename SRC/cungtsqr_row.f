@@ -179,7 +179,4 @@
 
       WORK( 1 ) = CMPLX( LWORKOPT );
       return;
-
-      // End of CUNGTSQR_ROW
-
       }

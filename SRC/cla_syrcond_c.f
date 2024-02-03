@@ -180,7 +180,4 @@
       if (AINVNM != 0.0) CLA_SYRCOND_C = 1.0 / AINVNM;
 
       return;
-
-      // End of CLA_SYRCOND_C
-
       }

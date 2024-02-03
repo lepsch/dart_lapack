@@ -94,7 +94,4 @@
 
       DLANGB = VALUE;
       return;
-
-      // End of DLANGB
-
       }

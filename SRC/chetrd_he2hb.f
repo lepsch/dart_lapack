@@ -225,7 +225,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN );
       return;
-
-      // End of CHETRD_HE2HB
-
       }

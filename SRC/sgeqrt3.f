@@ -108,7 +108,4 @@
       }
 
       return;
-
-      // End of SGEQRT3
-
       }

@@ -65,7 +65,4 @@
 
 
       return;
-
-      // End of STPTTR
-
       }

@@ -379,7 +379,4 @@
 
       }
       return;
-
-      // End of DLAVSY_ROOK
-
       }

@@ -201,8 +201,5 @@
             SCALE2 = ASCALE*BSIZE;
          }
       }
-
-      // End of DLAG2
-
       return;
       }

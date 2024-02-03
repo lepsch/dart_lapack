@@ -282,7 +282,4 @@
       } // 190
 
       return;
-
-      // End of SGET31
-
       }

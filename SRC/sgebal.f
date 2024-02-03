@@ -242,7 +242,4 @@
       IHI = L;
 
       return;
-
-      // End of SGEBAL
-
       }

@@ -73,7 +73,4 @@
       } // 10
 
       return;
-
-      // End of ZSYT02
-
       }

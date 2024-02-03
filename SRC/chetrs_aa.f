@@ -178,7 +178,4 @@
       }
 
       return;
-
-      // End of CHETRS_AA
-
       }

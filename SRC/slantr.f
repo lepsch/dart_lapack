@@ -204,7 +204,4 @@
 
       SLANTR = VALUE;
       return;
-
-      // End of SLANTR
-
       }

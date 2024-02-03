@@ -124,7 +124,4 @@
       if (TPNT <= N) GO TO 50;
       } // 80
       return;
-
-      // End of SSTECH
-
       }

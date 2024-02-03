@@ -310,7 +310,4 @@
       IWORK( 1 ) = LIWMIN;
 
       return;
-
-      // End of ZTGSEN
-
       }

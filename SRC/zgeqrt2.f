@@ -89,7 +89,4 @@
             T( I, 1) = ZERO;
       }
 
-
-      // End of ZGEQRT2
-
       }

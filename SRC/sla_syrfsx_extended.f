@@ -272,7 +272,4 @@
       }
 
       return;
-
-      // End of SLA_SYRFSX_EXTENDED
-
       }

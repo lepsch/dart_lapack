@@ -309,7 +309,4 @@
       WORK( 1 ) = DBLE( LWOPT );
 
       return;
-
-      // End of ZGELST
-
       }

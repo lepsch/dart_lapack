@@ -160,7 +160,4 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       IWORK( 1 ) = LIWMIN;
       return;
-
-      // End of SSBEVD_2STAGE
-
       }

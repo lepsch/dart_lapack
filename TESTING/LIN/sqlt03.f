@@ -125,7 +125,4 @@
       } // 30
 
       return;
-
-      // End of SQLT03
-
       }

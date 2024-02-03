@@ -124,7 +124,4 @@
 
       WORK( 1 ) = DBLE( LWORKOPT );
       return;
-
-      // End of DORGTSQR
-
       }

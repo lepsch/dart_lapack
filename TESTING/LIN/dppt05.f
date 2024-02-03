@@ -119,7 +119,4 @@
       } // 90
 
       return;
-
-      // End of DPPT05
-
       }

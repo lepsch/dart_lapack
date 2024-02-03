@@ -66,7 +66,4 @@
 
       CRZT02 = CLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( SLAMCH( 'Epsilon' )*REAL( max( M, N ) ) );
       return;
-
-      // End of CRZT02
-
       }

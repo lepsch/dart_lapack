@@ -96,7 +96,4 @@
       if( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N;
 
       return;
-
-      // End of SLAGTF
-
       }

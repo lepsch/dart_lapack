@@ -167,7 +167,4 @@
       }
 
       return;
-
-      // End of CHESVXX
-
       }

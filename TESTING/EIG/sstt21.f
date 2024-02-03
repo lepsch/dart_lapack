@@ -99,7 +99,4 @@
       RESULT( 2 ) = min( REAL( N ), SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP );
 
       return;
-
-      // End of SSTT21
-
       }

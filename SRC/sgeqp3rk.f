@@ -479,7 +479,4 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 
       return;
-
-      // End of SGEQP3RK
-
       }

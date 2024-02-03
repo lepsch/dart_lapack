@@ -97,7 +97,4 @@
       } // 40
 
       return;
-
-      // End of STBT03
-
       }

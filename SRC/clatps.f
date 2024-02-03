@@ -720,7 +720,4 @@
       }
 
       return;
-
-      // End of CLATPS
-
       }

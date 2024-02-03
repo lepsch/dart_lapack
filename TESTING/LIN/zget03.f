@@ -71,7 +71,4 @@
       RESID = ( ( RESID*RCOND ) / EPS ) / DBLE( N );
 
       return;
-
-      // End of ZGET03
-
       }

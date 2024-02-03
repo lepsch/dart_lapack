@@ -95,7 +95,4 @@
       RESULT( 2 ) = ( RESID / DBLE( max( 1, M ) ) ) / EPS;
 
       return;
-
-      // End of ZQRT01P
-
       }

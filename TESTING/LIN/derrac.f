@@ -91,7 +91,4 @@
  9998 FORMAT( ' *** ', A6, ' drivers failed the tests of the error ', 'exits ***' );
 
       return;
-
-      // End of DERRAC
-
       }

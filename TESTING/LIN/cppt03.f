@@ -130,7 +130,4 @@
       RESID = ( ( RESID*RCOND )/EPS ) / REAL( N );
 
       return;
-
-      // End of CPPT03
-
       }

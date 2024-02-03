@@ -27,7 +27,4 @@
          ILADIAG = -1;
       }
       return;
-
-      // End of ILADIAG
-
       }

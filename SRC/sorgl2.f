@@ -81,7 +81,4 @@
          } // 30
       } // 40
       return;
-
-      // End of SORGL2
-
       }

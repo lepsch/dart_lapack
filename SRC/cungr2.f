@@ -80,7 +80,4 @@
          } // 30
       } // 40
       return;
-
-      // End of CUNGR2
-
       }

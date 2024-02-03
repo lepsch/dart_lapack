@@ -149,7 +149,4 @@
 
       CLANSP = VALUE;
       return;
-
-      // End of CLANSP
-
       }

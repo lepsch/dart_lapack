@@ -225,7 +225,4 @@
 
       CLANTP = VALUE;
       return;
-
-      // End of CLANTP
-
       }

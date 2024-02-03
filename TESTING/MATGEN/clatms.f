@@ -839,7 +839,4 @@
       }
 
       return;
-
-      // End of CLATMS
-
       }

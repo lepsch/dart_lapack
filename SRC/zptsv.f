@@ -47,7 +47,4 @@
          zpttrs('Lower', N, NRHS, D, E, B, LDB, INFO );
       }
       return;
-
-      // End of ZPTSV
-
       }

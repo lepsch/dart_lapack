@@ -90,7 +90,4 @@
 
       SLANGE = VALUE;
       return;
-
-      // End of SLANGE
-
       }

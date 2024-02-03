@@ -354,7 +354,4 @@
  9995 FORMAT( ' DPPEQU failed test with value ', D10.3, ' exceeding', ' threshold ', D10.3 );
  9994 FORMAT( ' DPBEQU failed test with value ', D10.3, ' exceeding', ' threshold ', D10.3 );
       return;
-
-      // End of DCHKEQ
-
       }

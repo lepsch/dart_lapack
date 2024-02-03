@@ -123,7 +123,4 @@
          } // 20
       }
       return;
-
-      // End of CGEBD2
-
       }

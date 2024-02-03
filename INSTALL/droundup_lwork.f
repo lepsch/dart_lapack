@@ -23,7 +23,4 @@
       }
 
       return;
-
-      // End of DROUNDUP_LWORK
-
       }

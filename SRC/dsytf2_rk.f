@@ -663,7 +663,4 @@
       }
 
       return;
-
-      // End of DSYTF2_RK
-
       }

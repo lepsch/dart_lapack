@@ -73,7 +73,4 @@
 
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, DUMMY );
       return;
-
-      // End of DQRT13
-
       }

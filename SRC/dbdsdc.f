@@ -278,7 +278,4 @@
       if( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) CALL DLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU );
 
       return;
-
-      // End of DBDSDC
-
       }

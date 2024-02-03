@@ -149,7 +149,4 @@
 
       ZLANSP = VALUE;
       return;
-
-      // End of ZLANSP
-
       }

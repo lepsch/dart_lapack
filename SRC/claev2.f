@@ -37,7 +37,4 @@
       slaev2(REAL( A ), ABS( B ), REAL( C ), RT1, RT2, CS1, T );
       SN1 = W*T;
       return;
-
-      // End of CLAEV2
-
       }

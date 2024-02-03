@@ -128,7 +128,4 @@
       RESULT( 2 ) = min( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP );
 
       return;
-
-      // End of CHBT21
-
       }

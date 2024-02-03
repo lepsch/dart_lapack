@@ -273,7 +273,4 @@
       }
 
       return;
-
-      // End of DLA_SYRFSX_EXTENDED
-
       }

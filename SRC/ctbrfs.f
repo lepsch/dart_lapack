@@ -287,7 +287,4 @@
       } // 250
 
       return;
-
-      // End of CTBRFS
-
       }

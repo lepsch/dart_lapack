@@ -203,7 +203,4 @@
       }
 
       return;
-
-      // End of DLA_GBAMV
-
       }

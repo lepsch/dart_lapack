@@ -76,7 +76,4 @@
          } // 30
       } // 40
       return;
-
-      // End of DORG2R
-
       }

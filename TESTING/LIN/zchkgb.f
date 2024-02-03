@@ -434,7 +434,4 @@
  9995 FORMAT( ' NORM =''', A1, ''', N=', I5, ', KL=', I5, ', KU=', I5, ',', 10X, ' type ', I1, ', test(', I1, ')=', G12.5 );
 
       return;
-
-      // End of ZCHKGB
-
       }

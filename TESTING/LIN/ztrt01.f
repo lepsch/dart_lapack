@@ -90,7 +90,4 @@
       RESID = ( ( RESID*RCOND ) / DBLE( N ) ) / EPS;
 
       return;
-
-      // End of ZTRT01
-
       }

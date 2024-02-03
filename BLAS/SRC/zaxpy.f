@@ -47,7 +47,4 @@
       }
 
       return;
-
-      // End of ZAXPY
-
       }

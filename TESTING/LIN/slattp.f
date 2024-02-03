@@ -657,7 +657,4 @@
       }
 
       return;
-
-      // End of SLATTP
-
       }

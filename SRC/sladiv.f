@@ -76,9 +76,6 @@
       Q = Q * S;
 
       return;
-
-      // End of SLADIV
-
       }
 
 // > \ingroup ladiv
@@ -116,9 +113,6 @@
       Q = SLADIV2(B, A, C, D, R, T);
 
       return;
-
-      // End of SLADIV1
-
       }
 
 // > \ingroup ladiv
@@ -156,7 +150,4 @@
       }
 
       return;
-
-      // End of SLADIV2
-
       }

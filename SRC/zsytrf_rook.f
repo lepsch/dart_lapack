@@ -169,7 +169,4 @@
       } // 40
       WORK( 1 ) = LWKOPT;
       return;
-
-      // End of ZSYTRF_ROOK
-
       }

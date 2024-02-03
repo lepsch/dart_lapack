@@ -175,7 +175,4 @@
          } // 90
       }
       return;
-
-      // End of CLAROR
-
       }

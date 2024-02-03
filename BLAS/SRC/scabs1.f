@@ -15,7 +15,4 @@
       // ..
       SCABS1 = ABS(REAL(Z)) + ABS(AIMAG(Z));
       return;
-
-      // End of SCABS1
-
       }

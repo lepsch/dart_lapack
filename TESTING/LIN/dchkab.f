@@ -265,7 +265,4 @@
  9991 FORMAT( ' Relative machine ', A, ' is taken to be', D16.6 );
  9990 FORMAT( / 1X, A6, ' routines were not tested' );
  9989 FORMAT( / 1X, A6, ' driver routines were not tested' );
-
-      // End of DCHKAB
-
       }

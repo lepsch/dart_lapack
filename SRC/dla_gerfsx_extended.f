@@ -254,7 +254,4 @@
       }
 
       return;
-
-      // End of DLA_GERFSX_EXTENDED
-
       }

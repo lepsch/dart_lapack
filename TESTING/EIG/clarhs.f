@@ -207,7 +207,4 @@
       }
 
       return;
-
-      // End of CLARHS
-
       }

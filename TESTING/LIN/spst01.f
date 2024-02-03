@@ -161,7 +161,4 @@
       RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of SPST01
-
       }

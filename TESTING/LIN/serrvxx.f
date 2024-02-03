@@ -780,7 +780,4 @@
  9998 FORMAT( ' *** ', A3, ' drivers failed the tests of the error ', 'exits ***' );
 
       return;
-
-      // End of SERRVXX
-
       }

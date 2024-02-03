@@ -46,7 +46,4 @@
          }
       }
       return;
-
-      // End of DROT
-
       }

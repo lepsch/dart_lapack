@@ -162,7 +162,4 @@
       }
       WORK( 1 ) = LWKOPT;
       return;
-
-      // End of ZUNMBR
-
       }

@@ -101,7 +101,4 @@
       }
       DLATM3 = TEMP;
       return;
-
-      // End of DLATM3
-
       }

@@ -74,7 +74,4 @@
       if (NORMA != ZERO) DRZT01 = DRZT01 / NORMA;
 
       return;
-
-      // End of DRZT01
-
       }

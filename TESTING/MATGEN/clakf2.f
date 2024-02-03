@@ -78,7 +78,4 @@
       } // 90
 
       return;
-
-      // End of CLAKF2
-
       }

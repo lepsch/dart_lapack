@@ -169,7 +169,4 @@
       }
 
       return;
-
-      // End of DPOSVXX
-
       }

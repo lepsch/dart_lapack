@@ -106,7 +106,4 @@
       if( RCOND < DLAMCH( 'Epsilon' ) ) INFO = N + 1;
 
       return;
-
-      // End of DGTSVX
-
       }

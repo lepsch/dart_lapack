@@ -285,7 +285,4 @@
       WORK( 1 ) = DBLE( WSIZE );
 
       return;
-
-      // End of DGELS
-
       }

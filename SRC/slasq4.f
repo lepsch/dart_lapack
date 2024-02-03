@@ -239,7 +239,4 @@
 
       TAU = S;
       return;
-
-      // End of SLASQ4
-
       }

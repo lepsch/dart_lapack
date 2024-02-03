@@ -76,7 +76,4 @@
          RT2 = -HALF*RT;
       }
       return;
-
-      // End of SLAE2
-
       }

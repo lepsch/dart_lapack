@@ -154,7 +154,4 @@
       WORK( 1 ) = M + NP + max( LOPT, INT( WORK( M+NP+1 ) ) );
 
       return;
-
-      // End of CGGGLM
-
       }

@@ -330,7 +330,4 @@
       WORK( 1 ) = LWMIN;
 
       return;
-
-      // End of ZTGSYL
-
       }

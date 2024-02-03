@@ -285,7 +285,4 @@
       } // 250
 
       return;
-
-      // End of CTRRFS
-
       }

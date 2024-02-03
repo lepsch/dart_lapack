@@ -68,7 +68,4 @@
       RESID = ( ( RESID*RCOND ) / EPS ) / DBLE( N );
 
       return;
-
-      // End of DGET03
-
       }

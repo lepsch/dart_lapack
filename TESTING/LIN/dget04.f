@@ -68,7 +68,4 @@
       if (RESID*EPS < 1.0) RESID = RESID / EPS;
 
       return;
-
-      // End of DGET04
-
       }

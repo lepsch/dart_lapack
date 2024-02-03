@@ -601,7 +601,4 @@
       }
 
       return;
-
-      // End of STFSM
-
       }

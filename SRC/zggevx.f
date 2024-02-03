@@ -378,7 +378,4 @@
 
       WORK( 1 ) = MAXWRK;
       return;
-
-      // End of ZGGEVX
-
       }

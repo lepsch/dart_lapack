@@ -440,7 +440,4 @@
  9993 FORMAT( / ' Tests performed:  (S is Schur, T is triangular, ', 'Q and Z are ', A, ',', / 19X, 'l and r are the appropriate left and right', / 19X, 'eigenvectors, resp., a is alpha, b is beta, and', / 19X, A, ' means ', A, '.)', / ' Without ordering: ', / '  1 = | A - Q S Z', A, ' | / ( |A| n ulp )      2 = | B - Q T Z', A, ' | / ( |B| n ulp )', / '  3 = | I - QQ', A, ' | / ( n ulp )             4 = | I - ZZ', A, ' | / ( n ulp )', / '  5 = A is in Schur form S', / '  6 = difference between (alpha,beta)', ' and diagonals of (S,T)', / ' With ordering: ', / '  7 = | (A,B) - Q (S,T) Z', A, ' | / ( |(A,B)| n ulp )', / '  8 = | I - QQ', A, ' | / ( n ulp )             9 = | I - ZZ', A, ' | / ( n ulp )', / ' 10 = A is in Schur form S', / ' 11 = difference between (alpha,beta) and diagonals', ' of (S,T)', / ' 12 = SDIM is the correct number of ', 'selected eigenvalues', / );
  9992 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I2, ' is', 0P, F8.2 );
  9991 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I2, ' is', 1P, E10.3 );
-
-      // End of CDRGES3
-
       }

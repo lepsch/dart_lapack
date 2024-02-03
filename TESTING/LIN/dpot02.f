@@ -70,7 +70,4 @@
       } // 10
 
       return;
-
-      // End of DPOT02
-
       }

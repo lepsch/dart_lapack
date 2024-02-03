@@ -213,7 +213,4 @@
       ssyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
       return;
-
-      // End of SSYTRS2
-
       }

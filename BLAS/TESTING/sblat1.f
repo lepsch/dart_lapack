@@ -50,9 +50,6 @@
 
 99999 FORMAT (' Real BLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
-
-      // End of SBLAT1
-
       }
       void header() {
       // .. Parameters ..
@@ -84,9 +81,6 @@
       return;
 
 99999 FORMAT (/' Test of subprogram number',I3,12X,A6)
-
-      // End of HEADER
-
       }
       void check0(SFAC) {
       // .. Parameters ..
@@ -177,9 +171,6 @@
          }
       } // 20
    40 return;
-
-      // End of CHECK0
-
       }
       void check1(SFAC) {
       // .. Parameters ..
@@ -267,9 +258,6 @@
          }
       } // 80
       return;
-
-      // End of CHECK1
-
       }
       void check2(SFAC) {
       // .. Parameters ..
@@ -433,9 +421,6 @@
          } // 100
       } // 120
       return;
-
-      // End of CHECK2
-
       }
       void check3(SFAC) {
       // .. Parameters ..
@@ -595,9 +580,6 @@
          stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
       } // 200
       return;
-
-      // End of CHECK3
-
       }
       void stest(LEN,SCOMP,STRUE,SSIZE,SFAC) {
       // ********************************* STEST **************************
@@ -650,9 +632,6 @@
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY  I                            ', ' COMP(I)                             TRUE(I)  DIFFERENCE', '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,2I5,I3,2E36.8,2E12.4)
-
-      // End of STEST
-
       }
       void stest1(SCOMP1,STRUE1,SSIZE,SFAC) {
       // ************************* STEST1 *****************************
@@ -678,9 +657,6 @@
       stest(1,SCOMP,STRUE,SSIZE,SFAC);
 
       return;
-
-      // End of STEST1
-
       }
       REAL sdiff(SA,SB) {
       // ********************************* SDIFF **************************
@@ -691,9 +667,6 @@
       // .. Executable Statements ..
       SDIFF = SA - SB;
       return;
-
-      // End of SDIFF
-
       }
       void itest1(ICOMP,ITRUE) {
       // ********************************* ITEST1 *************************
@@ -733,9 +706,6 @@
 99999 FORMAT ('                                       FAIL')
 99998 FORMAT (/' CASE  N INCX INCY                               ', ' COMP                                TRUE     DIFFERENCE', /1X)
 99997 FORMAT (1X,I4,I3,2I5,2I36,I12)
-
-      // End of ITEST1
-
       }
       void sb1nrm2(N,INCX,THRESH) {
       // Compare NRM2 with a reference computation using combinations

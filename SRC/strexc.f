@@ -243,7 +243,4 @@
       ILST = HERE;
 
       return;
-
-      // End of STREXC
-
       }

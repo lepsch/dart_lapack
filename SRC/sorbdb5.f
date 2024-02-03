@@ -121,7 +121,4 @@
       }
 
       return;
-
-      // End of SORBDB5
-
       }

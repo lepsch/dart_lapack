@@ -92,7 +92,4 @@
 
       CLANGT = ANORM;
       return;
-
-      // End of CLANGT
-
       }

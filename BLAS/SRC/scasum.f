@@ -41,7 +41,4 @@
       }
       SCASUM = STEMP;
       return;
-
-      // End of SCASUM
-
       }

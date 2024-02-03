@@ -227,7 +227,4 @@
          }
       }
       return;
-
-      // End of CLAIC1
-
       }

@@ -467,7 +467,4 @@
 
  9994 FORMAT( / ' Tests performed:   (S is Tridiag,  U is ', A, ',', / 20X, A, ' means ', A, '.', / ' UPLO=''U'':', / '  1= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  2= | I - U U', A1, ' | / ( n ulp )', / ' UPLO=''L'':', / '  3= | A - U S U', A1, ' | / ( |A| n ulp )     ', '  4= | I - U U', A1, ' | / ( n ulp )' / ' Eig check:', /'  5= | D1 - D2', '', ' | / ( |D1| ulp )         ', '  6= | D1 - D3', '', ' | / ( |D1| ulp )          ' );
  9993 FORMAT( ' N=', I5, ', K=', I4, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
-
-      // End of CCHKHB2STG
-
       }

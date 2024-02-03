@@ -126,7 +126,4 @@
 
       CLANHE = VALUE;
       return;
-
-      // End of CLANHE
-
       }

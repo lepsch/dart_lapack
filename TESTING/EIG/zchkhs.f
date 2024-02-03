@@ -626,7 +626,4 @@
  9999 FORMAT( ' ZCHKHS: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9998 FORMAT( ' ZCHKHS: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
  9997 FORMAT( ' ZCHKHS: Selected ', A, ' Eigenvectors from ', A, ' do not match other eigenvectors ', 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
-
-      // End of ZCHKHS
-
       }

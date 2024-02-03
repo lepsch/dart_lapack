@@ -277,7 +277,4 @@
       }
 
       return;
-
-      // End of CTRSYL
-
       }

@@ -79,7 +79,4 @@
 
       ZLANHT = ANORM;
       return;
-
-      // End of ZLANHT
-
       }

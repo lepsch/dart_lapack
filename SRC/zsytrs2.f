@@ -213,7 +213,4 @@
       zsyconv(UPLO, 'R', N, A, LDA, IPIV, WORK, IINFO );
 
       return;
-
-      // End of ZSYTRS2
-
       }

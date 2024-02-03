@@ -72,7 +72,4 @@
       } // 20
 
       return;
-
-      // End of SPPT02
-
       }

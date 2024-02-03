@@ -145,7 +145,4 @@
       } // 90
 
       return;
-
-      // End of CTPT05
-
       }

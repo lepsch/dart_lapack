@@ -112,7 +112,4 @@
       }
 
       return;
-
-      // End of SORBDB3
-
       }

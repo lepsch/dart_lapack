@@ -106,7 +106,4 @@
       if (AINVNM != ZERO) RCOND = ( ONE / AINVNM ) / ANORM;
 
       return;
-
-      // End of CSYCON_3
-
       }

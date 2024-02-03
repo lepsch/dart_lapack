@@ -205,7 +205,4 @@
 
       ZLANTR = VALUE;
       return;
-
-      // End of ZLANTR
-
       }

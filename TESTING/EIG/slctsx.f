@@ -53,7 +53,4 @@
         // END IF
 
       return;
-
-      // End of SLCTSX
-
       }

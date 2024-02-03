@@ -602,7 +602,4 @@
       }
 
       return;
-
-      // End of DTFSM
-
       }

@@ -77,7 +77,4 @@
             cgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB );
          } // 10
       }
-
-      // End of CGTTRS
-
       }

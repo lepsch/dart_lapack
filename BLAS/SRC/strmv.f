@@ -187,7 +187,4 @@
       }
 
       return;
-
-      // End of STRMV
-
       }

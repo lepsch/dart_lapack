@@ -79,7 +79,4 @@
 
       slaswp(1, RHS, LDA, 1, N-1, JPIV, -1 );
       return;
-
-      // End of SGESC2
-
       }

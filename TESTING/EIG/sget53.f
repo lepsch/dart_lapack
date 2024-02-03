@@ -108,7 +108,4 @@
       SIGMIN = ABS( DETR ) + ABS( DETI );
       RESULT = SIGMIN / S1;
       return;
-
-      // End of SGET53
-
       }

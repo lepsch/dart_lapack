@@ -239,7 +239,4 @@
       } // 100
       NCYCLE = KCYCLE;
       return;
-
-      // End of STGSJA
-
       }

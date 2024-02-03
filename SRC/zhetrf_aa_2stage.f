@@ -393,7 +393,4 @@
       zgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       return;
-
-      // End of ZHETRF_AA_2STAGE
-
       }

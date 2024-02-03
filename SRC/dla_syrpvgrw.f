@@ -194,7 +194,4 @@
       }
 
       DLA_SYRPVGRW = RPVGRW;
-
-      // End of DLA_SYRPVGRW
-
       }

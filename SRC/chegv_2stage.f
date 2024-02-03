@@ -135,7 +135,4 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
 
       return;
-
-      // End of CHEGV_2STAGE
-
       }

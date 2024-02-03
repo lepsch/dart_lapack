@@ -1262,7 +1262,4 @@
  9962 FORMAT( / ' Tests of the Generalized Nonsymmetric Eigenvalue ', 'Problem Expert Driver SGGEVX' );
  9961 FORMAT( / / 1X, A3, ':  NB =', I4, ', NBMIN =', I4, ', NX =', I4, ', INMIN=', I4, ', INWIN =', I4, ', INIBL =', I4, ', ISHFTS =', I4, ', IACC22 =', I4);
  9960 FORMAT( / ' Tests of the CS Decomposition routines' );
-
-      // End of SCHKEE
-
       }

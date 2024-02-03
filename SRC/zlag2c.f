@@ -40,7 +40,4 @@
       INFO = 0;
       } // 30
       return;
-
-      // End of ZLAG2C
-
       }

@@ -386,7 +386,4 @@
 
       }
       return;
-
-      // End of CLAVHP
-
       }

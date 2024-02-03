@@ -117,7 +117,4 @@
          }
       } // 40
       return;
-
-      // End of ZGBTF2
-
       }

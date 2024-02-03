@@ -60,7 +60,4 @@
          }
 
       }
-
-      // End of ZLAQZ1
-
       END SUBROUTINE;

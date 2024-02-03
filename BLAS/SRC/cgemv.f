@@ -183,7 +183,4 @@
       }
 
       return;
-
-      // End of CGEMV
-
       }

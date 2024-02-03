@@ -224,7 +224,4 @@
 
       DLANTP = VALUE;
       return;
-
-      // End of DLANTP
-
       }

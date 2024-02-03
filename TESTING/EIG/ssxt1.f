@@ -47,7 +47,4 @@
 
       SSXT1 = TEMP1;
       return;
-
-      // End of SSXT1
-
       }

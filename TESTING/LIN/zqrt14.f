@@ -123,7 +123,4 @@
       ZQRT14 = ERR / ( DBLE( max( M, N, NRHS ) )*DLAMCH( 'Epsilon' ) );
 
       return;
-
-      // End of ZQRT14
-
       }

@@ -98,7 +98,4 @@
       RESID = ( ( RESID*RCOND ) / REAL( N ) ) / EPS;
 
       return;
-
-      // End of CTPT01
-
       }

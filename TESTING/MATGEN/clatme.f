@@ -317,7 +317,4 @@
       }
 
       return;
-
-      // End of CLATME
-
       }

@@ -544,7 +544,4 @@
          GO TO 410;
       }
   410 return;
-
-      // End of CLARFX
-
       }

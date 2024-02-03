@@ -479,7 +479,4 @@
       WORK( 1 ) = DBLE( LWKOPT );
 
       return;
-
-      // End of DGEQP3RK
-
       }

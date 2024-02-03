@@ -455,7 +455,4 @@
       Z( 2*N+4 ) = DBLE( NDIV ) / DBLE( N**2 );
       Z( 2*N+5 ) = HUNDRD*NFAIL / DBLE( ITER );
       return;
-
-      // End of DLASQ2
-
       }

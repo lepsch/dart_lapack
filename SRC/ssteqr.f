@@ -391,7 +391,4 @@
 
       } // 190
       return;
-
-      // End of SSTEQR
-
       }

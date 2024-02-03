@@ -21,7 +21,4 @@
  9999 FORMAT( 1X, A3, A2, I4, A8, I5, A35 );
  9998 FORMAT( / 1X, A14, A3, A24, I5, A11 );
       return;
-
-      // End of DLASUM
-
       }

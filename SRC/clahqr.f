@@ -352,7 +352,4 @@
 
       } // 150
       return;
-
-      // End of CLAHQR
-
       }

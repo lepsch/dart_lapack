@@ -135,7 +135,4 @@
  9998 FORMAT( ' N=', I4, ' M=', I4, ', P=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
  9997 FORMAT( ' *** Invalid input  for GLM:  M = ', I6, ', P = ', I6, ', N = ', I6, ';', / '     must satisfy M <= N <= M+P  ', '(this set of values will be skipped)' )
       return;
-
-      // End of CCKGLM
-
       }

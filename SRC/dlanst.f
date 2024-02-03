@@ -78,7 +78,4 @@
 
       DLANST = ANORM;
       return;
-
-      // End of DLANST
-
       }

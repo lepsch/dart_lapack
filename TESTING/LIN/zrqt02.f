@@ -93,7 +93,4 @@
       RESULT( 2 ) = ( RESID / DBLE( max( 1, N ) ) ) / EPS;
 
       return;
-
-      // End of ZRQT02
-
       }

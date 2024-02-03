@@ -100,7 +100,4 @@
       zsyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       return;
-
-      // End of ZSYT01_3
-
       }

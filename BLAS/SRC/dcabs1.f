@@ -15,7 +15,4 @@
 
       DCABS1 = ABS(DBLE(Z)) + ABS(DIMAG(Z));
       return;
-
-      // End of DCABS1
-
       }

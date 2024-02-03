@@ -42,7 +42,4 @@
          }
       }
       return;
-
-      // End of CSSCAL
-
       }

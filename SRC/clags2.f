@@ -214,7 +214,4 @@
       }
 
       return;
-
-      // End of CLAGS2
-
       }

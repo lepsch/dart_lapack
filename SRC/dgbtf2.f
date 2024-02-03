@@ -118,7 +118,4 @@
          }
       } // 40
       return;
-
-      // End of DGBTF2
-
       }

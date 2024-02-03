@@ -107,7 +107,4 @@
       ctrmm('RIGHT', 'Upper', 'NO TRANSPOSE', 'NON-UNIT', K, NB, ONE, T, LDT, Y, LDY );
 
       return;
-
-      // End of CLAHR2
-
       }

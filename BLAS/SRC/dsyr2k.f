@@ -193,7 +193,4 @@
       }
 
       return;
-
-      // End of DSYR2K
-
       }

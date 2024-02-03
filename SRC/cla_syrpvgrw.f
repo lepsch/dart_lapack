@@ -202,7 +202,4 @@
       }
 
       CLA_SYRPVGRW = RPVGRW;
-
-      // End of CLA_SYRPVGRW
-
       }

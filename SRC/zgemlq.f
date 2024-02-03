@@ -113,7 +113,4 @@
       WORK( 1 ) = LW;
 
       return;
-
-      // End of ZGEMLQ
-
       }

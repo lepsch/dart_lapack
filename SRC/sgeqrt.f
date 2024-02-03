@@ -68,7 +68,4 @@
          }
       }
       return;
-
-      // End of SGEQRT
-
       }

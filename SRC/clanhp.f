@@ -144,7 +144,4 @@
 
       CLANHP = VALUE;
       return;
-
-      // End of CLANHP
-
       }

@@ -27,7 +27,4 @@
       INFO = 0;
       TRYRAC = false;
        sstemr(JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO );
-
-      // End of SSTEGR
-
       }

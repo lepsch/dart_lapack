@@ -128,7 +128,4 @@
       } // 90
 
       return;
-
-      // End of STRT05
-
       }

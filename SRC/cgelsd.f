@@ -372,7 +372,4 @@
       IWORK( 1 ) = LIWORK;
       RWORK( 1 ) = LRWORK;
       return;
-
-      // End of CGELSD
-
       }

@@ -141,7 +141,4 @@
       scopy(K, WORK( IWK3 ), 1, VL, 1 );
 
       return;
-
-      // End of SLASD8
-
       }

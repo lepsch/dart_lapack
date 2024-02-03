@@ -94,7 +94,4 @@
 
       SQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( max( M, N, NRHS ) ) );
       return;
-
-      // End of SQRT17
-
       }

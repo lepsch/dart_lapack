@@ -344,7 +344,4 @@
       }
 
       return;
-
-      // End of CHETRI_ROOK
-
       }

@@ -195,7 +195,4 @@
       RESULT( 2 ) = max( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP );
 
       return;
-
-      // End of DGET22
-
       }

@@ -126,7 +126,4 @@
       RESULT( 2 ) = min( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP );
 
       return;
-
-      // End of DSBT21
-
       }

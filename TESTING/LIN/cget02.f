@@ -86,7 +86,4 @@
       } // 10
 
       return;
-
-      // End of CGET02
-
       }

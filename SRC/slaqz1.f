@@ -55,7 +55,4 @@
          V( 2 ) = ZERO;
          V( 3 ) = ZERO;
       }
-
-      // End of SLAQZ1
-
       END SUBROUTINE;

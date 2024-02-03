@@ -210,7 +210,4 @@
 
       ZLANTB = VALUE;
       return;
-
-      // End of ZLANTB
-
       }

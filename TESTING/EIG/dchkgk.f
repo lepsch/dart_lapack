@@ -161,7 +161,4 @@
  9992 FORMAT( ' total number of examples tested              =', I4 );
 
       return;
-
-      // End of DCHKGK
-
       }

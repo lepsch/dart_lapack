@@ -337,7 +337,4 @@
       }
 
       return;
-
-      // End of CSYCONVF
-
       }

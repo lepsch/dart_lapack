@@ -84,9 +84,6 @@
       DLAMCH = RMACH;
       FIRST  = false;
       return;
-
-      // End of DLAMCH
-
       }
 
 // ***********************************************************************
@@ -277,9 +274,6 @@
       IEEE1 = LIEEE1;
       FIRST = false;
       return;
-
-      // End of DLAMC1
-
       }
 
 // ***********************************************************************
@@ -537,9 +531,6 @@
       return;
 
  9999 FORMAT( / / ' WARNING. The value EMIN may be incorrect:-', '  EMIN = ', I8, / ' If, after inspection, the value EMIN looks', ' acceptable please comment out ', / ' the IF block as marked within the code of routine', ' DLAMC2,', / ' otherwise supply EMIN explicitly.', / );
-
-      // End of DLAMC2
-
       }
 
 // ***********************************************************************
@@ -576,9 +567,6 @@
       DLAMC3 = A + B;
 
       return;
-
-      // End of DLAMC3
-
       }
 
 // ***********************************************************************
@@ -662,9 +650,6 @@
 // +    END WHILE
 
       return;
-
-      // End of DLAMC4
-
       }
 
 // ***********************************************************************
@@ -831,7 +816,4 @@
 
       RMAX = Y;
       return;
-
-      // End of DLAMC5
-
       }

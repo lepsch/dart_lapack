@@ -255,7 +255,4 @@
       }
 
       return;
-
-      // End of DLA_GBRFSX_EXTENDED
-
       }

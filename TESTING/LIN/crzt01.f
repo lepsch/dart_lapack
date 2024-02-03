@@ -74,7 +74,4 @@
       if (NORMA != ZERO) CRZT01 = CRZT01 / NORMA;
 
       return;
-
-      // End of CRZT01
-
       }

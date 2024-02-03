@@ -98,7 +98,4 @@
       } // 40
 
       return;
-
-      // End of CTBT03
-
       }

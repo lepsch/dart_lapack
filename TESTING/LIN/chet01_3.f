@@ -111,7 +111,4 @@
       csyconvf_rook(UPLO, 'C', N, AFAC, LDAFAC, E, IPIV, INFO );
 
       return;
-
-      // End of CHET01_3
-
       }

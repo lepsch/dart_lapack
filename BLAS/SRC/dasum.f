@@ -54,7 +54,4 @@
       }
       DASUM = DTEMP;
       return;
-
-      // End of DASUM
-
       }

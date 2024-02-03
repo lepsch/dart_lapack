@@ -520,7 +520,4 @@
       }
 
       return;
-
-      // End of SLATTB
-
       }

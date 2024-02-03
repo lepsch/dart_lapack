@@ -556,7 +556,4 @@
       }
 
       return;
-
-      // End of DLATTR
-
       }

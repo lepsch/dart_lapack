@@ -309,7 +309,4 @@
       WORK( 1 ) = SROUNDUP_LWORK( LWOPT );
 
       return;
-
-      // End of CGELST
-
       }

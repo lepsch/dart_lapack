@@ -166,7 +166,4 @@
       } // 20
       INFO = 1;
       return;
-
-      // End of CTGEX2
-
       }

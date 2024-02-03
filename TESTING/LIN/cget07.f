@@ -119,7 +119,4 @@
       } // 70
 
       return;
-
-      // End of CGET07
-
       }

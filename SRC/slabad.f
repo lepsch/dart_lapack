@@ -24,7 +24,4 @@
        // END IF
 
       return;
-
-      // End of SLABAD
-
       }

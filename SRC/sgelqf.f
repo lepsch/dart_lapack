@@ -123,7 +123,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( IWS );
       return;
-
-      // End of SGELQF
-
       }

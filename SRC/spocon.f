@@ -119,7 +119,4 @@
 
       } // 20
       return;
-
-      // End of SPOCON
-
       }

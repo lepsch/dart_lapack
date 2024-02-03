@@ -223,7 +223,4 @@
       }
 
       return;
-
-      // End of ZLA_HEAMV
-
       }

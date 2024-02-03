@@ -1198,7 +1198,4 @@
  9989 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 0P, F8.2 );
  9988 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 1P, E10.3 );
 
- 9987 FORMAT( / 'Test performed:  see CCHKST for details.', / );
-      // End of CCHKST
-
-      }
+ 9987 FORMAT( / 'Test performed:  see CCHKST for details.', / );      }

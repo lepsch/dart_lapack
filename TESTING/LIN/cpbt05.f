@@ -125,7 +125,4 @@
       } // 90
 
       return;
-
-      // End of CPBT05
-
       }

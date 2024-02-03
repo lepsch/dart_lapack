@@ -80,7 +80,4 @@
       }
 
       WORK( 1 ) = LWKOPT;
-
-      // End of ZSYSV_AA_2STAGE
-
       }

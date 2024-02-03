@@ -110,7 +110,4 @@
          SN1 = TN;
       }
       return;
-
-      // End of SLAEV2
-
       }

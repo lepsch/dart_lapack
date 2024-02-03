@@ -61,7 +61,4 @@
       LSAME = INTA == INTB;
 
       // return;
-
-      // End of LSAME
-
       }

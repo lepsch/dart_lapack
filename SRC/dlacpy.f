@@ -46,7 +46,4 @@
          } // 60
       }
       return;
-
-      // End of DLACPY
-
       }

@@ -1186,7 +1186,4 @@
 
  9990 FORMAT( ' N=', I5, ', seed=', 4( I4, ',' ), ' type ', I2, ', test(', I2, ')=', G10.3 );
 
- 9988 FORMAT( / 'Test performed:  see DCHKST for details.', / );
-      // End of DCHKST
-
-      }
+ 9988 FORMAT( / 'Test performed:  see DCHKST for details.', / );      }

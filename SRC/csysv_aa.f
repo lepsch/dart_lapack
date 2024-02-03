@@ -81,7 +81,4 @@
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
 
       return;
-
-      // End of CSYSV_AA
-
       }

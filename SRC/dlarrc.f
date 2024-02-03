@@ -107,7 +107,4 @@
       EIGCNT = RCNT - LCNT;
 
       return;
-
-      // End of DLARRC
-
       }

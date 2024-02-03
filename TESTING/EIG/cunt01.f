@@ -112,7 +112,4 @@
          RESID = ( RESID / REAL( N ) ) / EPS;
       }
       return;
-
-      // End of CUNT01
-
       }

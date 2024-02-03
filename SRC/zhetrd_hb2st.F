@@ -329,7 +329,4 @@
 
       WORK( 1 ) = LWMIN;
       return;
-
-      // End of ZHETRD_HB2ST
-
       }

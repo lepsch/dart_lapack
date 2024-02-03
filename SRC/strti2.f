@@ -93,7 +93,4 @@
       }
 
       return;
-
-      // End of STRTI2
-
       }

@@ -107,7 +107,4 @@
       }
 
       return;
-
-      // End of SGET51
-
       }

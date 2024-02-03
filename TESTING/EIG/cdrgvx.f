@@ -373,7 +373,4 @@
  9987 FORMAT( ' CDRGVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', Input example #', I2, ')' );
 
  9986 FORMAT( ' CDRGVX: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', Input Example #', I2, ')' );
-
-      // End of CDRGVX
-
       }

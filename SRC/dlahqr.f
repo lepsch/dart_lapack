@@ -384,7 +384,4 @@
 
       } // 160
       return;
-
-      // End of DLAHQR
-
       }

@@ -179,7 +179,4 @@
       if (AINVNM != 0.0) ZLA_PORCOND_C = 1.0 / AINVNM;
 
       return;
-
-      // End of ZLA_PORCOND_C
-
       }

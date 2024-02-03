@@ -119,7 +119,4 @@
          LMAX = KNT;
       }
       GO TO 10;
-
-      // End of CGET36
-
       }

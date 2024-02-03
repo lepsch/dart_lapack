@@ -38,7 +38,4 @@
          }
       }
       SLA_GERPVGRW = RPVGRW;
-
-      // End of SLA_GERPVGRW
-
       }

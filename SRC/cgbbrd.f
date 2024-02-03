@@ -331,7 +331,4 @@
          }
       } // 120
       return;
-
-      // End of CGBBRD
-
       }

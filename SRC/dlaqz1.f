@@ -55,7 +55,4 @@
          V( 2 ) = ZERO;
          V( 3 ) = ZERO;
       }
-
-      // End of DLAQZ1
-
       END SUBROUTINE;

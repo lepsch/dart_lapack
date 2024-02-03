@@ -166,7 +166,4 @@
       }
 
       return;
-
-      // End of CGEEQU
-
       }

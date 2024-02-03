@@ -426,7 +426,4 @@
 
       } // 90
       return;
-
-      // End of CHETF2
-
       }

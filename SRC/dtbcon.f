@@ -130,7 +130,4 @@
 
       } // 20
       return;
-
-      // End of DTBCON
-
       }

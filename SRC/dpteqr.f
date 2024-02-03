@@ -103,7 +103,4 @@
       }
 
       return;
-
-      // End of DPTEQR
-
       }

@@ -75,7 +75,4 @@
       WORK( 1 ) = max( LOPT, INT( WORK( 1 ) ) );
 
       return;
-
-      // End of ZGGRQF
-
       }

@@ -122,7 +122,4 @@
  9999 FORMAT( ' ZLATMS in ZCKGSV   INFO = ', I5 );
  9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
       return;
-
-      // End of ZCKGSV
-
       }

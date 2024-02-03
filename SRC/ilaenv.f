@@ -548,7 +548,4 @@
 
       ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
       return;
-
-      // End of ILAENV
-
       }

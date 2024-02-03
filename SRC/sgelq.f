@@ -146,7 +146,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWREQ );
       return;
-
-      // End of SGELQ
-
       }

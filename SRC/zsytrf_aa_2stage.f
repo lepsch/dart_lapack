@@ -392,7 +392,4 @@
       zgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       return;
-
-      // End of ZSYTRF_AA_2STAGE
-
       }

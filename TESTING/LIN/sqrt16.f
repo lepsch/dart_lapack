@@ -76,7 +76,4 @@
       } // 10
 
       return;
-
-      // End of SQRT16
-
       }

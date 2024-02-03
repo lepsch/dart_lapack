@@ -525,7 +525,4 @@
       }
 
       return;
-
-      // End of CLATTB
-
       }

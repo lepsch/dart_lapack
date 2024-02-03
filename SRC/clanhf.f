@@ -1247,7 +1247,4 @@
 
       CLANHF = VALUE;
       return;
-
-      // End of CLANHF
-
       }

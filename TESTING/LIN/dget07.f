@@ -111,7 +111,4 @@
       } // 70
 
       return;
-
-      // End of DGET07
-
       }

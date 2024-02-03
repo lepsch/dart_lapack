@@ -948,7 +948,4 @@
  9990 FORMAT( / 1X, A3, ':  Unrecognized path name' );
  9989 FORMAT( / 1X, A3, ' routines were not tested' );
  9988 FORMAT( / 1X, A3, ' driver routines were not tested' );
-
-      // End of CCHKAA
-
       }

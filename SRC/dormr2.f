@@ -109,7 +109,4 @@
          A( I, NQ-K+I ) = AII;
       } // 10
       return;
-
-      // End of DORMR2
-
       }

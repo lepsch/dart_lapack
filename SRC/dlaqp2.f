@@ -103,7 +103,4 @@
       } // 20
 
       return;
-
-      // End of DLAQP2
-
       }

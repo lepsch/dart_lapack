@@ -109,7 +109,4 @@
          }
       }
       return;
-
-      // End of SOPGTR
-
       }

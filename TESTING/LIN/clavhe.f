@@ -372,7 +372,4 @@
 
       }
       return;
-
-      // End of CLAVHE
-
       }

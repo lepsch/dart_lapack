@@ -66,7 +66,4 @@
 
       DRZT02 = DLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( max( M, N ) ) );
       return;
-
-      // End of DRZT02
-
       }

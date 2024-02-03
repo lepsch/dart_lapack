@@ -401,7 +401,4 @@
 
       INFO = 1;
       return;
-
-      // End of STGEX2
-
       }

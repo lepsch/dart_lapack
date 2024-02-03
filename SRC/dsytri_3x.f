@@ -452,7 +452,4 @@
       }
 
       return;
-
-      // End of DSYTRI_3X
-
       }

@@ -26,7 +26,4 @@
       }
 
       return;
-
-      // End of SLCTES
-
       }

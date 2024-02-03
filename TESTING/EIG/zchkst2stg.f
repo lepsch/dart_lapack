@@ -1256,7 +1256,4 @@
  9988 FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 1P, D10.3 );
 
  9987 FORMAT( / 'Test performed:  see ZCHKST2STG for details.', / );
-
-      // End of ZCHKST2STG
-
       }

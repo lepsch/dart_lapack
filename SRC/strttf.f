@@ -289,7 +289,4 @@
       }
 
       return;
-
-      // End of STRTTF
-
       }

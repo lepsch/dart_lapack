@@ -799,7 +799,4 @@
       }
 
       return;
-
-      // End of STGEVC
-
       }

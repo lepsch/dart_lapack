@@ -176,7 +176,4 @@
  9994 FORMAT( 26X, I5,' error message recorded (',A6,')');
 
       return;
-
-      // End of SDRVRF1
-
       }

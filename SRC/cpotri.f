@@ -55,7 +55,4 @@
       clauum(UPLO, N, A, LDA, INFO );
 
       return;
-
-      // End of CPOTRI
-
       }

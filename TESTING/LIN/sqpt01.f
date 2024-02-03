@@ -76,7 +76,4 @@
       SQPT01 = SLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( max( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) SQPT01 = SQPT01 / NORMA;
 
       return;
-
-      // End of SQPT01
-
       }

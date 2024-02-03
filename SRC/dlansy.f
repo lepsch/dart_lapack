@@ -111,7 +111,4 @@
 
       DLANSY = VALUE;
       return;
-
-      // End of DLANSY
-
       }

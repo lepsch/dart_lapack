@@ -114,7 +114,4 @@
       RESULT( 2 ) = ENRMER / ( DBLE( N )*ULP );
 
       return;
-
-      // End of ZGET52
-
       }

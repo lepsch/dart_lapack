@@ -294,7 +294,4 @@
 
       } // 60
       return;
-
-      // End of STRSNA
-
       }

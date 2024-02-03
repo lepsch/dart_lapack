@@ -461,7 +461,4 @@
       Z( 2*N+4 ) = REAL( NDIV ) / REAL( N**2 );
       Z( 2*N+5 ) = HUNDRD*NFAIL / REAL( ITER );
       return;
-
-      // End of SLASQ2
-
       }

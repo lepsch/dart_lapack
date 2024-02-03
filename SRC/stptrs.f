@@ -87,7 +87,4 @@
       } // 30
 
       return;
-
-      // End of STPTRS
-
       }

@@ -224,7 +224,4 @@
       }
 
       return;
-
-      // End of CLA_SYAMV
-
       }

@@ -332,7 +332,4 @@
  9972 FORMAT( 3X, I2, ': abs( WORK(1) - RPVGRW ) /', ' ( max( WORK(1), RPVGRW ) * EPS )' );
 
       return;
-
-      // End of ALADHD
-
       }

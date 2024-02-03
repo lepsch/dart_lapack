@@ -53,7 +53,4 @@
          }
       }
       return;
-
-      // End of ICMAX1
-
       }

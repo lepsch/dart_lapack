@@ -490,7 +490,4 @@
  9991 FORMAT( ' Matrix order=', I2, ', type=', I2, ', a=', D10.3, ', order(A_11)=', I2, ', result ', I2, ' is ', 0P, D10.3 );
  9990 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',', ' result ', I2, ' is', 0P, F8.2 );
  9989 FORMAT( ' Input example #', I2, ', matrix order=', I4, ',', ' result ', I2, ' is', 1P, D10.3 );
-
-      // End of ZDRGSX
-
       }

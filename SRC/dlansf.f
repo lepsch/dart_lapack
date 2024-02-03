@@ -728,7 +728,4 @@
 
       DLANSF = VALUE;
       return;
-
-      // End of DLANSF
-
       }

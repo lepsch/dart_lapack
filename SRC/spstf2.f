@@ -231,7 +231,4 @@
 
       } // 170
       return;
-
-      // End of SPSTF2
-
       }

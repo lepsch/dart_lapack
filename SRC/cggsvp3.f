@@ -275,7 +275,4 @@
 
       WORK( 1 ) = CMPLX( LWKOPT );
       return;
-
-      // End of CGGSVP3
-
       }

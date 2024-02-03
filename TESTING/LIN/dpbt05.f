@@ -115,7 +115,4 @@
       } // 90
 
       return;
-
-      // End of DPBT05
-
       }

@@ -209,7 +209,4 @@
 
       SLANTB = VALUE;
       return;
-
-      // End of SLANTB
-
       }

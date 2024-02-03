@@ -73,7 +73,4 @@
 
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, DUMMY );
       return;
-
-      // End of ZQRT13
-
       }

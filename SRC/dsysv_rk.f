@@ -82,7 +82,4 @@
       WORK( 1 ) = LWKOPT;
 
       return;
-
-      // End of DSYSV_RK
-
       }

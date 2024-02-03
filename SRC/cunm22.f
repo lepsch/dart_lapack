@@ -224,7 +224,4 @@
 
       WORK( 1 ) = CMPLX( LWKOPT );
       return;
-
-      // End of CUNM22
-
       }

@@ -394,7 +394,4 @@
          } // 180
       }
       return;
-
-      // End of ZSTEQR
-
       }

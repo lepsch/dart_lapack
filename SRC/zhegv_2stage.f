@@ -134,7 +134,4 @@
       WORK( 1 ) = LWMIN;
 
       return;
-
-      // End of ZHEGV_2STAGE
-
       }

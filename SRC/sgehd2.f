@@ -66,7 +66,4 @@
       } // 10
 
       return;
-
-      // End of SGEHD2
-
       }

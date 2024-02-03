@@ -19,7 +19,4 @@
       cpu_time(T );
       DSECND = T;
       return;
-
-      // End of DSECND
-
       }

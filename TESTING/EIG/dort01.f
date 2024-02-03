@@ -103,7 +103,4 @@
          RESID = ( RESID / DBLE( N ) ) / EPS;
       }
       return;
-
-      // End of DORT01
-
       }

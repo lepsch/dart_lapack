@@ -587,7 +587,4 @@
       } // 70
 
       return;
-
-      // End of SSYTF2_ROOK
-
       }

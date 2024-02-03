@@ -280,7 +280,4 @@
       }
 
       return;
-
-      // End of CSYTRI_ROOK
-
       }

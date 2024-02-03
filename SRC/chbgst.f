@@ -1120,7 +1120,4 @@
       }
 
       GO TO 490;
-
-      // End of CHBGST
-
       }

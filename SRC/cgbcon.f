@@ -160,7 +160,4 @@
 
       } // 40
       return;
-
-      // End of CGBCON
-
       }

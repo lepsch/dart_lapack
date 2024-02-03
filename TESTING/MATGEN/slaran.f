@@ -71,7 +71,4 @@
 
       SLARAN = RNDOUT;
       return;
-
-      // End of SLARAN
-
       }

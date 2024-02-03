@@ -517,7 +517,4 @@
       WORK( 1 ) = DCMPLX( DBLE( MAXWRK ), ZERO );
 
       return;
-
-      // End of ZGESVDX
-
       }

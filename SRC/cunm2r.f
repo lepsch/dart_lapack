@@ -118,7 +118,4 @@
          A( I, I ) = AII;
       } // 10
       return;
-
-      // End of CUNM2R
-
       }

@@ -50,7 +50,4 @@
       }
 
       return;
-
-      // End of CLACP2
-
       }

@@ -8,7 +8,4 @@
 
       DSECND = 0.0;
       return;
-
-      // End of DSECND
-
       }

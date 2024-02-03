@@ -103,7 +103,4 @@
       RESULT( 2 ) = min( REAL( M ), CLANGE( '1', M, M, WORK, M, RWORK ) ) / ( M*ULP );
 
       return;
-
-      // End of CSTT22
-
       }

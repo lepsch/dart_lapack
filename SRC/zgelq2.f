@@ -64,7 +64,4 @@
          zlacgv(N-I+1, A( I, I ), LDA );
       } // 10
       return;
-
-      // End of ZGELQ2
-
       }

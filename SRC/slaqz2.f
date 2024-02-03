@@ -112,7 +112,4 @@
          }
 
       }
-
-      // End of SLAQZ2
-
       END SUBROUTINE;

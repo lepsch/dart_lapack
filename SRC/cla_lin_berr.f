@@ -55,7 +55,4 @@
 
          }
       }
-
-      // End of CLA_LIN_BERR
-
       }

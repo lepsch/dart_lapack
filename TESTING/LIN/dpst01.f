@@ -161,7 +161,4 @@
       RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of DPST01
-
       }

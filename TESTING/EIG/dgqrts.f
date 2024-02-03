@@ -129,7 +129,4 @@
       RESULT( 4 ) = ( RESID / DBLE( max( 1, P ) ) ) / ULP;
 
       return;
-
-      // End of DGQRTS
-
       }

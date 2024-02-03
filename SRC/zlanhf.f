@@ -1247,7 +1247,4 @@
 
       ZLANHF = VALUE;
       return;
-
-      // End of ZLANHF
-
       }

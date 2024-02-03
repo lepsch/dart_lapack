@@ -260,7 +260,4 @@
       }
 
       return;
-
-      // End of SLATM4
-
       }

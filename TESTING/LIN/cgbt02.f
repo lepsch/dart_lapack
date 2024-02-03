@@ -120,7 +120,4 @@
       } // 30
 
       return;
-
-      // End of CGBT02
-
       }

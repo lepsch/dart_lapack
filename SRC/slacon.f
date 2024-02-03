@@ -151,7 +151,4 @@
       } // 150
       KASE = 0;
       return;
-
-      // End of SLACON
-
       }

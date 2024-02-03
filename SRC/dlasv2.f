@@ -176,7 +176,4 @@
       SSMAX = SIGN( SSMAX, TSIGN );
       SSMIN = SIGN( SSMIN, TSIGN*SIGN( ONE, F )*SIGN( ONE, H ) );
       return;
-
-      // End of DLASV2
-
       }

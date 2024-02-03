@@ -115,7 +115,4 @@
       RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of SPBT01
-
       }

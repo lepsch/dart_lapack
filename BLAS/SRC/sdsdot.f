@@ -46,7 +46,4 @@
       }
       SDSDOT = REAL(DSDOT);
       return;
-
-      // End of SDSDOT
-
       }

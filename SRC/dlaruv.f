@@ -219,7 +219,4 @@
       ISEED( 3 ) = IT3;
       ISEED( 4 ) = IT4;
       return;
-
-      // End of DLARUV
-
       }

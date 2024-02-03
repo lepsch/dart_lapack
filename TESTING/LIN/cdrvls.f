@@ -659,7 +659,4 @@
       DEALLOCATE( RWORK );
       DEALLOCATE( IWORK );
       return;
-
-      // End of CDRVLS
-
       }

@@ -151,7 +151,4 @@
       }
 
       return;
-
-      // End of CLARFGP
-
       }

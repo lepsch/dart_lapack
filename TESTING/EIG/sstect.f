@@ -95,7 +95,4 @@
          }
       } // 20
       return;
-
-      // End of SSTECT
-
       }

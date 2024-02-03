@@ -99,7 +99,4 @@
       A( K+NB, NB ) = EI;
 
       return;
-
-      // End of DLAHRD
-
       }

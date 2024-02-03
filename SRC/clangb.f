@@ -94,7 +94,4 @@
 
       CLANGB = VALUE;
       return;
-
-      // End of CLANGB
-
       }

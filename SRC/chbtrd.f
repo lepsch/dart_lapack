@@ -454,7 +454,4 @@
       }
 
       return;
-
-      // End of CHBTRD
-
       }

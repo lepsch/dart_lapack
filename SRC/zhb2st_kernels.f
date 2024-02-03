@@ -179,7 +179,4 @@
       }
 
       return;
-
-      // End of ZHB2ST_KERNELS
-
       }

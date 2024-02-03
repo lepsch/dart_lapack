@@ -659,7 +659,4 @@
       DEALLOCATE( IWORK );
       DEALLOCATE( RWORK );
       return;
-
-      // End of ZDRVLS
-
       }

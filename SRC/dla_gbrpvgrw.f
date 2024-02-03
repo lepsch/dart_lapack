@@ -39,7 +39,4 @@
          }
       }
       DLA_GBRPVGRW = RPVGRW;
-
-      // End of DLA_GBRPVGRW
-
       }

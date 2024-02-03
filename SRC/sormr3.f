@@ -111,7 +111,4 @@
       } // 10
 
       return;
-
-      // End of SORMR3
-
       }

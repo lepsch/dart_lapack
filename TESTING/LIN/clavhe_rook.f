@@ -399,7 +399,4 @@
 
       }
       return;
-
-      // End of CLAVHE_ROOK
-
       }

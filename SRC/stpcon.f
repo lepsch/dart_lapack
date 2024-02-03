@@ -126,7 +126,4 @@
 
       } // 20
       return;
-
-      // End of STPCON
-
       }

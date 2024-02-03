@@ -112,7 +112,4 @@
          RESID = ( RESID / DBLE( N ) ) / EPS;
       }
       return;
-
-      // End of ZUNT01
-
       }

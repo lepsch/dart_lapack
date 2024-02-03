@@ -540,7 +540,4 @@
       } // 210
       WORK( 1 ) = CMPLX( N );
       return;
-
-      // End of CHGEQZ
-
       }

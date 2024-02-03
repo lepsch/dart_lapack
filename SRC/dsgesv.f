@@ -220,7 +220,4 @@
       dgetrs('No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO );
 
       return;
-
-      // End of DSGESV
-
       }

@@ -101,7 +101,4 @@
       alaesm(PATH, OK, NOUT );
 
       return;
-
-      // End of ZERRUNHR_COL
-
       }

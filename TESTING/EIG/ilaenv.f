@@ -93,9 +93,6 @@
       }
 
       return;
-
-      // End of ILAENV
-
       }
       int ilaenv2stage(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
       // .. Scalar Arguments ..
@@ -141,9 +138,6 @@
       }
 
       return;
-
-      // End of ILAENV2STAGE
-
       }
       int iparmq(ISPEC, NAME, OPTS, N, ILO, IHI, LWORK ) {
 

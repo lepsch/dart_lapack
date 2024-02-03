@@ -72,7 +72,4 @@
       }
 
       return;
-
-      // End of SPTT01
-
       }

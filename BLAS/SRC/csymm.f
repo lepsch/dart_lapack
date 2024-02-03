@@ -170,7 +170,4 @@
       }
 
       return;
-
-      // End of CSYMM
-
       }

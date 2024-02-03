@@ -174,7 +174,4 @@
       }
 
       return;
-
-      // End of SSYMV
-
       }

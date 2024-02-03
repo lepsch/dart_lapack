@@ -91,7 +91,4 @@
       } // 30
 
       return;
-
-      // End of STRT03
-
       }

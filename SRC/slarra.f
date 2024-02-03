@@ -66,7 +66,4 @@
       ISPLIT( NSPLIT ) = N;
 
       return;
-
-      // End of SLARRA
-
       }

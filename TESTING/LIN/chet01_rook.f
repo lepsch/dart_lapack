@@ -103,7 +103,4 @@
       }
 
       return;
-
-      // End of CHET01_ROOK
-
       }

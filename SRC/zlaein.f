@@ -192,7 +192,4 @@
       zdscal(N, ONE / CABS1( V( I ) ), V, 1 );
 
       return;
-
-      // End of ZLAEIN
-
       }

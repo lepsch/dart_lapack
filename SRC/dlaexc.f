@@ -270,7 +270,4 @@
       } // 50
       INFO = 1;
       return;
-
-      // End of DLAEXC
-
       }

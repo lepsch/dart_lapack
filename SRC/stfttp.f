@@ -321,7 +321,4 @@
       }
 
       return;
-
-      // End of STFTTP
-
       }

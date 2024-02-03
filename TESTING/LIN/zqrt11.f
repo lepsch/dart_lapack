@@ -65,7 +65,4 @@
       ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) );
 
       return;
-
-      // End of ZQRT11
-
       }

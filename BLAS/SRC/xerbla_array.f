@@ -35,7 +35,4 @@
       xerbla(SRNAME, INFO );
 
       return;
-
-      // End of XERBLA_ARRAY
-
       }

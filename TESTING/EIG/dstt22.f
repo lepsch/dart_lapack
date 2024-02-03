@@ -99,7 +99,4 @@
       RESULT( 2 ) = min( DBLE( M ), DLANGE( '1', M, M, WORK, M, WORK( 1, M+1 ) ) ) / ( M*ULP );
 
       return;
-
-      // End of DSTT22
-
       }

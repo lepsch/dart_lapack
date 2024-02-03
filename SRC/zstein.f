@@ -256,7 +256,4 @@
       } // 180
 
       return;
-
-      // End of ZSTEIN
-
       }

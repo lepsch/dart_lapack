@@ -260,7 +260,4 @@
  9969 FORMAT( / ' Test ratios:  ', '(B: upper bidiagonal, Q and P: ', A10, / 16X, 'C: m x nrhs, PT = P'', Y = Q'' C)', / ' 1: norm( A - Q B PT ) / ( norm(A) max(m,n) ulp )', / ' 2: norm( I - Q'' Q )   / ( m ulp )', / ' 3: norm( I - PT PT'' )   / ( n ulp )', / ' 4: norm( Y - Q'' C )   / ( norm(Y) max(m,nrhs) ulp )' );
  9968 FORMAT( / ' Tests performed:  See sdrvst.f' );
  9967 FORMAT( / ' Tests performed:  See cdrvst.f' );
-
-      // End of SLAHD2
-
       }

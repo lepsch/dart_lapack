@@ -61,7 +61,4 @@
       }
       DDOT = DTEMP;
       return;
-
-      // End of DDOT
-
       }

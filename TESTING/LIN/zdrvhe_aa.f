@@ -299,7 +299,4 @@
 
  9999 FORMAT( 1X, A, ', UPLO=''', A1, ''', N =', I5, ', type ', I2, ', test ', I2, ', ratio =', G12.5 );
        return;
-
-      // End of ZDRVHE_AA
-
       }

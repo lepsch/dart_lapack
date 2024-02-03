@@ -73,7 +73,4 @@
 
       NORMA = SLANGE( 'One-norm', M, N, A, LDA, DUMMY );
       return;
-
-      // End of SQRT13
-
       }

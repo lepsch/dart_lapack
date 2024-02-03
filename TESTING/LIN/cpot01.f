@@ -124,7 +124,4 @@
       RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of CPOT01
-
       }

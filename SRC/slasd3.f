@@ -197,7 +197,4 @@
       sgemm('N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT );
 
       return;
-
-      // End of SLASD3
-
       }

@@ -42,7 +42,4 @@
       }
       DZASUM = STEMP;
       return;
-
-      // End of DZASUM
-
       }

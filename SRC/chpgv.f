@@ -106,7 +106,4 @@
          }
       }
       return;
-
-      // End of CHPGV
-
       }

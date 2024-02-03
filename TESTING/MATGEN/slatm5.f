@@ -218,7 +218,4 @@
       sgemm('N', 'N', M, N, N, -ONE, L, LDL, B, LDB, ONE, C, LDC );
       sgemm('N', 'N', M, N, M, ONE, D, LDD, R, LDR, ZERO, F, LDF );
       sgemm('N', 'N', M, N, N, -ONE, L, LDL, E, LDE, ONE, F, LDF );
-
-      // End of SLATM5
-
       }

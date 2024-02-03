@@ -134,7 +134,4 @@
       } // 40
 
       return;
-
-      // End of DGGHRD
-
       }

@@ -163,7 +163,4 @@
       } // 120
 
       return;
-
-      // End of SGSVTS3
-
       }

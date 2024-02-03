@@ -59,7 +59,4 @@
          }
       }
       return;
-
-      // End of SAXPY
-
       }

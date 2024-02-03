@@ -110,7 +110,4 @@
       JPIV( N ) = N;
 
       return;
-
-      // End of SGETC2
-
       }

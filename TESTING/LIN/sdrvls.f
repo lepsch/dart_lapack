@@ -647,7 +647,4 @@
       DEALLOCATE( WORK );
       DEALLOCATE( IWORK );
       return;
-
-      // End of SDRVLS
-
       }

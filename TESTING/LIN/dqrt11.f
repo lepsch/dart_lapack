@@ -65,7 +65,4 @@
       DQRT11 = DLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) );
 
       return;
-
-      // End of DQRT11
-
       }

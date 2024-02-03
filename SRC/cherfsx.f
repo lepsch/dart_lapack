@@ -264,7 +264,4 @@
       }
 
       return;
-
-      // End of CHERFSX
-
       }

@@ -302,7 +302,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
       return;
-
-      // End of CGGEV3
-
       }

@@ -250,7 +250,4 @@
       }
 
       return;
-
-      // End of CGGSVP
-
       }

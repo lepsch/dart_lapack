@@ -76,7 +76,4 @@
       ZQPT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( max( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA != ZERO ) ZQPT01 = ZQPT01 / NORMA;
 
       return;
-
-      // End of ZQPT01
-
       }

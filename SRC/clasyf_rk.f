@@ -661,7 +661,4 @@
       }
 
       return;
-
-      // End of CLASYF_RK
-
       }

@@ -201,7 +201,4 @@
       }
 
       return;
-
-      // End of CHETRS_3
-
       }

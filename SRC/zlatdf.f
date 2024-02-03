@@ -143,7 +143,4 @@
 
       zlassq(N, RHS, 1, RDSCAL, RDSUM );
       return;
-
-      // End of ZLATDF
-
       }

@@ -230,7 +230,4 @@
       zpotrs(UPLO, N, NRHS, A, LDA, X, LDX, INFO );
 
       return;
-
-      // End of ZCPOSV
-
       }

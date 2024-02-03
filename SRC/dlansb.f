@@ -119,7 +119,4 @@
 
       DLANSB = VALUE;
       return;
-
-      // End of DLANSB
-
       }

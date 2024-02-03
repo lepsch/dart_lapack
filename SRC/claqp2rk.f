@@ -371,7 +371,4 @@
       }
 
       return;
-
-      // End of CLAQP2RK
-
       }

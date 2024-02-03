@@ -213,7 +213,4 @@
       }
 
       return;
-
-      // End of CLA_GBAMV
-
       }

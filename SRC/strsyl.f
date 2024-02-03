@@ -732,7 +732,4 @@
       }
 
       return;
-
-      // End of STRSYL
-
       }

@@ -374,7 +374,4 @@
  9987 FORMAT( ' ZDRGVX: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', Input example #', I2, ')' );
 
  9986 FORMAT( ' ZDRGVX: ', A, ' Eigenvectors from ', A, ' incorrectly ', 'normalized.', / ' Bits of error=', 0P, G10.3, ',', 9X, 'N=', I6, ', Input Example #', I2, ')' );
-
-      // End of ZDRGVX
-
       }

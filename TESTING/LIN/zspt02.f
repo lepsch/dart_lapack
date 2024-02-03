@@ -75,7 +75,4 @@
       } // 20
 
       return;
-
-      // End of ZSPT02
-
       }

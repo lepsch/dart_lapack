@@ -144,7 +144,4 @@
       }
 
       return;
-
-      // End of SSYR2
-
       }

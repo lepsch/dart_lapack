@@ -224,7 +224,4 @@
 
       WORK( 1 ) = LWMIN;
       return;
-
-      // End of DSYTRD_SY2SB
-
       }

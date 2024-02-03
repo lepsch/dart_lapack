@@ -83,7 +83,4 @@
       } // 10
 
       return;
-
-      // End of SGET02
-
       }

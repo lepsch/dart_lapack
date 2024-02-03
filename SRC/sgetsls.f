@@ -297,7 +297,4 @@
       } // 50
       WORK( 1 ) = SROUNDUP_LWORK( TSZO + LWO );
       return;
-
-      // End of SGETSLS
-
       }

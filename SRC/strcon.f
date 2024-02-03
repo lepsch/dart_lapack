@@ -128,7 +128,4 @@
 
       } // 20
       return;
-
-      // End of STRCON
-
       }

@@ -78,7 +78,4 @@
       }
 
       return;
-
-      // End of SSGT01
-
       }

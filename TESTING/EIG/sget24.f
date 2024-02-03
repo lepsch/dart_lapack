@@ -542,7 +542,4 @@
  9998 FORMAT( ' SGET24: ', A, ' returned INFO=', I6, '.', / 9X, 'N=', I6, ', JTYPE=', I6, ', ISEED=(', 3( I5, ',' ), I5, ')' );
 
       return;
-
-      // End of SGET24
-
       }

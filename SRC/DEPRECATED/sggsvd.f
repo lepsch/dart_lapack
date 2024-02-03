@@ -117,7 +117,4 @@
       } // 20
 
       return;
-
-      // End of SGGSVD
-
       }

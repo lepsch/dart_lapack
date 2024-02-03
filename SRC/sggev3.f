@@ -323,7 +323,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
       return;
-
-      // End of SGGEV3
-
       }

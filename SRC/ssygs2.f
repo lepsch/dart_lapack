@@ -139,7 +139,4 @@
          }
       }
       return;
-
-      // End of SSYGS2
-
       }

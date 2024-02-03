@@ -204,7 +204,4 @@
 
       DLANTR = VALUE;
       return;
-
-      // End of DLANTR
-
       }

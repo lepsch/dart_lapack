@@ -298,7 +298,4 @@
 
       } // 180
       return;
-
-      // End of SSTERF
-
       }

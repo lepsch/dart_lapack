@@ -371,7 +371,4 @@
       }
 
       return;
-
-      // End of SLALN2
-
       }

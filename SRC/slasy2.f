@@ -281,7 +281,4 @@
       X( 2, 2 ) = TMP( 4 );
       XNORM = max( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) );
       return;
-
-      // End of SLASY2
-
       }

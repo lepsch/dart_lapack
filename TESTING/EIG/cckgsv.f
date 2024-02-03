@@ -158,7 +158,4 @@
  9998 FORMAT( ' M=', I4, ' P=', I4, ', N=', I4, ', type ', I2, ', test ', I2, ', ratio=', G13.6 );
  9997 FORMAT( ' FOUND NaN in BETA(', I4,')' );
       return;
-
-      // End of CCKGSV
-
       }

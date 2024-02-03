@@ -91,7 +91,4 @@
 
       CLANGE = VALUE;
       return;
-
-      // End of CLANGE
-
       }

@@ -92,7 +92,4 @@
 
       SLANGT = ANORM;
       return;
-
-      // End of SLANGT
-
       }

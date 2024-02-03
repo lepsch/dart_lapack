@@ -126,7 +126,4 @@
  9993 FORMAT( ' total number of examples tested          = ', I4 );
 
       return;
-
-      // End of CCHKGL
-
       }

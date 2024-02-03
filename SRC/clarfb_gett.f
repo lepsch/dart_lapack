@@ -189,7 +189,4 @@
       }
 
       return;
-
-      // End of CLARFB_GETT
-
       }

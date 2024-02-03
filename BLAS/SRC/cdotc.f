@@ -47,7 +47,4 @@
       }
       CDOTC = CTEMP;
       return;
-
-      // End of CDOTC
-
       }

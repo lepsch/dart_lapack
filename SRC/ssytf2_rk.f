@@ -663,7 +663,4 @@
       }
 
       return;
-
-      // End of SSYTF2_RK
-
       }

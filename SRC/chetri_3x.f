@@ -455,7 +455,4 @@
       }
 
       return;
-
-      // End of CHETRI_3X
-
       }

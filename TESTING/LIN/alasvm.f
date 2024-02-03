@@ -26,7 +26,4 @@
  9998 FORMAT( /1X, 'All tests for ', A3, ' drivers  passed the ', 'threshold ( ', I6, ' tests run)' );
  9997 FORMAT( 14X, I6, ' error messages recorded' );
       return;
-
-      // End of ALASVM
-
       }

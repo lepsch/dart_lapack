@@ -26,7 +26,4 @@
         X(I) = S;
       } // 10
       return;
-
-      // End of SLA_WWADDW
-
       }

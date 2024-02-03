@@ -62,7 +62,4 @@
          }
       } // 10
       return;
-
-      // End of ZGEQR2P
-
       }

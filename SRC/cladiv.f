@@ -25,7 +25,4 @@
       CLADIV = CMPLX( ZR, ZI );
 
       return;
-
-      // End of CLADIV
-
       }

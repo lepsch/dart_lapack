@@ -50,7 +50,4 @@
       } // 30
       SCSUM1 = STEMP;
       return;
-
-      // End of SCSUM1
-
       }

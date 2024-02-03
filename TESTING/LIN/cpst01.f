@@ -178,7 +178,4 @@
       RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS;
 
       return;
-
-      // End of CPST01
-
       }

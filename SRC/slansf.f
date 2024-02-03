@@ -729,7 +729,4 @@
 
       SLANSF = VALUE;
       return;
-
-      // End of SLANSF
-
       }

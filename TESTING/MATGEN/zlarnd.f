@@ -64,7 +64,4 @@
          ZLARND = EXP( DCMPLX( ZERO, TWOPI*T2 ) );
       }
       return;
-
-      // End of ZLARND
-
       }

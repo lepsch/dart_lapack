@@ -395,7 +395,4 @@
       cgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       return;
-
-      // End of CHETRF_AA_2STAGE
-
       }

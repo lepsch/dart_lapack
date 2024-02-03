@@ -99,7 +99,4 @@
       } // 50
 
       return;
-
-      // End of SPTT05
-
       }

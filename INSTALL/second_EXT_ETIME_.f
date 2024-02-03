@@ -19,7 +19,4 @@
       T1 = ETIME_( TARRAY );
       SECOND = TARRAY( 1 );
       return;
-
-      // End of SECOND
-
       }

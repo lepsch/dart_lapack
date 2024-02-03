@@ -377,7 +377,4 @@
       sgbtrf(N, N, NB, NB, TB, LDTB, IPIV2, INFO );
 
       return;
-
-      // End of SSYTRF_AA_2STAGE
-
       }

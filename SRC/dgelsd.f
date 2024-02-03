@@ -361,7 +361,4 @@
       WORK( 1 ) = MAXWRK;
       IWORK( 1 ) = LIWORK;
       return;
-
-      // End of DGELSD
-
       }

@@ -133,7 +133,4 @@
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN);
       return;
-
-      // End of SSYGV_2STAGE
-
       }

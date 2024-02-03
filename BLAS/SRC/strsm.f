@@ -253,7 +253,4 @@
       }
 
       return;
-
-      // End of STRSM
-
       }

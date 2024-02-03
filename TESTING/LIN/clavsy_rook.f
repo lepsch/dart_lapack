@@ -377,7 +377,4 @@
          }
       }
       return;
-
-      // End of CLAVSY_ROOK
-
       }

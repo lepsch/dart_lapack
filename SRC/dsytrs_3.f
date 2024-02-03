@@ -198,7 +198,4 @@
       }
 
       return;
-
-      // End of DSYTRS_3
-
       }

@@ -60,7 +60,4 @@
       ND = LLST*2 - 1;
 
       return;
-
-      // End of SLASDT
-
       }

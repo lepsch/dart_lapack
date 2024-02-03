@@ -99,7 +99,4 @@
  9994 FORMAT( 1X, 'total number of examples tested         = ', I4 );
 
       return;
-
-      // End of SCHKBK
-
       }

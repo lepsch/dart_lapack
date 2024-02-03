@@ -273,9 +273,6 @@
  9982 FORMAT( /' END OF TESTS' );
  9981 FORMAT( /' ******* FATAL ERROR - TESTS ABANDONED *******' );
  9980 FORMAT( ' ERROR-EXITS WILL NOT BE TESTED' );
-
-      // End of DBLAT2
-
       }
       void dchk1(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
 
@@ -582,9 +579,6 @@
  9995 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 4( I3, ',' ), F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ') .' );
  9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')         .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
-
-      // End of DCHK1
-
       }
       void dchk2(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G ) {
 
@@ -875,9 +869,6 @@
  9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', 2( I3, ',' ), F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')         .' );
  9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', A,', I3, ', X,', I2, ',', F4.1, ', Y,', I2, ')             .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
-
-      // End of DCHK2
-
       }
       void dchk3(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z ) {
 
@@ -1172,9 +1163,6 @@
  9994 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), 2( I3, ',' ), ' A,', I3, ', X,', I2, ')                 .' );
  9993 FORMAT( 1X, I6, ': ', A6, '(', 3( '''', A1, ''',' ), I3, ', A,', I3, ', X,', I2, ')                     .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
-
-      // End of DCHK3
-
       }
       void dchk4(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
 
@@ -1401,9 +1389,6 @@
  9995 FORMAT( '      THESE ARE THE RESULTS FOR COLUMN ', I3 );
  9994 FORMAT( 1X, I6, ': ', A6, '(', 2( I3, ',' ), F4.1, ', X,', I2, ', Y,', I2, ', A,', I3, ')                  .' );
  9993 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
-
-      // End of DCHK4
-
       }
       void dchk5(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
 
@@ -1647,9 +1632,6 @@
  9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', AP)                           .' );
  9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', A,', I3, ')                        .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
-
-      // End of DCHK5
-
       }
       void dchk6(SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z ) {
 
@@ -1924,9 +1906,6 @@
  9994 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', Y,', I2, ', AP)                     .' );
  9993 FORMAT( 1X, I6, ': ', A6, '(''', A1, ''',', I3, ',', F4.1, ', X,', I2, ', Y,', I2, ', A,', I3, ')                  .' );
  9992 FORMAT( ' ******* FATAL ERROR - ERROR-EXIT TAKEN ON VALID CALL *', '******' );
-
-      // End of DCHK6
-
       }
       void dchke(ISNUM, SRNAMT, NOUT ) {
 
@@ -2245,9 +2224,6 @@
 
  9999 FORMAT( ' ', A6, ' PASSED THE TESTS OF ERROR-EXITS' );
  9998 FORMAT( ' ******* ', A6, ' FAILED THE TESTS OF ERROR-EXITS *****', '**' );
-
-      // End of DCHKE
-
       }
       void dmake(TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL ) {
 
@@ -2415,9 +2391,6 @@
          } // 190
       }
       return;
-
-      // End of DMAKE
-
       }
       void dmvch(TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV ) {
 
@@ -2524,9 +2497,6 @@
 
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'           EXPECTED RESULT   COMPU', 'TED RESULT' );
  9998 FORMAT( 1X, I7, 2G18.6 );
-
-      // End of DMVCH
-
       }
       bool lde(RI, RJ, LR ) {
 
@@ -2553,9 +2523,6 @@
       } // 20
       LDE = false;
    30 return;
-
-      // End of LDE
-
       }
       bool lderes(TYPE, UPLO, M, N, AA, AS, LDA ) {
 
@@ -2609,9 +2576,6 @@
       } // 70
       LDERES = false;
    80 return;
-
-      // End of LDERES
-
       }
       double dbeg(RESET ) {
 
@@ -2655,9 +2619,6 @@
       }
       DBEG = DBLE( I - 500 )/1001.0;
       return;
-
-      // End of DBEG
-
       }
       double ddiff(X, Y ) {
 
@@ -2671,9 +2632,6 @@
       // .. Executable Statements ..
       DDIFF = X - Y;
       return;
-
-      // End of DDIFF
-
       }
       void chkxer(SRNAMT, INFOT, NOUT, LERR, OK ) {
 
@@ -2698,9 +2656,6 @@
       return;
 
  9999 FORMAT( ' ***** ILLEGAL VALUE OF PARAMETER NUMBER ', I2, ' NOT D', 'ETECTED BY ', A6, ' *****' );
-
-      // End of CHKXER
-
       }
       void dregr1(TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS ) {
 
@@ -2780,7 +2735,4 @@
  9999 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' INSTEAD', ' OF ', I2, ' *******' );
  9998 FORMAT( ' ******* XERBLA WAS CALLED WITH SRNAME = ', A6, ' INSTE', 'AD OF ', A6, ' *******' );
  9997 FORMAT( ' ******* XERBLA WAS CALLED WITH INFO = ', I6, ' *******' );
-
-      // End of XERBLA
-
       }

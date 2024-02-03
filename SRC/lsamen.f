@@ -39,7 +39,4 @@
 
       } // 20
       return;
-
-      // End of LSAMEN
-
       }

@@ -164,7 +164,4 @@
       if (AINVNM != 0.0) CLA_GERCOND_C = 1.0 / AINVNM;
 
       return;
-
-      // End of CLA_GERCOND_C
-
       }

@@ -171,7 +171,4 @@
       }
 
       return;
-
-      // End of CUNHR_COL
-
       }

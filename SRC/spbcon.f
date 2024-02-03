@@ -122,7 +122,4 @@
       } // 20
 
       return;
-
-      // End of SPBCON
-
       }

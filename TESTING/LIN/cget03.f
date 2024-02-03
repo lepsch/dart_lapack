@@ -71,7 +71,4 @@
       RESID = ( ( RESID*RCOND )/EPS ) / REAL( N );
 
       return;
-
-      // End of CGET03
-
       }

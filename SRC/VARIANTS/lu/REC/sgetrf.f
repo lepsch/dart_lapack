@@ -128,7 +128,4 @@
       }
 
       return;
-
-      // End of SGETRF
-
       }

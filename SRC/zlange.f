@@ -91,7 +91,4 @@
 
       ZLANGE = VALUE;
       return;
-
-      // End of ZLANGE
-
       }

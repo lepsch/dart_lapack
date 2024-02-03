@@ -112,7 +112,4 @@
       // Read next matrix pair
 
       GO TO 10;
-
-      // End of DGET40
-
       }

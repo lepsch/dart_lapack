@@ -116,7 +116,4 @@
  9993 FORMAT( 1X, 'total number of examples tested        = ', I4 );
 
       return;
-
-      // End of SCHKBL
-
       }

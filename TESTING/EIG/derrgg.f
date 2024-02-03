@@ -873,7 +873,4 @@
  9998 FORMAT( ' *** ', A3, ' routines failed the tests of the error ', 'exits ***' );
 
       return;
-
-      // End of DERRGG
-
       }

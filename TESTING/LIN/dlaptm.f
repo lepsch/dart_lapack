@@ -71,7 +71,4 @@
          } // 80
       }
       return;
-
-      // End of DLAPTM
-
       }

@@ -160,7 +160,4 @@
 
       WORK( 1 ) = DCMPLX( LWORKOPT );
       return;
-
-      // End of ZGETSQRHRT
-
       }

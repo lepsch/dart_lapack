@@ -154,7 +154,4 @@
       IWORK( 1 ) = LIOPT;
 
       return;
-
-      // End of SSYEVD
-
       }

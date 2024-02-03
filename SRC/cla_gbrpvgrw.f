@@ -46,7 +46,4 @@
          }
       }
       CLA_GBRPVGRW = RPVGRW;
-
-      // End of CLA_GBRPVGRW
-
       }

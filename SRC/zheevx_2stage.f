@@ -279,7 +279,4 @@
       WORK( 1 ) = LWMIN;
 
       return;
-
-      // End of ZHEEVX_2STAGE
-
       }

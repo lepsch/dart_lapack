@@ -229,7 +229,4 @@
          }
       } // 70
       return;
-
-      // End of SLAGGE
-
       }

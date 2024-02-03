@@ -132,7 +132,4 @@
       RESULT( 4 ) = ( RESID / REAL( max( 1, P ) ) ) / ULP;
 
       return;
-
-      // End of CGQRTS
-
       }

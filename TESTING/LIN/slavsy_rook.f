@@ -379,7 +379,4 @@
 
       }
       return;
-
-      // End of SLAVSY_ROOK
-
       }

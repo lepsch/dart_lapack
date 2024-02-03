@@ -246,7 +246,4 @@
       NCYCLE = KCYCLE;
 
       return;
-
-      // End of CTGSJA
-
       }

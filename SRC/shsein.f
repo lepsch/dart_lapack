@@ -247,7 +247,4 @@
       } // 120
 
       return;
-
-      // End of SHSEIN
-
       }

@@ -346,7 +346,4 @@
       }
 
       return;
-
-      // End of CTREVC3
-
       }

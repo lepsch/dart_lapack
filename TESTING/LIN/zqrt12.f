@@ -116,7 +116,4 @@
       if (NRMSVL != ZERO) ZQRT12 = ZQRT12 / NRMSVL;
 
       return;
-
-      // End of ZQRT12
-
       }

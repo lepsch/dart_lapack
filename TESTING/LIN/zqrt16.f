@@ -79,7 +79,4 @@
       } // 10
 
       return;
-
-      // End of ZQRT16
-
       }

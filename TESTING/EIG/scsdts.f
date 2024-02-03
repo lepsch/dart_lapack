@@ -281,7 +281,4 @@
       }
 
       return;
-
-      // End of SCSDTS
-
       }

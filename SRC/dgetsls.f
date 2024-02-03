@@ -297,7 +297,4 @@
       } // 50
       WORK( 1 ) = DBLE( TSZO + LWO );
       return;
-
-      // End of DGETSLS
-
       }

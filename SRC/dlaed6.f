@@ -247,7 +247,4 @@
 
       if (SCALE) TAU = TAU*SCLINV;
       return;
-
-      // End of DLAED6
-
       }

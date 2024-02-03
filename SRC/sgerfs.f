@@ -236,7 +236,4 @@
       } // 140
 
       return;
-
-      // End of SGERFS
-
       }

@@ -209,7 +209,4 @@
 
       DLANTB = VALUE;
       return;
-
-      // End of DLANTB
-
       }

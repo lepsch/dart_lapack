@@ -154,7 +154,4 @@
       if (AINVNM != 0.0) CLA_GBRCOND_X = 1.0 / AINVNM;
 
       return;
-
-      // End of CLA_GBRCOND_X
-
       }

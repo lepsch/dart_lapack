@@ -499,7 +499,4 @@
       WORK( 1 ) = DBLE( MAXWRK );
 
       return;
-
-      // End of DGESVDX
-
       }

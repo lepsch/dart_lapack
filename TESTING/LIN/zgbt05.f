@@ -117,7 +117,4 @@
       } // 70
 
       return;
-
-      // End of ZGBT05
-
       }

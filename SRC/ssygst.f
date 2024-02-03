@@ -147,7 +147,4 @@
          }
       }
       return;
-
-      // End of SSYGST
-
       }

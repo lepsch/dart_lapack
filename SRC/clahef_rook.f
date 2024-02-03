@@ -922,7 +922,4 @@
 
       }
       return;
-
-      // End of CLAHEF_ROOK
-
       }

@@ -286,7 +286,4 @@
       } // 250
 
       return;
-
-      // End of STPRFS
-
       }

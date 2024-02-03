@@ -436,7 +436,4 @@
       }
 
       return;
-
-      // End of CSYTRI2X
-
       }

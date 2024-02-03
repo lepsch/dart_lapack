@@ -234,7 +234,4 @@
       } // 140
 
       return;
-
-      // End of SSYRFS
-
       }
