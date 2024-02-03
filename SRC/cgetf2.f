@@ -52,7 +52,7 @@
 
       if (M == 0 || N == 0) return;
 
-      DO 10 J = 1, min( M, N );
+      for (J = 1; J <= min( M, N ); J++) { // 10
 
          // Find pivot and test for singularity.
 

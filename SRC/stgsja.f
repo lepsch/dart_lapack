@@ -158,7 +158,7 @@
             // rows of A and B.
 
             ERROR = ZERO;
-            DO 30 I = 1, min( L, M-K );
+            for (I = 1; I <= min( L, M-K ); I++) { // 30
                scopy(L-I+1, A( K+I, N-L+I ), LDA, WORK, 1 );
                scopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
                slapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
@@ -188,7 +188,7 @@
          BETA( I ) = ZERO;
       } // 60
 
-      DO 70 I = 1, min( L, M-K );
+      for (I = 1; I <= min( L, M-K ); I++) { // 70
 
          A1 = A( K+I, N-L+I );
          B1 = B( I, N-L+I );

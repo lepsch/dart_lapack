@@ -62,7 +62,7 @@
             A( I, J ) = ZERO;
          } // 10
       } // 20
-      DO 30 I = 1, min( M, N );
+      for (I = 1; I <= min( M, N ); I++) { // 30
          A( I, I ) = D( I );
       } // 30
 
@@ -120,7 +120,7 @@
       // Reduce number of subdiagonals to KL and number of superdiagonals
       // to KU
 
-      DO 70 I = 1, max( M-1-KL, N-1-KU );
+      for (I = 1; I <= max( M-1-KL, N-1-KU ); I++) { // 70
          if ( KL <= KU ) {
 
             // annihilate subdiagonal elements first (necessary if KL = 0)

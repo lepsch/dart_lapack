@@ -477,7 +477,7 @@
             zlartg(CTEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = CZERO;
 
-            DO 120 JR = IFRSTM, min( J+2, ILAST );
+            for (JR = IFRSTM; JR <= min( J+2, ILAST ); JR++) { // 120
                CTEMP = C*H( JR, J+1 ) + S*H( JR, J );
                H( JR, J ) = -DCONJG( S )*H( JR, J+1 ) + C*H( JR, J );
                H( JR, J+1 ) = CTEMP;

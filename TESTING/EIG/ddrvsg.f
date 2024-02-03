@@ -640,10 +640,10 @@
                         } // 340
                      } else {
                         for (J = 1; J <= N; J++) { // 370
-                           DO 350 I = J, min( N, J+KA );
+                           for (I = J; I <= min( N, J+KA ); I++) { // 350
                               AB( 1+I-J, J ) = A( I, J );
                            } // 350
-                           DO 360 I = J, min( N, J+KB );
+                           for (I = J; I <= min( N, J+KB ); I++) { // 360
                               BB( 1+I-J, J ) = B( I, J );
                            } // 360
                         } // 370
@@ -682,10 +682,10 @@
                         } // 400
                      } else {
                         for (J = 1; J <= N; J++) { // 430
-                           DO 410 I = J, min( N, J+KA );
+                           for (I = J; I <= min( N, J+KA ); I++) { // 410
                               AB( 1+I-J, J ) = A( I, J );
                            } // 410
-                           DO 420 I = J, min( N, J+KB );
+                           for (I = J; I <= min( N, J+KB ); I++) { // 420
                               BB( 1+I-J, J ) = B( I, J );
                            } // 420
                         } // 430
@@ -724,10 +724,10 @@
                         } // 460
                      } else {
                         for (J = 1; J <= N; J++) { // 490
-                           DO 470 I = J, min( N, J+KA );
+                           for (I = J; I <= min( N, J+KA ); I++) { // 470
                               AB( 1+I-J, J ) = A( I, J );
                            } // 470
-                           DO 480 I = J, min( N, J+KB );
+                           for (I = J; I <= min( N, J+KB ); I++) { // 480
                               BB( 1+I-J, J ) = B( I, J );
                            } // 480
                         } // 490
@@ -765,10 +765,10 @@
                         } // 520
                      } else {
                         for (J = 1; J <= N; J++) { // 550
-                           DO 530 I = J, min( N, J+KA );
+                           for (I = J; I <= min( N, J+KA ); I++) { // 530
                               AB( 1+I-J, J ) = A( I, J );
                            } // 530
-                           DO 540 I = J, min( N, J+KB );
+                           for (I = J; I <= min( N, J+KB ); I++) { // 540
                               BB( 1+I-J, J ) = B( I, J );
                            } // 540
                         } // 550
@@ -807,10 +807,10 @@
                         } // 580
                      } else {
                         for (J = 1; J <= N; J++) { // 610
-                           DO 590 I = J, min( N, J+KA );
+                           for (I = J; I <= min( N, J+KA ); I++) { // 590
                               AB( 1+I-J, J ) = A( I, J );
                            } // 590
-                           DO 600 I = J, min( N, J+KB );
+                           for (I = J; I <= min( N, J+KB ); I++) { // 600
                               BB( 1+I-J, J ) = B( I, J );
                            } // 600
                         } // 610

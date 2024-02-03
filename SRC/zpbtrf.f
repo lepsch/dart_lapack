@@ -229,7 +229,7 @@
                      // Copy the upper triangle of A31 into the work array.
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 110
-                        DO 100 II = 1, min( JJ, I3 );
+                        for (II = 1; II <= min( JJ, I3 ); II++) { // 100
                            WORK( II, JJ ) = AB( KD+1-JJ+II, JJ+I-1 );
                         } // 100
                      } // 110
@@ -249,7 +249,7 @@
                      // Copy the upper triangle of A31 back into place.
 
                      for (JJ = 1; JJ <= IB; JJ++) { // 130
-                        DO 120 II = 1, min( JJ, I3 );
+                        for (II = 1; II <= min( JJ, I3 ); II++) { // 120
                            AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ );
                         } // 120
                      } // 130

@@ -482,7 +482,7 @@
           // .. compute the singular values of R**H = [A](1:NR,1:N)**H
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
             // the upper triangle of [A] to zero.
-            DO 1146 p = 1, min( N, NR );
+            for (p = 1; p <= min( N, NR ); p++) { // 1146
                A(p,p) = CONJG(A(p,p));
                for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = CONJG(A(p,q));

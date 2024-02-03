@@ -52,7 +52,7 @@
 
       // Copy R
 
-      DO 20 I = 1, min( K+L, M );
+      for (I = 1; I <= min( K+L, M ); I++) { // 20
          for (J = I; J <= K + L; J++) { // 10
             R( I, J ) = AF( I, N-K-L+J );
          } // 10

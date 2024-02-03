@@ -872,7 +872,7 @@
                   } // 570
                } else {
                   for (J = 1; J <= N; J++) { // 590
-                     DO 580 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 580
                         V( 1+I-J, J ) = A( I, J );
                      } // 580
                   } // 590
@@ -905,7 +905,7 @@
                   } // 610
                } else {
                   for (J = 1; J <= N; J++) { // 630
-                     DO 620 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 620
                         V( 1+I-J, J ) = A( I, J );
                      } // 620
                   } // 630
@@ -946,7 +946,7 @@
                   } // 670
                } else {
                   for (J = 1; J <= N; J++) { // 690
-                     DO 680 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 680
                         V( 1+I-J, J ) = A( I, J );
                      } // 680
                   } // 690
@@ -981,7 +981,7 @@
                   } // 710
                } else {
                   for (J = 1; J <= N; J++) { // 730
-                     DO 720 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 720
                         V( 1+I-J, J ) = A( I, J );
                      } // 720
                   } // 730
@@ -1022,7 +1022,7 @@
                   } // 770
                } else {
                   for (J = 1; J <= N; J++) { // 790
-                     DO 780 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 780
                         V( 1+I-J, J ) = A( I, J );
                      } // 780
                   } // 790
@@ -1056,7 +1056,7 @@
                   } // 810
                } else {
                   for (J = 1; J <= N; J++) { // 830
-                     DO 820 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 820
                         V( 1+I-J, J ) = A( I, J );
                      } // 820
                   } // 830
@@ -1097,7 +1097,7 @@
                   } // 860
                } else {
                   for (J = 1; J <= N; J++) { // 880
-                     DO 870 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 870
                         V( 1+I-J, J ) = A( I, J );
                      } // 870
                   } // 880
@@ -1130,7 +1130,7 @@
                   } // 900
                } else {
                   for (J = 1; J <= N; J++) { // 920
-                     DO 910 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 910
                         V( 1+I-J, J ) = A( I, J );
                      } // 910
                   } // 920
@@ -1325,7 +1325,7 @@
                   } // 1070
                } else {
                   for (J = 1; J <= N; J++) { // 1090
-                     DO 1080 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 1080
                         V( 1+I-J, J ) = A( I, J );
                      } // 1080
                   } // 1090
@@ -1358,7 +1358,7 @@
                   } // 1110
                } else {
                   for (J = 1; J <= N; J++) { // 1130
-                     DO 1120 I = J, min( N, J+KD );
+                     for (I = J; I <= min( N, J+KD ); I++) { // 1120
                         V( 1+I-J, J ) = A( I, J );
                      } // 1120
                   } // 1130

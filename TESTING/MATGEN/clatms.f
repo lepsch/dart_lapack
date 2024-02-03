@@ -568,11 +568,11 @@
                   for (JC = 1; JC <= N; JC++) { // 230
                      IROW = IOFFST - ISKEW*JC;
                      if ( CSYM ) {
-                        DO 210 JR = JC, min( N, JC+UUB );
+                        for (JR = JC; JR <= min( N, JC+UUB ); JR++) { // 210
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 210
                      } else {
-                        DO 220 JR = JC, min( N, JC+UUB );
+                        for (JR = JC; JR <= min( N, JC+UUB ); JR++) { // 220
                            A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 220
                      }

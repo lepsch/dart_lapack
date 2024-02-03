@@ -72,7 +72,7 @@
       J = 0;
       for (JC = 1; JC <= N; JC++) { // 50
          if ( LOWER ) {
-            DO 10 JR = 1, min( IKA+1, N+1-JC );
+            for (JR = 1; JR <= min( IKA+1, N+1-JC ); JR++) { // 10
                J = J + 1;
                WORK( J ) = A( JR, JC );
             } // 10

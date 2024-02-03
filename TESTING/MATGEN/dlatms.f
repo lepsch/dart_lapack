@@ -503,7 +503,7 @@
                if ( IPACK != IPACKG && IPACK != 3 ) {
                   for (JC = 1; JC <= N; JC++) { // 190
                      IROW = IOFFST - ISKEW*JC;
-                     DO 180 JR = JC, min( N, JC+UUB );
+                     for (JR = JC; JR <= min( N, JC+UUB ); JR++) { // 180
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                      } // 180
                   } // 190

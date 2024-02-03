@@ -485,7 +485,7 @@
           // .. compute the singular values of R**T = [A](1:NR,1:N)**T
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
             // the upper triangle of [A] to zero.
-            DO 1146 p = 1, min( N, NR );
+            for (p = 1; p <= min( N, NR ); p++) { // 1146
                for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = A(p,q);
                   if (q <= NR) A(p,q) = ZERO;

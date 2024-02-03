@@ -800,7 +800,7 @@
           // Singular Values only
 
           // .. transpose A(1:NR,1:N)
-         DO 1946 p = 1, min( N-1, NR );
+         for (p = 1; p <= min( N-1, NR ); p++) { // 1946
             zcopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
             zlacgv(N-p+1, A(p,p), 1 );
          } // 1946

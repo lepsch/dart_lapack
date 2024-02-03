@@ -155,7 +155,7 @@
          // doing the block at ( ibr, jbc )
 
                IJBLSK = 0;
-               DO 2100 p = igl, min( igl+KBL-1, N1 );
+               for (p = igl; p <= min( igl+KBL-1, N1 ); p++) { // 2100
 
                   AAPP = SVA( p );
 
@@ -163,7 +163,7 @@
 
                      PSKIPPED = 0;
 
-                     DO 2200 q = jgl, min( jgl+KBL-1, N );
+                     for (q = jgl; q <= min( jgl+KBL-1, N ); q++) { // 2200
 
                         AAQQ = SVA( q );
 
@@ -380,7 +380,7 @@
       // end of the jbc-loop
             } // 2011
 // 2011 bailed out of the jbc-loop
-            DO 2012 p = igl, min( igl+KBL-1, N );
+            for (p = igl; p <= min( igl+KBL-1, N ); p++) { // 2012
                SVA( p ) = DABS( SVA( p ) );
             } // 2012
 // **   IF ( NOTROT >= EMPTSW ) GO TO 1994

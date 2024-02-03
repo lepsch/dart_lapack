@@ -172,7 +172,7 @@
       I3 = ISEED( 3 );
       I4 = ISEED( 4 );
 
-      DO 10 I = 1, min( N, LV );
+      for (I = 1; I <= min( N, LV ); I++) { // 10
 
          } // 20
 

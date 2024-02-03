@@ -76,7 +76,7 @@
 
       JU = 1;
 
-      DO 40 J = 1, min( M, N );
+      for (J = 1; J <= min( M, N ); J++) { // 40
 
          // Set fill-in elements in column J+KV to zero.
 

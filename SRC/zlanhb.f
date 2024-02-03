@@ -55,7 +55,7 @@
             for (J = 1; J <= N; J++) { // 40
                SUM = ABS( DBLE( AB( 1, J ) ) );
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
-               DO 30 I = 2, min( N+1-J, K+1 );
+               for (I = 2; I <= min( N+1-J, K+1 ); I++) { // 30
                   SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                } // 30

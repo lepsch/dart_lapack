@@ -156,7 +156,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 80
                      XK = CABS1( X( K, J ) );
-                     DO 70 I = K, min( N, K+KD );
+                     for (I = K; I <= min( N, K+KD ); I++) { // 70
                         RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK;
                      } // 70
                   } // 80
@@ -196,7 +196,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 160
                      S = ZERO;
-                     DO 150 I = K, min( N, K+KD );
+                     for (I = K; I <= min( N, K+KD ); I++) { // 150
                         S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) );
                      } // 150
                      RWORK( K ) = RWORK( K ) + S;

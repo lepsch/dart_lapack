@@ -154,7 +154,7 @@
          // Upper triangular matrix
 
          for (J = 1; J <= N; J++) { // 70
-            DO 60 I = 1, min( J, M );
+            for (I = 1; I <= min( J, M ); I++) { // 60
                A( I, J ) = A( I, J )*MUL;
             } // 60
          } // 70
@@ -164,7 +164,7 @@
          // Upper Hessenberg matrix
 
          for (J = 1; J <= N; J++) { // 90
-            DO 80 I = 1, min( J+1, M );
+            for (I = 1; I <= min( J+1, M ); I++) { // 80
                A( I, J ) = A( I, J )*MUL;
             } // 80
          } // 90
@@ -176,7 +176,7 @@
          K3 = KL + 1;
          K4 = N + 1;
          for (J = 1; J <= N; J++) { // 110
-            DO 100 I = 1, min( K3, K4-J );
+            for (I = 1; I <= min( K3, K4-J ); I++) { // 100
                A( I, J ) = A( I, J )*MUL;
             } // 100
          } // 110

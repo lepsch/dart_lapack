@@ -447,11 +447,11 @@
 
             igl = ( ibr-1 )*KBL + 1;
 
-            DO 1002 ir1 = 0, min( LKAHEAD, NBL-ibr );
+            for (ir1 = 0; ir1 <= min( LKAHEAD, NBL-ibr ); ir1++) { // 1002
 
                igl = igl + ir1*KBL;
 
-               DO 2001 p = igl, min( igl+KBL-1, N-1 );
+               for (p = igl; p <= min( igl+KBL-1, N-1 ); p++) { // 2001
 
       // .. de Rijk's pivoting
 
@@ -705,14 +705,14 @@
          // doing the block at ( ibr, jbc )
 
                IJBLSK = 0;
-               DO 2100 p = igl, min( igl+KBL-1, N );
+               for (p = igl; p <= min( igl+KBL-1, N ); p++) { // 2100
 
                   AAPP = SVA( p );
                   if ( AAPP > ZERO ) {
 
                      PSKIPPED = 0;
 
-                     DO 2200 q = jgl, min( jgl+KBL-1, N );
+                     for (q = jgl; q <= min( jgl+KBL-1, N ); q++) { // 2200
 
                         AAQQ = SVA( q );
                         if ( AAQQ > ZERO ) {
@@ -929,7 +929,7 @@
       // end of the jbc-loop
             } // 2011
 // 2011 bailed out of the jbc-loop
-            DO 2012 p = igl, min( igl+KBL-1, N );
+            for (p = igl; p <= min( igl+KBL-1, N ); p++) { // 2012
                SVA( p ) = DABS( SVA( p ) );
             } // 2012
 // **

@@ -98,7 +98,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 40
                AB( 1, J ) = J;
-               DO 30 I = 2, min( KD+1, N-J+1 );
+               for (I = 2; I <= min( KD+1, N-J+1 ); I++) { // 30
                   AB( I, J ) = ZERO;
                } // 30
             } // 40
@@ -123,7 +123,7 @@
             } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
-               DO 70 I = 2, min( KD+1, N-J+1 );
+               for (I = 2; I <= min( KD+1, N-J+1 ); I++) { // 70
                   AB( I, J ) = ZERO;
                } // 70
                AB( 1, J ) = DBLE( J );
@@ -310,7 +310,7 @@
          } else {
             JCOUNT = 1;
             for (J = 1; J <= N; J++) { // 210
-               DO 200 I = 2, min( N-J+1, KD+1 );
+               for (I = 2; I <= min( N-J+1, KD+1 ); I++) { // 200
                   AB( I, J ) = ZERO;
                } // 200
                if ( JCOUNT <= 2 ) {
@@ -359,7 +359,7 @@
             B( N ) = DCMPLX( ONE, ONE );
          } else {
             for (J = 1; J <= N; J++) { // 270
-               DO 260 I = 3, min( N-J+1, KD+1 );
+               for (I = 3; I <= min( N-J+1, KD+1 ); I++) { // 260
                   AB( I, J ) = ZERO;
                } // 260
                if (J < N && KD > 0) AB( 2, J ) = DCMPLX( -ONE, -ONE );

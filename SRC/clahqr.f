@@ -276,7 +276,7 @@
             // Apply G from the right to transform the columns of the
             // matrix in rows I1 to min(K+2,I).
 
-            DO 90 J = I1, min( K+2, I );
+            for (J = I1; J <= min( K+2, I ); J++) { // 90
                SUM = T1*H( J, K ) + T2*H( J, K+1 );
                H( J, K ) = H( J, K ) - SUM;
                H( J, K+1 ) = H( J, K+1 ) - SUM*CONJG( V2 );

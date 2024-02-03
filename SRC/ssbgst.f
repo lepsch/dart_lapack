@@ -665,7 +665,7 @@
             for (J = I1; J <= I; J++) { // 500
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII;
             } // 500
-            DO 510 J = I, min( N, I+KA );
+            for (J = I; J <= min( N, I+KA ); J++) { // 510
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII;
             } // 510
             for (K = I + 1; K <= I + KBT; K++) { // 540
@@ -889,7 +889,7 @@
             for (J = I1; J <= I; J++) { // 730
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII;
             } // 730
-            DO 740 J = I, min( N, I+KA );
+            for (J = I; J <= min( N, I+KA ); J++) { // 740
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII;
             } // 740
             for (K = I + 1; K <= I + KBT; K++) { // 770

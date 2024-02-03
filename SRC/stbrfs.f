@@ -147,7 +147,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 80
                      XK = ( X( K, J ) ).abs();
-                     DO 70 I = K, min( N, K+KD );
+                     for (I = K; I <= min( N, K+KD ); I++) { // 70
                         WORK( I ) = WORK( I ) + ( AB( 1+I-K, K ) ).abs()*XK;
                      } // 70
                   } // 80
@@ -187,7 +187,7 @@
                if ( NOUNIT ) {
                   for (K = 1; K <= N; K++) { // 160
                      S = ZERO;
-                     DO 150 I = K, min( N, K+KD );
+                     for (I = K; I <= min( N, K+KD ); I++) { // 150
                         S = S + ( AB( 1+I-K, K ) ).abs()*( X( I, J ) ).abs();
                      } // 150
                      WORK( K ) = WORK( K ) + S;

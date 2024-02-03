@@ -180,7 +180,7 @@
                      // Save the zeroed out row and column in WORK(*,3)
 
                      IW = 2*LDA;
-                     DO 20 I = 1, min( 2*KD+1, N );
+                     for (I = 1; I <= min( 2*KD+1, N ); I++) { // 20
                         WORK( IW+I ) = ZERO;
                      } // 20
                      IW = IW + 1;

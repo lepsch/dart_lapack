@@ -70,7 +70,7 @@
 
             for (J = 1; J <= N; J++) { // 40
                CJ = S( J );
-               DO 30 I = J, min( N, J+KD );
+               for (I = J; I <= min( N, J+KD ); I++) { // 30
                   AB( 1+I-J, J ) = CJ*S( I )*AB( 1+I-J, J );
                } // 30
             } // 40

@@ -115,7 +115,7 @@
          // .    bulges before they are actually introduced or to which
          // .    to chase bulges beyond column KBOT.)  ====
 
-         DO 145 KRCOL = INCOL, min( INCOL+2*NBMPS-1, KBOT-2 );
+         for (KRCOL = INCOL; KRCOL <= min( INCOL+2*NBMPS-1, KBOT-2 ); KRCOL++) { // 145
 
             // ==== Bulges number MTOP to MBOT are active double implicit
             // .    shift bulges.  There may or may not also be small
@@ -156,7 +156,7 @@
 
                T1 = V( 1, M22 );
                T2 = T1*DCONJG( V( 2, M22 ) );
-               DO 30 J = JTOP, min( KBOT, K+3 );
+               for (J = JTOP; J <= min( KBOT, K+3 ); J++) { // 30
                   REFSUM = H( J, K+1 ) + V( 2, M22 )*H( J, K+2 );
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1;
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2;
@@ -321,7 +321,7 @@
                T1 = V( 1, M );
                T2 = T1*DCONJG( V( 2, M ) );
                T3 = T1*DCONJG( V( 3, M ) );
-               DO 70 J = JTOP, min( KBOT, K+3 );
+               for (J = JTOP; J <= min( KBOT, K+3 ); J++) { // 70
                   REFSUM = H( J, K+1 ) + V( 2, M )*H( J, K+2 ) + V( 3, M )*H( J, K+3 );
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1;
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2;

@@ -283,7 +283,7 @@
                // Lower-Triangle-Only storage.
 
                for (JC = 1; JC <= N; JC++) { // 120
-                  DO 110 JR = 0, min( K, N-JC );
+                  for (JR = 0; JR <= min( K, N-JC ); JR++) { // 110
                      A( JR+1, JC ) = A( K+1-JR, JC+JR );
                   } // 110
                } // 120

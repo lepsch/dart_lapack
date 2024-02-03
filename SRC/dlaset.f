@@ -33,7 +33,7 @@
          // array to ALPHA.
 
          for (J = 2; J <= N; J++) { // 20
-            DO 10 I = 1, min( J-1, M );
+            for (I = 1; I <= min( J-1, M ); I++) { // 10
                A( I, J ) = ALPHA;
             } // 10
          } // 20
@@ -43,7 +43,7 @@
          // Set the strictly lower triangular or trapezoidal part of the
          // array to ALPHA.
 
-         DO 40 J = 1, min( M, N );
+         for (J = 1; J <= min( M, N ); J++) { // 40
             for (I = J + 1; I <= M; I++) { // 30
                A( I, J ) = ALPHA;
             } // 30
@@ -62,7 +62,7 @@
 
       // Set the first min(M,N) diagonal elements to BETA.
 
-      DO 70 I = 1, min( M, N );
+      for (I = 1; I <= min( M, N ); I++) { // 70
          A( I, I ) = BETA;
       } // 70
 

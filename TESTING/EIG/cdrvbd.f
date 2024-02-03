@@ -157,7 +157,7 @@
                // Zero matrix
 
                claset('Full', M, N, CZERO, CZERO, A, LDA );
-               DO 30 I = 1, min( M, N );
+               for (I = 1; I <= min( M, N ); I++) { // 30
                   S( I ) = ZERO;
                } // 30
 
@@ -166,7 +166,7 @@
                // Identity matrix
 
                claset('Full', M, N, CZERO, CONE, A, LDA );
-               DO 40 I = 1, min( M, N );
+               for (I = 1; I <= min( M, N ); I++) { // 40
                   S( I ) = ONE;
                } // 40
 

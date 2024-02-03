@@ -95,7 +95,7 @@
       // Determine the effective rank of matrix B.
 
       L = 0;
-      DO 20 I = 1, min( P, N );
+      for (I = 1; I <= min( P, N ); I++) { // 20
          if( CABS1( B( I, I ) ) > TOLB ) L = L + 1;
       } // 20
 
@@ -168,7 +168,7 @@
       // Determine the effective rank of A11
 
       K = 0;
-      DO 80 I = 1, min( M, N-L );
+      for (I = 1; I <= min( M, N-L ); I++) { // 80
          if( CABS1( A( I, I ) ) > TOLA ) K = K + 1;
       } // 80
 

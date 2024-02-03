@@ -96,7 +96,7 @@
                DO 60 J = max( I-KD, 1 ), I - 1;
                   TMP = TMP + ( AB( 1+I-J, J ) ).abs()*( X( J, K ) ).abs();
                } // 60
-               DO 70 J = I, min( I+KD, N );
+               for (J = I; J <= min( I+KD, N ); J++) { // 70
                   TMP = TMP + ( AB( 1+J-I, I ) ).abs()*( X( J, K ) ).abs();
                } // 70
             }

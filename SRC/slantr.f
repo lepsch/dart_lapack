@@ -45,7 +45,7 @@
             VALUE = ONE;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 20
-                  DO 10 I = 1, min( M, J-1 );
+                  for (I = 1; I <= min( M, J-1 ); I++) { // 10
                      SUM = ( A( I, J ) ).abs();
                      if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                   } // 10
@@ -62,7 +62,7 @@
             VALUE = ZERO;
             if ( LSAME( UPLO, 'U' ) ) {
                for (J = 1; J <= N; J++) { // 60
-                  DO 50 I = 1, min( M, J );
+                  for (I = 1; I <= min( M, J ); I++) { // 50
                      SUM = ( A( I, J ) ).abs();
                      if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                   } // 50
@@ -91,7 +91,7 @@
                   } // 90
                } else {
                   SUM = ZERO;
-                  DO 100 I = 1, min( M, J );
+                  for (I = 1; I <= min( M, J ); I++) { // 100
                      SUM = SUM + ( A( I, J ) ).abs();
                   } // 100
                }
@@ -123,7 +123,7 @@
                   WORK( I ) = ONE;
                } // 150
                for (J = 1; J <= N; J++) { // 170
-                  DO 160 I = 1, min( M, J-1 );
+                  for (I = 1; I <= min( M, J-1 ); I++) { // 160
                      WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
                   } // 160
                } // 170
@@ -132,14 +132,14 @@
                   WORK( I ) = ZERO;
                } // 180
                for (J = 1; J <= N; J++) { // 200
-                  DO 190 I = 1, min( M, J );
+                  for (I = 1; I <= min( M, J ); I++) { // 190
                      WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
                   } // 190
                } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
-               DO 210 I = 1, min( M, N );
+               for (I = 1; I <= min( M, N ); I++) { // 210
                   WORK( I ) = ONE;
                } // 210
                for (I = N + 1; I <= M; I++) { // 220

@@ -255,7 +255,7 @@
                // Random upper Hessenberg pencil with singular B
 
                for (JC = 1; JC <= N; JC++) { // 81
-                  DO 71 JR = 1, min( JC + 1, N);
+                  for (JR = 1; JR <= min( JC + 1, N); JR++) { // 71
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED );
                   } // 71
                   for (JR = JC + 2; JR <= N; JR++) { // 72

@@ -53,7 +53,7 @@
                } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
-                  DO 30 I = 2, min( N+1-J, K+1 );
+                  for (I = 2; I <= min( N+1-J, K+1 ); I++) { // 30
                      SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 30
@@ -70,7 +70,7 @@
                } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
-                  DO 70 I = 1, min( N+1-J, K+1 );
+                  for (I = 1; I <= min( N+1-J, K+1 ); I++) { // 70
                      SUM = ( AB( I, J ) ).abs();
                      if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
                   } // 70
@@ -102,12 +102,12 @@
             for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE;
-                  DO 120 I = 2, min( N+1-J, K+1 );
+                  for (I = 2; I <= min( N+1-J, K+1 ); I++) { // 120
                      SUM = SUM + ( AB( I, J ) ).abs();
                   } // 120
                } else {
                   SUM = ZERO;
-                  DO 130 I = 1, min( N+1-J, K+1 );
+                  for (I = 1; I <= min( N+1-J, K+1 ); I++) { // 130
                      SUM = SUM + ( AB( I, J ) ).abs();
                   } // 130
                }
@@ -158,7 +158,7 @@
                } // 240
                for (J = 1; J <= N; J++) { // 260
                   L = 1 - J;
-                  DO 250 I = J, min( N, J+K );
+                  for (I = J; I <= min( N, J+K ); I++) { // 250
                      WORK( I ) = WORK( I ) + ( AB( L+I, J ) ).abs();
                   } // 250
                } // 260

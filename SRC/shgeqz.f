@@ -483,7 +483,7 @@
             slartg(TEMP, T( J+1, J ), C, S, T( J+1, J+1 ) );
             T( J+1, J ) = ZERO;
 
-            DO 160 JR = IFRSTM, min( J+2, ILAST );
+            for (JR = IFRSTM; JR <= min( J+2, ILAST ); JR++) { // 160
                TEMP = C*H( JR, J+1 ) + S*H( JR, J );
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J );
                H( JR, J+1 ) = TEMP;
@@ -834,7 +834,7 @@
 
                T2 = TAU*V( 2 );
                T3 = TAU*V( 3 );
-               DO 260 JR = IFRSTM, min( J+3, ILAST );
+               for (JR = IFRSTM; JR <= min( J+3, ILAST ); JR++) { // 260
                   TEMP = H( JR, J )+V( 2 )*H( JR, J+1 )+V( 3 )* H( JR, J+2 );
                   H( JR, J ) = H( JR, J ) - TEMP*TAU;
                   H( JR, J+1 ) = H( JR, J+1 ) - TEMP*T2;

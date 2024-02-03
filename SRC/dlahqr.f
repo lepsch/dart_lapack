@@ -285,7 +285,7 @@
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
 
-               DO 80 J = I1, min( K+3, I );
+               for (J = I1; J <= min( K+3, I ); J++) { // 80
                   SUM = H( J, K ) + V2*H( J, K+1 ) + V3*H( J, K+2 );
                   H( J, K ) = H( J, K ) - SUM*T1;
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2;

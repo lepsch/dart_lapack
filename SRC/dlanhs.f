@@ -42,7 +42,7 @@
 
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 20
-            DO 10 I = 1, min( N, J+1 );
+            for (I = 1; I <= min( N, J+1 ); I++) { // 10
                SUM = ( A( I, J ) ).abs();
                if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
             } // 10
@@ -54,7 +54,7 @@
          VALUE = ZERO;
          for (J = 1; J <= N; J++) { // 40
             SUM = ZERO;
-            DO 30 I = 1, min( N, J+1 );
+            for (I = 1; I <= min( N, J+1 ); I++) { // 30
                SUM = SUM + ( A( I, J ) ).abs();
             } // 30
             if( VALUE < SUM || DISNAN( SUM ) ) VALUE = SUM;
@@ -67,7 +67,7 @@
             WORK( I ) = ZERO;
          } // 50
          for (J = 1; J <= N; J++) { // 70
-            DO 60 I = 1, min( N, J+1 );
+            for (I = 1; I <= min( N, J+1 ); I++) { // 60
                WORK( I ) = WORK( I ) + ( A( I, J ) ).abs();
             } // 60
          } // 70

@@ -33,11 +33,11 @@
          // part of the array to ALPHA.
 
          for (J = 2; J <= N; J++) { // 20
-            DO 10 I = 1, min( J-1, M );
+            for (I = 1; I <= min( J-1, M ); I++) { // 10
                A( I, J ) = ALPHA;
             } // 10
          } // 20
-         DO 30 I = 1, min( N, M );
+         for (I = 1; I <= min( N, M ); I++) { // 30
             A( I, I ) = BETA;
          } // 30
 
@@ -46,12 +46,12 @@
          // Set the diagonal to BETA and the strictly lower triangular
          // part of the array to ALPHA.
 
-         DO 50 J = 1, min( M, N );
+         for (J = 1; J <= min( M, N ); J++) { // 50
             for (I = J + 1; I <= M; I++) { // 40
                A( I, J ) = ALPHA;
             } // 40
          } // 50
-         DO 60 I = 1, min( N, M );
+         for (I = 1; I <= min( N, M ); I++) { // 60
             A( I, I ) = BETA;
          } // 60
 
@@ -65,7 +65,7 @@
                A( I, J ) = ALPHA;
             } // 70
          } // 80
-         DO 90 I = 1, min( M, N );
+         for (I = 1; I <= min( M, N ); I++) { // 90
             A( I, I ) = BETA;
          } // 90
       }

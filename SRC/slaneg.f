@@ -46,7 +46,7 @@
       DO 210 BJ = 1, R-1, BLKLEN;
          NEG1 = 0;
          BSAV = T;
-         DO 21 J = BJ, min(BJ+BLKLEN-1, R-1);
+         for (J = BJ; J <= min(BJ+BLKLEN-1, R-1); J++) { // 21
             DPLUS = D( J ) + T;
             if (DPLUS < ZERO) NEG1 = NEG1 + 1;
             TMP = T / DPLUS;
@@ -60,7 +60,7 @@
          if ( SAWNAN ) {
             NEG1 = 0;
             T = BSAV;
-            DO 22 J = BJ, min(BJ+BLKLEN-1, R-1);
+            for (J = BJ; J <= min(BJ+BLKLEN-1, R-1); J++) { // 22
                DPLUS = D( J ) + T;
                if (DPLUS < ZERO) NEG1 = NEG1 + 1;
                TMP = T / DPLUS;

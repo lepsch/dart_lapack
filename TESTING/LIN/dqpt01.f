@@ -57,7 +57,7 @@
          // Copy the upper triangular part of the factor R stored
          // in AF(1:K,1:K) into the work array WORK.
 
-         DO I = 1, min( J, M );
+         for (I = 1; I <= min( J, M ); I++) { //
             WORK( ( J-1 )*M+I ) = AF( I, J );
          }
 

@@ -261,7 +261,7 @@
          // plane rotations from the left, overwriting superdiagonal
          // elements on subdiagonal elements
 
-         DO 100 I = 1, min( M-1, N );
+         for (I = 1; I <= min( M-1, N ); I++) { // 100
             zlartg(AB( 1, I ), AB( 2, I ), RC, RS, RA );
             AB( 1, I ) = RA;
             if ( I < N ) {

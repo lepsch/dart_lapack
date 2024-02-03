@@ -51,7 +51,7 @@
             } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
-               DO 30 I = 1, min( N+1-J, K+1 );
+               for (I = 1; I <= min( N+1-J, K+1 ); I++) { // 30
                   SUM = ( AB( I, J ) ).abs();
                   if( VALUE < SUM || SISNAN( SUM ) ) VALUE = SUM;
                } // 30

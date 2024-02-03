@@ -108,8 +108,8 @@
 
       for (N = 0; N <= NSZ; N++) { // 250
          for (M = 0; M <= NSZ; M++) { // 240
-            DO 230 KL = 0, max( M-1, 0 );
-               DO 220 KU = 0, max( N-1, 0 );
+            for (KL = 0; KL <= max( M-1, 0 ); KL++) { // 230
+               for (KU = 0; KU <= max( N-1, 0 ); KU++) { // 220
 
                   for (J = 1; J <= NSZ; J++) { // 130
                      for (I = 1; I <= NSZB; I++) { // 120
@@ -274,7 +274,7 @@
       // Test DPBEQU
 
       for (N = 0; N <= NSZ; N++) { // 460
-         DO 450 KL = 0, max( N-1, 0 );
+         for (KL = 0; KL <= max( N-1, 0 ); KL++) { // 450
 
             // Test upper triangular storage
 

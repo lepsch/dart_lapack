@@ -57,7 +57,7 @@
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M );
       for (J = 1; J <= N; J++) {
-         DO I = 1, min( J, M );
+         for (I = 1; I <= min( J, M ); I++) { //
             WORK( ( J-1 )*M+I ) = A( I, J );
          }
       }

@@ -377,7 +377,7 @@
                         // END IF
                      }
 
-                     DO I = 0, min( NSL-1, NRU-1 );
+                     for (I = 0; I <= min( NSL-1, NRU-1 ); I++) { //
                         NRMU = SNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 );
                         if ( NRMU == ZERO ) {
                            INFO = N*2 + 1;
@@ -392,7 +392,7 @@
                            sscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
                         }
                      }
-                     DO I = 0, min( NSL-1, NRV-1 );
+                     for (I = 0; I <= min( NSL-1, NRV-1 ); I++) { //
                         NRMV = SNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 );
                         if ( NRMV == ZERO ) {
                            INFO = N*2 + 1;

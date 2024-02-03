@@ -2465,7 +2465,7 @@
             for (I1 = 1; I1 <= KU + 1 - J; I1++) { // 60
                AA( I1 + ( J - 1 )*LDA ) = ROGUE;
             } // 60
-            DO 70 I2 = I1, min( KL + KU + 1, KU + 1 + M - J );
+            for (I2 = I1; I2 <= min( KL + KU + 1, KU + 1 + M - J ); I2++) { // 70
                AA( I2 + ( J - 1 )*LDA ) = A( I2 + J - KU - 1, J );
             } // 70
             for (I3 = I2; I3 <= LDA; I3++) { // 80
