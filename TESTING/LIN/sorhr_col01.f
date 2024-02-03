@@ -126,7 +126,7 @@
       CALL SORGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORK, LWORK, INFO )
 
       // Perform the Householder reconstruction, the result is stored
-     t // he arrays AF and T2.
+      // the arrays AF and T2.
 
       SRNAMT = 'SORHR_COL'
       CALL SORHR_COL( M, N, NB2, AF, M, T2, NB2, DIAG, INFO )
@@ -134,7 +134,7 @@
       // Compute the factor R_hr corresponding to the Householder
       // reconstructed Q_hr and place it in the upper triangle of AF to
       // match the Q storage format in SGEQRT. R_hr = R_tsqr * S,
-     t // his means changing the sign of I-th row of the matrix R_tsqr
+      // this means changing the sign of I-th row of the matrix R_tsqr
       // according to sign of of I-th diagonal element DIAG(I) of the
       // matrix S.
 

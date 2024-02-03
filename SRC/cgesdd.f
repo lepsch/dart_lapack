@@ -951,7 +951,7 @@
                   // Path 6o-fast
                   // Copy real matrix RWORK(IRU) to complex matrix WORK(IU)
                   // Overwrite WORK(IU) by left singular vectors of A, copying
-                 t // o A
+                  // to A
                   // CWorkspace: need   2*N [tauq, taup] + M*N [U] + N    [work]
                   // CWorkspace: prefer 2*N [tauq, taup] + M*N [U] + N*NB [work]
                   // RWorkspace: need   N [e] + N*N [RU]

@@ -73,7 +73,7 @@
             // will occur about once every 2**n calls), then X( I ) will
             // be rounded to exactly 1.0.
             // Since X( I ) is not supposed to return exactly 0.0 or 1.0,
-           t // he statistically correct thing to do in this situation is
+            // the statistically correct thing to do in this situation is
             // simply to iterate again.
             // N.B. the case X( I ) = 0.0 should not be possible.
             I1 = I1 + 2

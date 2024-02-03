@@ -833,7 +833,7 @@
                   END DO
                   DO J = 0, K - 1
                      CALL CLASSQ( K+J-1, A( 0+J*LDA ), 1, SCALE, S )
-                    t // rap U at A(0,0)
+                     // trap U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
@@ -876,7 +876,7 @@
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL CLASSQ( N-J-1, A( J+1+J*LDA ), 1, SCALE, S )
-                    t // rap L at A(0,0)
+                     // trap L at A(0,0)
                   END DO
                   DO J = 1, K - 2
                      CALL CLASSQ( J, A( 0+( 1+J )*LDA ), 1, SCALE, S )
@@ -1041,7 +1041,7 @@
                   END DO
                   DO J = 0, K - 1
                      CALL CLASSQ( K+J, A( 0+J*LDA ), 1, SCALE, S )
-                 t // rap U at A(0,0)
+                  // trap U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
@@ -1074,7 +1074,7 @@
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL CLASSQ( N-J-1, A( J+2+J*LDA ), 1, SCALE, S )
-                    t // rap L at A(1,0)
+                     // trap L at A(1,0)
                   END DO
                   DO J = 1, K - 1
                      CALL CLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )

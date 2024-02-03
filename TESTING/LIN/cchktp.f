@@ -202,7 +202,7 @@
                      CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                      CALL CTPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 20 K = 2, 6
                         if ( RESULT( K ).GE.THRESH ) {
@@ -295,7 +295,7 @@
                   CALL CTPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   if ( RESULT( 8 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'CLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )

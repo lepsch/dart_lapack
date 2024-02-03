@@ -122,7 +122,7 @@
       CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, INFO )
 
       // If N is smaller than the minimum divide size SMLSIZ, then solve
-     t // he problem with another solver.
+      // the problem with another solver.
 
       if ( N.LE.SMLSIZ ) {
          IRWU = 1

@@ -175,9 +175,9 @@
 
       // If only eigenvalues are being computed, then
          // IFRSTM is the row of the last splitting row above row ILAST;
-        t // his is always at least ILO.
+         // this is always at least ILO.
       // IITER counts iterations since the last eigenvalue was found,
-        t // o tell when to use an extraordinary shift.
+         // to tell when to use an extraordinary shift.
       // MAXIT is the maximum number of QZ sweeps allowed.
 
       ILAST = IHI
@@ -257,7 +257,7 @@
                // element of B in the block is zero, split a 1x1 block off
                // at the top. (I.e., at the J-th row/column) The leading
                // diagonal element of the remainder can also be zero, so
-              t // his may have to be done repeatedly.
+               // this may have to be done repeatedly.
 
                if ( ILAZRO .OR. ILAZR2 ) {
                   DO 40 JCH = J, ILAST - 1

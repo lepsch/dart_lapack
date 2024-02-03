@@ -108,7 +108,7 @@
          // JNB-by-JNB diagonal block U(JB) (of the N-by-N matrix U) stored
          // in T(1:JNB,JB:JB+JNB-1) the following operation in place:
          // (-1)*U(JB)*S(JB), i.e the result will be stored in the upper-
-        t // riangular part of T(1:JNB,JB:JB+JNB-1). This multiplication
+         // triangular part of T(1:JNB,JB:JB+JNB-1). This multiplication
          // of the JNB-by-JNB diagonal block U(JB) by the JNB-by-JNB
          // diagonal block S(JB) of the N-by-N sign matrix S from the
          // right means changing the sign of each J-th column of the block
@@ -149,11 +149,11 @@
                 // T(JB) * (V1(JB)**T) = (-1)*U(JB)*S(JB).
 
               // Even though the blocks X(JB) and B(JB) are upper-
-             t // riangular, the routine ZTRSM will access all JNB**2
+              // triangular, the routine ZTRSM will access all JNB**2
               // elements of the square T(1:JNB,JB:JB+JNB-1). Therefore,
               // we need to set to zero the elements of the block
               // T(1:JNB,JB:JB+JNB-1) below the diagonal before the call
-             t // o ZTRSM.
+              // to ZTRSM.
 
          // (2-3a) Set the elements to zero.
 

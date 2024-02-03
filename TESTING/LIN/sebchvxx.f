@@ -110,7 +110,7 @@
              // END IF
          } else {
          // Either everything succeeded (INFO == 0) or some solution failed
-        t // o converge (INFO > N+1).
+         // to converge (INFO > N+1).
             if (INFO .GT. 0 .AND. INFO .LE. N+1) {
                NFAIL = NFAIL + 1
                WRITE (*, FMT=8000) C2, N, INFO, ORCOND, RCOND

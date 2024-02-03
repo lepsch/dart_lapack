@@ -212,7 +212,7 @@
                   // Compose the columns of the inverse of 2-by-2 pivot
                   // block D in the following way to reduce the number
                   // of FLOPS when we myltiply panel ( W(kw-1) W(kw) ) by
-                 t // his inverse
+                  // this inverse
 
                   // D**(-1) = ( d11 d21 )**(-1) =
                             // ( d21 d22 )
@@ -485,7 +485,7 @@
                   // Compose the columns of the inverse of 2-by-2 pivot
                   // block D in the following way to reduce the number
                   // of FLOPS when we myltiply panel ( W(k) W(k+1) ) by
-                 t // his inverse
+                  // this inverse
 
                   // D**(-1) = ( d11 d21 )**(-1) =
                             // ( d21 d22 )

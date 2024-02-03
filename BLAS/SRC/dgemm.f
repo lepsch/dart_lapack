@@ -36,7 +36,7 @@
       // ..
 
       // Set  NOTA  and  NOTB  as  true if  A  and  B  respectively are not
-     t // ransposed and set  NROWA and NROWB  as the number of rows of  A
+      // transposed and set  NROWA and NROWB  as the number of rows of  A
       // and  B  respectively.
 
       NOTA = LSAME(TRANSA,'N')

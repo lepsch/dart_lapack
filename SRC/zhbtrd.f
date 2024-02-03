@@ -89,7 +89,7 @@
          if ( KD.GT.1 ) {
 
             // Reduce to complex Hermitian tridiagonal form, working with
-           t // he upper triangle
+            // the upper triangle
 
             NR = 0
             J1 = KDN + 2
@@ -189,7 +189,7 @@
 
                      if ( INITQ ) {
 
-                 t // ake advantage of the fact that Q was
+                  // take advantage of the fact that Q was
                   // initially the Identity matrix
 
                         IQEND = MAX( IQEND, J2 )
@@ -273,7 +273,7 @@
          if ( KD.GT.1 ) {
 
             // Reduce to complex Hermitian tridiagonal form, working with
-           t // he lower triangle
+            // the lower triangle
 
             NR = 0
             J1 = KDN + 2
@@ -374,7 +374,7 @@
 
                      if ( INITQ ) {
 
-                 t // ake advantage of the fact that Q was
+                  // take advantage of the fact that Q was
                   // initially the Identity matrix
 
                         IQEND = MAX( IQEND, J2 )

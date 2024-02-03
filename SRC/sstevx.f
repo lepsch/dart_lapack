@@ -130,7 +130,7 @@
 
       // If all eigenvalues are desired and ABSTOL is less than zero, then
       // call SSTERF or SSTEQR.  If this fails for some eigenvalue, then
-     t // ry SSTEBZ.
+      // try SSTEBZ.
 
       TEST = .FALSE.
       if ( INDEIG ) {

@@ -237,7 +237,7 @@
 
             if ( ABS( B( K, K ) ) .LT. BTOL ) {
                // A diagonal element of B is negligible, move it
-              t // o the top and deflate it
+               // to the top and deflate it
 
                DO K2 = K, ISTART2+1, -1
                   CALL DLARTG( B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP )
@@ -375,7 +375,7 @@
       // Call DHGEQZ to normalize the eigenvalue blocks and set the eigenvalues
       // If all the eigenvalues have been found, DHGEQZ will not do any iterations
       // and only normalize the blocks. In case of a rare convergence failure,
-     t // he single shift might perform better.
+      // the single shift might perform better.
 
    80 CALL DHGEQZ( WANTS, WANTQ, WANTZ, N, ILO, IHI, A, LDA, B, LDB,
      $             ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK,

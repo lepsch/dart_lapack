@@ -125,7 +125,7 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // SSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-     t // ridiagonal matrix, then call SOPMTR to multiply it by the
+      // tridiagonal matrix, then call SOPMTR to multiply it by the
       // Householder transformations represented in AP.
 
       if ( .NOT.WANTZ ) {

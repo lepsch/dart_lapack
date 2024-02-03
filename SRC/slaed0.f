@@ -61,7 +61,7 @@
       SMLSIZ = ILAENV( 9, 'SLAED0', ' ', 0, 0, 0, 0 )
 
       // Determine the size and placement of the submatrices, and save in
-     t // he leading elements of IWORK.
+      // the leading elements of IWORK.
 
       IWORK( 1 ) = N
       SUBPBS = 1
@@ -177,7 +177,7 @@
       // matrix.
       // SLAED7 handles the cases in which eigenvalues only or eigenvalues
       // and eigenvectors of a full symmetric matrix (which was reduced to
-     t // ridiagonal form) are desired.
+      // tridiagonal form) are desired.
 
             if ( ICOMPQ.EQ.2 ) {
                CALL SLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO )

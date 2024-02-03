@@ -571,7 +571,7 @@
          // Solve    A**T*X + ISGN*X*B**T = scale*C.
 
          // The (K,L)th block of X is determined starting from
-        t // op-right corner column by column by
+         // top-right corner column by column by
 
             // A(K,K)**T*X(K,L) + ISGN*X(K,L)*B(L,L)**T = C(K,L) - R(K,L)
 
@@ -922,7 +922,7 @@
       if ( SCALE .EQ. ZERO ) {
 
          // The magnitude of the largest entry of the solution is larger
-        t // han the product of BIGNUM**2 and cannot be represented in the
+         // than the product of BIGNUM**2 and cannot be represented in the
          // form (1/SCALE)*X if SCALE is REAL. Set SCALE to zero and give up.
 
          IWORK(1) = NBA + NBB + 2
@@ -962,7 +962,7 @@
          // In case of overly aggressive scaling during the computation,
          // flushing of the global scale factor may be prevented by
          // undoing some of the scaling. This step is to ensure that
-        t // his routine flushes only scale factors that TRSYL also
+         // this routine flushes only scale factors that TRSYL also
          // flushes and be usable as a drop-in replacement.
 
          // How much can the normwise largest entry be upscaled?

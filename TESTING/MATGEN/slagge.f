@@ -114,7 +114,7 @@
    40 CONTINUE
 
       // Reduce number of subdiagonals to KL and number of superdiagonals
-     t // o KU
+      // to KU
 
       DO 70 I = 1, MAX( M-1-KL, N-1-KU )
          if ( KL.LE.KU ) {

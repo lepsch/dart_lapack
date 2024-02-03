@@ -170,7 +170,7 @@
                   X( J2 ) = V( 2, 1 )
 
                   // Scale V(1,1) (= X(J1)) and/or V(2,1) (=X(J2))
-                 t // o avoid overflow in updating right-hand side.
+                  // to avoid overflow in updating right-hand side.
 
                   XJ = MAX( ABS( V( 1, 1 ) ), ABS( V( 2, 1 ) ) )
                   if ( XJ.GT.ONE ) {

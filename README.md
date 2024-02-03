@@ -85,8 +85,8 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/  
 
 ### Comma
 ```
-^( \s*[^/\s](.(?!(THEN|IF|SE|CONTINUE|\{|\}|;)))*)$
- $1;
+^(\s+[^/\s](.(?!(CONTINUE|\{|\}|;)))*)$
+$1;
 ```
 
 ### ELSE -> } else {

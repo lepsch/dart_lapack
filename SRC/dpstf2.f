@@ -224,7 +224,7 @@
   160 CONTINUE
 
       // Rank is number of steps completed.  Set INFO = 1 to signal
-     t // hat the factorization cannot be used to solve a system.
+      // that the factorization cannot be used to solve a system.
 
       RANK = J - 1
       INFO = 1

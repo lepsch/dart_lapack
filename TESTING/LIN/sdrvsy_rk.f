@@ -315,7 +315,7 @@
                      NT = 3
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 110 K = 1, NT
                         if ( RESULT( K ).GE.THRESH ) {

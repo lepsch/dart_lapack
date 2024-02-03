@@ -322,7 +322,7 @@
                   CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL SGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 70 K = 2, 6
                      if ( RESULT( K ).GE.THRESH ) {

@@ -208,7 +208,7 @@
                } else {
 
                   // Triangularize the 2 by 2 block by unitary
-                 t // ransformation U = [  cs   i*ss ]
+                  // transformation U = [  cs   i*ss ]
                                      // [ i*ss   cs  ].
                   // such that the (1,1) position of WORK is complex
                   // eigenvalue lambda with positive imaginary part. (2,2)

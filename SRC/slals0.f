@@ -143,7 +143,7 @@
          // Apply back the right orthogonal transformations.
 
          // Step (1R): apply back the new right singular vector matrix
-        t // o B.
+         // to B.
 
          if ( K.EQ.1 ) {
             CALL SCOPY( NRHS, B, LDB, BX, LDBX )

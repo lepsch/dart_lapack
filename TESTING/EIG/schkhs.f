@@ -417,7 +417,7 @@
             }
 
             // Compute selected right eigenvectors and confirm that
-           t // hey agree with previous right eigenvectors
+            // they agree with previous right eigenvectors
 
             CALL STREVC( 'Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO )
             if ( IINFO.NE.0 ) {
@@ -470,7 +470,7 @@
             }
 
             // Compute selected left eigenvectors and confirm that
-           t // hey agree with previous left eigenvectors
+            // they agree with previous left eigenvectors
 
             CALL STREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
             if ( IINFO.NE.0 ) {

@@ -282,7 +282,7 @@
 
                // Before converting A into lower for DSBTRD, run DSYTRD_SB2ST
                // otherwise matrix A will be converted to lower and then need
-              t // o be converted back to upper in order to run the upper case
+               // to be converted back to upper in order to run the upper case
                // ofDSYTRD_SB2ST
 
                // Compute D1 the eigenvalues resulting from the tridiagonal
@@ -309,7 +309,7 @@
 
                // DSYTRD_SB2ST Upper case is used to compute D2.
                // Note to set SD and SE to zero to be sure not reusing
-              t // he one from above. Compare it with D1 computed
+               // the one from above. Compare it with D1 computed
                // using the DSBTRD.
 
                CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
@@ -375,7 +375,7 @@
 
                // DSYTRD_SB2ST Lower case is used to compute D3.
                // Note to set SD and SE to zero to be sure not reusing
-              t // he one from above. Compare it with D1 computed
+               // the one from above. Compare it with D1 computed
                // using the DSBTRD.
 
                CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )

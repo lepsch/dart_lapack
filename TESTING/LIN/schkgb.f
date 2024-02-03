@@ -169,7 +169,7 @@
                      if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
                         // Set up parameters with SLATB4 and generate a
-                       t // est matrix with SLATMS.
+                        // test matrix with SLATMS.
 
                         CALL SLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 
@@ -189,13 +189,13 @@
                      } else if ( IZERO.GT.0 ) {
 
                         // Use the same matrix for types 3 and 4 as for
-                       t // ype 2 by copying back the zeroed out column.
+                        // type 2 by copying back the zeroed out column.
 
                         CALL SCOPY( I2-I1+1, B, 1, A( IOFF+I1 ), 1 )
                      }
 
                      // For types 2, 3, and 4, zero one or more columns of
-                    t // he matrix to test that INFO is returned correctly.
+                     // the matrix to test that INFO is returned correctly.
 
                      IZERO = 0
                      if ( ZEROT ) {

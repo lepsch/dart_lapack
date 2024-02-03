@@ -96,7 +96,7 @@
 
       // (1) Form explicitly the tall-skinny M-by-N left submatrix Q1_in
       // of M-by-M orthogonal matrix Q_in, which is implicitly stored in
-     t // he subdiagonal part of input array A and in the input array T.
+      // the subdiagonal part of input array A and in the input array T.
       // Perform by the following operation using the routine CLAMTSQR.
 
           // Q1_in = Q_in * ( I ), where I is a N-by-N identity matrix,
@@ -116,7 +116,7 @@
 
       // (2) Copy the result from the part of the work array (1:M,1:N)
       // with the leading dimension LDC that starts at WORK(1) into
-     t // he output array A(1:M,1:N) column-by-column.
+      // the output array A(1:M,1:N) column-by-column.
 
       DO J = 1, N
          CALL CCOPY( M, WORK( (J-1)*LDC + 1 ), 1, A( 1, J ), 1 )

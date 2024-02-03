@@ -185,7 +185,7 @@
                }
 
                // Compute the condition number for comparison with
-              t // he value returned by ZGTSVX.
+               // the value returned by ZGTSVX.
 
                if ( ZEROT ) {
                   IF( IFACT.EQ.1 ) GO TO 120
@@ -297,7 +297,7 @@
                      }
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 80 K = 2, NT
                         if ( RESULT( K ).GE.THRESH ) {
@@ -360,7 +360,7 @@
                   }
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 100 K = K1, NT
                      if ( RESULT( K ).GE.THRESH ) {

@@ -161,7 +161,7 @@
       // stores the starting and finishing indices of each block.
       INDISP = INDIBL + N
       // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
-     t // hat corresponding to eigenvectors that fail to converge in
+      // that corresponding to eigenvectors that fail to converge in
       // SSTEIN.  This information is discarded; if any fail, the driver
       // returns INFO > 0.
       INDIFL = INDISP + N
@@ -170,7 +170,7 @@
 
       // If all eigenvalues are desired, then
       // call SSTERF or SSTEMR.  If this fails for some eigenvalue, then
-     t // ry SSTEBZ.
+      // try SSTEBZ.
 
 
       TEST = .FALSE.

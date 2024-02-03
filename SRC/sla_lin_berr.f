@@ -30,7 +30,7 @@
 
       // Adding SAFE1 to the numerator guards against spuriously zero
       // residuals.  A similar safeguard is in the SLA_yyAMV routine used
-     t // o compute AYB.
+      // to compute AYB.
 
       SAFE1 = SLAMCH( 'Safe minimum' )
       SAFE1 = (NZ+1)*SAFE1
@@ -44,7 +44,7 @@
             }
 
       // If AYB is exactly 0.0 (and if computed by SLA_yyAMV), then we know
-     t // he true residual also must be exactly 0.0.
+      // the true residual also must be exactly 0.0.
 
          END DO
       END DO

@@ -116,7 +116,7 @@
          IEND = ISPLIT( JBLK )
          SIGMA = L( IEND )
          // Find the eigenvectors of the submatrix indexed IBEGIN
-        t // hrough IEND.
+         // through IEND.
          WEND = WBEGIN - 1
  15      CONTINUE
          if ( WEND.LT.M ) {
@@ -202,7 +202,7 @@
                RETURN
             ENDIF
             // breadth first processing of the current level of the representation
-           t // ree: OLDNCL = number of clusters on current level
+            // tree: OLDNCL = number of clusters on current level
             OLDNCL = NCLUS
             // reset NCLUS to count the number of child clusters
             NCLUS = 0
@@ -220,12 +220,12 @@
                J = OLDCLS + 2*I
                // OLDFST, OLDLST = first, last index of current cluster.
                                 // cluster indices start with 1 and are relative
-                               t // o WBEGIN when accessing W, WGAP, WERR, Z
+                                // to WBEGIN when accessing W, WGAP, WERR, Z
                OLDFST = IWORK( J-1 )
                OLDLST = IWORK( J )
                if ( NDEPTH.GT.0 ) {
                   // Retrieve relatively robust representation (RRR) of cluster
-                 t // hat has been computed at the previous level
+                  // that has been computed at the previous level
                   // The RRR is stored in Z and overwritten once the eigenvectors
                   // have been computed or when the cluster is refined
 
@@ -265,7 +265,7 @@
                   P = INDEXW( WBEGIN-1+OLDFST )
                   Q = INDEXW( WBEGIN-1+OLDLST )
                   // Offset for the arrays WORK, WGAP and WERR, i.e., the P-OFFSET
-                 t // hrough the Q-OFFSET elements of these arrays are to be used.
+                  // through the Q-OFFSET elements of these arrays are to be used.
                    // OFFSET = P-OLDFST
                   OFFSET = INDEXW( WBEGIN ) - 1
                   // perform limited bisection (if necessary) to get approximate
@@ -281,7 +281,7 @@
                   // different shifts. The gaps from WBEGIN-1+OLDFST to
                   // WBEGIN-1+OLDLST are correctly computed in SLARRB.
                   // However, we only allow the gaps to become greater since
-                 t // his is what should happen when we decrease WERR
+                  // this is what should happen when we decrease WERR
                   if ( OLDFST.GT.1) {
                      WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
                   ENDIF
@@ -289,7 +289,7 @@
                      WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
                   ENDIF
                   // Each time the eigenvalues in WORK get refined, we store
-                 t // he newly found approximation with all shifts applied in W
+                  // the newly found approximation with all shifts applied in W
                   DO 53 J=OLDFST,OLDLST
                      W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA
  53               CONTINUE
@@ -303,7 +303,7 @@
                      // boundary of the child cluster
                      NEWLST = J
                   } else if ( WGAP( WBEGIN + J -1).GE. MINRGP* ABS( WORK(WBEGIN + J -1) ) ) {
-                    t // he right relative gap is big enough, the child cluster
+                     // the right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J
                    } else {
@@ -342,7 +342,7 @@
                      // Compute left and right cluster gap.
 
                      // LGAP and RGAP are not computed from WORK because
-                    t // he eigenvalue approximations may stem from RRRs
+                     // the eigenvalue approximations may stem from RRRs
                      // different shifts. However, W hold all eigenvalues
                      // of the unshifted matrix. Still, the entries in WGAP
                      // have to be computed from WORK since the entries
@@ -356,7 +356,7 @@
                      RGAP = WGAP( WBEGIN+NEWLST-1 )
 
                      // Compute left- and rightmost eigenvalue of child
-                    t // o high precision in order to shift as close
+                     // to high precision in order to shift as close
                      // as possible and obtain as large relative gaps
                      // as possible
 
@@ -376,7 +376,7 @@
 
                         // We could skip before the refinement of the extremal
                         // eigenvalues of the child, but then the representation
-                       t // ree could be different from the one when nothing is
+                        // tree could be different from the one when nothing is
                         // skipped. For this reason we skip at this place.
                         IDONE = IDONE + NEWLST - NEWFST + 1
                         GOTO 139
@@ -400,8 +400,8 @@
                            WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE
                            // Gaps are not fudged. Provided that WERR is small
                            // when eigenvalues are close, a zero gap indicates
-                          t // hat a new representation is needed for resolving
-                          t // he cluster. A fudge could lead to a wrong decision
+                           // that a new representation is needed for resolving
+                           // the cluster. A fudge could lead to a wrong decision
                            // of judging eigenvalues 'separated' which in
                            // reality are not. This could have a negative impact
                            // on the orthogonality of the computed eigenvectors.
@@ -451,7 +451,7 @@
                         // accuracy in LAMBDA and VL, the formula
                         // LGAP = MAX( ZERO, (SIGMA - VL) + LAMBDA )
                         // can lead to an overestimation of the left gap and
-                       t // hus to inadequately early RQI 'convergence'.
+                        // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small left gap.
                         LGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
                      } else {
@@ -461,7 +461,7 @@
                         // In the case RANGE='I' and with not much initial
                         // accuracy in LAMBDA and VU, the formula
                         // can lead to an overestimation of the right gap and
-                       t // hus to inadequately early RQI 'convergence'.
+                        // thus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small right gap.
                         RGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
                      } else {
@@ -479,7 +479,7 @@
                      ISUPMN = IN
                      ISUPMX = 1
                      // Update WGAP so that it holds the minimum gap
-                    t // o the left or the right. This is crucial in the
+                     // to the left or the right. This is crucial in the
                      // case where bisection is used to ensure that the
                      // eigenvalue is refined up to the required precision.
                      // The correct value is restored afterwards.
@@ -537,7 +537,7 @@
                      if ( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS) {
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
-                       t // owards a neighbor. -> protection with bisection
+                        // towards a neighbor. -> protection with bisection
                         if (INDEIG.LE.NEGCNT) {
                            // The wanted eigenvalue lies to the left
                            SGNDEF = -ONE
@@ -546,7 +546,7 @@
                            SGNDEF = ONE
                         ENDIF
                         // We only use the RQCORR if it improves the
-                       t // he iterate reasonably.
+                        // the iterate reasonably.
                         if ( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) {
                            USEDRQ = .TRUE.
                            // Store new midpoint of bisection interval in WORK
@@ -632,7 +632,7 @@
                      // smaller (which can only happen through "bad"
                      // cancellation and doesn't reflect the theory
                      // where the initial gaps are underestimated due
-                    t // o WERR being too crude.)
+                     // to WERR being too crude.)
                      if (.NOT.ESKIP) {
                         if ( K.GT.1) {
                            WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )

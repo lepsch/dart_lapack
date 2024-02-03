@@ -60,7 +60,7 @@
       }
 
       // Need to initialize GIVPTR to O here in case of quick exit
-     t // o prevent an unspecified code behavior (usually sigfault)
+      // to prevent an unspecified code behavior (usually sigfault)
       // when IWORK array on entry to *stedc is not zeroed
       // (or at least some IWORK entries which used in *laed7 for GIVPTR).
 
@@ -132,9 +132,9 @@
       }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
-     t // he number of equal eigenvalues are found.  As each equal
+      // the number of equal eigenvalues are found.  As each equal
       // eigenvalue is found, an elementary reflector is computed to rotate
-     t // he corresponding eigensubspace so that the corresponding
+      // the corresponding eigensubspace so that the corresponding
       // components of Z are zero in this new basis.
 
       K = 0

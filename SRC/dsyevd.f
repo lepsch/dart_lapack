@@ -138,7 +138,7 @@
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // DSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-     t // ridiagonal matrix, then call DORMTR to multiply it by the
+      // tridiagonal matrix, then call DORMTR to multiply it by the
       // Householder transformations stored in A.
 
       if ( .NOT.WANTZ ) {

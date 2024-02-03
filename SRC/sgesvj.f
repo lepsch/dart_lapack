@@ -174,7 +174,7 @@
       GOSCALE = .TRUE.
 
       if ( LOWER ) {
-        t // he input matrix is M-by-N lower triangular (trapezoidal)
+         // the input matrix is M-by-N lower triangular (trapezoidal)
          DO 1874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
@@ -199,7 +199,7 @@
             }
  1874    CONTINUE
       } else if ( UPPER ) {
-        t // he input matrix is M-by-N upper triangular (trapezoidal)
+         // the input matrix is M-by-N upper triangular (trapezoidal)
          DO 2874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
@@ -224,7 +224,7 @@
             }
  2874    CONTINUE
       } else {
-        t // he input matrix is M-by-N general dense
+         // the input matrix is M-by-N general dense
          DO 3874 p = 1, N
             AAPP = ZERO
             AAQQ = ONE
@@ -354,7 +354,7 @@
 
       KBL = MIN( 8, N )
 *[TP] KBL is a tuning parameter that defines the tile size in the
-     t // iling of the p-q loops of pivot pairs. In general, an optimal
+      // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
       // parameters of the computer's memory.
 
@@ -377,7 +377,7 @@
 
       if ( ( LOWER .OR. UPPER ) .AND. ( N.GT.MAX( 64, 4*KBL ) ) ) {
 *[TP] The number of partition levels and the actual partition are
-     t // uning parameters.
+      // tuning parameters.
          N4 = N / 4
          N2 = N / 2
          N34 = 3*N4
@@ -477,7 +477,7 @@
          // overflow for ||A(:,p)||_2 > SQRT(overflow_threshold), and to
          // underflow for ||A(:,p)||_2 < SQRT(underflow_threshold).
          // Hence, SNRM2 cannot be trusted, not even in the case when
-        t // he true norm is far from the under(over)flow boundaries.
+         // the true norm is far from the under(over)flow boundaries.
          // If properly implemented SNRM2 is available, the IF-THEN-ELSE
          // below should read "AAPP = SNRM2( M, A(1,p), 1 ) * WORK(p)".
 
@@ -934,7 +934,7 @@
  1995 CONTINUE
 
       // Sort the singular values and find how many are above
-     t // he underflow threshold.
+      // the underflow threshold.
 
       N2 = 0
       N4 = 0
@@ -993,8 +993,8 @@
 
       WORK( 1 ) = SKL
       // The singular values of A are SKL*SVA(1:N). If SKL.NE.ONE
-     t // hen some of the singular values may overflow or underflow and
-     t // he spectrum is given in this factored representation.
+      // then some of the singular values may overflow or underflow and
+      // the spectrum is given in this factored representation.
 
       WORK( 2 ) = FLOAT( N4 )
       // N4 is the number of computed nonzero singular values of A.
@@ -1002,7 +1002,7 @@
       WORK( 3 ) = FLOAT( N2 )
       // N2 is the number of singular values of A greater than SFMIN.
       // If N2<N, SVA(N2:N) contains ZEROS and/or denormalized numbers
-     t // hat may carry some information.
+      // that may carry some information.
 
       WORK( 4 ) = FLOAT( i )
       // i is the index of the last sweep before declaring convergence.

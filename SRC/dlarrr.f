@@ -62,7 +62,7 @@
       // condition number is reasonable, not 1/macheps.
       // The threshold should be compatible with other thresholds used in the
       // code. We set  OFFDIG + OFFDIG2 <= .999 =: RELCOND, it corresponds
-     t // o losing at most 3 decimal digits: 1 / (1 - (OFFDIG + OFFDIG2)) <= 1000
+      // to losing at most 3 decimal digits: 1 / (1 - (OFFDIG + OFFDIG2)) <= 1000
       // instead of the current OFFDIG + OFFDIG2 < 1
 
       YESREL = .TRUE.
@@ -103,7 +103,7 @@
       // (zero shift facto) is well conditioned.
       // In this case, the matrix needs to be flipped and, at the end
       // of the eigenvector computation, the flip needs to be applied
-     t // o the computed eigenvectors (and the support)
+      // to the computed eigenvectors (and the support)
 
 
 

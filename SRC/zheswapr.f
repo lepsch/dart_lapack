@@ -54,7 +54,7 @@
           A(I1,I2)=DCONJG(A(I1,I2))
 
 
-          t // hird swap
+           // third swap
            // - swap row I1 and I2 from I2+1 to N
          DO I=I2+1,N
             TMP=A(I1,I)
@@ -86,7 +86,7 @@
 
           A(I2,I1)=DCONJG(A(I2,I1))
 
-         t // hird swap
+          // third swap
            // - swap col I1 and I2 from I2+1 to N
           DO I=I2+1,N
              TMP=A(I,I1)

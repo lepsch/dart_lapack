@@ -737,7 +737,7 @@
 
       // one of these values is used to initialize x(1) and x(2:N) is
       // filled with random values from [-1,1] scaled by another of
-     t // hese values.
+      // these values.
 
       // This routine is adapted from the test suite provided by
       // Anderson E. (2017)

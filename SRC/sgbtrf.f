@@ -177,7 +177,7 @@
                   CALL SSCAL( KM, ONE / AB( KV+1, JJ ), AB( KV+2, JJ ), 1 )
 
                   // Update trailing submatrix within the band and within
-                 t // he current block. JM is the index of the last column
+                  // the current block. JM is the index of the last column
                   // which needs to be updated.
 
                   JM = MIN( JU, J+JB-1 )
@@ -300,7 +300,7 @@
 
             // Partially undo the interchanges in the current block to
             // restore the upper triangular form of A31 and copy the upper
-           t // riangle of A31 back into place
+            // triangle of A31 back into place
 
             DO 170 JJ = J + JB - 1, J, -1
                JP = IPIV( JJ ) - JJ + 1

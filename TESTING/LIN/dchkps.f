@@ -152,7 +152,7 @@
                      CALL DPST01( UPLO, N, A, LDA, AFAC, LDA, PERM, LDA, PIV, RWORK, RESULT, COMPRANK )
 
                   // Print information about the tests that did not pass
-                 t // he threshold or where computed rank was not RANK.
+                  // the threshold or where computed rank was not RANK.
 
                      IF( N.EQ.0 ) COMPRANK = 0
                      RANKDIFF = RANK - COMPRANK

@@ -59,7 +59,7 @@
       CURR = PTR + CURPBM*2**CURLVL + 2**( CURLVL-1 ) - 1
 
       // Determine size of these matrices.  We add HALF to the value of
-     t // he SQRT in case the machine underestimates one of these square
+      // the SQRT in case the machine underestimates one of these square
       // roots.
 
       BSIZ1 = INT( HALF+SQRT( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) )
@@ -104,7 +104,7 @@
          // Multiply Blocks at CURR and CURR+1
 
          // Determine size of these matrices.  We add HALF to the value of
-        t // he SQRT in case the machine underestimates one of these
+         // the SQRT in case the machine underestimates one of these
          // square roots.
 
          BSIZ1 = INT( HALF+SQRT( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) )

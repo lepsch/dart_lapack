@@ -140,7 +140,7 @@
       CALL DSPTRD( UPLO, N, AP, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call DSTERF or DOPGTR and SSTEQR.  If this fails
+      // to zero, then call DSTERF or DOPGTR and SSTEQR.  If this fails
       // for some eigenvalue, then try DSTEBZ.
 
       TEST = .FALSE.

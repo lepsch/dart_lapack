@@ -80,16 +80,16 @@
       END DO
 
       // NSHFTS is supposed to be even, but if it is odd,
-     t // hen simply reduce it by one.  The shuffle above
+      // then simply reduce it by one.  The shuffle above
       // ensures that the dropped shift is real and that
-     t // he remaining shifts are paired.
+      // the remaining shifts are paired.
 
       NS = NSHIFTS-MOD( NSHIFTS, 2 )
       NPOS = MAX( NBLOCK_DESIRED-NS, 1 )
 
       // The following block introduces the shifts and chases
-     t // hem down one by one just enough to make space for
-     t // he other shifts. The near-the-diagonal block is
+      // them down one by one just enough to make space for
+      // the other shifts. The near-the-diagonal block is
       // of size (ns+1) x ns.
 
       CALL DLASET( 'FULL', NS+1, NS+1, ZERO, ONE, QC, LDQC )
@@ -161,7 +161,7 @@
          DO I = NS-1, 0, -2
             DO J = 0, NP-1
                // Move down the block with index k+i+j-1, updating
-              t // he (ns+np x ns+np) block:
+               // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
                CALL DLAQZ2( .TRUE., .TRUE., K+I+J-1, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC )
             END DO

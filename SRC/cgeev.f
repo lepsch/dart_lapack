@@ -74,7 +74,7 @@
         // immediately following subroutine, as returned by ILAENV.
         // HSWORK refers to the workspace preferred by CHSEQR, as
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-       t // he worst case.)
+        // the worst case.)
 
       if ( INFO.EQ.0 ) {
          if ( N.EQ.0 ) {

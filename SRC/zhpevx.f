@@ -144,7 +144,7 @@
       CALL ZHPTRD( UPLO, N, AP, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call DSTERF or ZUPGTR and ZSTEQR.  If this fails
+      // to zero, then call DSTERF or ZUPGTR and ZSTEQR.  If this fails
       // for some eigenvalue, then try DSTEBZ.
 
       TEST = .FALSE.

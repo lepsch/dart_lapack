@@ -67,7 +67,7 @@
          // P**T * B
 
          // Interchange rows K and IPIV(K) of matrix B in the same order
-        t // hat the formation order of IPIV(I) vector for Upper case.
+         // that the formation order of IPIV(I) vector for Upper case.
 
          // (We can do the simple loop over IPIV with decrement -1,
          // since the ABS value of IPIV( I ) represents the row index
@@ -134,7 +134,7 @@
 
          // P**T * B
          // Interchange rows K and IPIV(K) of matrix B in the same order
-        t // hat the formation order of IPIV(I) vector for Lower case.
+         // that the formation order of IPIV(I) vector for Lower case.
 
          // (We can do the simple loop over IPIV with increment 1,
          // since the ABS value of IPIV(I) represents the row index

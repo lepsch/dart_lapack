@@ -79,7 +79,7 @@
       IF( N.EQ.0 ) RETURN
 
       // Skip single precision iterative refinement if a priori slower
-     t // han double precision factorization.
+      // than double precision factorization.
 
       if ( .NOT.DOITREF ) {
          ITER = -1

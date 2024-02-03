@@ -131,7 +131,7 @@
          }
 
          // Sort eigenvalues and condition numbers lexicographically
-        t // o compare with inputs
+         // to compare with inputs
 
          CALL DCOPY( N, WR, 1, WRTMP, 1 )
          CALL DCOPY( N, WI, 1, WITMP, 1 )
@@ -162,7 +162,7 @@
    80    CONTINUE
 
          // Compare condition numbers for eigenvalues
-        t // aking their condition numbers into account
+         // taking their condition numbers into account
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -197,7 +197,7 @@
    90    CONTINUE
 
          // Compare condition numbers for eigenvectors
-        t // aking their condition numbers into account
+         // taking their condition numbers into account
 
          DO 100 I = 1, N
             if ( V.GT.SEPTMP( I )*STMP( I ) ) {

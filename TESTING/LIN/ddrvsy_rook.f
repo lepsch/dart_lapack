@@ -218,7 +218,7 @@
                   FACT = FACTS( IFACT )
 
                   // Compute the condition number for comparison with
-                 t // he value returned by DSYSVX_ROOK.
+                  // the value returned by DSYSVX_ROOK.
 
                   if ( ZEROT ) {
                      IF( IFACT.EQ.1 ) GO TO 150
@@ -312,7 +312,7 @@
                      NT = 3
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 110 K = 1, NT
                         if ( RESULT( K ).GE.THRESH ) {

@@ -110,7 +110,7 @@
             }
 
             // For types 5-7, zero one or more columns of the matrix to
-           t // est that INFO is returned correctly.
+            // test that INFO is returned correctly.
 
             if ( ZEROT ) {
                if ( IMAT.EQ.5 ) {
@@ -153,7 +153,7 @@
                ENDIF
 
                // Check error code from DSGESV. This should be the same as
-              t // he one of DGETRF.
+               // the one of DGETRF.
 
                if ( INFO.NE.IZERO ) {
 

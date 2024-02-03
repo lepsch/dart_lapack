@@ -146,7 +146,7 @@
 
       // For eigenvalues only, call SSTERF.  For eigenvectors, first call
       // CSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-     t // ridiagonal matrix, then call CUNMTR to multiply it to the
+      // tridiagonal matrix, then call CUNMTR to multiply it to the
       // Householder transformations represented as Householder vectors in
       // A.
 

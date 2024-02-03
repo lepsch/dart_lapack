@@ -65,8 +65,8 @@
 
 
       // The following block introduces the shifts and chases
-     t // hem down one by one just enough to make space for
-     t // he other shifts. The near-the-diagonal block is
+      // them down one by one just enough to make space for
+      // the other shifts. The near-the-diagonal block is
       // of size (ns+1) x ns.
 
       CALL ZLASET( 'FULL', NS+1, NS+1, CZERO, CONE, QC, LDQC )
@@ -146,7 +146,7 @@
          DO I = NS-1, 0, -1
             DO J = 0, NP-1
                // Move down the block with index k+i+j, updating
-              t // he (ns+np x ns+np) block:
+               // the (ns+np x ns+np) block:
                // (k:k+ns+np,k:k+ns+np-1)
                CALL ZLAQZ1( .TRUE., .TRUE., K+I+J, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC )
             END DO

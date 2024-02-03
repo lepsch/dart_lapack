@@ -61,7 +61,7 @@
          // be rounded to exactly 1.0.
          // Since DLARAN is not supposed to return exactly 0.0 or 1.0
          // (and some callers of DLARAN, such as CLARND, depend on that),
-        t // he statistically correct thing to do in this situation is
+         // the statistically correct thing to do in this situation is
          // simply to iterate again.
          // N.B. the case DLARAN = 0.0 should not be possible.
 

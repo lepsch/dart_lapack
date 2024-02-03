@@ -138,7 +138,7 @@
                               // Our test is based on forward error so we
                               // do want A to be well conditioned! To get
                               // a well-conditioned triangular matrix, we
-                             t // ake the R factor of the QR/LQ factorization
+                              // take the R factor of the QR/LQ factorization
                               // of a random matrix.
 
                               DO J = 1, NA

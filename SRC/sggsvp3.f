@@ -181,7 +181,7 @@
       // Let              N-L     L
                  // A = ( A11    A12 ) M,
 
-     t // hen the following does the complete QR decomposition of A11:
+      // then the following does the complete QR decomposition of A11:
 
                // A11 = U*(  0  T12 )*P1**T
                        // (  0   0  )

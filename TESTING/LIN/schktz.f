@@ -140,7 +140,7 @@
                   RESULT( 3 ) = SRZT02( M, N, A, LDA, TAU, WORK, LWORK )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 40 K = 1, NTESTS
                      if ( RESULT( K ).GE.THRESH ) {

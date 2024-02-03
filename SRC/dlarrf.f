@@ -52,7 +52,7 @@
 
 
       // Note that we cannot guarantee that for any of the shifts tried,
-     t // he factorization has a small or even moderate element growth.
+      // the factorization has a small or even moderate element growth.
       // There could be Ritz values at both ends of the cluster and despite
       // backing off, there are examples where all factorizations tried
       // (in IEEE mode, allowing zero pivots & infinities) have INFINITE

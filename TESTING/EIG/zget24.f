@@ -406,7 +406,7 @@
       if ( COMP ) {
 
          // First set up SELOPT, SELDIM, SELVAL, SELWR and SELWI so that
-        t // he logical function ZSLECT selects the eigenvalues specified
+         // the logical function ZSLECT selects the eigenvalues specified
          // by NSLCT, ISLCT and ISRT.
 
          SELDIM = N
@@ -460,7 +460,7 @@
          }
 
          // Compare condition number for average of selected eigenvalues
-        t // aking its condition number into account
+         // taking its condition number into account
 
          ANORM = ZLANGE( '1', N, N, A, LDA, RWORK )
          V = MAX( DBLE( N )*EPS*ANORM, SMLNUM )
@@ -490,7 +490,7 @@
          }
 
          // Compare condition numbers for right invariant subspace
-        t // aking its condition number into account
+         // taking its condition number into account
 
          if ( V.GT.RCONDV*RCONDE ) {
             TOL = RCONDV

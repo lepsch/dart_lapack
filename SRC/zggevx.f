@@ -306,7 +306,7 @@
             // number is not invariant under transformation (u,v) to
             // (Q*u, Z*v), where (u,v) are eigenvectors of the generalized
             // Schur form (S,T), Q and Z are orthogonal matrices. In order
-           t // o avoid using extra 2*N*N workspace, we have to
+            // to avoid using extra 2*N*N workspace, we have to
             // re-calculate eigenvectors and estimate the condition numbers
             // one at a time.
 

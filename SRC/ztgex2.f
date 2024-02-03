@@ -77,7 +77,7 @@
 
       // THRES has been changed from
          // THRESH = MAX( TEN*EPS*SA, SMLNUM )
-     t // o
+      // to
          // THRESH = MAX( TWENTY*EPS*SA, SMLNUM )
       // on 04/01/10.
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by

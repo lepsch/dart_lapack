@@ -61,7 +61,7 @@
       SOMCON = LSAME( HOWMNY, 'S' )
 
       // Set M to the number of eigenpairs for which condition numbers are
-     t // o be computed.
+      // to be computed.
 
       if ( SOMCON ) {
          M = 0

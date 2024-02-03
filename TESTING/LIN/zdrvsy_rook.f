@@ -144,7 +144,7 @@
                   }
 
                   // For types 3-6, zero one or more rows and columns of
-                 t // he matrix to test that INFO is returned correctly.
+                  // the matrix to test that INFO is returned correctly.
 
                   if ( ZEROT ) {
                      if ( IMAT.EQ.3 ) {
@@ -213,7 +213,7 @@
                } else {
 
                   // IMAT = NTYPES:  Use a special block diagonal matrix to
-                 t // est alternate code for the 2-by-2 blocks.
+                  // test alternate code for the 2-by-2 blocks.
 
                   CALL ZLATSY( UPLO, N, A, LDA, ISEED )
                }
@@ -225,7 +225,7 @@
                   FACT = FACTS( IFACT )
 
                   // Compute the condition number for comparison with
-                 t // he value returned by ZSYSVX_ROOK.
+                  // the value returned by ZSYSVX_ROOK.
 
                   if ( ZEROT ) {
                      IF( IFACT.EQ.1 ) GO TO 150
@@ -320,7 +320,7 @@
                      NT = 3
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 110 K = 1, NT
                         if ( RESULT( K ).GE.THRESH ) {

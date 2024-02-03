@@ -30,7 +30,7 @@
          // Initialize PASS, INCX, INCY, and MODE for a new case.
          // The value 9999 for INCX, INCY or MODE will appear in the
          // detailed  output, if any, for cases that do not involve
-        t // hese parameters.
+         // these parameters.
 
          PASS = .TRUE.
          INCX = 9999
@@ -512,8 +512,8 @@
       // 0, very small, small, ulp, 1, 1/ulp, big, very big, infinity, NaN
 
       // one of these values is used to initialize x(1) and x(2:N) is
+      // these values.
       // filled with random values from [-1,1] scaled by another of
-     t // hese values.
 
       // This routine is adapted from the test suite provided by
       // Anderson E. (2017)

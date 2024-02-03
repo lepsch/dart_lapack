@@ -170,7 +170,7 @@
          // Apply back the right orthogonal transformations.
 
          // Step (1R): apply back the new right singular vector matrix
-        t // o B.
+         // to B.
 
          if ( K.EQ.1 ) {
             CALL CCOPY( NRHS, B, LDB, BX, LDBX )

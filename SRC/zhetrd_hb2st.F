@@ -158,9 +158,9 @@
       // The matrix is already Tridiagonal. We have to make diagonal
       // and offdiagonal elements real, and store them in D and E.
       // For that, for real precision just copy the diag and offdiag
-     t // o D and E while for the COMPLEX case the bulge chasing is
+      // to D and E while for the COMPLEX case the bulge chasing is
       // performed to convert the hermetian tridiagonal to symmetric
-     t // ridiagonal. A simpler conversion formula might be used, but then
+      // tridiagonal. A simpler conversion formula might be used, but then
       // updating the Q matrix will be required and based if Q is generated
       // or not this might complicate the story.
 
@@ -308,14 +308,14 @@
 #endif
 
       // Copy the diagonal from A to D. Note that D is REAL thus only
-     t // he Real part is needed, the imaginary part should be zero.
+      // the Real part is needed, the imaginary part should be zero.
 
       DO 150 I = 1, N
           D( I ) = DBLE( WORK( DPOS+(I-1)*LDA ) )
   150 CONTINUE
 
       // Copy the off diagonal from A to E. Note that E is REAL thus only
-     t // he Real part is needed, the imaginary part should be zero.
+      // the Real part is needed, the imaginary part should be zero.
 
       if ( UPPER ) {
           DO 160 I = 1, N-1

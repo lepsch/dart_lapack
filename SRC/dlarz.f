@@ -47,7 +47,7 @@
             CALL DAXPY( N, -TAU, WORK, 1, C, LDC )
 
             // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-                               t // au * v( 1:l ) * w( 1:n )**T
+                                // tau * v( 1:l ) * w( 1:n )**T
 
             CALL DGER( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
          }
@@ -71,7 +71,7 @@
             CALL DAXPY( M, -TAU, WORK, 1, C, 1 )
 
             // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-                               t // au * w( 1:m ) * v( 1:l )**T
+                                // tau * w( 1:m ) * v( 1:l )**T
 
             CALL DGER( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
 

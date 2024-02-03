@@ -170,7 +170,7 @@
                   RESULT( 3 ) = DQRT11( M, MNMIN, A, LDA, TAU, WORK, LWORK )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 50 K = 1, NTESTS
                      if ( RESULT( K ).GE.THRESH ) {

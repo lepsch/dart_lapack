@@ -487,7 +487,7 @@
 
       } else if ( LSAMEN( 2, P2, 'QK' ) ) {
 
-        t // runcated QR decomposition with column pivoting
+         // truncated QR decomposition with column pivoting
 
          WRITE( IOUNIT, FMT = 8006 )PATH
          WRITE( IOUNIT, FMT = 9871 )

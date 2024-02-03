@@ -78,7 +78,7 @@
             KM = MIN( J-1, KD )
 
             // Compute elements j-km:j-1 of the j-th column and update the
-           t // he leading submatrix within the band.
+            // the leading submatrix within the band.
 
             CALL SSCAL( KM, ONE / AJJ, AB( KD+1-KM, J ), 1 )
             CALL SSYR( 'Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD )
@@ -97,7 +97,7 @@
             KM = MIN( KD, M-J )
 
             // Compute elements j+1:j+km of the j-th row and update the
-           t // railing submatrix within the band.
+            // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
                CALL SSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
@@ -119,7 +119,7 @@
             KM = MIN( J-1, KD )
 
             // Compute elements j-km:j-1 of the j-th row and update the
-           t // railing submatrix within the band.
+            // trailing submatrix within the band.
 
             CALL SSCAL( KM, ONE / AJJ, AB( KM+1, J-KM ), KLD )
             CALL SSYR( 'Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD )
@@ -138,7 +138,7 @@
             KM = MIN( KD, M-J )
 
             // Compute elements j+1:j+km of the j-th column and update the
-           t // railing submatrix within the band.
+            // trailing submatrix within the band.
 
             if ( KM.GT.0 ) {
                CALL SSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )

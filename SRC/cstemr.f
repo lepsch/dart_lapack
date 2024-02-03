@@ -174,8 +174,8 @@
             CALL SLAEV2( D(1), E(1), D(2), R1, R2, CS, SN )
          }
          // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
-        t // he following code requires R1 >= R2. Hence, we correct
-        t // he order of R1, R2, CS, SN if R1 < R2 before further processing.
+         // the following code requires R1 >= R2. Hence, we correct
+         // the order of R1, R2, CS, SN if R1 < R2 before further processing.
          if ( R1.LT.R2 ) {
             E(2) = R1
             R1 = R2
@@ -345,7 +345,7 @@
             // SLARRE computes eigenvalues of the (shifted) root representation
             // CLARRV returns the eigenvalues of the unshifted matrix.
             // However, if the eigenvectors are not desired by the user, we need
-           t // o apply the corresponding shifts from SLARRE to obtain the
+            // to apply the corresponding shifts from SLARRE to obtain the
             // eigenvalues of the original matrix.
             DO 20 J = 1, M
                ITMP = IWORK( IINDBL+J-1 )

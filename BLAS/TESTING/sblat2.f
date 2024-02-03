@@ -182,7 +182,7 @@
          YY( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
       // YY holds the exact result. On exit from SMVCH YT holds
-     t // he result computed by SMVCH.
+      // the result computed by SMVCH.
       TRANS = 'N'
       CALL SMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LSE( YY, YT, N )

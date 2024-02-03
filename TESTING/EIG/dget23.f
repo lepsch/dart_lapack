@@ -321,7 +321,7 @@
          }
 
          // Sort eigenvalues and condition numbers lexicographically
-        t // o compare with inputs
+         // to compare with inputs
 
          DO 220 I = 1, N - 1
             KMIN = I
@@ -347,7 +347,7 @@
   220    CONTINUE
 
          // Compare condition numbers for eigenvectors
-        t // aking their condition numbers into account
+         // taking their condition numbers into account
 
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
@@ -381,7 +381,7 @@
   230    CONTINUE
 
          // Compare condition numbers for eigenvalues
-        t // aking their condition numbers into account
+         // taking their condition numbers into account
 
          RESULT( 11 ) = ZERO
          DO 240 I = 1, N

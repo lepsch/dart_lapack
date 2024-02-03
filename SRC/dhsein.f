@@ -123,7 +123,7 @@
             if ( FROMQR ) {
 
                // If affiliation of eigenvalues is known, check whether
-              t // he matrix splits.
+               // the matrix splits.
 
                // Determine KL and KR such that 1 <= KL <= K <= KR <= N
                // and H(KL,KL-1) and H(KR+1,KR) are zero (or KL = 1 or
@@ -131,7 +131,7 @@
 
                // Then inverse iteration can be performed with the
                // submatrix H(KL:N,KL:N) for a left eigenvector, and with
-              t // he submatrix H(1:KR,1:KR) for a right eigenvector.
+               // the submatrix H(1:KR,1:KR) for a right eigenvector.
 
                DO 20 I = K, KL + 1, -1
                   IF( H( I, I-1 ).EQ.ZERO ) GO TO 30

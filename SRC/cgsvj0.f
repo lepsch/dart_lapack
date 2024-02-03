@@ -115,7 +115,7 @@
 
       KBL = MIN( 8, N )
 *[TP] KBL is a tuning parameter that defines the tile size in the
-     t // iling of the p-q loops of pivot pairs. In general, an optimal
+      // tiling of the p-q loops of pivot pairs. In general, an optimal
       // value of KBL depends on the matrix dimensions and on the
       // parameters of the computer's memory.
 
@@ -189,7 +189,7 @@
          // overflow for ||A(:,p)||_2 > SQRT(overflow_threshold), and to
          // underflow for ||A(:,p)||_2 < SQRT(underflow_threshold).
          // Hence, SCNRM2 cannot be trusted, not even in the case when
-        t // he true norm is far from the under(over)flow boundaries.
+         // the true norm is far from the under(over)flow boundaries.
          // If properly implemented SCNRM2 is available, the IF-THEN-ELSE-END IF
          // below should be replaced with "AAPP = SCNRM2( M, A(1,p), 1 )".
 

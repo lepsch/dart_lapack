@@ -159,7 +159,7 @@
       CALL ZHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call DSTERF or ZSTEQR.  If this fails for some
+      // to zero, then call DSTERF or ZSTEQR.  If this fails for some
       // eigenvalue, then try DSTEBZ.
 
       TEST = .FALSE.

@@ -175,7 +175,7 @@
       CALL DSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call DSTERF or SSTEQR.  If this fails for some
+      // to zero, then call DSTERF or SSTEQR.  If this fails for some
       // eigenvalue, then try DSTEBZ.
 
       TEST = .FALSE.

@@ -125,12 +125,12 @@
       END DO
 
       // (3) Generate a M-by-N matrix Q with orthonormal columns from
-     t // he result stored below the diagonal in the array A in place.
+      // the result stored below the diagonal in the array A in place.
 
        CALL DORGTSQR_ROW( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK( LWT+N*N+1 ), LW2, IINFO )
 
       // (4) Perform the reconstruction of Householder vectors from
-     t // he matrix Q (stored in A) in place.
+      // the matrix Q (stored in A) in place.
 
       CALL DORHR_COL( M, N, NB2LOCAL, A, LDA, T, LDT, WORK( LWT+N*N+1 ), IINFO )
 
@@ -139,10 +139,10 @@
       // part of A.
 
       // (6) Compute from R_tsqr the factor R_hr corresponding to
-     t // he reconstructed Householder vectors, i.e. R_hr = S * R_tsqr.
+      // the reconstructed Householder vectors, i.e. R_hr = S * R_tsqr.
       // This multiplication by the sign matrix S on the left means
       // changing the sign of I-th row of the matrix R_tsqr according
-     t // o sign of the I-th diagonal element DIAG(I) of the matrix S.
+      // to sign of the I-th diagonal element DIAG(I) of the matrix S.
       // DIAG is stored in WORK( LWT+N*N+1 ) from the DORHR_COL output.
 
       // (5) and (6) can be combined in a single loop, so the rows in A

@@ -291,7 +291,7 @@
                          // [  U21  U22  ]
 
                   // where U21 is a LEN-by-LEN matrix and U12 is lower
-                 t // riangular.
+                  // triangular.
 
                   JROW = IHI - NBLST + 1
                   CALL CGEMV( 'Conjugate', NBLST, LEN, CONE, WORK, NBLST, A( JROW, J+1 ), 1, CZERO, WORK( PW ), 1 )
@@ -362,7 +362,7 @@
                          // [  U21  U22  ],
 
                   // where all blocks are NNB-by-NNB, U21 is upper
-                 t // riangular and U12 is lower triangular.
+                  // triangular and U12 is lower triangular.
 
                   CALL CUNM22( 'Left', 'Conjugate', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR )
                } else {

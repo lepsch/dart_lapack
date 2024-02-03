@@ -2794,7 +2794,7 @@
       }
 
       // If DBDSQR failed to converge, copy unconverged superdiagonals
-     t // o WORK( 2:MINMN )
+      // to WORK( 2:MINMN )
 
       if ( INFO.NE.0 ) {
          if ( IE.GT.2 ) {

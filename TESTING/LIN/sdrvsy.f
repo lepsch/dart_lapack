@@ -200,7 +200,7 @@
                   FACT = FACTS( IFACT )
 
                   // Compute the condition number for comparison with
-                 t // he value returned by SSYSVX.
+                  // the value returned by SSYSVX.
 
                   if ( ZEROT ) {
                      IF( IFACT.EQ.1 ) GO TO 150
@@ -292,7 +292,7 @@
                      NT = 3
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 110 K = 1, NT
                         if ( RESULT( K ).GE.THRESH ) {
@@ -373,7 +373,7 @@
                   RESULT( 6 ) = SGET06( RCOND, RCONDC )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 140 K = K1, 6
                      if ( RESULT( K ).GE.THRESH ) {

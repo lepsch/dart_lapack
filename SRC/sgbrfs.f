@@ -123,7 +123,7 @@
 
          // where abs(Z) is the componentwise absolute value of the matrix
          // or vector Z.  If the i-th component of the denominator is less
-        t // han SAFE2, then SAFE1 is added to the i-th components of the
+         // than SAFE2, then SAFE1 is added to the i-th components of the
          // numerator and denominator before dividing.
 
          DO 30 I = 1, N

@@ -315,7 +315,7 @@
                      CALL CTBT03( UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      if ( RESULT( 7 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )'CLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 )

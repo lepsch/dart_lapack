@@ -192,7 +192,7 @@
       // WORK(INDD:INDD+N-1) stores the tridiagonal's diagonal entries.
       INDD = INDTAU + N
       // WORK(INDE:INDE+N-1) stores the off-diagonal entries of the
-     t // ridiagonal matrix from SSYTRD.
+      // tridiagonal matrix from SSYTRD.
       INDE = INDD + N
       // WORK(INDDD:INDDD+N-1) is a copy of the diagonal entries over
       // -written by SSTEMR (the SSTERF path copies the diagonal to W).
@@ -215,7 +215,7 @@
       // stores the starting and finishing indices of each block.
       INDISP = INDIBL + N
       // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
-     t // hat corresponding to eigenvectors that fail to converge in
+      // that corresponding to eigenvectors that fail to converge in
       // SSTEIN.  This information is discarded; if any fail, the driver
       // returns INFO > 0.
       INDIFL = INDISP + N
@@ -229,7 +229,7 @@
       CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
 
       // If all eigenvalues are desired
-     t // hen call SSTERF or SSTEMR and SORMTR.
+      // then call SSTERF or SSTEMR and SORMTR.
 
       TEST = .FALSE.
       if ( INDEIG ) {

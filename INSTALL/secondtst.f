@@ -61,7 +61,7 @@
    50 CONTINUE
 
       // Compute the time used in milliseconds used by an average call
-     t // o SECOND.
+      // to SECOND.
 
       WRITE( 6, 9997 )T2 - T1
       AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0E+00/REAL( ITS )

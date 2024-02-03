@@ -67,7 +67,7 @@
       }
 
       // Normalize z so that norm(z) = 1.  Since z is the concatenation of
-     t // wo normalized vectors, norm2(z) = sqrt(2).
+      // two normalized vectors, norm2(z) = sqrt(2).
 
       T = ONE / SQRT( TWO )
       CALL DSCAL( N, T, Z, 1 )
@@ -118,9 +118,9 @@
       }
 
       // If there are multiple eigenvalues then the problem deflates.  Here
-     t // he number of equal eigenvalues are found.  As each equal
+      // the number of equal eigenvalues are found.  As each equal
       // eigenvalue is found, an elementary reflector is computed to rotate
-     t // he corresponding eigensubspace so that the corresponding
+      // the corresponding eigensubspace so that the corresponding
       // components of Z are zero in this new basis.
 
       DO 50 I = 1, N1
@@ -242,7 +242,7 @@
 
       // Fill out the INDXC array so that the permutation which it induces
       // will place all type-1 columns first, all type-2 columns next,
-     t // hen all type-3's, and finally all type-4's.
+      // then all type-3's, and finally all type-4's.
 
       DO 130 J = 1, N
          JS = INDXP( J )

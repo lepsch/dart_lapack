@@ -71,7 +71,7 @@
       SMLNUM = SAFMIN*( REAL( NH ) / ULP )
 
       // I1 and I2 are the indices of the first row and last column of H
-     t // o which transformations must be applied. If eigenvalues only are
+      // to which transformations must be applied. If eigenvalues only are
       // being computed, I1 and I2 are set inside the main loop.
 
       if ( WANTT ) {
@@ -243,7 +243,7 @@
 
             // The first iteration of this loop determines a reflection G
             // from the vector V and applies it from left and right to H,
-           t // hus creating a nonzero bulge below the subdiagonal.
+            // thus creating a nonzero bulge below the subdiagonal.
 
             // Each subsequent iteration determines a reflection G to
             // restore the Hessenberg form in the (K-1)th column, and thus

@@ -572,19 +572,19 @@
                   END DO
                   DO J = 0, K - 1
                      CALL DLASSQ( K+J-1, A( 0+J*LDA ), 1, SCALE, S )
-                    t // rap U at A(0,0)
+                     // trap U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K-1, A( K ), LDA+1, SCALE, S )
-                 t // ri L at A(k,0)
+                  // tri L at A(k,0)
                   CALL DLASSQ( K, A( K-1 ), LDA+1, SCALE, S )
-                 t // ri U at A(k-1,0)
+                  // tri U at A(k-1,0)
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL DLASSQ( N-J-1, A( J+1+J*LDA ), 1, SCALE, S )
-                    t // rap L at A(0,0)
+                     // trap L at A(0,0)
                   END DO
                   DO J = 0, K - 2
                      CALL DLASSQ( J, A( 0+( 1+J )*LDA ), 1, SCALE, S )
@@ -593,9 +593,9 @@
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
-                 t // ri L at A(0,0)
+                  // tri L at A(0,0)
                   CALL DLASSQ( K-1, A( 0+LDA ), LDA+1, SCALE, S )
-                 t // ri U at A(0,1)
+                  // tri U at A(0,1)
                }
             } else {
                // A is xpose
@@ -616,9 +616,9 @@
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K-1, A( 0+K*LDA ), LDA+1, SCALE, S )
-                 t // ri U at A(0,k)
+                  // tri U at A(0,k)
                   CALL DLASSQ( K, A( 0+( K-1 )*LDA ), LDA+1, SCALE, S )
-                 t // ri L at A(0,k-1)
+                  // tri L at A(0,k-1)
                } else {
                   // A**T is lower
                   DO J = 1, K - 1
@@ -636,9 +636,9 @@
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
-                 t // ri U at A(0,0)
+                  // tri U at A(0,0)
                   CALL DLASSQ( K-1, A( 1 ), LDA+1, SCALE, S )
-                 t // ri L at A(1,0)
+                  // tri L at A(1,0)
                }
             }
          } else {
@@ -653,19 +653,19 @@
                   END DO
                   DO J = 0, K - 1
                      CALL DLASSQ( K+J, A( 0+J*LDA ), 1, SCALE, S )
-                    t // rap U at A(0,0)
+                     // trap U at A(0,0)
                   END DO
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K, A( K+1 ), LDA+1, SCALE, S )
-                 t // ri L at A(k+1,0)
+                  // tri L at A(k+1,0)
                   CALL DLASSQ( K, A( K ), LDA+1, SCALE, S )
-                 t // ri U at A(k,0)
+                  // tri U at A(k,0)
                } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL DLASSQ( N-J-1, A( J+2+J*LDA ), 1, SCALE, S )
-                    t // rap L at A(1,0)
+                     // trap L at A(1,0)
                   END DO
                   DO J = 1, K - 1
                      CALL DLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
@@ -674,9 +674,9 @@
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K, A( 1 ), LDA+1, SCALE, S )
-                 t // ri L at A(1,0)
+                  // tri L at A(1,0)
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
-                 t // ri U at A(0,0)
+                  // tri U at A(0,0)
                }
             } else {
                // A is xpose
@@ -697,9 +697,9 @@
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K, A( 0+( K+1 )*LDA ), LDA+1, SCALE, S )
-                 t // ri U at A(0,k+1)
+                  // tri U at A(0,k+1)
                   CALL DLASSQ( K, A( 0+K*LDA ), LDA+1, SCALE, S )
-                 t // ri L at A(0,k)
+                  // tri L at A(0,k)
                } else {
                   // A**T is lower
                   DO J = 1, K - 1
@@ -717,9 +717,9 @@
                   S = S + S
                   // double s for the off diagonal elements
                   CALL DLASSQ( K, A( LDA ), LDA+1, SCALE, S )
-                 t // ri L at A(0,1)
+                  // tri L at A(0,1)
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
-                 t // ri U at A(0,0)
+                  // tri U at A(0,0)
                }
             }
          }

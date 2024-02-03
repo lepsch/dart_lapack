@@ -49,7 +49,7 @@
          if ( ALPHA.GE.ZERO ) {
             // When TAU.eq.ZERO, the vector is special-cased to be
             // all zeros in the application routines.  We do not need
-           t // o clear it.
+            // to clear it.
             TAU = ZERO
          } else {
             // However, the application routines rely on explicit
@@ -99,7 +99,7 @@
 
             // In the case where the computed TAU ends up being a denormalized number,
             // it loses relative accuracy. This is a BIG problem. Solution: flush TAU
-           t // o ZERO. This explains the next IF statement.
+            // to ZERO. This explains the next IF statement.
 
             // (Bug report provided by Pat Quillen from MathWorks on Jul 29, 2009.)
             // (Thanks Pat. Thanks MathWorks.)

@@ -182,7 +182,7 @@
       CALL CHETRD_HB2ST( 'N', JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call SSTERF or CSTEQR.  If this fails for some
+      // to zero, then call SSTERF or CSTEQR.  If this fails for some
       // eigenvalue, then try SSTEBZ.
 
       TEST = .FALSE.

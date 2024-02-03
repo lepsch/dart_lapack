@@ -232,7 +232,7 @@
                 // Compute Addressing constants to cover all
                 // storage formats.  Whether GE, HE, SY, GB, HB, or SB,
                 // upper or lower triangle or both,
-               t // he (i,j)-th element is in
+                // the (i,j)-th element is in
                 // A( i - ISKEW*j + IOFFST, j )
 
       if ( IPACK.GT.4 ) {
@@ -561,7 +561,7 @@
   200          CONTINUE
 
                // If we need lower triangle, copy from upper. Note that
-              t // he order of copying is chosen to work for 'q' -> 'b'
+               // the order of copying is chosen to work for 'q' -> 'b'
 
                if ( IPACK.NE.IPACKG .AND. IPACK.NE.3 ) {
                   DO 230 JC = 1, N
@@ -651,7 +651,7 @@
   290          CONTINUE
 
                // If we need upper triangle, copy from lower. Note that
-              t // he order of copying is chosen to work for 'b' -> 'q'
+               // the order of copying is chosen to work for 'b' -> 'q'
 
                if ( IPACK.NE.IPACKG .AND. IPACK.NE.4 ) {
                   DO 320 JC = N, 1, -1
@@ -696,8 +696,8 @@
 
          // 4)      Generate Banded Matrix by first
                  // Rotating by random Unitary matrices,
-                t // hen reducing the bandwidth using Householder
-                t // ransformations.
+                 // then reducing the bandwidth using Householder
+                 // transformations.
 
                  // Note: we should get here only if LDA .ge. N
 

@@ -76,7 +76,7 @@
             AB( KD+1, J ) = AJJ
 
             // Compute elements J+1:J+KN of row J and update the
-           t // railing submatrix within the band.
+            // trailing submatrix within the band.
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {
@@ -103,7 +103,7 @@
             AB( 1, J ) = AJJ
 
             // Compute elements J+1:J+KN of column J and update the
-           t // railing submatrix within the band.
+            // trailing submatrix within the band.
 
             KN = MIN( KD, N-J )
             if ( KN.GT.0 ) {

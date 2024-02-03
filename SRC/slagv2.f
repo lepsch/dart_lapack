@@ -97,7 +97,7 @@
 
          if ( WI.EQ.ZERO ) {
 
-           t // wo real eigenvalues, compute s*A-w*B
+            // two real eigenvalues, compute s*A-w*B
 
             H1 = SCALE1*A( 1, 1 ) - WR1*B( 1, 1 )
             H2 = SCALE1*A( 1, 2 ) - WR1*B( 1, 2 )

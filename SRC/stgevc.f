@@ -162,7 +162,7 @@
       // Compute the 1-norm of each column of the strictly upper triangular
       // part (i.e., excluding all elements belonging to the diagonal
       // blocks) of A and B to check for possible overflow in the
-     t // riangular solver.
+      // triangular solver.
 
       ANORM = ABS( S( 1, 1 ) )
       IF( N.GT.1 ) ANORM = ANORM + ABS( S( 2, 1 ) )
@@ -390,7 +390,7 @@
                         // k=je                          k=je
 
                // which may cause underflow problems if A or B are close
-              t // o underflow.  (E.g., less than SMALL.)
+               // to underflow.  (E.g., less than SMALL.)
 
 
                DO 120 JW = 1, NW

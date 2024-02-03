@@ -104,7 +104,7 @@
                // from the left.
             // 3) SLAQP3RK: NB*(N+NRHS) to use in the work array F that
                // is used to apply a block reflector from
-              t // he left.
+               // the left.
             // 4) SLAQP3RK: NB to use in the auxilixary array AUX.
             // Sizes (2) and ((3) + (4)) should intersect, therefore
             // TOTAL_WORK_SIZE = 2*N + NB*( N+NRHS+1 ), given NBMIN=2.
@@ -119,7 +119,7 @@
       }
 
        // NOTE: The optimal workspace size is returned in WORK(1), if
-            t // he input parameters M, N, NRHS, KMAX, LDA are valid.
+             // the input parameters M, N, NRHS, KMAX, LDA are valid.
 
       if ( INFO.NE.0 ) {
          CALL XERBLA( 'SGEQP3RK', -INFO )
@@ -174,7 +174,7 @@
       if ( SISNAN( MAXC2NRM ) ) {
 
          // Check if the matrix A contains NaN, set INFO parameter
-        t // o the column number where the first NaN is found and return
+         // to the column number where the first NaN is found and return
          // from the routine.
 
          K = 0
@@ -218,7 +218,7 @@
       if ( MAXC2NRM.GT.HUGEVAL ) {
 
          // Check if the matrix A contains +Inf or -Inf, set INFO parameter
-        t // o the column number, where the first +/-Inf  is found plus N,
+         // to the column number, where the first +/-Inf  is found plus N,
          // and continue the computation.
 
          INFO = N + KP1
@@ -346,7 +346,7 @@
          // JB  is the column block size to pass to block factorization
              // routine in a loop step;
          // JBF is the number of columns that were actually factorized
-            t // hat was returned by the block factorization routine
+             // that was returned by the block factorization routine
              // in a loop step, JBF <= JB;
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
@@ -408,8 +408,8 @@
       // Use unblocked code to factor the last or only block.
       // J = JMAX+1 means we factorized the maximum possible number of
       // columns, that is in ELSE clause we need to compute
-     t // he MAXC2NORM and RELMAXC2NORM to return after we processed
-     t // he blocks.
+      // the MAXC2NORM and RELMAXC2NORM to return after we processed
+      // the blocks.
 
       if ( J.LE.JMAX ) {
 
@@ -422,10 +422,10 @@
          CALL SLAQP2RK( M, N_SUB, NRHS, IOFFSET, JMAX-J+1, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, KF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), IINFO )
 
          // ABSTOL or RELTOL criterion is satisfied when the number of
-        t // he factorized columns KF is smaller then the  number
+         // the factorized columns KF is smaller then the  number
          // of columns JMAX-J+1 supplied to be factorized by the
          // unblocked routine, we can return from
-        t // he routine. Perform the following before returning:
+         // the routine. Perform the following before returning:
             // a) Set the number of factorized columns K,
             // b) MAXC2NRMK and RELMAXC2NRMK are returned by the
                // unblocked factorization routine above.

@@ -106,7 +106,7 @@
       DO 30 I = 1, MINMN - NX, NB
 
          // Reduce rows and columns i:i+nb-1 to bidiagonal form and return
-        t // he matrices X and Y which are needed to update the unreduced
+         // the matrices X and Y which are needed to update the unreduced
          // part of the matrix
 
          CALL SLABRD( M-I+1, N-I+1, NB, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, LDWRKX, WORK( LDWRKX*NB+1 ), LDWRKY )

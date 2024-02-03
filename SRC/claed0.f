@@ -66,7 +66,7 @@
       SMLSIZ = ILAENV( 9, 'CLAED0', ' ', 0, 0, 0, 0 )
 
       // Determine the size and placement of the submatrices, and save in
-     t // he leading elements of IWORK.
+      // the leading elements of IWORK.
 
       IWORK( 1 ) = N
       SUBPBS = 1

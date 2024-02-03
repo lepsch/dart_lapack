@@ -72,9 +72,9 @@
             // n bits of the 48-bit integer above happen to be all 1 (which
             // will occur about once every 2**n calls), then X( I ) will
             // be rounded to exactly 1.0. In IEEE single precision arithmetic,
-           t // his will happen relatively often since n = 24.
+            // this will happen relatively often since n = 24.
             // Since X( I ) is not supposed to return exactly 0.0 or 1.0,
-           t // he statistically correct thing to do in this situation is
+            // the statistically correct thing to do in this situation is
             // simply to iterate again.
             // N.B. the case X( I ) = 0.0 should not be possible.
             I1 = I1 + 2

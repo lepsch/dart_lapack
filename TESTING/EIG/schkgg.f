@@ -160,7 +160,7 @@
             // IASIGN: 1 if the diagonal elements of A are to be
                     // multiplied by a random magnitude 1 number, =2 if
                     // randomly chosen diagonal blocks are to be rotated
-                   t // o form 2x2 blocks.
+                    // to form 2x2 blocks.
             // KBTYPE, KBZERO, KBMAGN, IBSIGN: the same, but for B.
             // KTRIAN: =0: don't fill in the upper triangle, =1: do.
             // KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.

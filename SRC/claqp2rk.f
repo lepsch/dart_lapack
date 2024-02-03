@@ -71,7 +71,7 @@
             // ============================================================
 
             // We are at the first column of the original whole matrix A,
-           t // herefore we use the computed KP1 and MAXC2NRM from the
+            // therefore we use the computed KP1 and MAXC2NRM from the
             // main routine.
 
             KP = KP1
@@ -108,7 +108,7 @@
             if ( SISNAN( MAXC2NRMK ) ) {
 
                // Set K, the number of factorized columns.
-              t // hat are not zero.
+               // that are not zero.
 
                 K = KK - 1
                 INFO = K + KP
@@ -135,7 +135,7 @@
             if ( MAXC2NRMK.EQ.ZERO ) {
 
                // Set K, the number of factorized columns.
-              t // hat are not zero.
+               // that are not zero.
 
                K = KK - 1
                RELMAXC2NRMK = ZERO
@@ -157,8 +157,8 @@
 
             // Check if the submatrix A(I:M,KK:N) contains Inf,
             // set INFO parameter to the column number, where
-           t // he first Inf is found plus N, and continue
-           t // he computation.
+            // the first Inf is found plus N, and continue
+            // the computation.
             // We need to check the condition only if the
             // column index (same as row index) of the original whole
             // matrix is larger than 1, since the condition for whole
@@ -173,7 +173,7 @@
             // Test for the second and third stopping criteria.
             // NOTE: There is no need to test for ABSTOL >= ZERO, since
             // MAXC2NRMK is non-negative. Similarly, there is no need
-           t // o test for RELTOL >= ZERO, since RELMAXC2NRMK is
+            // to test for RELTOL >= ZERO, since RELMAXC2NRMK is
             // non-negative.
             // We need to check the condition only if the
             // column index (same as row index) of the original whole
@@ -218,7 +218,7 @@
             // for VN1 and VN2 since we use the element with the index
             // larger than KK in the next loop step.)
          // 3) Save the pivot interchange with the indices relative to the
-           t // he original matrix A, not the block A(1:M,1:N).
+            // the original matrix A, not the block A(1:M,1:N).
 
          if ( KP.NE.KK ) {
             CALL CSWAP( M, A( 1, KP ), 1, A( 1, KK ), 1 )
@@ -231,7 +231,7 @@
 
          // Generate elementary reflector H(KK) using the column A(I:M,KK),
          // if the column has more than one element, otherwise
-        t // he elementary reflector would be an identity matrix,
+         // the elementary reflector would be an identity matrix,
          // and TAU(KK) = CZERO.
 
          if ( I.LT.M ) {
@@ -241,8 +241,8 @@
          }
 
          // Check if TAU(KK) contains NaN, set INFO parameter
-        t // o the column number where NaN is found and return from
-        t // he routine.
+         // to the column number where NaN is found and return from
+         // the routine.
          // NOTE: There is no need to check TAU(KK) for Inf,
          // since CLARFG cannot produce TAU(KK) or Householder vector
          // below the diagonal containing Inf. Only BETA on the diagonal,

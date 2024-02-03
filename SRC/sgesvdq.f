@@ -309,7 +309,7 @@
             IWOFF = M
             // .. reordering the rows in decreasing sequence in the
             // ell-infinity norm - this enhances numerical robustness in
-           t // he case of differently scaled rows.
+            // the case of differently scaled rows.
             DO 1904 p = 1, M
                 // RWORK(p) = ABS( A(p,ICAMAX(N,A(p,1),LDA)) )
                 // [[SLANGE will return NaN if an entry of the p-th row is Nan]]
@@ -446,7 +446,7 @@
 
          if ( CONDA ) {
             // Estimate the scaled condition number of A. Use the fact that it is
-           t // he same as the scaled condition number of R.
+            // the same as the scaled condition number of R.
                // .. V is used as workspace
                CALL SLACPY( 'U', N, N, A, LDA, V, LDV )
                // Only the leading NR x NR submatrix of the triangular factor
@@ -487,7 +487,7 @@
 
           // .. compute the singular values of R**T = [A](1:NR,1:N)**T
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**T and
-           t // he upper triangle of [A] to zero.
+            // the upper triangle of [A] to zero.
             DO 1146 p = 1, MIN( N, NR )
                DO 1147 q = p + 1, N
                   A(q,p) = A(p,q)
@@ -699,7 +699,7 @@
              // vectors of R**T
                 // [[The optimal ratio N/NR for using QRF instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
-                 t // wo due to work space constraints.]]
+                  // two due to work space constraints.]]
                 // OPTRATIO = ILAENV(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                 OPTRATIO = 2
@@ -802,7 +802,7 @@
                 // is then N1 (N or M)
                 // [[The optimal ratio N/NR for using LQ instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
-                 t // wo due to work space constraints.]]
+                  // two due to work space constraints.]]
                 // OPTRATIO = ILAENV(6, 'SGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                OPTRATIO = 2

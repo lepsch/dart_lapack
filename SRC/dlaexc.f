@@ -187,7 +187,7 @@
    30    CONTINUE
 
          // N1 = 2, N2 = 2: generate elementary reflectors H(1) and H(2) so
-        t // hat:
+         // that:
 
          // H(2) H(1) (  -X11  -X12 ) = (  *  * )
                    // (  -X21  -X22 )   (  0  * )

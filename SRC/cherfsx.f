@@ -225,10 +225,10 @@
 
       // Compute componentwise condition number cond(A*diag(Y(:,J))) for
       // each right-hand side using the current solution as an estimate of
-     t // he true solution.  If the componentwise error estimate is too
+      // the true solution.  If the componentwise error estimate is too
       // large, then the solution is a lousy estimate of truth and the
       // estimated RCOND may be too optimistic.  To avoid misleading users,
-     t // he inverse condition number is set to 0.0 when the estimated
+      // the inverse condition number is set to 0.0 when the estimated
       // cwise error is at least CWISE_WRONG.
 
          CWISE_WRONG = SQRT( SLAMCH( 'Epsilon' ) )

@@ -162,7 +162,7 @@
          IF( M.EQ.L ) GO TO 80
 
          // If remaining matrix is 2-by-2, use SLAE2 or SLAEV2
-        t // o compute its eigensystem.
+         // to compute its eigensystem.
 
          if ( M.EQ.L+1 ) {
             if ( ICOMPZ.GT.0 ) {
@@ -260,7 +260,7 @@
          IF( M.EQ.L ) GO TO 130
 
          // If remaining matrix is 2-by-2, use SLAE2 or SLAEV2
-        t // o compute its eigensystem.
+         // to compute its eigensystem.
 
          if ( M.EQ.L-1 ) {
             if ( ICOMPZ.GT.0 ) {

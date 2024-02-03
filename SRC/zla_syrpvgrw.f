@@ -75,7 +75,7 @@
 
       // Now find the max magnitude entry of each column of U or L.  Also
       // permute the magnitudes of A above so they're in the same order as
-     t // he factor.
+      // the factor.
 
       // The iteration orders and permutations were copied from zsytrs.
       // Calls to SSWAP would be severe overkill.

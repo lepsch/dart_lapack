@@ -153,7 +153,7 @@
       CALL DSBTRD( JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call DSTERF or SSTEQR.  If this fails for some
+      // to zero, then call DSTERF or SSTEQR.  If this fails for some
       // eigenvalue, then try DSTEBZ.
 
       TEST = .FALSE.

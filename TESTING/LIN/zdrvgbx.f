@@ -165,7 +165,7 @@
                   IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
 
                   // Set up parameters with ZLATB4 and generate a
-                 t // est matrix with ZLATMS.
+                  // test matrix with ZLATMS.
 
                   CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
                   RCONDC = ONE / CNDNUM
@@ -181,7 +181,7 @@
                   }
 
                   // For types 2, 3, and 4, zero one or more columns of
-                 t // he matrix to test that INFO is returned correctly.
+                  // the matrix to test that INFO is returned correctly.
 
                   IZERO = 0
                   if ( ZEROT ) {
@@ -597,7 +597,7 @@
                      RESULT( 6 ) = DGET06( RCOND, RCONDC )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      if ( .NOT.TRFCON ) {
                         DO 45 K = K1, NTESTS

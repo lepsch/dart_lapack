@@ -179,7 +179,7 @@
          }
 
          // Compare condition number for eigenvalue cluster
-        t // aking its condition number into account
+         // taking its condition number into account
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -212,7 +212,7 @@
          }
 
          // Compare condition numbers for invariant subspace
-        t // aking its condition number into account
+         // taking its condition number into account
 
          if ( V.GT.SEPTMP*STMP ) {
             TOL = SEPTMP

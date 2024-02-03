@@ -73,9 +73,9 @@
          // Solve L*X = B, overwriting B with X.
 
          // L is represented as a product of permutations and unit lower
-        t // riangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
+         // triangular matrices L = P(1) * L(1) * ... * P(n-1) * L(n-1),
          // where each transformation L(i) is a rank-one modification of
-        t // he identity matrix.
+         // the identity matrix.
 
          if ( LNOTI ) {
             DO 10 J = 1, N - 1

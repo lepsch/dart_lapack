@@ -359,7 +359,7 @@
                      // comments. The norms of u and v may be (slightly)
                      // different from 1/sqrt(2) if the corresponding
                      // eigenvalues are very small or too close. We check
-                    t // hose norms and, if needed, reorthogonalize the
+                     // those norms and, if needed, reorthogonalize the
                      // vectors.
 
                      if ( NSL.GT.1 .AND. VUTGK.EQ.ZERO .AND. MOD(NTGK,2).EQ.0 .AND. EMIN.EQ.0 .AND. .NOT.SPLIT ) {
@@ -445,7 +445,7 @@
             if ( SPLIT .AND. WANTZ ) {
 
                // Bring back eigenvector corresponding
-              t // o eigenvalue equal to zero.
+               // to eigenvalue equal to zero.
 
                Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 )
                Z( IDBEG:IDEND-NTGK+1,N+1 ) = 0

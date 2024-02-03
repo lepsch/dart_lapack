@@ -95,7 +95,7 @@
       }
 
       // Ensure that reciprocal condition numbers are not less than
-     t // hreshold, in order to limit the size of the error bound
+      // threshold, in order to limit the size of the error bound
 
       EPS = SLAMCH( 'E' )
       SAFMIN = SLAMCH( 'S' )

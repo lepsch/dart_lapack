@@ -414,7 +414,7 @@
       } else if ( LSAMEN( 2, C2, 'PT' ) ) {
 
          // xPT:  Set parameters to generate a symmetric positive definite
-        t // ridiagonal matrix.
+         // tridiagonal matrix.
 
          TYPE = 'P'
          if ( IMAT.EQ.1 ) {

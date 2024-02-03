@@ -165,7 +165,7 @@
                   IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
 
                   // Set up parameters with CLATB4 and generate a
-                 t // est matrix with CLATMS.
+                  // test matrix with CLATMS.
 
                   CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
                   RCONDC = ONE / CNDNUM
@@ -181,7 +181,7 @@
                   }
 
                   // For types 2, 3, and 4, zero one or more columns of
-                 t // he matrix to test that INFO is returned correctly.
+                  // the matrix to test that INFO is returned correctly.
 
                   IZERO = 0
                   if ( ZEROT ) {
@@ -597,7 +597,7 @@
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      if ( .NOT.TRFCON ) {
                         DO 45 K = K1, NTESTS

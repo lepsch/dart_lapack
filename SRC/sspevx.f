@@ -140,7 +140,7 @@
       CALL SSPTRD( UPLO, N, AP, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), IINFO )
 
       // If all eigenvalues are desired and ABSTOL is less than or equal
-     t // o zero, then call SSTERF or SOPGTR and SSTEQR.  If this fails
+      // to zero, then call SSTERF or SOPGTR and SSTEQR.  If this fails
       // for some eigenvalue, then try SSTEBZ.
 
       TEST = .FALSE.

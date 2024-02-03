@@ -29,7 +29,7 @@
       } else {
 
         // code for unequal increments or equal increments not equal
-         t // o 1
+          // to 1
 
          IX = 1
          IY = 1

@@ -131,7 +131,7 @@
          }
 
          // Sort eigenvalues and condition numbers lexicographically
-        t // o compare with inputs
+         // to compare with inputs
 
          CALL ZCOPY( N, W, 1, WTMP, 1 )
          if ( ISRT.EQ.0 ) {
@@ -175,7 +175,7 @@
   110    CONTINUE
 
          // Compare condition numbers for eigenvalues
-        t // aking their condition numbers into account
+         // taking their condition numbers into account
 
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
          IF( TNRM.EQ.ZERO ) V = ONE
@@ -210,7 +210,7 @@
   120    CONTINUE
 
          // Compare condition numbers for eigenvectors
-        t // aking their condition numbers into account
+         // taking their condition numbers into account
 
          DO 130 I = 1, N
             if ( V.GT.SEPTMP( I )*STMP( I ) ) {

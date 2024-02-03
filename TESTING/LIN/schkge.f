@@ -122,7 +122,7 @@
                }
 
                // For types 5-7, zero one or more columns of the matrix to
-              t // est that INFO is returned correctly.
+               // test that INFO is returned correctly.
 
                if ( ZEROT ) {
                   if ( IMAT.EQ.5 ) {
@@ -230,7 +230,7 @@
 
                   // Skip the remaining tests if this is not the first
                   // block size or if M .ne. N.  Skip the solve tests if
-                 t // he matrix is singular.
+                  // the matrix is singular.
 
                   IF( INB.GT.1 .OR. M.NE.N ) GO TO 90                   IF( TRFCON ) GO TO 70
 
@@ -322,7 +322,7 @@
                      RESULT( 8 ) = SGET06( RCOND, RCONDC )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      if ( RESULT( 8 ).GE.THRESH ) {
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 )

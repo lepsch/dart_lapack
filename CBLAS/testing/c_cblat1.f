@@ -26,7 +26,7 @@
          // Initialize PASS, INCX, INCY, and MODE for a new case.
          // The value 9999 for INCX, INCY or MODE will appear in the
          // detailed  output, if any, for cases that do not involve
-        t // hese parameters.
+         // these parameters.
 
          PASS = .TRUE.
          INCX = 9999

@@ -216,7 +216,7 @@
                A( P, P ) = T
 
                // Convert upper triangle of A into U form by applying
-              t // he interchanges in columns k+1:N.
+               // the interchanges in columns k+1:N.
 
                IF( K.LT.N ) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA )
 
@@ -241,7 +241,7 @@
                }
 
                // Convert upper triangle of A into U form by applying
-              t // he interchanges in columns k+1:N.
+               // the interchanges in columns k+1:N.
 
                IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
 
@@ -509,7 +509,7 @@
                A( P, P ) = T
 
                // Convert lower triangle of A into L form by applying
-              t // he interchanges in columns 1:k-1.
+               // the interchanges in columns 1:k-1.
 
                IF ( K.GT.1 ) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA )
 
@@ -534,7 +534,7 @@
                }
 
                // Convert lower triangle of A into L form by applying
-              t // he interchanges in columns 1:k-1.
+               // the interchanges in columns 1:k-1.
 
                IF ( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
 

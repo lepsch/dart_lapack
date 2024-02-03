@@ -128,7 +128,7 @@
 
       // There are 2 kinds of deflation -- first a value in the z-vector
       // is small, second two (or more) singular values are very close
-     t // ogether (their difference is small).
+      // together (their difference is small).
 
       // If the value in the z-vector is small, we simply permute the
       // array so that the corresponding singular value is moved to the
@@ -255,7 +255,7 @@
 
       // Fill out the IDXC array so that the permutation which it induces
       // will place all type-1 columns first, all type-2 columns next,
-     t // hen all type-3's, and finally all type-4's, starting from the
+      // then all type-3's, and finally all type-4's, starting from the
       // second column. This applies similarly to the rows of VT.
 
       DO 150 J = 2, N

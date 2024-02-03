@@ -75,7 +75,7 @@
          // NaNs are only possible if either:
          // 1. alphaR or alphaI is NaN.
          // 2. alphaR and alphaI are both infinite, in which case it makes sense
-        t // o propagate a NaN.
+         // to propagate a NaN.
          UR = AR + AI * ( AI / AR )
          UI = AI + AR * ( AR / AI )
 

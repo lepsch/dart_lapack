@@ -185,7 +185,7 @@
          YY( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
       // YY holds the exact result. On exit from ZMVCH YT holds
-     t // he result computed by ZMVCH.
+      // the result computed by ZMVCH.
       TRANS = 'N'
       CALL ZMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LZE( YY, YT, N )

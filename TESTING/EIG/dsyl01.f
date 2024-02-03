@@ -156,7 +156,7 @@
                         RES1 = DLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
-                       t // here may be cases where TRSYL3 avoid flushing).
+                        // there may be cases where TRSYL3 avoid flushing).
                         if ( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR.  IINFO.NE.INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         }

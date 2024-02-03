@@ -528,7 +528,7 @@
             if ( INFO.NE.0 ) {
 
                // If INFO is not 0, i.e., DLAED6 failed, switch back
-              t // o 2 pole interpolation.
+               // to 2 pole interpolation.
 
                SWTCH3 = .FALSE.
                INFO = 0

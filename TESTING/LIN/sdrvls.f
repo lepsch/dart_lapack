@@ -467,7 +467,7 @@
                   // =====================================================
 
                      // Generate a matrix of scaling type ISCALE and rank
-                    t // ype IRANK.
+                     // type IRANK.
 
                      CALL SQRT15( ISCALE, IRANK, M, N, NRHS, COPYA, LDA, COPYB, LDB, COPYS, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
 
@@ -485,7 +485,7 @@
                         // Test SGELSY
 
                         // SGELSY:  Compute the minimum-norm solution X
-                       t // o min( norm( A * X - B ) )
+                        // to min( norm( A * X - B ) )
                         // using the rank-revealing orthogonal
                         // factorization.
 
@@ -527,7 +527,7 @@
                         // Test SGELSS
 
                         // SGELSS:  Compute the minimum-norm solution X
-                       t // o min( norm( A * X - B ) )
+                        // to min( norm( A * X - B ) )
                         // using the SVD.
 
                         CALL SLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
@@ -564,7 +564,7 @@
                         // Test SGELSD
 
                         // SGELSD:  Compute the minimum-norm solution X
-                       t // o min( norm( A * X - B ) ) using a
+                        // to min( norm( A * X - B ) ) using a
                         // divide and conquer SVD.
 
                         // Initialize vector IWORK.

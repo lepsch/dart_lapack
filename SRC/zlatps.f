@@ -359,7 +359,7 @@
                   if ( XJ.GT.TJJ*BIGNUM ) {
 
                         // Scale x by (1/abs(x(j)))*abs(A(j,j))*BIGNUM
-                       t // o avoid overflow when dividing by A(j,j).
+                        // to avoid overflow when dividing by A(j,j).
 
                      REC = ( TJJ*BIGNUM ) / XJ
                      if ( CNORM( J ).GT.ONE ) {

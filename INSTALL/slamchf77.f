@@ -171,11 +171,11 @@
          // IEEE1, T and RND.
 
          // Throughout this routine  we use the function  SLAMC3  to ensure
-        t // hat relevant values are  stored and not held in registers,  or
+         // that relevant values are  stored and not held in registers,  or
          // are not affected by optimizers.
 
          // Compute  a = 2.0**m  with the  smallest positive integer m such
-        t // hat
+         // that
 
             // fl( a + 1.0 ) = a.
 
@@ -211,7 +211,7 @@
 
          // Now compute the base.  a and c  are neighbouring floating point
          // numbers  in the  interval  ( beta**t, beta**( t + 1 ) )  and so
-        t // heir difference is beta. Adding 0.25 to c is to ensure that it
+         // their difference is beta. Adding 0.25 to c is to ensure that it
          // is truncated to beta and not ( beta - 1 ).
 
          QTR = ONE / 4
@@ -391,7 +391,7 @@
          // BETA, T, RND, EPS, EMIN and RMIN.
 
          // Throughout this routine  we use the function  SLAMC3  to ensure
-        t // hat relevant values are stored  and not held in registers,  or
+         // that relevant values are stored  and not held in registers,  or
          // are not affected by optimizers.
 
          // SLAMC1 returns the parameters  LBETA, LT, LRND and LIEEE1.
@@ -505,13 +505,13 @@
          // Assume IEEE arithmetic if we found denormalised  numbers above,
          // or if arithmetic seems to round in the  IEEE style,  determined
          // in routine SLAMC1. A true IEEE machine should have both  things
-        t // rue; however, faulty machines may have one or the other.
+         // true; however, faulty machines may have one or the other.
 
          IEEE = IEEE .OR. LIEEE1
 
          // Compute  RMIN by successive division by  BETA. We could compute
          // RMIN as BASE**( EMIN - 1 ),  but some machines underflow during
-        t // his computation.
+         // this computation.
 
          LRMIN = 1
          DO 30 I = 1, 1 - LEMIN
@@ -769,7 +769,7 @@
       }
 
       // Now -LEXP is less than or equal to EMIN, and -UEXP is greater
-     t // han or equal to EMIN. EXBITS is the number of bits needed to
+      // than or equal to EMIN. EXBITS is the number of bits needed to
       // store the exponent.
 
       if ( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) {
@@ -796,7 +796,7 @@
          // (e.g. IEEE machines, Dec Vax machines), which is perhaps the
          // most likely. We have to assume the last alternative.
          // If this is true, then we need to reduce EMAX by one because
-        t // here must be some way of representing zero in an implicit-bit
+         // there must be some way of representing zero in an implicit-bit
          // system. On machines like Cray, we are reducing EMAX by one
          // unnecessarily.
 

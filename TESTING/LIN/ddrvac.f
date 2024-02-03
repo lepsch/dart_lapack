@@ -119,7 +119,7 @@
                }
 
                // For types 3-5, zero one row and column of the matrix to
-              t // est that INFO is returned correctly.
+               // test that INFO is returned correctly.
 
                if ( ZEROT ) {
                   if ( IMAT.EQ.3 ) {

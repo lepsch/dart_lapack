@@ -18,7 +18,7 @@
       REAL               ZERO, ONE
       const            ZERO = 0.0E0, ONE = 1.0E0 ;
       // Some architectures propagate Infinities and NaNs very slowly, so
-     t // he code computes counts in BLKLEN chunks.  Then a NaN can
+      // the code computes counts in BLKLEN chunks.  Then a NaN can
       // propagate at most BLKLEN columns before being detected.  This is
       // not a general tuning parameter; it needs only to be just large
       // enough that the overhead is tiny in common cases.

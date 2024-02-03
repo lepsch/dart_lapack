@@ -266,7 +266,7 @@
          // should be on the left or the right end of the current block.
          // The strategy is to shift to the end which is "more populated"
          // Furthermore, decide whether to use DQDS for the computation of
-        t // he eigenvalue approximations at the end of DLARRE or bisection.
+         // the eigenvalue approximations at the end of DLARRE or bisection.
          // dqds is chosen if all eigenvalues are desired or the number of
          // eigenvalues to be computed is large compared to the blocksize.
          if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
@@ -339,7 +339,7 @@
          // element growth.
          if ( USEDQD ) {
             // The initial SIGMA was to the outer end of the spectrum
-           t // he matrix is definite and we need not retreat.
+            // the matrix is definite and we need not retreat.
             TAU = SPDIAM*EPS*N + TWO*PIVMIN
             TAU = MAX( TAU,TWO*EPS*ABS(SIGMA) )
          } else {
@@ -484,7 +484,7 @@
             // Note that dqds finds the eigenvalues of the L D L^T representation
             // of T to high relative accuracy. High relative accuracy
             // might be lost when the shift of the RRR is subtracted to obtain
-           t // he eigenvalues of T. However, T is not guaranteed to define its
+            // the eigenvalues of T. However, T is not guaranteed to define its
             // eigenvalues to high relative accuracy anyway.
             // Set RTOL to the order of the tolerance used in DLASQ2
             // This is an ESTIMATED error, the worst case bound is 4*N*EPS
@@ -532,7 +532,7 @@
             }
 
             DO 165 I = M - MB + 1, M
-              t // he value of RTOL below should be the tolerance in DLASQ2
+               // the value of RTOL below should be the tolerance in DLASQ2
                WERR( I ) = RTOL * ABS( W(I) )
  165        CONTINUE
             DO 166 I = M - MB + 1, M - 1

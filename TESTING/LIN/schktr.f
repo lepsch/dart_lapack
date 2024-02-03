@@ -330,7 +330,7 @@
                   RESULT( 10 ) = MAX( RESULT( 10 ), RES )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   if ( RESULT( 8 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATRS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )

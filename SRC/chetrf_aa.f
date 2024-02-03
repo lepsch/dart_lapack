@@ -139,7 +139,7 @@
          J = J + JB
 
          // Trailing submatrix update, where
-         t // he row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
+          // the row A(J1-1, J2-1:N) stores U(J1, J2+1:N) and
           // WORK stores the current block of the auxiriarly matrix H
 
          if ( J.LT.N ) {

@@ -239,7 +239,7 @@
 
                   // Compute the L*D*L**T or U*D*U**T factorization of the
                   // matrix. IWORK stores details of the interchanges and
-                 t // he block structure of D. AINV is a work array for
+                  // the block structure of D. AINV is a work array for
                   // block factorization, LWORK is the length of AINV.
 
                   LWORK = MAX( 2, NB )*LDA
@@ -305,7 +305,7 @@
                   }
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 110 K = 1, NT
                      if ( RESULT( K ).GE.THRESH ) {
@@ -397,7 +397,7 @@
                      CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )                      CALL ZPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 120 K = 3, 8
                         if ( RESULT( K ).GE.THRESH ) {
@@ -428,7 +428,7 @@
                   RESULT( 9 ) = DGET06( RCOND, RCONDC )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   if ( RESULT( 9 ).GE.THRESH ) {
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 )

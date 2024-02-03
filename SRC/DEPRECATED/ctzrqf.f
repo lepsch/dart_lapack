@@ -71,7 +71,7 @@
 
                // Use the first ( k - 1 ) elements of TAU to store  a( k ),
                // where  a( k ) consists of the first ( k - 1 ) elements of
-              t // he  kth column  of  A.  Also  let  B  denote  the  first
+               // the  kth column  of  A.  Also  let  B  denote  the  first
                // ( k - 1 ) rows of the last ( n - m ) columns of A.
 
                CALL CCOPY( K-1, A( 1, K ), 1, TAU, 1 )

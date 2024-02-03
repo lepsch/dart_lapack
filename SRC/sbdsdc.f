@@ -126,7 +126,7 @@
       }
 
       // If N is smaller than the minimum divide size SMLSIZ, then solve
-     t // he problem with another solver.
+      // the problem with another solver.
 
       if ( N.LE.SMLSIZ ) {
          if ( ICOMPQ.EQ.2 ) {

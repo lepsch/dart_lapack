@@ -49,7 +49,7 @@
             CALL ZAXPY( N, -TAU, WORK, 1, C, LDC )
 
             // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
-                               t // au * v( 1:l ) * w( 1:n )**H
+                                // tau * v( 1:l ) * w( 1:n )**H
 
             CALL ZGERU( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
          }
@@ -73,7 +73,7 @@
             CALL ZAXPY( M, -TAU, WORK, 1, C, 1 )
 
             // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
-                               t // au * w( 1:m ) * v( 1:l )**H
+                                // tau * w( 1:m ) * v( 1:l )**H
 
             CALL ZGERC( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
 

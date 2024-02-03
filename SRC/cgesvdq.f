@@ -305,7 +305,7 @@
       if ( ROWPRM ) {
             // .. reordering the rows in decreasing sequence in the
             // ell-infinity norm - this enhances numerical robustness in
-           t // he case of differently scaled rows.
+            // the case of differently scaled rows.
             DO 1904 p = 1, M
                 // RWORK(p) = ABS( A(p,ICAMAX(N,A(p,1),LDA)) )
                 // [[CLANGE will return NaN if an entry of the p-th row is Nan]]
@@ -442,7 +442,7 @@
 
          if ( CONDA ) {
             // Estimate the scaled condition number of A. Use the fact that it is
-           t // he same as the scaled condition number of R.
+            // the same as the scaled condition number of R.
                // .. V is used as workspace
                CALL CLACPY( 'U', N, N, A, LDA, V, LDV )
                // Only the leading NR x NR submatrix of the triangular factor
@@ -483,7 +483,7 @@
 
           // .. compute the singular values of R**H = [A](1:NR,1:N)**H
             // .. set the lower triangle of [A] to [A](1:NR,1:N)**H and
-           t // he upper triangle of [A] to zero.
+            // the upper triangle of [A] to zero.
             DO 1146 p = 1, MIN( N, NR )
                A(p,p) = CONJG(A(p,p))
                DO 1147 q = p + 1, N
@@ -659,7 +659,7 @@
 
             // .. the left singular vectors of R**H overwrite [V], the NR right
             // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
-           t // ransposed
+            // transposed
                CALL CGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO )
                // .. assemble V
                DO 1115 p = 1, NR
@@ -702,7 +702,7 @@
              // vectors of R**H
                 // [[The optimal ratio N/NR for using QRF instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
-                 t // wo due to work space constraints.]]
+                  // two due to work space constraints.]]
                 // OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                 OPTRATIO = 2
@@ -807,7 +807,7 @@
                 // is then N1 (N or M)
                 // [[The optimal ratio N/NR for using LQ instead of padding
                   // with zeros. Here hard coded to 2; it must be at least
-                 t // wo due to work space constraints.]]
+                  // two due to work space constraints.]]
                 // OPTRATIO = ILAENV(6, 'CGESVD', 'S' // 'O', NR,N,0,0)
                 // OPTRATIO = MAX( OPTRATIO, 2 )
                OPTRATIO = 2

@@ -146,7 +146,7 @@
 
       // For eigenvalues only, call DSTERF.  For eigenvectors, first call
       // ZSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
-     t // ridiagonal matrix, then call ZUNMTR to multiply it to the
+      // tridiagonal matrix, then call ZUNMTR to multiply it to the
       // Householder transformations represented as Householder vectors in
       // A.
 

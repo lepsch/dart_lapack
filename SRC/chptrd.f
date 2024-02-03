@@ -65,7 +65,7 @@
          DO 10 I = N - 1, 1, -1
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
-           t // o annihilate A(1:i-1,i+1)
+            // to annihilate A(1:i-1,i+1)
 
             ALPHA = AP( I1+I-1 )
             CALL CLARFG( I, ALPHA, AP( I1 ), 1, TAUI )
@@ -109,7 +109,7 @@
             I1I1 = II + N - I + 1
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
-           t // o annihilate A(i+2:n,i)
+            // to annihilate A(i+2:n,i)
 
             ALPHA = AP( II+1 )
             CALL CLARFG( N-I, ALPHA, AP( II+2 ), 1, TAUI )

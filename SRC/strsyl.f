@@ -417,7 +417,7 @@
          // Solve    A**T*X + ISGN*X*B**T = scale*C.
 
          // The (K,L)th block of X is determined starting from
-        t // op-right corner column by column by
+         // top-right corner column by column by
 
             // A(K,K)**T*X(K,L) + ISGN*X(K,L)*B(L,L)**T = C(K,L) - R(K,L)
 

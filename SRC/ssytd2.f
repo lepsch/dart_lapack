@@ -63,7 +63,7 @@
          DO 10 I = N - 1, 1, -1
 
             // Generate elementary reflector H(i) = I - tau * v * v**T
-           t // o annihilate A(1:i-1,i+1)
+            // to annihilate A(1:i-1,i+1)
 
             CALL SLARFG( I, A( I, I+1 ), A( 1, I+1 ), 1, TAUI )
             E( I ) = A( I, I+1 )
@@ -101,7 +101,7 @@
          DO 20 I = 1, N - 1
 
             // Generate elementary reflector H(i) = I - tau * v * v**T
-           t // o annihilate A(i+2:n,i)
+            // to annihilate A(i+2:n,i)
 
             CALL SLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAUI )
             E( I ) = A( I+1, I )

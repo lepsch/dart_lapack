@@ -120,7 +120,7 @@
                if ( N.GE.MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
-                 t // han rows
+                  // than rows
 
                   // Compute space needed for SGEBRD
                   CALL SGEBRD( M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )

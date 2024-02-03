@@ -70,7 +70,7 @@
          if ( I.EQ.1 ) {
 
             // We are at the first column of the original whole matrix A_orig,
-           t // herefore we use the computed KP1 and MAXC2NRM from the
+            // therefore we use the computed KP1 and MAXC2NRM from the
             // main routine.
 
             KP = KP1
@@ -103,11 +103,11 @@
                DONE = .TRUE.
 
                // Set KB, the number of factorized partial columns
-                      t // hat are non-zero in each step in the block,
+                       // that are non-zero in each step in the block,
                        // i.e. the rank of the factor R.
                // Set IF, the number of processed rows in the block, which
                        // is the same as the number of processed rows in
-                      t // he original whole matrix A_orig.
+                       // the original whole matrix A_orig.
 
                KB = K - 1
                IF = I - 1
@@ -120,7 +120,7 @@
                // There is no need to apply the block reflector to the
                // residual of the matrix A stored in A(KB+1:M,KB+1:N),
                // since the submatrix contains NaN and we stop
-              t // he computation.
+               // the computation.
                // But, we need to apply the block reflector to the residual
                // right hand sides stored in A(KB+1:M,N+1:N+NRHS), if the
                // residual right hand sides exist.  This occurs
@@ -155,11 +155,11 @@
                DONE = .TRUE.
 
                // Set KB, the number of factorized partial columns
-                      t // hat are non-zero in each step in the block,
+                       // that are non-zero in each step in the block,
                        // i.e. the rank of the factor R.
                // Set IF, the number of processed rows in the block, which
                        // is the same as the number of processed rows in
-                      t // he original whole matrix A_orig.
+                       // the original whole matrix A_orig.
 
                KB = K - 1
                IF = I - 1
@@ -201,8 +201,8 @@
 
             // Check if the submatrix A(I:M,K:N) contains Inf,
             // set INFO parameter to the column number, where
-           t // he first Inf is found plus N, and continue
-           t // he computation.
+            // the first Inf is found plus N, and continue
+            // the computation.
             // We need to check the condition only if the
             // column index (same as row index) of the original whole
             // matrix is larger than 1, since the condition for whole
@@ -217,7 +217,7 @@
             // Test for the second and third tolerance stopping criteria.
             // NOTE: There is no need to test for ABSTOL.GE.ZERO, since
             // MAXC2NRMK is non-negative. Similarly, there is no need
-           t // o test for RELTOL.GE.ZERO, since RELMAXC2NRMK is
+            // to test for RELTOL.GE.ZERO, since RELMAXC2NRMK is
             // non-negative.
             // We need to check the condition only if the
             // column index (same as row index) of the original whole
@@ -231,18 +231,18 @@
                DONE = .TRUE.
 
                // Set KB, the number of factorized partial columns
-                      t // hat are non-zero in each step in the block,
+                       // that are non-zero in each step in the block,
                        // i.e. the rank of the factor R.
                // Set IF, the number of processed rows in the block, which
                        // is the same as the number of processed rows in
-                      t // he original whole matrix A_orig;
+                       // the original whole matrix A_orig;
 
                   KB = K - 1
                   IF = I - 1
 
                // Apply the block reflector to the residual of the
                // matrix A and the residual of the right hand sides B, if
-              t // he residual matrix and and/or the residual of the right
+               // the residual matrix and and/or the residual of the right
                // hand sides exist,  i.e. if the submatrix
                // A(I+1:M,KB+1:N+NRHS) exists.  This occurs when
                   // KB < MINMNUPDT = min( M-IOFFSET, N+NRHS ):
@@ -289,7 +289,7 @@
             // for VN1 and VN2 since we use the element with the index
             // larger than K in the next loop step.)
          // 4) Save the pivot interchange with the indices relative to the
-           t // he original matrix A_orig, not the block A(1:M,1:N).
+            // the original matrix A_orig, not the block A(1:M,1:N).
 
          if ( KP.NE.K ) {
             CALL CSWAP( M, A( 1, KP ), 1, A( 1, K ), 1 )
@@ -323,8 +323,8 @@
          }
 
          // Check if TAU(K) contains NaN, set INFO parameter
-        t // o the column number where NaN is found and return from
-        t // he routine.
+         // to the column number where NaN is found and return from
+         // the routine.
          // NOTE: There is no need to check TAU(K) for Inf,
          // since CLARFG cannot produce TAU(KK) or Householder vector
          // below the diagonal containing Inf. Only BETA on the diagonal,
@@ -345,11 +345,11 @@
             DONE = .TRUE.
 
             // Set KB, the number of factorized partial columns
-                   t // hat are non-zero in each step in the block,
+                    // that are non-zero in each step in the block,
                     // i.e. the rank of the factor R.
             // Set IF, the number of processed rows in the block, which
                     // is the same as the number of processed rows in
-                   t // he original whole matrix A_orig.
+                    // the original whole matrix A_orig.
 
             KB = K - 1
             IF = I - 1
@@ -363,7 +363,7 @@
             // There is no need to apply the block reflector to the
             // residual of the matrix A stored in A(KB+1:M,KB+1:N),
             // since the submatrix contains NaN and we stop
-           t // he computation.
+            // the computation.
             // But, we need to apply the block reflector to the residual
             // right hand sides stored in A(KB+1:M,N+1:N+NRHS), if the
             // residual right hand sides exist.  This occurs
@@ -476,7 +476,7 @@
          // Set KB, the number of factorized columns in the block;
          // Set IF, the number of processed rows in the block, which
                  // is the same as the number of processed rows in
-                t // he original whole matrix A_orig, IF = IOFFSET + KB.
+                 // the original whole matrix A_orig, IF = IOFFSET + KB.
 
       KB = K
       IF = I
@@ -496,12 +496,12 @@
 
       // Recompute the 2-norm of the difficult columns.
       // Loop over the index of the difficult columns from the largest
-     t // o the smallest index.
+      // to the smallest index.
 
       DO WHILE( LSTICC.GT.0 )
 
          // LSTICC is the index of the last difficult column is greater
-        t // han 1.
+         // than 1.
          // ITEMP is the index of the previous difficult column.
 
          ITEMP = IWORK( LSTICC-1 )
@@ -517,7 +517,7 @@
          VN2( LSTICC ) = VN1( LSTICC )
 
          // Downdate the index of the last difficult column to
-        t // he index of the previous difficult column.
+         // the index of the previous difficult column.
 
          LSTICC = ITEMP
 

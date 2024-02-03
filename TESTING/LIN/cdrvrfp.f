@@ -128,7 +128,7 @@
                      }
 
                      // For types 3-5, zero one row and column of the matrix to
-                    t // est that INFO is returned correctly.
+                     // test that INFO is returned correctly.
 
                      ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
                      if ( ZEROT ) {

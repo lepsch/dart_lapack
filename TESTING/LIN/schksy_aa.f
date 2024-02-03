@@ -236,7 +236,7 @@
 
                   // Compute the L*D*L**T or U*D*U**T factorization of the
                   // matrix. IWORK stores details of the interchanges and
-                 t // he block structure of D. AINV is a work array for
+                  // the block structure of D. AINV is a work array for
                   // block factorization, LWORK is the length of AINV.
 
                   SRNAMT = 'SSYTRF_AA'
@@ -277,7 +277,7 @@ c  100                CONTINUE
 
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 110 K = 1, NT
                      if ( RESULT( K ).GE.THRESH ) {
@@ -327,7 +327,7 @@ c  100                CONTINUE
 
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                         DO 120 K = 2, 2
                            if ( RESULT( K ).GE.THRESH ) {

@@ -398,7 +398,7 @@
             }
 
             // Compute selected right eigenvectors and confirm that
-           t // hey agree with previous right eigenvectors
+            // they agree with previous right eigenvectors
 
             CALL ZTREVC( 'Right', 'Some', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTL, LDU, N, IN, WORK, RWORK, IINFO )
             if ( IINFO.NE.0 ) {
@@ -443,7 +443,7 @@
             }
 
             // Compute selected left eigenvectors and confirm that
-           t // hey agree with previous left eigenvectors
+            // they agree with previous left eigenvectors
 
             CALL ZTREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
             if ( IINFO.NE.0 ) {

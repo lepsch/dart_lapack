@@ -295,7 +295,7 @@
 
             if ( IRANGE.GT.1 ) {
                if ( GU.LT.WL ) {
-                 t // he local block contains none of the wanted eigenvalues
+                  // the local block contains none of the wanted eigenvalues
                   NWL = NWL + IN
                   NWU = NWU + IN
                   GO TO 70

@@ -64,7 +64,7 @@
       CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 
       // For the nodes on bottom level of the tree, solve
-     t // heir subproblems by SLASDQ.
+      // their subproblems by SLASDQ.
 
       NDB1 = ( ND+1 ) / 2
       NCC = 0

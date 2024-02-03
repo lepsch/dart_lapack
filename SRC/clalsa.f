@@ -167,7 +167,7 @@
   140 CONTINUE
 
       // Finally go through the left singular vector matrices of all
-     t // he other subproblems bottom-up on the tree.
+      // the other subproblems bottom-up on the tree.
 
       J = 2**NLVL
       SQRE = 0
@@ -176,7 +176,7 @@
          LVL2 = 2*LVL - 1
 
          // find the first node LF and last node LL on
-        t // he current level LVL
+         // the current level LVL
 
          if ( LVL.EQ.1 ) {
             LF = 1
@@ -203,14 +203,14 @@
   170 CONTINUE
 
       // First now go through the right singular vector matrices of all
-     t // he tree nodes top-down.
+      // the tree nodes top-down.
 
       J = 0
       DO 190 LVL = 1, NLVL
          LVL2 = 2*LVL - 1
 
          // Find the first node LF and last node LL on
-        t // he current level LVL.
+         // the current level LVL.
 
          if ( LVL.EQ.1 ) {
             LF = 1

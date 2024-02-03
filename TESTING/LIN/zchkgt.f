@@ -324,7 +324,7 @@
                   CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL ZGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 
                // Print information about the tests that did not pass the
-              t // hreshold.
+               // threshold.
 
                   DO 70 K = 2, 6
                      if ( RESULT( K ).GE.THRESH ) {

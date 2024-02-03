@@ -75,7 +75,7 @@
       BNORM = CLANGE( '1', P, N, B, LDB, RWORK )
 
       // Get machine precision and set up threshold for determining
-     t // he effective numerical rank of the matrices A and B.
+      // the effective numerical rank of the matrices A and B.
 
       ULP = SLAMCH( 'Precision' )
       UNFL = SLAMCH( 'Safe Minimum' )

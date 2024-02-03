@@ -114,7 +114,7 @@
 
             // Reduce columns i:i+nb-1 to tridiagonal form and form the
             // matrix W which is needed to update the unreduced part of
-           t // he matrix
+            // the matrix
 
             CALL DLATRD( UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK, LDWORK )
 
@@ -143,7 +143,7 @@
 
             // Reduce columns i:i+nb-1 to tridiagonal form and form the
             // matrix W which is needed to update the unreduced part of
-           t // he matrix
+            // the matrix
 
             CALL DLATRD( UPLO, N-I+1, NB, A( I, I ), LDA, E( I ), TAU( I ), WORK, LDWORK )
 

@@ -99,9 +99,9 @@
 
       // Note: the test of R in the following IF is to cover the case when
             // DISCR is small and negative and is flushed to zero during
-           t // he calculation of R.  On machines which have a consistent
+            // the calculation of R.  On machines which have a consistent
             // flush-to-zero threshold and handle numbers above that
-           t // hreshold correctly, it would not be necessary.
+            // threshold correctly, it would not be necessary.
 
       if ( DISCR.GE.ZERO .OR. R.EQ.ZERO ) {
          SUM = PP + SIGN( R, PP )

@@ -100,8 +100,8 @@
       // Form  y := alpha*abs(A)*abs(x) + beta*abs(y).
 
       // The O(M*N) SYMB_ZERO tests could be replaced by O(N) queries to
-     t // he inexact flag.  Still doesn't help change the iteration order
-     t // o per-column.
+      // the inexact flag.  Still doesn't help change the iteration order
+      // to per-column.
 
       IY = KY
       if ( INCX.EQ.1 ) {

@@ -199,7 +199,7 @@
       // entries.
       INDRD = 1
       // RWORK(INDRE:INDRE+N-1) stores the off-diagonal entries of the
-     t // ridiagonal matrix from ZHETRD.
+      // tridiagonal matrix from ZHETRD.
       INDRE = INDRD + N
       // RWORK(INDRDD:INDRDD+N-1) is a copy of the diagonal entries over
       // -written by ZSTEMR (the DSTERF path copies the diagonal to W).
@@ -219,7 +219,7 @@
       // stores the starting and finishing indices of each block.
       INDISP = INDIBL + N
       // IWORK(INDIFL:INDIFL+N-1) stores the indices of eigenvectors
-     t // hat corresponding to eigenvectors that fail to converge in
+      // that corresponding to eigenvectors that fail to converge in
       // DSTEIN.  This information is discarded; if any fail, the driver
       // returns INFO > 0.
       INDIFL = INDISP + N
@@ -232,7 +232,7 @@
       CALL ZHETRD( UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
 
       // If all eigenvalues are desired
-     t // hen call DSTERF or ZSTEMR and ZUNMTR.
+      // then call DSTERF or ZSTEMR and ZUNMTR.
 
       TEST = .FALSE.
       if ( INDEIG ) {

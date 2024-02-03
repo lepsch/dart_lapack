@@ -78,7 +78,7 @@
 
          // Set M to the number of columns required to store the selected
          // eigenvectors, standardize the array SELECT if necessary, and
-        t // est MM.
+         // test MM.
 
          if ( SOMEV ) {
             M = 0
@@ -243,7 +243,7 @@
                      CALL DLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 
                      // Scale X(1,1) to avoid overflow when updating
-                    t // he right-hand side.
+                     // the right-hand side.
 
                      if ( XNORM.GT.ONE ) {
                         if ( WORK( J ).GT.BIGNUM / XNORM ) {
@@ -404,7 +404,7 @@
                      CALL DLALN2( .FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
 
                      // Scale X to avoid overflow when updating
-                    t // he right-hand side.
+                     // the right-hand side.
 
                      if ( XNORM.GT.ONE ) {
                         BETA = MAX( WORK( J-1 ), WORK( J ) )
@@ -613,7 +613,7 @@
                      // 1-by-1 diagonal block
 
                      // Scale if necessary to avoid overflow when forming
-                    t // he right-hand side.
+                     // the right-hand side.
 
                      if ( WORK( J ).GT.VCRIT ) {
                         REC = ONE / VMAX
@@ -640,7 +640,7 @@
                      // 2-by-2 diagonal block
 
                      // Scale if necessary to avoid overflow when forming
-                    t // he right-hand side.
+                     // the right-hand side.
 
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      if ( BETA.GT.VCRIT ) {
@@ -789,7 +789,7 @@
                      // 2-by-2 diagonal block
 
                      // Scale if necessary to avoid overflow when forming
-                    t // he right-hand side elements.
+                     // the right-hand side elements.
 
                      BETA = MAX( WORK( J ), WORK( J+1 ) )
                      if ( BETA.GT.VCRIT ) {

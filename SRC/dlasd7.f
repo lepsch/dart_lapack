@@ -121,7 +121,7 @@
 
       // There are 2 kinds of deflation -- first a value in the z-vector
       // is small, second two (or more) singular values are very close
-     t // ogether (their difference is small).
+      // together (their difference is small).
 
       // If the value in the z-vector is small, we simply permute the
       // array so that the corresponding singular value is moved to the
@@ -228,7 +228,7 @@
 
       // Sort the singular values into DSIGMA. The singular values which
       // were not deflated go into the first K slots of DSIGMA, except
-     t // hat DSIGMA(1) is treated separately.
+      // that DSIGMA(1) is treated separately.
 
       DO 110 J = 2, N
          JP = IDXP( J )

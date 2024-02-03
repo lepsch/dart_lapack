@@ -143,7 +143,7 @@
 
             // Apply the block reflector H to A(1:ihi,i+ib:ihi) from the
             // right, computing  A := A - Y * V**T. V(i+ib,ib-1) must be set
-           t // o 1
+            // to 1
 
             EI = A( I+IB, I+IB-1 )
             A( I+IB, I+IB-1 ) = ONE

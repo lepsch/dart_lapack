@@ -182,7 +182,7 @@
          YY( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
       // YY holds the exact result. On exit from DMVCH YT holds
-     t // he result computed by DMVCH.
+      // the result computed by DMVCH.
       TRANS = 'N'
       CALL DMVCH( TRANS, N, N, ONE, A, NMAX, X, 1, ZERO, Y, 1, YT, G, YY, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LDE( YY, YT, N )

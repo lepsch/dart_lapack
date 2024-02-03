@@ -47,7 +47,7 @@
       IF( N.EQ.0 ) RETURN
 
       // The following values are integer pointers which indicate
-     t // he portion of the workspace
+      // the portion of the workspace
       // used by a particular array in SLAED2 and SLAED3.
 
       IZ = 1

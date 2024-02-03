@@ -86,7 +86,7 @@
 
       // THRES has been changed from
          // THRESH = MAX( TEN*EPS*SA, SMLNUM )
-     t // o
+      // to
          // THRESH = MAX( TWENTY*EPS*SA, SMLNUM )
       // on 04/01/10.
       // "Bug" reported by Ondra Kamenik, confirmed by Julie Langou, fixed by
@@ -288,7 +288,7 @@
          }
 
          // If the swap is accepted ("weakly" and "strongly"), apply the
-        t // ransformations and set N1-by-N2 (2,1)-block to zero.
+         // transformations and set N1-by-N2 (2,1)-block to zero.
 
          CALL DLASET( 'Full', N1, N2, ZERO, ZERO, S(N2+1,1), LDST )
 

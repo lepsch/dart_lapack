@@ -141,7 +141,7 @@
                   }
 
                   // For types 3-6, zero one or more rows and columns of
-                 t // he matrix to test that INFO is returned correctly.
+                  // the matrix to test that INFO is returned correctly.
 
                   if ( ZEROT ) {
                      if ( IMAT.EQ.3 ) {
@@ -276,7 +276,7 @@
                      NT = 2
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 110 K = 1, NT
                         if ( RESULT( K ).GE.THRESH ) {

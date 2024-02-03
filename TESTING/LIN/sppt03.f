@@ -59,7 +59,7 @@
       // UPLO = 'U':
       // Copy the leading N-1 x N-1 submatrix of AINV to WORK(1:N,2:N) and
       // expand it to a full matrix, then multiply by A one column at a
-     t // ime, moving the result one column to the left.
+      // time, moving the result one column to the left.
 
       if ( LSAME( UPLO, 'U' ) ) {
 

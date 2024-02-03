@@ -123,7 +123,7 @@
                }
 
                // For types 3-5, zero one row and column of the matrix to
-              t // est that INFO is returned correctly.
+               // test that INFO is returned correctly.
 
                if ( ZEROT ) {
                   if ( IMAT.EQ.3 ) {
@@ -186,8 +186,8 @@
                      } else if ( .NOT.LSAME( FACT, 'N' ) ) {
 
                         // Compute the condition number for comparison with
-                       t // he value returned by SPPSVX (FACT = 'N' reuses
-                       t // he condition number from the previous iteration
+                        // the value returned by SPPSVX (FACT = 'N' reuses
+                        // the condition number from the previous iteration
                         // with FACT = 'F').
 
                         CALL SCOPY( NPP, ASAV, 1, AFAC, 1 )
@@ -356,7 +356,7 @@
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 80 K = K1, 6
                         if ( RESULT( K ).GE.THRESH ) {

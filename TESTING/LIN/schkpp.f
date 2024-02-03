@@ -120,7 +120,7 @@
                }
 
                // For types 3-5, zero one row and column of the matrix to
-              t // est that INFO is returned correctly.
+               // test that INFO is returned correctly.
 
                if ( ZEROT ) {
                   if ( IMAT.EQ.3 ) {
@@ -196,7 +196,7 @@
                CALL SPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
 
                // Print information about the tests that did not pass
-              t // he threshold.
+               // the threshold.
 
                DO 60 K = 1, 2
                   if ( RESULT( K ).GE.THRESH ) {
@@ -244,7 +244,7 @@
                   CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 70 K = 3, 7
                      if ( RESULT( K ).GE.THRESH ) {

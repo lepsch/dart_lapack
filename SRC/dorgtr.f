@@ -80,7 +80,7 @@
 
          // Shift the vectors which define the elementary reflectors one
          // column to the left, and set the last row and column of Q to
-        t // hose of the unit matrix
+         // those of the unit matrix
 
          DO 20 J = 1, N - 1
             DO 10 I = 1, J - 1
@@ -103,7 +103,7 @@
 
          // Shift the vectors which define the elementary reflectors one
          // column to the right, and set the first row and column of Q to
-        t // hose of the unit matrix
+         // those of the unit matrix
 
          DO 50 J = N, 2, -1
             A( 1, J ) = ZERO

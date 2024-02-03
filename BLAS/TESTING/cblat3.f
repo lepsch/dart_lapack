@@ -158,7 +158,7 @@
          CC( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   110 CONTINUE
       // CC holds the exact result. On exit from CMMCH CT holds
-     t // he result computed by CMMCH.
+      // the result computed by CMMCH.
       TRANSA = 'N'
       TRANSB = 'N'
       CALL CMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )

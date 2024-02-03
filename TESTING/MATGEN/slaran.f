@@ -59,10 +59,10 @@
          // n bits of the 48-bit integer above happen to be all 1 (which
          // will occur about once every 2**n calls), then SLARAN will
          // be rounded to exactly 1.0. In IEEE single precision arithmetic,
-        t // his will happen relatively often since n = 24.
+         // this will happen relatively often since n = 24.
          // Since SLARAN is not supposed to return exactly 0.0 or 1.0
          // (and some callers of SLARAN, such as CLARND, depend on that),
-        t // he statistically correct thing to do in this situation is
+         // the statistically correct thing to do in this situation is
          // simply to iterate again.
          // N.B. the case SLARAN = 0.0 should not be possible.
 

@@ -128,7 +128,7 @@
             }
 
             // For types 5-7, zero one or more columns of the matrix to
-           t // est that INFO is returned correctly.
+            // test that INFO is returned correctly.
 
             if ( ZEROT ) {
                if ( IMAT.EQ.5 ) {
@@ -176,8 +176,8 @@
                   } else if ( .NOT.NOFACT ) {
 
                      // Compute the condition number for comparison with
-                    t // he value returned by CGESVX (FACT = 'N' reuses
-                    t // he condition number from the previous iteration
+                     // the value returned by CGESVX (FACT = 'N' reuses
+                     // the condition number from the previous iteration
                      // with FACT = 'F').
 
                      CALL CLACPY( 'Full', N, N, ASAV, LDA, AFAC, LDA )
@@ -401,7 +401,7 @@
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      if ( .NOT.TRFCON ) {
                         DO 40 K = K1, NTESTS
@@ -531,7 +531,7 @@
                      RESULT( 6 ) = SGET06( RCOND, RCONDC )
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      if ( .NOT.TRFCON ) {
                         DO 45 K = K1, NTESTS

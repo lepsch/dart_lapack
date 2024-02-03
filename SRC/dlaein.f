@@ -47,7 +47,7 @@
       NRMSML = MAX( ONE, EPS3*ROOTN )*SMLNUM
 
       // Form B = H - (WR,WI)*I (except that the subdiagonal elements and
-     t // he imaginary parts of the diagonal elements are not stored).
+      // the imaginary parts of the diagonal elements are not stored).
 
       DO 20 J = 1, N
          DO 10 I = 1, J - 1

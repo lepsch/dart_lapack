@@ -79,7 +79,7 @@
 
       // Set M to the splitting point m. It must be the same value as is
       // used in CPBSTF. The chosen value allows the arrays WORK and RWORK
-     t // o be of dimension (N).
+      // to be of dimension (N).
 
       M = ( N+KB ) / 2
 
@@ -103,7 +103,7 @@
 
       // For each value of i, the current matrix A is updated by forming
       // inv(S(i))**H*A*inv(S(i)). This creates a triangular bulge outside
-     t // he band of A. The bulge is then pushed down toward the bottom of
+      // the band of A. The bulge is then pushed down toward the bottom of
       // A in phase 1, and up toward the top of A in phase 2, by applying
       // plane rotations.
 
@@ -117,13 +117,13 @@
       // replaced by modified values NRT, J1T or J2T).
 
       // The real cosines and complex sines of the rotations are stored in
-     t // he arrays RWORK and WORK, those of the 1st set in elements
+      // the arrays RWORK and WORK, those of the 1st set in elements
       // 2:m-kb-1, and those of the 2nd set in elements m-kb+1:n.
 
       // The bulges are not formed explicitly; nonzero elements outside the
       // band are created only when they are required for generating new
       // rotations; they are stored in the array WORK, in positions where
-     t // hey are later overwritten by the sines of the rotations which
+      // they are later overwritten by the sines of the rotations which
       // annihilate them.
 
       // **************************** Phase 1 *****************************

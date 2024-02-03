@@ -82,7 +82,7 @@
       CALL SLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 
       // for the nodes on bottom level of the tree, solve
-     t // heir subproblems by SLASDQ.
+      // their subproblems by SLASDQ.
 
       NDB1 = ( ND+1 ) / 2
       DO 30 I = NDB1, ND
@@ -158,7 +158,7 @@
          LVL2 = LVL*2 - 1
 
          // Find the first node LF and last node LL on
-        t // he current level LVL.
+         // the current level LVL.
 
          if ( LVL.EQ.1 ) {
             LF = 1

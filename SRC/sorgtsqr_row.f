@@ -100,7 +100,7 @@
 
          // MB2 is the row blocking size for the row blocks before the
          // first top row block in the matrix A. IB is the row index for
-        t // he row blocks in the matrix A before the first top row block.
+         // the row blocks in the matrix A before the first top row block.
          // IB_BOTTOM is the row index for the last bottom row block
          // in the matrix A. JB_T is the column index of the corresponding
          // column block in the matrix T.
@@ -137,7 +137,7 @@
             DO KB = KB_LAST, 1, -NBLOCAL
 
                // Determine the size of the current column block KNB in
-              t // he matrices T and V.
+               // the matrices T and V.
 
                KNB = MIN( NBLOCAL, N - KB + 1 )
 
@@ -158,12 +158,12 @@
       // Apply column blocks of H in the top row block from right to left.
 
       // KB is the column index of the current block reflector in
-     t // he matrices T and V.
+      // the matrices T and V.
 
       DO KB = KB_LAST, 1, -NBLOCAL
 
          // Determine the size of the current column block KNB in
-        t // he matrices T and V.
+         // the matrices T and V.
 
          KNB = MIN( NBLOCAL, N - KB + 1 )
 

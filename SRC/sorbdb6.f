@@ -135,7 +135,7 @@
 
       // If second projection is sufficiently large in norm, then do
       // nothing more. Alternatively, if it shrunk significantly, then
-     t // runcate it to zero.
+      // truncate it to zero.
 
       if ( NORM_NEW .LT. ALPHA * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1

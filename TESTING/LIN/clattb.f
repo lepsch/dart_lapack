@@ -204,7 +204,7 @@
 
       // IMAT > 9:  Pathological test cases.  These triangular matrices
       // are badly scaled or badly conditioned, so when used in solving a
-     t // riangular system they may cause overflow in the solution vector.
+      // triangular system they may cause overflow in the solution vector.
 
       } else if ( IMAT.EQ.10 ) {
 

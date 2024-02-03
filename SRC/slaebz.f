@@ -266,7 +266,7 @@
             if ( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) {
 
                // Converged -- Swap with position KFNEW,
-                           t // hen increment KFNEW
+                            // then increment KFNEW
 
                if ( JI.GT.KFNEW ) {
                   TMP1 = AB( JI, 1 )

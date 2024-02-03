@@ -68,7 +68,7 @@
       // The second part stores upper bounds of the triangular A. There are
       // a total of NBA x NBA blocks, of which only the upper triangular
       // part or the lower triangular part is referenced. The upper bound of
-     t // he block A( I, J ) is stored as WORK( AWRK + I + J * NBA ).
+      // the block A( I, J ) is stored as WORK( AWRK + I + J * NBA ).
 
       LANRM = NBA * NBA
       AWRK = LSCALE
@@ -134,7 +134,7 @@
       }
 
       // Compute norms of blocks of A excluding diagonal blocks and find
-     t // he block with the largest norm TMAX.
+      // the block with the largest norm TMAX.
 
       TMAX = ZERO
       DO J = 1, NBA
@@ -270,7 +270,7 @@
                   SCALOC = ONE
                } else if ( SCALOC * WORK( J+KK*LDS ) .EQ. ZERO ) {
                   // LATRS computed a valid scale factor, but combined with
-                 t // he current scaling the solution does not have a
+                  // the current scaling the solution does not have a
                   // scale factor > 0.
 
                   // Set WORK( J+KK*LDS ) to smallest valid scale
@@ -342,7 +342,7 @@
                // For each column, compute a consistent scaling, a
                // scaling factor to survive the linear update, and
                // rescale the column segments, if necessary. Then
-              t // he linear update is safely executed.
+               // the linear update is safely executed.
 
                DO KK = 1, K2-K1
                   RHS = K1 + KK - 1

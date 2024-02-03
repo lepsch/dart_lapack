@@ -333,7 +333,7 @@
 
             // 2-STAGE TRD Upper case is used to compute D2.
             // Note to set SD and SE to zero to be sure not reusing
-           t // he one from above. Compare it with D1 computed
+            // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
             CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )
@@ -363,7 +363,7 @@
 
             // 2-STAGE TRD Lower case is used to compute D3.
             // Note to set SD and SE to zero to be sure not reusing
-           t // he one from above. Compare it with D1 computed
+            // the one from above. Compare it with D1 computed
             // using the 1-stage.
 
             CALL DLASET( 'Full', N, 1, ZERO, ZERO, SD, N )

@@ -130,7 +130,7 @@
                   }
 
                   // For types 3-6, zero one or more rows and columns of
-                 t // he matrix to test that INFO is returned correctly.
+                  // the matrix to test that INFO is returned correctly.
 
                   if ( ZEROT ) {
                      if ( IMAT.EQ.3 ) {
@@ -199,7 +199,7 @@
                } else {
 
                   // IMAT = NTYPES:  Use a special block diagonal matrix to
-                 t // est alternate code for the 2-by-2 blocks.
+                  // test alternate code for the 2-by-2 blocks.
 
                   CALL CLATSY( UPLO, N, A, LDA, ISEED )
                }
@@ -211,7 +211,7 @@
                   FACT = FACTS( IFACT )
 
                   // Compute the condition number for comparison with
-                 t // he value returned by CSYSVX.
+                  // the value returned by CSYSVX.
 
                   if ( ZEROT ) {
                      IF( IFACT.EQ.1 ) GO TO 150
@@ -303,7 +303,7 @@
                      NT = 3
 
                      // Print information about the tests that did not pass
-                    t // he threshold.
+                     // the threshold.
 
                      DO 110 K = 1, NT
                         if ( RESULT( K ).GE.THRESH ) {
@@ -384,7 +384,7 @@
                   RESULT( 6 ) = SGET06( RCOND, RCONDC )
 
                   // Print information about the tests that did not pass
-                 t // he threshold.
+                  // the threshold.
 
                   DO 140 K = K1, 6
                      if ( RESULT( K ).GE.THRESH ) {

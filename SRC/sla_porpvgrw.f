@@ -32,7 +32,7 @@
 
       // SPOTRF will have factored only the NCOLSxNCOLS leading submatrix,
       // so we restrict the growth search to that submatrix and use only
-     t // he first 2*NCOLS workspace entries.
+      // the first 2*NCOLS workspace entries.
 
       RPVGRW = 1.0
       DO I = 1, 2*NCOLS

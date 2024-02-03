@@ -32,7 +32,7 @@
             if ( RESULT( K ).GE.THRESH ) {
 
             // If this is the first test to fail, call DLAHD2
-           t // o print a header to the data file.
+            // to print a header to the data file.
 
                IF( IE.EQ.0 ) CALL DLAHD2( IOUNIT, TYPE )
                IE = IE + 1
@@ -57,7 +57,7 @@
             if ( RESULT( K ).GE.THRESH ) {
 
                // If this is the first test to fail, call DLAHD2
-              t // o print a header to the data file.
+               // to print a header to the data file.
 
                IF( IE.EQ.0 ) CALL DLAHD2( IOUNIT, TYPE )
                IE = IE + 1

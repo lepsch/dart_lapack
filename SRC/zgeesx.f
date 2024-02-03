@@ -81,7 +81,7 @@
         // immediately following subroutine, as returned by ILAENV.
         // HSWORK refers to the workspace preferred by ZHSEQR, as
         // calculated below. HSWORK is computed assuming ILO=1 and IHI=N,
-       t // he worst case.
+        // the worst case.
         // If SENSE = 'E', 'V' or 'B', then the amount of workspace needed
         // depends on SDIM, which is computed by the routine ZTRSEN later
         // in the code.)

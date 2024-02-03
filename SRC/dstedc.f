@@ -208,7 +208,7 @@
                if ( ICOMPZ.EQ.1 ) {
 
                   // Since QR won't update a Z matrix which is larger than
-                 t // he length of D, we must solve the sub-problem in a
+                  // the length of D, we must solve the sub-problem in a
                   // workspace and then multiply back into Z.
 
                   CALL DSTEQR( 'I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL DLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL DGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ )

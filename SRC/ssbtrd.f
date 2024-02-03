@@ -182,7 +182,7 @@
 
                      if ( INITQ ) {
 
-                 t // ake advantage of the fact that Q was
+                  // take advantage of the fact that Q was
                   // initially the Identity matrix
 
                         IQEND = MAX( IQEND, J2 )
@@ -352,7 +352,7 @@
 
                      if ( INITQ ) {
 
-                 t // ake advantage of the fact that Q was
+                  // take advantage of the fact that Q was
                   // initially the Identity matrix
 
                         IQEND = MAX( IQEND, J2 )

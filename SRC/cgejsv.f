@@ -493,7 +493,7 @@
       // input for the preconditioned Jacobi SVD, with faster convergence.
       // The decision is based on an O(N) function of the vector of column
       // and row norms of A, based on the Shannon entropy. This should give
-     t // he right choice in most cases when the difference actually matters.
+      // the right choice in most cases when the difference actually matters.
       // It may fail and pick the slower converging side.
 
       ENTRA  = ZERO
@@ -568,7 +568,7 @@
       // END IF L2TRAN
 
       // Scale the matrix so that its maximal singular value remains less
-     t // han SQRT(BIG) -- the matrix is scaled so that its maximal column
+      // than SQRT(BIG) -- the matrix is scaled so that its maximal column
       // has Euclidean norm equal to SQRT(BIG/N). The only reason to keep
       // SQRT(BIG) instead of BIG is the fact that CGEJSV uses LAPACK and
       // BLAS routines that, in some implementations, are not capable of
@@ -580,7 +580,7 @@
       TEMP1  = SQRT( BIG / REAL(N) )
       // >> for future updates: allow bigger range, i.e. the largest column
       // will be allowed up to BIG/N and CGESVJ will do the rest. However, for
-     t // his all other (LAPACK) components must allow such a range.
+      // this all other (LAPACK) components must allow such a range.
       // TEMP1  = BIG/REAL(N)
       // TEMP1  = BIG * EPSLN  this should 'almost' work with current LAPACK components
       CALL SLASCL( 'G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR )
@@ -600,7 +600,7 @@
 
       if ( L2KILL ) {
          // L2KILL enforces computation of nonzero singular values in
-        t // he restricted range of condition number of the initial A,
+         // the restricted range of condition number of the initial A,
          // sigma_max(A) / sigma_min(A) approx. SQRT(BIG)/SQRT(SFMIN).
          XSC = SQRT( SFMIN )
       } else {
@@ -611,7 +611,7 @@
          // as a precaution measure, the full SVD is computed using CGESVJ
          // with accumulated Jacobi rotations. This provides numerically
          // more robust computation, at the cost of slightly increased run
-        t // ime. Depending on the concrete implementation of BLAS and LAPACK
+         // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
          if ( ( AAQQ.LT.SQRT(SFMIN) ) .AND. LSVEC .AND. RSVEC ) {
@@ -654,7 +654,7 @@
       }
 
       // End of the preparation phase (scaling, optional sorting and
-     t // ransposing, optional flushing of small columns).
+      // transposing, optional flushing of small columns).
 
       // Preconditioning
 
@@ -677,7 +677,7 @@
       // The upper triangular matrix R1 from the first QRF is inspected for
       // rank deficiency and possibilities for deflation, or possible
       // ill-conditioning. Depending on the user specified flag L2RANK,
-     t // he procedure explores possibilities to reduce the numerical
+      // the procedure explores possibilities to reduce the numerical
       // rank by inspecting the computed upper triangular factor. If
       // L2RANK or L2ABER are up, then CGEJSV will compute the SVD of
       // A + dA, where ||dA|| <= f(M,N)*EPSLN.
@@ -815,7 +815,7 @@
          // annoying denormalized numbers in case of strongly scaled matrices.
          // The perturbation is structured so that it does not introduce any
          // new perturbation of the singular values, and it does not destroy
-        t // he job done by the preconditioner.
+         // the job done by the preconditioner.
          // The licence for this perturbation is in the variable L2PERT, which
          // should be .FALSE. if FLUSH TO ZERO underflow is active.
 
@@ -851,7 +851,7 @@
             // Row-cyclic Jacobi SVD algorithm with column pivoting
 
             // .. again some perturbation (a "background noise") is added
-           t // o drown denormals
+            // to drown denormals
             if ( L2PERT ) {
                // XSC = SQRT(SMALL)
                XSC = EPSLN / REAL(N)
@@ -868,8 +868,8 @@
             }
 
             // .. and one-sided Jacobi rotations are started on a lower
-           t // riangular matrix (plus perturbation which is ignored in
-           t // he part which destroys triangular form (confusing?!))
+            // triangular matrix (plus perturbation which is ignored in
+            // the part which destroys triangular form (confusing?!))
 
             CALL CGESVJ( 'L', 'N', 'N', NR, NR, A, LDA, SVA, N, V, LDV, CWORK, LWORK, RWORK, LRWORK, INFO )
 
@@ -999,7 +999,7 @@
             // Note that the composition of TRANSPOSE, QRF and TRANSPOSE is
             // equivalent to an LQF CALL. Since in many libraries the QRF
             // seems to be better optimized than the LQF, we do explicit
-           t // ranspose and use the QRF. This is subject to changes in an
+            // transpose and use the QRF. This is subject to changes in an
             // optimized implementation of CGEJSV.
 
             DO 1968 p = 1, NR
@@ -1017,7 +1017,7 @@
             // To switch it off, set L2PERT=.FALSE. To remove it from  the
             // code, remove the action under L2PERT=.TRUE., leave the ELSE part.
             // The following two loops should be blocked and fused with the
-           t // ransposed copy above.
+            // transposed copy above.
 
             if ( L2PERT ) {
                XSC = SQRT(SMALL)
@@ -1205,7 +1205,7 @@
 
                // The matrix R2 is inverted. The solution of the matrix equation
                // is Q3^* * V3 = the product of the Jacobi rotations (applied to
-              t // he lower triangular L3 from the LQ factorization of
+               // the lower triangular L3 from the LQ factorization of
                // R2=L3*Q3), pre-multiplied with the transposed Q3.
                CALL CGESVJ( 'L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, CWORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, RWORK, LRWORK, INFO )
                SCALEM  = RWORK(1)
@@ -1237,7 +1237,7 @@
                // possibility is that the rank revealing QR factorization
                // or the condition estimator has failed, or the COND_OK
                // is set very close to ONE (which is unnecessary). Normally,
-              t // his branch should never be executed, but in rare cases of
+               // this branch should never be executed, but in rare cases of
                // failure of the RRQR or condition estimator, the last line of
                // defense ensures that CGEJSV completes the task.
                // Compute the full SVD of L3 using CGESVJ with explicit
@@ -1309,7 +1309,7 @@
          } else {
 
          // .. the initial matrix A has almost orthogonal columns and
-        t // he second QRF is not needed
+         // the second QRF is not needed
 
             CALL CLACPY( 'U', N, N, A, LDA, CWORK(N+1), N )
             if ( L2PERT ) {
@@ -1374,11 +1374,11 @@
          // experimental purposes. It does perform well, and can also be used.
          // In this implementation, this branch will be automatically activated
          // if the  condition number sigma_max(A) / sigma_min(A) is predicted
-        t // o be greater than the overflow threshold. This is because the
+         // to be greater than the overflow threshold. This is because the
          // a posteriori computation of the singular vectors assumes robust
          // implementation of BLAS and some LAPACK procedures, capable of working
          // in presence of extreme values, e.g. when the singular values spread from
-        t // he underflow to the overflow threshold.
+         // the underflow to the overflow threshold.
 
          DO 7968 p = 1, NR
             CALL CCOPY( N-p+1, A(p,p), LDA, V(p,p), 1 )

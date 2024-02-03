@@ -93,7 +93,7 @@
                if ( N.GE.MNTHR ) {
 
                   // Path 2a - underdetermined, with many more columns
-                           t // han rows.
+                            // than rows.
 
                   MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'SORMBR', 'QLT', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'SORMBR', 'PLN', M, NRHS, M, -1 ) )
                   if ( NRHS.GT.1 ) {
