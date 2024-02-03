@@ -81,7 +81,7 @@
         return;
       }
 
-      KK = MOD((M-N),(MB-N));
+      KK = (M-N % MB-N);
       II = M-KK+1;
 
       // Compute the QR factorization of the first block A(1:MB,1:N)

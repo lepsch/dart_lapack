@@ -224,7 +224,7 @@
                           if ( MYID == 1 ) {
                               TTYPE = 1;
                           } else {
-                              TTYPE = MOD( MYID, 2 ) + 2;
+                              TTYPE = (MYID % 2) + 2;
                           }
 
                           if ( TTYPE == 2 ) {

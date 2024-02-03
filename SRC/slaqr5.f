@@ -73,7 +73,7 @@
       // .    ensures that the dropped shift is real and that
       // .    the remaining shifts are paired. ====
 
-      NS = NSHFTS - MOD( NSHFTS, 2 );
+      NS = NSHFTS - (NSHFTS % 2);
 
       // ==== Machine constants for deflation ====
 

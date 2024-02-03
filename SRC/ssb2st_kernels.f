@@ -55,11 +55,11 @@
       if ( UPPER ) {
 
           if ( WANTZ ) {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
+              VPOS   = (SWEEP-1 % 2) * N + ST;
+              TAUPOS = (SWEEP-1 % 2) * N + ST;
           } else {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
+              VPOS   = (SWEEP-1 % 2) * N + ST;
+              TAUPOS = (SWEEP-1 % 2) * N + ST;
           }
 
           if ( TTYPE == 1 ) {
@@ -93,11 +93,11 @@
                   slarfx('Left', LN, LM, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK);
 
                   if ( WANTZ ) {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
+                      VPOS   = (SWEEP-1 % 2) * N + J1;
+                      TAUPOS = (SWEEP-1 % 2) * N + J1;
                   } else {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
+                      VPOS   = (SWEEP-1 % 2) * N + J1;
+                      TAUPOS = (SWEEP-1 % 2) * N + J1;
                   }
 
                   V( VPOS ) = ONE;
@@ -118,11 +118,11 @@
       } else {
 
           if ( WANTZ ) {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
+              VPOS   = (SWEEP-1 % 2) * N + ST;
+              TAUPOS = (SWEEP-1 % 2) * N + ST;
           } else {
-              VPOS   = MOD( SWEEP-1, 2 ) * N + ST;
-              TAUPOS = MOD( SWEEP-1, 2 ) * N + ST;
+              VPOS   = (SWEEP-1 % 2) * N + ST;
+              TAUPOS = (SWEEP-1 % 2) * N + ST;
           }
 
           if ( TTYPE == 1 ) {
@@ -158,11 +158,11 @@
                   slarfx('Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK);
 
                   if ( WANTZ ) {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
+                      VPOS   = (SWEEP-1 % 2) * N + J1;
+                      TAUPOS = (SWEEP-1 % 2) * N + J1;
                   } else {
-                      VPOS   = MOD( SWEEP-1, 2 ) * N + J1;
-                      TAUPOS = MOD( SWEEP-1, 2 ) * N + J1;
+                      VPOS   = (SWEEP-1 % 2) * N + J1;
+                      TAUPOS = (SWEEP-1 % 2) * N + J1;
                   }
 
                   V( VPOS ) = ONE;

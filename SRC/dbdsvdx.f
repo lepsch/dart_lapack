@@ -334,7 +334,7 @@
                   ILTGK = 1;
                   IUTGK = NTGK / 2;
                   if ( ALLSV || VUTGK == ZERO ) {
-                     if ( SVEQ0 || SMIN < EPS || MOD(NTGK,2) > 0 ) {
+                     if ( SVEQ0 || SMIN < EPS || (NTGK % 2) > 0 ) {
                          // Special case: eigenvalue equal to zero or very
                          // small, additional eigenvector is needed.
                          IUTGK = IUTGK + 1;
@@ -362,7 +362,7 @@
                      // those norms and, if needed, reorthogonalize the
                      // vectors.
 
-                     if ( NSL > 1 && VUTGK == ZERO && MOD(NTGK,2) == 0 && EMIN == 0 && !SPLIT ) {
+                     if ( NSL > 1 && VUTGK == ZERO && (NTGK % 2) == 0 && EMIN == 0 && !SPLIT ) {
 
                         // D=0 at the top or bottom of the active submatrix:
                         // one eigenvalue is equal to zero; concatenate the
@@ -407,7 +407,7 @@
                            dscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
                      }
-                     if ( VUTGK == ZERO && IDPTR < IDEND && MOD(NTGK,2) > 0 ) {
+                     if ( VUTGK == ZERO && IDPTR < IDEND && (NTGK % 2) > 0 ) {
 
                         // D=0 in the middle of the active submatrix (one
                         // eigenvalue is equal to zero): save the corresponding

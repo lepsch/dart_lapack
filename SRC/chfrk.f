@@ -92,7 +92,7 @@
       // If N is odd, set NISODD = true , and N1 and N2.
       // If N is even, NISODD = false , and NK.
 
-      if ( MOD( N, 2 ) == 0 ) {
+      if ( (N % 2) == 0 ) {
          NISODD = false;
          NK = N / 2;
       } else {

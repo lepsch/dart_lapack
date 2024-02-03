@@ -30,7 +30,7 @@
 
          // clean-up loop
 
-         M = MOD(N,5);
+         M = (N % 5);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
                DTEMP = DTEMP + DX(I)*DY(I);

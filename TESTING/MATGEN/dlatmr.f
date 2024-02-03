@@ -230,7 +230,7 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 30
-         ISEED( I ) = MOD( ( ISEED( I ) ).abs(), 4096 );
+         ISEED( I ) = (( ISEED( I ) ).abs() % 4096);
       } // 30
 
       ISEED( 4 ) = 2*( ISEED( 4 ) / 2 ) + 1;

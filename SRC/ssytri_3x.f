@@ -143,7 +143,7 @@
                   if( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1;
                }
                // need a even number for a clear cut
-               if( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1;
+               if( (ICOUNT % 2) == 1 ) NNB = NNB + 1;
             }
 
             CUT = CUT - NNB;
@@ -313,7 +313,7 @@
                   if ( IPIV( I ) < 0 ) ICOUNT = ICOUNT + 1;
                }
                // need a even number for a clear cut
-               if( MOD( ICOUNT, 2 ) == 1 ) NNB = NNB + 1;
+               if( (ICOUNT % 2) == 1 ) NNB = NNB + 1;
             }
 
             // L21 Block

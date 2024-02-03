@@ -199,7 +199,7 @@
 
                zlaed0(N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO );
                if ( INFO > 0 ) {
-                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1;
+                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + (INFO % ( M+1) ) + START - 1;
                   GO TO 70;
                }
 

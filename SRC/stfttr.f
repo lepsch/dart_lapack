@@ -78,7 +78,7 @@
       // If N is even, set K = N/2 and NISODD = false , LDA=N and A is
       // N--by--(N+1)/2.
 
-      if ( MOD( N, 2 ) == 0 ) {
+      if ( (N % 2) == 0 ) {
          K = N / 2;
          NISODD = false;
          if ( !LOWER) NP1X2 = N + N + 2;

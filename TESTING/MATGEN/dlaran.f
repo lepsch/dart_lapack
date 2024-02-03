@@ -41,7 +41,7 @@
       IT1 = IT2 / IPW2;
       IT2 = IT2 - IPW2*IT1;
       IT1 = IT1 + ISEED( 1 )*M4 + ISEED( 2 )*M3 + ISEED( 3 )*M2 + ISEED( 4 )*M1;
-      IT1 = MOD( IT1, IPW2 );
+      IT1 = (IT1 % IPW2);
 
       // return updated seed
 

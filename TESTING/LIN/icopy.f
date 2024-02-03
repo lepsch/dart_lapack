@@ -42,7 +42,7 @@
       // Clean-up loop
 
       } // 20
-      M = MOD( N, 7 );
+      M = (N % 7);
       if (M == 0) GO TO 40;
       for (I = 1; I <= M; I++) { // 30
          SY( I ) = SX( I );

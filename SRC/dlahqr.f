@@ -148,7 +148,7 @@
             I2 = I;
          }
 
-         if ( MOD(KDEFL,2*KEXSH) == 0 ) {
+         if ( (KDEFL % 2*KEXSH) == 0 ) {
 
             // Exceptional shift.
 
@@ -157,7 +157,7 @@
             H12 = DAT2*S;
             H21 = S;
             H22 = H11;
-         } else if ( MOD(KDEFL,KEXSH) == 0 ) {
+         } else if ( (KDEFL % KEXSH) == 0 ) {
 
             // Exceptional shift.
 

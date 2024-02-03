@@ -120,7 +120,7 @@
 
       NSR = ILAENV( 15, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
       NSR = min( NSR, ( N+6 ) / 9, IHI-ILO );
-      NSR = max( 2, NSR-MOD( NSR, 2 ) );
+      NSR = max( 2, NSR-(NSR % 2) );
 
       RCOST = ILAENV( 17, 'ZLAQZ0', JBCMPZ, N, ILO, IHI, LWORK );
       ITEMP1 = INT( NSR/sqrt( 1+2*NSR/( DBLE( RCOST )/100*N ) ) );
@@ -319,7 +319,7 @@
          NS = min( NS, N_UNDEFLATED );
          SHIFTPOS = ISTOP-N_UNDEFLATED+1;
 
-         if ( MOD( LD, 6 ) == 0 ) {
+         if ( (LD % 6) == 0 ) {
 
             // Exceptional shift.  Chosen for no particularly good reason.
 

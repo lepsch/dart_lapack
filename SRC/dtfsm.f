@@ -88,7 +88,7 @@
          // If M is odd, set NISODD = true , and M1 and M2.
          // If M is even, NISODD = false , and M.
 
-         if ( MOD( M, 2 ) == 0 ) {
+         if ( (M % 2) == 0 ) {
             MISODD = false;
             K = M / 2;
          } else {
@@ -356,7 +356,7 @@
          // If N is odd, set NISODD = true , and N1 and N2.
          // If N is even, NISODD = false , and K.
 
-         if ( MOD( N, 2 ) == 0 ) {
+         if ( (N % 2) == 0 ) {
             NISODD = false;
             K = N / 2;
          } else {

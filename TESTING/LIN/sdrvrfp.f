@@ -252,7 +252,7 @@
 
                      // Form the inverse and compute the residual.
 
-                     if (MOD(N,2) == 0) {
+                     if ((N % 2) == 0) {
                         slacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                      } else {
                         slacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );

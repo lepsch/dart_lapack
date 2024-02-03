@@ -29,7 +29,7 @@
 
          // clean-up loop
 
-         M = MOD(N,4);
+         M = (N % 4);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
                DY(I) = DY(I) + DA*DX(I);

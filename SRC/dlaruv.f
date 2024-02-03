@@ -188,7 +188,7 @@
          IT1 = IT2 / IPW2;
          IT2 = IT2 - IPW2*IT1;
          IT1 = IT1 + I1*MM( I, 4 ) + I2*MM( I, 3 ) + I3*MM( I, 2 ) + I4*MM( I, 1 );
-         IT1 = MOD( IT1, IPW2 );
+         IT1 = (IT1 % IPW2);
 
          // Convert 48-bit integer to a real number in the interval (0,1)
 

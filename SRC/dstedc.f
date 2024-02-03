@@ -198,7 +198,7 @@
                }
                dlaed0(ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO );
                if ( INFO != 0 ) {
-                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1;
+                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + (INFO % ( M+1) ) + START - 1;
                   GO TO 50;
                }
 

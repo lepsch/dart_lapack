@@ -61,11 +61,11 @@
       for (I = 2; I <= (2*N-1); I++) {
          TM = M;
          TI = I;
-         R = MOD(TM, TI);
+         R = (TM % TI);
          DO WHILE (R != 0);
             TM = TI;
             TI = R;
-            R = MOD(TM, TI);
+            R = (TM % TI);
          }
          M = (M / TI) * I;
       }

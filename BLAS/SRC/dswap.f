@@ -28,7 +28,7 @@
 
         // clean-up loop
 
-         M = MOD(N,3);
+         M = (N % 3);
          if (M != 0) {
             for (I = 1; I <= M; I++) {
                DTEMP = DX(I);

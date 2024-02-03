@@ -85,7 +85,7 @@
       // ensures that the dropped shift is real and that
       // the remaining shifts are paired.
 
-      NS = NSHIFTS-MOD( NSHIFTS, 2 );
+      NS = NSHIFTS-(NSHIFTS % 2);
       NPOS = max( NBLOCK_DESIRED-NS, 1 );
 
       // The following block introduces the shifts and chases

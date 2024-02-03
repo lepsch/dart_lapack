@@ -38,7 +38,7 @@
          if( NH >= 590 ) NS = 64;
          if( NH >= 3000 ) NS = 128;
          IF( NH >= 6000 ) NS = 256;
-         NS = max( 2, NS-MOD( NS, 2 ) );
+         NS = max( 2, NS-(NS % 2) );
       }
 
       if ( ISPEC == INMIN ) {

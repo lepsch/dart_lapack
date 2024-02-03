@@ -124,7 +124,7 @@
 
          NSR = ILAENV( 15, 'ZLAQR4', JBCMPZ, N, ILO, IHI, LWORK );
          NSR = min( NSR, ( N-3 ) / 6, IHI-ILO );
-         NSR = max( 2, NSR-MOD( NSR, 2 ) );
+         NSR = max( 2, NSR-(NSR % 2) );
 
          // ==== Estimate optimal workspace ====
 
@@ -170,7 +170,7 @@
          // .    for which there is sufficient workspace. ====
 
          NSMAX = min( ( N-3 ) / 6, 2*LWORK / 3 );
-         NSMAX = NSMAX - MOD( NSMAX, 2 );
+         NSMAX = NSMAX - (NSMAX % 2);
 
          // ==== NDFL: an iteration count restarted at deflation. ====
 
@@ -282,7 +282,7 @@
                // .    did not provide that many shifts. ====
 
                NS = min( NSMAX, NSR, max( 2, KBOT-KTOP ) );
-               NS = NS - MOD( NS, 2 );
+               NS = NS - (NS % 2);
 
                // ==== If there have been no deflations
                // .    in a multiple of KEXSH iterations,
@@ -291,7 +291,7 @@
                // .    ZLAQR2 above or from the eigenvalues
                // .    of a trailing principal submatrix. ====
 
-               if ( MOD( NDFL, KEXSH ) == 0 ) {
+               if ( (NDFL % KEXSH) == 0 ) {
                   KS = KBOT - NS + 1;
                   for (I = KBOT; I >= KS + 1; I -= 2) { // 30
                      W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) );
@@ -373,7 +373,7 @@
                // .    make the number of shifts even. ====
 
                NS = min( NS, KBOT-KS+1 );
-               NS = NS - MOD( NS, 2 );
+               NS = NS - (NS % 2);
                KS = KBOT - NS + 1;
 
                // ==== Small-bulge multi-shift QR sweep:

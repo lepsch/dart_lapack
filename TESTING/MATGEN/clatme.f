@@ -151,10 +151,10 @@
       // Initialize random number generator
 
       for (I = 1; I <= 4; I++) { // 20
-         ISEED( I ) = MOD( ( ISEED( I ) ).abs(), 4096 );
+         ISEED( I ) = (( ISEED( I ) ).abs() % 4096);
       } // 20
 
-      if( MOD( ISEED( 4 ), 2 ) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
+      if( (ISEED( 4 ) % 2) != 1 ) ISEED( 4 ) = ISEED( 4 ) + 1;
 
       // 2)      Set up diagonal of A
 

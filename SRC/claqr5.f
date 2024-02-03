@@ -60,7 +60,7 @@
       // ==== NSHFTS is supposed to be even, but if it is odd,
       // .    then simply reduce it by one.  ====
 
-      NS = NSHFTS - MOD( NSHFTS, 2 );
+      NS = NSHFTS - (NSHFTS % 2);
 
       // ==== Machine constants for deflation ====
 

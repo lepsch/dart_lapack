@@ -83,7 +83,7 @@
         return;
       }
 
-      KK = MOD((N-M),(NB-M));
+      KK = (N-M % NB-M);
       II = N-KK+1;
 
       // Compute the LQ factorization of the first block A(1:M,1:NB)

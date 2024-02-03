@@ -177,13 +177,13 @@
             I2 = I;
          }
 
-         if ( MOD(KDEFL,2*KEXSH) == 0 ) {
+         if ( (KDEFL % 2*KEXSH) == 0 ) {
 
             // Exceptional shift.
 
             S = DAT1*ABS( REAL( H( I, I-1 ) ) );
             T = S + H( I, I );
-         } else if ( MOD(KDEFL,KEXSH) == 0 ) {
+         } else if ( (KDEFL % KEXSH) == 0 ) {
 
             // Exceptional shift.
 

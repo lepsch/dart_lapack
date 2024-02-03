@@ -252,7 +252,7 @@
 
                      // Form the inverse and compute the residual.
 
-                     if (MOD(N,2) == 0) {
+                     if ((N % 2) == 0) {
                         dlacpy('A', N+1, N/2, ARF, N+1, ARFINV, N+1 );
                      } else {
                         dlacpy('A', N, (N+1)/2, ARF, N, ARFINV, N );

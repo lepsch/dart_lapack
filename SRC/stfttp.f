@@ -81,7 +81,7 @@
       // set lda of ARF^C; ARF^C is (0:(N+1)/2-1,0:N-noe)
       // where noe = 0 if n is even, noe = 1 if n is odd
 
-      if ( MOD( N, 2 ) == 0 ) {
+      if ( (N % 2) == 0 ) {
          K = N / 2;
          NISODD = false;
          LDA = N + 1;

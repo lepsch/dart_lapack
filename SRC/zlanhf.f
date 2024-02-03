@@ -46,7 +46,7 @@
       // set noe = 1 if n is odd. if n is even set noe=0
 
       NOE = 1;
-      if( MOD( N, 2 ) == 0 ) NOE = 0;
+      if( (N % 2) == 0 ) NOE = 0;
 
       // set ifm = 0 when form='C' or 'c' and 1 otherwise
 

@@ -72,11 +72,11 @@
       for (I = 2; I <= (2*N-1); I++) {
          TM = M;
          TI = I;
-         R = MOD(TM, TI);
+         R = (TM % TI);
          DO WHILE (R != 0);
             TM = TI;
             TI = R;
-            R = MOD(TM, TI);
+            R = (TM % TI);
          }
          M = (M / TI) * I;
       }
@@ -87,13 +87,13 @@
       if ( LSAMEN( 2, C2, 'SY' ) ) {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1);
+               A(I, J) = D1((J % SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1((I % SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= N; I++) {
-               A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1);
+               A(I, J) = D1((J % SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2((I % SIZE_D)+1);
             }
          }
       }
@@ -116,13 +116,13 @@
       if ( LSAMEN( 2, C2, 'SY' ) ) {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
-               X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1);
+               X(I, J) = INVD1((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);
             }
          }
       } else {
          for (J = 1; J <= NRHS; J++) {
             for (I = 1; I <= N; I++) {
-               X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1);
+               X(I, J) = INVD2((J % SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1((I % SIZE_D)+1);
             }
          }
       }

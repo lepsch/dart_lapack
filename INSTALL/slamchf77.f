@@ -767,7 +767,7 @@
       // NBITS is the total number of bits needed to store a
       // floating-point number.
 
-      if ( ( MOD( NBITS, 2 ) == 1 ) && ( BETA == 2 ) ) {
+      if ( ( (NBITS % 2) == 1 ) && ( BETA == 2 ) ) {
 
          // Either there are an odd number of bits used to store a
          // floating-point number, which is unlikely, or some bits are
