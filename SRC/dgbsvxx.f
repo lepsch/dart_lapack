@@ -55,7 +55,7 @@
          EQUED = 'N'
          ROWEQU = .FALSE.
          COLEQU = .FALSE.
-      ELSE
+      } else {
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
       END IF
@@ -86,7 +86,7 @@
          INFO = -10
       ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -12
-      ELSE
+      } else {
          IF( ROWEQU ) THEN
             RCMIN = BIGNUM
             RCMAX = ZERO
@@ -98,7 +98,7 @@
                INFO = -13
             ELSE IF( N.GT.0 ) THEN
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-            ELSE
+            } else {
                ROWCND = ONE
             END IF
          END IF
@@ -113,7 +113,7 @@
                INFO = -14
             ELSE IF( N.GT.0 ) THEN
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-            ELSE
+            } else {
                COLCND = ONE
             END IF
          END IF
@@ -163,7 +163,7 @@
 
       IF( NOTRAN ) THEN
          IF( ROWEQU ) CALL DLASCL2(N, NRHS, R, B, LDB)
-      ELSE
+      } else {
          IF( COLEQU ) CALL DLASCL2(N, NRHS, C, B, LDB)
       END IF
 

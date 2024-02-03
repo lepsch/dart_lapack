@@ -56,7 +56,7 @@
       IF( N.GT.1 ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL DLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL DLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
-         ELSE
+         } else {
             CALL DLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL DLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          ENDIF
 
@@ -64,7 +64,7 @@
 
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL DTRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N, ONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
-         ELSE
+         } else {
             CALL DTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, ONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
          END IF
 
@@ -72,7 +72,7 @@
 
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL DTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, ONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
-         ELSE
+         } else {
             CALL DTRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1, ONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
          END IF
       ENDIF
@@ -97,7 +97,7 @@
                C( I, J ) = C( I, J ) - A( I, J )
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, N
             DO I = J, N
                C( I, J ) = C( I, J ) - A( I, J )
@@ -111,7 +111,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF
 

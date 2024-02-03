@@ -92,7 +92,7 @@
             PHANTOM(1) = ONE
             PHANTOM(P+1) = ONE
             CALL SLARF( 'L', P, Q, PHANTOM(1), 1, TAUP1(1), X11, LDX11, WORK(ILARF) )             CALL SLARF( 'L', M-P, Q, PHANTOM(P+1), 1, TAUP2(1), X21, LDX21, WORK(ILARF) )
-         ELSE
+         } else {
             CALL SORBDB5( P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
             CALL SSCAL( P-I+1, NEGONE, X11(I,I-1), 1 )
             CALL SLARFGP( P-I+1, X11(I,I-1), X11(I+1,I-1), 1, TAUP1(I) )

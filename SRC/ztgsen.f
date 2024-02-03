@@ -86,7 +86,7 @@
          BETA( K ) = B( K, K )
          IF( K.LT.N ) THEN
             IF( SELECT( K ) ) M = M + 1
-         ELSE
+         } else {
             IF( SELECT( N ) ) M = M + 1
          END IF
    10 CONTINUE
@@ -98,7 +98,7 @@
       ELSE IF( IJOB.EQ.3 .OR. IJOB.EQ.5 ) THEN
          LWMIN = MAX( 1, 4*M*( N-M ) )
          LIWMIN = MAX( 1, 2*M*( N-M ), N+2 )
-      ELSE
+      } else {
          LWMIN = 1
          LIWMIN = 1
       END IF
@@ -196,7 +196,7 @@
          PL = RDSCAL*SQRT( DSUM )
          IF( PL.EQ.ZERO ) THEN
             PL = ONE
-         ELSE
+         } else {
             PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) )
          END IF
          RDSCAL = ZERO
@@ -205,7 +205,7 @@
          PR = RDSCAL*SQRT( DSUM )
          IF( PR.EQ.ZERO ) THEN
             PR = ONE
-         ELSE
+         } else {
             PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) )
          END IF
       END IF
@@ -226,7 +226,7 @@
             // Frobenius norm-based Difl estimate.
 
             CALL ZTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-         ELSE
+         } else {
 
             // Compute 1-norm-based estimates of Difu and Difl using
             // reversed communication with ZLACN2. In each step a
@@ -250,7 +250,7 @@
                   // Solve generalized Sylvester equation
 
                   CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-               ELSE
+               } else {
 
                   // Solve the transposed variant.
 
@@ -270,7 +270,7 @@
                   // Solve generalized Sylvester equation
 
                   CALL ZTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-               ELSE
+               } else {
 
                   // Solve the transposed variant.
 
@@ -295,7 +295,7 @@
             CALL ZSCAL( N-K, TEMP1, B( K, K+1 ), LDB )
             CALL ZSCAL( N-K+1, TEMP1, A( K, K ), LDA )
             IF( WANTQ ) CALL ZSCAL( N, TEMP2, Q( 1, K ), 1 )
-         ELSE
+         } else {
             B( K, K ) = DCMPLX( ZERO, ZERO )
          END IF
 

@@ -60,7 +60,7 @@
          INFO = -4
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -6
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
@@ -81,7 +81,7 @@
          IF( N.LE.1 ) THEN
             LWKMIN = 1
             LWKOPT = 1
-         ELSE
+         } else {
             LWKMIN = 8*N
             NB = ILAENV( 1, 'DSYTRD', UPLO, N, -1, -1, -1 )
             NB = MAX( NB, ILAENV( 1, 'DORMTR', UPLO, N, -1, -1, -1 ) )
@@ -110,7 +110,7 @@
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
             W( 1 ) = A( 1, 1 )
-         ELSE
+         } else {
             IF( VL.LT.A( 1, 1 ) .AND. VU.GE.A( 1, 1 ) ) THEN
                M = 1
                W( 1 ) = A( 1, 1 )
@@ -150,7 +150,7 @@
             DO 10 J = 1, N
                CALL DSCAL( N-J+1, SIGMA, A( J, J ), 1 )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J = 1, N
                CALL DSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
@@ -187,7 +187,7 @@
          IF( .NOT.WANTZ ) THEN
             CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
             CALL DSTERF( N, W, WORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL DLACPY( 'A', N, N, A, LDA, Z, LDZ )
             CALL DORGTR( UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
             CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
@@ -209,7 +209,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDIBL = 1
@@ -234,7 +234,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

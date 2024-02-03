@@ -25,7 +25,7 @@
          DO 10 I = 1, N
             X( I ) = DCONJG( X( I ) )
    10    CONTINUE
-      ELSE
+      } else {
          IOFF = 1
          IF( INCX.LT.0 ) IOFF = 1 - ( N-1 )*INCX
          DO 20 I = 1, N

@@ -69,7 +69,7 @@
 
       IF (LSAME (UPLO, 'L')) THEN
          UPLO2 = ILAUPLO( 'L' )
-      ELSE
+      } else {
          UPLO2 = ILAUPLO( 'U' )
       ENDIF
 
@@ -106,7 +106,7 @@
                CALL CHEMV(UPLO, N, CMPLX(-1.0), A, LDA, Y(1,J), 1, CMPLX(1.0), RES, 1)
             ELSE IF (Y_PREC_STATE .EQ. EXTRA_RESIDUAL) THEN
                CALL BLAS_CHEMV_X(UPLO2, N, CMPLX(-1.0), A, LDA, Y( 1, J ), 1, CMPLX(1.0), RES, 1, PREC_TYPE)
-            ELSE
+            } else {
                CALL BLAS_CHEMV2_X(UPLO2, N, CMPLX(-1.0), A, LDA, Y(1, J), Y_TAIL, 1, CMPLX(1.0), RES, 1, PREC_TYPE)
             END IF
 
@@ -139,7 +139,7 @@
                IF ( COLEQU ) THEN
                   NORMX = MAX(NORMX, YK * C(I))
                   NORMDX = MAX(NORMDX, DYK * C(I))
-               ELSE
+               } else {
                   NORMX = NORMY
                   NORMDX = MAX(NORMDX, DYK)
                END IF
@@ -149,7 +149,7 @@
                DX_X = NORMDX / NORMX
             ELSE IF (NORMDX .EQ. 0.0) THEN
                DX_X = 0.0
-            ELSE
+            } else {
                DX_X = HUGEVAL
             END IF
 
@@ -166,10 +166,10 @@
                ELSE IF (DXRAT .GT. RTHRESH) THEN
                   IF (Y_PREC_STATE .NE. EXTRA_Y) THEN
                      INCR_PREC = .TRUE.
-                  ELSE
+                  } else {
                      X_STATE = NOPROG_STATE
                   END IF
-               ELSE
+               } else {
                   IF (DXRAT .GT. DXRATMAX) DXRATMAX = DXRAT
                END IF
                IF (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X
@@ -185,10 +185,10 @@
                ELSE IF (DZRAT .GT. RTHRESH) THEN
                   IF (Y_PREC_STATE .NE. EXTRA_Y) THEN
                      INCR_PREC = .TRUE.
-                  ELSE
+                  } else {
                      Z_STATE = NOPROG_STATE
                   END IF
-               ELSE
+               } else {
                   IF (DZRAT .GT. DZRATMAX) DZRATMAX = DZRAT
                END IF
                IF (Z_STATE .GT. WORKING_STATE) FINAL_DZ_Z = DZ_Z
@@ -210,7 +210,7 @@
 
             IF (Y_PREC_STATE .LT. EXTRA_Y) THEN
                CALL CAXPY( N, CMPLX(1.0), DY, 1, Y(1,J), 1 )
-            ELSE
+            } else {
                CALL CLA_WWADDW(N, Y(1,J), Y_TAIL, DY)
             END IF
 

@@ -130,7 +130,7 @@
             RWORK( K+ISUB ) = RWORK( K+I )
             RWORK( K+I ) = SMAX
             IWORK( K+I ) = K + ISUB
-         ELSE
+         } else {
             IWORK( K+I ) = K + I
          END IF
    20 CONTINUE

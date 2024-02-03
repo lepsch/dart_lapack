@@ -77,7 +77,7 @@
           LWKOPT = (LBWORK+LLWORK)*NB
           WORK( 1 ) = DROUNDUP_LWORK(LWKOPT+NT*NT)
 
-      ELSE
+      } else {
 
           LBWORK = CEILING(REAL(K)/REAL(NB))*NB
           LWKOPT = (LBWORK+LLWORK-NB)*NB
@@ -119,7 +119,7 @@
 
             IF ( NT.LE.NB ) THEN
                 IWS = (LBWORK+LLWORK-NB)*NB
-            ELSE
+            } else {
                 IWS = (LBWORK+LLWORK)*NB+NT*NT
             END IF
 
@@ -130,7 +130,7 @@
 
                IF ( NT.LE.NB ) THEN
                     NB = LWORK / (LLWORK+(LBWORK-NB))
-               ELSE
+               } else {
                     NB = (LWORK-NT*NT)/(LBWORK+LLWORK)
                END IF
                 NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) )
@@ -169,7 +169,7 @@
 
             END IF
    10    CONTINUE
-      ELSE
+      } else {
          I = 1
       END IF
 
@@ -187,7 +187,7 @@
 30           CONTINUE
               CALL SGEQR2( M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1),IINFO )
 
-         ELSE
+         } else {
 
          // Use unblocked code to factor the last or only block.
 
@@ -207,7 +207,7 @@
 
           IF ( NT .LE. NB ) THEN
                CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
-          ELSE
+          } else {
                CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+1), NT )
           END IF
 
@@ -223,7 +223,7 @@
 
          IF ( NT.LE.NB ) THEN
              CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
-         ELSE
+         } else {
              CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(LBWORK*NB+1), NT, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
          END IF
 

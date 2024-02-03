@@ -165,7 +165,7 @@
             H12 = DAT2*S
             H21 = S
             H22 = H11
-         ELSE
+         } else {
 
             // Prepare to use Francis' double shift
             // (i.e. 2nd degree generalized Rayleigh quotient)
@@ -181,7 +181,7 @@
             RT1I = ZERO
             RT2R = ZERO
             RT2I = ZERO
-         ELSE
+         } else {
             H11 = H11 / S
             H21 = H21 / S
             H12 = H12 / S
@@ -197,7 +197,7 @@
                RT2R = RT1R
                RT1I = RTDISC*S
                RT2I = -RT1I
-            ELSE
+            } else {
 
                // ==== real shifts (use only one of them)  ====
 
@@ -206,7 +206,7 @@
                IF( ABS( RT1R-H22 ).LE.ABS( RT2R-H22 ) ) THEN
                   RT1R = RT1R*S
                   RT2R = RT1R
-               ELSE
+               } else {
                   RT2R = RT2R*S
                   RT1R = RT2R
                END IF

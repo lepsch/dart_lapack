@@ -69,7 +69,7 @@
             CALL SSCAL( J, AJJ, AP( JC ), 1 )
    10    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute the product inv(L)**T * inv(L).
 

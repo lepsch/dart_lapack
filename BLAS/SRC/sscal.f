@@ -47,7 +47,7 @@
             SX(I+3) = SA*SX(I+3)
             SX(I+4) = SA*SX(I+4)
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

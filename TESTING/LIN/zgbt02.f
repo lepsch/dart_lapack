@@ -70,7 +70,7 @@
                IF( ANORM.LT.TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Find normI(A).
 
@@ -95,7 +95,7 @@
 
       IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
          N1 = N
-      ELSE
+      } else {
          N1 = M
       END IF
 
@@ -114,7 +114,7 @@
          XNORM = DZASUM( N1, X( 1, J ), 1 )
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    30 CONTINUE

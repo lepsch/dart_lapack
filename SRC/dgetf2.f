@@ -75,7 +75,7 @@
             IF( J.LT.M ) THEN
                IF( ABS(A( J, J )) .GE. SFMIN ) THEN
                   CALL DSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
-               ELSE
+               } else {
                  DO 20 I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
    20            CONTINUE

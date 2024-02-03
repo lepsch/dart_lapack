@@ -208,7 +208,7 @@
             MU = ONE
             NU = ZERO
 
-         ELSE
+         } else {
 
             // Compute shifts for B11 and B21 and use the lesser
 
@@ -221,7 +221,7 @@
                   MU = ZERO
                   NU = ONE
                END IF
-            ELSE
+            } else {
                NU = SIGMA21
                MU = SQRT( 1.0 - NU**2 )
                IF( NU .LT. THRESH ) THEN
@@ -235,7 +235,7 @@
 
          IF( MU .LE. NU ) THEN
             CALL DLARTGS( B11D(IMIN), B11E(IMIN), MU, RWORK(IV1TCS+IMIN-1), RWORK(IV1TSN+IMIN-1) )
-         ELSE
+         } else {
             CALL DLARTGS( B21D(IMIN), B21E(IMIN), NU, RWORK(IV1TCS+IMIN-1), RWORK(IV1TSN+IMIN-1) )
          END IF
 
@@ -258,14 +258,14 @@
             CALL DLARTGP( B11BULGE, B11D(IMIN), RWORK(IU1SN+IMIN-1), RWORK(IU1CS+IMIN-1), R )
          ELSE IF( MU .LE. NU ) THEN
             CALL DLARTGS( B11E( IMIN ), B11D( IMIN + 1 ), MU, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1) )
-         ELSE
+         } else {
             CALL DLARTGS( B12D( IMIN ), B12E( IMIN ), NU, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1) )
          END IF
          IF( B21D(IMIN)**2+B21BULGE**2 .GT. THRESH**2 ) THEN
             CALL DLARTGP( B21BULGE, B21D(IMIN), RWORK(IU2SN+IMIN-1), RWORK(IU2CS+IMIN-1), R )
          ELSE IF( NU .LT. MU ) THEN
             CALL DLARTGS( B21E( IMIN ), B21D( IMIN + 1 ), NU, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1) )
-         ELSE
+         } else {
             CALL DLARTGS( B22D(IMIN), B22E(IMIN), MU, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1) )
          END IF
          RWORK(IU2CS+IMIN-1) = -RWORK(IU2CS+IMIN-1)
@@ -327,7 +327,7 @@
                CALL DLARTGP( B21BULGE, B21E(I-1), RWORK(IV1TSN+I-1), RWORK(IV1TCS+I-1), R )
             ELSE IF( MU .LE. NU ) THEN
                CALL DLARTGS( B11D(I), B11E(I), MU, RWORK(IV1TCS+I-1), RWORK(IV1TSN+I-1) )
-            ELSE
+            } else {
                CALL DLARTGS( B21D(I), B21E(I), NU, RWORK(IV1TCS+I-1), RWORK(IV1TSN+I-1) )
             END IF
             RWORK(IV1TCS+I-1) = -RWORK(IV1TCS+I-1)
@@ -340,7 +340,7 @@
                CALL DLARTGP( B22BULGE, B22D(I-1), RWORK(IV2TSN+I-1-1), RWORK(IV2TCS+I-1-1), R )
             ELSE IF( NU .LT. MU ) THEN
                CALL DLARTGS( B12E(I-1), B12D(I), NU, RWORK(IV2TCS+I-1-1), RWORK(IV2TSN+I-1-1) )
-            ELSE
+            } else {
                CALL DLARTGS( B22E(I-1), B22D(I), MU, RWORK(IV2TCS+I-1-1), RWORK(IV2TSN+I-1-1) )
             END IF
 
@@ -392,7 +392,7 @@
                CALL DLARTGP( B12BULGE, B12E(I-1), RWORK(IU1SN+I-1), RWORK(IU1CS+I-1), R )
             ELSE IF( MU .LE. NU ) THEN
                CALL DLARTGS( B11E(I), B11D(I+1), MU, RWORK(IU1CS+I-1), RWORK(IU1SN+I-1) )
-            ELSE
+            } else {
                CALL DLARTGS( B12D(I), B12E(I), NU, RWORK(IU1CS+I-1), RWORK(IU1SN+I-1) )
             END IF
             IF( .NOT. RESTART21 .AND. .NOT. RESTART22 ) THEN
@@ -403,7 +403,7 @@
                CALL DLARTGP( B22BULGE, B22E(I-1), RWORK(IU2SN+I-1), RWORK(IU2CS+I-1), R )
             ELSE IF( NU .LT. MU ) THEN
                CALL DLARTGS( B21E(I), B21E(I+1), NU, RWORK(IU2CS+I-1), RWORK(IU2SN+I-1) )
-            ELSE
+            } else {
                CALL DLARTGS( B22D(I), B22E(I), MU, RWORK(IU2CS+I-1), RWORK(IU2SN+I-1) )
             END IF
             RWORK(IU2CS+I-1) = -RWORK(IU2CS+I-1)
@@ -456,7 +456,7 @@
             CALL DLARTGP( B22BULGE, B22D(IMAX-1), RWORK(IV2TSN+IMAX-1-1), RWORK(IV2TCS+IMAX-1-1), R )
          ELSE IF( NU .LT. MU ) THEN
             CALL DLARTGS( B12E(IMAX-1), B12D(IMAX), NU, RWORK(IV2TCS+IMAX-1-1), RWORK(IV2TSN+IMAX-1-1) )
-         ELSE
+         } else {
             CALL DLARTGS( B22E(IMAX-1), B22D(IMAX), MU, RWORK(IV2TCS+IMAX-1-1), RWORK(IV2TSN+IMAX-1-1) )
          END IF
 
@@ -470,28 +470,28 @@
          IF( WANTU1 ) THEN
             IF( COLMAJOR ) THEN
                CALL ZLASR( 'R', 'V', 'F', P, IMAX-IMIN+1, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1), U1(1,IMIN), LDU1 )
-            ELSE
+            } else {
                CALL ZLASR( 'L', 'V', 'F', IMAX-IMIN+1, P, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1), U1(IMIN,1), LDU1 )
             END IF
          END IF
          IF( WANTU2 ) THEN
             IF( COLMAJOR ) THEN
                CALL ZLASR( 'R', 'V', 'F', M-P, IMAX-IMIN+1, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1), U2(1,IMIN), LDU2 )
-            ELSE
+            } else {
                CALL ZLASR( 'L', 'V', 'F', IMAX-IMIN+1, M-P, RWORK(IU2CS+IMIN-1), RWORK(IU2SN+IMIN-1), U2(IMIN,1), LDU2 )
             END IF
          END IF
          IF( WANTV1T ) THEN
             IF( COLMAJOR ) THEN
                CALL ZLASR( 'L', 'V', 'F', IMAX-IMIN+1, Q, RWORK(IV1TCS+IMIN-1), RWORK(IV1TSN+IMIN-1), V1T(IMIN,1), LDV1T )
-            ELSE
+            } else {
                CALL ZLASR( 'R', 'V', 'F', Q, IMAX-IMIN+1, RWORK(IV1TCS+IMIN-1), RWORK(IV1TSN+IMIN-1), V1T(1,IMIN), LDV1T )
             END IF
          END IF
          IF( WANTV2T ) THEN
             IF( COLMAJOR ) THEN
                CALL ZLASR( 'L', 'V', 'F', IMAX-IMIN+1, M-Q, RWORK(IV2TCS+IMIN-1), RWORK(IV2TSN+IMIN-1), V2T(IMIN,1), LDV2T )
-            ELSE
+            } else {
                CALL ZLASR( 'R', 'V', 'F', M-Q, IMAX-IMIN+1, RWORK(IV2TCS+IMIN-1), RWORK(IV2TSN+IMIN-1), V2T(1,IMIN), LDV2T )
             END IF
          END IF
@@ -504,7 +504,7 @@
             IF( WANTV1T ) THEN
                IF( COLMAJOR ) THEN
                   CALL ZSCAL( Q, NEGONECOMPLEX, V1T(IMAX,1), LDV1T )
-               ELSE
+               } else {
                   CALL ZSCAL( Q, NEGONECOMPLEX, V1T(1,IMAX), 1 )
                END IF
             END IF
@@ -524,7 +524,7 @@
             IF( WANTU1 ) THEN
                IF( COLMAJOR ) THEN
                   CALL ZSCAL( P, NEGONECOMPLEX, U1(1,IMAX), 1 )
-               ELSE
+               } else {
                   CALL ZSCAL( P, NEGONECOMPLEX, U1(IMAX,1), LDU1 )
                END IF
             END IF
@@ -534,7 +534,7 @@
             IF( WANTU2 ) THEN
                IF( COLMAJOR ) THEN
                   CALL ZSCAL( M-P, NEGONECOMPLEX, U2(1,IMAX), 1 )
-               ELSE
+               } else {
                   CALL ZSCAL( M-P, NEGONECOMPLEX, U2(IMAX,1), LDU2 )
                END IF
             END IF
@@ -546,7 +546,7 @@
             IF( WANTV2T ) THEN
                IF( COLMAJOR ) THEN
                   CALL ZSCAL( M-Q, NEGONECOMPLEX, V2T(IMAX,1), LDV2T )
-               ELSE
+               } else {
                   CALL ZSCAL( M-Q, NEGONECOMPLEX, V2T(1,IMAX), 1 )
                END IF
             END IF
@@ -607,7 +607,7 @@
             THETA(I) = THETAMIN
             IF( COLMAJOR ) THEN
                IF( WANTU1 ) CALL ZSWAP( P, U1(1,I), 1, U1(1,MINI), 1 )                IF( WANTU2 ) CALL ZSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 )                IF( WANTV1T ) CALL ZSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T )                IF( WANTV2T ) CALL ZSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T )
-            ELSE
+            } else {
                IF( WANTU1 ) CALL ZSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 )                IF( WANTU2 ) CALL ZSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 )                IF( WANTV1T ) CALL ZSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 )                IF( WANTV2T ) CALL ZSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 )
             END IF
          END IF

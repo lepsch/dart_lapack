@@ -60,7 +60,7 @@
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )
             END IF
-         ELSE
+         } else {
 
             // Interchange rows I and I+1, eliminate DL(I)
 
@@ -83,7 +83,7 @@
                DL( I ) = FACT
                D( I+1 ) = D( I+1 ) - FACT*DU( I )
             END IF
-         ELSE
+         } else {
             FACT = D( I ) / DL( I )
             D( I ) = DL( I )
             DL( I ) = FACT

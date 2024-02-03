@@ -48,7 +48,7 @@
 
       IF( LSAME( TRANS, 'N' ) ) THEN
          ANORM = CLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )
-      ELSE
+      } else {
          ANORM = CLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )
       END IF
 
@@ -72,7 +72,7 @@
          XNORM = SCASUM( N, X( 1, J ), 1 )
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    10 CONTINUE

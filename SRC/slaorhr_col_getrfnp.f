@@ -62,7 +62,7 @@
          // Use unblocked code.
 
          CALL SLAORHR_COL_GETRFNP2( M, N, A, LDA, D, INFO )
-      ELSE
+      } else {
 
          // Use blocked code.
 

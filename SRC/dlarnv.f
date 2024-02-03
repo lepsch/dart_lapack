@@ -40,7 +40,7 @@
          IL = MIN( LV / 2, N-IV+1 )
          IF( IDIST.EQ.3 ) THEN
             IL2 = 2*IL
-         ELSE
+         } else {
             IL2 = IL
          END IF
 

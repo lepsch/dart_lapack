@@ -46,7 +46,7 @@
             DX(I+3) = DA*DX(I+3)
             DX(I+4) = DA*DX(I+4)
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

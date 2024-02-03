@@ -201,10 +201,10 @@
                               RESULT( 5 ) = ULPINV
                            END IF
                         END IF
-                     ELSE
+                     } else {
                         IF( ALPHAI( J ).GT.ZERO ) THEN
                            I1 = J
-                        ELSE
+                        } else {
                            I1 = J - 1
                         END IF
                         IF( I1.LE.0 .OR. I1.GE.MPLUSN ) THEN
@@ -226,7 +226,7 @@
                               WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, PRTYPE
                               INFO = ABS( IINFO )
                            END IF
-                        ELSE
+                        } else {
                            TEMP2 = ULPINV
                         END IF
                      END IF
@@ -304,7 +304,7 @@
                         NERRS = NERRS + 1
                         IF( RESULT( J ).LT.10000.0D0 ) THEN
                            WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
-                        ELSE
+                        } else {
                            WRITE( NOUT, FMT = 9990 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         END IF
                      END IF
@@ -390,10 +390,10 @@
                   RESULT( 5 ) = ULPINV
                END IF
             END IF
-         ELSE
+         } else {
             IF( ALPHAI( J ).GT.ZERO ) THEN
                I1 = J
-            ELSE
+            } else {
                I1 = J - 1
             END IF
             IF( I1.LE.0 .OR. I1.GE.MPLUSN ) THEN
@@ -415,7 +415,7 @@
                   WRITE( NOUT, FMT = 9997 )IINFO, J, MPLUSN, NPTKNT
                   INFO = ABS( IINFO )
                END IF
-            ELSE
+            } else {
                TEMP2 = ULPINV
             END IF
          END IF
@@ -487,7 +487,7 @@
             NERRS = NERRS + 1
             IF( RESULT( J ).LT.10000.0D0 ) THEN
                WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J )
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, MPLUSN, J, RESULT( J )
             END IF
          END IF

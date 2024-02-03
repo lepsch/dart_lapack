@@ -103,7 +103,7 @@
          WORK( 1 ) = MAX( DBLE( MAX( 1, N ) ), WORK( 1 ) )
          RETURN
 
-      ELSE
+      } else {
 
          // ==== copy eigenvalues isolated by DGEBAL ====
 
@@ -137,7 +137,7 @@
 
          IF( N.GT.NMIN ) THEN
             CALL DLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
-         ELSE
+         } else {
 
             // ==== Small matrix ====
 
@@ -157,7 +157,7 @@
 
                   CALL DLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 
-               ELSE
+               } else {
 
                   // ==== Tiny matrices don't have enough subdiagonal
                   // .    scratch space to benefit from DLAQR0.  Hence,

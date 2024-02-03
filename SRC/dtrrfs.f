@@ -84,7 +84,7 @@
 
       IF( NOTRAN ) THEN
          TRANST = 'T'
-      ELSE
+      } else {
          TRANST = 'N'
       END IF
 
@@ -132,7 +132,7 @@
                         WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK
    30                CONTINUE
    40             CONTINUE
-               ELSE
+               } else {
                   DO 60 K = 1, N
                      XK = ABS( X( K, J ) )
                      DO 50 I = 1, K - 1
@@ -141,7 +141,7 @@
                      WORK( K ) = WORK( K ) + XK
    60             CONTINUE
                END IF
-            ELSE
+            } else {
                IF( NOUNIT ) THEN
                   DO 80 K = 1, N
                      XK = ABS( X( K, J ) )
@@ -149,7 +149,7 @@
                         WORK( I ) = WORK( I ) + ABS( A( I, K ) )*XK
    70                CONTINUE
    80             CONTINUE
-               ELSE
+               } else {
                   DO 100 K = 1, N
                      XK = ABS( X( K, J ) )
                      DO 90 I = K + 1, N
@@ -159,7 +159,7 @@
   100             CONTINUE
                END IF
             END IF
-         ELSE
+         } else {
 
             // Compute abs(A**T)*abs(X) + abs(B).
 
@@ -172,7 +172,7 @@
   110                CONTINUE
                      WORK( K ) = WORK( K ) + S
   120             CONTINUE
-               ELSE
+               } else {
                   DO 140 K = 1, N
                      S = ABS( X( K, J ) )
                      DO 130 I = 1, K - 1
@@ -181,7 +181,7 @@
                      WORK( K ) = WORK( K ) + S
   140             CONTINUE
                END IF
-            ELSE
+            } else {
                IF( NOUNIT ) THEN
                   DO 160 K = 1, N
                      S = ZERO
@@ -190,7 +190,7 @@
   150                CONTINUE
                      WORK( K ) = WORK( K ) + S
   160             CONTINUE
-               ELSE
+               } else {
                   DO 180 K = 1, N
                      S = ABS( X( K, J ) )
                      DO 170 I = K + 1, N
@@ -205,7 +205,7 @@
          DO 190 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
   190    CONTINUE
@@ -236,7 +236,7 @@
          DO 200 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
-            ELSE
+            } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             END IF
   200    CONTINUE
@@ -253,7 +253,7 @@
                DO 220 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   220          CONTINUE
-            ELSE
+            } else {
 
                // Multiply by inv(op(A))*diag(W).
 

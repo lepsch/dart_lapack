@@ -224,7 +224,7 @@
                   CONDS = ONE
                ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
                   CONDS = RTULPI
-               ELSE
+               } else {
                   CONDS = ZERO
                END IF
 
@@ -259,7 +259,7 @@
 
                CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 
-            ELSE
+            } else {
 
                IINFO = 1
             END IF
@@ -277,7 +277,7 @@
             DO 250 IWK = 1, 2
                IF( IWK.EQ.1 ) THEN
                   NNWORK = 3*N
-               ELSE
+               } else {
                   NNWORK = 5*N + 2*N**2
                END IF
                NNWORK = MAX( NNWORK, 1 )
@@ -294,7 +294,7 @@
                   IF( ISORT.EQ.0 ) THEN
                      SORT = 'N'
                      RSUB = 0
-                  ELSE
+                  } else {
                      SORT = 'S'
                      RSUB = 6
                   END IF

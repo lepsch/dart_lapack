@@ -68,7 +68,7 @@
       END IF
       IF( ABS( D ).LE.ABS( C ) ) THEN
          CALL SLADIV1(AA, BB, CC, DD, P, Q)
-      ELSE
+      } else {
          CALL SLADIV1(BB, AA, DD, CC, P, Q)
          Q = -Q
       END IF
@@ -148,10 +148,10 @@
          BR = B * R
          if( BR.NE.ZERO ) THEN
             SLADIV2 = (A + BR) * T
-         ELSE
+         } else {
             SLADIV2 = A * T + (B * T) * R
          END IF
-      ELSE
+      } else {
          SLADIV2 = (A + D * (B / C)) * T
       END IF
 

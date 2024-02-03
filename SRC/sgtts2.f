@@ -53,7 +53,7 @@
                J = J + 1
                GO TO 10
             END IF
-         ELSE
+         } else {
             DO 60 J = 1, NRHS
 
                // Solve L*x = b.
@@ -61,7 +61,7 @@
                DO 40 I = 1, N - 1
                   IF( IPIV( I ).EQ.I ) THEN
                      B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
-                  ELSE
+                  } else {
                      TEMP = B( I, J )
                      B( I, J ) = B( I+1, J )
                      B( I+1, J ) = TEMP - DL( I )*B( I, J )
@@ -77,7 +77,7 @@
    50          CONTINUE
    60       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // Solve A**T * X = B.
 
@@ -106,7 +106,7 @@
                GO TO 70
             END IF
 
-         ELSE
+         } else {
             DO 120 J = 1, NRHS
 
                // Solve U**T*x = b.
@@ -119,7 +119,7 @@
                DO 110 I = N - 1, 1, -1
                   IF( IPIV( I ).EQ.I ) THEN
                      B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
-                  ELSE
+                  } else {
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - DL( I )*TEMP
                      B( I, J ) = TEMP

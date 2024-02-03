@@ -130,7 +130,7 @@
                WORK( K ) = WORK( K ) + ABS( AP( KK+K-1 ) )*XK + S
                KK = KK + K
    50       CONTINUE
-         ELSE
+         } else {
             DO 70 K = 1, N
                S = ZERO
                XK = ABS( X( K, J ) )
@@ -149,7 +149,7 @@
          DO 80 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    80    CONTINUE
@@ -197,7 +197,7 @@
          DO 90 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
-            ELSE
+            } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             END IF
    90    CONTINUE

@@ -46,7 +46,7 @@
 
          CALL ZLARFG( M, A(1,1), A( MIN( 2, M ), 1 ), 1, T(1,1) )
 
-      ELSE
+      } else {
 
          // Otherwise, split A into blocks...
 

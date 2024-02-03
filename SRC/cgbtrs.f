@@ -114,7 +114,7 @@
    40       CONTINUE
          END IF
 
-      ELSE
+      } else {
 
          // Solve A**H * X = B.
 

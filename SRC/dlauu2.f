@@ -65,12 +65,12 @@
             IF( I.LT.N ) THEN
                A( I, I ) = DDOT( N-I+1, A( I, I ), LDA, A( I, I ), LDA )
                CALL DGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, AII, A( 1, I ), 1 )
-            ELSE
+            } else {
                CALL DSCAL( I, AII, A( 1, I ), 1 )
             END IF
    10    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute the product L**T * L.
 
@@ -79,7 +79,7 @@
             IF( I.LT.N ) THEN
                A( I, I ) = DDOT( N-I+1, A( I, I ), 1, A( I, I ), 1 )
                CALL DGEMV( 'Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, AII, A( I, 1 ), LDA )
-            ELSE
+            } else {
                CALL DSCAL( I, AII, A( I, 1 ), LDA )
             END IF
    20    CONTINUE

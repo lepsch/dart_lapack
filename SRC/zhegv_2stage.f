@@ -110,7 +110,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'C'
             END IF
 
@@ -123,7 +123,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'C'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

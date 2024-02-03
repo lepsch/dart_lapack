@@ -80,7 +80,7 @@
    10                 CONTINUE
                   END IF
    20         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 40 J = 1,N
                   IF (X(JX).NE.ZERO) THEN
@@ -94,7 +94,7 @@
                   JX = JX + INCX
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when A is stored in lower triangle.
 
@@ -107,7 +107,7 @@
    50                 CONTINUE
                   END IF
    60         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 80 J = 1,N
                   IF (X(JX).NE.ZERO) THEN

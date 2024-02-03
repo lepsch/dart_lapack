@@ -80,7 +80,7 @@
       IF( NOTRAN ) THEN
          TRANSN = 'N'
          TRANST = 'T'
-      ELSE
+      } else {
          TRANSN = 'T'
          TRANST = 'N'
       END IF
@@ -115,17 +115,17 @@
          IF( NOTRAN ) THEN
             IF( N.EQ.1 ) THEN
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
-            ELSE
+            } else {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) )
                DO 30 I = 2, N - 1
                   WORK( I ) = ABS( B( I, J ) ) + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) )
    30          CONTINUE
                WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
             END IF
-         ELSE
+         } else {
             IF( N.EQ.1 ) THEN
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
-            ELSE
+            } else {
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) )
                DO 40 I = 2, N - 1
                   WORK( I ) = ABS( B( I, J ) ) + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) )
@@ -147,7 +147,7 @@
          DO 50 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    50    CONTINUE
@@ -195,7 +195,7 @@
          DO 60 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
-            ELSE
+            } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             END IF
    60    CONTINUE
@@ -212,7 +212,7 @@
                DO 80 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    80          CONTINUE
-            ELSE
+            } else {
 
                // Multiply by inv(op(A))*diag(W).
 

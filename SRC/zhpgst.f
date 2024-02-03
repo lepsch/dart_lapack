@@ -75,7 +75,7 @@
                CALL ZDSCAL( J-1, ONE / BJJ, AP( J1 ), 1 )
                AP( JJ ) = ( AP( JJ )-ZDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
    10       CONTINUE
-         ELSE
+         } else {
 
             // Compute inv(L)*A*inv(L**H)
 
@@ -102,7 +102,7 @@
                KK = K1K1
    20       CONTINUE
          END IF
-      ELSE
+      } else {
          IF( UPPER ) THEN
 
             // Compute U*A*U**H
@@ -126,7 +126,7 @@
                CALL ZDSCAL( K-1, BKK, AP( K1 ), 1 )
                AP( KK ) = AKK*BKK**2
    30       CONTINUE
-         ELSE
+         } else {
 
             // Compute L**H *A*L
 

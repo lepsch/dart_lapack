@@ -64,7 +64,7 @@
          LWMIN  = 1
          LRWMIN = 1
          LIWMIN = 1
-      ELSE
+      } else {
          LWMIN  = N + LHTRD + LWTRD
          LRWMIN = 24*N
          LIWMIN = 10*N
@@ -81,7 +81,7 @@
          INFO = -4
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -6
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
@@ -132,7 +132,7 @@
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
             W( 1 ) = DBLE( A( 1, 1 ) )
-         ELSE
+         } else {
             IF( VL.LT.DBLE( A( 1, 1 ) ) .AND. VU.GE.DBLE( A( 1, 1 ) ) ) THEN
                M = 1
                W( 1 ) = DBLE( A( 1, 1 ) )
@@ -176,7 +176,7 @@
             DO 10 J = 1, N
                CALL ZDSCAL( N-J+1, SIGMA, A( J, J ), 1 )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J = 1, N
                CALL ZDSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
@@ -250,13 +250,13 @@
             CALL DCOPY( N, RWORK( INDRD ), 1, W, 1 )
             CALL DCOPY( N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 )
             CALL DSTERF( N, W, RWORK( INDREE ), INFO )
-         ELSE
+         } else {
             CALL DCOPY( N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 )
             CALL DCOPY( N, RWORK( INDRD ), 1, RWORK( INDRDD ), 1 )
 
             IF (ABSTOL .LE. TWO*N*EPS) THEN
                TRYRAC = .TRUE.
-            ELSE
+            } else {
                TRYRAC = .FALSE.
             END IF
             CALL ZSTEMR( JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO )
@@ -284,7 +284,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
        CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWO ), INFO )
@@ -306,7 +306,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

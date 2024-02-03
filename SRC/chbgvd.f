@@ -50,7 +50,7 @@
          LWMIN = 2*N**2
          LRWMIN = 1 + 5*N + 2*N**2
          LIWMIN = 3 + 5*N
-      ELSE
+      } else {
          LWMIN = N
          LRWMIN = N
          LIWMIN = 1
@@ -119,7 +119,7 @@
 
       IF( WANTZ ) THEN
          VECT = 'U'
-      ELSE
+      } else {
          VECT = 'N'
       END IF
       CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
@@ -128,7 +128,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO )
          CALL CGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL CLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )

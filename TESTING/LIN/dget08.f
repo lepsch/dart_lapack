@@ -47,7 +47,7 @@
       IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
          N1 = N
          N2 = M
-      ELSE
+      } else {
          N1 = M
          N2 = N
       END IF
@@ -74,7 +74,7 @@
          XNORM = ABS(X(IDAMAX( N2, X( 1, J ), 1 ),J))
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    10 CONTINUE

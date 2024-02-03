@@ -71,7 +71,7 @@
    10       CONTINUE
             JC = JC + J
    20    CONTINUE
-      ELSE
+      } else {
          JC = 1
          DO 40 J = 1, N
             DO 30 I = J, N
@@ -87,7 +87,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF
 

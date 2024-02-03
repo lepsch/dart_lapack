@@ -84,7 +84,7 @@
             NB = MIN( M-L+I+IB-1, M )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = 0
             END IF
             CALL DTPRFB( 'L', 'T', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
@@ -97,7 +97,7 @@
             NB = MIN( N-L+I+IB-1, N )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = NB-N+L-I+1
             END IF
             CALL DTPRFB( 'R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
@@ -111,7 +111,7 @@
             NB = MIN( M-L+I+IB-1, M )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = 0
             END IF
             CALL DTPRFB( 'L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
@@ -125,7 +125,7 @@
             NB = MIN( N-L+I+IB-1, N )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = NB-N+L-I+1
             END IF
             CALL DTPRFB( 'R', 'T', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )

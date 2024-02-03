@@ -93,7 +93,7 @@
       IF( I.EQ.M ) GO TO 20
       IF( A( I+1, I ).NE.ZERO ) THEN
          I = I + 2
-      ELSE
+      } else {
          I = I + 1
       END IF
       GO TO 10
@@ -111,7 +111,7 @@
       IF( J.EQ.N ) GO TO 40
       IF( B( J+1, J ).NE.ZERO ) THEN
          J = J + 2
-      ELSE
+      } else {
          J = J + 1
       END IF
       GO TO 30
@@ -169,7 +169,7 @@
    50                   CONTINUE
                         SCALE = SCALE*SCALOC
                      END IF
-                  ELSE
+                  } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 
@@ -234,7 +234,7 @@
    60                   CONTINUE
                         SCALE = SCALE*SCALOC
                      END IF
-                  ELSE
+                  } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 
@@ -299,7 +299,7 @@
    70                   CONTINUE
                         SCALE = SCALE*SCALOC
                      END IF
-                  ELSE
+                  } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 
@@ -386,7 +386,7 @@
    90                   CONTINUE
                         SCALE = SCALE*SCALOC
                      END IF
-                  ELSE
+                  } else {
                      CALL SLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 
@@ -416,7 +416,7 @@
 
   110       CONTINUE
   120    CONTINUE
-      ELSE
+      } else {
 
          // Solve (I, J) - subsystem
               // A(I, I)**T * R(I, J) + D(I, I)**T * L(J, J)  =  C(I, J)

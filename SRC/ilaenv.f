@@ -104,20 +104,20 @@
 
          IF( SNAME ) THEN
              NB = 32
-         ELSE
+         } else {
              NB = 32
          END IF
       ELSE IF( C2.EQ.'GE' ) THEN
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
                NB = 64
-            ELSE
+            } else {
                NB = 64
             END IF
          ELSE IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ.'QLF' ) THEN
             IF( SNAME ) THEN
                NB = 32
-            ELSE
+            } else {
                NB = 32
             END IF
          ELSE IF( C3.EQ.'QR ') THEN
@@ -126,20 +126,20 @@
       // M*N
                   IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
                      NB = N1
-                  ELSE
+                  } else {
                      NB = 32768/N2
                   END IF
-               ELSE
+               } else {
                   IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
                      NB = N1
-                  ELSE
+                  } else {
                      NB = 32768/N2
                   END IF
                END IF
-            ELSE
+            } else {
                IF( SNAME ) THEN
                   NB = 1
-               ELSE
+               } else {
                   NB = 1
                END IF
             END IF
@@ -149,45 +149,45 @@
       // M*N
                   IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
                      NB = N1
-                  ELSE
+                  } else {
                      NB = 32768/N2
                   END IF
-               ELSE
+               } else {
                   IF ((N1*N2.LE.131072).OR.(N1.LE.8192)) THEN
                      NB = N1
-                  ELSE
+                  } else {
                      NB = 32768/N2
                   END IF
                END IF
-            ELSE
+            } else {
                IF( SNAME ) THEN
                   NB = 1
-               ELSE
+               } else {
                   NB = 1
                END IF
             END IF
          ELSE IF( C3.EQ.'HRD' ) THEN
             IF( SNAME ) THEN
                NB = 32
-            ELSE
+            } else {
                NB = 32
             END IF
          ELSE IF( C3.EQ.'BRD' ) THEN
             IF( SNAME ) THEN
                NB = 32
-            ELSE
+            } else {
                NB = 32
             END IF
          ELSE IF( C3.EQ.'TRI' ) THEN
             IF( SNAME ) THEN
                NB = 64
-            ELSE
+            } else {
                NB = 64
             END IF
          ELSE IF( SUBNAM( 4: 7 ).EQ.'QP3RK' ) THEN
             IF( SNAME ) THEN
                NB = 32
-            ELSE
+            } else {
                NB = 32
             END IF
          END IF
@@ -195,7 +195,7 @@
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
                NB = 64
-            ELSE
+            } else {
                NB = 64
             END IF
          END IF
@@ -204,13 +204,13 @@
             IF( SNAME ) THEN
                IF( TWOSTAGE ) THEN
                   NB = 192
-               ELSE
+               } else {
                   NB = 64
                END IF
-            ELSE
+            } else {
                IF( TWOSTAGE ) THEN
                   NB = 192
-               ELSE
+               } else {
                   NB = 64
                END IF
             END IF
@@ -223,7 +223,7 @@
          IF( C3.EQ.'TRF' ) THEN
             IF( TWOSTAGE ) THEN
                NB = 192
-            ELSE
+            } else {
                NB = 64
             END IF
          ELSE IF( C3.EQ.'TRD' ) THEN
@@ -256,13 +256,13 @@
             IF( SNAME ) THEN
                IF( N4.LE.64 ) THEN
                   NB = 1
-               ELSE
+               } else {
                   NB = 32
                END IF
-            ELSE
+            } else {
                IF( N4.LE.64 ) THEN
                   NB = 1
-               ELSE
+               } else {
                   NB = 32
                END IF
             END IF
@@ -272,13 +272,13 @@
             IF( SNAME ) THEN
                IF( N2.LE.64 ) THEN
                   NB = 1
-               ELSE
+               } else {
                   NB = 32
                END IF
-            ELSE
+            } else {
                IF( N2.LE.64 ) THEN
                   NB = 1
-               ELSE
+               } else {
                   NB = 32
                END IF
             END IF
@@ -287,20 +287,20 @@
          IF( C3.EQ.'TRI' ) THEN
             IF( SNAME ) THEN
                NB = 64
-            ELSE
+            } else {
                NB = 64
             END IF
          ELSE IF ( C3.EQ.'EVC' ) THEN
             IF( SNAME ) THEN
                NB = 64
-            ELSE
+            } else {
                NB = 64
             END IF
          ELSE IF( C3.EQ.'SYL' ) THEN
             // The upper bound is to prevent overly aggressive scaling.
             IF( SNAME ) THEN
                NB = MIN( MAX( 48, INT( ( MIN( N1, N2 ) * 16 ) / 100) ), 240 )
-            ELSE
+            } else {
                NB = MIN( MAX( 24, INT( ( MIN( N1, N2 ) * 8 ) / 100) ), 80 )
             END IF
          END IF
@@ -308,13 +308,13 @@
          IF( C3.EQ.'UUM' ) THEN
             IF( SNAME ) THEN
                NB = 64
-            ELSE
+            } else {
                NB = 64
             END IF
          ELSE IF( C3.EQ.'TRS' ) THEN
             IF( SNAME ) THEN
                NB = 32
-            ELSE
+            } else {
                NB = 32
             END IF
          END IF
@@ -327,7 +327,7 @@
          IF( C3.EQ.'HD3' ) THEN
             IF( SNAME ) THEN
                NB = 32
-            ELSE
+            } else {
                NB = 32
             END IF
          END IF
@@ -344,31 +344,31 @@
          IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
-            ELSE
+            } else {
                NBMIN = 2
             END IF
          ELSE IF( C3.EQ.'HRD' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
-            ELSE
+            } else {
                NBMIN = 2
             END IF
          ELSE IF( C3.EQ.'BRD' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
-            ELSE
+            } else {
                NBMIN = 2
             END IF
          ELSE IF( C3.EQ.'TRI' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
-            ELSE
+            } else {
                NBMIN = 2
             END IF
          ELSE IF( SUBNAM( 4: 7 ).EQ.'QP3RK' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
-            ELSE
+            } else {
                NBMIN = 2
             END IF
          END IF
@@ -377,7 +377,7 @@
          IF( C3.EQ.'TRF' ) THEN
             IF( SNAME ) THEN
                NBMIN = 8
-            ELSE
+            } else {
                NBMIN = 8
             END IF
          ELSE IF( SNAME .AND. C3.EQ.'TRD' ) THEN
@@ -425,25 +425,25 @@
          IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) THEN
             IF( SNAME ) THEN
                NX = 128
-            ELSE
+            } else {
                NX = 128
             END IF
          ELSE IF( C3.EQ.'HRD' ) THEN
             IF( SNAME ) THEN
                NX = 128
-            ELSE
+            } else {
                NX = 128
             END IF
          ELSE IF( C3.EQ.'BRD' ) THEN
             IF( SNAME ) THEN
                NX = 128
-            ELSE
+            } else {
                NX = 128
             END IF
          ELSE IF( SUBNAM( 4: 7 ).EQ.'QP3RK' ) THEN
             IF( SNAME ) THEN
                NX = 128
-            ELSE
+            } else {
                NX = 128
             END IF
          END IF

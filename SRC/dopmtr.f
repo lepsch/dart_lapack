@@ -46,7 +46,7 @@
 
       IF( LEFT ) THEN
          NQ = M
-      ELSE
+      } else {
          NQ = N
       END IF
       IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
@@ -82,7 +82,7 @@
             I2 = NQ - 1
             I3 = 1
             II = 2
-         ELSE
+         } else {
             I1 = NQ - 1
             I2 = 1
             I3 = -1
@@ -91,7 +91,7 @@
 
          IF( LEFT ) THEN
             NI = N
-         ELSE
+         } else {
             MI = M
          END IF
 
@@ -101,7 +101,7 @@
                // H(i) is applied to C(1:i,1:n)
 
                MI = I
-            ELSE
+            } else {
 
                // H(i) is applied to C(1:m,1:i)
 
@@ -117,11 +117,11 @@
 
             IF( FORWRD ) THEN
                II = II + I + 2
-            ELSE
+            } else {
                II = II - I - 1
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Q was determined by a call to DSPTRD with UPLO = 'L'.
 
@@ -132,7 +132,7 @@
             I2 = NQ - 1
             I3 = 1
             II = 2
-         ELSE
+         } else {
             I1 = NQ - 1
             I2 = 1
             I3 = -1
@@ -142,7 +142,7 @@
          IF( LEFT ) THEN
             NI = N
             JC = 1
-         ELSE
+         } else {
             MI = M
             IC = 1
          END IF
@@ -156,7 +156,7 @@
 
                MI = M - I
                IC = I + 1
-            ELSE
+            } else {
 
                // H(i) is applied to C(1:m,i+1:n)
 
@@ -171,7 +171,7 @@
 
             IF( FORWRD ) THEN
                II = II + NQ - I + 1
-            ELSE
+            } else {
                II = II - NQ + I - 2
             END IF
    20    CONTINUE

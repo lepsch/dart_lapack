@@ -91,7 +91,7 @@
 
                CALL CHER2( UPLO, I, -ONE, A( 1, I+1 ), 1, TAU, 1, A, LDA )
 
-            ELSE
+            } else {
                A( I, I ) = REAL( A( I, I ) )
             END IF
             A( I, I+1 ) = E( I )
@@ -99,7 +99,7 @@
             TAU( I ) = TAUI
    10    CONTINUE
          D( 1 ) = REAL( A( 1, 1 ) )
-      ELSE
+      } else {
 
          // Reduce the lower triangle of A
 
@@ -133,7 +133,7 @@
 
                CALL CHER2( UPLO, N-I, -ONE, A( I+1, I ), 1, TAU( I ), 1, A( I+1, I+1 ), LDA )
 
-            ELSE
+            } else {
                A( I+1, I+1 ) = REAL( A( I+1, I+1 ) )
             END IF
             A( I+1, I ) = E( I )

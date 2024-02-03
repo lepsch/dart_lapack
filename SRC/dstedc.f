@@ -49,7 +49,7 @@
          ICOMPZ = 1
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ICOMPZ = 2
-      ELSE
+      } else {
          ICOMPZ = -1
       END IF
       IF( ICOMPZ.LT.0 ) THEN
@@ -71,7 +71,7 @@
          ELSE IF( N.LE.SMLSIZ ) THEN
             LIWMIN = 1
             LWMIN = 2*( N - 1 )
-         ELSE
+         } else {
             LGN = INT( LOG( DBLE( N ) )/LOG( TWO ) )
             IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             IF( ICOMPZ.EQ.1 ) THEN
@@ -130,14 +130,14 @@
 
          CALL DSTEQR( COMPZ, N, D, E, Z, LDZ, WORK, INFO )
 
-      ELSE
+      } else {
 
          // If COMPZ = 'V', the Z matrix must be stored elsewhere for later
          // use.
 
          IF( ICOMPZ.EQ.1 ) THEN
             STOREZ = 1 + N*N
-         ELSE
+         } else {
             STOREZ = 1
          END IF
 
@@ -191,7 +191,7 @@
 
                IF( ICOMPZ.EQ.1 ) THEN
                   STRTRW = 1
-               ELSE
+               } else {
                   STRTRW = START
                END IF
                CALL DLAED0( ICOMPZ, N, M, D( START ), E( START ), Z( STRTRW, START ), LDZ, WORK( 1 ), N, WORK( STOREZ ), IWORK, INFO )
@@ -204,7 +204,7 @@
 
                CALL DLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
 
-            ELSE
+            } else {
                IF( ICOMPZ.EQ.1 ) THEN
 
                   // Since QR won't update a Z matrix which is larger than
@@ -214,7 +214,7 @@
                   CALL DSTEQR( 'I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL DLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL DGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ )
                ELSE IF( ICOMPZ.EQ.2 ) THEN
                   CALL DSTEQR( 'I', M, D( START ), E( START ), Z( START, START ), LDZ, WORK, INFO )
-               ELSE
+               } else {
                   CALL DSTERF( M, D( START ), E( START ), INFO )
                END IF
                IF( INFO.NE.0 ) THEN
@@ -235,7 +235,7 @@
 
            CALL DLASRT( 'I', N, D, INFO )
 
-         ELSE
+         } else {
 
            // Use Selection Sort to minimize swaps of eigenvectors
 

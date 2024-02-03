@@ -70,7 +70,7 @@
                IF( AP( JC+INFO-1 ).EQ.ZERO ) RETURN
                JC = JC + INFO
    10       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 20 INFO = 1, N
                IF( AP( JC ).EQ.ZERO ) RETURN

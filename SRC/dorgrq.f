@@ -50,7 +50,7 @@
       IF( INFO.EQ.0 ) THEN
          IF( M.LE.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             NB = ILAENV( 1, 'DORGRQ', ' ', M, N, K, -1 )
             LWKOPT = M*NB
          END IF
@@ -113,7 +113,7 @@
                A( I, J ) = ZERO
    10       CONTINUE
    20    CONTINUE
-      ELSE
+      } else {
          KK = 0
       END IF
 

@@ -105,7 +105,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'T'
             END IF
 
@@ -118,7 +118,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'T'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

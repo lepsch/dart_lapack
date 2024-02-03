@@ -26,18 +26,18 @@
          I = I + 1
          IF( I.LE.M ) THEN
             DLCTSX = .FALSE.
-         ELSE
+         } else {
             DLCTSX = .TRUE.
          END IF
          IF( I.EQ.MPLUSN ) THEN
             FS = .FALSE.
             I = 0
          END IF
-      ELSE
+      } else {
          I = I + 1
          IF( I.LE.N ) THEN
             DLCTSX = .TRUE.
-         ELSE
+         } else {
             DLCTSX = .FALSE.
          END IF
          IF( I.EQ.MPLUSN ) THEN

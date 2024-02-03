@@ -104,7 +104,7 @@
                CALL DSYR( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
             END IF
    20    CONTINUE
-      ELSE
+      } else {
 
          // Factorize A(m+1:n,m+1:n) as L**T*L, and update A(1:m,1:m).
 

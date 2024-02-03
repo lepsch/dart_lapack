@@ -216,7 +216,7 @@
          TSTERR = .TRUE.
          CALL SCHKEC( THRESH, TSTERR, NIN, NOUT )
          GO TO 10
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9992 )PATH
          GO TO 10
       END IF
@@ -243,7 +243,7 @@
          READ( NIN, FMT = * )( MVAL( I ), I = 1, NN )
          IF( SVD ) THEN
             VNAME = '    M '
-         ELSE
+         } else {
             VNAME = '    N '
          END IF
          DO 20 I = 1, NN
@@ -287,14 +287,14 @@
                FATAL = .TRUE.
             END IF
    40    CONTINUE
-      ELSE
+      } else {
          DO 50 I = 1, NN
             NVAL( I ) = MVAL( I )
    50    CONTINUE
       END IF
       IF( .NOT.( SGX .OR. SXV ) ) THEN
          WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN )
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9983 )'N:    ', NN
       END IF
 
@@ -442,7 +442,7 @@
                END IF
    80       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 90 I = 1, NPARMS
                NBMIN( I ) = 1
    90       CONTINUE
@@ -462,7 +462,7 @@
                END IF
   100       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 110 I = 1, NPARMS
                NXVAL( I ) = 1
   110       CONTINUE
@@ -483,7 +483,7 @@
                END IF
   120       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 130 I = 1, NPARMS
                NSVAL( I ) = 1
   130       CONTINUE
@@ -503,7 +503,7 @@
                END IF
   140       CONTINUE
             WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 150 I = 1, NPARMS
                MXBVAL( I ) = 1
   150       CONTINUE
@@ -520,7 +520,7 @@
                END IF
   540       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 550 I = 1, NPARMS
                INMIN( I ) = 1
   550       CONTINUE
@@ -537,7 +537,7 @@
                END IF
   560       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 570 I = 1, NPARMS
                INWIN( I ) = 1
   570       CONTINUE
@@ -554,7 +554,7 @@
                END IF
   580       CONTINUE
             WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 590 I = 1, NPARMS
                INIBL( I ) = 1
   590       CONTINUE
@@ -571,7 +571,7 @@
                END IF
   600       CONTINUE
             WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 610 I = 1, NPARMS
                ISHFTS( I ) = 1
   610       CONTINUE
@@ -588,7 +588,7 @@
                END IF
   620       CONTINUE
             WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 630 I = 1, NPARMS
                IACC22( I ) = 1
   630       CONTINUE
@@ -608,7 +608,7 @@
                END IF
   160       CONTINUE
             WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS )
-         ELSE
+         } else {
             DO 170 I = 1, NPARMS
                NBCOL( I ) = 1
   170       CONTINUE
@@ -682,7 +682,7 @@
          IF( I.GT.LENP ) THEN
             IF( I1.GT.0 ) THEN
                GO TO 240
-            ELSE
+            } else {
                NTYPES = MAXT
                GO TO 240
             END IF
@@ -706,7 +706,7 @@
             GO TO 210
          ELSE IF( I1.GT.0 ) THEN
             GO TO 240
-         ELSE
+         } else {
             GO TO 210
          END IF
   240    CONTINUE
@@ -719,7 +719,7 @@
             GO TO 200
          END IF
 
-      ELSE
+      } else {
          IF( SXV ) C3 = 'SXV'          IF( SGX ) C3 = 'SGX'
       END IF
 
@@ -807,7 +807,7 @@
             IF( TSTCHK ) THEN
                IF( LSAMEN( 3, C3, 'SE2' ) ) THEN
                CALL SCHKST2STG( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), D( 1, 12 ), A( 1, 6 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
-               ELSE
+               } else {
                CALL SCHKST( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), D( 1, 12 ), A( 1, 6 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ENDIF
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'SCHKST', INFO
@@ -815,7 +815,7 @@
             IF( TSTDRV ) THEN
                IF( LSAMEN( 3, C3, 'SE2' ) ) THEN
                CALL SDRVST2STG( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11), A( 1, 2 ), NMAX, A( 1, 3 ), D( 1, 12 ), A( 1, 4 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
-               ELSE
+               } else {
                CALL SDRVST( NN, NVAL, 18, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11), A( 1, 2 ), NMAX, A( 1, 3 ), D( 1, 12 ), A( 1, 4 ), WORK, LWORK, IWORK, LIWORK, RESULT, INFO )
                ENDIF
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'SDRVST', INFO
@@ -908,7 +908,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRVEV( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, IWORK, INFO )
@@ -928,7 +928,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRVES( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, IWORK, LOGWRK, INFO )
@@ -948,7 +948,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          IF( NTYPES.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRVVX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), D( 1, 12 ), RESULT, WORK, LWORK, IWORK, INFO )
@@ -968,7 +968,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          IF( NTYPES.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRED( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRVSX( NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, IWORK, LOGWRK, INFO )
@@ -1028,7 +1028,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRGES( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, RESULT, LOGWRK, INFO )
@@ -1056,7 +1056,7 @@
          NTYPES = MAXTYP
          IF( NN.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL XLAENV( 5, 2 )
@@ -1077,7 +1077,7 @@
          NTYPES = MIN( MAXTYP, NTYPES )
          IF( NTYPES.LE.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRGEV( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), WORK, LWORK, RESULT, INFO )
@@ -1102,7 +1102,7 @@
          NTYPES = MAXTYP
          IF( NN.LT.0 ) THEN
             WRITE( NOUT, FMT = 9990 )C3
-         ELSE
+         } else {
             IF( TSTERR ) CALL SERRGG( C3, NOUT )
             CALL ALAREQ( C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT )
             CALL SDRGVX( NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), WORK, LWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO )
@@ -1200,7 +1200,7 @@
          IF( TSTERR ) CALL SERRGG( 'LSE', NOUT )          CALL SCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO )
          IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'SCKLSE', INFO
 
-      ELSE
+      } else {
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = * )
          WRITE( NOUT, FMT = 9992 )C3

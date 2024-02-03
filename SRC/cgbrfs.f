@@ -98,7 +98,7 @@
       IF( NOTRAN ) THEN
          TRANSN = 'N'
          TRANST = 'C'
-      ELSE
+      } else {
          TRANSN = 'C'
          TRANST = 'N'
       END IF
@@ -150,7 +150,7 @@
                   RWORK( I ) = RWORK( I ) + CABS1( AB( KK+I, K ) )*XK
    40          CONTINUE
    50       CONTINUE
-         ELSE
+         } else {
             DO 70 K = 1, N
                S = ZERO
                KK = KU + 1 - K
@@ -164,7 +164,7 @@
          DO 80 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    80    CONTINUE
@@ -212,7 +212,7 @@
          DO 90 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
-            ELSE
+            } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    90    CONTINUE
@@ -229,7 +229,7 @@
                DO 110 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   110          CONTINUE
-            ELSE
+            } else {
 
                // Multiply by inv(op(A))*diag(W).
 

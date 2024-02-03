@@ -47,7 +47,7 @@
                WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, NCOLS
             DO I = J, NCOLS
                WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
@@ -64,7 +64,7 @@
                WORK( J ) = MAX( ABS( AF( I, J ) ), WORK( J ) )
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, NCOLS
             DO I = J, NCOLS
                WORK( J ) = MAX( ABS( AF( I, J ) ), WORK( J ) )
@@ -87,7 +87,7 @@
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             END IF
          END DO
-      ELSE
+      } else {
          DO I = 1, NCOLS
             UMAX = WORK( I )
             AMAX = WORK( NCOLS+I )

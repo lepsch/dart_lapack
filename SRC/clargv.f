@@ -121,7 +121,7 @@
             IF( ABS1( F ).GT.ONE ) THEN
                D = SLAPY2( REAL( F ), AIMAG( F ) )
                FF = CMPLX( REAL( F ) / D, AIMAG( F ) / D )
-            ELSE
+            } else {
                DR = SAFMX2*REAL( F )
                DI = SAFMX2*AIMAG( F )
                D = SLAPY2( DR, DI )
@@ -129,7 +129,7 @@
             END IF
             SN = FF*CMPLX( REAL( GS ) / G2S, -AIMAG( GS ) / G2S )
             R = CS*F + SN*G
-         ELSE
+         } else {
 
             // This is the most common case.
             // Neither F2 nor F2/G2 are less than SAFMIN
@@ -149,7 +149,7 @@
                   DO 30 J = 1, COUNT
                      R = R*SAFMX2
    30             CONTINUE
-               ELSE
+               } else {
                   DO 40 J = 1, -COUNT
                      R = R*SAFMN2
    40             CONTINUE

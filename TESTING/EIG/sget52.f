@@ -47,7 +47,7 @@
       IF( LEFT ) THEN
          TRANS = 'T'
          NORMAB = 'I'
-      ELSE
+      } else {
          TRANS = 'N'
          NORMAB = 'O'
       END IF
@@ -70,7 +70,7 @@
             // 2nd Eigenvalue/-vector of pair -- do nothing
 
             ILCPLX = .FALSE.
-         ELSE
+         } else {
             SALFR = ALPHAR( JVEC )
             SALFI = ALPHAI( JVEC )
             SBETA = BETA( JVEC )
@@ -88,7 +88,7 @@
                ACOEF = SCALE*SBETA
                BCOEFR = SCALE*SALFR
                CALL SGEMV( TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC ), 1, ZERO, WORK( N*( JVEC-1 )+1 ), 1 )                CALL SGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*( JVEC-1 )+1 ), 1 )
-            ELSE
+            } else {
 
                // Complex conjugate pair
 
@@ -132,14 +132,14 @@
       DO 40 JVEC = 1, N
          IF( ILCPLX ) THEN
             ILCPLX = .FALSE.
-         ELSE
+         } else {
             TEMP1 = ZERO
             IF( ALPHAI( JVEC ).EQ.ZERO ) THEN
                DO 20 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
    20          CONTINUE
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
-            ELSE
+            } else {
                ILCPLX = .TRUE.
                DO 30 J = 1, N
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )

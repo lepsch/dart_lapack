@@ -15,7 +15,7 @@
 
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9999 )TYPE, NFAIL, NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9998 )TYPE, NRUN
       END IF
       IF( NERRS.GT.0 ) THEN

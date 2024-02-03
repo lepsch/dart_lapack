@@ -93,7 +93,7 @@
 
       IF( I.EQ.J ) THEN
          CTEMP = D( I )
-      ELSE
+      } else {
          CTEMP = ZLARND( IDIST, ISEED )
       END IF
       IF( IGRADE.EQ.1 ) THEN

@@ -65,7 +65,7 @@
          IF( MN.EQ.0 .OR. NRHS.EQ.0 ) THEN
             LWKMIN = 1
             LWKOPT = 1
-         ELSE
+         } else {
             NB1 = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
             NB2 = ILAENV( 1, 'SGERQF', ' ', M, N, -1, -1 )
             NB3 = ILAENV( 1, 'SORMQR', ' ', M, N, NRHS, -1 )
@@ -160,7 +160,7 @@
          RANK = 0
          CALL SLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
          GO TO 70
-      ELSE
+      } else {
          RANK = 1
       END IF
 

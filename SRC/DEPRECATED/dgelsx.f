@@ -132,7 +132,7 @@
          RANK = 0
          CALL DLASET( 'F', MAX( M, N ), NRHS, ZERO, ZERO, B, LDB )
          GO TO 100
-      ELSE
+      } else {
          RANK = 1
       END IF
 

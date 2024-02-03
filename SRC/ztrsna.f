@@ -68,7 +68,7 @@
          DO 10 J = 1, N
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
-      ELSE
+      } else {
          M = N
       END IF
 
@@ -165,7 +165,7 @@
                   // Solve C**H*x = scale*b
 
                   CALL ZLATRS( 'Upper', 'Conjugate transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
-               ELSE
+               } else {
 
                   // Solve C*x = scale*b
 

@@ -71,18 +71,18 @@
       IF( TRANS.EQ.ILATRANS( 'N' ) )THEN
          LENX = N
          LENY = M
-      ELSE
+      } else {
          LENX = M
          LENY = N
       END IF
       IF( INCX.GT.0 )THEN
          KX = 1
-      ELSE
+      } else {
          KX = 1 - ( LENX - 1 )*INCX
       END IF
       IF( INCY.GT.0 )THEN
          KY = 1
-      ELSE
+      } else {
          KY = 1 - ( LENY - 1 )*INCY
       END IF
 
@@ -109,7 +109,7 @@
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF
@@ -124,14 +124,14 @@
                 IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
                IY = IY + INCY
             END DO
-         ELSE
+         } else {
             DO I = 1, LENY
                IF ( BETA .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF
@@ -147,7 +147,7 @@
                IY = IY + INCY
             END DO
          END IF
-      ELSE
+      } else {
          IF( TRANS.EQ.ILATRANS( 'N' ) )THEN
             DO I = 1, LENY
                IF ( BETA .EQ. ZERO ) THEN
@@ -155,7 +155,7 @@
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF
@@ -173,14 +173,14 @@
 
                IY = IY + INCY
             END DO
-         ELSE
+         } else {
             DO I = 1, LENY
                IF ( BETA .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF

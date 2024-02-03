@@ -65,7 +65,7 @@
          DO 30 I = 2, N
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) )
    30    CONTINUE
-      ELSE
+      } else {
 
          // B is lower bidiagonal.
 
@@ -97,13 +97,13 @@
 
       IF( BNORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
-         ELSE
+         } else {
             IF( BNORM.LT.ONE ) THEN
                RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
-            ELSE
+            } else {
                RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF

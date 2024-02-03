@@ -37,7 +37,7 @@
       IF( K.EQ.0 ) THEN
          LWKMIN = 1
          LWKOPT = 1
-      ELSE
+      } else {
          LWKMIN = N
          LWKOPT = N*NB
       END IF
@@ -115,7 +115,7 @@
                CALL DLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
             END IF
    10    CONTINUE
-      ELSE
+      } else {
          I = 1
       END IF
 

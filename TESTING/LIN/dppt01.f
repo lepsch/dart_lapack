@@ -73,7 +73,7 @@
 
       // Compute the product L*L', overwriting L.
 
-      ELSE
+      } else {
          KC = ( N*( N+1 ) ) / 2
          DO 20 K = N, 1, -1
 

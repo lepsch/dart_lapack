@@ -126,7 +126,7 @@
             END IF
          END DO
 
-      ELSE
+      } else {
 
          // Begin Lower
 

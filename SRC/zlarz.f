@@ -54,7 +54,7 @@
             CALL ZGERU( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
          END IF
 
-      ELSE
+      } else {
 
          // Form  C * H
 

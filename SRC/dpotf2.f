@@ -79,7 +79,7 @@
                CALL DSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Compute the Cholesky factorization A = L*L**T.
 

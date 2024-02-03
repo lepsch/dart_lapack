@@ -175,7 +175,7 @@
             D( I+1 ) = OLDGAM + ( ALPHA-GAMMA )
             IF( C.NE.ZERO ) THEN
                P = ( GAMMA*GAMMA ) / C
-            ELSE
+            } else {
                P = OLDC*BB
             END IF
    80    CONTINUE
@@ -193,7 +193,7 @@
          IF( L.LE.LEND ) GO TO 50
          GO TO 150
 
-      ELSE
+      } else {
 
          // QR Iteration
 
@@ -254,7 +254,7 @@
             D( I ) = OLDGAM + ( ALPHA-GAMMA )
             IF( C.NE.ZERO ) THEN
                P = ( GAMMA*GAMMA ) / C
-            ELSE
+            } else {
                P = OLDC*BB
             END IF
   130    CONTINUE

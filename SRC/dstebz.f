@@ -54,7 +54,7 @@
          IRANGE = 2
       ELSE IF( LSAME( RANGE, 'I' ) ) THEN
          IRANGE = 3
-      ELSE
+      } else {
          IRANGE = 0
       END IF
 
@@ -64,7 +64,7 @@
          IORDER = 2
       ELSE IF( LSAME( ORDER, 'E' ) ) THEN
          IORDER = 1
-      ELSE
+      } else {
          IORDER = 0
       END IF
 
@@ -120,7 +120,7 @@
          ISPLIT( 1 ) = 1
          IF( IRANGE.EQ.2 .AND. ( VL.GE.D( 1 ) .OR. VU.LT.D( 1 ) ) ) THEN
             M = 0
-         ELSE
+         } else {
             W( 1 ) = D( 1 )
             IBLOCK( 1 ) = 1
             M = 1
@@ -140,7 +140,7 @@
             ISPLIT( NSPLIT ) = J - 1
             NSPLIT = NSPLIT + 1
             WORK( J-1 ) = ZERO
-         ELSE
+         } else {
             WORK( J-1 ) = TMP1
             PIVMIN = MAX( PIVMIN, TMP1 )
          END IF
@@ -180,7 +180,7 @@
          ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
          IF( ABSTOL.LE.ZERO ) THEN
             ATOLI = ULP*TNORM
-         ELSE
+         } else {
             ATOLI = ABSTOL
          END IF
 
@@ -206,7 +206,7 @@
             WU = WORK( N+4 )
             WUL = WORK( N+2 )
             NWU = IWORK( 4 )
-         ELSE
+         } else {
             WL = WORK( N+2 )
             WLU = WORK( N+4 )
             NWL = IWORK( 2 )
@@ -219,7 +219,7 @@
             INFO = 4
             RETURN
          END IF
-      ELSE
+      } else {
 
          // RANGE='A' or 'V' -- Set ATOLI
 
@@ -231,14 +231,14 @@
 
          IF( ABSTOL.LE.ZERO ) THEN
             ATOLI = ULP*TNORM
-         ELSE
+         } else {
             ATOLI = ABSTOL
          END IF
 
          IF( IRANGE.EQ.2 ) THEN
             WL = VL
             WU = VU
-         ELSE
+         } else {
             WL = ZERO
             WU = ZERO
          END IF
@@ -269,7 +269,7 @@
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
             END IF
-         ELSE
+         } else {
 
             // General Case -- IN > 1
 
@@ -297,7 +297,7 @@
 
             IF( ABSTOL.LE.ZERO ) THEN
                ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) )
-            ELSE
+            } else {
                ATOLI = ABSTOL
             END IF
 
@@ -337,7 +337,7 @@
                IF( J.GT.IOUT-IINFO ) THEN
                   NCNVRG = .TRUE.
                   IB = -JB
-               ELSE
+               } else {
                   IB = JB
                END IF
                DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
@@ -364,7 +364,7 @@
                   IDISCL = IDISCL - 1
                ELSE IF( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) THEN
                   IDISCU = IDISCU - 1
-               ELSE
+               } else {
                   IM = IM + 1
                   W( IM ) = W( JE )
                   IBLOCK( IM ) = IBLOCK( JE )

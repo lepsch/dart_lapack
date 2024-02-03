@@ -78,7 +78,7 @@
 
             // ============================================================
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -236,7 +236,7 @@
 
          IF( I.LT.M ) THEN
             CALL CLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) )
-         ELSE
+         } else {
             TAU( KK ) = CZERO
          END IF
 
@@ -254,7 +254,7 @@
             TAUNAN = REAL( TAU(KK) )
          ELSE IF( SISNAN( AIMAG( TAU(KK) ) ) ) THEN
             TAUNAN = AIMAG( TAU(KK) )
-         ELSE
+         } else {
             TAUNAN = ZERO
          END IF
 
@@ -317,7 +317,7 @@
                      VN1( J ) = SCNRM2( M-I, A( I+1, J ), 1 )
                      VN2( J ) = VN1( J )
 
-                  ELSE
+                  } else {
 
                      // Update the column 2-norm for the partial
                      // column A(I+1:M,J) by removing one
@@ -353,11 +353,11 @@
 
          IF( K.EQ.0 ) THEN
             RELMAXC2NRMK = ONE
-         ELSE
+         } else {
             RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
          END IF
 
-      ELSE
+      } else {
          MAXC2NRMK = ZERO
          RELMAXC2NRMK = ZERO
       END IF

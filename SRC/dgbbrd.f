@@ -88,7 +88,7 @@
          IF( KU.GT.0 ) THEN
             ML0 = 1
             MU0 = 2
-         ELSE
+         } else {
             ML0 = 2
             MU0 = 1
          END IF
@@ -129,7 +129,7 @@
                DO 10 L = 1, KB
                   IF( J2-KLM+L-1.GT.N ) THEN
                      NRT = NR - 1
-                  ELSE
+                  } else {
                      NRT = NR
                   END IF
                   IF( NRT.GT.0 ) CALL DLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, WORK( MN+J1 ), WORK( J1 ), KB1 )
@@ -194,7 +194,7 @@
                DO 50 L = 1, KB
                   IF( J2+L-1.GT.M ) THEN
                      NRT = NR - 1
-                  ELSE
+                  } else {
                      NRT = NR
                   END IF
                   IF( NRT.GT.0 ) CALL DLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 )
@@ -242,7 +242,7 @@
 
                IF( ML.GT.ML0 ) THEN
                   ML = ML - 1
-               ELSE
+               } else {
                   MU = MU - 1
                END IF
    80       CONTINUE
@@ -287,7 +287,7 @@
                END IF
                IF( WANTPT ) CALL DROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, RS )
   110       CONTINUE
-         ELSE
+         } else {
 
             // Copy off-diagonal elements to E and diagonal elements to D
 
@@ -298,7 +298,7 @@
                D( I ) = AB( KU+1, I )
   130       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // A is diagonal. Set elements of E to zero and copy diagonal
          // elements to D.

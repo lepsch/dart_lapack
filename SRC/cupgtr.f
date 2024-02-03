@@ -80,7 +80,7 @@
 
          CALL CUNG2L( N-1, N-1, N-1, Q, LDQ, TAU, WORK, IINFO )
 
-      ELSE
+      } else {
 
          // Q was determined by a call to CHPTRD with UPLO = 'L'.
 

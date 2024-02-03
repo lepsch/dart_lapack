@@ -44,7 +44,7 @@
       IF( UPPER ) THEN
           DPOS    = 2 * NB + 1
           OFDPOS  = 2 * NB
-      ELSE
+      } else {
           DPOS    = 1
           OFDPOS  = 2
       ENDIF
@@ -57,7 +57,7 @@
           IF( WANTZ ) THEN
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
-          ELSE
+          } else {
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           ENDIF
@@ -95,7 +95,7 @@
                   IF( WANTZ ) THEN
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
-                  ELSE
+                  } else {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
                   ENDIF
@@ -115,12 +115,12 @@
 
       // Lower case
 
-      ELSE
+      } else {
 
           IF( WANTZ ) THEN
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
-          ELSE
+          } else {
               VPOS   = MOD( SWEEP-1, 2 ) * N + ST
               TAUPOS = MOD( SWEEP-1, 2 ) * N + ST
           ENDIF
@@ -160,7 +160,7 @@
                   IF( WANTZ ) THEN
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
-                  ELSE
+                  } else {
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
                       TAUPOS = MOD( SWEEP-1, 2 ) * N + J1
                   ENDIF

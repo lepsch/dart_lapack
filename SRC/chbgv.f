@@ -79,7 +79,7 @@
 
       IF( WANTZ ) THEN
          VECT = 'U'
-      ELSE
+      } else {
          VECT = 'N'
       END IF
       CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
@@ -88,7 +88,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO )
       END IF
       RETURN

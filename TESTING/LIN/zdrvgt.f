@@ -118,7 +118,7 @@
                   CALL ZCOPY( N-1, AF( 3 ), 3, A( N+M+1 ), 1 )
                END IF
                CALL ZCOPY( N, AF( 2 ), 3, A( M+1 ), 1 )
-            ELSE
+            } else {
 
                // Types 7-12:  generate tridiagonal matrices with
                // unknown condition numbers.
@@ -140,7 +140,7 @@
                   ELSE IF( IZERO.EQ.N ) THEN
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
-                  ELSE
+                  } else {
                      A( 2*N-2+IZERO ) = Z( 1 )
                      A( N-1+IZERO ) = Z( 2 )
                      A( IZERO ) = Z( 3 )
@@ -165,7 +165,7 @@
                   Z( 2 ) = DBLE( A( 2*N-1 ) )
                   A( 3*N-2 ) = ZERO
                   A( 2*N-1 ) = ZERO
-               ELSE
+               } else {
                   IZERO = ( N+1 ) / 2
                   DO 20 I = IZERO, N - 1
                      A( 2*N-2+I ) = ZERO
@@ -180,7 +180,7 @@
             DO 120 IFACT = 1, 2
                IF( IFACT.EQ.1 ) THEN
                   FACT = 'F'
-               ELSE
+               } else {
                   FACT = 'N'
                END IF
 
@@ -221,7 +221,7 @@
 
                   IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDO = ONE
-                  ELSE
+                  } else {
                      RCONDO = ( ONE / ANORMO ) / AINVNM
                   END IF
 
@@ -242,7 +242,7 @@
 
                   IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDI = ONE
-                  ELSE
+                  } else {
                      RCONDI = ( ONE / ANORMI ) / AINVNM
                   END IF
                END IF
@@ -251,7 +251,7 @@
                   TRANS = TRANSS( ITRAN )
                   IF( ITRAN.EQ.1 ) THEN
                      RCONDC = RCONDO
-                  ELSE
+                  } else {
                      RCONDC = RCONDI
                   END IF
 
@@ -337,7 +337,7 @@
 
                      CALL ZGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
                      K1 = 1
-                  ELSE
+                  } else {
                      K1 = 2
                   END IF
 

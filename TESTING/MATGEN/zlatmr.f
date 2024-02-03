@@ -69,7 +69,7 @@
          IDIST = 3
       ELSE IF( LSAME( DIST, 'D' ) ) THEN
          IDIST = 4
-      ELSE
+      } else {
          IDIST = -1
       END IF
 
@@ -81,7 +81,7 @@
          ISYM = 1
       ELSE IF( LSAME( SYM, 'S' ) ) THEN
          ISYM = 2
-      ELSE
+      } else {
          ISYM = -1
       END IF
 
@@ -91,7 +91,7 @@
          IRSIGN = 0
       ELSE IF( LSAME( RSIGN, 'T' ) ) THEN
          IRSIGN = 1
-      ELSE
+      } else {
          IRSIGN = -1
       END IF
 
@@ -113,7 +113,7 @@
       ELSE IF( LSAME( PIVTNG, 'F' ) ) THEN
          IPVTNG = 3
          NPVTS = MIN( N, M )
-      ELSE
+      } else {
          IPVTNG = -1
       END IF
 
@@ -133,7 +133,7 @@
          IGRADE = 5
       ELSE IF( LSAME( GRADE, 'S' ) ) THEN
          IGRADE = 6
-      ELSE
+      } else {
          IGRADE = -1
       END IF
 
@@ -155,7 +155,7 @@
          IPACK = 6
       ELSE IF( LSAME( PACK, 'Z' ) ) THEN
          IPACK = 7
-      ELSE
+      } else {
          IPACK = -1
       END IF
 
@@ -270,7 +270,7 @@
          END IF
          IF( TEMP.NE.ZERO ) THEN
             CALPHA = DMAX / TEMP
-         ELSE
+         } else {
             CALPHA = CONE
          END IF
          DO 50 I = 1, MNMIN
@@ -320,7 +320,7 @@
                IWORK( I ) = IWORK( K )
                IWORK( K ) = J
    80       CONTINUE
-         ELSE
+         } else {
             DO 90 I = NPVTS, 1, -1
                K = IPIVOT( I )
                J = IWORK( I )
@@ -375,7 +375,7 @@
                   MXSUB = MAX( ISUB, JSUB )
                   IF( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) THEN
                      A( MNSUB, MXSUB ) = DCONJG( CTEMP )
-                  ELSE
+                  } else {
                      A( MNSUB, MXSUB ) = CTEMP
                   END IF
                   IF( MNSUB.NE.MXSUB ) A( MXSUB, MNSUB ) = CZERO
@@ -391,7 +391,7 @@
                   MXSUB = MAX( ISUB, JSUB )
                   IF( MXSUB.EQ.JSUB .AND. ISYM.EQ.0 ) THEN
                      A( MXSUB, MNSUB ) = DCONJG( CTEMP )
-                  ELSE
+                  } else {
                      A( MXSUB, MNSUB ) = CTEMP
                   END IF
                   IF( MNSUB.NE.MXSUB ) A( MNSUB, MXSUB ) = CZERO
@@ -418,7 +418,7 @@
 
                   IF( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) THEN
                      A( IISUB, JJSUB ) = DCONJG( CTEMP )
-                  ELSE
+                  } else {
                      A( IISUB, JJSUB ) = CTEMP
                   END IF
   200          CONTINUE
@@ -436,7 +436,7 @@
                   MXSUB = MAX( ISUB, JSUB )
                   IF( MNSUB.EQ.1 ) THEN
                      K = MXSUB
-                  ELSE
+                  } else {
                      K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
                   END IF
 
@@ -447,7 +447,7 @@
 
                   IF( MXSUB.EQ.JSUB .AND. ISYM.EQ.0 ) THEN
                      A( IISUB, JJSUB ) = DCONJG( CTEMP )
-                  ELSE
+                  } else {
                      A( IISUB, JJSUB ) = CTEMP
                   END IF
   220          CONTINUE
@@ -459,13 +459,13 @@
                DO 240 I = J - KUU, J
                   IF( I.LT.1 ) THEN
                      A( J-I+1, I+N ) = CZERO
-                  ELSE
+                  } else {
                      CTEMP = ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      IF( MXSUB.EQ.JSUB .AND. ISYM.EQ.0 ) THEN
                         A( MXSUB-MNSUB+1, MNSUB ) = DCONJG( CTEMP )
-                     ELSE
+                     } else {
                         A( MXSUB-MNSUB+1, MNSUB ) = CTEMP
                      END IF
                   END IF
@@ -481,7 +481,7 @@
                   MXSUB = MAX( ISUB, JSUB )
                   IF( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) THEN
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = DCONJG( CTEMP )
-                  ELSE
+                  } else {
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = CTEMP
                   END IF
   260          CONTINUE
@@ -498,13 +498,13 @@
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = CZERO
                      IF( MXSUB.EQ.ISUB .AND. ISYM.EQ.0 ) THEN
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = DCONJG( CTEMP )
-                     ELSE
+                     } else {
                         A( MNSUB-MXSUB+KUU+1, MXSUB ) = CTEMP
                      END IF
                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) THEN
                         IF( MNSUB.EQ.ISUB .AND. ISYM.EQ.0 ) THEN
                            A( MXSUB-MNSUB+1+KUU, MNSUB ) = DCONJG( CTEMP )
-                        ELSE
+                        } else {
                            A( MXSUB-MNSUB+1+KUU, MNSUB ) = CTEMP
                         END IF
                      END IF
@@ -521,7 +521,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Use ZLATM2
 
@@ -562,7 +562,7 @@
                DO 400 I = 1, J
                   IF( ISYM.EQ.0 ) THEN
                      A( J, I ) = DCONJG( ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) )
-                  ELSE
+                  } else {
                      A( J, I ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   END IF
                   IF( I.NE.J ) A( I, J ) = CZERO
@@ -594,7 +594,7 @@
 
                      IF( I.EQ.1 ) THEN
                         K = J
-                     ELSE
+                     } else {
                         K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
                      END IF
 
@@ -607,7 +607,7 @@
                      IF( ISYM.EQ.0 ) A( ISUB, JSUB ) = DCONJG( A( ISUB, JSUB ) )
   440             CONTINUE
   450          CONTINUE
-            ELSE
+            } else {
                ISUB = 0
                JSUB = 1
                DO 470 J = 1, N
@@ -628,10 +628,10 @@
                DO 480 I = J - KUU, J
                   IF( I.LT.1 ) THEN
                      A( J-I+1, I+N ) = CZERO
-                  ELSE
+                  } else {
                      IF( ISYM.EQ.0 ) THEN
                         A( J-I+1, I ) = DCONJG( ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE ) )
-                     ELSE
+                     } else {
                         A( J-I+1, I ) = ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      END IF
                   END IF
@@ -656,7 +656,7 @@
                      IF( I.GE.1 .AND. I.NE.J ) THEN
                         IF( ISYM.EQ.0 ) THEN
                            A( J-I+1+KUU, I ) = DCONJG( A( I-J+KUU+1, J ) )
-                        ELSE
+                        } else {
                            A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
                         END IF
                      END IF
@@ -727,7 +727,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // Scale straightforwardly
 

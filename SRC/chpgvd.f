@@ -58,12 +58,12 @@
             LWMIN = 1
             LIWMIN = 1
             LRWMIN = 1
-         ELSE
+         } else {
             IF( WANTZ ) THEN
                LWMIN = 2*N
                LRWMIN = 1 + 5*N + 2*N**2
                LIWMIN = 3 + 5*N
-            ELSE
+            } else {
                LWMIN = N
                LRWMIN = N
                LIWMIN = 1
@@ -122,7 +122,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'C'
             END IF
 
@@ -137,7 +137,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'C'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

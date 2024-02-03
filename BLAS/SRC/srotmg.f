@@ -36,7 +36,7 @@
          SD1 = ZERO
          SD2 = ZERO
          SX1 = ZERO
-      ELSE
+      } else {
          // CASE-SD1-NONNEGATIVE
          SP2 = SD2*SY1
          IF (SP2.EQ.ZERO) THEN
@@ -60,7 +60,7 @@
              SD1 = SD1/SU
              SD2 = SD2/SU
              SX1 = SX1*SU
-           ELSE
+           } else {
              // This code path if here for safety. We do not expect this
              // condition to ever hold except in edge cases with rounding
              // errors. See DOI: 10.1145/355841.355847
@@ -74,7 +74,7 @@
              SD2 = ZERO
              SX1 = ZERO
            END IF
-         ELSE
+         } else {
 
             IF (SQ2.LT.ZERO) THEN
                // GO ZERO-H-D-AND-SX1..
@@ -87,7 +87,7 @@
                SD1 = ZERO
                SD2 = ZERO
                SX1 = ZERO
-            ELSE
+            } else {
                SFLAG = ONE
                SH11 = SP1/SP2
                SH22 = SX1/SY1
@@ -106,7 +106,7 @@
                   SH11 = ONE
                   SH22 = ONE
                   SFLAG = -ONE
-               ELSE
+               } else {
                   SH21 = -ONE
                   SH12 = ONE
                   SFLAG = -ONE
@@ -116,7 +116,7 @@
                   SX1 = SX1/GAM
                   SH11 = SH11/GAM
                   SH12 = SH12/GAM
-               ELSE
+               } else {
                   SD1 = SD1/GAM**2
                   SX1 = SX1*GAM
                   SH11 = SH11*GAM
@@ -131,7 +131,7 @@
                   SH11 = ONE
                   SH22 = ONE
                   SFLAG = -ONE
-               ELSE
+               } else {
                   SH21 = -ONE
                   SH12 = ONE
                   SFLAG = -ONE
@@ -140,7 +140,7 @@
                   SD2 = SD2*GAM**2
                   SH21 = SH21/GAM
                   SH22 = SH22/GAM
-               ELSE
+               } else {
                   SD2 = SD2/GAM**2
                   SH21 = SH21*GAM
                   SH22 = SH22*GAM
@@ -158,7 +158,7 @@
       ELSE IF (SFLAG.EQ.ZERO) THEN
          SPARAM(3) = SH21
          SPARAM(4) = SH12
-      ELSE
+      } else {
          SPARAM(2) = SH11
          SPARAM(5) = SH22
       END IF

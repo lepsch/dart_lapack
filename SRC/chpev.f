@@ -103,7 +103,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          INDWRK = INDTAU + N
          CALL CUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
          INDRWK = INDE + N
@@ -115,7 +115,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

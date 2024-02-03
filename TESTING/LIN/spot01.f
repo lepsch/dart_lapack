@@ -70,7 +70,7 @@
 
       // Compute the product L * L**T, overwriting L.
 
-      ELSE
+      } else {
          DO 20 K = N, 1, -1
 
             // Add a multiple of column K of the factor L to each of
@@ -94,7 +94,7 @@
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    30       CONTINUE
    40    CONTINUE
-      ELSE
+      } else {
          DO 60 J = 1, N
             DO 50 I = J, N
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )

@@ -64,11 +64,11 @@
                CALL ZSWAP( M, A( 1, I ), 1, A( 1, ITEMP ), 1 )
                JPVT( I ) = JPVT( ITEMP )
                JPVT( ITEMP ) = I
-            ELSE
+            } else {
                JPVT( I ) = I
             END IF
             ITEMP = ITEMP + 1
-         ELSE
+         } else {
             JPVT( I ) = I
          END IF
    10 CONTINUE
@@ -142,11 +142,11 @@
                      IF( M-I.GT.0 ) THEN
                         RWORK( J ) = DZNRM2( M-I, A( I+1, J ), 1 )
                         RWORK( N+J ) = RWORK( J )
-                     ELSE
+                     } else {
                         RWORK( J ) = ZERO
                         RWORK( N+J ) = ZERO
                      END IF
-                  ELSE
+                  } else {
                      RWORK( J ) = RWORK( J )*SQRT( TEMP )
                   END IF
                END IF

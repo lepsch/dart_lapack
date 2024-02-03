@@ -52,7 +52,7 @@
          INFO = -7
       ELSE IF( LDT.LT.MAX( 1, MIN( NB2, N ) ) ) THEN
          INFO = -9
-      ELSE
+      } else {
 
          // Test the input LWORK for the dimension of the array WORK.
          // This workspace is used to store array:
@@ -63,7 +63,7 @@
 
          IF( LWORK.LT.N*N+1 .AND. .NOT.LQUERY ) THEN
             INFO = -11
-         ELSE
+         } else {
 
             // Set block size for column blocks
 
@@ -157,7 +157,7 @@
             DO J = I, N
                A( I, J ) = -ONE * WORK( LWT+N*(J-1)+I )
             END DO
-         ELSE
+         } else {
             CALL SCOPY( N-I+1, WORK(LWT+N*(I-1)+I), N, A( I, I ), LDA )
          END IF
       END DO

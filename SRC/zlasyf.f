@@ -89,7 +89,7 @@
          IF( K.GT.1 ) THEN
             IMAX = IZAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = CABS1( W( IMAX, KW ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -99,13 +99,13 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-         ELSE
+         } else {
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
 
                // no interchange, use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                // Copy column IMAX to column KW-1 of W and update it
 
@@ -137,7 +137,7 @@
                   // copy column KW-1 of W to column KW of W
 
                   CALL ZCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
-               ELSE
+               } else {
 
                   // interchange rows and columns K-1 and IMAX, use 2-by-2
                   // pivot block
@@ -198,7 +198,7 @@
                R1 = CONE / A( K, K )
                CALL ZSCAL( K-1, R1, A( 1, K ), 1 )
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns kw and kw-1 of W now hold
 
@@ -272,7 +272,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
          END IF
@@ -330,7 +330,7 @@
 
          KB = N - K
 
-      ELSE
+      } else {
 
          // Factorize the leading columns of A using the lower triangle
          // of A and working forwards, and compute the matrix W = L21*D
@@ -363,7 +363,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + IZAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -373,13 +373,13 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-         ELSE
+         } else {
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
 
                // no interchange, use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                // Copy column IMAX to column K+1 of W and update it
 
@@ -411,7 +411,7 @@
                   // copy column K+1 of W to column K of W
 
                   CALL ZCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
-               ELSE
+               } else {
 
                   // interchange rows and columns K+1 and IMAX, use 2-by-2
                   // pivot block
@@ -470,7 +470,7 @@
                   CALL ZSCAL( N-K, R1, A( K+1, K ), 1 )
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 of W now hold
 
@@ -544,7 +544,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
          END IF

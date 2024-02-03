@@ -92,7 +92,7 @@
                           IF (NOUNIT) X(J) = X(J)*A(KPLUS1,J)
                       END IF
    20             CONTINUE
-              ELSE
+              } else {
                   JX = KX
                   DO 40 J = 1,N
                       IF (X(JX).NE.ZERO) THEN
@@ -109,7 +109,7 @@
                       IF (J.GT.K) KX = KX + INCX
    40             CONTINUE
               END IF
-          ELSE
+          } else {
               IF (INCX.EQ.1) THEN
                   DO 60 J = N,1,-1
                       IF (X(J).NE.ZERO) THEN
@@ -121,7 +121,7 @@
                           IF (NOUNIT) X(J) = X(J)*A(1,J)
                       END IF
    60             CONTINUE
-              ELSE
+              } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 80 J = N,1,-1
@@ -140,7 +140,7 @@
    80             CONTINUE
               END IF
           END IF
-      ELSE
+      } else {
 
          // Form  x := A**T*x.
 
@@ -156,7 +156,7 @@
    90                 CONTINUE
                       X(J) = TEMP
   100             CONTINUE
-              ELSE
+              } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 120 J = N,1,-1
@@ -173,7 +173,7 @@
                       JX = JX - INCX
   120             CONTINUE
               END IF
-          ELSE
+          } else {
               IF (INCX.EQ.1) THEN
                   DO 140 J = 1,N
                       TEMP = X(J)
@@ -184,7 +184,7 @@
   130                 CONTINUE
                       X(J) = TEMP
   140             CONTINUE
-              ELSE
+              } else {
                   JX = KX
                   DO 160 J = 1,N
                       TEMP = X(JX)

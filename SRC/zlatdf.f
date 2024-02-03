@@ -69,7 +69,7 @@
                RHS( J ) = BP
             ELSE IF( SMINU.GT.SPLUS ) THEN
                RHS( J ) = BM
-            ELSE
+            } else {
 
                // In this case the updating sums are equal and we can
                // choose RHS(J) +1 or -1. The first time this happens we

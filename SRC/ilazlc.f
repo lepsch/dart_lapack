@@ -27,7 +27,7 @@
          ILAZLC = N
       ELSE IF( A(1, N).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
          ILAZLC = N
-      ELSE
+      } else {
       // Now scan each column from the end, returning with the first non-zero.
          DO ILAZLC = N, 1, -1
             DO I = 1, M

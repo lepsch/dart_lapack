@@ -171,7 +171,7 @@
       IF(SAWNAN1.AND.SAWNAN2) THEN
          // both MAX1 and MAX2 are NaN
          GOTO 50
-      ELSE
+      } else {
          IF( .NOT.SAWNAN1 ) THEN
             INDX = 1
             IF(MAX1.LE.SMLGROWTH) THEN
@@ -195,7 +195,7 @@
       // Moreover, we use the refined RRR test only for isolated clusters.
       IF((CLWDTH.LT.MINGAP/REAL(128)) .AND. (MIN(MAX1,MAX2).LT.FAIL2) .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) THEN
          DORRR1 = .TRUE.
-      ELSE
+      } else {
          DORRR1 = .FALSE.
       ENDIF
       TRYRRR1 = .TRUE.
@@ -208,7 +208,7 @@
          DO 15 I = N-1, 1, -1
             IF( PROD .LE. EPS ) THEN
                PROD = ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP
-            ELSE
+            } else {
                PROD = PROD*ABS(WORK(N+I))
             END IF
             OLDP = PROD
@@ -229,7 +229,7 @@
          DO 16 I = N-1, 1, -1
             IF( PROD .LE. EPS ) THEN
                PROD = ((WORK(I+1)*LPLUS(I+1))/(WORK(I)*LPLUS(I)))*OLDP
-            ELSE
+            } else {
                PROD = PROD*ABS(LPLUS(I))
             END IF
             OLDP = PROD
@@ -255,7 +255,7 @@
          RDELTA = TWO * RDELTA
          KTRY = KTRY + 1
          GOTO 5
-      ELSE
+      } else {
          // None of the representations investigated satisfied our
          // criteria. Take the best one we found.
          IF((SMLGROWTH.LT.FAIL).OR.NOFAIL) THEN
@@ -263,7 +263,7 @@
             RSIGMA = BESTSHIFT
             FORCER = .TRUE.
             GOTO 5
-         ELSE
+         } else {
             INFO = 1
             RETURN
          ENDIF

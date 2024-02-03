@@ -55,7 +55,7 @@
          ITYPE = 5
       ELSE IF( LSAME( TYPE, 'Z' ) ) THEN
          ITYPE = 6
-      ELSE
+      } else {
          ITYPE = -1
       END IF
 
@@ -106,7 +106,7 @@
          MUL = CTOC / CFROMC
          DONE = .TRUE.
          CTO1 = CTOC
-      ELSE
+      } else {
          CTO1 = CTOC / BIGNUM
          IF( CTO1.EQ.CTOC ) THEN
             // CTOC is either 0 or an inf.  In both cases, CTOC itself
@@ -122,7 +122,7 @@
             MUL = BIGNUM
             DONE = .FALSE.
             CTOC = CTO1
-         ELSE
+         } else {
             MUL = CTOC / CFROMC
             DONE = .TRUE.
             IF (MUL .EQ. ONE) RETURN

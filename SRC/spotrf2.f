@@ -71,7 +71,7 @@
 
       // Use recursive code
 
-      ELSE
+      } else {
          N1 = N/2
          N2 = N-N1
 
@@ -102,7 +102,7 @@
 
          // Compute the Cholesky factorization A = L*L**T
 
-         ELSE
+         } else {
 
             // Update and scale A21
 

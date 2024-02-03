@@ -88,7 +88,7 @@
       IF( NOTRAN ) THEN
          TRANSN = 'N'
          TRANST = 'C'
-      ELSE
+      } else {
          TRANSN = 'C'
          TRANST = 'N'
       END IF
@@ -123,17 +123,17 @@
          IF( NOTRAN ) THEN
             IF( N.EQ.1 ) THEN
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) )
-            ELSE
+            } else {
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) )
                DO 30 I = 2, N - 1
                   RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) )
    30          CONTINUE
                RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
             END IF
-         ELSE
+         } else {
             IF( N.EQ.1 ) THEN
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) )
-            ELSE
+            } else {
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) )
                DO 40 I = 2, N - 1
                   RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) )
@@ -155,7 +155,7 @@
          DO 50 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    50    CONTINUE
@@ -203,7 +203,7 @@
          DO 60 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
-            ELSE
+            } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    60    CONTINUE
@@ -220,7 +220,7 @@
                DO 80 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
    80          CONTINUE
-            ELSE
+            } else {
 
                // Multiply by inv(op(A))*diag(W).
 

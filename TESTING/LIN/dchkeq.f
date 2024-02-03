@@ -61,7 +61,7 @@
                DO 30 I = 1, NSZ
                   IF( I.LE.M .AND. J.LE.N ) THEN
                      A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
-                  ELSE
+                  } else {
                      A( I, J ) = ZERO
                   END IF
    30          CONTINUE
@@ -71,7 +71,7 @@
 
             IF( INFO.NE.0 ) THEN
                RESLTS( 1 ) = ONE
-            ELSE
+            } else {
                IF( N.NE.0 .AND. M.NE.0 ) THEN
                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( RCOND-RPOW( M ) ) / RPOW( M ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( CCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+ 1 ) ) )
                   DO 50 I = 1, M
@@ -129,7 +129,7 @@
                      IF( .NOT.( ( N+KL.LT.M .AND. INFO.EQ.N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO.EQ.2*M+KU+1 ) ) ) THEN
                         RESLTS( 2 ) = ONE
                      END IF
-                  ELSE
+                  } else {
                      IF( N.NE.0 .AND. M.NE.0 ) THEN
 
                         RCMIN = R( 1 )
@@ -189,7 +189,7 @@
             DO 260 J = 1, NSZ
                IF( I.LE.N .AND. J.EQ.I ) THEN
                   A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
-               ELSE
+               } else {
                   A( I, J ) = ZERO
                END IF
   260       CONTINUE
@@ -199,7 +199,7 @@
 
          IF( INFO.NE.0 ) THEN
             RESLTS( 3 ) = ONE
-         ELSE
+         } else {
             IF( N.NE.0 ) THEN
                RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 3 ) = MAX( RESLTS( 3 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                DO 280 I = 1, N
@@ -230,7 +230,7 @@
 
          IF( INFO.NE.0 ) THEN
             RESLTS( 4 ) = ONE
-         ELSE
+         } else {
             IF( N.NE.0 ) THEN
                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                DO 320 I = 1, N
@@ -254,7 +254,7 @@
 
          IF( INFO.NE.0 ) THEN
             RESLTS( 4 ) = ONE
-         ELSE
+         } else {
             IF( N.NE.0 ) THEN
                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                RESLTS( 4 ) = MAX( RESLTS( 4 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                DO 350 I = 1, N
@@ -290,7 +290,7 @@
 
             IF( INFO.NE.0 ) THEN
                RESLTS( 5 ) = ONE
-            ELSE
+            } else {
                IF( N.NE.0 ) THEN
                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                   DO 400 I = 1, N
@@ -319,7 +319,7 @@
 
             IF( INFO.NE.0 ) THEN
                RESLTS( 5 ) = ONE
-            ELSE
+            } else {
                IF( N.NE.0 ) THEN
                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( RCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 5 ) = MAX( RESLTS( 5 ), ABS( ( NORM-POW( 2*N+1 ) ) / POW( 2*N+ 1 ) ) )
                   DO 440 I = 1, N
@@ -339,7 +339,7 @@
       WRITE( NOUT, FMT = * )
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH
-      ELSE
+      } else {
          IF( RESLTS( 1 ).GT.THRESH ) WRITE( NOUT, FMT = 9998 )RESLTS( 1 ), THRESH          IF( RESLTS( 2 ).GT.THRESH ) WRITE( NOUT, FMT = 9997 )RESLTS( 2 ), THRESH          IF( RESLTS( 3 ).GT.THRESH ) WRITE( NOUT, FMT = 9996 )RESLTS( 3 ), THRESH          IF( RESLTS( 4 ).GT.THRESH ) WRITE( NOUT, FMT = 9995 )RESLTS( 4 ), THRESH          IF( RESLTS( 5 ).GT.THRESH ) WRITE( NOUT, FMT = 9994 )RESLTS( 5 ), THRESH
       END IF
  9999 FORMAT( 1X, 'All tests for ', A3,

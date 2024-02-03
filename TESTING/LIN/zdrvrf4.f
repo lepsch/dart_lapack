@@ -98,7 +98,7 @@
                         ELSE IF ( IALPHA.EQ. 3) THEN
                            ALPHA = ZERO
                            BETA = ONE
-                        ELSE
+                        } else {
                            ALPHA = DLARND( 2, ISEED )
                            BETA = DLARND( 2, ISEED )
                         END IF
@@ -122,7 +122,7 @@
 
                            NORMA = ZLANGE( 'I', N, K, A, LDA, D_WORK_ZLANGE )
 
-                        ELSE
+                        } else {
 
                            // In this case we are TRANS, so A is K-by-N
 
@@ -207,7 +207,7 @@
 
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'ZHFRK', NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9995 ) 'ZHFRK', NFAIL, NRUN
       END IF
 

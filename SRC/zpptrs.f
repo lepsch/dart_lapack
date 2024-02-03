@@ -66,7 +66,7 @@
 
             CALL ZTPSV( 'Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
    10    CONTINUE
-      ELSE
+      } else {
 
          // Solve A*X = B where A = L * L**H.
 

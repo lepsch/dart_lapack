@@ -43,7 +43,7 @@
             SY(I+2) = SY(I+2) + SA*SX(I+2)
             SY(I+3) = SY(I+3) + SA*SX(I+3)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

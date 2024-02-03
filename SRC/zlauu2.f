@@ -67,12 +67,12 @@
                CALL ZLACGV( N-I, A( I, I+1 ), LDA )
                CALL ZGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, DCMPLX( AII ), A( 1, I ), 1 )
                CALL ZLACGV( N-I, A( I, I+1 ), LDA )
-            ELSE
+            } else {
                CALL ZDSCAL( I, AII, A( 1, I ), 1 )
             END IF
    10    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute the product L**H * L.
 
@@ -83,7 +83,7 @@
                CALL ZLACGV( I-1, A( I, 1 ), LDA )
                CALL ZGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, DCMPLX( AII ), A( I, 1 ), LDA )
                CALL ZLACGV( I-1, A( I, 1 ), LDA )
-            ELSE
+            } else {
                CALL ZDSCAL( I, AII, A( I, 1 ), LDA )
             END IF
    20    CONTINUE

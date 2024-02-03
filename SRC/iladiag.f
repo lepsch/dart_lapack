@@ -23,7 +23,7 @@
          ILADIAG = BLAS_NON_UNIT_DIAG
       ELSE IF( LSAME( DIAG, 'U' ) ) THEN
          ILADIAG = BLAS_UNIT_DIAG
-      ELSE
+      } else {
          ILADIAG = -1
       END IF
       RETURN

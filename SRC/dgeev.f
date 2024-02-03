@@ -77,7 +77,7 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
             IF( WANTVL ) THEN
                MINWRK = 4*N
@@ -97,7 +97,7 @@
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                MAXWRK = MAX( MAXWRK, 4*N )
-            ELSE
+            } else {
                MINWRK = 3*N
                CALL DHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                HSWORK = INT( WORK(1) )
@@ -204,7 +204,7 @@
          IWRK = ITAU
          CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 
-      ELSE
+      } else {
 
          // Compute eigenvalues only
          // (Workspace: need N+1, prefer N+HSWORK (see comments) )

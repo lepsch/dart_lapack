@@ -74,7 +74,7 @@
                CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    40       CONTINUE
-         ELSE
+         } else {
 
             // B is lower bidiagonal.
 
@@ -88,7 +88,7 @@
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    60       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // B is diagonal.
 
@@ -101,7 +101,7 @@
                CALL DGEMV( 'No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    80       CONTINUE
-         ELSE
+         } else {
             DO 100 J = 1, N
                CALL DCOPY( M, A( 1, J ), 1, WORK, 1 )
                DO 90 I = 1, M
@@ -120,13 +120,13 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          IF( ANORM.GE.RESID ) THEN
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )
-         ELSE
+         } else {
             IF( ANORM.LT.ONE ) THEN
                RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS )
-            ELSE
+            } else {
                RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF

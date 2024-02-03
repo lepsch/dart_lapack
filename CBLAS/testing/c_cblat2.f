@@ -283,7 +283,7 @@
          IF( .NOT.LTEST( ISNUM ) )THEN
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9983 )SNAMES( ISNUM )
-         ELSE
+         } else {
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             IF( TSTERR )THEN
@@ -473,21 +473,21 @@
 
             IF( BANDED )THEN
                NK = NKB
-            ELSE
+            } else {
                NK = 1
             END IF
             DO 100 IKU = 1, NK
                IF( BANDED )THEN
                   KU = KB( IKU )
                   KL = MAX( KU - 1, 0 )
-               ELSE
+               } else {
                   KU = N - 1
                   KL = M - 1
                END IF
                // Set LDA to 1 more than minimum value if room.
                IF( BANDED )THEN
                   LDA = KL + KU + 1
-               ELSE
+               } else {
                   LDA = M
                END IF
                IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -507,7 +507,7 @@
                      CTRANS = '  CblasNoTrans'
                   ELSE IF (TRANS.EQ.'T')THEN
                      CTRANS = '    CblasTrans'
-                  ELSE
+                  } else {
                      CTRANS = 'CblasConjTrans'
                   END IF
                   TRAN = TRANS.EQ.'T'.OR.TRANS.EQ.'C'
@@ -515,7 +515,7 @@
                   IF( TRAN )THEN
                      ML = N
                      NL = M
-                  ELSE
+                  } else {
                      ML = M
                      NL = N
                   END IF
@@ -606,7 +606,7 @@
                                  ISAME( 9 ) = BLS.EQ.BETA
                                  IF( NULL )THEN
                                     ISAME( 10 ) = LCE( YS, YY, LY )
-                                 ELSE
+                                 } else {
                                     ISAME( 10 ) = LCERES( 'ge', ' ', 1, ML, YS, YY, ABS( INCY ) )
                                  END IF
                                  ISAME( 11 ) = INCYS.EQ.INCY
@@ -621,7 +621,7 @@
                                  ISAME( 11 ) = BLS.EQ.BETA
                                  IF( NULL )THEN
                                     ISAME( 12 ) = LCE( YS, YY, LY )
-                                 ELSE
+                                 } else {
                                     ISAME( 12 ) = LCERES( 'ge', ' ', 1, ML, YS, YY, ABS( INCY ) )
                                  END IF
                                  ISAME( 13 ) = INCYS.EQ.INCY
@@ -649,7 +649,7 @@
                                  // If got really bad answer, report and
                                  // return.
                                  IF( FATAL ) GO TO 130
-                              ELSE
+                              } else {
                                  // Avoid repeating tests with M.le.0 or
                                  // N.le.0.
                                  GO TO 110
@@ -676,7 +676,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 140
@@ -782,19 +782,19 @@
 
          IF( BANDED )THEN
             NK = NKB
-         ELSE
+         } else {
             NK = 1
          END IF
          DO 100 IK = 1, NK
             IF( BANDED )THEN
                K = KB( IK )
-            ELSE
+            } else {
                K = N - 1
             END IF
             // Set LDA to 1 more than minimum value if room.
             IF( BANDED )THEN
                LDA = K + 1
-            ELSE
+            } else {
                LDA = N
             END IF
             IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -802,7 +802,7 @@
             IF( LDA.GT.NMAX ) GO TO 100
             IF( PACKED )THEN
                LAA = ( N*( N + 1 ) )/2
-            ELSE
+            } else {
                LAA = LDA*N
             END IF
             NULL = N.LE.0
@@ -811,7 +811,7 @@
                UPLO = ICH( IC: IC )
                IF (UPLO.EQ.'U')THEN
                   CUPLO = '    CblasUpper'
-               ELSE
+               } else {
                   CUPLO = '    CblasLower'
                END IF
 
@@ -904,7 +904,7 @@
                               ISAME( 8 ) = BLS.EQ.BETA
                               IF( NULL )THEN
                                  ISAME( 9 ) = LCE( YS, YY, LY )
-                              ELSE
+                              } else {
                                  ISAME( 9 ) = LCERES( 'ge', ' ', 1, N, YS, YY, ABS( INCY ) )
                               END IF
                               ISAME( 10 ) = INCYS.EQ.INCY
@@ -918,7 +918,7 @@
                               ISAME( 9 ) = BLS.EQ.BETA
                               IF( NULL )THEN
                                  ISAME( 10 ) = LCE( YS, YY, LY )
-                              ELSE
+                              } else {
                                  ISAME( 10 ) = LCERES( 'ge', ' ', 1, N, YS, YY, ABS( INCY ) )
                               END IF
                               ISAME( 11 ) = INCYS.EQ.INCY
@@ -930,7 +930,7 @@
                               ISAME( 7 ) = BLS.EQ.BETA
                               IF( NULL )THEN
                                  ISAME( 8 ) = LCE( YS, YY, LY )
-                              ELSE
+                              } else {
                                  ISAME( 8 ) = LCERES( 'ge', ' ', 1, N, YS, YY, ABS( INCY ) )
                               END IF
                               ISAME( 9 ) = INCYS.EQ.INCY
@@ -958,7 +958,7 @@
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 120
-                           ELSE
+                           } else {
                               // Avoid repeating tests with N.le.0
                               GO TO 110
                            END IF
@@ -981,7 +981,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -1097,19 +1097,19 @@
 
          IF( BANDED )THEN
             NK = NKB
-         ELSE
+         } else {
             NK = 1
          END IF
          DO 100 IK = 1, NK
             IF( BANDED )THEN
                K = KB( IK )
-            ELSE
+            } else {
                K = N - 1
             END IF
             // Set LDA to 1 more than minimum value if room.
             IF( BANDED )THEN
                LDA = K + 1
-            ELSE
+            } else {
                LDA = N
             END IF
             IF( LDA.LT.NMAX ) LDA = LDA + 1
@@ -1117,7 +1117,7 @@
             IF( LDA.GT.NMAX ) GO TO 100
             IF( PACKED )THEN
                LAA = ( N*( N + 1 ) )/2
-            ELSE
+            } else {
                LAA = LDA*N
             END IF
             NULL = N.LE.0
@@ -1126,7 +1126,7 @@
                UPLO = ICHU( ICU: ICU )
                IF (UPLO.EQ.'U')THEN
                   CUPLO = '    CblasUpper'
-               ELSE
+               } else {
                   CUPLO = '    CblasLower'
                END IF
 
@@ -1136,7 +1136,7 @@
                      CTRANS = '  CblasNoTrans'
                   ELSE IF (TRANS.EQ.'T')THEN
                      CTRANS = '    CblasTrans'
-                  ELSE
+                  } else {
                      CTRANS = 'CblasConjTrans'
                   END IF
 
@@ -1144,7 +1144,7 @@
                      DIAG = ICHD( ICD: ICD )
                      IF (DIAG.EQ.'N')THEN
                         CDIAG = '  CblasNonUnit'
-                     ELSE
+                     } else {
                         CDIAG = '     CblasUnit'
                      END IF
 
@@ -1229,7 +1229,7 @@
                            ISAME( 6 ) = LDAS.EQ.LDA
                            IF( NULL )THEN
                               ISAME( 7 ) = LCE( XS, XX, LX )
-                           ELSE
+                           } else {
                               ISAME( 7 ) = LCERES( 'ge', ' ', 1, N, XS, XX, ABS( INCX ) )
                            END IF
                            ISAME( 8 ) = INCXS.EQ.INCX
@@ -1239,7 +1239,7 @@
                            ISAME( 7 ) = LDAS.EQ.LDA
                            IF( NULL )THEN
                               ISAME( 8 ) = LCE( XS, XX, LX )
-                           ELSE
+                           } else {
                               ISAME( 8 ) = LCERES( 'ge', ' ', 1, N, XS, XX, ABS( INCX ) )
                            END IF
                            ISAME( 9 ) = INCXS.EQ.INCX
@@ -1247,7 +1247,7 @@
                            ISAME( 5 ) = LCE( AS, AA, LAA )
                            IF( NULL )THEN
                               ISAME( 6 ) = LCE( XS, XX, LX )
-                           ELSE
+                           } else {
                               ISAME( 6 ) = LCERES( 'ge', ' ', 1, N, XS, XX, ABS( INCX ) )
                            END IF
                            ISAME( 7 ) = INCXS.EQ.INCX
@@ -1284,7 +1284,7 @@
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 120
-                        ELSE
+                        } else {
                            // Avoid repeating tests with N.le.0.
                            GO TO 110
                         END IF
@@ -1305,7 +1305,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -1470,7 +1470,7 @@
                      IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
                      IF( CONJ )THEN
                         IF( REWI ) REWIND NTRA                         CALL CCGERC( IORDER, M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
-                     ELSE
+                     } else {
                         IF( REWI ) REWIND NTRA                         CALL CCGERU( IORDER, M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA )
                      END IF
 
@@ -1493,7 +1493,7 @@
                      ISAME( 7 ) = INCYS.EQ.INCY
                      IF( NULL )THEN
                         ISAME( 8 ) = LCE( AS, AA, LAA )
-                     ELSE
+                     } else {
                         ISAME( 8 ) = LCERES( 'ge', ' ', M, N, AS, AA, LDA )
                      END IF
                      ISAME( 9 ) = LDAS.EQ.LDA
@@ -1518,7 +1518,7 @@
                            DO 50 I = 1, M
                               Z( I ) = X( I )
    50                      CONTINUE
-                        ELSE
+                        } else {
                            DO 60 I = 1, M
                               Z( I ) = X( M - I + 1 )
    60                      CONTINUE
@@ -1526,7 +1526,7 @@
                         DO 70 J = 1, N
                            IF( INCY.GT.0 )THEN
                               W( 1 ) = Y( J )
-                           ELSE
+                           } else {
                               W( 1 ) = Y( N - J + 1 )
                            END IF
                            IF( CONJ ) W( 1 ) = CONJG( W( 1 ) )                            CALL CMVCH( 'N', M, 1, ALPHA, Z, NMAX, W, 1, ONE, A( 1, J ), 1, YT, G, AA( 1 + ( J - 1 )*LDA ), EPS, ERR, FATAL, NOUT, .TRUE. )
@@ -1534,7 +1534,7 @@
                            // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 130
    70                   CONTINUE
-                     ELSE
+                     } else {
                         // Avoid repeating tests with M.le.0 or N.le.0.
                         GO TO 110
                      END IF
@@ -1553,7 +1553,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 150
@@ -1657,7 +1657,7 @@
          IF( LDA.GT.NMAX ) GO TO 100
          IF( PACKED )THEN
             LAA = ( N*( N + 1 ) )/2
-         ELSE
+         } else {
             LAA = LDA*N
          END IF
 
@@ -1665,7 +1665,7 @@
             UPLO = ICH( IC: IC )
             IF (UPLO.EQ.'U')THEN
                CUPLO = '    CblasUpper'
-            ELSE
+            } else {
                CUPLO = '    CblasLower'
             END IF
             UPPER = UPLO.EQ.'U'
@@ -1736,7 +1736,7 @@
                   ISAME( 5 ) = INCXS.EQ.INCX
                   IF( NULL )THEN
                      ISAME( 6 ) = LCE( AS, AA, LAA )
-                  ELSE
+                  } else {
                     ISAME( 6 ) = LCERES( SNAME( 8: 9 ), UPLO, N, N, AS, AA, LDA )
                   END IF
                   IF( .NOT.PACKED )THEN
@@ -1763,7 +1763,7 @@
                         DO 40 I = 1, N
                            Z( I ) = X( I )
    40                   CONTINUE
-                     ELSE
+                     } else {
                         DO 50 I = 1, N
                            Z( I ) = X( N - I + 1 )
    50                   CONTINUE
@@ -1774,7 +1774,7 @@
                         IF( UPPER )THEN
                            JJ = 1
                            LJ = J
-                        ELSE
+                        } else {
                            JJ = J
                            LJ = N - J + 1
                         END IF
@@ -1782,17 +1782,17 @@
                         IF( FULL )THEN
                            IF( UPPER )THEN
                               JA = JA + LDA
-                           ELSE
+                           } else {
                               JA = JA + LDA + 1
                            END IF
-                        ELSE
+                        } else {
                            JA = JA + LJ
                         END IF
                         ERRMAX = MAX( ERRMAX, ERR )
                         // If got really bad answer, report and return.
                         IF( FATAL ) GO TO 110
    60                CONTINUE
-                  ELSE
+                  } else {
                      // Avoid repeating tests if N.le.0.
                      IF( N.LE.0 ) GO TO 100
                   END IF
@@ -1809,7 +1809,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -1919,7 +1919,7 @@
          IF( LDA.GT.NMAX ) GO TO 140
          IF( PACKED )THEN
             LAA = ( N*( N + 1 ) )/2
-         ELSE
+         } else {
             LAA = LDA*N
          END IF
 
@@ -1927,7 +1927,7 @@
             UPLO = ICH( IC: IC )
             IF (UPLO.EQ.'U')THEN
                CUPLO = '    CblasUpper'
-            ELSE
+            } else {
                CUPLO = '    CblasLower'
             END IF
             UPPER = UPLO.EQ.'U'
@@ -2016,7 +2016,7 @@
                      ISAME( 7 ) = INCYS.EQ.INCY
                      IF( NULL )THEN
                         ISAME( 8 ) = LCE( AS, AA, LAA )
-                     ELSE
+                     } else {
                         ISAME( 8 ) = LCERES( SNAME( 8: 9 ), UPLO, N, N, AS, AA, LDA )
                      END IF
                      IF( .NOT.PACKED )THEN
@@ -2043,7 +2043,7 @@
                            DO 50 I = 1, N
                               Z( I, 1 ) = X( I )
    50                      CONTINUE
-                        ELSE
+                        } else {
                            DO 60 I = 1, N
                               Z( I, 1 ) = X( N - I + 1 )
    60                      CONTINUE
@@ -2052,7 +2052,7 @@
                            DO 70 I = 1, N
                               Z( I, 2 ) = Y( I )
    70                      CONTINUE
-                        ELSE
+                        } else {
                            DO 80 I = 1, N
                               Z( I, 2 ) = Y( N - I + 1 )
    80                      CONTINUE
@@ -2064,7 +2064,7 @@
                            IF( UPPER )THEN
                               JJ = 1
                               LJ = J
-                           ELSE
+                           } else {
                               JJ = J
                               LJ = N - J + 1
                            END IF
@@ -2072,17 +2072,17 @@
                            IF( FULL )THEN
                               IF( UPPER )THEN
                                  JA = JA + LDA
-                              ELSE
+                              } else {
                                  JA = JA + LDA + 1
                               END IF
-                           ELSE
+                           } else {
                               JA = JA + LJ
                            END IF
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 150
    90                   CONTINUE
-                     ELSE
+                     } else {
                         // Avoid repeating tests with N.le.0.
                         IF( N.LE.0 ) GO TO 140
                      END IF
@@ -2101,7 +2101,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 170
@@ -2180,21 +2180,21 @@
       IF( TRAN.OR.CTRAN )THEN
          ML = N
          NL = M
-      ELSE
+      } else {
          ML = M
          NL = N
       END IF
       IF( INCX.LT.0 )THEN
          KX = NL
          INCXL = -1
-      ELSE
+      } else {
          KX = 1
          INCXL = 1
       END IF
       IF( INCY.LT.0 )THEN
          KY = ML
          INCYL = -1
-      ELSE
+      } else {
          KY = 1
          INCYL = 1
       END IF
@@ -2219,7 +2219,7 @@
                G( IY ) = G( IY ) + ABS1( A( J, I ) )*ABS1( X( JX ) )
                JX = JX + INCXL
    20       CONTINUE
-         ELSE
+         } else {
             DO 30 J = 1, NL
                YT( IY ) = YT( IY ) + A( I, J )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( I, J ) )*ABS1( X( JX ) )
@@ -2250,7 +2250,7 @@
       DO 70 I = 1, ML
          IF( MV )THEN
             WRITE( NOUT, FMT = 9998 )I, YT( I ), YY( 1 + ( I - 1 )*ABS( INCY ) )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )I, YY( 1 + ( I - 1 )*ABS( INCY ) ), YT( I )
          END IF
    70 CONTINUE
@@ -2329,7 +2329,7 @@
             IF( UPPER )THEN
                IBEG = 1
                IEND = J
-            ELSE
+            } else {
                IBEG = J
                IEND = N
             END IF
@@ -2474,7 +2474,7 @@
          DO 10 I = 1, M
             IF( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN                IF( ( I.LE.J.AND.J - I.LE.KU ).OR. ( I.GE.J.AND.I - J.LE.KL ) )THEN
                   A( I, J ) = CBEG( RESET ) + TRANSL
-               ELSE
+               } else {
                   A( I, J ) = ZERO
                END IF
                IF( I.NE.J )THEN
@@ -2518,13 +2518,13 @@
                IBEG = 1
                IF( UNIT )THEN
                   IEND = J - 1
-               ELSE
+               } else {
                   IEND = J
                END IF
-            ELSE
+            } else {
                IF( UNIT )THEN
                   IBEG = J + 1
-               ELSE
+               } else {
                   IBEG = J
                END IF
                IEND = N
@@ -2550,14 +2550,14 @@
                IBEG = MAX( 1, KL + 2 - J )
                IF( UNIT )THEN
                   IEND = KL
-               ELSE
+               } else {
                   IEND = KL + 1
                END IF
-            ELSE
+            } else {
                KK = 1
                IF( UNIT )THEN
                   IBEG = 2
-               ELSE
+               } else {
                   IBEG = 1
                END IF
                IEND = MIN( KL + 1, 1 + M - J )
@@ -2582,7 +2582,7 @@
             IF( UPPER )THEN
                IBEG = 1
                IEND = J
-            ELSE
+            } else {
                IBEG = J
                IEND = N
             END IF

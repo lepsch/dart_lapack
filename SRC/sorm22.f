@@ -49,7 +49,7 @@
 
       IF( LEFT ) THEN
          NQ = M
-      ELSE
+      } else {
          NQ = N
       END IF
       NW = NQ
@@ -135,7 +135,7 @@
 
                CALL SLACPY( 'All', M, LEN, WORK, LDWORK, C( 1, I ), LDC )
             END DO
-         ELSE
+         } else {
             DO I = 1, N, NB
                LEN = MIN( NB, N-I+1 )
                LDWORK = M
@@ -161,7 +161,7 @@
                CALL SLACPY( 'All', M, LEN, WORK, LDWORK, C( 1, I ), LDC )
             END DO
          END IF
-      ELSE
+      } else {
          IF( NOTRAN ) THEN
             DO I = 1, M, NB
                LEN = MIN( NB, M-I+1 )
@@ -187,7 +187,7 @@
 
                CALL SLACPY( 'All', LEN, N, WORK, LDWORK, C( I, 1 ), LDC )
             END DO
-         ELSE
+         } else {
             DO I = 1, M, NB
                LEN = MIN( NB, M-I+1 )
                LDWORK = LEN

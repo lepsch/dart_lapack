@@ -68,7 +68,7 @@
          ABSXI = ABS( X( I ) )
          IF( ABSXI.GT.SAFMIN ) THEN
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
-         ELSE
+         } else {
             X( I ) = CONE
          END IF
    30 CONTINUE
@@ -109,7 +109,7 @@
          ABSXI = ABS( X( I ) )
          IF( ABSXI.GT.SAFMIN ) THEN
             X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
-         ELSE
+         } else {
             X( I ) = CONE
          END IF
    80 CONTINUE

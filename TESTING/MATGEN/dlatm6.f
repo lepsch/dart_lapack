@@ -41,7 +41,7 @@
             IF( I.EQ.J ) THEN
                A( I, I ) = DBLE( I ) + ALPHA
                B( I, I ) = ONE
-            ELSE
+            } else {
                A( I, J ) = ZERO
                B( I, J ) = ZERO
             END IF

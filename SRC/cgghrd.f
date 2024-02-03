@@ -47,7 +47,7 @@
       ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
          ILQ = .TRUE.
          ICOMPQ = 3
-      ELSE
+      } else {
          ICOMPQ = 0
       END IF
 
@@ -62,7 +62,7 @@
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ILZ = .TRUE.
          ICOMPZ = 3
-      ELSE
+      } else {
          ICOMPZ = 0
       END IF
 

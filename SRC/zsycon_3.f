@@ -79,7 +79,7 @@
          DO I = N, 1, -1
             IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.CZERO ) RETURN
          END DO
-      ELSE
+      } else {
 
          // Lower triangular storage: examine D from top to bottom.
 

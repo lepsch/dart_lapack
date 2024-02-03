@@ -41,7 +41,7 @@
       LQUERY = ( LWORK.EQ.-1 )
       IF( MIN( N, NRHS ).EQ.0 ) THEN
          LWKMIN = 1
-      ELSE
+      } else {
          LWKMIN = 3*N-2
       END IF
 
@@ -118,7 +118,7 @@
             END DO
          END IF
 
-      ELSE
+      } else {
 
          // Solve A*X = B, where A = L*T*L**H.
 

@@ -32,7 +32,7 @@
          DO I = 1,N
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)))
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

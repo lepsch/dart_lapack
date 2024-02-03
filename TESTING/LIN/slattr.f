@@ -48,7 +48,7 @@
       BIGNUM = ( ONE-ULP ) / SMLNUM
       IF( ( IMAT.GE.7 .AND. IMAT.LE.10 ) .OR. IMAT.EQ.18 ) THEN
          DIAG = 'U'
-      ELSE
+      } else {
          DIAG = 'N'
       END IF
       INFO = 0
@@ -62,7 +62,7 @@
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
          CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
-      ELSE
+      } else {
          CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       END IF
 
@@ -84,7 +84,7 @@
    10          CONTINUE
                A( J, J ) = J
    20       CONTINUE
-         ELSE
+         } else {
             DO 40 J = 1, N
                A( J, J ) = J
                DO 30 I = J + 1, N
@@ -107,7 +107,7 @@
    50          CONTINUE
                A( J, J ) = J
    60       CONTINUE
-         ELSE
+         } else {
             DO 80 J = 1, N
                A( J, J ) = J
                DO 70 I = J + 1, N
@@ -189,7 +189,7 @@
                STAR1 = STAR1*( SFAC**REXP )
                IF( REXP.LT.ZERO ) THEN
                   STAR1 = -SFAC**( ONE-REXP )
-               ELSE
+               } else {
                   STAR1 = SFAC**( ONE+REXP )
                END IF
             END IF
@@ -198,7 +198,7 @@
          X = SQRT( CNDNUM ) - 1 / SQRT( CNDNUM )
          IF( N.GT.2 ) THEN
             Y = SQRT( 2. / ( N-2 ) )*X
-         ELSE
+         } else {
             Y = ZERO
          END IF
          Z = X*X
@@ -213,7 +213,7 @@
                A( J, N ) = Y
   100       CONTINUE
             A( 1, N ) = Z
-         ELSE
+         } else {
             IF( N.GT.3 ) THEN
                CALL SCOPY( N-3, WORK, 1, A( 3, 2 ), LDA+1 )
                IF( N.GT.4 ) CALL SCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
@@ -245,7 +245,7 @@
 
                A( J, J+1 ) = -A( J, J+1 )
   120       CONTINUE
-         ELSE
+         } else {
             DO 130 J = 1, N - 1
                RA = A( J+1, J )
                RB = 2.0
@@ -280,7 +280,7 @@
                CALL SLARNV( 2, ISEED, J, A( 1, J ) )
                A( J, J ) = SIGN( TWO, A( J, J ) )
   140       CONTINUE
-         ELSE
+         } else {
             DO 150 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
                A( J, J ) = SIGN( TWO, A( J, J ) )
@@ -310,7 +310,7 @@
                A( J, J ) = SIGN( ONE, A( J, J ) )
   160       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
-         ELSE
+         } else {
             DO 170 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
                IF( N.GT.J ) CALL SSCAL( N-J, TSCAL, A( J+1, J ), 1 )
@@ -332,7 +332,7 @@
                A( J, J ) = SIGN( ONE, A( J, J ) )
   180       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
-         ELSE
+         } else {
             DO 190 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
                A( J, J ) = SIGN( ONE, A( J, J ) )
@@ -354,13 +354,13 @@
   200          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   A( J, J ) = SMLNUM
-               ELSE
+               } else {
                   A( J, J ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
   210       CONTINUE
-         ELSE
+         } else {
             JCOUNT = 1
             DO 230 J = 1, N
                DO 220 I = J + 1, N
@@ -368,7 +368,7 @@
   220          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   A( J, J ) = SMLNUM
-               ELSE
+               } else {
                   A( J, J ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
@@ -384,7 +384,7 @@
                B( I ) = ZERO
                B( I-1 ) = SMLNUM
   240       CONTINUE
-         ELSE
+         } else {
             B( N ) = ZERO
             DO 250 I = 1, N - 1, 2
                B( I ) = ZERO
@@ -410,7 +410,7 @@
                A( J, J ) = TSCAL
   270       CONTINUE
             B( N ) = ONE
-         ELSE
+         } else {
             DO 290 J = 1, N
                DO 280 I = J + 2, N
                   A( I, J ) = 0.
@@ -431,16 +431,16 @@
                CALL SLARNV( 2, ISEED, J, A( 1, J ) )
                IF( J.NE.IY ) THEN
                   A( J, J ) = SIGN( TWO, A( J, J ) )
-               ELSE
+               } else {
                   A( J, J ) = ZERO
                END IF
   300       CONTINUE
-         ELSE
+         } else {
             DO 310 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
                IF( J.NE.IY ) THEN
                   A( J, J ) = SIGN( TWO, A( J, J ) )
-               ELSE
+               } else {
                   A( J, J ) = ZERO
                END IF
   310       CONTINUE
@@ -474,7 +474,7 @@
                TEXP = TEXP*2.
   340       CONTINUE
             B( 1 ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL
-         ELSE
+         } else {
             DO 350 J = 1, N - 1, 2
                A( N, J ) = -TSCAL / REAL( N+1 )
                A( J, J ) = ONE
@@ -498,7 +498,7 @@
                CALL SLARNV( 2, ISEED, J-1, A( 1, J ) )
                A( J, J ) = ZERO
   360       CONTINUE
-         ELSE
+         } else {
             DO 370 J = 1, N
                IF( J.LT.N ) CALL SLARNV( 2, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZERO
@@ -529,7 +529,7 @@
                   A( I, J ) = SIGN( TLEFT, A( I, J ) ) + TSCAL*A( I, J )
   380          CONTINUE
   390       CONTINUE
-         ELSE
+         } else {
             DO 410 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( J, J ) )
                DO 400 I = J, N
@@ -548,7 +548,7 @@
             DO 420 J = 1, N / 2
                CALL SSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 )
   420       CONTINUE
-         ELSE
+         } else {
             DO 430 J = 1, N / 2
                CALL SSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA )
   430       CONTINUE

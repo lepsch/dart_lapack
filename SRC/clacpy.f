@@ -40,7 +40,7 @@
    30       CONTINUE
    40    CONTINUE
 
-      ELSE
+      } else {
          DO 60 J = 1, N
             DO 50 I = 1, M
                B( I, J ) = A( I, J )

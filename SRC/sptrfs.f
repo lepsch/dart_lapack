@@ -95,7 +95,7 @@
             DX = D( 1 )*X( 1, J )
             WORK( N+1 ) = BI - DX
             WORK( 1 ) = ABS( BI ) + ABS( DX )
-         ELSE
+         } else {
             BI = B( 1, J )
             DX = D( 1 )*X( 1, J )
             EX = E( 1 )*X( 2, J )
@@ -129,7 +129,7 @@
          DO 40 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    40    CONTINUE
@@ -173,7 +173,7 @@
          DO 50 I = 1, N
             IF( WORK( I ).GT.SAFE2 ) THEN
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I )
-            ELSE
+            } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             END IF
    50    CONTINUE

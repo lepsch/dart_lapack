@@ -53,7 +53,7 @@
                SUM = ABS( REAL( AP( K ) ) )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    20       CONTINUE
-         ELSE
+         } else {
             K = 1
             DO 40 J = 1, N
                SUM = ABS( REAL( AP( K ) ) )
@@ -87,7 +87,7 @@
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
-         ELSE
+         } else {
             DO 80 I = 1, N
                WORK( I ) = ZERO
    80       CONTINUE
@@ -115,7 +115,7 @@
                CALL CLASSQ( J-1, AP( K ), 1, SCALE, SUM )
                K = K + J
   110       CONTINUE
-         ELSE
+         } else {
             DO 120 J = 1, N - 1
                CALL CLASSQ( N-J, AP( K ), 1, SCALE, SUM )
                K = K + N - J + 1
@@ -129,13 +129,13 @@
                IF( SCALE.LT.ABSA ) THEN
                   SUM = ONE + SUM*( SCALE / ABSA )**2
                   SCALE = ABSA
-               ELSE
+               } else {
                   SUM = SUM + ( ABSA / SCALE )**2
                END IF
             END IF
             IF( LSAME( UPLO, 'U' ) ) THEN
                K = K + I + 1
-            ELSE
+            } else {
                K = K + N - I + 1
             END IF
   130    CONTINUE

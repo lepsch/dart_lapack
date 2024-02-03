@@ -72,7 +72,7 @@
 
       IF( ITYPE.EQ.1 ) THEN
          NXFRM = M
-      ELSE
+      } else {
          NXFRM = N
       END IF
 
@@ -106,7 +106,7 @@
          XABS = ABS( X( KBEG ) )
          IF( XABS.NE.CZERO ) THEN
             CSIGN = X( KBEG ) / XABS
-         ELSE
+         } else {
             CSIGN = CONE
          END IF
          XNORMS = CSIGN*XNORM
@@ -116,7 +116,7 @@
             INFO = 1
             CALL XERBLA( 'ZLAROR', -INFO )
             RETURN
-         ELSE
+         } else {
             FACTOR = ONE / FACTOR
          END IF
          X( KBEG ) = X( KBEG ) + XNORMS
@@ -148,7 +148,7 @@
       XABS = ABS( X( 1 ) )
       IF( XABS.NE.ZERO ) THEN
          CSIGN = X( 1 ) / XABS
-      ELSE
+      } else {
          CSIGN = CONE
       END IF
       X( 2*NXFRM ) = CSIGN

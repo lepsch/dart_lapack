@@ -59,7 +59,7 @@
          IDIST = 2
       ELSE IF( LSAME( DIST, 'N' ) ) THEN
          IDIST = 3
-      ELSE
+      } else {
          IDIST = -1
       END IF
 
@@ -71,7 +71,7 @@
          ISYM = 1
       ELSE IF( LSAME( SYM, 'H' ) ) THEN
          ISYM = 0
-      ELSE
+      } else {
          ISYM = -1
       END IF
 
@@ -81,7 +81,7 @@
          IRSIGN = 0
       ELSE IF( LSAME( RSIGN, 'T' ) ) THEN
          IRSIGN = 1
-      ELSE
+      } else {
          IRSIGN = -1
       END IF
 
@@ -103,7 +103,7 @@
       ELSE IF( LSAME( PIVTNG, 'F' ) ) THEN
          IPVTNG = 3
          NPVTS = MIN( N, M )
-      ELSE
+      } else {
          IPVTNG = -1
       END IF
 
@@ -121,7 +121,7 @@
          IGRADE = 4
       ELSE IF( LSAME( GRADE, 'H' ) .OR. LSAME( GRADE, 'S' ) ) THEN
          IGRADE = 5
-      ELSE
+      } else {
          IGRADE = -1
       END IF
 
@@ -143,7 +143,7 @@
          IPACK = 6
       ELSE IF( LSAME( PACK, 'Z' ) ) THEN
          IPACK = 7
-      ELSE
+      } else {
          IPACK = -1
       END IF
 
@@ -258,7 +258,7 @@
          END IF
          IF( TEMP.NE.ZERO ) THEN
             ALPHA = DMAX / TEMP
-         ELSE
+         } else {
             ALPHA = ONE
          END IF
          DO 50 I = 1, MNMIN
@@ -300,7 +300,7 @@
                IWORK( I ) = IWORK( K )
                IWORK( K ) = J
    70       CONTINUE
-         ELSE
+         } else {
             DO 80 I = NPVTS, 1, -1
                K = IPIVOT( I )
                J = IWORK( I )
@@ -396,7 +396,7 @@
                   MXSUB = MAX( ISUB, JSUB )
                   IF( MNSUB.EQ.1 ) THEN
                      K = MXSUB
-                  ELSE
+                  } else {
                      K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
                   END IF
 
@@ -415,7 +415,7 @@
                DO 210 I = J - KUU, J
                   IF( I.LT.1 ) THEN
                      A( J-I+1, I+N ) = ZERO
-                  ELSE
+                  } else {
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
@@ -458,7 +458,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Use DLATM2
 
@@ -519,7 +519,7 @@
 
                      IF( I.EQ.1 ) THEN
                         K = J
-                     ELSE
+                     } else {
                         K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
                      END IF
 
@@ -531,7 +531,7 @@
                      A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   390             CONTINUE
   400          CONTINUE
-            ELSE
+            } else {
                ISUB = 0
                JSUB = 1
                DO 420 J = 1, N
@@ -552,7 +552,7 @@
                DO 430 I = J - KUU, J
                   IF( I.LT.1 ) THEN
                      A( J-I+1, I+N ) = ZERO
-                  ELSE
+                  } else {
                      A( J-I+1, I ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   END IF
   430          CONTINUE
@@ -640,7 +640,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // Scale straightforwardly
 

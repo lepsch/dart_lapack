@@ -127,13 +127,13 @@
          IF( I.EQ.0 ) THEN
             SUBMAT = 1
             MATSIZ = IWORK( 1 )
-         ELSE
+         } else {
             SUBMAT = IWORK( I ) + 1
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          END IF
          IF( ICOMPQ.EQ.2 ) THEN
             CALL SSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO.NE.0 ) GO TO 130
-         ELSE
+         } else {
             CALL SSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO )
             IF( INFO.NE.0 ) GO TO 130
             IF( ICOMPQ.EQ.1 ) THEN
@@ -164,7 +164,7 @@
                MATSIZ = IWORK( 2 )
                MSD2 = IWORK( 1 )
                CURPRB = 0
-            ELSE
+            } else {
                SUBMAT = IWORK( I ) + 1
                MATSIZ = IWORK( I+2 ) - IWORK( I )
                MSD2 = MATSIZ / 2
@@ -181,7 +181,7 @@
 
             IF( ICOMPQ.EQ.2 ) THEN
                CALL SLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO )
-            ELSE
+            } else {
                CALL SLAED7( ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
             END IF
             IF( INFO.NE.0 ) GO TO 130
@@ -212,7 +212,7 @@
   110    CONTINUE
          CALL SCOPY( N, WORK, 1, D, 1 )
          CALL SLACPY( 'A', N, N, WORK( N+1 ), N, Q, LDQ )
-      ELSE
+      } else {
          DO 120 I = 1, N
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )

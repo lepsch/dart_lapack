@@ -83,7 +83,7 @@
       NORMIN = 'N'
       IF( ONENRM ) THEN
          KASE1 = 1
-      ELSE
+      } else {
          KASE1 = 2
       END IF
       KD = KL + KU + 1
@@ -112,7 +112,7 @@
             // Multiply by inv(U).
 
             CALL SLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(U**T).
 

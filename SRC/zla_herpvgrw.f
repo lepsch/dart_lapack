@@ -40,10 +40,10 @@
       IF ( INFO.EQ.0 ) THEN
          IF (UPPER) THEN
             NCOLS = 1
-         ELSE
+         } else {
             NCOLS = N
          END IF
-      ELSE
+      } else {
          NCOLS = INFO
       END IF
 
@@ -63,7 +63,7 @@
                WORK( N+J ) = MAX( CABS1( A( I,J ) ), WORK( N+J ) )
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, N
             DO I = J, N
                WORK( N+I ) = MAX( CABS1( A( I, J ) ), WORK( N+I ) )
@@ -94,7 +94,7 @@
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
                END DO
                K = K - 1
-            ELSE
+            } else {
                // 2x2 pivot
                KP = -IPIV( K )
                TMP = WORK( N+K-1 )
@@ -118,7 +118,7 @@
                   WORK( N+KP ) = TMP
                END IF
                K = K + 1
-            ELSE
+            } else {
                KP = -IPIV( K )
                TMP = WORK( N+K )
                WORK( N+K ) = WORK( N+KP )
@@ -126,7 +126,7 @@
                K = K + 2
             END IF
          END DO
-      ELSE
+      } else {
          K = 1
          DO WHILE ( K .LE. NCOLS )
             IF ( IPIV( K ).GT.0 ) THEN
@@ -141,7 +141,7 @@
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
                END DO
                K = K + 1
-            ELSE
+            } else {
                // 2x2 pivot
                KP = -IPIV( K )
                TMP = WORK( N+K+1 )
@@ -165,7 +165,7 @@
                   WORK( N+KP ) = TMP
                END IF
                K = K - 1
-            ELSE
+            } else {
                KP = -IPIV( K )
                TMP = WORK( N+K )
                WORK( N+K ) = WORK( N+KP )
@@ -190,7 +190,7 @@
                RPVGRW = MIN( AMAX / UMAX, RPVGRW )
             END IF
          END DO
-      ELSE
+      } else {
          DO I = 1, NCOLS
             UMAX = WORK( I )
             AMAX = WORK( N+I )

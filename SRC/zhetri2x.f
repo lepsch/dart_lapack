@@ -78,7 +78,7 @@
          DO INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
-      ELSE
+      } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
@@ -113,7 +113,7 @@
              WORK(K,INVD) = ONE / REAL ( A( K, K ) )
              WORK(K,INVD+1) = 0
             K=K+1
-         ELSE
+         } else {
             // 2 x 2 diagonal NNB
              T = ABS ( WORK(K+1,1) )
              AK = DBLE ( A( K, K ) ) / T
@@ -137,7 +137,7 @@
            NNB=NB
            IF (CUT .LE. NNB) THEN
               NNB=CUT
-           ELSE
+           } else {
               COUNT = 0
               // count negative elements,
               DO I=CUT+1-NNB,CUT
@@ -178,7 +178,7 @@
                     WORK(I,J)=WORK(I,INVD)*WORK(I,J)
                 END DO
                 I=I+1
-             ELSE
+             } else {
                 DO J=1,NNB
                    U01_I_J = WORK(I,J)
                    U01_IP1_J = WORK(I+1,J)
@@ -197,7 +197,7 @@
                     WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
                 END DO
                 I=I+1
-             ELSE
+             } else {
                 DO J=I,NNB
                    U11_I_J = WORK(U11+I,J)
                    U11_IP1_J = WORK(U11+I+1,J)
@@ -254,14 +254,14 @@
                   IP=IPIV(I)
                  IF (I .LT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP )
                  IF (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )
-               ELSE
+               } else {
                  IP=-IPIV(I)
                  I=I+1
                  IF ( (I-1) .LT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I-1 )
               ENDIF
                I=I+1
             END DO
-      ELSE
+      } else {
 
          // LOWER...
 
@@ -278,7 +278,7 @@
              WORK(K,INVD) = ONE / REAL ( A( K, K ) )
              WORK(K,INVD+1) = 0
             K=K-1
-         ELSE
+         } else {
             // 2 x 2 diagonal NNB
              T = ABS ( WORK(K-1,1) )
              AK = DBLE ( A( K-1, K-1 ) ) / T
@@ -302,7 +302,7 @@
            NNB=NB
            IF (CUT + NNB .GE. N) THEN
               NNB=N-CUT
-           ELSE
+           } else {
               COUNT = 0
               // count negative elements,
               DO I=CUT+1,CUT+NNB
@@ -337,7 +337,7 @@
                     WORK(I,J)=WORK(CUT+NNB+I,INVD)*WORK(I,J)
                 END DO
                 I=I-1
-             ELSE
+             } else {
                 DO J=1,NNB
                    U01_I_J = WORK(I,J)
                    U01_IP1_J = WORK(I-1,J)
@@ -356,7 +356,7 @@
                     WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J)
                 END DO
                 I=I-1
-             ELSE
+             } else {
                 DO J=1,NNB
                    U11_I_J = WORK(U11+I,J)
                    U11_IP1_J = WORK(U11+I-1,J)
@@ -401,7 +401,7 @@
               A(CUT+NNB+I,CUT+J)=WORK(I,J)
            END DO
          END DO
-       ELSE
+       } else {
 
          // L11 =  L11**H*invD1*L11
 
@@ -425,7 +425,7 @@
                   IP=IPIV(I)
                  IF (I .LT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP  )
                  IF (I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )
-               ELSE
+               } else {
                  IP=-IPIV(I)
                  IF ( I .LT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, I ,IP )
                  IF ( I .GT. IP) CALL ZHESWAPR( UPLO, N, A, LDA, IP ,I )

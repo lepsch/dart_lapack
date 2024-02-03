@@ -79,12 +79,12 @@
                           K = K + 1
    10                 CONTINUE
                       AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(J)*TEMP)
-                  ELSE
+                  } else {
                       AP(KK+J-1) = DBLE(AP(KK+J-1))
                   END IF
                   KK = KK + J
    20         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 40 J = 1,N
                   IF (X(JX).NE.ZERO) THEN
@@ -95,14 +95,14 @@
                           IX = IX + INCX
    30                 CONTINUE
                       AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(JX)*TEMP)
-                  ELSE
+                  } else {
                       AP(KK+J-1) = DBLE(AP(KK+J-1))
                   END IF
                   JX = JX + INCX
                   KK = KK + J
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when lower triangle is stored in AP.
 
@@ -116,12 +116,12 @@
                           AP(K) = AP(K) + X(I)*TEMP
                           K = K + 1
    50                 CONTINUE
-                  ELSE
+                  } else {
                       AP(KK) = DBLE(AP(KK))
                   END IF
                   KK = KK + N - J + 1
    60         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 80 J = 1,N
                   IF (X(JX).NE.ZERO) THEN
@@ -132,7 +132,7 @@
                           IX = IX + INCX
                           AP(K) = AP(K) + X(IX)*TEMP
    70                 CONTINUE
-                  ELSE
+                  } else {
                       AP(KK) = DBLE(AP(KK))
                   END IF
                   JX = JX + INCX

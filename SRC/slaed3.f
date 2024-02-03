@@ -120,14 +120,14 @@
       IQ2 = N1*N12 + 1
       IF( N23.NE.0 ) THEN
          CALL SGEMM( 'N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ )
-      ELSE
+      } else {
          CALL SLASET( 'A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ )
       END IF
 
       CALL SLACPY( 'A', N12, K, Q, LDQ, S, N12 )
       IF( N12.NE.0 ) THEN
          CALL SGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ )
-      ELSE
+      } else {
          CALL SLASET( 'A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ )
       END IF
 

@@ -65,7 +65,7 @@
          M1 = 0
          M2 = -1
          M3 = 1
-      ELSE
+      } else {
 
          // Move the IFST-th diagonal element backward up the diagonal.
 

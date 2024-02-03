@@ -219,7 +219,7 @@
 
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9998 )
       END IF
 

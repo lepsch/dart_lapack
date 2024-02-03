@@ -85,7 +85,7 @@
          N1 = K
          N2 = N - K
          CALL SLAMRG( N1, N2, D, 1, -1, INDXQ )
-      ELSE
+      } else {
          DO 10 I = 1, N
             INDXQ( I ) = I
    10    CONTINUE

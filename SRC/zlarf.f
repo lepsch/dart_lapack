@@ -41,12 +41,12 @@
       // of V.
          IF( APPLYLEFT ) THEN
             LASTV = M
-         ELSE
+         } else {
             LASTV = N
          END IF
          IF( INCV.GT.0 ) THEN
             I = 1 + (LASTV-1) * INCV
-         ELSE
+         } else {
             I = 1
          END IF
       // Look for the last non-zero row in V.
@@ -57,7 +57,7 @@
          IF( APPLYLEFT ) THEN
       // Scan for the last non-zero column in C(1:lastv,:).
             LASTC = ILAZLC(LASTV, N, C, LDC)
-         ELSE
+         } else {
       // Scan for the last non-zero row in C(:,1:lastv).
             LASTC = ILAZLR(M, LASTV, C, LDC)
          END IF
@@ -78,7 +78,7 @@
 
             CALL ZGERC( LASTV, LASTC, -TAU, V, INCV, WORK, 1, C, LDC )
          END IF
-      ELSE
+      } else {
 
          // Form  C * H
 

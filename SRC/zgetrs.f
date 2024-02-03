@@ -73,7 +73,7 @@
          // Solve U*X = B, overwriting B with X.
 
          CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
-      ELSE
+      } else {
 
          // Solve A**T * X = B  or A**H * X = B.
 

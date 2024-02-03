@@ -132,7 +132,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -179,7 +179,7 @@
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
-               ELSE
+               } else {
                   IN = N
                END IF
                CALL DLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
@@ -191,7 +191,7 @@
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA )
-               ELSE
+               } else {
                   IN = N
                END IF
                CALL DLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
@@ -242,7 +242,7 @@
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED )
    70             CONTINUE
    80          CONTINUE
-            ELSE
+            } else {
 
                // Random upper Hessenberg pencil with singular B
 
@@ -409,7 +409,7 @@
                   NERRS = NERRS + 1
                   IF( RESULT( JR ).LT.10000.0D0 ) THEN
                      WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
-                  ELSE
+                  } else {
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   END IF
                END IF

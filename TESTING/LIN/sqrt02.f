@@ -68,7 +68,7 @@
       RESID = SLANGE( '1', N, K, R, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M ) ) ) / ANORM ) / EPS
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 

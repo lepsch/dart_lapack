@@ -132,7 +132,7 @@
             DO 70 I = 1, N
                WSRT( I ) = DBLE( W( I ) )
    70       CONTINUE
-         ELSE
+         } else {
             DO 80 I = 1, N
                WSRT( I ) = DIMAG( W( I ) )
    80       CONTINUE
@@ -185,12 +185,12 @@
          IF( TNRM.EQ.ZERO ) V = ONE
          IF( V.GT.SEPTMP ) THEN
             TOL = ONE
-         ELSE
+         } else {
             TOL = V / SEPTMP
          END IF
          IF( V.GT.SEPIN ) THEN
             TOLIN = ONE
-         ELSE
+         } else {
             TOLIN = V / SEPIN
          END IF
          TOL = MAX( TOL, SMLNUM / EPS )
@@ -203,7 +203,7 @@
             VMAX = ONE / EPS
          ELSE IF( SIN+TOLIN.LT.STMP-TOL ) THEN
             VMAX = ( STMP-TOL ) / ( SIN+TOLIN )
-         ELSE
+         } else {
             VMAX = ONE
          END IF
          IF( VMAX.GT.RMAX( 2 ) ) THEN
@@ -216,12 +216,12 @@
 
          IF( V.GT.SEPTMP*STMP ) THEN
             TOL = SEPTMP
-         ELSE
+         } else {
             TOL = V / STMP
          END IF
          IF( V.GT.SEPIN*SIN ) THEN
             TOLIN = SEPIN
-         ELSE
+         } else {
             TOLIN = V / SIN
          END IF
          TOL = MAX( TOL, SMLNUM / EPS )
@@ -234,7 +234,7 @@
             VMAX = ONE / EPS
          ELSE IF( SEPIN+TOLIN.LT.SEPTMP-TOL ) THEN
             VMAX = ( SEPTMP-TOL ) / ( SEPIN+TOLIN )
-         ELSE
+         } else {
             VMAX = ONE
          END IF
          IF( VMAX.GT.RMAX( 2 ) ) THEN
@@ -255,7 +255,7 @@
             VMAX = ONE / EPS
          ELSE IF( SIN.LT.STMP ) THEN
             VMAX = STMP / SIN
-         ELSE
+         } else {
             VMAX = ONE
          END IF
          IF( VMAX.GT.RMAX( 3 ) ) THEN
@@ -276,7 +276,7 @@
             VMAX = ONE / EPS
          ELSE IF( SEPIN.LT.SEPTMP ) THEN
             VMAX = SEPTMP / SEPIN
-         ELSE
+         } else {
             VMAX = ONE
          END IF
          IF( VMAX.GT.RMAX( 3 ) ) THEN

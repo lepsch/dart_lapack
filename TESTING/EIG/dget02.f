@@ -46,7 +46,7 @@
       IF( LSAME( TRANS, 'T' ) .OR. LSAME( TRANS, 'C' ) ) THEN
          N1 = N
          N2 = M
-      ELSE
+      } else {
          N1 = M
          N2 = N
       END IF
@@ -56,7 +56,7 @@
       EPS = DLAMCH( 'Epsilon' )
       IF( LSAME( TRANS, 'N' ) ) THEN
          ANORM = DLANGE( '1', M, N, A, LDA, RWORK )
-      ELSE
+      } else {
          ANORM = DLANGE( 'I', M, N, A, LDA, RWORK )
       END IF
       IF( ANORM.LE.ZERO ) THEN
@@ -77,7 +77,7 @@
          XNORM = DASUM( N2, X( 1, J ), 1 )
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    10 CONTINUE

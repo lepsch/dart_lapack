@@ -43,12 +43,12 @@
       NOTB = LSAME(TRANSB,'N')
       IF (NOTA) THEN
           NROWA = M
-      ELSE
+      } else {
           NROWA = K
       END IF
       IF (NOTB) THEN
           NROWB = K
-      ELSE
+      } else {
           NROWB = N
       END IF
 
@@ -90,7 +90,7 @@
                       C(I,J) = ZERO
    10             CONTINUE
    20         CONTINUE
-          ELSE
+          } else {
               DO 40 J = 1,N
                   DO 30 I = 1,M
                       C(I,J) = BETA*C(I,J)
@@ -124,7 +124,7 @@
    70                 CONTINUE
    80             CONTINUE
    90         CONTINUE
-          ELSE
+          } else {
 
             // Form  C := alpha*A**T*B + beta*C
 
@@ -136,13 +136,13 @@
   100                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   110             CONTINUE
   120         CONTINUE
           END IF
-      ELSE
+      } else {
           IF (NOTA) THEN
 
             // Form  C := alpha*A*B**T + beta*C
@@ -164,7 +164,7 @@
   150                 CONTINUE
   160             CONTINUE
   170         CONTINUE
-          ELSE
+          } else {
 
             // Form  C := alpha*A**T*B**T + beta*C
 
@@ -176,7 +176,7 @@
   180                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   190             CONTINUE

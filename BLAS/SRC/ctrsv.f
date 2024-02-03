@@ -89,7 +89,7 @@
    10                     CONTINUE
                       END IF
    20             CONTINUE
-              ELSE
+              } else {
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
                       IF (X(JX).NE.ZERO) THEN
@@ -104,7 +104,7 @@
                       JX = JX - INCX
    40             CONTINUE
               END IF
-          ELSE
+          } else {
               IF (INCX.EQ.1) THEN
                   DO 60 J = 1,N
                       IF (X(J).NE.ZERO) THEN
@@ -115,7 +115,7 @@
    50                     CONTINUE
                       END IF
    60             CONTINUE
-              ELSE
+              } else {
                   JX = KX
                   DO 80 J = 1,N
                       IF (X(JX).NE.ZERO) THEN
@@ -131,7 +131,7 @@
    80             CONTINUE
               END IF
           END IF
-      ELSE
+      } else {
 
          // Form  x := inv( A**T )*x  or  x := inv( A**H )*x.
 
@@ -144,7 +144,7 @@
                               TEMP = TEMP - A(I,J)*X(I)
    90                     CONTINUE
                           IF (NOUNIT) TEMP = TEMP/A(J,J)
-                      ELSE
+                      } else {
                           DO 100 I = 1,J - 1
                               TEMP = TEMP - CONJG(A(I,J))*X(I)
   100                     CONTINUE
@@ -152,7 +152,7 @@
                       END IF
                       X(J) = TEMP
   110             CONTINUE
-              ELSE
+              } else {
                   JX = KX
                   DO 140 J = 1,N
                       IX = KX
@@ -163,7 +163,7 @@
                               IX = IX + INCX
   120                     CONTINUE
                           IF (NOUNIT) TEMP = TEMP/A(J,J)
-                      ELSE
+                      } else {
                           DO 130 I = 1,J - 1
                               TEMP = TEMP - CONJG(A(I,J))*X(IX)
                               IX = IX + INCX
@@ -174,7 +174,7 @@
                       JX = JX + INCX
   140             CONTINUE
               END IF
-          ELSE
+          } else {
               IF (INCX.EQ.1) THEN
                   DO 170 J = N,1,-1
                       TEMP = X(J)
@@ -183,7 +183,7 @@
                               TEMP = TEMP - A(I,J)*X(I)
   150                     CONTINUE
                           IF (NOUNIT) TEMP = TEMP/A(J,J)
-                      ELSE
+                      } else {
                           DO 160 I = N,J + 1,-1
                               TEMP = TEMP - CONJG(A(I,J))*X(I)
   160                     CONTINUE
@@ -191,7 +191,7 @@
                       END IF
                       X(J) = TEMP
   170             CONTINUE
-              ELSE
+              } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 200 J = N,1,-1
@@ -203,7 +203,7 @@
                               IX = IX - INCX
   180                     CONTINUE
                           IF (NOUNIT) TEMP = TEMP/A(J,J)
-                      ELSE
+                      } else {
                           DO 190 I = N,J + 1,-1
                               TEMP = TEMP - CONJG(A(I,J))*X(IX)
                               IX = IX - INCX

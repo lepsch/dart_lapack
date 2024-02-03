@@ -55,7 +55,7 @@
             A( I, I ) = BETA
    60    CONTINUE
 
-      ELSE
+      } else {
 
          // Set the array to BETA on the diagonal and ALPHA on the
          // offdiagonal.

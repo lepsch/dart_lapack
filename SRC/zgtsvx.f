@@ -83,7 +83,7 @@
 
       IF( NOTRAN ) THEN
          NORM = '1'
-      ELSE
+      } else {
          NORM = 'I'
       END IF
       ANORM = ZLANGT( NORM, N, DL, D, DU )

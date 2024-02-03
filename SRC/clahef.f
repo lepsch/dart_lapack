@@ -95,7 +95,7 @@
          IF( K.GT.1 ) THEN
             IMAX = ICAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = CABS1( W( IMAX, KW ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -106,7 +106,7 @@
             IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = REAL( A( K, K ) )
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -118,7 +118,7 @@
                // no interchange, use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                // BEGIN pivot search along IMAX row
 
@@ -165,7 +165,7 @@
                   CALL CCOPY( K, W( 1, KW-1 ), 1, W( 1, KW ), 1 )
 
                // Case(4)
-               ELSE
+               } else {
 
                   // interchange rows and columns K-1 and IMAX, use 2-by-2
                   // pivot block
@@ -248,7 +248,7 @@
                   CALL CLACGV( K-1, W( 1, KW ), 1 )
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns kw and kw-1 of W now hold
 
@@ -344,7 +344,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
          END IF
@@ -405,7 +405,7 @@
 
          KB = N - K
 
-      ELSE
+      } else {
 
          // Factorize the leading columns of A using the lower triangle
          // of A and working forwards, and compute the matrix W = L21*D
@@ -440,7 +440,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + ICAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -451,7 +451,7 @@
             IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = REAL( A( K, K ) )
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -463,7 +463,7 @@
                // no interchange, use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                // BEGIN pivot search along IMAX row
 
@@ -507,7 +507,7 @@
                   CALL CCOPY( N-K+1, W( K, K+1 ), 1, W( K, K ), 1 )
 
                // Case(4)
-               ELSE
+               } else {
 
                   // interchange rows and columns K+1 and IMAX, use 2-by-2
                   // pivot block
@@ -586,7 +586,7 @@
                   CALL CLACGV( N-K, W( K+1, K ), 1 )
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 of W now hold
 
@@ -682,7 +682,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
          END IF

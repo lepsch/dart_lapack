@@ -41,7 +41,7 @@
       IF( MINMN.EQ.0 ) THEN
          LWKMIN = 1
          LWKOPT = 1
-      ELSE
+      } else {
          LWKMIN = MAX( M, N )
          NB = MAX( 1, ILAENV( 1, 'ZGEBRD', ' ', M, N, -1, -1 ) )
          LWKOPT = ( M+N )*NB
@@ -94,13 +94,13 @@
                NBMIN = ILAENV( 2, 'ZGEBRD', ' ', M, N, -1, -1 )
                IF( LWORK.GE.( M+N )*NBMIN ) THEN
                   NB = LWORK / ( M+N )
-               ELSE
+               } else {
                   NB = 1
                   NX = MINMN
                END IF
             END IF
          END IF
-      ELSE
+      } else {
          NX = MINMN
       END IF
 
@@ -125,7 +125,7 @@
                A( J, J ) = D( J )
                A( J, J+1 ) = E( J )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J = I, I + NB - 1
                A( J, J ) = D( J )
                A( J+1, J ) = E( J )

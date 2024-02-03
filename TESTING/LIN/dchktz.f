@@ -111,7 +111,7 @@
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
    30                CONTINUE
-                  ELSE
+                  } else {
                      CALL DLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
                      CALL DGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA )
                      CALL DLAORD( 'Decreasing', MNMIN, S, 1 )

@@ -59,12 +59,12 @@
 
       IF( INCX.GT.0 ) THEN
          KX = 1
-      ELSE
+      } else {
          KX = 1 - ( N-1 )*INCX
       END IF
       IF( INCY.GT.0 ) THEN
          KY = 1
-      ELSE
+      } else {
          KY = 1 - ( N-1 )*INCY
       END IF
 
@@ -79,19 +79,19 @@
                DO 10 I = 1, N
                   Y( I ) = ZERO
    10          CONTINUE
-            ELSE
+            } else {
                DO 20 I = 1, N
                   Y( I ) = BETA*Y( I )
    20          CONTINUE
             END IF
-         ELSE
+         } else {
             IY = KY
             IF( BETA.EQ.ZERO ) THEN
                DO 30 I = 1, N
                   Y( IY ) = ZERO
                   IY = IY + INCY
    30          CONTINUE
-            ELSE
+            } else {
                DO 40 I = 1, N
                   Y( IY ) = BETA*Y( IY )
                   IY = IY + INCY
@@ -118,7 +118,7 @@
                Y( J ) = Y( J ) + TEMP1*AP( KK+J-1 ) + ALPHA*TEMP2
                KK = KK + J
    60       CONTINUE
-         ELSE
+         } else {
             JX = KX
             JY = KY
             DO 80 J = 1, N
@@ -138,7 +138,7 @@
                KK = KK + J
    80       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // Form  y  when AP contains the lower triangle.
 
@@ -156,7 +156,7 @@
                Y( J ) = Y( J ) + ALPHA*TEMP2
                KK = KK + ( N-J+1 )
   100       CONTINUE
-         ELSE
+         } else {
             JX = KX
             JY = KY
             DO 120 J = 1, N

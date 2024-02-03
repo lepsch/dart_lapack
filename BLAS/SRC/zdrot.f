@@ -30,7 +30,7 @@
             ZY( I ) = C*ZY( I ) - S*ZX( I )
             ZX( I ) = CTEMP
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments not equal
           t // o 1

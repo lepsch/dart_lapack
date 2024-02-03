@@ -46,7 +46,7 @@
                DX(I) = W + Z*DH12
                DY(I) = W*DH21 + Z
             END DO
-         ELSE
+         } else {
             DH11 = DPARAM(2)
             DH22 = DPARAM(5)
             DO I = 1,NSTEPS,INCX
@@ -56,7 +56,7 @@
                DY(I) = -W + DH22*Z
             END DO
          END IF
-      ELSE
+      } else {
          KX = 1
          KY = 1
          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
@@ -86,7 +86,7 @@
                KX = KX + INCX
                KY = KY + INCY
             END DO
-         ELSE
+         } else {
              DH11 = DPARAM(2)
              DH22 = DPARAM(5)
              DO I = 1,N

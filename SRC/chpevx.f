@@ -58,7 +58,7 @@
          INFO = -3
       ELSE IF( N.LT.0 ) THEN
          INFO = -4
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
          ELSE IF( INDEIG ) THEN
@@ -87,7 +87,7 @@
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
             W( 1 ) = REAL( AP( 1 ) )
-         ELSE
+         } else {
             IF( VL.LT.REAL( AP( 1 ) ) .AND. VU.GE.REAL( AP( 1 ) ) ) THEN
                M = 1
                W( 1 ) = REAL( AP( 1 ) )
@@ -113,7 +113,7 @@
       IF ( VALEIG ) THEN
          VLL = VL
          VUU = VU
-      ELSE
+      } else {
          VLL = ZERO
          VUU = ZERO
       ENDIF
@@ -159,7 +159,7 @@
          IF( .NOT.WANTZ ) THEN
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL SSTERF( N, W, RWORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL CUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL CSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
@@ -180,7 +180,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDISP = 1 + N
@@ -203,7 +203,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

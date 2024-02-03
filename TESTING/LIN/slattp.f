@@ -48,7 +48,7 @@
       BIGNUM = ( ONE-ULP ) / SMLNUM
       IF( ( IMAT.GE.7 .AND. IMAT.LE.10 ) .OR. IMAT.EQ.18 ) THEN
          DIAG = 'U'
-      ELSE
+      } else {
          DIAG = 'N'
       END IF
       INFO = 0
@@ -63,7 +63,7 @@
       IF( UPPER ) THEN
          CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'C'
-      ELSE
+      } else {
          CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'R'
       END IF
@@ -88,7 +88,7 @@
                A( JC+J-1 ) = J
                JC = JC + J
    20       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 40 J = 1, N
                A( JC ) = J
@@ -115,7 +115,7 @@
                A( JC+J ) = J
                JC = JC + J
    60       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 80 J = 1, N
                A( JC ) = J
@@ -199,7 +199,7 @@
                STAR1 = STAR1*( SFAC**REXP )
                IF( REXP.LT.ZERO ) THEN
                   STAR1 = -SFAC**( ONE-REXP )
-               ELSE
+               } else {
                   STAR1 = SFAC**( ONE+REXP )
                END IF
             END IF
@@ -208,7 +208,7 @@
          X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM )
          IF( N.GT.2 ) THEN
             Y = SQRT( TWO / REAL( N-2 ) )*X
-         ELSE
+         } else {
             Y = ZERO
          END IF
          Z = X*X
@@ -229,7 +229,7 @@
             DO 110 J = 2, N - 1
                A( JC+J ) = Y
   110       CONTINUE
-         ELSE
+         } else {
 
             // Set the lower triangle of A with a unit triangular matrix
             // of known condition number.
@@ -278,7 +278,7 @@
                A( JCNEXT+J-1 ) = -A( JCNEXT+J-1 )
                JC = JCNEXT
   150       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 170 J = 1, N - 1
                JCNEXT = JC + N - J + 1
@@ -326,7 +326,7 @@
                A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
                JC = JC + J
   180       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 190 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( JC ) )
@@ -360,7 +360,7 @@
                JC = JC + J
   200       CONTINUE
             A( N*( N+1 ) / 2 ) = SMLNUM
-         ELSE
+         } else {
             JC = 1
             DO 210 J = 1, N
                CALL SLARNV( 2, ISEED, N-J, A( JC+1 ) )
@@ -386,7 +386,7 @@
                JC = JC + J
   220       CONTINUE
             A( N*( N+1 ) / 2 ) = SMLNUM
-         ELSE
+         } else {
             JC = 1
             DO 230 J = 1, N
                CALL SLARNV( 2, ISEED, N-J, A( JC+1 ) )
@@ -411,14 +411,14 @@
   240          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   A( JC+J-1 ) = SMLNUM
-               ELSE
+               } else {
                   A( JC+J-1 ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC - J + 1
   250       CONTINUE
-         ELSE
+         } else {
             JCOUNT = 1
             JC = 1
             DO 270 J = 1, N
@@ -427,7 +427,7 @@
   260          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   A( JC ) = SMLNUM
-               ELSE
+               } else {
                   A( JC ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
@@ -444,7 +444,7 @@
                B( I ) = ZERO
                B( I-1 ) = SMLNUM
   280       CONTINUE
-         ELSE
+         } else {
             B( N ) = ZERO
             DO 290 I = 1, N - 1, 2
                B( I ) = ZERO
@@ -472,7 +472,7 @@
                JC = JC + J
   310       CONTINUE
             B( N ) = ONE
-         ELSE
+         } else {
             JC = 1
             DO 330 J = 1, N
                DO 320 I = J + 2, N
@@ -496,18 +496,18 @@
                CALL SLARNV( 2, ISEED, J, A( JC ) )
                IF( J.NE.IY ) THEN
                   A( JC+J-1 ) = SIGN( TWO, A( JC+J-1 ) )
-               ELSE
+               } else {
                   A( JC+J-1 ) = ZERO
                END IF
                JC = JC + J
   340       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 350 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( JC ) )
                IF( J.NE.IY ) THEN
                   A( JC ) = SIGN( TWO, A( JC ) )
-               ELSE
+               } else {
                   A( JC ) = ZERO
                END IF
                JC = JC + N - J + 1
@@ -543,7 +543,7 @@
                JC = JC - J + 2
   370       CONTINUE
             B( 1 ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL
-         ELSE
+         } else {
             JC = 1
             DO 380 J = 1, N - 1, 2
                A( JC+N-J ) = -TSCAL / REAL( N+1 )
@@ -572,7 +572,7 @@
                A( JC+J-1 ) = ZERO
                JC = JC + J
   390       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 400 J = 1, N
                IF( J.LT.N ) CALL SLARNV( 2, ISEED, N-J, A( JC+1 ) )
@@ -606,7 +606,7 @@
   410          CONTINUE
                JC = JC + J
   420       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 440 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( JC ) )
@@ -638,7 +638,7 @@
                JJ = JJ + J + 1
                JR = JR - ( N-J+1 )
   460       CONTINUE
-         ELSE
+         } else {
             JL = 1
             JJ = N*( N+1 ) / 2
             DO 480 J = 1, N / 2

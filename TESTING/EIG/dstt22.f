@@ -50,7 +50,7 @@
             ANORM = MAX( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) )
    10    CONTINUE
          ANORM = MAX( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) )
-      ELSE
+      } else {
          ANORM = ABS( AD( 1 ) )
       END IF
       ANORM = MAX( ANORM, UNFL )
@@ -76,10 +76,10 @@
 
       IF( ANORM.GT.WNORM ) THEN
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP )
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*ULP )
          END IF
       END IF

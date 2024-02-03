@@ -42,7 +42,7 @@
                SA( I, J ) = REAL( A( I, J ) )
    10       CONTINUE
    20    CONTINUE
-      ELSE
+      } else {
          DO 40 J = 1, N
             DO 30 I = J, N
                IF( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) THEN

@@ -97,7 +97,7 @@
          IF( A( J, J ).NE.ZERO .AND. .NOT.DISNAN( A( J, J ) ) ) THEN
                IF( ABS(A( J, J )) .GE. SFMIN ) THEN
                   CALL DSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
-               ELSE
+               } else {
                  DO I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
                  END DO

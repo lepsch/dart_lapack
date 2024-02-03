@@ -107,7 +107,7 @@
          IF( K.GT.1 ) THEN
             IMAX = IZAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -123,7 +123,7 @@
 
             IF( K.GT.1 ) E( K ) = CZERO
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -139,7 +139,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -157,7 +157,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = IMAX + IZAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -197,7 +197,7 @@
                      DONE = .TRUE.
 
                   // Case(4)
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -279,7 +279,7 @@
 
                IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
 
-            ELSE
+            } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = DBLE( A( K, K ) )
                IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) )
@@ -312,7 +312,7 @@
                      // Store U(k) in column k
 
                      CALL ZDSCAL( K-1, D11, A( 1, K ), 1 )
-                  ELSE
+                  } else {
 
                      // Store L(k) in column K
 
@@ -335,7 +335,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
 
@@ -400,7 +400,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
          END IF
@@ -412,7 +412,7 @@
 
    34    CONTINUE
 
-      ELSE
+      } else {
 
          // Factorize A as L*D*L**H using the lower triangle of A
 
@@ -444,7 +444,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + IZAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -460,7 +460,7 @@
 
             IF( K.LT.N ) E( K ) = CZERO
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -476,7 +476,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -494,7 +494,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = K - 1 + IZAMAX( IMAX-K, A( IMAX, K ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -534,7 +534,7 @@
                      DONE = .TRUE.
 
                   // Case(4)
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -617,7 +617,7 @@
 
                IF ( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
 
-            ELSE
+            } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = DBLE( A( K, K ) )
                IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) )
@@ -652,7 +652,7 @@
                      // Store L(k) in column k
 
                      CALL ZDSCAL( N-K, D11, A( K+1, K ), 1 )
-                  ELSE
+                  } else {
 
                      // Store L(k) in column k
 
@@ -675,7 +675,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 now hold
 
@@ -741,7 +741,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
          END IF

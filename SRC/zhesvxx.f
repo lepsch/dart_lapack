@@ -53,7 +53,7 @@
       IF( NOFACT .OR. EQUIL ) THEN
          EQUED = 'N'
          RCEQU = .FALSE.
-      ELSE
+      } else {
          RCEQU = LSAME( EQUED, 'Y' )
       ENDIF
 
@@ -79,7 +79,7 @@
          INFO = -8
       ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -9
-      ELSE
+      } else {
          IF ( RCEQU ) THEN
             SMIN = BIGNUM
             SMAX = ZERO
@@ -91,7 +91,7 @@
                INFO = -10
             ELSE IF( N.GT.0 ) THEN
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
-            ELSE
+            } else {
                SCOND = ONE
             END IF
          END IF

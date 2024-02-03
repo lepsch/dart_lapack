@@ -100,7 +100,7 @@
       TRYRQC = .TRUE.
 
       IF((DOL.EQ.1).AND.(DOU.EQ.M)) THEN
-      ELSE
+      } else {
          // Only selected eigenpairs are computed. Since the other evalues
          // are not refined by RQ iteration, bisection has to compute to full
          // accuracy.
@@ -217,7 +217,7 @@
             IF( PARITY.EQ.0 ) THEN
                OLDCLS = IINDC1
                NEWCLS = IINDC2
-            ELSE
+            } else {
                OLDCLS = IINDC2
                NEWCLS = IINDC1
             END IF
@@ -239,14 +239,14 @@
                      // Get representation from location of the leftmost evalue
                      // of the cluster
                      J = WBEGIN + OLDFST - 1
-                  ELSE
+                  } else {
                      IF(WBEGIN+OLDFST-1.LT.DOL) THEN
                         // Get representation from the left end of Z array
                         J = DOL - 1
                      ELSEIF(WBEGIN+OLDFST-1.GT.DOU) THEN
                         // Get representation from the right end of Z array
                         J = DOU
-                     ELSE
+                     } else {
                         J = WBEGIN + OLDFST - 1
                      ENDIF
                   ENDIF
@@ -314,7 +314,7 @@
                     t // he right relative gap is big enough, the child cluster
                      // (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J
-                   ELSE
+                   } else {
                      // inside a child cluster, the relative gap is not
                      // big enough.
                      GOTO 140
@@ -329,14 +329,14 @@
                      // Store representation at location of the leftmost evalue
                      // of the cluster
                      NEWFTT = WBEGIN + NEWFST - 1
-                  ELSE
+                  } else {
                      IF(WBEGIN+NEWFST-1.LT.DOL) THEN
                         // Store representation at the left end of Z array
                         NEWFTT = DOL - 1
                      ELSEIF(WBEGIN+NEWFST-1.GT.DOU) THEN
                         // Store representation at the right end of Z array
                         NEWFTT = DOU
-                     ELSE
+                     } else {
                         NEWFTT = WBEGIN + NEWFST - 1
                      ENDIF
                   ENDIF
@@ -358,7 +358,7 @@
                      // exhibited correctly for very close eigenvalues.
                      IF( NEWFST.EQ.1 ) THEN
                         LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL )
-                    ELSE
+                    } else {
                         LGAP = WGAP( WBEGIN+NEWFST-2 )
                      ENDIF
                      RGAP = WGAP( WBEGIN+NEWLST-1 )
@@ -371,7 +371,7 @@
                      DO 55 K =1,2
                         IF(K.EQ.1) THEN
                            P = INDEXW( WBEGIN-1+NEWFST )
-                        ELSE
+                        } else {
                            P = INDEXW( WBEGIN-1+NEWLST )
                         ENDIF
                         OFFSET = INDEXW( WBEGIN ) - 1
@@ -426,11 +426,11 @@
                         K = NEWCLS + 2*NCLUS
                         IWORK( K-1 ) = NEWFST
                         IWORK( K ) = NEWLST
-                     ELSE
+                     } else {
                         INFO = -2
                         RETURN
                      ENDIF
-                  ELSE
+                  } else {
 
                      // Compute eigenvector of singleton
 
@@ -448,7 +448,7 @@
                      IF((WINDEX.LT.DOL).OR. (WINDEX.GT.DOU)) THEN
                         ESKIP = .TRUE.
                         GOTO 125
-                     ELSE
+                     } else {
                         ESKIP = .FALSE.
                      ENDIF
                      LEFT = WORK( WINDEX ) - WERR( WINDEX )
@@ -469,7 +469,7 @@
                        t // hus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small left gap.
                         LGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
-                     ELSE
+                     } else {
                         LGAP = WGAP(WINDMN)
                      ENDIF
                      IF( K .EQ. IM) THEN
@@ -479,7 +479,7 @@
                        t // hus to inadequately early RQI 'convergence'.
                         // Prevent this by forcing a small right gap.
                         RGAP = EPS*MAX(ABS(LEFT),ABS(RIGHT))
-                     ELSE
+                     } else {
                         RGAP = WGAP(WINDEX)
                      ENDIF
                      GAP = MIN( LGAP, RGAP )
@@ -488,7 +488,7 @@
                         // because significant entries could be cut off due to a
                         // large GAPTOL parameter in LAR1V. Prevent this.
                         GAPTOL = ZERO
-                     ELSE
+                     } else {
                         GAPTOL = GAP * EPS
                      ENDIF
                      ISUPMN = IN
@@ -556,7 +556,7 @@
                         IF(INDEIG.LE.NEGCNT) THEN
                            // The wanted eigenvalue lies to the left
                            SGNDEF = -ONE
-                        ELSE
+                        } else {
                            // The wanted eigenvalue lies to the right
                            SGNDEF = ONE
                         ENDIF
@@ -575,7 +575,7 @@
                               // chooses to. In this case, the RIGHT side should
                               // be modified as follows:
                                // RIGHT = MAX(RIGHT, LAMBDA + RQCORR)
-                           ELSE
+                           } else {
                               // The current LAMBDA is on the right of the true
                               // eigenvalue
                               RIGHT = LAMBDA
@@ -589,7 +589,7 @@
                            LAMBDA = LAMBDA + RQCORR
                            // Update width of error interval
                            WERR( WINDEX ) = HALF * (RIGHT-LEFT)
-                        ELSE
+                        } else {
                            NEEDBS = .TRUE.
                         ENDIF
                         IF(RIGHT-LEFT.LT.RQTOL*ABS(LAMBDA)) THEN
@@ -602,11 +602,11 @@
                         ELSEIF( ITER.EQ.MAXITR ) THEN
                            NEEDBS = .TRUE.
                            GOTO 120
-                        ELSE
+                        } else {
                            INFO = 5
                            RETURN
                         END IF
-                     ELSE
+                     } else {
                         STP2II = .FALSE.
         IF(USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) THEN
                            LAMBDA = BSTW

@@ -57,11 +57,11 @@
          IF( N.LE.1 ) THEN
             LIWMIN = 1
             LWMIN = 1
-         ELSE
+         } else {
             IF( WANTZ ) THEN
                LIWMIN = 3 + 5*N
                LWMIN = 1 + 6*N + N**2
-            ELSE
+            } else {
                LIWMIN = 1
                LWMIN = 2*N
             END IF
@@ -130,7 +130,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          INDWRK = INDTAU + N
          LLWORK = LWORK - INDWRK + 1
          CALL SSTEDC( 'I', N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), LLWORK, IWORK, LIWORK, INFO )          CALL SOPMTR( 'L', UPLO, 'N', N, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )

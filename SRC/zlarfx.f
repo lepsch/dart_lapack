@@ -289,7 +289,7 @@
             C( 10, J ) = C( 10, J ) - SUM*T10
   200    CONTINUE
          GO TO 410
-      ELSE
+      } else {
 
          // Form  C * H, where H has order n.
 

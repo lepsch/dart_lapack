@@ -72,7 +72,7 @@
          CRT = ONE
          SLT = ZERO
          SRT = ZERO
-      ELSE
+      } else {
          GASMAL = .TRUE.
          IF( GA.GT.FA ) THEN
             PMAX = 2
@@ -84,7 +84,7 @@
                SSMAX = GA
                IF( HA.GT.ONE ) THEN
                   SSMIN = FA / ( GA / HA )
-               ELSE
+               } else {
                   SSMIN = ( FA / GA )*HA
                END IF
                CLT = ONE
@@ -103,7 +103,7 @@
                // Copes with infinite F or H
 
                L = ONE
-            ELSE
+            } else {
                L = D / FA
             END IF
 
@@ -125,7 +125,7 @@
 
             IF( L.EQ.ZERO ) THEN
                R = ABS( M )
-            ELSE
+            } else {
                R = SQRT( L*L+MM )
             END IF
 
@@ -143,10 +143,10 @@
 
                IF( L.EQ.ZERO ) THEN
                   T = SIGN( TWO, FT )*SIGN( ONE, GT )
-               ELSE
+               } else {
                   T = GT / SIGN( D, FT ) + M / T
                END IF
-            ELSE
+            } else {
                T = ( M / ( S+T )+M / ( R+L ) )*( ONE+A )
             END IF
             L = SQRT( T*T+FOUR )
@@ -161,7 +161,7 @@
          SNL = CRT
          CSR = SLT
          SNR = CLT
-      ELSE
+      } else {
          CSL = CLT
          SNL = SLT
          CSR = CRT

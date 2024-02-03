@@ -64,11 +64,11 @@
          ELSE IF( ABSI.LT.SAFMIN ) THEN
             CALL ZSCAL( N, DCMPLX( ZERO, -SAFMIN / AI ), X, INCX )
             CALL ZDSCAL( N, SAFMAX, X, INCX )
-         ELSE
+         } else {
             CALL ZSCAL( N, DCMPLX( ZERO, -ONE / AI ), X, INCX )
          END IF
 
-      ELSE
+      } else {
          // The following numbers can be computed.
          // They are the inverse of the real and imaginary parts of 1/alpha.
          // Note that a and b are always different from zero.
@@ -87,7 +87,7 @@
             IF( (ABSR.GT.OV).OR.(ABSI.GT.OV) ) THEN
                // This means that a and b are both Inf. No need for scaling.
                CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
-            ELSE
+            } else {
                CALL ZDSCAL( N, SAFMIN, X, INCX )
                IF( (ABS( UR ).GT.OV).OR.(ABS( UI ).GT.OV) ) THEN
                   // Infs were generated. We do proper scaling to avoid them.
@@ -95,17 +95,17 @@
                      // ABS( UR ) <= ABS( UI )
                      UR = (SAFMIN * AR) + SAFMIN * (AI * ( AI / AR ))
                      UI = (SAFMIN * AI) + AR * ( (SAFMIN * AR) / AI )
-                  ELSE
+                  } else {
                      // ABS( UR ) > ABS( UI )
                      UR = (SAFMIN * AR) + AI * ( (SAFMIN * AI) / AR )
                      UI = (SAFMIN * AI) + SAFMIN * (AR * ( AR / AI ))
                   END IF
                   CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
-               ELSE
+               } else {
                   CALL ZSCAL( N, DCMPLX( SAFMAX / UR, -SAFMAX / UI ), X, INCX )
                END IF
             END IF
-         ELSE
+         } else {
             CALL ZSCAL( N, DCMPLX( ONE / UR, -ONE / UI ), X, INCX )
          END IF
       END IF

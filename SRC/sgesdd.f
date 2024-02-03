@@ -88,7 +88,7 @@
                // sbdsdc needs only 4*N (or 6*N for uplo=L for LAPACK <= 3.6)
                // keep 7*N for backwards compatibility.
                BDSPAC = 7*N
-            ELSE
+            } else {
                BDSPAC = 3*N*N + 4*N
             END IF
 
@@ -169,7 +169,7 @@
                   MAXWRK = WRKBL + N*N
                   MINWRK = N*N + MAX( 3*N + BDSPAC, N + M )
                END IF
-            ELSE
+            } else {
 
                // Path 5 (M >= N, but not much larger)
 
@@ -207,7 +207,7 @@
                // sbdsdc needs only 4*N (or 6*N for uplo=L for LAPACK <= 3.6)
                // keep 7*N for backwards compatibility.
                BDSPAC = 7*M
-            ELSE
+            } else {
                BDSPAC = 3*M*M + 4*M
             END IF
 
@@ -288,7 +288,7 @@
                   MAXWRK = WRKBL + M*M
                   MINWRK = M*M + MAX( 3*M + BDSPAC, M + N )
                END IF
-            ELSE
+            } else {
 
                // Path 5t (N > M, but not much larger)
 
@@ -417,7 +417,7 @@
 
                IF( LWORK .GE. LDA*N + N*N + 3*N + BDSPAC ) THEN
                   LDWRKR = LDA
-               ELSE
+               } else {
                   LDWRKR = ( LWORK - N*N - 3*N - BDSPAC ) / N
                END IF
                ITAU = IR + LDWRKR*N
@@ -610,7 +610,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // M .LT. MNTHR
 
@@ -646,7 +646,7 @@
                   CALL SLASET( 'F', M, N, ZERO, ZERO, WORK( IU ), LDWRKU )
                   // IR is unused; silence compile warnings
                   IR = -1
-               ELSE
+               } else {
 
                   // WORK( IU ) is N by N
 
@@ -685,7 +685,7 @@
                   // Copy left singular vectors of A from WORK(IU) to A
 
                   CALL SLACPY( 'F', M, N, WORK( IU ), LDWRKU, A, LDA )
-               ELSE
+               } else {
 
                   // Path 5o-slow
                   // Generate Q in A
@@ -751,7 +751,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce using the LQ decomposition (if
@@ -808,7 +808,7 @@
                IF( LWORK .GE. M*N + M*M + 3*M + BDSPAC ) THEN
                   LDWRKL = M
                   CHUNK = N
-               ELSE
+               } else {
                   LDWRKL = M
                   CHUNK = ( LWORK - M*M ) / M
                END IF
@@ -996,7 +996,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N .LT. MNTHR
 
@@ -1032,7 +1032,7 @@
                   NWORK = IVT + LDWKVT*N
                   // IL is unused; silence compile warnings
                   IL = -1
-               ELSE
+               } else {
 
                   // WORK( IVT ) is M by M
 
@@ -1069,7 +1069,7 @@
                   // Copy right singular vectors of A from WORK(IVT) to A
 
                   CALL SLACPY( 'F', M, N, WORK( IVT ), LDWKVT, A, LDA )
-               ELSE
+               } else {
 
                   // Path 5to-slow
                   // Generate P**T in A

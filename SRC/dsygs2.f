@@ -74,7 +74,7 @@
                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DTRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA )
                END IF
    10       CONTINUE
-         ELSE
+         } else {
 
             // Compute inv(L)*A*inv(L**T)
 
@@ -96,7 +96,7 @@
                END IF
    20       CONTINUE
          END IF
-      ELSE
+      } else {
          IF( UPPER ) THEN
 
             // Compute U*A*U**T
@@ -115,7 +115,7 @@
                CALL DSCAL( K-1, BKK, A( 1, K ), 1 )
                A( K, K ) = AKK*BKK**2
    30       CONTINUE
-         ELSE
+         } else {
 
             // Compute L**T *A*L
 

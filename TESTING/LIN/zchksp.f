@@ -106,7 +106,7 @@
                UPLO = UPLOS( IUPLO )
                IF( LSAME( UPLO, 'U' ) ) THEN
                   PACKIT = 'C'
-               ELSE
+               } else {
                   PACKIT = 'R'
                END IF
 
@@ -135,7 +135,7 @@
                         IZERO = 1
                      ELSE IF( IMAT.EQ.4 ) THEN
                         IZERO = N
-                     ELSE
+                     } else {
                         IZERO = N / 2 + 1
                      END IF
 
@@ -153,7 +153,7 @@
                               A( IOFF ) = ZERO
                               IOFF = IOFF + I
    30                      CONTINUE
-                        ELSE
+                        } else {
                            IOFF = IZERO
                            DO 40 I = 1, IZERO - 1
                               A( IOFF ) = ZERO
@@ -164,7 +164,7 @@
                               A( IOFF+I ) = ZERO
    50                      CONTINUE
                         END IF
-                     ELSE
+                     } else {
                         IF( IUPLO.EQ.1 ) THEN
 
                            // Set the first IZERO rows and columns to zero.
@@ -177,7 +177,7 @@
    60                         CONTINUE
                               IOFF = IOFF + J
    70                      CONTINUE
-                        ELSE
+                        } else {
 
                            // Set the last IZERO rows and columns to zero.
 
@@ -191,10 +191,10 @@
    90                      CONTINUE
                         END IF
                      END IF
-                  ELSE
+                  } else {
                      IZERO = 0
                   END IF
-               ELSE
+               } else {
 
                   // Use a special block diagonal matrix to test alternate
                   // code for the 2 x 2 blocks.
@@ -231,7 +231,7 @@
                IF( INFO.NE.K ) CALL ALAERH( PATH, 'ZSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                IF( INFO.NE.0 ) THEN
                   TRFCON = .TRUE.
-               ELSE
+               } else {
                   TRFCON = .FALSE.
                END IF
 

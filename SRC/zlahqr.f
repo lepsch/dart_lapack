@@ -72,7 +72,7 @@
       IF( WANTT ) THEN
          JLO = 1
          JHI = N
-      ELSE
+      } else {
          JLO = ILO
          JHI = IHI
       END IF
@@ -188,7 +188,7 @@
 
             S = DAT1*ABS( DBLE( H( L+1, L ) ) )
             T = S + H( L, L )
-         ELSE
+         } else {
 
             // Wilkinson's shift.
 

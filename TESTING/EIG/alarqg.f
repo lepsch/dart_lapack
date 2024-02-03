@@ -39,7 +39,7 @@
          DO 10 I = 1, NTYPES
             DOTYPE( I ) = .TRUE.
    10    CONTINUE
-      ELSE
+      } else {
          DO 20 I = 1, NTYPES
             DOTYPE( I ) = .FALSE.
    20    CONTINUE
@@ -59,7 +59,7 @@
                IF( I.GT.LENP ) THEN
                   IF( J.EQ.NMATS .AND. I1.GT.0 ) THEN
                      GO TO 60
-                  ELSE
+                  } else {
                      WRITE( NOUT, FMT = 9995 )LINE
                      WRITE( NOUT, FMT = 9994 )NMATS
                      GO TO 80
@@ -85,7 +85,7 @@
                   GO TO 30
                ELSE IF( I1.GT.0 ) THEN
                   GO TO 60
-               ELSE
+               } else {
                   GO TO 30
                END IF
    60       CONTINUE
@@ -99,7 +99,7 @@
                   WRITE( NOUT, FMT = 9997 )NT, PATH
                END IF
                DOTYPE( NT ) = .TRUE.
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES
  9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ',
      $               I4, ': must satisfy  1 <= type <= ', I2 )

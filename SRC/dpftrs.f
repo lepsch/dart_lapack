@@ -62,7 +62,7 @@
 
       IF( LOWER ) THEN
          CALL DTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB )          CALL DTFSM( TRANSR, 'L', UPLO, 'T', 'N', N, NRHS, ONE, A, B, LDB )
-      ELSE
+      } else {
          CALL DTFSM( TRANSR, 'L', UPLO, 'T', 'N', N, NRHS, ONE, A, B, LDB )          CALL DTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB )
       END IF
 

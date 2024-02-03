@@ -45,7 +45,7 @@
                DO J = 1, I
                   T( J, I ) = ZERO
                END DO
-            ELSE
+            } else {
 
                // general case
 
@@ -62,7 +62,7 @@
                   // T(1:i-1,i) := - tau(i) * V(i:j,1:i-1)**T * V(i:j,i)
 
                   CALL SGEMV( 'Transpose', J-I, I-1, -TAU( I ), V( I+1, 1 ), LDV, V( I+1, I ), 1, ONE, T( 1, I ), 1 )
-               ELSE
+               } else {
                   // Skip any trailing zeros.
                   DO LASTV = N, I+1, -1
                      IF( V( I, LASTV ).NE.ZERO ) EXIT
@@ -83,12 +83,12 @@
                T( I, I ) = TAU( I )
                IF( I.GT.1 ) THEN
                   PREVLASTV = MAX( PREVLASTV, LASTV )
-               ELSE
+               } else {
                   PREVLASTV = LASTV
                END IF
             END IF
          END DO
-      ELSE
+      } else {
          PREVLASTV = 1
          DO I = K, 1, -1
             IF( TAU( I ).EQ.ZERO ) THEN
@@ -98,7 +98,7 @@
                DO J = I, K
                   T( J, I ) = ZERO
                END DO
-            ELSE
+            } else {
 
                // general case
 
@@ -116,7 +116,7 @@
                      // T(i+1:k,i) = -tau(i) * V(j:n-k+i,i+1:k)**T * V(j:n-k+i,i)
 
                      CALL SGEMV( 'Transpose', N-K+I-J, K-I, -TAU( I ), V( J, I+1 ), LDV, V( J, I ), 1, ONE, T( I+1, I ), 1 )
-                  ELSE
+                  } else {
                      // Skip any leading zeros.
                      DO LASTV = 1, I-1
                         IF( V( I, LASTV ).NE.ZERO ) EXIT
@@ -136,7 +136,7 @@
                   CALL STRMV( 'Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
                   IF( I.GT.1 ) THEN
                      PREVLASTV = MIN( PREVLASTV, LASTV )
-                  ELSE
+                  } else {
                      PREVLASTV = LASTV
                   END IF
                END IF

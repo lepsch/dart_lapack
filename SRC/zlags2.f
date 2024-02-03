@@ -79,7 +79,7 @@
                CALL ZLARTG( -DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R )
             ELSE IF( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) THEN
                CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL ZLARTG( -DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R )
             END IF
 
@@ -88,7 +88,7 @@
             CSV = CSR
             SNV = -D1*SNR
 
-         ELSE
+         } else {
 
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,2) element of |U|**H *|A| and |V|**H *|B|.
@@ -108,7 +108,7 @@
                CALL ZLARTG( -DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R )
             ELSE IF( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) THEN
                CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )             ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN                CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL ZLARTG( -DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R )
             END IF
 
@@ -119,7 +119,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Input matrices A and B are lower triangular matrices
 
@@ -166,7 +166,7 @@
                CALL ZLARTG( DCMPLX( UA22R ), UA21, CSQ, SNQ, R )
             ELSE IF( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) THEN
                CALL ZLARTG( DCMPLX( UA22R ), UA21, CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL ZLARTG( DCMPLX( VB22R ), VB21, CSQ, SNQ, R )
             END IF
 
@@ -175,7 +175,7 @@
             CSV = CSL
             SNV = -DCONJG( D1 )*SNL
 
-         ELSE
+         } else {
 
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,1) element of |U|**H *|A| and |V|**H *|B|.
@@ -197,7 +197,7 @@
                CALL ZLARTG( UA12, UA11, CSQ, SNQ, R )
             ELSE IF( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) THEN
                CALL ZLARTG( UA12, UA11, CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL ZLARTG( VB12, VB11, CSQ, SNQ, R )
             END IF
 

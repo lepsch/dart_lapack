@@ -56,7 +56,7 @@
          IF( N.EQ.0 ) THEN
             LWKMIN = 1
             LWKOPT = 1
-         ELSE
+         } else {
             NB1 = ILAENV( 1, 'DGEQRF', ' ', N, M, -1, -1 )
             NB2 = ILAENV( 1, 'DGERQF', ' ', N, M, -1, -1 )
             NB3 = ILAENV( 1, 'DORMQR', ' ', N, M, P, -1 )

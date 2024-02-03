@@ -148,7 +148,7 @@
             K2 = K2 - 1
             IDXP( K2 ) = J
             IF( J.EQ.N ) GO TO 100
-         ELSE
+         } else {
             JPREV = J
             GO TO 70
          END IF
@@ -164,7 +164,7 @@
 
          K2 = K2 - 1
          IDXP( K2 ) = J
-      ELSE
+      } else {
 
          // Check if singular values are close enough to allow deflation.
 
@@ -206,7 +206,7 @@
             K2 = K2 - 1
             IDXP( K2 ) = JPREV
             JPREV = J
-         ELSE
+         } else {
             K = K + 1
             ZW( K ) = Z( JPREV )
             DSIGMA( K ) = D( JPREV )
@@ -263,16 +263,16 @@
             C = ONE
             S = ZERO
             Z( 1 ) = TOL
-         ELSE
+         } else {
             C = Z1 / Z( 1 )
             S = -Z( M ) / Z( 1 )
          END IF
          CALL SROT( 1, VF( M ), 1, VF( 1 ), 1, C, S )
          CALL SROT( 1, VL( M ), 1, VL( 1 ), 1, C, S )
-      ELSE
+      } else {
          IF( ABS( Z1 ).LE.TOL ) THEN
             Z( 1 ) = TOL
-         ELSE
+         } else {
             Z( 1 ) = Z1
          END IF
       END IF

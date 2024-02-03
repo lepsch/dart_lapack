@@ -49,7 +49,7 @@
       IF( LSAME( UPLO, 'U' ) ) THEN
          LOWER = .FALSE.
          CUPLO = 'U'
-      ELSE
+      } else {
          LOWER = .TRUE.
          CUPLO = 'L'
       END IF
@@ -70,7 +70,7 @@
 
       IF( ITYPE.EQ.3 ) THEN
          ANORM = ONE
-      ELSE
+      } else {
          ANORM = MAX( DLANSP( '1', CUPLO, N, AP, WORK ), UNFL )
       END IF
 
@@ -120,7 +120,7 @@
                END IF
                WORK( JP+J ) = D( J )
    40       CONTINUE
-         ELSE
+         } else {
             WORK( 1 ) = D( 1 )
             DO 60 J = 1, N - 1
                JP = ( J*( J-1 ) ) / 2
@@ -168,10 +168,10 @@
 
       IF( ANORM.GT.WNORM ) THEN
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
          END IF
       END IF

@@ -64,7 +64,7 @@
              // Only need to compute T(J, J)
 
              MJ = 1
-         ELSE
+         } else {
              MJ = M-J+1
          END IF
 
@@ -152,7 +152,7 @@
 
                   CALL CSWAP( I1-K1+1, A( 1, I1 ), 1, A( 1, I2 ), 1 )
                END IF
-            ELSE
+            } else {
                IPIV( J+1 ) = J+1
             ENDIF
 
@@ -175,7 +175,7 @@
                   ALPHA = ONE / A( K, J+1 )
                   CALL CCOPY( M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA )
                   CALL CSCAL( M-J-1, ALPHA, A( K, J+2 ), LDA )
-               ELSE
+               } else {
                   CALL CLASET( 'Full', 1, M-J-1, ZERO, ZERO, A( K, J+2 ), LDA)
                END IF
             END IF
@@ -184,7 +184,7 @@
          GO TO 10
  20      CONTINUE
 
-      ELSE
+      } else {
 
          // .....................................................
          // Factorize A as L*D*L**T using the lower triangle of A
@@ -204,7 +204,7 @@
              // Only need to compute T(J, J)
 
              MJ = 1
-         ELSE
+         } else {
              MJ = M-J+1
          END IF
 
@@ -292,7 +292,7 @@
 
                   CALL CSWAP( I1-K1+1, A( I1, 1 ), LDA, A( I2, 1 ), LDA )
                END IF
-            ELSE
+            } else {
                IPIV( J+1 ) = J+1
             ENDIF
 
@@ -315,7 +315,7 @@
                   ALPHA = ONE / A( J+1, K )
                   CALL CCOPY( M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 )
                   CALL CSCAL( M-J-1, ALPHA, A( J+2, K ), 1 )
-               ELSE
+               } else {
                   CALL CLASET( 'Full', M-J-1, 1, ZERO, ZERO, A( J+2, K ), LDA )
                END IF
             END IF

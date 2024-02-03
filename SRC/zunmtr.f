@@ -43,7 +43,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -69,13 +69,13 @@
          IF( UPPER ) THEN
             IF( LEFT ) THEN
                NB = ILAENV( 1, 'ZUNMQL', SIDE // TRANS, M-1, N, M-1, -1 )
-            ELSE
+            } else {
                NB = ILAENV( 1, 'ZUNMQL', SIDE // TRANS, M, N-1, N-1, -1 )
             END IF
-         ELSE
+         } else {
             IF( LEFT ) THEN
                NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M-1, N, M-1, -1 )
-            ELSE
+            } else {
                NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M, N-1, N-1, -1 )
             END IF
          END IF
@@ -100,7 +100,7 @@
       IF( LEFT ) THEN
          MI = M - 1
          NI = N
-      ELSE
+      } else {
          MI = M
          NI = N - 1
       END IF
@@ -110,14 +110,14 @@
          // Q was determined by a call to ZHETRD with UPLO = 'U'
 
          CALL ZUNMQL( SIDE, TRANS, MI, NI, NQ-1, A( 1, 2 ), LDA, TAU, C, LDC, WORK, LWORK, IINFO )
-      ELSE
+      } else {
 
          // Q was determined by a call to ZHETRD with UPLO = 'L'
 
          IF( LEFT ) THEN
             I1 = 2
             I2 = 1
-         ELSE
+         } else {
             I1 = 1
             I2 = 2
          END IF

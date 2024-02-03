@@ -85,7 +85,7 @@
       IF( YESREL ) THEN
          INFO = 0
          RETURN
-      ELSE
+      } else {
       ENDIF
 
 

@@ -41,7 +41,7 @@
          IF( LRND ) THEN
             RND = ONE
             EPS = ( BASE**( 1-IT ) ) / 2
-         ELSE
+         } else {
             RND = ZERO
             EPS = BASE**( 1-IT )
          END IF
@@ -230,7 +230,7 @@
          C = DLAMC3( F, A )
          IF( C.EQ.A ) THEN
             LRND = .TRUE.
-         ELSE
+         } else {
             LRND = .FALSE.
          END IF
          F = DLAMC3( B / 2, B / 100 )
@@ -462,7 +462,7 @@
                IEEE = .TRUE.
              // ( Non twos-complement machines, with gradual underflow;
                // e.g., IEEE standard followers )
-            ELSE
+            } else {
                LEMIN = MIN( NGPMIN, GPMIN )
              // ( A guess; no known machine )
                IWARN = .TRUE.
@@ -473,7 +473,7 @@
                LEMIN = MAX( NGPMIN, NGNMIN )
              // ( Twos-complement machines, no gradual underflow;
                // e.g., CYBER 205 )
-            ELSE
+            } else {
                LEMIN = MIN( NGPMIN, NGNMIN )
              // ( A guess; no known machine )
                IWARN = .TRUE.
@@ -484,13 +484,13 @@
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
              // ( Twos-complement machines with gradual underflow;
                // no known machine )
-            ELSE
+            } else {
                LEMIN = MIN( NGPMIN, NGNMIN )
              // ( A guess; no known machine )
                IWARN = .TRUE.
             END IF
 
-         ELSE
+         } else {
             LEMIN = MIN( NGPMIN, NGNMIN, GPMIN, GNMIN )
           // ( A guess; no known machine )
             IWARN = .TRUE.
@@ -764,7 +764,7 @@
       END IF
       IF( LEXP.EQ.-EMIN ) THEN
          UEXP = LEXP
-      ELSE
+      } else {
          UEXP = TRY
          EXBITS = EXBITS + 1
       END IF
@@ -775,7 +775,7 @@
 
       IF( ( UEXP+EMIN ).GT.( -LEXP-EMIN ) ) THEN
          EXPSUM = 2*LEXP
-      ELSE
+      } else {
          EXPSUM = 2*UEXP
       END IF
 

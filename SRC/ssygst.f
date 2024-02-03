@@ -68,7 +68,7 @@
          // Use unblocked code
 
          CALL SSYGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -87,7 +87,7 @@
                      CALL STRSM( 'Left', UPLO, 'Transpose', 'Non-unit', KB, N-K-KB+1, ONE, B( K, K ), LDB, A( K, K+KB ), LDA )                      CALL SSYMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, ONE, A( K, K+KB ), LDA )                      CALL SSYR2K( UPLO, 'Transpose', N-K-KB+1, KB, -ONE, A( K, K+KB ), LDA, B( K, K+KB ), LDB, ONE, A( K+KB, K+KB ), LDA )                      CALL SSYMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, ONE, A( K, K+KB ), LDA )                      CALL STRSM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, N-K-KB+1, ONE, B( K+KB, K+KB ), LDB, A( K, K+KB ), LDA )
                   END IF
    10          CONTINUE
-            ELSE
+            } else {
 
                // Compute inv(L)*A*inv(L**T)
 
@@ -102,7 +102,7 @@
                   END IF
    20          CONTINUE
             END IF
-         ELSE
+         } else {
             IF( UPPER ) THEN
 
                // Compute U*A*U**T
@@ -115,7 +115,7 @@
                   CALL STRMM( 'Left', UPLO, 'No transpose', 'Non-unit', K-1, KB, ONE, B, LDB, A( 1, K ), LDA )                   CALL SSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )                   CALL SSYR2K( UPLO, 'No transpose', K-1, KB, ONE, A( 1, K ), LDA, B( 1, K ), LDB, ONE, A, LDA )                   CALL SSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )                   CALL STRMM( 'Right', UPLO, 'Transpose', 'Non-unit', K-1, KB, ONE, B( K, K ), LDB, A( 1, K ), LDA )
                   CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
    30          CONTINUE
-            ELSE
+            } else {
 
                // Compute L**T*A*L
 

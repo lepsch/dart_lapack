@@ -88,12 +88,12 @@
 
          IF( SORD ) THEN
             SYM = 'Symmetric'
-         ELSE
+         } else {
             SYM = 'Hermitian'
          END IF
          IF( LSAME( C3, 'O' ) ) THEN
             WRITE( IOUNIT, FMT = 9996 )PATH, SYM
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9995 )PATH, SYM
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -113,7 +113,7 @@
 
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Hermitian'
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -133,7 +133,7 @@
 
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Hermitian'
          END IF
          WRITE( IOUNIT, FMT = 9986 )
@@ -155,13 +155,13 @@
 
          IF( LSAME( C3, 'Y' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric'
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9983 )
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9982 )
          END IF
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -189,7 +189,7 @@
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9983 )
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9982 )
          END IF
 
@@ -226,7 +226,7 @@
 
          IF( LSAME( C3, 'E' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Hermitian'
          END IF
 
@@ -264,7 +264,7 @@
          WRITE( IOUNIT, FMT = 9979 )3
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-      ELSE
+      } else {
 
          // Print error message if no header is available.
 

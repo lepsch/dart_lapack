@@ -96,7 +96,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Solve A*X = B, where A = L*T*L**H.
 

@@ -85,7 +85,7 @@
       // Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
       // and multiply by A, moving each column to the right.
 
-      ELSE
+      } else {
 
          // Copy AINV
 

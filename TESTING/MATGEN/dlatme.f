@@ -63,7 +63,7 @@
          IDIST = 2
       ELSE IF( LSAME( DIST, 'N' ) ) THEN
          IDIST = 3
-      ELSE
+      } else {
          IDIST = -1
       END IF
 
@@ -73,16 +73,16 @@
       BADEI = .FALSE.
       IF( LSAME( EI( 1 ), ' ' ) .OR. MODE.NE.0 ) THEN
          USEEI = .FALSE.
-      ELSE
+      } else {
          IF( LSAME( EI( 1 ), 'R' ) ) THEN
             DO 10 J = 2, N
                IF( LSAME( EI( J ), 'I' ) ) THEN
                   IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = .TRUE.
-               ELSE
+               } else {
                   IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = .TRUE.
                END IF
    10       CONTINUE
-         ELSE
+         } else {
             BADEI = .TRUE.
          END IF
       END IF
@@ -93,7 +93,7 @@
          IRSIGN = 1
       ELSE IF( LSAME( RSIGN, 'F' ) ) THEN
          IRSIGN = 0
-      ELSE
+      } else {
          IRSIGN = -1
       END IF
 
@@ -103,7 +103,7 @@
          IUPPER = 1
       ELSE IF( LSAME( UPPER, 'F' ) ) THEN
          IUPPER = 0
-      ELSE
+      } else {
          IUPPER = -1
       END IF
 
@@ -113,7 +113,7 @@
          ISIM = 1
       ELSE IF( LSAME( SIM, 'F' ) ) THEN
          ISIM = 0
-      ELSE
+      } else {
          ISIM = -1
       END IF
 
@@ -194,7 +194,7 @@
          ELSE IF( DMAX.NE.ZERO ) THEN
             INFO = 2
             RETURN
-         ELSE
+         } else {
             ALPHA = ZERO
          END IF
 
@@ -236,7 +236,7 @@
          DO 70 JC = 2, N
             IF( A( JC-1, JC ).NE.ZERO ) THEN
                JR = JC - 2
-            ELSE
+            } else {
                JR = JC - 1
             END IF
             CALL DLARNV( IDIST, ISEED, JR, A( 1, JC ) )
@@ -275,7 +275,7 @@
             CALL DSCAL( N, DS( J ), A( J, 1 ), LDA )
             IF( DS( J ).NE.ZERO ) THEN
                CALL DSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
-            ELSE
+            } else {
                INFO = 5
                RETURN
             END IF

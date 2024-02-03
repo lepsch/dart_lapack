@@ -144,7 +144,7 @@
                            DO ITRAN = 1, 2
                               IF( ITRAN.EQ.1 ) THEN
                                  TRANS = 'N'
-                              ELSE
+                              } else {
                                  TRANS = 'T'
                               END IF
 
@@ -224,7 +224,7 @@
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
-                              ELSE
+                              } else {
                                  TRANS = 'T'
                                  NROWS = N
                                  NCOLS = M
@@ -264,7 +264,7 @@
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                  RESULT( 2 ) = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
-                              ELSE
+                              } else {
 
                                  // Solving overdetermined system
 
@@ -309,7 +309,7 @@
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
-                              ELSE
+                              } else {
                                  TRANS = 'T'
                                  NROWS = N
                                  NCOLS = M
@@ -349,7 +349,7 @@
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                  RESULT( 4 ) = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
-                              ELSE
+                              } else {
 
                                  // Solving overdetermined system
 
@@ -401,7 +401,7 @@
                                     TRANS = 'N'
                                     NROWS = M
                                     NCOLS = N
-                                 ELSE
+                                 } else {
                                     TRANS = 'T'
                                     NROWS = N
                                     NCOLS = M
@@ -441,7 +441,7 @@
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                     RESULT( 6 ) = DQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
-                                 ELSE
+                                 } else {
 
                                     // Solving overdetermined system
 
@@ -543,7 +543,7 @@
                         IF( RANK.GT.0 ) THEN
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 11 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
-                        ELSE
+                        } else {
                            RESULT( 11 ) = ZERO
                         END IF
 
@@ -584,7 +584,7 @@
                         IF( RANK.GT.0 ) THEN
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 15 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
-                        ELSE
+                        } else {
                            RESULT( 15 ) = ZERO
                         END IF
 

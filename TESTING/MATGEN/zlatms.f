@@ -64,7 +64,7 @@
          IDIST = 2
       ELSE IF( LSAME( DIST, 'N' ) ) THEN
          IDIST = 3
-      ELSE
+      } else {
          IDIST = -1
       END IF
 
@@ -86,7 +86,7 @@
          ISYM = 2
          IRSIGN = 1
          ZSYM = .FALSE.
-      ELSE
+      } else {
          ISYM = -1
       END IF
 
@@ -115,7 +115,7 @@
          ISYMPK = 2
       ELSE IF( LSAME( PACK, 'Z' ) ) THEN
          IPACK = 7
-      ELSE
+      } else {
          IPACK = -1
       END IF
 
@@ -131,7 +131,7 @@
          MINLDA = UUB + 1
       ELSE IF( IPACK.EQ.7 ) THEN
          MINLDA = LLB + UUB + 1
-      ELSE
+      } else {
          MINLDA = M
       END IF
 
@@ -141,7 +141,7 @@
       GIVENS = .FALSE.
       IF( ISYM.EQ.1 ) THEN
          IF( DBLE( LLB+UUB ).LT.0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
-      ELSE
+      } else {
          IF( 2*LLB.LT.M ) GIVENS = .TRUE.
       END IF
       IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
@@ -200,7 +200,7 @@
 
       IF( ABS( D( 1 ) ).LE.ABS( D( MNMIN ) ) ) THEN
          TOPDWN = .TRUE.
-      ELSE
+      } else {
          TOPDWN = .FALSE.
       END IF
 
@@ -215,7 +215,7 @@
 
          IF( TEMP.GT.ZERO ) THEN
             ALPHA = DMAX / TEMP
-         ELSE
+         } else {
             INFO = 2
             RETURN
          END IF
@@ -240,10 +240,10 @@
          ISKEW = 1
          IF( IPACK.GT.5 ) THEN
             IOFFST = UUB + 1
-         ELSE
+         } else {
             IOFFST = 1
          END IF
-      ELSE
+      } else {
          ILDA = LDA
          ISKEW = 0
          IOFFST = 0
@@ -276,7 +276,7 @@
 
             IF( IPACK.GT.4 ) THEN
                IPACKG = IPACK
-            ELSE
+            } else {
                IPACKG = 0
             END IF
 
@@ -385,7 +385,7 @@
    90             CONTINUE
   100          CONTINUE
 
-            ELSE
+            } else {
 
                // Bottom-Up -- Start at the bottom right.
 
@@ -491,7 +491,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // Symmetric -- A = U D U'
             // Hermitian -- A = U D U*
@@ -506,7 +506,7 @@
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 6
                   IOFFG = UUB + 1
-               ELSE
+               } else {
                   IPACKG = 1
                END IF
 
@@ -526,7 +526,7 @@
                      IF( ZSYM ) THEN
                         CT = C
                         ST = S
-                     ELSE
+                     } else {
                         CTEMP = DCONJG( CTEMP )
                         CT = DCONJG( C )
                         ST = DCONJG( S )
@@ -545,7 +545,7 @@
                         IF( ZSYM ) THEN
                            CT = C
                            ST = S
-                        ELSE
+                        } else {
                            CTEMP = DCONJG( CTEMP )
                            CT = DCONJG( C )
                            ST = DCONJG( S )
@@ -570,7 +570,7 @@
                         DO 210 JR = JC, MIN( N, JC+UUB )
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
   210                   CONTINUE
-                     ELSE
+                     } else {
                         DO 220 JR = JC, MIN( N, JC+UUB )
                            A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
   220                   CONTINUE
@@ -585,18 +585,18 @@
                   END IF
                   IF( IPACKG.EQ.6 ) THEN
                      IPACKG = IPACK
-                  ELSE
+                  } else {
                      IPACKG = 0
                   END IF
                END IF
-            ELSE
+            } else {
 
                // Bottom-Up -- Generate Lower triangle only
 
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 5
                   IF( IPACK.EQ.6 ) IOFFG = 1
-               ELSE
+               } else {
                   IPACKG = 2
                END IF
 
@@ -615,7 +615,7 @@
                      IF( ZSYM ) THEN
                         CT = C
                         ST = S
-                     ELSE
+                     } else {
                         CTEMP = DCONJG( CTEMP )
                         CT = DCONJG( C )
                         ST = DCONJG( S )
@@ -636,7 +636,7 @@
                         IF( ZSYM ) THEN
                            CT = C
                            ST = S
-                        ELSE
+                        } else {
                            CTEMP = DCONJG( CTEMP )
                            CT = DCONJG( C )
                            ST = DCONJG( S )
@@ -660,7 +660,7 @@
                         DO 300 JR = JC, MAX( 1, JC-UUB ), -1
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
   300                   CONTINUE
-                     ELSE
+                     } else {
                         DO 310 JR = JC, MAX( 1, JC-UUB ), -1
                            A( JR+IROW, JC ) = DCONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
   310                   CONTINUE
@@ -675,7 +675,7 @@
                   END IF
                   IF( IPACKG.EQ.5 ) THEN
                      IPACKG = IPACK
-                  ELSE
+                  } else {
                      IPACKG = 0
                   END IF
                END IF
@@ -692,7 +692,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // 4)      Generate Banded Matrix by first
                  // Rotating by random Unitary matrices,
@@ -706,14 +706,14 @@
             // Non-symmetric -- A = U D V
 
             CALL ZLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO )
-         ELSE
+         } else {
 
             // Symmetric -- A = U D U' or
             // Hermitian -- A = U D U*
 
             IF( ZSYM ) THEN
                CALL ZLAGSY( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
-            ELSE
+            } else {
                CALL ZLAGHE( M, LLB, D, A, LDA, ISEED, WORK, IINFO )
             END IF
          END IF

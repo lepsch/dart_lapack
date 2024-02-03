@@ -108,12 +108,12 @@
             IF( L.EQ.N ) THEN
                L1 = L
                L2 = L
-            ELSE
+            } else {
                IF( B( L+1, L ).NE.ZERO ) THEN
                   L1 = L
                   L2 = L + 1
                   LNEXT = L + 2
-               ELSE
+               } else {
                   L1 = L
                   L2 = L
                   LNEXT = L + 1
@@ -129,12 +129,12 @@
                IF( K.EQ.1 ) THEN
                   K1 = K
                   K2 = K
-               ELSE
+               } else {
                   IF( A( K, K-1 ).NE.ZERO ) THEN
                      K1 = K - 1
                      K2 = K
                      KNEXT = K - 2
-                  ELSE
+                  } else {
                      K1 = K
                      K2 = K
                      KNEXT = K - 1
@@ -272,12 +272,12 @@
             IF( L.EQ.N ) THEN
                L1 = L
                L2 = L
-            ELSE
+            } else {
                IF( B( L+1, L ).NE.ZERO ) THEN
                   L1 = L
                   L2 = L + 1
                   LNEXT = L + 2
-               ELSE
+               } else {
                   L1 = L
                   L2 = L
                   LNEXT = L + 1
@@ -293,12 +293,12 @@
                IF( K.EQ.M ) THEN
                   K1 = K
                   K2 = K
-               ELSE
+               } else {
                   IF( A( K+1, K ).NE.ZERO ) THEN
                      K1 = K
                      K2 = K + 1
                      KNEXT = K + 2
-                  ELSE
+                  } else {
                      K1 = K
                      K2 = K
                      KNEXT = K + 1
@@ -435,12 +435,12 @@
             IF( L.EQ.1 ) THEN
                L1 = L
                L2 = L
-            ELSE
+            } else {
                IF( B( L, L-1 ).NE.ZERO ) THEN
                   L1 = L - 1
                   L2 = L
                   LNEXT = L - 2
-               ELSE
+               } else {
                   L1 = L
                   L2 = L
                   LNEXT = L - 1
@@ -456,12 +456,12 @@
                IF( K.EQ.M ) THEN
                   K1 = K
                   K2 = K
-               ELSE
+               } else {
                   IF( A( K+1, K ).NE.ZERO ) THEN
                      K1 = K
                      K2 = K + 1
                      KNEXT = K + 2
-                  ELSE
+                  } else {
                      K1 = K
                      K2 = K
                      KNEXT = K + 1
@@ -598,12 +598,12 @@
             IF( L.EQ.1 ) THEN
                L1 = L
                L2 = L
-            ELSE
+            } else {
                IF( B( L, L-1 ).NE.ZERO ) THEN
                   L1 = L - 1
                   L2 = L
                   LNEXT = L - 2
-               ELSE
+               } else {
                   L1 = L
                   L2 = L
                   LNEXT = L - 1
@@ -619,12 +619,12 @@
                IF( K.EQ.1 ) THEN
                   K1 = K
                   K2 = K
-               ELSE
+               } else {
                   IF( A( K, K-1 ).NE.ZERO ) THEN
                      K1 = K - 1
                      K2 = K
                      KNEXT = K - 2
-                  ELSE
+                  } else {
                      K1 = K
                      K2 = K
                      KNEXT = K - 1

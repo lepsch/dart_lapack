@@ -57,7 +57,7 @@
          MB = MIN( M-L+I+IB-1, M )
          IF( I.GE.L ) THEN
             LB = 0
-         ELSE
+         } else {
             LB = MB-M+L-I+1
          END IF
 

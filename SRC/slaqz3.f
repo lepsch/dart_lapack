@@ -28,7 +28,7 @@
       KWTOP = IHI-JW+1
       IF ( KWTOP .EQ. ILO ) THEN
          S = ZERO
-      ELSE
+      } else {
          S = A( KWTOP, KWTOP-1 )
       END IF
 
@@ -97,7 +97,7 @@
       // Deflation detection loop
       IF ( KWTOP .EQ. ILO .OR. S .EQ. ZERO ) THEN
          KWBOT = KWTOP-1
-      ELSE
+      } else {
          KWBOT = IHI
          K = 1
          K2 = 1
@@ -116,7 +116,7 @@
                IF ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( SMLNUM, ULP*TEMP ) ) THEN
                   // Deflatable
                   KWBOT = KWBOT-2
-               ELSE
+               } else {
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
@@ -124,7 +124,7 @@
                   K2 = K2+2
                END IF
                K = K+2
-            ELSE
+            } else {
 
                // Try to deflate real eigenvalue
                TEMP = ABS( A( KWBOT, KWBOT ) )
@@ -134,7 +134,7 @@
                IF ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMP, SMLNUM ) ) THEN
                   // Deflatable
                   KWBOT = KWBOT-1
-               ELSE
+               } else {
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
@@ -164,7 +164,7 @@
             CALL SLAG2( A( K, K ), LDA, B( K, K ), LDB, SAFMIN, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) )
             ALPHAI( K+1 ) = -ALPHAI( K )
             K = K+2
-         ELSE
+         } else {
             // 1x1 eigenvalue block
             ALPHAR( K ) = A( K, K )
             ALPHAI( K ) = ZERO
@@ -197,7 +197,7 @@
                END DO
 
                K = K-2
-            ELSE
+            } else {
 
                // k points to single shift
                DO K2 = K, KWBOT-2
@@ -231,7 +231,7 @@
       IF ( ILSCHUR ) THEN
          ISTARTM = 1
          ISTOPM = N
-      ELSE
+      } else {
          ISTARTM = ILO
          ISTOPM = IHI
       END IF

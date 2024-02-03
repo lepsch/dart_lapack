@@ -99,7 +99,7 @@
       CALL CROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, CONJG( SZ ) )
       IF( SA.GE.SB ) THEN
          CALL CLARTG( S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM )
-      ELSE
+      } else {
          CALL CLARTG( T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM )
       END IF
       CALL CROT( 2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, CQ, SQ )

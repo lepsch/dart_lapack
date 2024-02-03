@@ -26,7 +26,7 @@
             ZX(I) = ZY(I)
             ZY(I) = ZTEMP
          END DO
-      ELSE
+      } else {
 
         // code for unequal increments or equal increments not equal
          t // o 1

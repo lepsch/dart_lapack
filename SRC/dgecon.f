@@ -88,7 +88,7 @@
       NORMIN = 'N'
       IF( ONENRM ) THEN
          KASE1 = 1
-      ELSE
+      } else {
          KASE1 = 2
       END IF
       KASE = 0
@@ -104,7 +104,7 @@
             // Multiply by inv(U).
 
             CALL DLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(U**T).
 
@@ -131,7 +131,7 @@
 
       IF( AINVNM.NE.ZERO ) THEN
          RCOND = ( ONE / AINVNM ) / ANORM
-      ELSE
+      } else {
          INFO = 1
          RETURN
       END IF

@@ -135,7 +135,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -260,10 +260,10 @@
                BIDIAG = .TRUE.
                IF( M.GE.N ) THEN
                   UPLO = 'U'
-               ELSE
+               } else {
                   UPLO = 'L'
                END IF
-            ELSE
+            } else {
                IINFO = 1
             END IF
 
@@ -273,7 +273,7 @@
 
                IF( BIDIAG ) THEN
                   CALL CLATMR( MNMIN, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, MNMIN, NRHS, ZERO, ONE, 'NO', Y, LDX, IWORK, IINFO )
-               ELSE
+               } else {
                   CALL CLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IWORK, M, NRHS, ZERO, ONE, 'NO', X, LDX, IWORK, IINFO )
                END IF
             END IF
@@ -309,7 +309,7 @@
                CALL CLACPY( ' ', M, N, Q, LDQ, PT, LDPT )
                IF( M.GE.N ) THEN
                   UPLO = 'U'
-               ELSE
+               } else {
                   UPLO = 'L'
                END IF
 
@@ -367,7 +367,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 4 ) = ULPINV
                   GO TO 150
                END IF
@@ -388,7 +388,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 9 ) = ULPINV
                   GO TO 150
                END IF
@@ -465,7 +465,7 @@
   160       CONTINUE
             IF( .NOT.BIDIAG ) THEN
                NTEST = NTEST + 14
-            ELSE
+            } else {
                NTEST = NTEST + 5
             END IF
 

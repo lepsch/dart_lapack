@@ -57,10 +57,10 @@
          IF( PAIR ) THEN
             PAIR = .FALSE.
             SELECT( K ) = .FALSE.
-         ELSE
+         } else {
             IF( WI( K ).EQ.ZERO ) THEN
                IF( SELECT( K ) ) M = M + 1
-            ELSE
+            } else {
                PAIR = .TRUE.
                IF( SELECT( K ) .OR. SELECT( K+1 ) ) THEN
                   SELECT( K ) = .TRUE.
@@ -110,7 +110,7 @@
       KLN = 0
       IF( FROMQR ) THEN
          KR = 0
-      ELSE
+      } else {
          KR = N
       END IF
       KSR = 1
@@ -159,7 +159,7 @@
                   RETURN
                ELSE IF( HNORM.GT.ZERO ) THEN
                   EPS3 = HNORM*ULP
-               ELSE
+               } else {
                   EPS3 = SMLNUM
                END IF
             END IF
@@ -182,7 +182,7 @@
             PAIR = WKI.NE.ZERO
             IF( PAIR ) THEN
                KSI = KSR + 1
-            ELSE
+            } else {
                KSI = KSR
             END IF
             IF( LEFTV ) THEN
@@ -193,12 +193,12 @@
                IF( IINFO.GT.0 ) THEN
                   IF( PAIR ) THEN
                      INFO = INFO + 2
-                  ELSE
+                  } else {
                      INFO = INFO + 1
                   END IF
                   IFAILL( KSR ) = K
                   IFAILL( KSI ) = K
-               ELSE
+               } else {
                   IFAILL( KSR ) = 0
                   IFAILL( KSI ) = 0
                END IF
@@ -219,12 +219,12 @@
                IF( IINFO.GT.0 ) THEN
                   IF( PAIR ) THEN
                      INFO = INFO + 2
-                  ELSE
+                  } else {
                      INFO = INFO + 1
                   END IF
                   IFAILR( KSR ) = K
                   IFAILR( KSI ) = K
-               ELSE
+               } else {
                   IFAILR( KSR ) = 0
                   IFAILR( KSI ) = 0
                END IF
@@ -240,7 +240,7 @@
 
             IF( PAIR ) THEN
                KSR = KSR + 2
-            ELSE
+            } else {
                KSR = KSR + 1
             END IF
          END IF

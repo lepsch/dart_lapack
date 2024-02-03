@@ -123,7 +123,7 @@
                   IA = IA + 2
    20          CONTINUE
                IF( N.GT.0 ) D( N ) = REAL( A( IA ) )
-            ELSE
+            } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
@@ -139,7 +139,7 @@
 
                   IF( N.EQ.1 ) THEN
                      D( 1 ) = ABS( D( 1 ) )
-                  ELSE
+                  } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
@@ -165,7 +165,7 @@
                   ELSE IF( IZERO.EQ.N ) THEN
                      E( N-1 ) = Z( 1 )
                      D( N ) = REAL( Z( 2 ) )
-                  ELSE
+                  } else {
                      E( IZERO-1 ) = Z( 1 )
                      D( IZERO ) = REAL( Z( 2 ) )
                      E( IZERO ) = Z( 3 )

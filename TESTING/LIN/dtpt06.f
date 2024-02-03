@@ -55,7 +55,7 @@
 
          RAT = ZERO
 
-      ELSE
+      } else {
 
          // One estimate is zero, the other is non-zero.  If the matrix is
          // ill-conditioned, return the nonzero estimate multiplied by

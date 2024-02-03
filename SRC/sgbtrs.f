@@ -92,7 +92,7 @@
             CALL STBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    20    CONTINUE
 
-      ELSE
+      } else {
 
          // Solve A**T*X = B.
 

@@ -94,7 +94,7 @@
             TAU( I ) = TAUI
    10    CONTINUE
          D( 1 ) = A( 1, 1 )
-      ELSE
+      } else {
 
          // Reduce the lower triangle of A
 

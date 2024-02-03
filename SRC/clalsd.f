@@ -62,7 +62,7 @@
 
       IF( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) THEN
          RCND = EPS
-      ELSE
+      } else {
          RCND = RCOND
       END IF
 
@@ -75,7 +75,7 @@
       ELSE IF( N.EQ.1 ) THEN
          IF( D( 1 ).EQ.ZERO ) THEN
             CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, B, LDB )
-         ELSE
+         } else {
             RANK = 1
             CALL CLASCL( 'G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO )
             D( 1 ) = ABS( D( 1 ) )
@@ -93,7 +93,7 @@
             D( I+1 ) = CS*D( I+1 )
             IF( NRHS.EQ.1 ) THEN
                CALL CSROT( 1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN )
-            ELSE
+            } else {
                RWORK( I*2-1 ) = CS
                RWORK( I*2 ) = SN
             END IF
@@ -172,7 +172,7 @@
          DO 100 I = 1, N
             IF( D( I ).LE.TOL ) THEN
                CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB )
-            ELSE
+            } else {
                CALL CLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO )
                RANK = RANK + 1
             END IF
@@ -281,7 +281,7 @@
 
                NSIZE = N - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
-            ELSE
+            } else {
 
                // A subproblem with E(NM1) small. This implies an
                // 1-by-1 subproblem at D(N), which is not solved
@@ -341,7 +341,7 @@
   230          CONTINUE
 
                CALL CLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
-            ELSE
+            } else {
 
                // A large problem. Solve it using divide and conquer.
 
@@ -370,7 +370,7 @@
 
          IF( ABS( D( I ) ).LE.TOL ) THEN
             CALL CLASET( 'A', 1, NRHS, CZERO, CZERO, WORK( BX+I-1 ), N )
-         ELSE
+         } else {
             RANK = RANK + 1
             CALL CLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO )
          END IF
@@ -425,7 +425,7 @@
                   B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   300          CONTINUE
   310       CONTINUE
-         ELSE
+         } else {
             CALL CLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
             IF( INFO.NE.0 ) THEN
                RETURN

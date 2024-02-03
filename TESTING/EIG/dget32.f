@@ -80,7 +80,7 @@
                         IF( INFO.NE.0 ) NINFO = NINFO + 1                         RES = ABS( ( TL( 1, 1 )+SGN*TR( 1, 1 ) )* X( 1, 1 )-SCALE*B( 1, 1 ) )
                         IF( INFO.EQ.0 ) THEN
                            DEN = MAX( EPS*( ( ABS( TR( 1, 1 ) )+ABS( TL( 1, 1 ) ) )*ABS( X( 1, 1 ) ) ), SMLNUM )
-                        ELSE
+                        } else {
                            DEN = SMLNUM*MAX( ABS( X( 1, 1 ) ), ONE )
                         END IF
                         RES = RES / DEN

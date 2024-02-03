@@ -97,7 +97,7 @@
             // Multiply by inv(U).
 
             CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, RWORK, INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(L).
 

@@ -99,7 +99,7 @@
       CALL ZROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, CZ, DCONJG( SZ ) )
       IF( SA.GE.SB ) THEN
          CALL ZLARTG( S( 1, 1 ), S( 2, 1 ), CQ, SQ, CDUM )
-      ELSE
+      } else {
          CALL ZLARTG( T( 1, 1 ), T( 2, 1 ), CQ, SQ, CDUM )
       END IF
       CALL ZROT( 2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, CQ, SQ )

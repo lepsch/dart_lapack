@@ -31,7 +31,7 @@
       KWTOP = IHI-JW+1
       IF ( KWTOP .EQ. ILO ) THEN
          S = CZERO
-      ELSE
+      } else {
          S = A( KWTOP, KWTOP-1 )
       END IF
 
@@ -97,7 +97,7 @@
       // Deflation detection loop
       IF ( KWTOP .EQ. ILO .OR. S .EQ. CZERO ) THEN
          KWBOT = KWTOP-1
-      ELSE
+      } else {
          KWBOT = IHI
          K = 1
          K2 = 1
@@ -110,7 +110,7 @@
                IF ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMPR, SMLNUM ) ) THEN
                   // Deflatable
                   KWBOT = KWBOT-1
-               ELSE
+               } else {
                   // Not deflatable, move out of the way
                   IFST = KWBOT-KWTOP+1
                   ILST = K2
@@ -163,7 +163,7 @@
       IF ( ILSCHUR ) THEN
          ISTARTM = 1
          ISTOPM = N
-      ELSE
+      } else {
          ISTARTM = ILO
          ISTOPM = IHI
       END IF

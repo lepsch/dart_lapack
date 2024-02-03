@@ -76,7 +76,7 @@
          CALL DCOPY( M, VT2( 1, 1 ), LDVT2, VT( 1, 1 ), LDVT )
          IF( Z( 1 ).GT.ZERO ) THEN
             CALL DCOPY( N, U2( 1, 1 ), 1, U( 1, 1 ), 1 )
-         ELSE
+         } else {
             DO 10 I = 1, N
                U( I, 1 ) = -U2( I, 1 )
    10       CONTINUE
@@ -152,7 +152,7 @@
       ELSE IF( CTOT( 3 ).GT.0 ) THEN
          KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
          CALL DGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
-      ELSE
+      } else {
          CALL DLACPY( 'F', NL, K, U2, LDU2, U, LDU )
       END IF
       CALL DCOPY( K, Q( 1, 1 ), LDQ, U( NLP1, 1 ), LDU )

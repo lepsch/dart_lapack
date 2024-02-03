@@ -66,7 +66,7 @@
          DO 10 INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
    10    CONTINUE
-      ELSE
+      } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
@@ -105,7 +105,7 @@
                CALL SSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( K-1, WORK, 1, A( 1, K ), 1 )
             END IF
             KSTEP = 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 
@@ -144,7 +144,7 @@
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
             END IF
-         ELSE
+         } else {
 
             // Interchange rows and columns K and K+1 with -IPIV(K) and
             // -IPIV(K+1)in the leading submatrix A(1:k+1,1:k+1)
@@ -177,7 +177,7 @@
          GO TO 30
    40    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute inv(A) from the factorization A = L*D*L**T.
 
@@ -206,7 +206,7 @@
                CALL SSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - SDOT( N-K, WORK, 1, A( K+1, K ), 1 )
             END IF
             KSTEP = 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 
@@ -245,7 +245,7 @@
                A( K, K ) = A( KP, KP )
                A( KP, KP ) = TEMP
             END IF
-         ELSE
+         } else {
 
             // Interchange rows and columns K and K-1 with -IPIV(K) and
             // -IPIV(K-1) in the trailing submatrix A(k-1:n,k-1:n)

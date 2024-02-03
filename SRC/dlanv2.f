@@ -53,7 +53,7 @@
          CS = ONE
          SN = ZERO
 
-      ELSE
+      } else {
 
          TEMP = A - D
          P = HALF*TEMP
@@ -81,7 +81,7 @@
             B = B - C
             C = ZERO
 
-         ELSE
+         } else {
 
             // Complex eigenvalues, or real (almost) equal eigenvalues.
             // Make diagonal elements equal.
@@ -146,7 +146,7 @@
                      SN = CS*SN1 + SN*CS1
                      CS = TEMP
                   END IF
-               ELSE
+               } else {
                   B = -C
                   C = ZERO
                   TEMP = CS
@@ -165,7 +165,7 @@
       IF( C.EQ.ZERO ) THEN
          RT1I = ZERO
          RT2I = ZERO
-      ELSE
+      } else {
          RT1I = SQRT( ABS( B ) )*SQRT( ABS( C ) )
          RT2I = -RT1I
       END IF

@@ -90,7 +90,7 @@
       IF( NOTRAN ) THEN
          TRANSN = 'N'
          TRANST = 'C'
-      ELSE
+      } else {
          TRANSN = 'C'
          TRANST = 'N'
       END IF
@@ -141,7 +141,7 @@
    30                CONTINUE
                      KC = KC + K
    40             CONTINUE
-               ELSE
+               } else {
                   DO 60 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 50 I = 1, K - 1
@@ -151,7 +151,7 @@
                      KC = KC + K
    60             CONTINUE
                END IF
-            ELSE
+            } else {
                KC = 1
                IF( NOUNIT ) THEN
                   DO 80 K = 1, N
@@ -161,7 +161,7 @@
    70                CONTINUE
                      KC = KC + N - K + 1
    80             CONTINUE
-               ELSE
+               } else {
                   DO 100 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 90 I = K + 1, N
@@ -172,7 +172,7 @@
   100             CONTINUE
                END IF
             END IF
-         ELSE
+         } else {
 
             // Compute abs(A**H)*abs(X) + abs(B).
 
@@ -187,7 +187,7 @@
                      RWORK( K ) = RWORK( K ) + S
                      KC = KC + K
   120             CONTINUE
-               ELSE
+               } else {
                   DO 140 K = 1, N
                      S = CABS1( X( K, J ) )
                      DO 130 I = 1, K - 1
@@ -197,7 +197,7 @@
                      KC = KC + K
   140             CONTINUE
                END IF
-            ELSE
+            } else {
                KC = 1
                IF( NOUNIT ) THEN
                   DO 160 K = 1, N
@@ -208,7 +208,7 @@
                      RWORK( K ) = RWORK( K ) + S
                      KC = KC + N - K + 1
   160             CONTINUE
-               ELSE
+               } else {
                   DO 180 K = 1, N
                      S = CABS1( X( K, J ) )
                      DO 170 I = K + 1, N
@@ -224,7 +224,7 @@
          DO 190 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
   190    CONTINUE
@@ -255,7 +255,7 @@
          DO 200 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
-            ELSE
+            } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
   200    CONTINUE
@@ -272,7 +272,7 @@
                DO 220 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   220          CONTINUE
-            ELSE
+            } else {
 
                // Multiply by inv(op(A))*diag(W).
 

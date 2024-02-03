@@ -23,7 +23,7 @@
          ILAUPLO = BLAS_UPPER
       ELSE IF( LSAME( UPLO, 'L' ) ) THEN
          ILAUPLO = BLAS_LOWER
-      ELSE
+      } else {
          ILAUPLO = -1
       END IF
       RETURN

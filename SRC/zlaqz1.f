@@ -31,7 +31,7 @@
             CALL ZROT( NZ, Z( 1, IHI-ZSTART+1 ), 1, Z( 1, IHI-1-ZSTART+ 1 ), 1, C, S )
          END IF
 
-      ELSE
+      } else {
 
          // Normal operation, move bulge down
 

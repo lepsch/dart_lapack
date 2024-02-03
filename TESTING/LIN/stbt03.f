@@ -56,12 +56,12 @@
             DO 10 J = 1, N
                TNORM = MAX( TNORM, TSCAL*ABS( AB( KD+1, J ) )+ CNORM( J ) )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J = 1, N
                TNORM = MAX( TNORM, TSCAL*ABS( AB( 1, J ) )+CNORM( J ) )
    20       CONTINUE
          END IF
-      ELSE
+      } else {
          DO 30 J = 1, N
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
    30    CONTINUE
@@ -85,12 +85,12 @@
          XNORM = ABS( X( IX, J ) )
          IF( ERR*SMLNUM.LE.XNORM ) THEN
             IF( XNORM.GT.ZERO ) ERR = ERR / XNORM
-         ELSE
+         } else {
             IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          IF( ERR*SMLNUM.LE.TNORM ) THEN
             IF( TNORM.GT.ZERO ) ERR = ERR / TNORM
-         ELSE
+         } else {
             IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          RESID = MAX( RESID, ERR )

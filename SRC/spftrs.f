@@ -62,7 +62,7 @@
 
       IF( LOWER ) THEN
          CALL STFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB )          CALL STFSM( TRANSR, 'L', UPLO, 'T', 'N', N, NRHS, ONE, A, B, LDB )
-      ELSE
+      } else {
          CALL STFSM( TRANSR, 'L', UPLO, 'T', 'N', N, NRHS, ONE, A, B, LDB )          CALL STFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, ONE, A, B, LDB )
       END IF
 

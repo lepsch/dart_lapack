@@ -51,7 +51,7 @@
          Z2 = REALONE
          Z3 = REALONE
          Z4 = REALONE
-      ELSE
+      } else {
          Z1 = REALONE
          Z2 = -REALONE
          Z3 = REALONE
@@ -110,12 +110,12 @@
 
             IF( I .EQ. 1 ) THEN
                CALL ZSCAL( P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), 1 )
-            ELSE
+            } else {
                CALL ZSCAL( P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), 1 )                CALL ZAXPY( P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I,I-1), 1, X11(I,I), 1 )
             END IF
             IF( I .EQ. 1 ) THEN
                CALL ZSCAL( M-P-I+1, DCMPLX( Z2, 0.0D0 ), X21(I,I), 1 )
-            ELSE
+            } else {
                CALL ZSCAL( M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), 1 )                CALL ZAXPY( M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I,I-1), 1, X21(I,I), 1 )
             END IF
 
@@ -152,7 +152,7 @@
                CALL ZLACGV( Q-I, X11(I,I+1), LDX11 )
                IF ( I .EQ. Q-1 ) THEN
                   CALL ZLARFGP( Q-I, X11(I,I+1), X11(I,I+1), LDX11, TAUQ1(I) )
-               ELSE
+               } else {
                   CALL ZLARFGP( Q-I, X11(I,I+1), X11(I,I+2), LDX11, TAUQ1(I) )
                END IF
                X11(I,I+1) = ONE
@@ -161,7 +161,7 @@
                CALL ZLACGV( M-Q-I+1, X12(I,I), LDX12 )
                IF ( M-Q .EQ. I ) THEN
                   CALL ZLARFGP( M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) )
-               ELSE
+               } else {
                   CALL ZLARFGP( M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) )
                END IF
             END IF
@@ -190,7 +190,7 @@
             CALL ZLACGV( M-Q-I+1, X12(I,I), LDX12 )
             IF ( I .GE. M-Q ) THEN
                CALL ZLARFGP( M-Q-I+1, X12(I,I), X12(I,I), LDX12, TAUQ2(I) )
-            ELSE
+            } else {
                CALL ZLARFGP( M-Q-I+1, X12(I,I), X12(I,I+1), LDX12, TAUQ2(I) )
             END IF
             X12(I,I) = ONE
@@ -218,7 +218,7 @@
 
          END DO
 
-      ELSE
+      } else {
 
          // Reduce columns 1, ..., Q of X11, X12, X21, X22
 
@@ -226,12 +226,12 @@
 
             IF( I .EQ. 1 ) THEN
                CALL ZSCAL( P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), LDX11 )
-            ELSE
+            } else {
                CALL ZSCAL( P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), LDX11 )                CALL ZAXPY( P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I-1,I), LDX12, X11(I,I), LDX11 )
             END IF
             IF( I .EQ. 1 ) THEN
                CALL ZSCAL( M-P-I+1, DCMPLX( Z2, 0.0D0 ), X21(I,I), LDX21 )
-            ELSE
+            } else {
                CALL ZSCAL( M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), LDX21 )                CALL ZAXPY( M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I-1,I), LDX22, X21(I,I), LDX21 )
             END IF
 
@@ -244,7 +244,7 @@
             X11(I,I) = ONE
             IF ( I .EQ. M-P ) THEN
                CALL ZLARFGP( M-P-I+1, X21(I,I), X21(I,I), LDX21, TAUP2(I) )
-            ELSE
+            } else {
                CALL ZLARFGP( M-P-I+1, X21(I,I), X21(I,I+1), LDX21, TAUP2(I) )
             END IF
             X21(I,I) = ONE

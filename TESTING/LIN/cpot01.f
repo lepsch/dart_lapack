@@ -83,7 +83,7 @@
 
       // Compute the product L * L**H, overwriting L.
 
-      ELSE
+      } else {
          DO 30 K = N, 1, -1
 
             // Add a multiple of column K of the factor L to each of
@@ -108,7 +108,7 @@
    40       CONTINUE
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
    50    CONTINUE
-      ELSE
+      } else {
          DO 70 J = 1, N
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
             DO 60 I = J + 1, N

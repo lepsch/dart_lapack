@@ -94,7 +94,7 @@
          IF( K.GT.1 ) THEN
             IMAX = ISAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = ABS( W( IMAX, KW ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -110,7 +110,7 @@
 
             IF( K.GT.1 ) E( K ) = ZERO
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -125,7 +125,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -150,7 +150,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = IMAX + ISAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = ABS( W( JMAX, KW-1 ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -191,7 +191,7 @@
                      KP = IMAX
                      KSTEP = 2
                      DONE = .TRUE.
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -277,7 +277,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns KW and KW-1 of W now
                // hold
@@ -320,7 +320,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
          END IF
@@ -356,7 +356,7 @@
 
          KB = N - K
 
-      ELSE
+      } else {
 
          // Factorize the leading columns of A using the lower triangle
          // of A and working forwards, and compute the matrix W = L21*D
@@ -395,7 +395,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + ISAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = ABS( W( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -411,7 +411,7 @@
 
             IF( K.LT.N ) E( K ) = ZERO
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -426,7 +426,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -449,7 +449,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = K - 1 + ISAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = ABS( W( JMAX, K+1 ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -490,7 +490,7 @@
                      KP = IMAX
                      KSTEP = 2
                      DONE = .TRUE.
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -571,7 +571,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 of W now hold
 
@@ -613,7 +613,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
          END IF

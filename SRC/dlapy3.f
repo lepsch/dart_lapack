@@ -35,7 +35,7 @@
       // adding all three entries together will make sure
       // NaN will not disappear.
          DLAPY3 =  XABS + YABS + ZABS
-      ELSE
+      } else {
          DLAPY3 = W*SQRT( ( XABS / W )**2+( YABS / W )**2+ ( ZABS / W )**2 )
       END IF
       RETURN

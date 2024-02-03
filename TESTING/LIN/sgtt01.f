@@ -57,7 +57,7 @@
             IF( N.GE.2 ) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I )
          ELSE IF( I.EQ.N ) THEN
             WORK( I, I ) = DF( I )
-         ELSE
+         } else {
             WORK( I, I ) = DF( I )
             WORK( I, I+1 ) = DUF( I )
             IF( I.LT.N-1 ) WORK( I, I+2 ) = DU2( I )
@@ -73,7 +73,7 @@
          IP = IPIV( I )
          IF( IP.EQ.I ) THEN
             LASTJ = MIN( I+2, N )
-         ELSE
+         } else {
             CALL SSWAP( LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
          END IF
    40 CONTINUE
@@ -105,7 +105,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( RESID / ANORM ) / EPS
       END IF
 

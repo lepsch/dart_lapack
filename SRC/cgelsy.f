@@ -151,7 +151,7 @@
          RANK = 0
          CALL CLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          GO TO 70
-      ELSE
+      } else {
          RANK = 1
       END IF
 

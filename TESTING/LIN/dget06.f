@@ -30,13 +30,13 @@
       IF( RCOND.GT.ZERO ) THEN
          IF( RCONDC.GT.ZERO ) THEN
             RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS )
-         ELSE
+         } else {
             RAT = RCOND / EPS
          END IF
-      ELSE
+      } else {
          IF( RCONDC.GT.ZERO ) THEN
             RAT = RCONDC / EPS
-         ELSE
+         } else {
             RAT = ZERO
          END IF
       END IF

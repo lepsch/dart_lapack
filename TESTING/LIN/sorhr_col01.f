@@ -172,7 +172,7 @@
       RESID = SLANGE( '1', M, N, R, M, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = RESID / ( EPS * MAX( 1, M ) * ANORM )
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 
@@ -204,7 +204,7 @@
       RESID = SLANGE( '1', M, N, CF, M, RWORK )
       IF( CNORM.GT.ZERO ) THEN
          RESULT( 3 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
-      ELSE
+      } else {
          RESULT( 3 ) = ZERO
       END IF
 
@@ -224,7 +224,7 @@
       RESID = SLANGE( '1', M, N, CF, M, RWORK )
       IF( CNORM.GT.ZERO ) THEN
          RESULT( 4 ) = RESID / ( EPS * MAX( 1, M ) * CNORM )
-      ELSE
+      } else {
          RESULT( 4 ) = ZERO
       END IF
 
@@ -248,7 +248,7 @@
       RESID = SLANGE( '1', N, M, DF, N, RWORK )
       IF( DNORM.GT.ZERO ) THEN
          RESULT( 5 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
-      ELSE
+      } else {
          RESULT( 5 ) = ZERO
       END IF
 
@@ -268,7 +268,7 @@
       RESID = SLANGE( '1', N, M, DF, N, RWORK )
       IF( DNORM.GT.ZERO ) THEN
          RESULT( 6 ) = RESID / ( EPS * MAX( 1, M ) * DNORM )
-      ELSE
+      } else {
          RESULT( 6 ) = ZERO
       END IF
 

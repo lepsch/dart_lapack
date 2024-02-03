@@ -116,7 +116,7 @@
                            CALL SLARTV( NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
    10                   CONTINUE
 
-                     ELSE
+                     } else {
                         JEND = J1 + ( NR-1 )*KD1
                         DO 20 JINC = J1, JEND, KD1
                            CALL SROT( KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) )
@@ -158,12 +158,12 @@
                         DO 30 L = 1, KD - 1
                            IF( J2+L.GT.N ) THEN
                               NRT = NR - 1
-                           ELSE
+                           } else {
                               NRT = NR
                            END IF
                            IF( NRT.GT.0 ) CALL SLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
    30                   CONTINUE
-                     ELSE
+                     } else {
                         J1END = J1 + KD1*( NR-2 )
                         IF( J1END.GE.J1 ) THEN
                            DO 40 JIN = J1, J1END, KD1
@@ -198,7 +198,7 @@
                            IQAEND = MIN( IQAEND+KD, IQEND )
                            CALL SROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) )
    50                   CONTINUE
-                     ELSE
+                     } else {
 
                         DO 60 J = J1, J2, KD1
                            CALL SROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) )
@@ -234,7 +234,7 @@
             DO 100 I = 1, N - 1
                E( I ) = AB( KD, I+1 )
   100       CONTINUE
-         ELSE
+         } else {
 
             // set E to zero if original matrix was diagonal
 
@@ -249,7 +249,7 @@
             D( I ) = AB( KD1, I )
   120    CONTINUE
 
-      ELSE
+      } else {
 
          IF( KD.GT.1 ) THEN
 
@@ -284,7 +284,7 @@
                         DO 130 L = 1, KD - 1
                            CALL SLARTV( NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
   130                   CONTINUE
-                     ELSE
+                     } else {
                         JEND = J1 + KD1*( NR-1 )
                         DO 140 JINC = J1, JEND, KD1
                            CALL SROT( KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) )
@@ -326,12 +326,12 @@
                         DO 150 L = 1, KD - 1
                            IF( J2+L.GT.N ) THEN
                               NRT = NR - 1
-                           ELSE
+                           } else {
                               NRT = NR
                            END IF
                            IF( NRT.GT.0 ) CALL SLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
   150                   CONTINUE
-                     ELSE
+                     } else {
                         J1END = J1 + KD1*( NR-2 )
                         IF( J1END.GE.J1 ) THEN
                            DO 160 J1INC = J1, J1END, KD1
@@ -368,7 +368,7 @@
                            IQAEND = MIN( IQAEND+KD, IQEND )
                            CALL SROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) )
   170                   CONTINUE
-                     ELSE
+                     } else {
 
                         DO 180 J = J1, J2, KD1
                            CALL SROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) )
@@ -403,7 +403,7 @@
             DO 220 I = 1, N - 1
                E( I ) = AB( 2, I )
   220       CONTINUE
-         ELSE
+         } else {
 
             // set E to zero if original matrix was diagonal
 

@@ -49,7 +49,7 @@
       IF ( ILSCHUR ) THEN
          ISTARTM = 1
          ISTOPM = N
-      ELSE
+      } else {
          ISTARTM = ILO
          ISTOPM = IHI
       END IF

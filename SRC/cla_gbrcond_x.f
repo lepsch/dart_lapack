@@ -79,7 +79,7 @@
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0E+0
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
@@ -117,7 +117,7 @@
 
             IF ( NOTRANS ) THEN
                CALL CGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL CGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ENDIF
 
@@ -126,7 +126,7 @@
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
-         ELSE
+         } else {
 
             // Multiply by inv(X**H).
 
@@ -136,7 +136,7 @@
 
             IF ( NOTRANS ) THEN
                CALL CGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL CGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 

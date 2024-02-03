@@ -155,7 +155,7 @@
                   CX(I) = (42.0D0,43.0D0)
   160          CONTINUE
                CALL ITEST1(IZAMAX(N,CX,INCX),ITRUEC(NP1))
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             END IF
@@ -286,7 +286,7 @@
                   CY0(1) = (44.0D0,45.0D0)
                   IF (N.EQ.0) THEN
                      CTY0(1) = CY0(1)
-                  ELSE
+                  } else {
                      CTY0(1) = CX0(1)
                   END IF
                   LINCX = INCX
@@ -303,7 +303,7 @@
                CALL ZSWAP(N,CX,INCX,CY,INCY)
                CALL CTEST(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0D0)
                CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0D0)
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             END IF
@@ -599,7 +599,7 @@
             Y1 = ABS(V0) * SQRT(10.0D0)
             IF (N.GT.1) THEN
                Y2 = ABS(V1)*SQRT(WORKSSQ)
-            ELSE
+            } else {
                Y2 = ZERO
             END IF
             YMIN = MIN(Y1, Y2)
@@ -616,7 +616,7 @@
                YNRM = SQRT(TWO)*YMAX
             ELSE IF (YMAX == ZERO) THEN
                YNRM = ZERO
-            ELSE
+            } else {
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
             END IF
 
@@ -651,11 +651,11 @@
                   ZNRM = SQRT(TWO)*YMAX
                ELSE IF (YMAX == ZERO) THEN
                   ZNRM = ZERO
-               ELSE
+               } else {
                   ZNRM = YMAX * SQRT(ONE + (YMIN / YMAX)**2)
                END IF
                ZNRM = SQRT(DBLE(n)) * ZNRM
-            ELSE
+            } else {
                ZNRM = YNRM
             END IF
 
@@ -664,12 +664,12 @@
             IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN
                IF ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) THEN
                   TRAT = ONE / ULP
-               ELSE
+               } else {
                   TRAT = ZERO
                END IF
             ELSE IF (ZNRM == ZERO) THEN
                TRAT = SNRM / ULP
-            ELSE
+            } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (TWO*DBLE(N)*ULP)
             END IF
             IF ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) THEN

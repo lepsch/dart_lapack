@@ -60,7 +60,7 @@
          // Use unblocked code.
 
          CALL SGETRF2( M, N, A, LDA, IPIV, INFO )
-      ELSE
+      } else {
 
          // Use blocked code.
 

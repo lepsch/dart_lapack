@@ -64,7 +64,7 @@
       IF ( NPARAMS .GE. LA_LINRX_ITREF_I ) THEN
          IF ( PARAMS( LA_LINRX_ITREF_I ) .LT. 0.0D+0 ) THEN
             PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT
-         ELSE
+         } else {
             REF_TYPE = PARAMS( LA_LINRX_ITREF_I )
          END IF
       END IF
@@ -80,7 +80,7 @@
       IF ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) THEN
          IF ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0D+0 ) THEN
             PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
-         ELSE
+         } else {
             ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) )
          END IF
       END IF
@@ -88,10 +88,10 @@
          IF ( PARAMS( LA_LINRX_CWISE_I ).LT.0.0D+0 ) THEN
             IF ( IGNORE_CWISE ) THEN
                PARAMS( LA_LINRX_CWISE_I ) = 0.0D+0
-            ELSE
+            } else {
                PARAMS( LA_LINRX_CWISE_I ) = 1.0D+0
             END IF
-         ELSE
+         } else {
             IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) .EQ. 0.0D+0
          END IF
       END IF
@@ -99,7 +99,7 @@
          N_NORMS = 0
       ELSE IF ( IGNORE_CWISE ) THEN
          N_NORMS = 1
-      ELSE
+      } else {
          N_NORMS = 2
       END IF
 
@@ -181,7 +181,7 @@
 
       IF( NOTRAN ) THEN
          NORM = 'I'
-      ELSE
+      } else {
          NORM = '1'
       END IF
       ANORM = ZLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
@@ -195,7 +195,7 @@
 
          IF ( NOTRAN ) THEN
             CALL ZLA_GBRFSX_EXTENDED( PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
-         ELSE
+         } else {
             CALL ZLA_GBRFSX_EXTENDED( PREC_TYPE, TRANS_TYPE,  N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, ROWEQU, R, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
          END IF
       END IF
@@ -209,7 +209,7 @@
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .TRUE., INFO, WORK, RWORK )
          ELSE IF ( ROWEQU .AND. .NOT. NOTRAN ) THEN
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, R, .TRUE., INFO, WORK, RWORK )
-         ELSE
+         } else {
             RCOND_TMP = ZLA_GBRCOND_C( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, C, .FALSE., INFO, WORK, RWORK )
          END IF
          DO J = 1, NRHS
@@ -251,7 +251,7 @@
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
          DO J = 1, NRHS
             IF (ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X( 1, J ), INFO, WORK, RWORK )
-            ELSE
+            } else {
                RCOND_TMP = 0.0D+0
             END IF
 

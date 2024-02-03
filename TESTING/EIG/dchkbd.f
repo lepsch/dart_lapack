@@ -133,7 +133,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -258,10 +258,10 @@
                BIDIAG = .TRUE.
                IF( M.GE.N ) THEN
                   UPLO = 'U'
-               ELSE
+               } else {
                   UPLO = 'L'
                END IF
-            ELSE
+            } else {
                IINFO = 1
             END IF
 
@@ -271,7 +271,7 @@
 
                IF( BIDIAG ) THEN
                   CALL DLATMR( MNMIN, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( MNMIN+1 ), 1, ONE, WORK( 2*MNMIN+1 ), 1, ONE, 'N', IWORK, MNMIN, NRHS, ZERO, ONE, 'NO', Y, LDX, IWORK, IINFO )
-               ELSE
+               } else {
                   CALL DLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IWORK, M, NRHS, ZERO, ONE, 'NO', X, LDX, IWORK, IINFO )
                END IF
             END IF
@@ -307,7 +307,7 @@
                CALL DLACPY( ' ', M, N, Q, LDQ, PT, LDPT )
                IF( M.GE.N ) THEN
                   UPLO = 'U'
-               ELSE
+               } else {
                   UPLO = 'L'
                END IF
 
@@ -365,7 +365,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 4 ) = ULPINV
                   GO TO 270
                END IF
@@ -386,7 +386,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 9 ) = ULPINV
                   GO TO 270
                END IF
@@ -469,7 +469,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 15 ) = ULPINV
                   GO TO 270
                END IF
@@ -490,7 +490,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 18 ) = ULPINV
                   GO TO 270
                END IF
@@ -555,7 +555,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 20 ) = ULPINV
                   GO TO 270
                END IF
@@ -592,7 +592,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 24 ) = ULPINV
                   GO TO 270
                END IF
@@ -637,7 +637,7 @@
             IF( MNMIN.LE.1 ) THEN
                IL = 1
                IU = MNMIN
-            ELSE
+            } else {
                IL = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( MNMIN-1 )*DLARND( 1, ISEED2 ) )
                IF( IU.LT.IL ) THEN
@@ -659,7 +659,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 25 ) = ULPINV
                   GO TO 270
                END IF
@@ -688,7 +688,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 29 ) = ULPINV
                   GO TO 270
                END IF
@@ -727,18 +727,18 @@
             IF( MNMIN.GT.0 ) THEN
                IF( IL.NE.1 ) THEN
                   VU = S1( IL ) + MAX( HALF*ABS( S1( IL )-S1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
-               ELSE
+               } else {
                   VU = S1( 1 ) + MAX( HALF*ABS( S1( MNMIN )-S1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                END IF
                IF( IU.NE.NS1 ) THEN
                   VL = S1( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( IU+1 )-S1( IU ) ) )
-               ELSE
+               } else {
                   VL = S1( NS1 ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( S1( MNMIN )-S1( 1 ) ) )
                END IF
                VL = MAX( VL,ZERO )
                VU = MAX( VU,ZERO )
                IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
-            ELSE
+            } else {
                VL = ZERO
                VU = ONE
             END IF
@@ -755,7 +755,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 30 ) = ULPINV
                   GO TO 270
                END IF
@@ -784,7 +784,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 34 ) = ULPINV
                   GO TO 270
                END IF
@@ -826,7 +826,7 @@
   280       CONTINUE
             IF( .NOT.BIDIAG ) THEN
                NTEST = NTEST + 34
-            ELSE
+            } else {
                NTEST = NTEST + 30
             END IF
 

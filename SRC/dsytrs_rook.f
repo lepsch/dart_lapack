@@ -92,7 +92,7 @@
 
             CALL DSCAL( NRHS, ONE / A( K, K ), B( K, 1 ), LDB )
             K = K - 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 
@@ -155,7 +155,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K + 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 
@@ -180,7 +180,7 @@
          GO TO 40
    50    CONTINUE
 
-      ELSE
+      } else {
 
          // Solve A*X = B, where A = L*D*L**T.
 
@@ -214,7 +214,7 @@
 
             CALL DSCAL( NRHS, ONE / A( K, K ), B( K, 1 ), LDB )
             K = K + 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 
@@ -277,7 +277,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K - 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 

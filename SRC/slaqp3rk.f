@@ -71,7 +71,7 @@
 
             KP = KP1
 
-         ELSE
+         } else {
 
             // Determine the pivot column in K-th step, i.e. the index
             // of the column with the maximum 2-norm in the
@@ -308,7 +308,7 @@
 
          IF( I.LT.M ) THEN
             CALL SLARFG( M-I+1, A( I, K ), A( I+1, K ), 1, TAU( K ) )
-         ELSE
+         } else {
             TAU( K ) = ZERO
          END IF
 
@@ -442,7 +442,7 @@
 
                      LSTICC = J
 
-                  ELSE
+                  } else {
                      VN1( J ) = VN1( J )*SQRT( TEMP )
                   END IF
                END IF

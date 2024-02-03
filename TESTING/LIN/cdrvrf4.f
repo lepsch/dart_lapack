@@ -98,7 +98,7 @@
                         ELSE IF ( IALPHA.EQ. 3) THEN
                            ALPHA = ZERO
                            BETA = ONE
-                        ELSE
+                        } else {
                            ALPHA = SLARND( 2, ISEED )
                            BETA = SLARND( 2, ISEED )
                         END IF
@@ -122,7 +122,7 @@
 
                            NORMA = CLANGE( 'I', N, K, A, LDA, S_WORK_CLANGE )
 
-                        ELSE
+                        } else {
 
                            // In this case we are TRANS, so A is K-by-N
 
@@ -207,7 +207,7 @@
 
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'CHFRK', NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9995 ) 'CHFRK', NFAIL, NRUN
       END IF
 

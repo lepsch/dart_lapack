@@ -105,7 +105,7 @@
          WORK( 1 ) = DCMPLX( MAX( DBLE( WORK( 1 ) ), DBLE( MAX( 1, N ) ) ), RZERO )
          RETURN
 
-      ELSE
+      } else {
 
          // ==== copy eigenvalues isolated by ZGEBAL ====
 
@@ -131,7 +131,7 @@
 
          IF( N.GT.NMIN ) THEN
             CALL ZLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
-         ELSE
+         } else {
 
             // ==== Small matrix ====
 
@@ -151,7 +151,7 @@
 
                   CALL ZLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 
-               ELSE
+               } else {
 
                   // ==== Tiny matrices don't have enough subdiagonal
                   // .    scratch space to benefit from ZLAQR0.  Hence,

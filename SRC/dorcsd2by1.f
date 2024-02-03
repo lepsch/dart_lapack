@@ -167,7 +167,7 @@
             END IF
             CALL DBBCSD( 'N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, DUM1, DUM2, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
             LBBCSD = INT( WORK(1) )
-         ELSE
+         } else {
             CALL DORBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM1, DUM1, DUM1, DUM1, DUM1, WORK(1), -1, CHILDINFO )
             LORBDB = M + INT( WORK(1) )
             IF( WANTU1 .AND. P .GT. 0 ) THEN
@@ -341,7 +341,7 @@
                CALL DLAPMR( .FALSE., Q, Q, V1T, LDV1T, IWORK )
             END IF
          END IF
-      ELSE
+      } else {
 
          // Case 4: R = M-Q
 

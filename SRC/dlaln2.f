@@ -96,7 +96,7 @@
 
             X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / CSR
             XNORM = ABS( X( 1, 1 ) )
-         ELSE
+         } else {
 
             // Complex 1x1 system (w is complex)
 
@@ -128,7 +128,7 @@
             XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) )
          END IF
 
-      ELSE
+      } else {
 
          // 2x2 System
 
@@ -139,7 +139,7 @@
          IF( LTRANS ) THEN
             CR( 1, 2 ) = CA*A( 2, 1 )
             CR( 2, 1 ) = CA*A( 1, 2 )
-         ELSE
+         } else {
             CR( 2, 1 ) = CA*A( 2, 1 )
             CR( 1, 2 ) = CA*A( 1, 2 )
          END IF
@@ -194,7 +194,7 @@
             IF( RSWAP( ICMAX ) ) THEN
                BR1 = B( 2, 1 )
                BR2 = B( 1, 1 )
-            ELSE
+            } else {
                BR1 = B( 1, 1 )
                BR2 = B( 2, 1 )
             END IF
@@ -209,7 +209,7 @@
             IF( ZSWAP( ICMAX ) ) THEN
                X( 1, 1 ) = XR2
                X( 2, 1 ) = XR1
-            ELSE
+            } else {
                X( 1, 1 ) = XR1
                X( 2, 1 ) = XR2
             END IF
@@ -226,7 +226,7 @@
                   SCALE = TEMP*SCALE
                END IF
             END IF
-         ELSE
+         } else {
 
             // Complex 2x2 system  (w is complex)
 
@@ -281,7 +281,7 @@
                   TEMP = UI11 / UR11
                   UR11R = ONE / ( UR11*( ONE+TEMP**2 ) )
                   UI11R = -TEMP*UR11R
-               ELSE
+               } else {
                   TEMP = UR11 / UI11
                   UI11R = -ONE / ( UI11*( ONE+TEMP**2 ) )
                   UR11R = -TEMP*UI11R
@@ -292,7 +292,7 @@
                UI12S = UR12*UI11R
                UR22 = CR22 - UR12*LR21
                UI22 = CI22 - UR12*LI21
-            ELSE
+            } else {
 
                // Code when diagonals of pivoted C are real
 
@@ -319,7 +319,7 @@
                BR1 = B( 2, 1 )
                BI2 = B( 1, 2 )
                BI1 = B( 2, 2 )
-            ELSE
+            } else {
                BR1 = B( 1, 1 )
                BR2 = B( 2, 1 )
                BI1 = B( 1, 2 )
@@ -346,7 +346,7 @@
                X( 2, 1 ) = XR1
                X( 1, 2 ) = XI2
                X( 2, 2 ) = XI1
-            ELSE
+            } else {
                X( 1, 1 ) = XR1
                X( 2, 1 ) = XR2
                X( 1, 2 ) = XI1

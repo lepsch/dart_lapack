@@ -55,7 +55,7 @@
             // all zeros in the application routines.  We do not need
            t // o clear it.
             TAU = ZERO
-         ELSE
+         } else {
             // However, the application routines rely on explicit
             // zero checks when TAU.ne.ZERO, and we must clear X.
             TAU = TWO
@@ -64,7 +64,7 @@
             END DO
             ALPHA = -ALPHA
          END IF
-      ELSE
+      } else {
 
          // general case
 
@@ -96,7 +96,7 @@
          IF( BETA.LT.ZERO ) THEN
             BETA = -BETA
             TAU = -ALPHA / BETA
-         ELSE
+         } else {
             ALPHR = ALPHI * (ALPHI/DBLE( ALPHA ))
             ALPHR = ALPHR + XNORM * (XNORM/DBLE( ALPHA ))
             TAU = DCMPLX( ALPHR/BETA, -ALPHI/BETA )
@@ -118,14 +118,14 @@
             IF( ALPHI.EQ.ZERO ) THEN
                IF( ALPHR.GE.ZERO ) THEN
                   TAU = ZERO
-               ELSE
+               } else {
                   TAU = TWO
                   DO J = 1, N-1
                      X( 1 + (J-1)*INCX ) = ZERO
                   END DO
                   BETA = DBLE( -SAVEALPHA )
                END IF
-            ELSE
+            } else {
                XNORM = DLAPY2( ALPHR, ALPHI )
                TAU = DCMPLX( ONE - ALPHR / XNORM, -ALPHI / XNORM )
                DO J = 1, N-1
@@ -134,7 +134,7 @@
                BETA = XNORM
             END IF
 
-         ELSE
+         } else {
 
             // This is the general case.
 

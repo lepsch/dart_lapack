@@ -49,7 +49,7 @@
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    10          CONTINUE
    20       CONTINUE
-         ELSE
+         } else {
             DO 40 J = 1, N
                DO 30 I = J, N
                   SUM = ABS( A( I, J ) )
@@ -76,7 +76,7 @@
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
-         ELSE
+         } else {
             DO 80 I = 1, N
                WORK( I ) = ZERO
    80       CONTINUE
@@ -100,7 +100,7 @@
             DO 110 J = 2, N
                CALL CLASSQ( J-1, A( 1, J ), 1, SCALE, SUM )
   110       CONTINUE
-         ELSE
+         } else {
             DO 120 J = 1, N - 1
                CALL CLASSQ( N-J, A( J+1, J ), 1, SCALE, SUM )
   120       CONTINUE

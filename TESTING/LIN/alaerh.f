@@ -39,7 +39,7 @@
       IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
          IF( LSAMEN( 3, C3, 'SV ' ) .OR. LSAMEN( 3, C3, 'SVX' ) ) THEN
             CALL ALADHD( NOUT, PATH )
-         ELSE
+         } else {
             CALL ALAHD( NOUT, PATH )
          END IF
       END IF
@@ -55,7 +55,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9988 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9975 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, N5, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -64,7 +64,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT
             END IF
 
@@ -72,7 +72,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9992 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9997 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             END IF
 
@@ -96,7 +96,7 @@
 
             WRITE( NOUT, FMT = 9974 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, N5, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9963 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N5, IMAT
          END IF
@@ -108,7 +108,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9989 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, KL, KU, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9976 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, KL, KU, N5, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -117,7 +117,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9986 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, KL, KU, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9972 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, KL, KU, N5, IMAT
             END IF
 
@@ -125,7 +125,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9993 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, KU, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9998 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, KU, N5, IMAT
             END IF
 
@@ -137,7 +137,7 @@
 
             WRITE( NOUT, FMT = 9968 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, KL, KU, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9964 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, KL, KU, N5, IMAT
          END IF
@@ -149,7 +149,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9987 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -158,7 +158,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT
             END IF
 
@@ -166,7 +166,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9992 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9997 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             END IF
 
@@ -174,7 +174,7 @@
 
             WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9963 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N5, IMAT
          END IF
@@ -187,7 +187,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9980 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -196,7 +196,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT
             END IF
 
@@ -204,7 +204,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             END IF
 
@@ -216,7 +216,7 @@
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
          END IF
@@ -229,7 +229,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9980 )SUBNAM, INFO, INFOE, UPLO, M, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9956 )SUBNAM, INFO, UPLO, M, N5, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -238,7 +238,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9979 )SUBNAM, INFO, INFOE, UPLO, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9955 )SUBNAM, INFO, UPLO, N, N5, IMAT
             END IF
 
@@ -246,7 +246,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9990 )SUBNAM, INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9995 )SUBNAM, INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             END IF
 
@@ -258,7 +258,7 @@
 
             WRITE( NOUT, FMT = 9960 )SUBNAM, INFO, UPLO, M, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9955 )SUBNAM, INFO, UPLO, M, N5, IMAT
          END IF
@@ -286,7 +286,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9980 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9956 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -295,7 +295,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT
             END IF
 
@@ -303,7 +303,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             END IF
 
@@ -311,7 +311,7 @@
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
          END IF
@@ -324,7 +324,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9983 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -333,7 +333,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9979 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, N5, IMAT
             END IF
 
@@ -341,7 +341,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9990 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9995 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, N5, IMAT
             END IF
 
@@ -349,7 +349,7 @@
 
             WRITE( NOUT, FMT = 9960 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9955 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, N5, IMAT
          END IF
@@ -362,7 +362,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9982 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, M, KL, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9958 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, N5, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -371,7 +371,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9981 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, UPLO, N, KL, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9957 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, N, KL, N5, IMAT
             END IF
 
@@ -379,7 +379,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9991 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9996 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), N, KL, N5, IMAT
             END IF
 
@@ -387,7 +387,7 @@
 
             WRITE( NOUT, FMT = 9959 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, IMAT
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9957 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, UPLO, M, KL, N5, IMAT
          END IF
@@ -399,7 +399,7 @@
          IF( LSAMEN( 3, C3, 'TRF' ) ) THEN
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9987 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, IMAT
             END IF
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9949 )
@@ -408,7 +408,7 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9984 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9970 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, N, N5, IMAT
             END IF
 
@@ -416,18 +416,18 @@
 
             IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
                WRITE( NOUT, FMT = 9994 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, OPTS( 1: 1 ), N, N5, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9999 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), N, N5, IMAT
             END IF
 
          ELSE IF( LSAMEN( 3, C3, 'CON' ) ) THEN
 
             IF( LSAME( SUBNAM( 1: 1 ), 'S' ) .OR. LSAME( SUBNAM( 1: 1 ), 'D' ) ) THEN                WRITE( NOUT, FMT = 9973 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, IMAT
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9969 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, IMAT
             END IF
 
-         ELSE
+         } else {
 
             WRITE( NOUT, FMT = 9963 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), M, N5, IMAT
          END IF
@@ -442,7 +442,7 @@
             WRITE( NOUT, FMT = 9967 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, IMAT
          ELSE IF( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATRS' ) ) THEN
             WRITE( NOUT, FMT = 9952 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), OPTS( 4: 4 ), M, IMAT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9953 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, N5, IMAT
          END IF
 
@@ -456,7 +456,7 @@
             WRITE( NOUT, FMT = 9967 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, IMAT
          ELSE IF( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATPS' ) ) THEN
             WRITE( NOUT, FMT = 9952 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), OPTS( 4: 4 ), M, IMAT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9953 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, N5, IMAT
          END IF
 
@@ -468,7 +468,7 @@
             WRITE( NOUT, FMT = 9966 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, KL, IMAT
          ELSE IF( LSAMEN( 5, SUBNAM( 2: 6 ), 'LATBS' ) ) THEN
             WRITE( NOUT, FMT = 9951 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), OPTS( 4: 4 ), M, KL, IMAT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9954 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, OPTS( 1: 1 ), OPTS( 2: 2 ), OPTS( 3: 3 ), M, KL, N5, IMAT
          END IF
 
@@ -526,7 +526,7 @@
 
          IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
             WRITE( NOUT, FMT = 9988 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N, N5, IMAT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9975 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N, N5, IMAT
          END IF
 
@@ -534,11 +534,11 @@
 
          IF( INFO.NE.INFOE .AND. INFOE.NE.0 ) THEN
             WRITE( NOUT, FMT = 9985 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, INFOE, M, N5, IMAT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9971 ) SUBNAM(1:LEN_TRIM( SUBNAM )), INFO, M, N5, IMAT
          END IF
 
-      ELSE
+      } else {
 
          // Print a generic message if the path is unknown.
 

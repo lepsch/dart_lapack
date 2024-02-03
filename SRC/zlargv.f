@@ -122,7 +122,7 @@
             IF( ABS1( F ).GT.ONE ) THEN
                D = DLAPY2( DBLE( F ), DIMAG( F ) )
                FF = DCMPLX( DBLE( F ) / D, DIMAG( F ) / D )
-            ELSE
+            } else {
                DR = SAFMX2*DBLE( F )
                DI = SAFMX2*DIMAG( F )
                D = DLAPY2( DR, DI )
@@ -130,7 +130,7 @@
             END IF
             SN = FF*DCMPLX( DBLE( GS ) / G2S, -DIMAG( GS ) / G2S )
             R = CS*F + SN*G
-         ELSE
+         } else {
 
             // This is the most common case.
             // Neither F2 nor F2/G2 are less than SAFMIN
@@ -150,7 +150,7 @@
                   DO 30 J = 1, COUNT
                      R = R*SAFMX2
    30             CONTINUE
-               ELSE
+               } else {
                   DO 40 J = 1, -COUNT
                      R = R*SAFMN2
    40             CONTINUE

@@ -58,7 +58,7 @@
          ELSE IF( M.LE.0 .OR. NRHS.LE.0 ) THEN
             RETURN
          END IF
-      ELSE
+      } else {
          CALL XERBLA( 'SQRT14', 1 )
          RETURN
       END IF
@@ -91,7 +91,7 @@
    10       CONTINUE
    20    CONTINUE
 
-      ELSE
+      } else {
 
          // Copy X' into rows m+1:m+nrhs of work
 

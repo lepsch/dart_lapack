@@ -44,7 +44,7 @@
       M2 = M+N
       IF( M.GT.0 ) THEN
          NP1 = N+1
-      ELSE
+      } else {
          NP1 = 1
       END IF
       LWORK = M2*M2*NB
@@ -97,7 +97,7 @@
       RESID = SLANGE( '1', M2, N, R, M2, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = RESID / (EPS*ANORM*MAX(1,M2))
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 
@@ -126,7 +126,7 @@
       RESID = SLANGE( '1', M2, N, CF, M2, RWORK )
       IF( CNORM.GT.ZERO ) THEN
          RESULT( 3 ) = RESID / (EPS*MAX(1,M2)*CNORM)
-      ELSE
+      } else {
          RESULT( 3 ) = ZERO
       END IF
 
@@ -144,7 +144,7 @@
       RESID = SLANGE( '1', M2, N, CF, M2, RWORK )
       IF( CNORM.GT.ZERO ) THEN
          RESULT( 4 ) = RESID / (EPS*MAX(1,M2)*CNORM)
-      ELSE
+      } else {
          RESULT( 4 ) = ZERO
       END IF
 
@@ -166,7 +166,7 @@
       RESID = SLANGE('1',N, M2,DF,N,RWORK )
       IF( CNORM.GT.ZERO ) THEN
          RESULT( 5 ) = RESID / (EPS*MAX(1,M2)*DNORM)
-      ELSE
+      } else {
          RESULT( 5 ) = ZERO
       END IF
 
@@ -185,7 +185,7 @@
       RESID = SLANGE( '1', N, M2, DF, N, RWORK )
       IF( CNORM.GT.ZERO ) THEN
          RESULT( 6 ) = RESID / (EPS*MAX(1,M2)*DNORM)
-      ELSE
+      } else {
          RESULT( 6 ) = ZERO
       END IF
 

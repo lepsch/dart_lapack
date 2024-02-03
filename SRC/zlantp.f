@@ -53,7 +53,7 @@
    10             CONTINUE
                   K = K + J
    20          CONTINUE
-            ELSE
+            } else {
                DO 40 J = 1, N
                   DO 30 I = K + 1, K + N - J
                      SUM = ABS( AP( I ) )
@@ -62,7 +62,7 @@
                   K = K + N - J + 1
    40          CONTINUE
             END IF
-         ELSE
+         } else {
             VALUE = ZERO
             IF( LSAME( UPLO, 'U' ) ) THEN
                DO 60 J = 1, N
@@ -72,7 +72,7 @@
    50             CONTINUE
                   K = K + J
    60          CONTINUE
-            ELSE
+            } else {
                DO 80 J = 1, N
                   DO 70 I = K, K + N - J
                      SUM = ABS( AP( I ) )
@@ -96,7 +96,7 @@
                   DO 90 I = K, K + J - 2
                      SUM = SUM + ABS( AP( I ) )
    90             CONTINUE
-               ELSE
+               } else {
                   SUM = ZERO
                   DO 100 I = K, K + J - 1
                      SUM = SUM + ABS( AP( I ) )
@@ -105,14 +105,14 @@
                K = K + J
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
   110       CONTINUE
-         ELSE
+         } else {
             DO 140 J = 1, N
                IF( UDIAG ) THEN
                   SUM = ONE
                   DO 120 I = K + 1, K + N - J
                      SUM = SUM + ABS( AP( I ) )
   120             CONTINUE
-               ELSE
+               } else {
                   SUM = ZERO
                   DO 130 I = K, K + N - J
                      SUM = SUM + ABS( AP( I ) )
@@ -139,7 +139,7 @@
   160             CONTINUE
                   K = K + 1
   170          CONTINUE
-            ELSE
+            } else {
                DO 180 I = 1, N
                   WORK( I ) = ZERO
   180          CONTINUE
@@ -150,7 +150,7 @@
   190             CONTINUE
   200          CONTINUE
             END IF
-         ELSE
+         } else {
             IF( LSAME( DIAG, 'U' ) ) THEN
                DO 210 I = 1, N
                   WORK( I ) = ONE
@@ -162,7 +162,7 @@
                      K = K + 1
   220             CONTINUE
   230          CONTINUE
-            ELSE
+            } else {
                DO 240 I = 1, N
                   WORK( I ) = ZERO
   240          CONTINUE
@@ -192,7 +192,7 @@
                   CALL ZLASSQ( J-1, AP( K ), 1, SCALE, SUM )
                   K = K + J
   280          CONTINUE
-            ELSE
+            } else {
                SCALE = ZERO
                SUM = ONE
                K = 1
@@ -201,7 +201,7 @@
                   K = K + J
   290          CONTINUE
             END IF
-         ELSE
+         } else {
             IF( LSAME( DIAG, 'U' ) ) THEN
                SCALE = ONE
                SUM = N
@@ -210,7 +210,7 @@
                   CALL ZLASSQ( N-J, AP( K ), 1, SCALE, SUM )
                   K = K + N - J + 1
   300          CONTINUE
-            ELSE
+            } else {
                SCALE = ZERO
                SUM = ONE
                K = 1

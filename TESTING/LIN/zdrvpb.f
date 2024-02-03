@@ -122,7 +122,7 @@
                   UPLO = 'U'
                   PACKIT = 'Q'
                   KOFF = MAX( 1, KD+2-N )
-               ELSE
+               } else {
                   UPLO = 'L'
                   PACKIT = 'B'
                END IF
@@ -165,7 +165,7 @@
                         CALL ZCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
                         IW = IW + IZERO - I1
                         CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) )
-                     ELSE
+                     } else {
                         IOFF = ( I1-1 )*LDAB + 1
                         CALL ZCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) )
                         IOFF = ( IZERO-1 )*LDAB + 1
@@ -183,7 +183,7 @@
                         IZERO = 1
                      ELSE IF( IMAT.EQ.3 ) THEN
                         IZERO = N
-                     ELSE
+                     } else {
                         IZERO = N / 2 + 1
                      END IF
 
@@ -202,7 +202,7 @@
                         CALL ZSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
                         IW = IW + IZERO - I1
                         CALL ZSWAP( I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
-                     ELSE
+                     } else {
                         IOFF = ( I1-1 )*LDAB + 1
                         CALL ZSWAP( IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
                         IOFF = ( IZERO-1 )*LDAB + 1
@@ -215,7 +215,7 @@
 
                   IF( IUPLO.EQ.1 ) THEN
                      CALL ZLAIPD( N, A( KD+1 ), LDAB, 0 )
-                  ELSE
+                  } else {
                      CALL ZLAIPD( N, A( 1 ), LDAB, 0 )
                   END IF
 
@@ -227,7 +227,7 @@
                      EQUED = EQUEDS( IEQUED )
                      IF( IEQUED.EQ.1 ) THEN
                         NFACT = 3
-                     ELSE
+                     } else {
                         NFACT = 1
                      END IF
 
@@ -288,7 +288,7 @@
                            AINVNM = ZLANGE( '1', N, N, A, LDA, RWORK )
                            IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDC = ONE
-                           ELSE
+                           } else {
                               RCONDC = ( ONE / ANORM ) / AINVNM
                            END IF
                         END IF
@@ -386,7 +386,7 @@
 
                               CALL ZPBT01( UPLO, N, KD, A, LDAB, AFAC, LDAB, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                               K1 = 1
-                           ELSE
+                           } else {
                               K1 = 2
                            END IF
 
@@ -397,7 +397,7 @@
                            // Check solution from generated exact solution.
 
                            IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                               CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
-                           ELSE
+                           } else {
                               CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                            END IF
 
@@ -405,7 +405,7 @@
                            // refinement.
 
                            CALL ZPBT05( UPLO, N, KD, NRHS, ASAV, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
-                        ELSE
+                        } else {
                            K1 = 6
                         END IF
 
@@ -422,7 +422,7 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               IF( PREFAC ) THEN
                                  WRITE( NOUT, FMT = 9997 )'ZPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K )
-                              ELSE
+                              } else {
                                  WRITE( NOUT, FMT = 9998 )'ZPBSVX', FACT, UPLO, N, KD, IMAT, K, RESULT( K )
                               END IF
                               NFAIL = NFAIL + 1

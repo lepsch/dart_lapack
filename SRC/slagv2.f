@@ -89,7 +89,7 @@
          B( 2, 2 ) = ZERO
          WI = ZERO
 
-      ELSE
+      } else {
 
          // B is nonsingular, first compute the eigenvalues of (A,B)
 
@@ -113,7 +113,7 @@
 
                CALL SLARTG( H2, H1, CSR, SNR, T )
 
-            ELSE
+            } else {
 
                // find right rotation matrix to zero 2,1 element of
                // (sA - wB)
@@ -136,7 +136,7 @@
 
                CALL SLARTG( B( 1, 1 ), B( 2, 1 ), CSL, SNL, R )
 
-            ELSE
+            } else {
 
                // find left rotation matrix Q to zero out A(2,1)
 
@@ -150,7 +150,7 @@
             A( 2, 1 ) = ZERO
             B( 2, 1 ) = ZERO
 
-         ELSE
+         } else {
 
             // a pair of complex conjugate eigenvalues
             // first compute the SVD of the matrix B
@@ -190,7 +190,7 @@
          ALPHAI( 2 ) = ZERO
          BETA( 1 ) = B( 1, 1 )
          BETA( 2 ) = B( 2, 2 )
-      ELSE
+      } else {
          ALPHAR( 1 ) = ANORM*WR1 / SCALE1 / BNORM
          ALPHAI( 1 ) = ANORM*WI / SCALE1 / BNORM
          ALPHAR( 2 ) = ALPHAR( 1 )

@@ -80,7 +80,7 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             MAXWRK = N + N*ILAENV( 1, 'CGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 2*N
             IF( WANTVL ) THEN
@@ -93,7 +93,7 @@
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                CALL CHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
-            ELSE
+            } else {
                CALL CHSEQR( 'E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
             END IF
             HSWORK = INT( WORK(1) )
@@ -204,7 +204,7 @@
          IWRK = ITAU
          CALL CHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 
-      ELSE
+      } else {
 
          // Compute eigenvalues only
          // (CWorkspace: need 1, prefer HSWORK (see comments) )

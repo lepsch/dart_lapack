@@ -184,7 +184,7 @@
             END IF
             CALL ZBBCSD( 'N', JOBV1T, JOBU2, JOBU1, 'T', M, M-Q, M-P, THETA, DUM, CDUM, 1, V1T, LDV1T, U2, LDU2, U1, LDU1, DUM, DUM, DUM, DUM, DUM, DUM, DUM, DUM, RWORK(1), -1, CHILDINFO )
             LBBCSD = INT( RWORK(1) )
-         ELSE
+         } else {
             CALL ZUNBDB4( M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO )
             LORBDB = M + INT( WORK(1) )
             IF( WANTU1 .AND. P .GT. 0 ) THEN
@@ -364,7 +364,7 @@
                CALL ZLAPMR( .FALSE., Q, Q, V1T, LDV1T, IWORK )
             END IF
          END IF
-      ELSE
+      } else {
 
          // Case 4: R = M-Q
 

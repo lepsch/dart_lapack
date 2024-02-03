@@ -60,7 +60,7 @@
       IF( MOD( N, 2 ).EQ.0 ) THEN
          K = N / 2
          NISODD = .FALSE.
-      ELSE
+      } else {
          NISODD = .TRUE.
       END IF
 
@@ -69,7 +69,7 @@
       IF( LOWER ) THEN
          N2 = N / 2
          N1 = N - N2
-      ELSE
+      } else {
          N1 = N / 2
          N2 = N - N1
       END IF
@@ -95,7 +95,7 @@
                CALL SPOTRF( 'U', N2, A( N ), N, INFO )
                IF( INFO.GT.0 ) INFO = INFO + N1
 
-            ELSE
+            } else {
 
               // SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:n2-1)
               // T1 -> a(n1+1,0), T2 -> a(n1,0), S -> a(0,0)
@@ -108,7 +108,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is odd and TRANSR = 'T'
 
@@ -123,7 +123,7 @@
                CALL SPOTRF( 'L', N2, A( 1 ), N1, INFO )
                IF( INFO.GT.0 ) INFO = INFO + N1
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, TRANSPOSE and N is odd
                // T1 -> A(0,n1+1), T2 -> A(0,n1), S -> A(0,0)
@@ -138,7 +138,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // N is even
 
@@ -157,7 +157,7 @@
                CALL SPOTRF( 'U', K, A( 0 ), N+1, INFO )
                IF( INFO.GT.0 ) INFO = INFO + K
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
                // T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
@@ -170,7 +170,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is even and TRANSR = 'T'
 
@@ -185,7 +185,7 @@
                CALL SPOTRF( 'L', K, A( 0 ), K, INFO )
                IF( INFO.GT.0 ) INFO = INFO + K
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, TRANSPOSE and N is even (see paper)
                // T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0)

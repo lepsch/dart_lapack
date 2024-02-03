@@ -53,7 +53,7 @@
             // No column scaling
 
             EQUED = 'N'
-         ELSE
+         } else {
 
             // Column scaling
 
@@ -75,7 +75,7 @@
    30       CONTINUE
    40    CONTINUE
          EQUED = 'R'
-      ELSE
+      } else {
 
          // Row and column scaling
 

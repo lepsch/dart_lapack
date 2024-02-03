@@ -64,14 +64,14 @@
       IF ( ROWPRM ) THEN
          IF ( CONDA ) THEN
             IMINWRK = MAX( 1, N + M - 1 + N )
-         ELSE
+         } else {
             IMINWRK = MAX( 1, N + M - 1 )
          END IF
          RMINWRK = MAX( 2, M )
-      ELSE
+      } else {
          IF ( CONDA ) THEN
             IMINWRK = MAX( 1, N + N )
-         ELSE
+         } else {
             IMINWRK = MAX( 1, N )
          END IF
          RMINWRK = 2
@@ -133,7 +133,7 @@
              ELSE IF ( WNTUA ) THEN
                  CALL SORMQR( 'L', 'N', M, M, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR )
                  LWRK_SORMQR = INT( RDUMMY(1) )
-             ELSE
+             } else {
                  LWRK_SORMQR = 0
              END IF
          END IF
@@ -144,7 +144,7 @@
              // only the singular values are requested
              IF ( CONDA ) THEN
                 MINWRK = MAX( N+LWQP3, LWCON, LWSVD )
-             ELSE
+             } else {
                 MINWRK = MAX( N+LWQP3, LWSVD )
              END IF
              IF ( LQUERY ) THEN
@@ -152,7 +152,7 @@
                  LWRK_SGESVD = INT( RDUMMY(1) )
                  IF ( CONDA ) THEN
                     OPTWRK = MAX( N+LWRK_SGEQP3, N+LWCON, LWRK_SGESVD )
-                 ELSE
+                 } else {
                     OPTWRK = MAX( N+LWRK_SGEQP3, LWRK_SGESVD )
                  END IF
              END IF
@@ -161,19 +161,19 @@
              // singular values and the left singular vectors are requested
              IF ( CONDA ) THEN
                  MINWRK = N + MAX( LWQP3, LWCON, LWSVD, LWORQ )
-             ELSE
+             } else {
                  MINWRK = N + MAX( LWQP3, LWSVD, LWORQ )
              END IF
              IF ( LQUERY ) THEN
                 IF ( RTRANS ) THEN
                    CALL SGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
-                ELSE
+                } else {
                    CALL SGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                 END IF
                 LWRK_SGESVD = INT( RDUMMY(1) )
                 IF ( CONDA ) THEN
                     OPTWRK = N + MAX( LWRK_SGEQP3, LWCON, LWRK_SGESVD, LWRK_SORMQR )
-                ELSE
+                } else {
                     OPTWRK = N + MAX( LWRK_SGEQP3, LWRK_SGESVD, LWRK_SORMQR )
                 END IF
              END IF
@@ -182,23 +182,23 @@
              // singular values and the right singular vectors are requested
              IF ( CONDA ) THEN
                  MINWRK = N + MAX( LWQP3, LWCON, LWSVD )
-             ELSE
+             } else {
                  MINWRK = N + MAX( LWQP3, LWSVD )
              END IF
              IF ( LQUERY ) THEN
                  IF ( RTRANS ) THEN
                      CALL SGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
-                 ELSE
+                 } else {
                      CALL SGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                  END IF
                  LWRK_SGESVD = INT( RDUMMY(1) )
                  IF ( CONDA ) THEN
                      OPTWRK = N + MAX( LWRK_SGEQP3, LWCON, LWRK_SGESVD )
-                 ELSE
+                 } else {
                      OPTWRK = N + MAX( LWRK_SGEQP3, LWRK_SGESVD )
                  END IF
              END IF
-         ELSE
+         } else {
              // .. minimal and optimal sizes of the workspace if the
              // full SVD is requested
              IF ( RTRANS ) THEN
@@ -216,7 +216,7 @@
                     MINWRK2 = N + MINWRK2
                     MINWRK = MAX( MINWRK, MINWRK2 )
                  END IF
-             ELSE
+             } else {
                  MINWRK = MAX( LWQP3, LWSVD, LWORQ )
                  IF ( CONDA ) MINWRK = MAX( MINWRK, LWCON )
                  MINWRK = MINWRK + N
@@ -250,7 +250,7 @@
                        OPTWRK2 = N + OPTWRK2
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    END IF
-                ELSE
+                } else {
                    CALL SGESVD( 'S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                    LWRK_SGESVD = INT( RDUMMY(1) )
                    OPTWRK = MAX(LWRK_SGEQP3,LWRK_SGESVD,LWRK_SORMQR)
@@ -432,7 +432,7 @@
  3401    CONTINUE
  3402    CONTINUE
 
-      ELSE
+      } else {
          // .. RRQR not authorized to determine numerical rank except in the
          // obvious case of zero pivots.
          // .. inspect R for exact zeros on the diagonal;
@@ -460,7 +460,7 @@
  3053          CONTINUE
                IF ( .NOT. ( LSVEC .OR. RSVEC ) ) THEN
                    CALL SPOCON( 'U', NR, V, LDV, ONE, RTMP, WORK, IWORK(N+IWOFF), IERR )
-               ELSE
+               } else {
                    CALL SPOCON( 'U', NR, V, LDV, ONE, RTMP, WORK(N+1), IWORK(N+IWOFF), IERR )
                END IF
                SCONDA = ONE / SQRT(RTMP)
@@ -497,7 +497,7 @@
 
             CALL SGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO )
 
-         ELSE
+         } else {
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
@@ -532,7 +532,7 @@
  1120              CONTINUE
  1119          CONTINUE
 
-         ELSE
+         } else {
              // .. apply SGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
              CALL SLACPY( 'U', NR, N, A, LDA, U, LDU )
@@ -595,7 +595,7 @@
  1103              CONTINUE
                END IF
                CALL SLAPMT( .FALSE., NR, N, V, LDV, IWORK )
-            ELSE
+            } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:N,1:NR)
                 // by padding a zero block. In the case NR << N, a more efficient
@@ -614,7 +614,7 @@
                 CALL SLAPMT( .FALSE., N, N, V, LDV, IWORK )
             END IF
 
-          ELSE
+          } else {
              // .. aply SGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
              CALL SLACPY( 'U', NR, N, A, LDA, V, LDV )
@@ -625,7 +625,7 @@
                 CALL SGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
                 CALL SLAPMT( .FALSE., NR, N, V, LDV, IWORK )
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
-             ELSE
+             } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:NR,1:N)
                 // by padding a zero block. In the case NR << N, a more efficient
@@ -639,7 +639,7 @@
              // vectors of A.
           END IF
 
-      ELSE
+      } else {
 *.......................................................................
         // .. FULL SVD requested
 *.......................................................................
@@ -693,7 +693,7 @@
                   END IF
                END IF
 
-            ELSE
+            } else {
                 // .. need all N right singular vectors and NR < N
              // .. copy R**T into [V] and overwrite [V] with the left singular
              // vectors of R**T
@@ -740,7 +740,7 @@
                         CALL SLASET('A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU )
                       END IF
                    END IF
-                ELSE
+                } else {
                    // .. copy R**T into [U] and overwrite [U] with the right
                    // singular vectors of R
                    DO 1196 p = 1, NR
@@ -773,7 +773,7 @@
                 END IF
             END IF
 
-         ELSE
+         } else {
 
              // .. apply SGESVD to R [[this is the recommended option]]
 
@@ -796,7 +796,7 @@
                   END IF
                END IF
 
-             ELSE
+             } else {
                // .. need all N right singular vectors and NR < N
                // .. the requested number of the left singular vectors
                 // is then N1 (N or M)
@@ -826,7 +826,7 @@
                         CALL SLASET( 'A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU )
                       END IF
                   END IF
-               ELSE
+               } else {
                   CALL SLACPY( 'U', NR, N, A, LDA, U(NR+1,1), LDU )
                   IF ( NR .GT. 1 ) CALL SLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU)                   CALL SGELQF( NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR )
                   CALL SLACPY('L',NR,NR,U(NR+1,1),LDU,V,LDV)

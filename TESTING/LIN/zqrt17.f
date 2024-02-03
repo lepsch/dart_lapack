@@ -46,7 +46,7 @@
       ELSE IF( LSAME( TRANS, 'C' ) ) THEN
          NROWS = N
          NCOLS = M
-      ELSE
+      } else {
          CALL XERBLA( 'ZQRT17', 1 )
          RETURN
       END IF
@@ -86,7 +86,7 @@
       IF( IRESID.EQ.1 ) THEN
          NORMB = ZLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
          IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
-      ELSE
+      } else {
          IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
       END IF
 

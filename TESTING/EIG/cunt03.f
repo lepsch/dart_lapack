@@ -47,7 +47,7 @@
          IRC = 0
       ELSE IF( LSAME( RC, 'C' ) ) THEN
          IRC = 1
-      ELSE
+      } else {
          IRC = -1
       END IF
       IF( IRC.EQ.-1 ) THEN
@@ -88,12 +88,12 @@
             LMX = ICAMAX( N, U( I, 1 ), LDU )
             IF( V( I, LMX ).EQ.CMPLX( ZERO ) ) THEN
                SV = ONE
-            ELSE
+            } else {
                SV = ABS( V( I, LMX ) ) / V( I, LMX )
             END IF
             IF( U( I, LMX ).EQ.CMPLX( ZERO ) ) THEN
                SU = ONE
-            ELSE
+            } else {
                SU = ABS( U( I, LMX ) ) / U( I, LMX )
             END IF
             S = SV / SU
@@ -107,7 +107,7 @@
 
          CALL CUNT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RWORK, RES2 )
 
-      ELSE
+      } else {
 
          // Compare columns
 
@@ -116,12 +116,12 @@
             LMX = ICAMAX( N, U( 1, I ), 1 )
             IF( V( LMX, I ).EQ.CMPLX( ZERO ) ) THEN
                SV = ONE
-            ELSE
+            } else {
                SV = ABS( V( LMX, I ) ) / V( LMX, I )
             END IF
             IF( U( LMX, I ).EQ.CMPLX( ZERO ) ) THEN
                SU = ONE
-            ELSE
+            } else {
                SU = ABS( U( LMX, I ) ) / U( LMX, I )
             END IF
             S = SV / SU

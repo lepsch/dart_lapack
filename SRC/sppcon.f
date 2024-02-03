@@ -88,7 +88,7 @@
             // Multiply by inv(U).
 
             CALL SLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(L).
 

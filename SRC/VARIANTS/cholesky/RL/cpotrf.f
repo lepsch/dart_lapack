@@ -64,7 +64,7 @@
          // Use unblocked code.
 
          CALL CPOTRF2( UPLO, N, A, LDA, INFO )
-      ELSE
+      } else {
 
          // Use blocked code.
 
@@ -90,7 +90,7 @@
                END IF
    10       CONTINUE
 
-         ELSE
+         } else {
 
             // Compute the Cholesky factorization A = L*L'.
 

@@ -39,7 +39,7 @@
             IXNEXT = IX - INC
             IF( X( IX ).GT.X( IXNEXT ) ) THEN
                GO TO 20
-            ELSE
+            } else {
                TEMP = X( IX )
                X( IX ) = X( IXNEXT )
                X( IXNEXT ) = TEMP
@@ -59,7 +59,7 @@
             IXNEXT = IX - INC
             IF( X( IX ).LT.X( IXNEXT ) ) THEN
                GO TO 40
-            ELSE
+            } else {
                TEMP = X( IX )
                X( IX ) = X( IXNEXT )
                X( IXNEXT ) = TEMP

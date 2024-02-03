@@ -49,7 +49,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -108,7 +108,7 @@
          // Use unblocked code
 
          CALL SORML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -117,7 +117,7 @@
             I1 = 1
             I2 = K
             I3 = NB
-         ELSE
+         } else {
             I1 = ( ( K-1 ) / NB )*NB + 1
             I2 = 1
             I3 = -NB
@@ -126,14 +126,14 @@
          IF( LEFT ) THEN
             NI = N
             JC = 1
-         ELSE
+         } else {
             MI = M
             IC = 1
          END IF
 
          IF( NOTRAN ) THEN
             TRANST = 'T'
-         ELSE
+         } else {
             TRANST = 'N'
          END IF
 
@@ -150,7 +150,7 @@
 
                MI = M - I + 1
                IC = I
-            ELSE
+            } else {
 
                // H or H**T is applied to C(1:m,i:n)
 

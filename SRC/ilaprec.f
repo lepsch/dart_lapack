@@ -27,7 +27,7 @@
          ILAPREC = BLAS_PREC_INDIGENOUS
       ELSE IF( LSAME( PREC, 'X' ) .OR. LSAME( PREC, 'E' ) ) THEN
          ILAPREC = BLAS_PREC_EXTRA
-      ELSE
+      } else {
          ILAPREC = -1
       END IF
       RETURN

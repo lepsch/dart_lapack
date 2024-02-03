@@ -86,7 +86,7 @@
                CALL ZLACGV( KN, AB( KD, J+1 ), KLD )
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Compute the Cholesky factorization A = L*L**H.
 

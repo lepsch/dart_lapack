@@ -203,7 +203,7 @@
             L2 = IWORK( L + 1 )
             IF( NOTRNA ) THEN
                SWORK( K, AWRK + L ) = SLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
-            ELSE
+            } else {
                SWORK( L, AWRK + K ) = SLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
             END IF
          END DO
@@ -217,7 +217,7 @@
             L2 = IWORK( PC + L + 1 )
             IF( NOTRNB ) THEN
                SWORK( K, BWRK + L ) = SLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
-            ELSE
+            } else {
                SWORK( L, BWRK + K ) = SLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
             END IF
          END DO
@@ -268,7 +268,7 @@
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
                      // Mark the computation as pointless.
                      BUF = ZERO
-                  ELSE
+                  } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   END IF
@@ -439,7 +439,7 @@
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
                      // Mark the computation as pointless.
                      BUF = ZERO
-                  ELSE
+                  } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   END IF
@@ -609,7 +609,7 @@
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
                      // Mark the computation as pointless.
                      BUF = ZERO
-                  ELSE
+                  } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   END IF
@@ -779,7 +779,7 @@
                      // represented in the form (1/SCALE)*X(K1:K2-1, L1:L2-1).
                      // Mark the computation as pointless.
                      BUF = ZERO
-                  ELSE
+                  } else {
                      // Use second scaling factor to prevent flushing to zero.
                      BUF = BUF*2.E0**EXPONENT( SCALOC )
                   END IF

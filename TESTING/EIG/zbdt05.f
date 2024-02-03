@@ -65,13 +65,13 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          IF( ANORM.GE.RESID ) THEN
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )
-         ELSE
+         } else {
             IF( ANORM.LT.ONE ) THEN
                RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS )
-            ELSE
+            } else {
                RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF

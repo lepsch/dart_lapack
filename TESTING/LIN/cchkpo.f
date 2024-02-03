@@ -128,7 +128,7 @@
                      IZERO = 1
                   ELSE IF( IMAT.EQ.4 ) THEN
                      IZERO = N
-                  ELSE
+                  } else {
                      IZERO = N / 2 + 1
                   END IF
                   IOFF = ( IZERO-1 )*LDA
@@ -144,7 +144,7 @@
                         A( IOFF ) = CZERO
                         IOFF = IOFF + LDA
    30                CONTINUE
-                  ELSE
+                  } else {
                      IOFF = IZERO
                      DO 40 I = 1, IZERO - 1
                         A( IOFF ) = CZERO
@@ -155,7 +155,7 @@
                         A( IOFF+I ) = CZERO
    50                CONTINUE
                   END IF
-               ELSE
+               } else {
                   IZERO = 0
                END IF
 

@@ -96,7 +96,7 @@
             CALL DPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'GB' ) ) THEN
             CALL DGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
-         ELSE
+         } else {
             CALL DGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          END IF
 
@@ -108,7 +108,7 @@
                 // NFAIL = NFAIL + 1
                 // WRITE (*, FMT=8000) N, INFO, ORCOND, RCOND
              // END IF
-         ELSE
+         } else {
          // Either everything succeeded (INFO == 0) or some solution failed
         t // o converge (INFO > N+1).
             IF (INFO .GT. 0 .AND. INFO .LE. N+1) THEN
@@ -199,7 +199,7 @@
                NWISE_ERR = NORMDIF / NORMT
             ELSE IF (NORMDIF .NE. 0.0D+0) THEN
                NWISE_ERR = DLAMCH('OVERFLOW')
-            ELSE
+            } else {
                NWISE_ERR = 0.0D+0
             ENDIF
 
@@ -235,23 +235,23 @@
                NGUAR = 'YES'
                IF (NWISE_BND .GT. ERRTHRESH) THEN
                   TSTRAT(1) = 1/(2.0D+0*EPS)
-               ELSE
+               } else {
                   IF (NWISE_BND .NE. 0.0D+0) THEN
                      TSTRAT(1) = NWISE_ERR / NWISE_BND
                   ELSE IF (NWISE_ERR .NE. 0.0D+0) THEN
                      TSTRAT(1) = 1/(16.0*EPS)
-                  ELSE
+                  } else {
                      TSTRAT(1) = 0.0D+0
                   END IF
                   IF (TSTRAT(1) .GT. 1.0D+0) THEN
                      TSTRAT(1) = 1/(4.0D+0*EPS)
                   END IF
                END IF
-            ELSE
+            } else {
                NGUAR = 'NO'
                IF (NWISE_BND .LT. 1.0D+0) THEN
                   TSTRAT(1) = 1/(8.0D+0*EPS)
-               ELSE
+               } else {
                   TSTRAT(1) = 1.0D+0
                END IF
             END IF
@@ -262,21 +262,21 @@
                CGUAR = 'YES'
                IF (CWISE_BND .GT. ERRTHRESH) THEN
                   TSTRAT(2) = 1/(2.0D+0*EPS)
-               ELSE
+               } else {
                   IF (CWISE_BND .NE. 0.0D+0) THEN
                      TSTRAT(2) = CWISE_ERR / CWISE_BND
                   ELSE IF (CWISE_ERR .NE. 0.0D+0) THEN
                      TSTRAT(2) = 1/(16.0D+0*EPS)
-                  ELSE
+                  } else {
                      TSTRAT(2) = 0.0D+0
                   END IF
                   IF (TSTRAT(2) .GT. 1.0D+0) TSTRAT(2) = 1/(4.0D+0*EPS)
                END IF
-            ELSE
+            } else {
                CGUAR = 'NO'
                IF (CWISE_BND .LT. 1.0D+0) THEN
                   TSTRAT(2) = 1/(8.0D+0*EPS)
-               ELSE
+               } else {
                   TSTRAT(2) = 1.0D+0
                END IF
             END IF
@@ -334,7 +334,7 @@ c$$$         WRITE(*,*)
       WRITE(*,*)
       IF( NFAIL .GT. 0 ) THEN
          WRITE(*,9998) C2, NFAIL, NTESTS*N+N_AUX_TESTS
-      ELSE
+      } else {
          WRITE(*,9997) C2
       END IF
  9999 FORMAT( ' D', A2, 'SVXX: N =', I2, ', RHS = ', I2,

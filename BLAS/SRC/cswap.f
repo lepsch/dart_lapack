@@ -26,7 +26,7 @@
             CX(I) = CY(I)
             CY(I) = CTEMP
          END DO
-      ELSE
+      } else {
 
         // code for unequal increments or equal increments not equal
          t // o 1

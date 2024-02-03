@@ -73,7 +73,7 @@
             GO TO 20
          ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
             GO TO 20
-         ELSE
+         } else {
             ERRBND = ONE / EPS
             GO TO 30
          END IF
@@ -81,7 +81,7 @@
    20    CONTINUE
          IF( DIFF / XNORM.LE.FERR( J ) ) THEN
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
-         ELSE
+         } else {
             ERRBND = ONE / EPS
          END IF
    30 CONTINUE
@@ -94,7 +94,7 @@
          IF( NOTRAN ) THEN
             IF( N.EQ.1 ) THEN
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
-            ELSE
+            } else {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, K ) )
                DO 40 I = 2, N - 1
                   TMP = CABS1( B( I, K ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, K ) ) + CABS1( D( I ) )*CABS1( X( I, K ) ) + CABS1( DU( I ) )*CABS1( X( I+1, K ) )
@@ -103,10 +103,10 @@
                TMP = CABS1( B( N, K ) ) + CABS1( DL( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             END IF
-         ELSE
+         } else {
             IF( N.EQ.1 ) THEN
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
-            ELSE
+            } else {
                AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, K ) )
                DO 50 I = 2, N - 1
                   TMP = CABS1( B( I, K ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, K ) ) + CABS1( D( I ) )*CABS1( X( I, K ) ) + CABS1( DL( I ) )*CABS1( X( I+1, K ) )
@@ -119,7 +119,7 @@
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
          IF( K.EQ.1 ) THEN
             RESLTS( 2 ) = TMP
-         ELSE
+         } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
          END IF
    60 CONTINUE

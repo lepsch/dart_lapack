@@ -57,7 +57,7 @@
          NB = MIN( N-L+I+IB-1, N )
          IF( I.GE.L ) THEN
             LB = 0
-         ELSE
+         } else {
             LB = NB-N+L-I+1
          END IF
 

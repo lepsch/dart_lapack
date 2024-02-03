@@ -59,7 +59,7 @@
       CALL ZLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
       IF( M.LE.N ) THEN
          IF( M.GT.0 .AND. M.LT.N ) CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
-      ELSE
+      } else {
          IF( N.GT.1 ) CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
       END IF
 
@@ -73,7 +73,7 @@
       CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), R, LDA )
       IF( M.LE.N ) THEN
          IF( M.GT.0 ) CALL ZLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
-      ELSE
+      } else {
          IF( M.GT.N .AND. N.GT.0 ) CALL ZLACPY( 'Full', M-N, N, AF, LDA, R, LDA )          IF( N.GT.0 ) CALL ZLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
       END IF
 
@@ -87,7 +87,7 @@
       RESID = ZLANGE( '1', M, N, R, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 

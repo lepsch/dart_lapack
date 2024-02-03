@@ -47,7 +47,7 @@
       IF( LSAME( UPLO, 'U' ) ) THEN
          LOWER = .FALSE.
          CUPLO = 'U'
-      ELSE
+      } else {
          LOWER = .TRUE.
          CUPLO = 'L'
       END IF
@@ -68,7 +68,7 @@
 
       IF( ITYPE.EQ.3 ) THEN
          ANORM = ONE
-      ELSE
+      } else {
          ANORM = MAX( CLANHE( '1', CUPLO, N, A, LDA, RWORK ), UNFL )
       END IF
 
@@ -114,7 +114,7 @@
                V( J+1, J ) = VSAVE
                WORK( ( N+1 )*( J-1 )+1 ) = D( J )
    40       CONTINUE
-         ELSE
+         } else {
             WORK( 1 ) = D( 1 )
             DO 60 J = 1, N - 1
                IF( KBAND.EQ.1 ) THEN
@@ -137,7 +137,7 @@
                DO 70 JROW = JCOL, N
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    70          CONTINUE
-            ELSE
+            } else {
                DO 80 JROW = 1, JCOL
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    80          CONTINUE
@@ -153,7 +153,7 @@
          CALL CLACPY( ' ', N, N, U, LDU, WORK, N )
          IF( LOWER ) THEN
             CALL CUNM2R( 'R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO )
-         ELSE
+         } else {
             CALL CUNM2L( 'R', 'C', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO )
          END IF
          IF( IINFO.NE.0 ) THEN
@@ -170,10 +170,10 @@
 
       IF( ANORM.GT.WNORM ) THEN
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
          END IF
       END IF

@@ -66,7 +66,7 @@
             IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP - INFO
    10    CONTINUE
-      ELSE
+      } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
@@ -109,7 +109,7 @@
                CALL CSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - CDOTU( K-1, WORK, 1, AP( KC ), 1 )
             END IF
             KSTEP = 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 
@@ -166,7 +166,7 @@
          GO TO 30
    50    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute inv(A) from the factorization A = L*D*L**T.
 
@@ -198,7 +198,7 @@
                CALL CSPMV( UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - CDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )
             END IF
             KSTEP = 1
-         ELSE
+         } else {
 
             // 2 x 2 diagonal block
 

@@ -101,10 +101,10 @@
                NBMIN = ILAENV( 2, 'CHETRD', UPLO, N, -1, -1, -1 )
                IF( NB.LT.NBMIN ) NX = N
             END IF
-         ELSE
+         } else {
             NX = N
          END IF
-      ELSE
+      } else {
          NB = 1
       END IF
 
@@ -139,7 +139,7 @@
          // Use unblocked code to reduce the last or only block
 
          CALL CHETD2( UPLO, KK, A, LDA, D, E, TAU, IINFO )
-      ELSE
+      } else {
 
          // Reduce the lower triangle of A
 

@@ -94,12 +94,12 @@
 
          IF( SORD ) THEN
             SYM = 'Symmetric'
-         ELSE
+         } else {
             SYM = 'Hermitian'
          END IF
          IF( LSAME( C3, 'O' ) ) THEN
             WRITE( IOUNIT, FMT = 9996 )PATH, SYM
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9995 )PATH, SYM
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -121,12 +121,12 @@
 
          IF( SORD ) THEN
             SYM = 'Symmetric'
-         ELSE
+         } else {
             SYM = 'Hermitian'
          END IF
          IF( LSAME( C1, 'S' ) .OR. LSAME( C1, 'C' ) ) THEN
             EIGCNM = '1E04'
-         ELSE
+         } else {
             EIGCNM = '1D12'
          END IF
          WRITE( IOUNIT, FMT = 9995 )PATH, SYM
@@ -143,7 +143,7 @@
 
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9994 )PATH, 'Hermitian'
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -164,7 +164,7 @@
 
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9993 )PATH, 'Hermitian'
          END IF
          WRITE( IOUNIT, FMT = 9976 )
@@ -185,13 +185,13 @@
 
          IF( LSAME( C3, 'Y' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric'
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9972 )
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9971 )
          END IF
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -222,7 +222,7 @@
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9972 )
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9971 )
          END IF
 
@@ -245,13 +245,13 @@
 
          IF( LSAME( C3, 'Y' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Symmetric'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Symmetric'
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
          IF( SORD ) THEN
             WRITE( IOUNIT, FMT = 9972 )
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9971 )
          END IF
          WRITE( IOUNIT, FMT = '( '' Test ratios:'' )' )
@@ -344,7 +344,7 @@
 
          IF( LSAME( C3, 'E' ) ) THEN
             WRITE( IOUNIT, FMT = 9992 )PATH, 'Hermitian'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9991 )PATH, 'Hermitian'
          END IF
          WRITE( IOUNIT, FMT = '( '' Matrix types:'' )' )
@@ -368,7 +368,7 @@
          IF( LSAME( C3, 'R' ) ) THEN
             WRITE( IOUNIT, FMT = 9990 )PATH
             SUBNAM = PATH( 1: 1 ) // 'LATRS'
-         ELSE
+         } else {
             WRITE( IOUNIT, FMT = 9989 )PATH
             SUBNAM = PATH( 1: 1 ) // 'LATPS'
          END IF
@@ -639,7 +639,7 @@
          WRITE( IOUNIT, FMT = 8054 ) 5
          WRITE( IOUNIT, FMT = 8055 ) 6
 
-      ELSE
+      } else {
 
          // Print error message if no header is available.
 

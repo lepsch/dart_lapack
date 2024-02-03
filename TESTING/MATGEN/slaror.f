@@ -66,7 +66,7 @@
 
       IF( ITYPE.EQ.1 ) THEN
          NXFRM = M
-      ELSE
+      } else {
          NXFRM = N
       END IF
 
@@ -102,7 +102,7 @@
             INFO = 1
             CALL XERBLA( 'SLAROR', INFO )
             RETURN
-         ELSE
+         } else {
             FACTOR = ONE / FACTOR
          END IF
          X( KBEG ) = X( KBEG ) + XNORMS

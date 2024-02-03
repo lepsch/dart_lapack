@@ -53,7 +53,7 @@
                AP( K ) = A( I, J )
             END DO
          END DO
-      ELSE
+      } else {
          K = 0
          DO J = 1, N
             DO I = 1, J

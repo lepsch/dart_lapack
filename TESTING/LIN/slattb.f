@@ -48,7 +48,7 @@
       BIGNUM = ( ONE-ULP ) / SMLNUM
       IF( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT.EQ.17 ) THEN
          DIAG = 'U'
-      ELSE
+      } else {
          DIAG = 'N'
       END IF
       INFO = 0
@@ -66,7 +66,7 @@
          IOFF = 1 + MAX( 0, KD-N+1 )
          KL = 0
          PACKIT = 'Q'
-      ELSE
+      } else {
          CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          KL = KD
          IOFF = 1
@@ -92,7 +92,7 @@
    10          CONTINUE
                AB( KD+1, J ) = J
    20       CONTINUE
-         ELSE
+         } else {
             DO 40 J = 1, N
                AB( 1, J ) = J
                DO 30 I = 2, MIN( KD+1, N-J+1 )
@@ -118,7 +118,7 @@
    50          CONTINUE
                AB( KD+1, J ) = REAL( J )
    60       CONTINUE
-         ELSE
+         } else {
             DO 80 J = 1, N
                DO 70 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
@@ -138,7 +138,7 @@
                DO 90 J = 1, LENJ
                   AB( 1, 2*( J+1 ) ) = TNORM*WORK( J )
    90          CONTINUE
-            ELSE
+            } else {
                AB( 2, 1 ) = SIGN( TNORM, SLARND( 2, ISEED ) )
                LENJ = ( N-3 ) / 2
                CALL SLARNV( 2, ISEED, LENJ, WORK )
@@ -182,7 +182,7 @@
                   REXP = SLARND( 2, ISEED )
                   IF( REXP.LT.ZERO ) THEN
                      STAR1 = -SFAC**( ONE-REXP )
-                  ELSE
+                  } else {
                      STAR1 = SFAC**( ONE+REXP )
                   END IF
                END IF
@@ -193,7 +193,7 @@
             IF( UPPER ) THEN
                CALL SCOPY( N-1, WORK, 1, AB( KD, 2 ), LDAB )
                CALL SCOPY( N-2, WORK( N+1 ), 1, AB( KD-1, 3 ), LDAB )
-            ELSE
+            } else {
                CALL SCOPY( N-1, WORK, 1, AB( 2, 1 ), LDAB )
                CALL SCOPY( N-2, WORK( N+1 ), 1, AB( 3, 1 ), LDAB )
             END IF
@@ -215,7 +215,7 @@
                CALL SLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
                AB( KD+1, J ) = SIGN( TWO, AB( KD+1, J ) )
   120       CONTINUE
-         ELSE
+         } else {
             DO 130 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
                IF( LENJ.GT.0 ) CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
@@ -247,7 +247,7 @@
                AB( KD+1, J ) = SIGN( ONE, AB( KD+1, J ) )
   140       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
-         ELSE
+         } else {
             DO 150 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
                CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
@@ -271,7 +271,7 @@
                AB( KD+1, J ) = SIGN( ONE, AB( KD+1, J ) )
   160       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
-         ELSE
+         } else {
             DO 170 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
                CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
@@ -294,13 +294,13 @@
   180          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   AB( KD+1, J ) = SMLNUM
-               ELSE
+               } else {
                   AB( KD+1, J ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
   190       CONTINUE
-         ELSE
+         } else {
             JCOUNT = 1
             DO 210 J = 1, N
                DO 200 I = 2, MIN( N-J+1, KD+1 )
@@ -308,7 +308,7 @@
   200          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   AB( 1, J ) = SMLNUM
-               ELSE
+               } else {
                   AB( 1, J ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
@@ -324,7 +324,7 @@
                B( I ) = ZERO
                B( I-1 ) = SMLNUM
   220       CONTINUE
-         ELSE
+         } else {
             B( N ) = ZERO
             DO 230 I = 1, N - 1, 2
                B( I ) = ZERO
@@ -350,7 +350,7 @@
                AB( KD+1, J ) = TSCAL
   250       CONTINUE
             B( N ) = ONE
-         ELSE
+         } else {
             DO 270 J = 1, N
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
@@ -372,17 +372,17 @@
                CALL SLARNV( 2, ISEED, LENJ, AB( KD+2-LENJ, J ) )
                IF( J.NE.IY ) THEN
                   AB( KD+1, J ) = SIGN( TWO, AB( KD+1, J ) )
-               ELSE
+               } else {
                   AB( KD+1, J ) = ZERO
                END IF
   280       CONTINUE
-         ELSE
+         } else {
             DO 290 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
                CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
                IF( J.NE.IY ) THEN
                   AB( 1, J ) = SIGN( TWO, AB( 1, J ) )
-               ELSE
+               } else {
                   AB( 1, J ) = ZERO
                END IF
   290       CONTINUE
@@ -421,7 +421,7 @@
   320             CONTINUE
                   B( MAX( 1, J-KD+1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL
   330          CONTINUE
-            ELSE
+            } else {
                DO 350 J = 1, N, KD
                   TEXP = ONE
                   LENJ = MIN( KD+1, N-J+1 )
@@ -439,7 +439,7 @@
                   B( MIN( N, J+KD-1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL
   350          CONTINUE
             END IF
-         ELSE
+         } else {
             DO 360 J = 1, N
                AB( 1, J ) = ONE
                B( J ) = REAL( J )
@@ -458,7 +458,7 @@
                CALL SLARNV( 2, ISEED, LENJ, AB( KD+1-LENJ, J ) )
                AB( KD+1, J ) = REAL( J )
   370       CONTINUE
-         ELSE
+         } else {
             DO 380 J = 1, N
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL SLARNV( 2, ISEED, LENJ, AB( 2, J ) )
@@ -490,7 +490,7 @@
                   AB( I, J ) = SIGN( TLEFT, AB( I, J ) ) + TSCAL*AB( I, J )
   390          CONTINUE
   400       CONTINUE
-         ELSE
+         } else {
             DO 420 J = 1, N
                LENJ = MIN( N-J+1, KD+1 )
                CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) )
@@ -511,7 +511,7 @@
                LENJ = MIN( N-2*J+1, KD+1 )
                CALL SSWAP( LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 )
   430       CONTINUE
-         ELSE
+         } else {
             DO 440 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
                CALL SSWAP( LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 )

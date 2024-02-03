@@ -64,7 +64,7 @@
          INFO = -8
       ELSE IF( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) THEN
          INFO = -10
-      ELSE
+      } else {
 
          // Set M to the number of columns required to store the selected
          // eigenvectors, standardize the array SELECT if necessary, and
@@ -77,23 +77,23 @@
                IF( PAIR ) THEN
                   PAIR = .FALSE.
                   SELECT( J ) = .FALSE.
-               ELSE
+               } else {
                   IF( J.LT.N ) THEN
                      IF( T( J+1, J ).EQ.ZERO ) THEN
                         IF( SELECT( J ) ) M = M + 1
-                     ELSE
+                     } else {
                         PAIR = .TRUE.
                         IF( SELECT( J ) .OR. SELECT( J+1 ) ) THEN
                            SELECT( J ) = .TRUE.
                            M = M + 2
                         END IF
                      END IF
-                  ELSE
+                  } else {
                      IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
-         ELSE
+         } else {
             M = N
          END IF
 
@@ -151,7 +151,7 @@
             IF( SOMEV ) THEN
                IF( IP.EQ.0 ) THEN
                   IF( .NOT.SELECT( KI ) ) GO TO 130
-               ELSE
+               } else {
                   IF( .NOT.SELECT( KI-1 ) ) GO TO 130
                END IF
             END IF
@@ -216,7 +216,7 @@
 
                      CALL DAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -258,7 +258,7 @@
                   DO 70 K = KI + 1, N
                      VR( K, IS ) = ZERO
    70             CONTINUE
-               ELSE
+               } else {
                   IF( KI.GT.1 ) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 )
 
                   II = IDAMAX( N, VR( 1, KI ), 1 )
@@ -266,7 +266,7 @@
                   CALL DSCAL( N, REMAX, VR( 1, KI ), 1 )
                END IF
 
-            ELSE
+            } else {
 
                // Complex right eigenvector.
 
@@ -277,7 +277,7 @@
                IF( ABS( T( KI-1, KI ) ).GE.ABS( T( KI, KI-1 ) ) ) THEN
                   WORK( KI-1+N ) = ONE
                   WORK( KI+N2 ) = WI / T( KI-1, KI )
-               ELSE
+               } else {
                   WORK( KI-1+N ) = -WI / T( KI, KI-1 )
                   WORK( KI+N2 ) = ONE
                END IF
@@ -337,7 +337,7 @@
 
                      CALL DAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 )
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -395,11 +395,11 @@
                      VR( K, IS ) = ZERO
   110             CONTINUE
 
-               ELSE
+               } else {
 
                   IF( KI.GT.2 ) THEN
                      CALL DGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI-1+N ), VR( 1, KI-1 ), 1 )                      CALL DGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1+N2 ), 1, WORK( KI+N2 ), VR( 1, KI ), 1 )
-                  ELSE
+                  } else {
                      CALL DSCAL( N, WORK( KI-1+N ), VR( 1, KI-1 ), 1 )
                      CALL DSCAL( N, WORK( KI+N2 ), VR( 1, KI ), 1 )
                   END IF
@@ -502,7 +502,7 @@
                      VMAX = MAX( ABS( WORK( J+N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -552,7 +552,7 @@
                      VL( K, IS ) = ZERO
   180             CONTINUE
 
-               ELSE
+               } else {
 
                   IF( KI.LT.N ) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )
 
@@ -562,7 +562,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // Complex left eigenvector.
 
@@ -573,7 +573,7 @@
                IF( ABS( T( KI, KI+1 ) ).GE.ABS( T( KI+1, KI ) ) ) THEN
                   WORK( KI+N ) = WI / T( KI, KI+1 )
                   WORK( KI+1+N2 ) = ONE
-               ELSE
+               } else {
                   WORK( KI+N ) = ONE
                   WORK( KI+1+N2 ) = -WI / T( KI+1, KI )
                END IF
@@ -638,7 +638,7 @@
                      VMAX = MAX( ABS( WORK( J+N ) ), ABS( WORK( J+N2 ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -702,10 +702,10 @@
                      VL( K, IS ) = ZERO
                      VL( K, IS+1 ) = ZERO
   230             CONTINUE
-               ELSE
+               } else {
                   IF( KI.LT.N-1 ) THEN
                      CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )                      CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N2 ), 1, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 )
-                  ELSE
+                  } else {
                      CALL DSCAL( N, WORK( KI+N ), VL( 1, KI ), 1 )
                      CALL DSCAL( N, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 )
                   END IF

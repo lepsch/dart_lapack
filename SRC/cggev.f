@@ -59,7 +59,7 @@
       ELSE IF( LSAME( JOBVL, 'V' ) ) THEN
          IJOBVL = 2
          ILVL = .TRUE.
-      ELSE
+      } else {
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
@@ -70,7 +70,7 @@
       ELSE IF( LSAME( JOBVR, 'V' ) ) THEN
          IJOBVR = 2
          ILVR = .TRUE.
-      ELSE
+      } else {
          IJOBVR = -1
          ILVR = .FALSE.
       END IF
@@ -175,7 +175,7 @@
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
-      ELSE
+      } else {
          ICOLS = IROWS
       END IF
       ITAU = 1
@@ -209,7 +209,7 @@
          // Eigenvectors requested -- work on whole matrix.
 
          CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
-      ELSE
+      } else {
          CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
 
@@ -221,7 +221,7 @@
       IWRK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
-      ELSE
+      } else {
          CHTEMP = 'E'
       END IF
       CALL CHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR )
@@ -230,7 +230,7 @@
             INFO = IERR
          ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
             INFO = IERR - N
-         ELSE
+         } else {
             INFO = N + 1
          END IF
          GO TO 70
@@ -244,10 +244,10 @@
          IF( ILVL ) THEN
             IF( ILVR ) THEN
                CHTEMP = 'B'
-            ELSE
+            } else {
                CHTEMP = 'L'
             END IF
-         ELSE
+         } else {
             CHTEMP = 'R'
          END IF
 

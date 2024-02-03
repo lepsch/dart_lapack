@@ -37,17 +37,17 @@
          IF( X .GE. ZERO ) THEN
             Z = X
             W = Y
-         ELSE
+         } else {
             Z = -X
             W = -Y
          END IF
       ELSE IF( ABS(X) .LT. THRESH ) THEN
          Z = -SIGMA*SIGMA
          W = ZERO
-      ELSE
+      } else {
          IF( X .GE. ZERO ) THEN
             S = ONE
-         ELSE
+         } else {
             S = NEGONE
          END IF
          Z = S * (ABS(X)-SIGMA) * (S+SIGMA/X)

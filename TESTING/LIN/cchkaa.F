@@ -317,13 +317,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKGE( DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -338,13 +338,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKGB( DOTYPE, NM, MVAL, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVGB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), LA, A( 1, 3 ), LAFAC, A( 1, 6 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -357,13 +357,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKGT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVGT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -376,13 +376,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKPO( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVPO( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -396,7 +396,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKPS( DOTYPE, NN, NVAL, NNB2, NBVAL2, NRANK, RANKVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), PIV, WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -409,13 +409,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKPP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVPP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -428,13 +428,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKPB( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVPB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), S, WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -447,13 +447,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A( 1, 1 ), S, A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A( 1, 1 ), S, A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -467,13 +467,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKHE( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVHE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -487,13 +487,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKHE_ROOK(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVHE_ROOK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -508,13 +508,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKHE_RK( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVHE_RK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -528,13 +528,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKHE_AA( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVHE_AA( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -548,13 +548,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKHE_AA_2STAGE( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVHE_AA_2STAGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -568,13 +568,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKHP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVHP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -588,13 +588,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKSY( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVSY( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -608,13 +608,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKSY_ROOK(DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVSY_ROOK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -629,13 +629,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKSY_RK( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVSY_RK( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), E, A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -648,13 +648,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKSY_AA( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVSY_AA( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -668,13 +668,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKSY_AA_2STAGE( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVSY_AA_2STAGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -688,13 +688,13 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKSP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
          IF( TSTDRV ) THEN
             CALL CDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9988 )PATH
          END IF
 
@@ -707,7 +707,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKTR( DOTYPE, NN, NVAL, NNB2, NBVAL2, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -720,7 +720,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -733,7 +733,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKTB( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -746,7 +746,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -759,7 +759,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKLQ( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -772,7 +772,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKQL( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -785,7 +785,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKRQ( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -796,7 +796,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKEQ( THREQ, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -809,7 +809,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), S( 1 ), B( 1, 1 ), WORK, RWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -822,7 +822,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), S( 1 ), B( 1, 1 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -835,7 +835,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), S( 1 ), B( 1, 4 ), WORK, RWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -848,7 +848,7 @@
 
          IF( TSTDRV ) THEN
             CALL CDRVLS( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), S( 1 ), S( NMAX+1 ), NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -858,7 +858,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -868,7 +868,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKQRTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -878,7 +878,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKLQT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -888,7 +888,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKLQTP( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -898,7 +898,7 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
 
@@ -908,11 +908,11 @@
 
          IF( TSTCHK ) THEN
             CALL CCHKUNHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 ) PATH
          END IF
 
-      ELSE
+      } else {
 
          WRITE( NOUT, FMT = 9990 )PATH
       END IF

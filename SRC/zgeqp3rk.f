@@ -80,7 +80,7 @@
          IF( MINMN.EQ.0 ) THEN
             IWS = 1
             LWKOPT = 1
-         ELSE
+         } else {
 
             // Minimal workspace size in case of using only unblocked
             // BLAS 2 code in ZLAQP2RK.
@@ -443,7 +443,7 @@
             INFO = IOFFSET + IINFO
          END IF
 
-      ELSE
+      } else {
 
          // Compute the return values for blocked code.
 
@@ -462,7 +462,7 @@
             MAXC2NRMK = RWORK( JMAXC2NRM )
             IF( K.EQ.0 ) THEN
                RELMAXC2NRMK = ONE
-            ELSE
+            } else {
                RELMAXC2NRMK = MAXC2NRMK / MAXC2NRM
             END IF
 
@@ -470,7 +470,7 @@
                TAU( J ) = CZERO
             END DO
 
-         ELSE
+         } else {
             MAXC2NRMK = ZERO
             RELMAXC2NRMK = ZERO
 

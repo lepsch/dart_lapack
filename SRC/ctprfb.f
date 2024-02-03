@@ -44,7 +44,7 @@
       ELSE IF ( LSAME( STOREV, 'R' ) ) THEN
          COLUMN = .FALSE.
          ROW = .TRUE.
-      ELSE
+      } else {
          COLUMN = .FALSE.
          ROW = .FALSE.
       END IF
@@ -55,7 +55,7 @@
       ELSE IF( LSAME( SIDE, 'R' ) ) THEN
          LEFT = .FALSE.
          RIGHT = .TRUE.
-      ELSE
+      } else {
          LEFT = .FALSE.
          RIGHT = .FALSE.
       END IF
@@ -66,7 +66,7 @@
       ELSE IF( LSAME( DIRECT, 'B' ) ) THEN
          FORWARD = .FALSE.
          BACKWARD = .TRUE.
-      ELSE
+      } else {
          FORWARD = .FALSE.
          BACKWARD = .FALSE.
       END IF

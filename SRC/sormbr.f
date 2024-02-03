@@ -46,7 +46,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -74,13 +74,13 @@
          IF( APPLYQ ) THEN
             IF( LEFT ) THEN
                NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, M-1, N, M-1, -1 )
-            ELSE
+            } else {
                NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, M, N-1, N-1, -1 )
             END IF
-         ELSE
+         } else {
             IF( LEFT ) THEN
                NB = ILAENV( 1, 'SORMLQ', SIDE // TRANS, M-1, N, M-1, -1 )
-            ELSE
+            } else {
                NB = ILAENV( 1, 'SORMLQ', SIDE // TRANS, M, N-1, N-1, -1 )
             END IF
          END IF
@@ -118,7 +118,7 @@
                NI = N
                I1 = 2
                I2 = 1
-            ELSE
+            } else {
                MI = M
                NI = N - 1
                I1 = 1
@@ -126,13 +126,13 @@
             END IF
             CALL SORMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
          END IF
-      ELSE
+      } else {
 
          // Apply P
 
          IF( NOTRAN ) THEN
             TRANST = 'T'
-         ELSE
+         } else {
             TRANST = 'N'
          END IF
          IF( NQ.GT.K ) THEN
@@ -149,7 +149,7 @@
                NI = N
                I1 = 2
                I2 = 1
-            ELSE
+            } else {
                MI = M
                NI = N - 1
                I1 = 1

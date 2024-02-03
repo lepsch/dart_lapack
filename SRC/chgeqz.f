@@ -57,7 +57,7 @@
       ELSE IF( LSAME( JOB, 'S' ) ) THEN
          ILSCHR = .TRUE.
          ISCHUR = 2
-      ELSE
+      } else {
          ILSCHR = .TRUE.
          ISCHUR = 0
       END IF
@@ -71,7 +71,7 @@
       ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
          ILQ = .TRUE.
          ICOMPQ = 3
-      ELSE
+      } else {
          ILQ = .TRUE.
          ICOMPQ = 0
       END IF
@@ -85,7 +85,7 @@
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ILZ = .TRUE.
          ICOMPZ = 3
-      ELSE
+      } else {
          ILZ = .TRUE.
          ICOMPZ = 0
       END IF
@@ -160,11 +160,11 @@
             IF( ILSCHR ) THEN
                CALL CSCAL( J-1, SIGNBC, T( 1, J ), 1 )
                CALL CSCAL( J, SIGNBC, H( 1, J ), 1 )
-            ELSE
+            } else {
                CALL CSCAL( 1, SIGNBC, H( J, J ), 1 )
             END IF
             IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
-         ELSE
+         } else {
             T( J, J ) = CZERO
          END IF
          ALPHA( J ) = H( J, J )
@@ -194,7 +194,7 @@
       IF( ILSCHR ) THEN
          IFRSTM = 1
          ILASTM = N
-      ELSE
+      } else {
          IFRSTM = ILO
          ILASTM = IHI
       END IF
@@ -218,7 +218,7 @@
 
          IF( ILAST.EQ.ILO ) THEN
             GO TO 60
-         ELSE
+         } else {
             IF( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
                H( ILAST, ILAST-1 ) = CZERO
                GO TO 60
@@ -238,11 +238,11 @@
 
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
-            ELSE
+            } else {
                IF( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) THEN
                   H( J, J-1 ) = CZERO
                   ILAZRO = .TRUE.
-               ELSE
+               } else {
                   ILAZRO = .FALSE.
                END IF
             END IF
@@ -276,7 +276,7 @@
                      IF( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) THEN
                         IF( JCH+1.GE.ILAST ) THEN
                            GO TO 60
-                        ELSE
+                        } else {
                            IFIRST = JCH + 1
                            GO TO 70
                         END IF
@@ -284,7 +284,7 @@
                      T( JCH+1, JCH+1 ) = CZERO
    20             CONTINUE
                   GO TO 50
-               ELSE
+               } else {
 
                   // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
                   // Then process as in the case T(ILAST,ILAST)=0
@@ -337,11 +337,11 @@
             IF( ILSCHR ) THEN
                CALL CSCAL( ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 )
                CALL CSCAL( ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 )
-            ELSE
+            } else {
                CALL CSCAL( 1, SIGNBC, H( ILAST, ILAST ), 1 )
             END IF
             IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, ILAST ), 1 )
-         ELSE
+         } else {
             T( ILAST, ILAST ) = CZERO
          END IF
          ALPHA( ILAST ) = H( ILAST, ILAST )
@@ -405,12 +405,12 @@
                END IF
                SHIFT = SHIFT - CTEMP*CLADIV( CTEMP, ( X+Y ) )
             END IF
-         ELSE
+         } else {
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
             IF( ( IITER / 20 )*20.EQ.IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
-            ELSE
+            } else {
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
             END IF
             SHIFT = ESHIFT
@@ -514,11 +514,11 @@
             IF( ILSCHR ) THEN
                CALL CSCAL( J-1, SIGNBC, T( 1, J ), 1 )
                CALL CSCAL( J, SIGNBC, H( 1, J ), 1 )
-            ELSE
+            } else {
                CALL CSCAL( 1, SIGNBC, H( J, J ), 1 )
             END IF
             IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
-         ELSE
+         } else {
             T( J, J ) = CZERO
          END IF
          ALPHA( J ) = H( J, J )

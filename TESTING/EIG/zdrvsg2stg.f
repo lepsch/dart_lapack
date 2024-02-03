@@ -118,7 +118,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -249,7 +249,7 @@
                KB = MAX( 0, MIN( N-1, KB9 ) )
                CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO )
 
-            ELSE
+            } else {
 
                IINFO = 1
             END IF
@@ -266,7 +266,7 @@
             IF( N.LE.1 ) THEN
                IL = 1
                IU = N
-            ELSE
+            } else {
                IL = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*DLARND( 1, ISEED2 ) )
                IF( IL.GT.IU ) THEN
@@ -309,7 +309,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
                      END IF
@@ -332,7 +332,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
                      END IF
@@ -369,7 +369,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
                      END IF
@@ -392,7 +392,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
                      END IF
@@ -420,7 +420,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
                      END IF
@@ -441,7 +441,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 100
                      END IF
@@ -468,7 +468,7 @@
                            IJ = IJ + 1
   110                   CONTINUE
   120                CONTINUE
-                  ELSE
+                  } else {
                      IJ = 1
                      DO 140 J = 1, N
                         DO 130 I = J, N
@@ -485,7 +485,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
                      END IF
@@ -510,7 +510,7 @@
                            IJ = IJ + 1
   150                   CONTINUE
   160                CONTINUE
-                  ELSE
+                  } else {
                      IJ = 1
                      DO 180 J = 1, N
                         DO 170 I = J, N
@@ -527,7 +527,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
                      END IF
@@ -552,7 +552,7 @@
                            IJ = IJ + 1
   190                   CONTINUE
   200                CONTINUE
-                  ELSE
+                  } else {
                      IJ = 1
                      DO 220 J = 1, N
                         DO 210 I = J, N
@@ -569,7 +569,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
                      END IF
@@ -592,7 +592,7 @@
                            IJ = IJ + 1
   230                   CONTINUE
   240                CONTINUE
-                  ELSE
+                  } else {
                      IJ = 1
                      DO 260 J = 1, N
                         DO 250 I = J, N
@@ -611,7 +611,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
                      END IF
@@ -634,7 +634,7 @@
                            IJ = IJ + 1
   270                   CONTINUE
   280                CONTINUE
-                  ELSE
+                  } else {
                      IJ = 1
                      DO 300 J = 1, N
                         DO 290 I = J, N
@@ -651,7 +651,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( NTEST ) = ULPINV
                         GO TO 310
                      END IF
@@ -680,7 +680,7 @@
                               BB( KB+1+I-J, J ) = B( I, J )
   330                      CONTINUE
   340                   CONTINUE
-                     ELSE
+                     } else {
                         DO 370 J = 1, N
                            DO 350 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
@@ -697,7 +697,7 @@
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
-                        ELSE
+                        } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
                         END IF
@@ -722,7 +722,7 @@
                               BB( KB+1+I-J, J ) = B( I, J )
   390                      CONTINUE
   400                   CONTINUE
-                     ELSE
+                     } else {
                         DO 430 J = 1, N
                            DO 410 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
@@ -739,7 +739,7 @@
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
-                        ELSE
+                        } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
                         END IF
@@ -764,7 +764,7 @@
                               BB( KB+1+I-J, J ) = B( I, J )
   450                      CONTINUE
   460                   CONTINUE
-                     ELSE
+                     } else {
                         DO 490 J = 1, N
                            DO 470 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
@@ -781,7 +781,7 @@
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
-                        ELSE
+                        } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
                         END IF
@@ -804,7 +804,7 @@
                               BB( KB+1+I-J, J ) = B( I, J )
   510                      CONTINUE
   520                   CONTINUE
-                     ELSE
+                     } else {
                         DO 550 J = 1, N
                            DO 530 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
@@ -823,7 +823,7 @@
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
-                        ELSE
+                        } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
                         END IF
@@ -846,7 +846,7 @@
                               BB( KB+1+I-J, J ) = B( I, J )
   570                      CONTINUE
   580                   CONTINUE
-                     ELSE
+                     } else {
                         DO 610 J = 1, N
                            DO 590 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
@@ -863,7 +863,7 @@
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
-                        ELSE
+                        } else {
                            RESULT( NTEST ) = ULPINV
                            GO TO 620
                         END IF

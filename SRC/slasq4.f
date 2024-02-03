@@ -55,19 +55,19 @@
                GAP2 = DMIN2 - A2 - DMIN2*QURTR
                IF( GAP2.GT.ZERO .AND. GAP2.GT.B2 ) THEN
                   GAP1 = A2 - DN - ( B2 / GAP2 )*B2
-               ELSE
+               } else {
                   GAP1 = A2 - DN - ( B1+B2 )
                END IF
                IF( GAP1.GT.ZERO .AND. GAP1.GT.B1 ) THEN
                   S = MAX( DN-( B1 / GAP1 )*B1, HALF*DMIN )
                   TTYPE = -2
-               ELSE
+               } else {
                   S = ZERO
                   IF( DN.GT.B1 ) S = DN - B1                   IF( A2.GT.( B1+B2 ) ) S = MIN( S, A2-( B1+B2 ) )
                   S = MAX( S, THIRD*DMIN )
                   TTYPE = -3
                END IF
-            ELSE
+            } else {
 
                // Case 4.
 
@@ -79,7 +79,7 @@
                   IF( Z( NN-5 ) .GT. Z( NN-7 ) ) RETURN
                   B2 = Z( NN-5 ) / Z( NN-7 )
                   NP = NN - 9
-               ELSE
+               } else {
                   NP = NN - 2*PP
                   GAM = DN1
                   IF( Z( NP-4 ) .GT. Z( NP-2 ) ) RETURN
@@ -141,7 +141,7 @@
             END IF
 
             IF( A2.LT.CNST1 ) S = GAM*( ONE-SQRT( A2 ) ) / ( ONE+A2 )
-         ELSE
+         } else {
 
             // Case 6, no information to guide us.
 
@@ -149,7 +149,7 @@
                G = G + THIRD*( ONE-G )
             ELSE IF( TTYPE.EQ.-18 ) THEN
                G = QURTR*THIRD
-            ELSE
+            } else {
                G = QURTR
             END IF
             S = G*DMIN
@@ -183,11 +183,11 @@
             GAP2 = HALF*DMIN2 - A2
             IF( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) THEN
                S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) )
-            ELSE
+            } else {
                S = MAX( S, A2*( ONE-CNST2*B2 ) )
                TTYPE = -8
             END IF
-         ELSE
+         } else {
 
             // Case 9.
 
@@ -221,10 +221,10 @@
             GAP2 = Z( NN-7 ) + Z( NN-9 ) - SQRT( Z( NN-11 ) )*SQRT( Z( NN-9 ) ) - A2
             IF( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) THEN
                S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) )
-            ELSE
+            } else {
                S = MAX( S, A2*( ONE-CNST2*B2 ) )
             END IF
-         ELSE
+         } else {
             S = QURTR*DMIN2
             TTYPE = -11
          END IF

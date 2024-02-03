@@ -56,7 +56,7 @@
          IF( N.EQ.0 ) THEN
             LWKMIN = 1
             LWKOPT = 1
-         ELSE
+         } else {
             NB1 = ILAENV( 1, 'ZGEQRF', ' ', M, N, -1, -1 )
             NB2 = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 )
             NB3 = ILAENV( 1, 'ZUNMQR', ' ', M, N, P, -1 )
@@ -140,7 +140,7 @@
       IF( M.LT.N ) THEN
          NR = M + P - N
          IF( NR.GT.0 ) CALL ZGEMV( 'No transpose', NR, N-M, -CONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, CONE, C( N-P+1 ), 1 )
-      ELSE
+      } else {
          NR = P
       END IF
       IF( NR.GT.0 ) THEN

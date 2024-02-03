@@ -89,13 +89,13 @@
 
          IF( ABS( A( 1, 1 ) ) .GE. SFMIN ) THEN
             CALL DSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
-         ELSE
+         } else {
             DO I = 2, M
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
             END DO
          END IF
 
-      ELSE
+      } else {
 
          // Divide the matrix B into four submatrices
 

@@ -94,7 +94,7 @@
 
       IF( INFO2.NE.0 ) THEN
          NINFO( INFO2 ) = NINFO( INFO2 ) + 1
-      ELSE
+      } else {
          IF( ABS( IFST2-IFSTSV ).GT.1 ) RES = RES + ONE / EPS          IF( ABS( ILST2-ILSTSV ).GT.1 ) RES = RES + ONE / EPS
       END IF
 
@@ -116,7 +116,7 @@
             IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ).NE.ZERO ) RES = RES + ONE / RES
    80    CONTINUE
          LOC = LOC + 2
-      ELSE
+      } else {
 
          // 1 by 1 block
 

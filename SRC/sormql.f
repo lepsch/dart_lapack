@@ -48,7 +48,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -76,7 +76,7 @@
 
          IF( M.EQ.0 .OR. N.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             NB = MIN( NBMAX, ILAENV( 1, 'SORMQL', SIDE // TRANS, M, N, K, -1 ) )
             LWKOPT = NW*NB + TSIZE
          END IF
@@ -110,7 +110,7 @@
          // Use unblocked code
 
          CALL SORM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -119,7 +119,7 @@
             I1 = 1
             I2 = K
             I3 = NB
-         ELSE
+         } else {
             I1 = ( ( K-1 ) / NB )*NB + 1
             I2 = 1
             I3 = -NB
@@ -127,7 +127,7 @@
 
          IF( LEFT ) THEN
             NI = N
-         ELSE
+         } else {
             MI = M
          END IF
 
@@ -143,7 +143,7 @@
                // H or H**T is applied to C(1:m-k+i+ib-1,1:n)
 
                MI = M - K + I + IB - 1
-            ELSE
+            } else {
 
                // H or H**T is applied to C(1:m,1:n-k+i+ib-1)
 

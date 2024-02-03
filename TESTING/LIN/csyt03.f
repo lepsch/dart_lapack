@@ -69,7 +69,7 @@
                AINV( J, I ) = AINV( I, J )
    10       CONTINUE
    20    CONTINUE
-      ELSE
+      } else {
          DO 40 J = 1, N
             DO 30 I = J + 1, N
                AINV( J, I ) = AINV( I, J )

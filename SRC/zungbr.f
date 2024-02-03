@@ -59,15 +59,15 @@
          IF( WANTQ ) THEN
             IF( M.GE.K ) THEN
                CALL ZUNGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
-            ELSE
+            } else {
                IF( M.GT.1 ) THEN
                   CALL ZUNGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
             END IF
-         ELSE
+         } else {
             IF( K.LT.N ) THEN
                CALL ZUNGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
-            ELSE
+            } else {
                IF( N.GT.1 ) THEN
                   CALL ZUNGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
@@ -103,7 +103,7 @@
 
             CALL ZUNGQR( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 
-         ELSE
+         } else {
 
             // If m < k, assume m = n
 
@@ -128,7 +128,7 @@
                CALL ZUNGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
          END IF
-      ELSE
+      } else {
 
          // Form P**H, determined by a call to ZGEBRD to reduce a k-by-n
          // matrix
@@ -139,7 +139,7 @@
 
             CALL ZUNGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 
-         ELSE
+         } else {
 
             // If k >= n, assume m = n
 

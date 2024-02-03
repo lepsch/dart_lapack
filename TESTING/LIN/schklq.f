@@ -120,7 +120,7 @@
                   NK = 2
                ELSE IF( MINMN.LE.3 ) THEN
                   NK = 3
-               ELSE
+               } else {
                   NK = 4
                END IF
 

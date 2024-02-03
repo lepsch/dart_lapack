@@ -28,7 +28,7 @@
             SY(I) = C*SY(I) - S*SX(I)
             SX(I) = STEMP
          END DO
-      ELSE
+      } else {
 
         // code for unequal increments or equal increments not equal
          t // o 1

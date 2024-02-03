@@ -63,7 +63,7 @@
          INFO = -4
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -6
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
@@ -84,7 +84,7 @@
          IF( N.LE.1 ) THEN
             LWKMIN = 1
             LWKOPT = 1
-         ELSE
+         } else {
             LWKMIN = 2*N
             NB = ILAENV( 1, 'CHETRD', UPLO, N, -1, -1, -1 )
             NB = MAX( NB, ILAENV( 1, 'CUNMTR', UPLO, N, -1, -1, -1 ) )
@@ -153,7 +153,7 @@
             DO 10 J = 1, N
                CALL CSSCAL( N-J+1, SIGMA, A( J, J ), 1 )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J = 1, N
                CALL CSSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
@@ -191,7 +191,7 @@
          IF( .NOT.WANTZ ) THEN
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL SSTERF( N, W, RWORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL CLACPY( 'A', N, N, A, LDA, Z, LDZ )
             CALL CUNGTR( UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
@@ -213,7 +213,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDIBL = 1
@@ -236,7 +236,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

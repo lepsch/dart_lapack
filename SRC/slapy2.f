@@ -45,7 +45,7 @@
          Z = MIN( XABS, YABS )
          IF( Z.EQ.ZERO .OR. W.GT.HUGEVAL ) THEN
             SLAPY2 = W
-         ELSE
+         } else {
             SLAPY2 = W*SQRT( ONE+( Z / W )**2 )
          END IF
       END IF

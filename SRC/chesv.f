@@ -54,7 +54,7 @@
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             NB = ILAENV( 1, 'CHETRF', UPLO, N, -1, -1, -1 )
             LWKOPT = N*NB
          END IF
@@ -81,7 +81,7 @@
 
             CALL CHETRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 
-         ELSE
+         } else {
 
          // Solve with TRS2 ( Use Level BLAS 3)
 

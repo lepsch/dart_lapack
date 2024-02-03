@@ -62,7 +62,7 @@
             A(I2,I)=TMP
          END DO
 
-        ELSE
+        } else {
 
           // LOWER
           // first swap

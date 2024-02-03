@@ -49,7 +49,7 @@
 
       IF( NOTRANS ) THEN
          NROWA = N
-      ELSE
+      } else {
          NROWA = K
       END IF
 
@@ -95,12 +95,12 @@
       IF( MOD( N, 2 ).EQ.0 ) THEN
          NISODD = .FALSE.
          NK = N / 2
-      ELSE
+      } else {
          NISODD = .TRUE.
          IF( LOWER ) THEN
             N2 = N / 2
             N1 = N - N2
-         ELSE
+         } else {
             N1 = N / 2
             N2 = N - N1
          END IF
@@ -124,7 +124,7 @@
 
                   CALL CHERK( 'L', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 1 ), N )                   CALL CHERK( 'U', 'N', N2, K, ALPHA, A( N1+1, 1 ), LDA, BETA, C( N+1 ), N )                   CALL CGEMM( 'N', 'C', N2, N1, K, CALPHA, A( N1+1, 1 ), LDA, A( 1, 1 ), LDA, CBETA, C( N1+1 ), N )
 
-               ELSE
+               } else {
 
                   // N is odd, TRANSR = 'N', UPLO = 'L', and TRANS = 'C'
 
@@ -132,7 +132,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // N is odd, TRANSR = 'N', and UPLO = 'U'
 
@@ -142,7 +142,7 @@
 
                   CALL CHERK( 'L', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( N2+1 ), N )                   CALL CHERK( 'U', 'N', N2, K, ALPHA, A( N2, 1 ), LDA, BETA, C( N1+1 ), N )                   CALL CGEMM( 'N', 'C', N1, N2, K, CALPHA, A( 1, 1 ), LDA, A( N2, 1 ), LDA, CBETA, C( 1 ), N )
 
-               ELSE
+               } else {
 
                   // N is odd, TRANSR = 'N', UPLO = 'U', and TRANS = 'C'
 
@@ -152,7 +152,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is odd, and TRANSR = 'C'
 
@@ -166,7 +166,7 @@
 
                   CALL CHERK( 'U', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 1 ), N1 )                   CALL CHERK( 'L', 'N', N2, K, ALPHA, A( N1+1, 1 ), LDA, BETA, C( 2 ), N1 )                   CALL CGEMM( 'N', 'C', N1, N2, K, CALPHA, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA, CBETA, C( N1*N1+1 ), N1 )
 
-               ELSE
+               } else {
 
                   // N is odd, TRANSR = 'C', UPLO = 'L', and TRANS = 'C'
 
@@ -174,7 +174,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // N is odd, TRANSR = 'C', and UPLO = 'U'
 
@@ -184,7 +184,7 @@
 
                   CALL CHERK( 'U', 'N', N1, K, ALPHA, A( 1, 1 ), LDA, BETA, C( N2*N2+1 ), N2 )                   CALL CHERK( 'L', 'N', N2, K, ALPHA, A( N1+1, 1 ), LDA, BETA, C( N1*N2+1 ), N2 )                   CALL CGEMM( 'N', 'C', N2, N1, K, CALPHA, A( N1+1, 1 ), LDA, A( 1, 1 ), LDA, CBETA, C( 1 ), N2 )
 
-               ELSE
+               } else {
 
                   // N is odd, TRANSR = 'C', UPLO = 'U', and TRANS = 'C'
 
@@ -196,7 +196,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // N is even
 
@@ -214,7 +214,7 @@
 
                   CALL CHERK( 'L', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( 2 ), N+1 )                   CALL CHERK( 'U', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( 1 ), N+1 )                   CALL CGEMM( 'N', 'C', NK, NK, K, CALPHA, A( NK+1, 1 ), LDA, A( 1, 1 ), LDA, CBETA, C( NK+2 ), N+1 )
 
-               ELSE
+               } else {
 
                   // N is even, TRANSR = 'N', UPLO = 'L', and TRANS = 'C'
 
@@ -222,7 +222,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // N is even, TRANSR = 'N', and UPLO = 'U'
 
@@ -232,7 +232,7 @@
 
                   CALL CHERK( 'L', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK+2 ), N+1 )                   CALL CHERK( 'U', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( NK+1 ), N+1 )                   CALL CGEMM( 'N', 'C', NK, NK, K, CALPHA, A( 1, 1 ), LDA, A( NK+1, 1 ), LDA, CBETA, C( 1 ), N+1 )
 
-               ELSE
+               } else {
 
                   // N is even, TRANSR = 'N', UPLO = 'U', and TRANS = 'C'
 
@@ -242,7 +242,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is even, and TRANSR = 'C'
 
@@ -256,7 +256,7 @@
 
                   CALL CHERK( 'U', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK+1 ), NK )                   CALL CHERK( 'L', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( 1 ), NK )                   CALL CGEMM( 'N', 'C', NK, NK, K, CALPHA, A( 1, 1 ), LDA, A( NK+1, 1 ), LDA, CBETA, C( ( ( NK+1 )*NK )+1 ), NK )
 
-               ELSE
+               } else {
 
                   // N is even, TRANSR = 'C', UPLO = 'L', and TRANS = 'C'
 
@@ -264,7 +264,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // N is even, TRANSR = 'C', and UPLO = 'U'
 
@@ -274,7 +274,7 @@
 
                   CALL CHERK( 'U', 'N', NK, K, ALPHA, A( 1, 1 ), LDA, BETA, C( NK*( NK+1 )+1 ), NK )                   CALL CHERK( 'L', 'N', NK, K, ALPHA, A( NK+1, 1 ), LDA, BETA, C( NK*NK+1 ), NK )                   CALL CGEMM( 'N', 'C', NK, NK, K, CALPHA, A( NK+1, 1 ), LDA, A( 1, 1 ), LDA, CBETA, C( 1 ), NK )
 
-               ELSE
+               } else {
 
                   // N is even, TRANSR = 'C', UPLO = 'U', and TRANS = 'C'
 

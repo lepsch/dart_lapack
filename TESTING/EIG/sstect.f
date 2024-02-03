@@ -64,7 +64,7 @@
       IF( MX.LE.ONE ) THEN
          M1 = ONE / MX
          M2 = TOM
-      ELSE
+      } else {
          M1 = ONE
          M2 = TOM / MX
       END IF
@@ -78,7 +78,7 @@
          IF( U.LE.ZERO ) THEN
             NUM = NUM + 1
             IF( U.GT.-SUN ) U = -SUN
-         ELSE
+         } else {
             U = SUN
          END IF
       END IF
@@ -89,7 +89,7 @@
             IF( U.LE.ZERO ) THEN
                NUM = NUM + 1
                IF( U.GT.-SUN ) U = -SUN
-            ELSE
+            } else {
                U = SUN
             END IF
          END IF

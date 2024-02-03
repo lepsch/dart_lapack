@@ -122,7 +122,7 @@
                            CALL CLARTV( NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
    10                   CONTINUE
 
-                     ELSE
+                     } else {
                         JEND = J1 + ( NR-1 )*KD1
                         DO 20 JINC = J1, JEND, KD1
                            CALL CROT( KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) )
@@ -165,12 +165,12 @@
                         DO 30 L = 1, KD - 1
                            IF( J2+L.GT.N ) THEN
                               NRT = NR - 1
-                           ELSE
+                           } else {
                               NRT = NR
                            END IF
                            IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
    30                   CONTINUE
-                     ELSE
+                     } else {
                         J1END = J1 + KD1*( NR-2 )
                         IF( J1END.GE.J1 ) THEN
                            DO 40 JIN = J1, J1END, KD1
@@ -205,7 +205,7 @@
                            IQAEND = MIN( IQAEND+KD, IQEND )
                            CALL CROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), CONJG( WORK( J ) ) )
    50                   CONTINUE
-                     ELSE
+                     } else {
 
                         DO 60 J = J1, J2, KD1
                            CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), CONJG( WORK( J ) ) )
@@ -245,7 +245,7 @@
                E( I ) = ABST
                IF( ABST.NE.ZERO ) THEN
                   T = T / ABST
-               ELSE
+               } else {
                   T = CONE
                END IF
                IF( I.LT.N-1 ) AB( KD, I+2 ) = AB( KD, I+2 )*T
@@ -253,7 +253,7 @@
                   CALL CSCAL( N, CONJG( T ), Q( 1, I+1 ), 1 )
                END IF
   100       CONTINUE
-         ELSE
+         } else {
 
             // set E to zero if original matrix was diagonal
 
@@ -268,7 +268,7 @@
             D( I ) = REAL( AB( KD1, I ) )
   120    CONTINUE
 
-      ELSE
+      } else {
 
          IF( KD.GT.1 ) THEN
 
@@ -305,7 +305,7 @@
                         DO 130 L = 1, KD - 1
                            CALL CLARTV( NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
   130                   CONTINUE
-                     ELSE
+                     } else {
                         JEND = J1 + KD1*( NR-1 )
                         DO 140 JINC = J1, JEND, KD1
                            CALL CROT( KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) )
@@ -348,12 +348,12 @@
                         DO 150 L = 1, KD - 1
                            IF( J2+L.GT.N ) THEN
                               NRT = NR - 1
-                           ELSE
+                           } else {
                               NRT = NR
                            END IF
                            IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
   150                   CONTINUE
-                     ELSE
+                     } else {
                         J1END = J1 + KD1*( NR-2 )
                         IF( J1END.GE.J1 ) THEN
                            DO 160 J1INC = J1, J1END, KD1
@@ -390,7 +390,7 @@
                            IQAEND = MIN( IQAEND+KD, IQEND )
                            CALL CROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) )
   170                   CONTINUE
-                     ELSE
+                     } else {
 
                         DO 180 J = J1, J2, KD1
                            CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) )
@@ -429,7 +429,7 @@
                E( I ) = ABST
                IF( ABST.NE.ZERO ) THEN
                   T = T / ABST
-               ELSE
+               } else {
                   T = CONE
                END IF
                IF( I.LT.N-1 ) AB( 2, I+1 ) = AB( 2, I+1 )*T
@@ -437,7 +437,7 @@
                   CALL CSCAL( N, T, Q( 1, I+1 ), 1 )
                END IF
   220       CONTINUE
-         ELSE
+         } else {
 
             // set E to zero if original matrix was diagonal
 

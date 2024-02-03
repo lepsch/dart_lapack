@@ -52,7 +52,7 @@
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             CALL DSYTRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, -1, INFO )
             LWKOPT = INT( WORK( 1 ) )
          END IF

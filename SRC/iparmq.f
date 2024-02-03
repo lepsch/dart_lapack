@@ -65,7 +65,7 @@
 
          IF( NH.LE.KNWSWP ) THEN
             IPARMQ = NS
-         ELSE
+         } else {
             IPARMQ = 3*NS / 2
          END IF
 
@@ -135,7 +135,7 @@
              // BLAS updates ===
 
          IPARMQ = RCOST
-      ELSE
+      } else {
          // ===== invalid value of ispec =====
          IPARMQ = -1
 

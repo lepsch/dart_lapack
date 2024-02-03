@@ -60,7 +60,7 @@
       IF( WANTZ ) THEN
          LWMIN = 18*N
          LIWMIN = 10*N
-      ELSE
+      } else {
          // need less workspace if only the eigenvalues are wanted
          LWMIN = 12*N
          LIWMIN = 8*N
@@ -124,7 +124,7 @@
             CALL SLARRC( 'T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO )
          ELSE IF( WANTZ .AND. INDEIG ) THEN
             NZCMIN = IIU-IIL+1
-         ELSE
+         } else {
             // WANTZ .EQ. FALSE.
             NZCMIN = 0
          ENDIF
@@ -153,7 +153,7 @@
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
             W( 1 ) = D( 1 )
-         ELSE
+         } else {
             IF( WL.LT.D( 1 ) .AND. WU.GE.D( 1 ) ) THEN
                M = 1
                W( 1 ) = D( 1 )
@@ -189,7 +189,7 @@
                IF( LAESWAP ) THEN
                   Z( 1, M ) = CS
                   Z( 2, M ) = SN
-               ELSE
+               } else {
                   Z( 1, M ) = -SN
                   Z( 2, M ) = CS
                ENDIF
@@ -198,11 +198,11 @@
                   IF (CS.NE.ZERO) THEN
                      ISUPPZ(2*M-1) = 1
                      ISUPPZ(2*M) = 2
-                  ELSE
+                  } else {
                      ISUPPZ(2*M-1) = 1
                      ISUPPZ(2*M) = 1
                   END IF
-               ELSE
+               } else {
                   ISUPPZ(2*M-1) = 2
                   ISUPPZ(2*M) = 2
                END IF
@@ -215,7 +215,7 @@
                IF( LAESWAP ) THEN
                   Z( 1, M ) = -SN
                   Z( 2, M ) = CS
-               ELSE
+               } else {
                   Z( 1, M ) = CS
                   Z( 2, M ) = SN
                ENDIF
@@ -224,17 +224,17 @@
                   IF (CS.NE.ZERO) THEN
                      ISUPPZ(2*M-1) = 1
                      ISUPPZ(2*M) = 2
-                  ELSE
+                  } else {
                      ISUPPZ(2*M-1) = 1
                      ISUPPZ(2*M) = 1
                   END IF
-               ELSE
+               } else {
                   ISUPPZ(2*M-1) = 2
                   ISUPPZ(2*M) = 2
                END IF
             ENDIF
          ENDIF
-      ELSE
+      } else {
 
          // Continue with general N
 
@@ -286,14 +286,14 @@
          IF( TRYRAC ) THEN
             // Test whether the matrix warrants the more expensive relative approach.
             CALL SLARRR( N, D, E, IINFO )
-         ELSE
+         } else {
             // The user does not care about relative accurately eigenvalues
             IINFO = -1
          ENDIF
          // Set the splitting criterion
          IF (IINFO.EQ.0) THEN
             THRESH = EPS
-         ELSE
+         } else {
             THRESH = -EPS
             // relative accuracy is desired but T does not guarantee it
             TRYRAC = .FALSE.
@@ -313,7 +313,7 @@
             // SLARRE computes the eigenvalues to full precision.
             RTOL1 = FOUR * EPS
             RTOL2 = FOUR * EPS
-         ELSE
+         } else {
             // SLARRE computes the eigenvalues to less than full precision.
             // CLARRV will refine the eigenvalue approximations, and we only
             // need less accurate initial bisection in SLARRE.
@@ -341,7 +341,7 @@
                INFO = 20 + ABS( IINFO )
                RETURN
             END IF
-         ELSE
+         } else {
             // SLARRE computes eigenvalues of the (shifted) root representation
             // CLARRV returns the eigenvalues of the unshifted matrix.
             // However, if the eigenvectors are not desired by the user, we need
@@ -403,7 +403,7 @@
                INFO = 3
                RETURN
             END IF
-         ELSE
+         } else {
             DO 60 J = 1, M - 1
                I = 0
                TMP = W( J )

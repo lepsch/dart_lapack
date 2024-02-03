@@ -70,7 +70,7 @@
             X( JJ ) = ZLARND( 2, ISEED )
             IF( ABS( X( JJ+( J-3 ) ) ).GT.ABS( X( JJ ) ) ) THEN
                X( JJ+( J-4 ) ) = 2.0D0*X( JJ+( J-3 ) )
-            ELSE
+            } else {
                X( JJ+( J-4 ) ) = 2.0D0*X( JJ )
             END IF
             JJ = JJ - ( J-4 )
@@ -99,7 +99,7 @@
             X( JJ-J ) = ZLARND( 2, ISEED )
             IF( ABS( X( JJ ) ).GT.ABS( X( JJ-J ) ) ) THEN
                X( JJ-1 ) = 2.0D0*X( JJ )
-            ELSE
+            } else {
                X( JJ-1 ) = 2.0D0*X( JJ-J )
             END IF
             JJ = JJ - J - ( J-1 )
@@ -111,7 +111,7 @@
 
       // UPLO = 'L':  Lower triangular storage
 
-      ELSE
+      } else {
          N5 = N / 5
          N5 = N5*5
 
@@ -134,7 +134,7 @@
             X( JJ ) = ZLARND( 2, ISEED )
             IF( ABS( X( JJ-( N-J-2 ) ) ).GT.ABS( X( JJ ) ) ) THEN
                X( JJ-( N-J-2 )+1 ) = 2.0D0*X( JJ-( N-J-2 ) )
-            ELSE
+            } else {
                X( JJ-( N-J-2 )+1 ) = 2.0D0*X( JJ )
             END IF
             JJ = JJ + ( N-J-3 )
@@ -163,7 +163,7 @@
             X( JJ+( N-J+1 ) ) = ZLARND( 2, ISEED )
             IF( ABS( X( JJ ) ).GT.ABS( X( JJ+( N-J+1 ) ) ) ) THEN
                X( JJ+1 ) = 2.0D0*X( JJ )
-            ELSE
+            } else {
                X( JJ+1 ) = 2.0D0*X( JJ+( N-J+1 ) )
             END IF
             JJ = JJ + ( N-J+1 ) + ( N-J )

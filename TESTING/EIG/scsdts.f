@@ -48,7 +48,7 @@
       CALL SSYRK( 'Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX )
       IF (M.GT.0) THEN
          EPS2 = MAX( ULP, SLANGE( '1', M, M, WORK, LDX, RWORK ) / REAL( M ) )
-      ELSE
+      } else {
          EPS2 = ULP
       END IF
       R = MIN( P, M-P, Q, M-Q )
@@ -189,7 +189,7 @@
       CALL SSYRK( 'Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX )
       IF (M.GT.0) THEN
          EPS2 = MAX( ULP, SLANGE( '1', Q, Q, WORK, LDX, RWORK ) / REAL( M ) )
-      ELSE
+      } else {
          EPS2 = ULP
       END IF
       R = MIN( P, M-P, Q, M-Q )

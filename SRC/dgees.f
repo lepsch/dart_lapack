@@ -78,7 +78,7 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 3*N
 
@@ -87,7 +87,7 @@
 
             IF( .NOT.WANTVS ) THEN
                MAXWRK = MAX( MAXWRK, N + HSWORK )
-            ELSE
+            } else {
                MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             END IF
@@ -212,7 +212,7 @@
             ELSE IF( WANTST ) THEN
                I1 = 1
                I2 = N - 1
-            ELSE
+            } else {
                I1 = ILO
                I2 = IHI - 1
             END IF
@@ -221,7 +221,7 @@
                IF( I.LT.INXT ) GO TO 20
                IF( WI( I ).EQ.ZERO ) THEN
                   INXT = I + 1
-               ELSE
+               } else {
                   IF( A( I+1, I ).EQ.ZERO ) THEN
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
@@ -259,7 +259,7 @@
                IF( CURSL ) SDIM = SDIM + 1
                IP = 0
                IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
-            ELSE
+            } else {
                IF( IP.EQ.1 ) THEN
 
                   // Last eigenvalue of conjugate pair
@@ -269,7 +269,7 @@
                   IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
                   IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
-               ELSE
+               } else {
 
                   // First eigenvalue of conjugate pair
 

@@ -51,13 +51,13 @@
 
       IF( NRHS.EQ.1 ) THEN
          NB = 1
-      ELSE
+      } else {
          NB = MAX( 1, ILAENV( 1, 'SPTTRS', ' ', N, NRHS, -1, -1 ) )
       END IF
 
       IF( NB.GE.NRHS ) THEN
          CALL SPTTS2( N, NRHS, D, E, B, LDB )
-      ELSE
+      } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             CALL SPTTS2( N, JB, D, E, B( 1, J ), LDB )

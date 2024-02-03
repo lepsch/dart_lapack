@@ -79,7 +79,7 @@
                CALL CLARTG( -CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R )
             ELSE IF( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) THEN
                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL CLARTG( -CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R )
             END IF
 
@@ -88,7 +88,7 @@
             CSV = CSR
             SNV = -D1*SNR
 
-         ELSE
+         } else {
 
             // Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
             // and (2,2) element of |U|**H *|A| and |V|**H *|B|.
@@ -110,7 +110,7 @@
                CALL CLARTG( -CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R )
             ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN
                CALL CLARTG( -CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL CLARTG( -CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R )
             END IF
 
@@ -121,7 +121,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Input matrices A and B are lower triangular matrices
 
@@ -168,7 +168,7 @@
                CALL CLARTG( CMPLX( UA22R ), UA21, CSQ, SNQ, R )
             ELSE IF( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) THEN
                CALL CLARTG( CMPLX( UA22R ), UA21, CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL CLARTG( CMPLX( VB22R ), VB21, CSQ, SNQ, R )
             END IF
 
@@ -177,7 +177,7 @@
             CSV = CSL
             SNV = -CONJG( D1 )*SNL
 
-         ELSE
+         } else {
 
             // Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
             // and (1,1) element of |U|**H *|A| and |V|**H *|B|.
@@ -199,7 +199,7 @@
                CALL CLARTG( UA12, UA11, CSQ, SNQ, R )
             ELSE IF( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) THEN
                CALL CLARTG( UA12, UA11, CSQ, SNQ, R )
-            ELSE
+            } else {
                CALL CLARTG( VB12, VB11, CSQ, SNQ, R )
             END IF
 

@@ -147,7 +147,7 @@
                      IZERO = 1
                   ELSE IF( IMAT.EQ.4 ) THEN
                      IZERO = N
-                  ELSE
+                  } else {
                      IZERO = N / 2 + 1
                   END IF
 
@@ -165,7 +165,7 @@
                            A( IOFF ) = CZERO
                            IOFF = IOFF + LDA
    30                   CONTINUE
-                     ELSE
+                     } else {
                         IOFF = IZERO
                         DO 40 I = 1, IZERO - 1
                            A( IOFF ) = CZERO
@@ -176,7 +176,7 @@
                            A( IOFF+I ) = CZERO
    50                   CONTINUE
                      END IF
-                  ELSE
+                  } else {
                      IF( IUPLO.EQ.1 ) THEN
 
                         // Set the first IZERO rows and columns to zero.
@@ -189,7 +189,7 @@
    60                      CONTINUE
                            IOFF = IOFF + LDA
    70                   CONTINUE
-                     ELSE
+                     } else {
 
                         // Set the last IZERO rows and columns to zero.
 
@@ -203,7 +203,7 @@
    90                   CONTINUE
                      END IF
                   END IF
-               ELSE
+               } else {
                   IZERO = 0
                END IF
 
@@ -264,7 +264,7 @@
 
                   IF( INFO.NE.0 ) THEN
                      TRFCON = .TRUE.
-                  ELSE
+                  } else {
                      TRFCON = .FALSE.
                   END IF
 

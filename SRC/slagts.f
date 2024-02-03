@@ -68,7 +68,7 @@
          DO 20 K = 2, N
             IF( IN( K-1 ).EQ.0 ) THEN
                Y( K ) = Y( K ) - C( K-1 )*Y( K-1 )
-            ELSE
+            } else {
                TEMP = Y( K-1 )
                Y( K-1 ) = Y( K )
                Y( K ) = TEMP - C( K-1 )*Y( K )
@@ -80,7 +80,7 @@
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
                ELSE IF( K.EQ.N-1 ) THEN
                   TEMP = Y( K ) - B( K )*Y( K+1 )
-               ELSE
+               } else {
                   TEMP = Y( K )
                END IF
                AK = A( K )
@@ -90,7 +90,7 @@
                      IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
                         INFO = K
                         RETURN
-                     ELSE
+                     } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      END IF
@@ -101,13 +101,13 @@
                END IF
                Y( K ) = TEMP / AK
    30       CONTINUE
-         ELSE
+         } else {
             DO 50 K = N, 1, -1
                IF( K.LE.N-2 ) THEN
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
                ELSE IF( K.EQ.N-1 ) THEN
                   TEMP = Y( K ) - B( K )*Y( K+1 )
-               ELSE
+               } else {
                   TEMP = Y( K )
                END IF
                AK = A( K )
@@ -120,7 +120,7 @@
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 40
-                     ELSE
+                     } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      END IF
@@ -133,7 +133,7 @@
                Y( K ) = TEMP / AK
    50       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // Come to here if  JOB = 2 or -2
 
@@ -143,7 +143,7 @@
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
                ELSE IF( K.EQ.2 ) THEN
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
-               ELSE
+               } else {
                   TEMP = Y( K )
                END IF
                AK = A( K )
@@ -153,7 +153,7 @@
                      IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
                         INFO = K
                         RETURN
-                     ELSE
+                     } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      END IF
@@ -164,13 +164,13 @@
                END IF
                Y( K ) = TEMP / AK
    60       CONTINUE
-         ELSE
+         } else {
             DO 80 K = 1, N
                IF( K.GE.3 ) THEN
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 ) - D( K-2 )*Y( K-2 )
                ELSE IF( K.EQ.2 ) THEN
                   TEMP = Y( K ) - B( K-1 )*Y( K-1 )
-               ELSE
+               } else {
                   TEMP = Y( K )
                END IF
                AK = A( K )
@@ -183,7 +183,7 @@
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 70
-                     ELSE
+                     } else {
                         TEMP = TEMP*BIGNUM
                         AK = AK*BIGNUM
                      END IF
@@ -200,7 +200,7 @@
          DO 90 K = N, 2, -1
             IF( IN( K-1 ).EQ.0 ) THEN
                Y( K-1 ) = Y( K-1 ) - C( K-1 )*Y( K )
-            ELSE
+            } else {
                TEMP = Y( K-1 )
                Y( K-1 ) = Y( K )
                Y( K ) = TEMP - C( K-1 )*Y( K )

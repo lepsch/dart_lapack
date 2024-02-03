@@ -83,7 +83,7 @@
          ELSE IF( IMAT.EQ.3 ) THEN
             KL = MAX( M-1, 0 )
             KU = 0
-         ELSE
+         } else {
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
          END IF
@@ -94,7 +94,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.6 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -102,7 +102,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.8 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -150,7 +150,7 @@
             CNDNUM = TWO
             ANORM = ONE
             MODE = 3
-         ELSE
+         } else {
 
             // 5.-19. Rectangular matrix
 
@@ -229,7 +229,7 @@
          ELSE IF( IMAT.EQ.3 ) THEN
             KL = MAX( M-1, 0 )
             KU = 0
-         ELSE
+         } else {
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
          END IF
@@ -240,7 +240,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.9 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -248,7 +248,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.11 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -266,7 +266,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.6 ) THEN
             CNDNUM = TENTH*BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -274,7 +274,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.8 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -290,7 +290,7 @@
 
          IF( IMAT.EQ.1 ) THEN
             KL = 0
-         ELSE
+         } else {
             KL = 1
          END IF
          KU = KL
@@ -301,7 +301,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.4 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -309,7 +309,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.6 .OR. IMAT.EQ.12 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -326,7 +326,7 @@
 
          IF( IMAT.EQ.1 ) THEN
             KL = 0
-         ELSE
+         } else {
             KL = MAX( N-1, 0 )
          END IF
          KU = KL
@@ -337,7 +337,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.7 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -345,7 +345,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.9 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -363,7 +363,7 @@
 
          IF( IMAT.EQ.1 ) THEN
             KL = 0
-         ELSE
+         } else {
             KL = MAX( N-1, 0 )
          END IF
          KU = KL
@@ -374,7 +374,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.8 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -382,7 +382,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.10 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -400,7 +400,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.6 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -408,7 +408,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.8 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -420,7 +420,7 @@
          TYPE = 'P'
          IF( IMAT.EQ.1 ) THEN
             KL = 0
-         ELSE
+         } else {
             KL = 1
          END IF
          KU = KL
@@ -431,7 +431,7 @@
             CNDNUM = BADC1
          ELSE IF( IMAT.EQ.4 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -439,7 +439,7 @@
             ANORM = SMALL
          ELSE IF( IMAT.EQ.6 .OR. IMAT.EQ.12 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -460,7 +460,7 @@
          ELSE IF( IMAT.LT.0 ) THEN
             KL = MAX( N-1, 0 )
             KU = 0
-         ELSE
+         } else {
             KL = 0
             KU = MAX( N-1, 0 )
          END IF
@@ -473,7 +473,7 @@
             CNDNUM = BADC2
          ELSE IF( MAT.EQ.10 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -481,7 +481,7 @@
             ANORM = SMALL
          ELSE IF( MAT.EQ.6 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
 
@@ -500,7 +500,7 @@
             CNDNUM = BADC1
          ELSE IF( MAT.EQ.3 .OR. MAT.EQ.9 ) THEN
             CNDNUM = BADC2
-         ELSE
+         } else {
             CNDNUM = TWO
          END IF
 
@@ -508,7 +508,7 @@
             ANORM = SMALL
          ELSE IF( MAT.EQ.5 ) THEN
             ANORM = LARGE
-         ELSE
+         } else {
             ANORM = ONE
          END IF
       END IF

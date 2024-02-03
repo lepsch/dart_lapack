@@ -117,7 +117,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL SORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
       END IF
 
@@ -126,7 +126,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

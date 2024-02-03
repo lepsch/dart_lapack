@@ -88,7 +88,7 @@
          NORMIN = 'N'
          IF( ONENRM ) THEN
             KASE1 = 1
-         ELSE
+         } else {
             KASE1 = 2
          END IF
          KASE = 0
@@ -100,7 +100,7 @@
                // Multiply by inv(A).
 
                CALL SLATPS( UPLO, 'No transpose', DIAG, NORMIN, N, AP, WORK, SCALE, WORK( 2*N+1 ), INFO )
-            ELSE
+            } else {
 
                // Multiply by inv(A**T).
 

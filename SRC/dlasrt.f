@@ -78,13 +78,13 @@
                      DMNMX = D( J )
                      D( J ) = D( J-1 )
                      D( J-1 ) = DMNMX
-                  ELSE
+                  } else {
                      GO TO 30
                   END IF
    20          CONTINUE
    30       CONTINUE
 
-         ELSE
+         } else {
 
             // Sort into increasing order
 
@@ -94,7 +94,7 @@
                      DMNMX = D( J )
                      D( J ) = D( J-1 )
                      D( J-1 ) = DMNMX
-                  ELSE
+                  } else {
                      GO TO 50
                   END IF
    40          CONTINUE
@@ -117,15 +117,15 @@
                DMNMX = D1
             ELSE IF( D3.LT.D2 ) THEN
                DMNMX = D3
-            ELSE
+            } else {
                DMNMX = D2
             END IF
-         ELSE
+         } else {
             IF( D3.LT.D2 ) THEN
                DMNMX = D2
             ELSE IF( D3.LT.D1 ) THEN
                DMNMX = D3
-            ELSE
+            } else {
                DMNMX = D1
             END IF
          END IF
@@ -156,7 +156,7 @@
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = J + 1
                STACK( 2, STKPNT ) = ENDD
-            ELSE
+            } else {
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = J + 1
                STACK( 2, STKPNT ) = ENDD
@@ -164,7 +164,7 @@
                STACK( 1, STKPNT ) = START
                STACK( 2, STKPNT ) = J
             END IF
-         ELSE
+         } else {
 
             // Sort into increasing order
 
@@ -190,7 +190,7 @@
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = J + 1
                STACK( 2, STKPNT ) = ENDD
-            ELSE
+            } else {
                STKPNT = STKPNT + 1
                STACK( 1, STKPNT ) = J + 1
                STACK( 2, STKPNT ) = ENDD

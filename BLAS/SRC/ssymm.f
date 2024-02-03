@@ -39,7 +39,7 @@
 
       IF (LSAME(SIDE,'L')) THEN
           NROWA = M
-      ELSE
+      } else {
           NROWA = N
       END IF
       UPPER = LSAME(UPLO,'U')
@@ -80,7 +80,7 @@
                       C(I,J) = ZERO
    10             CONTINUE
    20         CONTINUE
-          ELSE
+          } else {
               DO 40 J = 1,N
                   DO 30 I = 1,M
                       C(I,J) = BETA*C(I,J)
@@ -107,12 +107,12 @@
    50                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
-                      ELSE
+                      } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
                       END IF
    60             CONTINUE
    70         CONTINUE
-          ELSE
+          } else {
               DO 100 J = 1,N
                   DO 90 I = M,1,-1
                       TEMP1 = ALPHA*B(I,J)
@@ -123,13 +123,13 @@
    80                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
-                      ELSE
+                      } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
                       END IF
    90             CONTINUE
   100         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  C := alpha*B*A + beta*C.
 
@@ -139,7 +139,7 @@
                   DO 110 I = 1,M
                       C(I,J) = TEMP1*B(I,J)
   110             CONTINUE
-              ELSE
+              } else {
                   DO 120 I = 1,M
                       C(I,J) = BETA*C(I,J) + TEMP1*B(I,J)
   120             CONTINUE
@@ -147,7 +147,7 @@
               DO 140 K = 1,J - 1
                   IF (UPPER) THEN
                       TEMP1 = ALPHA*A(K,J)
-                  ELSE
+                  } else {
                       TEMP1 = ALPHA*A(J,K)
                   END IF
                   DO 130 I = 1,M
@@ -157,7 +157,7 @@
               DO 160 K = J + 1,N
                   IF (UPPER) THEN
                       TEMP1 = ALPHA*A(J,K)
-                  ELSE
+                  } else {
                       TEMP1 = ALPHA*A(K,J)
                   END IF
                   DO 150 I = 1,M

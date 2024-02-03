@@ -152,7 +152,7 @@
    50    CONTINUE
          SMINOA = SMINOA / SQRT( DBLE( N ) )
          THRESH = MAX( TOL*SMINOA, MAXITR*(N*(N*UNFL)) )
-      ELSE
+      } else {
 
          // Absolute accuracy desired
 
@@ -242,7 +242,7 @@
             // Chase bulge from top (big end) to bottom (small end)
 
             IDIR = 1
-         ELSE
+         } else {
 
             // Chase bulge from bottom (big end) to top (small end)
 
@@ -279,7 +279,7 @@
   100       CONTINUE
          END IF
 
-      ELSE
+      } else {
 
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
@@ -317,14 +317,14 @@
          // Use a zero shift to avoid loss of relative accuracy
 
          SHIFT = ZERO
-      ELSE
+      } else {
 
          // Compute the shift from 2-by-2 block at end of matrix
 
          IF( IDIR.EQ.1 ) THEN
             SLL = ABS( D( LL ) )
             CALL DLAS2( D( M-1 ), E( M-1 ), D( M ), SHIFT, R )
-         ELSE
+         } else {
             SLL = ABS( D( M ) )
             CALL DLAS2( D( LL ), E( LL ), D( LL+1 ), SHIFT, R )
          END IF
@@ -371,7 +371,7 @@
 
             IF( ABS( E( M-1 ) ).LE.THRESH ) E( M-1 ) = ZERO
 
-         ELSE
+         } else {
 
             // Chase bulge from bottom to top
             // Save cosines and sines for later singular vector updates
@@ -399,7 +399,7 @@
 
             IF( ABS( E( LL ) ).LE.THRESH ) E( LL ) = ZERO
          END IF
-      ELSE
+      } else {
 
          // Use nonzero shift
 
@@ -440,7 +440,7 @@
 
             IF( ABS( E( M-1 ) ).LE.THRESH ) E( M-1 ) = ZERO
 
-         ELSE
+         } else {
 
             // Chase bulge from bottom to top
             // Save cosines and sines for later singular vector updates

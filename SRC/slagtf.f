@@ -61,7 +61,7 @@
          IF( K.LT.( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )
          IF( A( K ).EQ.ZERO ) THEN
             PIV1 = ZERO
-         ELSE
+         } else {
             PIV1 = ABS( A( K ) ) / SCALE1
          END IF
          IF( C( K ).EQ.ZERO ) THEN
@@ -69,7 +69,7 @@
             PIV2 = ZERO
             SCALE1 = SCALE2
             IF( K.LT.( N-1 ) ) D( K ) = ZERO
-         ELSE
+         } else {
             PIV2 = ABS( C( K ) ) / SCALE2
             IF( PIV2.LE.PIV1 ) THEN
                IN( K ) = 0
@@ -77,7 +77,7 @@
                C( K ) = C( K ) / A( K )
                A( K+1 ) = A( K+1 ) - C( K )*B( K )
                IF( K.LT.( N-1 ) ) D( K ) = ZERO
-            ELSE
+            } else {
                IN( K ) = 1
                MULT = A( K ) / C( K )
                A( K ) = C( K )

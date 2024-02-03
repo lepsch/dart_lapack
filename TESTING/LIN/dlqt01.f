@@ -78,7 +78,7 @@
       RESID = DLANGE( '1', M, N, L, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 

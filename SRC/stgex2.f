@@ -112,7 +112,7 @@
          CALL SROT( 2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          CALL SROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) )
          IF( SA.GE.SB ) THEN
             CALL SLARTG( S( 1, 1 ), S( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM )
-         ELSE
+         } else {
             CALL SLARTG( T( 1, 1 ), T( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM )
          END IF
          CALL SROT( 2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) )          CALL SROT( 2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) )
@@ -164,7 +164,7 @@
 
          RETURN
 
-      ELSE
+      } else {
 
          // CASE 2: Swap 1-by-1 and 2-by-2 blocks, or 2-by-2
                  // and 2-by-2 blocks.

@@ -51,7 +51,7 @@
             DO 10 J = I, K
                T( J, I ) = ZERO
    10       CONTINUE
-         ELSE
+         } else {
 
             // general case
 

@@ -59,7 +59,7 @@
                J = J + 1
                GO TO 10
             END IF
-         ELSE
+         } else {
             DO 70 J = 1, NRHS
 
                // Solve U**H * x = b.
@@ -76,7 +76,7 @@
    60          CONTINUE
    70       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // Solve A * X = B using the factorization A = L*D*L**H,
          // overwriting each right hand side vector with its solution.
@@ -103,7 +103,7 @@
                J = J + 1
                GO TO 80
             END IF
-         ELSE
+         } else {
             DO 140 J = 1, NRHS
 
                // Solve L * x = b.

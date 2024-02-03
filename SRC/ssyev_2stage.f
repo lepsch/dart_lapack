@@ -124,7 +124,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          // Not available in this release, and argument checking should not
          // let it getting here
          RETURN
@@ -136,7 +136,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

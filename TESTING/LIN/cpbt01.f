@@ -65,7 +65,7 @@
                RETURN
             END IF
    10    CONTINUE
-      ELSE
+      } else {
          DO 20 J = 1, N
             IF( AIMAG( AFAC( 1, J ) ).NE.ZERO ) THEN
                RESID = ONE / EPS
@@ -94,7 +94,7 @@
 
       // UPLO = 'L':  Compute the product L*L', overwriting L.
 
-      ELSE
+      } else {
          DO 40 K = N, 1, -1
             KLEN = MIN( KD, N-K )
 
@@ -120,7 +120,7 @@
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    50       CONTINUE
    60    CONTINUE
-      ELSE
+      } else {
          DO 80 J = 1, N
             ML = MIN( KD+1, N-J+1 )
             DO 70 I = 1, ML

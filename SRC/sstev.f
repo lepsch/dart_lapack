@@ -93,7 +93,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, D, E, INFO )
-      ELSE
+      } else {
          CALL SSTEQR( 'I', N, D, E, Z, LDZ, WORK, INFO )
       END IF
 
@@ -102,7 +102,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, D, 1 )

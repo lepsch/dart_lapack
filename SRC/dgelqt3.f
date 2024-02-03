@@ -46,7 +46,7 @@
 
          CALL DLARFG( N, A( 1, 1 ), A( 1, MIN( 2, N ) ), LDA, T( 1, 1 ) )
 
-      ELSE
+      } else {
 
          // Otherwise, split A into blocks...
 

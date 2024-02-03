@@ -45,7 +45,7 @@
       IF( NOFACT .OR. EQUIL ) THEN
          EQUED = 'N'
          RCEQU = .FALSE.
-      ELSE
+      } else {
          RCEQU = LSAME( EQUED, 'Y' )
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
@@ -69,7 +69,7 @@
          INFO = -9
       ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -10
-      ELSE
+      } else {
          IF( RCEQU ) THEN
             SMIN = BIGNUM
             SMAX = ZERO
@@ -81,7 +81,7 @@
                INFO = -11
             ELSE IF( N.GT.0 ) THEN
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
-            ELSE
+            } else {
                SCOND = ONE
             END IF
          END IF
@@ -132,7 +132,7 @@
                J1 = MAX( J-KD, 1 )
                CALL ZCOPY( J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 )
    40       CONTINUE
-         ELSE
+         } else {
             DO 50 J = 1, N
                J2 = MIN( J+KD, N )
                CALL ZCOPY( J2-J+1, AB( 1, J ), 1, AFB( 1, J ), 1 )

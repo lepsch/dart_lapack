@@ -65,7 +65,7 @@
          INFO = -4
       ELSE IF( LDA.LT.MAX( 1, N ) ) THEN
          INFO = -6
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
@@ -86,7 +86,7 @@
          IF( N.LE.1 ) THEN
             LWMIN = 1
             WORK( 1 ) = LWMIN
-         ELSE
+         } else {
             KD    = ILAENV2STAGE( 1, 'ZHETRD_2STAGE', JOBZ, N, -1, -1, -1 )             IB    = ILAENV2STAGE( 2, 'ZHETRD_2STAGE', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_2STAGE', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_2STAGE', JOBZ, N, KD, IB, -1 )
             LWMIN = N + LHTRD + LWTRD
             WORK( 1 )  = LWMIN
@@ -153,7 +153,7 @@
             DO 10 J = 1, N
                CALL ZDSCAL( N-J+1, SIGMA, A( J, J ), 1 )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J = 1, N
                CALL ZDSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
@@ -193,7 +193,7 @@
          IF( .NOT.WANTZ ) THEN
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL DSTERF( N, W, RWORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL ZLACPY( 'A', N, N, A, LDA, Z, LDZ )
             CALL ZUNGTR( UPLO, N, Z, LDZ, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
@@ -215,7 +215,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDIBL = 1
@@ -238,7 +238,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

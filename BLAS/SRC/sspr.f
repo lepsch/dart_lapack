@@ -78,7 +78,7 @@
                   END IF
                   KK = KK + J
    20         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 40 J = 1,N
                   IF (X(JX).NE.ZERO) THEN
@@ -93,7 +93,7 @@
                   KK = KK + J
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when lower triangle is stored in AP.
 
@@ -109,7 +109,7 @@
                   END IF
                   KK = KK + N - J + 1
    60         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 80 J = 1,N
                   IF (X(JX).NE.ZERO) THEN

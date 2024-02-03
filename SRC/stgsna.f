@@ -68,7 +68,7 @@
          INFO = -10
       ELSE IF( WANTS .AND. LDVR.LT.N ) THEN
          INFO = -12
-      ELSE
+      } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
@@ -79,20 +79,20 @@
             DO 10 K = 1, N
                IF( PAIR ) THEN
                   PAIR = .FALSE.
-               ELSE
+               } else {
                   IF( K.LT.N ) THEN
                      IF( A( K+1, K ).EQ.ZERO ) THEN
                         IF( SELECT( K ) ) M = M + 1
-                     ELSE
+                     } else {
                         PAIR = .TRUE.
                         IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                      END IF
-                  ELSE
+                  } else {
                      IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
-         ELSE
+         } else {
             M = N
          END IF
 
@@ -100,7 +100,7 @@
             LWMIN = 1
          ELSE IF( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) THEN
             LWMIN = 2*N*( N + 2 ) + 16
-         ELSE
+         } else {
             LWMIN = N
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
@@ -137,7 +137,7 @@
          IF( PAIR ) THEN
             PAIR = .FALSE.
             GO TO 20
-         ELSE
+         } else {
             IF( K.LT.N ) PAIR = A( K+1, K ).NE.ZERO
          END IF
 
@@ -147,7 +147,7 @@
          IF( SOMCON ) THEN
             IF( PAIR ) THEN
                IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 20
-            ELSE
+            } else {
                IF( .NOT.SELECT( K ) ) GO TO 20
             END IF
          END IF
@@ -185,7 +185,7 @@
                S( KS ) = COND / ( RNRM*LNRM )
                S( KS+1 ) = S( KS )
 
-            ELSE
+            } else {
 
                // Real eigenvalue.
 
@@ -198,7 +198,7 @@
                COND = SLAPY2( UHAV, UHBV )
                IF( COND.EQ.ZERO ) THEN
                   S( KS ) = -ONE
-               ELSE
+               } else {
                   S( KS ) = COND / ( RNRM*LNRM )
                END IF
             END IF
@@ -250,7 +250,7 @@
                // Ill-conditioned problem - swap rejected.
 
                DIF( KS ) = ZERO
-            ELSE
+            } else {
 
                // Reordering successful, solve generalized Sylvester
                // equation for R and L,
@@ -263,7 +263,7 @@
                N2 = N - N1
                IF( N2.EQ.0 ) THEN
                   DIF( KS ) = COND
-               ELSE
+               } else {
                   I = N*N + 1
                   IZ = 2*N*N + 1
                   CALL STGSYL( 'N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR )

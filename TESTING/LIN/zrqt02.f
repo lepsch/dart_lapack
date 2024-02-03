@@ -76,7 +76,7 @@
       RESID = ZLANGE( '1', K, M, R( M-K+1, N-M+1 ), LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, N ) ) ) / ANORM ) / EPS
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 

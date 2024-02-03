@@ -87,7 +87,7 @@
                       END IF
                       KK = KK + J
    20             CONTINUE
-              ELSE
+              } else {
                   JX = KX
                   DO 40 J = 1,N
                       IF (X(JX).NE.ZERO) THEN
@@ -103,7 +103,7 @@
                       KK = KK + J
    40             CONTINUE
               END IF
-          ELSE
+          } else {
               KK = (N* (N+1))/2
               IF (INCX.EQ.1) THEN
                   DO 60 J = N,1,-1
@@ -118,7 +118,7 @@
                       END IF
                       KK = KK - (N-J+1)
    60             CONTINUE
-              ELSE
+              } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
                   DO 80 J = N,1,-1
@@ -136,7 +136,7 @@
    80             CONTINUE
               END IF
           END IF
-      ELSE
+      } else {
 
          // Form  x := A**T*x.
 
@@ -154,7 +154,7 @@
                       X(J) = TEMP
                       KK = KK - J
   100             CONTINUE
-              ELSE
+              } else {
                   JX = KX + (N-1)*INCX
                   DO 120 J = N,1,-1
                       TEMP = X(JX)
@@ -169,7 +169,7 @@
                       KK = KK - J
   120             CONTINUE
               END IF
-          ELSE
+          } else {
               KK = 1
               IF (INCX.EQ.1) THEN
                   DO 140 J = 1,N
@@ -183,7 +183,7 @@
                       X(J) = TEMP
                       KK = KK + (N-J+1)
   140             CONTINUE
-              ELSE
+              } else {
                   JX = KX
                   DO 160 J = 1,N
                       TEMP = X(JX)

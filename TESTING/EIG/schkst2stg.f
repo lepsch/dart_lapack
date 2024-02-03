@@ -124,7 +124,7 @@
             IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             LIWEDC = 6 + 6*N + 5*N*LGN
-         ELSE
+         } else {
             LWEDC = 8
             LIWEDC = 12
          END IF
@@ -133,7 +133,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -189,7 +189,7 @@
             IINFO = 0
             IF( JTYPE.LE.15 ) THEN
                COND = ULPINV
-            ELSE
+            } else {
                COND = ULPINV*ANINV / TEN
             END IF
 
@@ -252,7 +252,7 @@
                   END IF
    90          CONTINUE
 
-            ELSE
+            } else {
 
                IINFO = 1
             END IF
@@ -278,7 +278,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 1 ) = ULPINV
                   GO TO 280
                END IF
@@ -293,7 +293,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 2 ) = ULPINV
                   GO TO 280
                END IF
@@ -319,7 +319,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 3 ) = ULPINV
                   GO TO 280
                END IF
@@ -348,7 +348,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 3 ) = ULPINV
                   GO TO 280
                END IF
@@ -375,7 +375,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 4 ) = ULPINV
                   GO TO 280
                END IF
@@ -422,7 +422,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 5 ) = ULPINV
                   GO TO 280
                END IF
@@ -435,7 +435,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 6 ) = ULPINV
                   GO TO 280
                END IF
@@ -467,7 +467,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 7 ) = ULPINV
                   GO TO 280
                END IF
@@ -480,7 +480,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 8 ) = ULPINV
                   GO TO 280
                END IF
@@ -503,7 +503,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 9 ) = ULPINV
                   GO TO 280
                END IF
@@ -521,7 +521,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 11 ) = ULPINV
                   GO TO 280
                END IF
@@ -539,7 +539,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 12 ) = ULPINV
                   GO TO 280
                END IF
@@ -599,7 +599,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 14 ) = ULPINV
                      GO TO 280
                   END IF
@@ -621,7 +621,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 16 ) = ULPINV
                      GO TO 280
                   END IF
@@ -637,7 +637,7 @@
   180          CONTINUE
 
                RESULT( 16 ) = TEMP2 / MAX( UNFL, HUN*ULP*MAX( TEMP1, TEMP2 ) )
-            ELSE
+            } else {
                RESULT( 14 ) = ZERO
                RESULT( 15 ) = ZERO
                RESULT( 16 ) = ZERO
@@ -661,7 +661,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 17 ) = ULPINV
                      GO TO 280
                   END IF
@@ -677,7 +677,7 @@
   190          CONTINUE
 
                RESULT( 17 ) = TEMP1 / TEMP2
-            ELSE
+            } else {
                RESULT( 17 ) = ZERO
             END IF
 
@@ -691,7 +691,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 18 ) = ULPINV
                   GO TO 280
                END IF
@@ -715,7 +715,7 @@
             IF( N.LE.1 ) THEN
                IL = 1
                IU = N
-            ELSE
+            } else {
                IL = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                IU = 1 + ( N-1 )*INT( SLARND( 1, ISEED2 ) )
                IF( IU.LT.IL ) THEN
@@ -731,7 +731,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 19 ) = ULPINV
                   GO TO 280
                END IF
@@ -743,15 +743,15 @@
             IF( N.GT.0 ) THEN
                IF( IL.NE.1 ) THEN
                   VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
-               ELSE
+               } else {
                   VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                END IF
                IF( IU.NE.N ) THEN
                   VU = WA1( IU ) + MAX( HALF*( WA1( IU+1 )-WA1( IU ) ), ULP*ANORM, TWO*RTUNFL )
-               ELSE
+               } else {
                   VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                END IF
-            ELSE
+            } else {
                VL = ZERO
                VU = ONE
             END IF
@@ -762,7 +762,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 19 ) = ULPINV
                   GO TO 280
                END IF
@@ -779,7 +779,7 @@
             TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
             IF( N.GT.0 ) THEN
                TEMP3 = MAX( ABS( WA1( N ) ), ABS( WA1( 1 ) ) )
-            ELSE
+            } else {
                TEMP3 = ZERO
             END IF
 
@@ -796,7 +796,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 20 ) = ULPINV
                   RESULT( 21 ) = ULPINV
                   GO TO 280
@@ -809,7 +809,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 20 ) = ULPINV
                   RESULT( 21 ) = ULPINV
                   GO TO 280
@@ -835,7 +835,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 22 ) = ULPINV
                   GO TO 280
                END IF
@@ -860,7 +860,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 24 ) = ULPINV
                   GO TO 280
                END IF
@@ -885,7 +885,7 @@
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
-               ELSE
+               } else {
                   RESULT( 26 ) = ULPINV
                   GO TO 280
                END IF
@@ -925,7 +925,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( 27 ) = ULPINV
                         GO TO 270
                      END IF
@@ -960,7 +960,7 @@
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
-                        ELSE
+                        } else {
                            RESULT( 28 ) = ULPINV
                            GO TO 270
                         END IF
@@ -976,10 +976,10 @@
   230                CONTINUE
 
                      RESULT( 28 ) = TEMP1 / TEMP2
-                  ELSE
+                  } else {
                      RESULT( 28 ) = ZERO
                   END IF
-               ELSE
+               } else {
                   RESULT( 27 ) = ZERO
                   RESULT( 28 ) = ZERO
                END IF
@@ -1007,7 +1007,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( 29 ) = ULPINV
                         GO TO 280
                      END IF
@@ -1031,7 +1031,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( 31 ) = ULPINV
                         GO TO 280
                      END IF
@@ -1062,15 +1062,15 @@
                   IF( N.GT.0 ) THEN
                      IF( IL.NE.1 ) THEN
                         VL = D2( IL ) - MAX( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
-                     ELSE
+                     } else {
                         VL = D2( 1 ) - MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                      END IF
                      IF( IU.NE.N ) THEN
                         VU = D2( IU ) + MAX( HALF* ( D2( IU+1 )-D2( IU ) ), ULP*ANORM, TWO*RTUNFL )
-                     ELSE
+                     } else {
                         VU = D2( N ) + MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                      END IF
-                  ELSE
+                  } else {
                      VL = ZERO
                      VU = ONE
                   END IF
@@ -1081,7 +1081,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( 32 ) = ULPINV
                         GO TO 280
                      END IF
@@ -1105,7 +1105,7 @@
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
-                     ELSE
+                     } else {
                         RESULT( 34 ) = ULPINV
                         GO TO 280
                      END IF
@@ -1122,7 +1122,7 @@
   250             CONTINUE
 
                   RESULT( 34 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
-               ELSE
+               } else {
                   RESULT( 29 ) = ZERO
                   RESULT( 30 ) = ZERO
                   RESULT( 31 ) = ZERO
@@ -1146,7 +1146,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 35 ) = ULPINV
                      GO TO 280
                   END IF
@@ -1170,7 +1170,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 37 ) = ULPINV
                      GO TO 280
                   END IF

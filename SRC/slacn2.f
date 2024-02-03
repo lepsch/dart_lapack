@@ -64,7 +64,7 @@
       DO 30 I = 1, N
          IF( X(I).GE.ZERO ) THEN
             X(I) = ONE
-         ELSE
+         } else {
             X(I) = -ONE
          END IF
          ISGN( I ) = NINT( X( I ) )
@@ -101,7 +101,7 @@
       DO 80 I = 1, N
          IF( X(I).GE.ZERO ) THEN
             XS = ONE
-         ELSE
+         } else {
             XS = -ONE
          END IF
          IF( NINT( XS ).NE.ISGN( I ) ) GO TO 90
@@ -116,7 +116,7 @@
       DO 100 I = 1, N
          IF( X(I).GE.ZERO ) THEN
             X(I) = ONE
-         ELSE
+         } else {
             X(I) = -ONE
          END IF
          ISGN( I ) = NINT( X( I ) )

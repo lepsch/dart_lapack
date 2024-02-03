@@ -82,7 +82,7 @@
 
       IF( NOTRAN ) THEN
          NORM = '1'
-      ELSE
+      } else {
          NORM = 'I'
       END IF
       ANORM = SLANGT( NORM, N, DL, D, DU )

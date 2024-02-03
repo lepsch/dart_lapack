@@ -157,7 +157,7 @@
             IF( KA.EQ.0 ) GO TO 480
             GO TO 10
          END IF
-      ELSE
+      } else {
          I = I + KA
          IF( I.GT.N-1 ) GO TO 480
       END IF
@@ -233,7 +233,7 @@
             J1 = J2 + ( NR-1 )*KA1
             IF( UPDATE ) THEN
                J2T = MAX( J2, I+2*KA-K+1 )
-            ELSE
+            } else {
                J2T = J2
             END IF
             NRT = ( N-J2T+KA ) / KA1
@@ -295,7 +295,7 @@
          DO 170 K = KB, 1, -1
             IF( UPDATE ) THEN
                J2 = I - K - 1 + MAX( 2, K-I0+1 )*KA1
-            ELSE
+            } else {
                J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
             END IF
 
@@ -383,7 +383,7 @@
   240       CONTINUE
          END IF
 
-      ELSE
+      } else {
 
          // Transform A, working with the lower triangle
 
@@ -454,7 +454,7 @@
             J1 = J2 + ( NR-1 )*KA1
             IF( UPDATE ) THEN
                J2T = MAX( J2, I+2*KA-K+1 )
-            ELSE
+            } else {
                J2T = J2
             END IF
             NRT = ( N-J2T+KA ) / KA1
@@ -516,7 +516,7 @@
          DO 400 K = KB, 1, -1
             IF( UPDATE ) THEN
                J2 = I - K - 1 + MAX( 2, K-I0+1 )*KA1
-            ELSE
+            } else {
                J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
             END IF
 
@@ -642,14 +642,14 @@
             IF( KA.EQ.0 ) RETURN
             GO TO 490
          END IF
-      ELSE
+      } else {
          I = I - KA
          IF( I.LT.2 ) RETURN
       END IF
 
       IF( I.LT.M-KBT ) THEN
          NX = M
-      ELSE
+      } else {
          NX = N
       END IF
 
@@ -723,7 +723,7 @@
             J1 = J2 - ( NR-1 )*KA1
             IF( UPDATE ) THEN
                J2T = MIN( J2, I-2*KA+K-1 )
-            ELSE
+            } else {
                J2T = J2
             END IF
             NRT = ( J2T+KA-1 ) / KA1
@@ -786,7 +786,7 @@
          DO 650 K = KB, 1, -1
             IF( UPDATE ) THEN
                J2 = I + K + 1 - MAX( 2, K+I0-M )*KA1
-            ELSE
+            } else {
                J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
             END IF
 
@@ -877,7 +877,7 @@
   720       CONTINUE
          END IF
 
-      ELSE
+      } else {
 
          // Transform A, working with the lower triangle
 
@@ -947,7 +947,7 @@
             J1 = J2 - ( NR-1 )*KA1
             IF( UPDATE ) THEN
                J2T = MIN( J2, I-2*KA+K-1 )
-            ELSE
+            } else {
                J2T = J2
             END IF
             NRT = ( J2T+KA-1 ) / KA1
@@ -1010,7 +1010,7 @@
          DO 880 K = KB, 1, -1
             IF( UPDATE ) THEN
                J2 = I + K + 1 - MAX( 2, K+I0-M )*KA1
-            ELSE
+            } else {
                J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
             END IF
 

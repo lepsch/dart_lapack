@@ -72,7 +72,7 @@
                   E(I-1)=ZERO
                   A(I-1,I)=ZERO
                   I=I-1
-               ELSE
+               } else {
                   E(I)=ZERO
                ENDIF
                I=I-1
@@ -91,7 +91,7 @@
                        A(I,J)=TEMP
  12                  CONTINUE
                   ENDIF
-               ELSE
+               } else {
                   IP=-IPIV(I)
                   IF( I .LT. N) THEN
                      DO 13 J= I+1,N
@@ -105,7 +105,7 @@
                I=I-1
             END DO
 
-         ELSE
+         } else {
 
             // Revert A (A is upper)
 
@@ -122,7 +122,7 @@
                     A(I,J)=TEMP
                   END DO
                   ENDIF
-               ELSE
+               } else {
                  IP=-IPIV(I)
                  I=I+1
                  IF( I .LT. N) THEN
@@ -148,7 +148,7 @@
             END DO
          END IF
 
-      ELSE
+      } else {
 
          // A is LOWER
 
@@ -166,7 +166,7 @@
                   E(I+1)=ZERO
                   A(I+1,I)=ZERO
                   I=I+1
-               ELSE
+               } else {
                   E(I)=ZERO
                ENDIF
                I=I+1
@@ -185,7 +185,7 @@
                         A(I,J)=TEMP
  22                  CONTINUE
                   ENDIF
-               ELSE
+               } else {
                   IP=-IPIV(I)
                   IF (I .GT. 1) THEN
                      DO 23 J= 1,I-1
@@ -199,7 +199,7 @@
                I=I+1
             END DO
 
-         ELSE
+         } else {
 
             // Revert A (A is lower)
 
@@ -216,7 +216,7 @@
                         A(IP,J)=TEMP
                      END DO
                   ENDIF
-               ELSE
+               } else {
                   IP=-IPIV(I)
                   I=I-1
                   IF (I .GT. 1) THEN

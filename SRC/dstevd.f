@@ -115,7 +115,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, D, E, INFO )
-      ELSE
+      } else {
          CALL DSTEDC( 'I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
       END IF
 

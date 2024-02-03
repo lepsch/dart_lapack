@@ -86,7 +86,7 @@
                IPAIR = 2
             ELSE IF( IPAIR.EQ.2 ) THEN
                IPAIR = 0
-            ELSE
+            } else {
 
                // Real eigenvector
 
@@ -99,7 +99,7 @@
             END IF
    30    CONTINUE
 
-      ELSE
+      } else {
 
          // Eigenvectors are row vectors.
 
@@ -116,7 +116,7 @@
                   WORK( JVEC+1 ) = WORK( JVEC )
                ELSE IF( IPAIR.EQ.2 ) THEN
                   IPAIR = 0
-               ELSE
+               } else {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) ) )
                   IPAIR = 0
                END IF
@@ -150,7 +150,7 @@
       DO 80 JCOL = 1, N
          IF( ITRNSE.EQ.1 ) THEN
             IEROW = JCOL
-         ELSE
+         } else {
             IECOL = JCOL
          END IF
 
@@ -166,7 +166,7 @@
          ELSE IF( IPAIR.EQ.2 ) THEN
             IPAIR = 0
 
-         ELSE
+         } else {
 
             CALL DAXPY( N, WR( JCOL ), E( IEROW, IECOL ), INCE, WORK( N*( JCOL-1 )+1 ), 1 )
             IPAIR = 0
@@ -182,10 +182,10 @@
 
       IF( ANORM.GT.ERRNRM ) THEN
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ONE / ULP
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP
          END IF
       END IF

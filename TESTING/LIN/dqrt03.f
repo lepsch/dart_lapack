@@ -66,7 +66,7 @@
             SIDE = 'L'
             MC = M
             NC = N
-         ELSE
+         } else {
             SIDE = 'R'
             MC = N
             NC = M
@@ -83,7 +83,7 @@
          DO 20 ITRANS = 1, 2
             IF( ITRANS.EQ.1 ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'T'
             END IF
 
@@ -100,7 +100,7 @@
 
             IF( LSAME( SIDE, 'L' ) ) THEN
                CALL DGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA )
-            ELSE
+            } else {
                CALL DGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA )
             END IF
 

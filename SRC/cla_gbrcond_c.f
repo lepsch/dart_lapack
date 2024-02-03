@@ -77,7 +77,7 @@
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KD+I-J, J ) ) / C( J )
                END DO
-            ELSE
+            } else {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KD+I-J, J ) )
                END DO
@@ -85,14 +85,14 @@
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0E+0
             IF ( CAPPLY ) THEN
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KE-I+J, I ) ) / C( J )
                END DO
-            ELSE
+            } else {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + CABS1( AB( KE-I+J, I ) )
                END DO
@@ -129,7 +129,7 @@
 
             IF ( NOTRANS ) THEN
                CALL CGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL CGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ENDIF
 
@@ -140,7 +140,7 @@
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             END IF
-         ELSE
+         } else {
 
             // Multiply by inv(C**H).
 
@@ -152,7 +152,7 @@
 
             IF ( NOTRANS ) THEN
                CALL CGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV,  WORK, N, INFO )
-            ELSE
+            } else {
                CALL CGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 

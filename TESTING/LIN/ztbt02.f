@@ -48,7 +48,7 @@
 
       IF( LSAME( TRANS, 'N' ) ) THEN
          ANORM = ZLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )
-      ELSE
+      } else {
          ANORM = ZLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )
       END IF
 
@@ -72,7 +72,7 @@
          XNORM = DZASUM( N, X( 1, J ), 1 )
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    10 CONTINUE

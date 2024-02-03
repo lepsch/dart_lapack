@@ -49,7 +49,7 @@
             SX(I+2) = SY(I+2)
             SY(I+2) = STEMP
          END DO
-      ELSE
+      } else {
 
         // code for unequal increments or equal increments not equal
          t // o 1

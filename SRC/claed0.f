@@ -128,7 +128,7 @@
          IF( I.EQ.0 ) THEN
             SUBMAT = 1
             MATSIZ = IWORK( 1 )
-         ELSE
+         } else {
             SUBMAT = IWORK( I ) + 1
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          END IF
@@ -162,7 +162,7 @@
                MATSIZ = IWORK( 2 )
                MSD2 = IWORK( 1 )
                CURPRB = 0
-            ELSE
+            } else {
                SUBMAT = IWORK( I ) + 1
                MATSIZ = IWORK( I+2 ) - IWORK( I )
                MSD2 = MATSIZ / 2

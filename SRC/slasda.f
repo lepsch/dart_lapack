@@ -56,7 +56,7 @@
       IF( N.LE.SMLSIZ ) THEN
          IF( ICOMPQ.EQ.0 ) THEN
             CALL SLASDQ( 'U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
-         ELSE
+         } else {
             CALL SLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
          END IF
          RETURN
@@ -109,7 +109,7 @@
             ITEMP = NWORK1 + NL*SMLSZP
             CALL SCOPY( NLP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
             CALL SCOPY( NLP1, WORK( ITEMP ), 1, WORK( VLI ), 1 )
-         ELSE
+         } else {
             CALL SLASET( 'A', NL, NL, ZERO, ONE, U( NLF, 1 ), LDU )
             CALL SLASET( 'A', NLP1, NLP1, ZERO, ONE, VT( NLF, 1 ), LDU )
             CALL SLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, 1 ), LDU, U( NLF, 1 ), LDU, U( NLF, 1 ), LDU, WORK( NWORK1 ), INFO )
@@ -124,7 +124,7 @@
    10    CONTINUE
          IF( ( I.EQ.ND ) .AND. ( SQRE.EQ.0 ) ) THEN
             SQREI = 0
-         ELSE
+         } else {
             SQREI = 1
          END IF
          IDXQI = IDXQI + NLP1
@@ -136,7 +136,7 @@
             ITEMP = NWORK1 + ( NRP1-1 )*SMLSZP
             CALL SCOPY( NRP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
             CALL SCOPY( NRP1, WORK( ITEMP ), 1, WORK( VLI ), 1 )
-         ELSE
+         } else {
             CALL SLASET( 'A', NR, NR, ZERO, ONE, U( NRF, 1 ), LDU )
             CALL SLASET( 'A', NRP1, NRP1, ZERO, ONE, VT( NRF, 1 ), LDU )
             CALL SLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, 1 ), LDU, U( NRF, 1 ), LDU, U( NRF, 1 ), LDU, WORK( NWORK1 ), INFO )
@@ -163,7 +163,7 @@
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
-         ELSE
+         } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          END IF
@@ -176,7 +176,7 @@
             NRF = IC + 1
             IF( I.EQ.LL ) THEN
                SQREI = SQRE
-            ELSE
+            } else {
                SQREI = 1
             END IF
             VFI = VF + NLF - 1
@@ -186,7 +186,7 @@
             BETA = E( IC )
             IF( ICOMPQ.EQ.0 ) THEN
                CALL SLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL, LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z, K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ), IWORK( IWK ), INFO )
-            ELSE
+            } else {
                J = J - 1
                CALL SLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO )
             END IF

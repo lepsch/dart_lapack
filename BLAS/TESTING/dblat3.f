@@ -201,7 +201,7 @@
          IF( .NOT.LTEST( ISNUM ) )THEN
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM )
-         ELSE
+         } else {
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             IF( TSTERR )THEN
@@ -366,7 +366,7 @@
                   IF( TRANA )THEN
                      MA = K
                      NA = M
-                  ELSE
+                  } else {
                      MA = M
                      NA = K
                   END IF
@@ -388,7 +388,7 @@
                      IF( TRANB )THEN
                         MB = N
                         NB = K
-                     ELSE
+                     } else {
                         MB = K
                         NB = N
                      END IF
@@ -466,7 +466,7 @@
                            ISAME( 11 ) = BLS.EQ.BETA
                            IF( NULL )THEN
                               ISAME( 12 ) = LDE( CS, CC, LCC )
-                           ELSE
+                           } else {
                               ISAME( 12 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC )
                            END IF
                            ISAME( 13 ) = LDCS.EQ.LDC
@@ -513,7 +513,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -624,7 +624,7 @@
 
                IF( LEFT )THEN
                   NA = M
-               ELSE
+               } else {
                   NA = N
                END IF
                // Set LDA to 1 more than minimum value if room.
@@ -702,7 +702,7 @@
                         ISAME( 10 ) = BLS.EQ.BETA
                         IF( NULL )THEN
                            ISAME( 11 ) = LDE( CS, CC, LCC )
-                        ELSE
+                        } else {
                            ISAME( 11 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
@@ -726,7 +726,7 @@
 
                            IF( LEFT )THEN
                               CALL DMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                           ELSE
+                           } else {
                               CALL DMMCH( 'N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                            END IF
                            ERRMAX = MAX( ERRMAX, ERR )
@@ -751,7 +751,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 120
@@ -857,7 +857,7 @@
                LEFT = SIDE.EQ.'L'
                IF( LEFT )THEN
                   NA = M
-               ELSE
+               } else {
                   NA = N
                END IF
                // Set LDA to 1 more than minimum value if room.
@@ -939,7 +939,7 @@
                            ISAME( 9 ) = LDAS.EQ.LDA
                            IF( NULL )THEN
                               ISAME( 10 ) = LDE( BS, BB, LBB )
-                           ELSE
+                           } else {
                               ISAME( 10 ) = LDERES( 'GE', ' ', M, N, BS, BB, LDB )
                            END IF
                            ISAME( 11 ) = LDBS.EQ.LDB
@@ -964,7 +964,7 @@
 
                                  IF( LEFT )THEN
                                     CALL DMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
-                                 ELSE
+                                 } else {
                                     CALL DMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  END IF
                               ELSE IF( SNAME( 4: 5 ).EQ.'SM' )THEN
@@ -980,7 +980,7 @@
 
                                  IF( LEFT )THEN
                                     CALL DMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
-                                 ELSE
+                                 } else {
                                     CALL DMMCH( 'N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
                                  END IF
                               END IF
@@ -1008,7 +1008,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 160
@@ -1108,7 +1108,7 @@
                IF( TRAN )THEN
                   MA = K
                   NA = N
-               ELSE
+               } else {
                   MA = N
                   NA = K
                END IF
@@ -1181,7 +1181,7 @@
                         ISAME( 8 ) = BETS.EQ.BETA
                         IF( NULL )THEN
                            ISAME( 9 ) = LDE( CS, CC, LCC )
-                        ELSE
+                        } else {
                            ISAME( 9 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 10 ) = LDCS.EQ.LDC
@@ -1208,18 +1208,18 @@
                               IF( UPPER )THEN
                                  JJ = 1
                                  LJ = J
-                              ELSE
+                              } else {
                                  JJ = J
                                  LJ = N - J + 1
                               END IF
                               IF( TRAN )THEN
                                  CALL DMMCH( 'T', 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                              ELSE
+                              } else {
                                  CALL DMMCH( 'N', 'T', LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               END IF
                               IF( UPPER )THEN
                                  JC = JC + LDC
-                              ELSE
+                              } else {
                                  JC = JC + LDC + 1
                               END IF
                               ERRMAX = MAX( ERRMAX, ERR )
@@ -1245,7 +1245,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -1349,7 +1349,7 @@
                IF( TRAN )THEN
                   MA = K
                   NA = N
-               ELSE
+               } else {
                   MA = N
                   NA = K
                END IF
@@ -1364,7 +1364,7 @@
 
                IF( TRAN )THEN
                   CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
-               ELSE
+               } else {
                   CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
                END IF
 
@@ -1374,7 +1374,7 @@
                LBB = LAA
                IF( TRAN )THEN
                   CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO )
-               ELSE
+               } else {
                   CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
                END IF
 
@@ -1442,7 +1442,7 @@
                         ISAME( 10 ) = BETS.EQ.BETA
                         IF( NULL )THEN
                            ISAME( 11 ) = LDE( CS, CC, LCC )
-                        ELSE
+                        } else {
                            ISAME( 11 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
@@ -1470,7 +1470,7 @@
                               IF( UPPER )THEN
                                  JJ = 1
                                  LJ = J
-                              ELSE
+                              } else {
                                  JJ = J
                                  LJ = N - J + 1
                               END IF
@@ -1479,7 +1479,7 @@
                                     W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
    50                            CONTINUE
                                  CALL DMMCH( 'T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                              ELSE
+                              } else {
                                  DO 60 I = 1, K
                                     W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
    60                            CONTINUE
@@ -1487,7 +1487,7 @@
                               END IF
                               IF( UPPER )THEN
                                  JC = JC + LDC
-                              ELSE
+                              } else {
                                  JC = JC + LDC + 1
                                  IF( TRAN ) JJAB = JJAB + 2*NMAX
                               END IF
@@ -1514,7 +1514,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 160
@@ -2089,7 +2089,7 @@
 
    70 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9998 )SRNAMT
       END IF
       RETURN
@@ -2181,13 +2181,13 @@
                IBEG = 1
                IF( UNIT )THEN
                   IEND = J - 1
-               ELSE
+               } else {
                   IEND = J
                END IF
-            ELSE
+            } else {
                IF( UNIT )THEN
                   IBEG = J + 1
-               ELSE
+               } else {
                   IBEG = J
                END IF
                IEND = N
@@ -2306,7 +2306,7 @@
       DO 140 I = 1, M
          IF( MV )THEN
             WRITE( NOUT, FMT = 9998 )I, CT( I ), CC( I, J )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
          END IF
   140 CONTINUE
@@ -2391,7 +2391,7 @@
             IF( UPPER )THEN
                IBEG = 1
                IEND = J
-            ELSE
+            } else {
                IBEG = J
                IEND = N
             END IF
@@ -2542,7 +2542,7 @@
       IF( INFO.NE.INFOT )THEN
          IF( INFOT.NE.0 )THEN
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9997 )INFO
          END IF
          OK = .FALSE.

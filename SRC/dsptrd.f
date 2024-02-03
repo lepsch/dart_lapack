@@ -92,7 +92,7 @@
             I1 = I1 - I
    10    CONTINUE
          D( 1 ) = AP( 1 )
-      ELSE
+      } else {
 
          // Reduce the lower triangle of A. II is the index in AP of
          // A(i,i) and I1I1 is the index of A(i+1,i+1).

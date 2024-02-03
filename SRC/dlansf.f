@@ -64,11 +64,11 @@
       IF( IFM.EQ.1 ) THEN
          IF( NOE.EQ.1 ) THEN
             LDA = N
-         ELSE
+         } else {
             // noe=0
             LDA = N + 1
          END IF
-      ELSE
+      } else {
          // ifm=0
          LDA = ( N+1 ) / 2
       END IF
@@ -89,7 +89,7 @@
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
-            ELSE
+            } else {
                // xpose case; A is k by n
                DO J = 0, N - 1
                   DO I = 0, K - 1
@@ -98,7 +98,7 @@
                   END DO
                END DO
             END IF
-         ELSE
+         } else {
             // n is even
             IF( IFM.EQ.1 ) THEN
                // A is n+1 by k
@@ -108,7 +108,7 @@
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
-            ELSE
+            } else {
                // xpose case; A is k by n+1
                DO J = 0, N
                   DO I = 0, K - 1
@@ -162,7 +162,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu = 1
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
@@ -204,7 +204,7 @@
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
-            ELSE
+            } else {
                // n is even
                IF( ILU.EQ.0 ) THEN
                   DO I = 0, K - 1
@@ -240,7 +240,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu = 1
                   DO I = K, N - 1
                      WORK( I ) = ZERO
@@ -279,7 +279,7 @@
                   END DO
                END IF
             END IF
-         ELSE
+         } else {
             // ifm=0
             K = N / 2
             IF( NOE.EQ.1 ) THEN
@@ -342,7 +342,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu=1
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
@@ -407,7 +407,7 @@
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
-            ELSE
+            } else {
                // n is even
                IF( ILU.EQ.0 ) THEN
                   DO I = K, N - 1
@@ -478,7 +478,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu=1
                   DO I = K, N - 1
                      WORK( I ) = ZERO
@@ -580,7 +580,7 @@
                  t // ri L at A(k,0)
                   CALL DLASSQ( K, A( K-1 ), LDA+1, SCALE, S )
                  t // ri U at A(k-1,0)
-               ELSE
+               } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL DLASSQ( N-J-1, A( J+1+J*LDA ), 1, SCALE, S )
@@ -597,7 +597,7 @@
                   CALL DLASSQ( K-1, A( 0+LDA ), LDA+1, SCALE, S )
                  t // ri U at A(0,1)
                END IF
-            ELSE
+            } else {
                // A is xpose
                IF( ILU.EQ.0 ) THEN
                   // A**T is upper
@@ -619,7 +619,7 @@
                  t // ri U at A(0,k)
                   CALL DLASSQ( K, A( 0+( K-1 )*LDA ), LDA+1, SCALE, S )
                  t // ri L at A(0,k-1)
-               ELSE
+               } else {
                   // A**T is lower
                   DO J = 1, K - 1
                      CALL DLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
@@ -641,7 +641,7 @@
                  t // ri L at A(1,0)
                END IF
             END IF
-         ELSE
+         } else {
             // n is even
             IF( IFM.EQ.1 ) THEN
                // A is normal
@@ -661,7 +661,7 @@
                  t // ri L at A(k+1,0)
                   CALL DLASSQ( K, A( K ), LDA+1, SCALE, S )
                  t // ri U at A(k,0)
-               ELSE
+               } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL DLASSQ( N-J-1, A( J+2+J*LDA ), 1, SCALE, S )
@@ -678,7 +678,7 @@
                   CALL DLASSQ( K, A( 0 ), LDA+1, SCALE, S )
                  t // ri U at A(0,0)
                END IF
-            ELSE
+            } else {
                // A is xpose
                IF( ILU.EQ.0 ) THEN
                   // A**T is upper
@@ -700,7 +700,7 @@
                  t // ri U at A(0,k+1)
                   CALL DLASSQ( K, A( 0+K*LDA ), LDA+1, SCALE, S )
                  t // ri L at A(0,k)
-               ELSE
+               } else {
                   // A**T is lower
                   DO J = 1, K - 1
                      CALL DLASSQ( J, A( 0+( J+1 )*LDA ), 1, SCALE, S )

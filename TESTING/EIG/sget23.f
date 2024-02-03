@@ -99,7 +99,7 @@
       IF( LWORK.GE.6*N+N*N ) THEN
          SENSE = 'B'
          ISENSM = 2
-      ELSE
+      } else {
          SENSE = 'E'
          ISENSM = 1
       END IF
@@ -109,7 +109,7 @@
          RESULT( 1 ) = ULPINV
          IF( JTYPE.NE.22 ) THEN
             WRITE( NOUNIT, FMT = 9998 )'SGEEVX1', IINFO, N, JTYPE, BALANC, ISEED
-         ELSE
+         } else {
             WRITE( NOUNIT, FMT = 9999 )'SGEEVX1', IINFO, N, ISEED( 1 )
          END IF
          INFO = ABS( IINFO )
@@ -182,7 +182,7 @@
             RESULT( 1 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX2', IINFO, N, JTYPE, BALANC, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX2', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -220,7 +220,7 @@
             RESULT( 1 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX3', IINFO, N, JTYPE, BALANC, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX3', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -266,7 +266,7 @@
             RESULT( 1 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'SGEEVX4', IINFO, N, JTYPE, BALANC, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'SGEEVX4', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -356,12 +356,12 @@
          DO 230 I = 1, N
             IF( V.GT.RCONDV( I )*RCONDE( I ) ) THEN
                TOL = RCONDV( I )
-            ELSE
+            } else {
                TOL = V / RCONDE( I )
             END IF
             IF( V.GT.RCDVIN( I )*RCDEIN( I ) ) THEN
                TOLIN = RCDVIN( I )
-            ELSE
+            } else {
                TOLIN = V / RCDEIN( I )
             END IF
             TOL = MAX( TOL, SMLNUM / EPS )
@@ -374,7 +374,7 @@
                VMAX = ONE / EPS
             ELSE IF( RCDVIN( I )+TOLIN.LT.RCONDV( I )-TOL ) THEN
                VMAX = ( RCONDV( I )-TOL ) / ( RCDVIN( I )+TOLIN )
-            ELSE
+            } else {
                VMAX = ONE
             END IF
             RESULT( 10 ) = MAX( RESULT( 10 ), VMAX )
@@ -387,12 +387,12 @@
          DO 240 I = 1, N
             IF( V.GT.RCONDV( I ) ) THEN
                TOL = ONE
-            ELSE
+            } else {
                TOL = V / RCONDV( I )
             END IF
             IF( V.GT.RCDVIN( I ) ) THEN
                TOLIN = ONE
-            ELSE
+            } else {
                TOLIN = V / RCDVIN( I )
             END IF
             TOL = MAX( TOL, SMLNUM / EPS )
@@ -405,7 +405,7 @@
                VMAX = ONE / EPS
             ELSE IF( RCDEIN( I )+TOLIN.LT.RCONDE( I )-TOL ) THEN
                VMAX = ( RCONDE( I )-TOL ) / ( RCDEIN( I )+TOLIN )
-            ELSE
+            } else {
                VMAX = ONE
             END IF
             RESULT( 11 ) = MAX( RESULT( 11 ), VMAX )

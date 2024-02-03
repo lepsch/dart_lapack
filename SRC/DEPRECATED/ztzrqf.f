@@ -51,7 +51,7 @@
          DO 10 I = 1, N
             TAU( I ) = CZERO
    10    CONTINUE
-      ELSE
+      } else {
          M1 = MIN( M+1, N )
          DO 20 K = M, 1, -1
 

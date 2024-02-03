@@ -77,7 +77,7 @@
             AMAX = MAX( AMAX, S( I ) )
    10    CONTINUE
 
-      ELSE
+      } else {
 
          // UPLO = 'L':  Lower triangle of A is stored.
          // Find the minimum and maximum diagonal elements.
@@ -101,7 +101,7 @@
                RETURN
             END IF
    30    CONTINUE
-      ELSE
+      } else {
 
          // Set the scale factors to the reciprocals
          // of the diagonal elements.

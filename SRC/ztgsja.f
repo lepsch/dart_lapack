@@ -109,7 +109,7 @@
                IF( UPPER ) THEN
                   IF( K+I.LE.M ) A2 = A( K+I, N-L+J )
                   B2 = B( I, N-L+J )
-               ELSE
+               } else {
                   IF( K+J.LE.M ) A2 = A( K+J, N-L+I )
                   B2 = B( J, N-L+I )
                END IF
@@ -134,7 +134,7 @@
                IF( UPPER ) THEN
                   IF( K+I.LE.M ) A( K+I, N-L+J ) = CZERO
                   B( I, N-L+J ) = CZERO
-               ELSE
+               } else {
                   IF( K+J.LE.M ) A( K+J, N-L+I ) = CZERO
                   B( J, N-L+I ) = CZERO
                END IF
@@ -212,11 +212,11 @@
 
             IF( ALPHA( K+I ).GE.BETA( K+I ) ) THEN
                CALL ZDSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA )
-            ELSE
+            } else {
                CALL ZDSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL ZCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
             END IF
 
-         ELSE
+         } else {
 
             ALPHA( K+I ) = ZERO
             BETA( K+I ) = ONE

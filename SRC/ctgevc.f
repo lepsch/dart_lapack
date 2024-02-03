@@ -63,7 +63,7 @@
          IHWMNY = 3
          ILALL = .TRUE.
          ILBACK = .TRUE.
-      ELSE
+      } else {
          IHWMNY = -1
       END IF
 
@@ -79,7 +79,7 @@
          ISIDE = 3
          COMPL = .TRUE.
          COMPR = .TRUE.
-      ELSE
+      } else {
          ISIDE = -1
       END IF
 
@@ -107,7 +107,7 @@
          DO 10 J = 1, N
             IF( SELECT( J ) ) IM = IM + 1
    10    CONTINUE
-      ELSE
+      } else {
          IM = N
       END IF
 
@@ -178,7 +178,7 @@
          DO 140 JE = 1, N
             IF( ILALL ) THEN
                ILCOMP = .TRUE.
-            ELSE
+            } else {
                ILCOMP = SELECT( JE )
             END IF
             IF( ILCOMP ) THEN
@@ -217,12 +217,12 @@
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   IF( LSA ) THEN
                      ACOEFF = ASCALE*( SCALE*SBETA )
-                  ELSE
+                  } else {
                      ACOEFF = SCALE*ACOEFF
                   END IF
                   IF( LSB ) THEN
                      BCOEFF = BSCALE*( SCALE*SALPHA )
-                  ELSE
+                  } else {
                      BCOEFF = SCALE*BCOEFF
                   END IF
                END IF
@@ -293,7 +293,7 @@
                   CALL CGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
                   ISRC = 2
                   IBEG = 1
-               ELSE
+               } else {
                   ISRC = 1
                   IBEG = JE
                END IF
@@ -310,7 +310,7 @@
                   DO 120 JR = IBEG, N
                      VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
   120             CONTINUE
-               ELSE
+               } else {
                   IBEG = N + 1
                END IF
 
@@ -332,7 +332,7 @@
          DO 250 JE = N, 1, -1
             IF( ILALL ) THEN
                ILCOMP = .TRUE.
-            ELSE
+            } else {
                ILCOMP = SELECT( JE )
             END IF
             IF( ILCOMP ) THEN
@@ -371,12 +371,12 @@
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   IF( LSA ) THEN
                      ACOEFF = ASCALE*( SCALE*SBETA )
-                  ELSE
+                  } else {
                      ACOEFF = SCALE*ACOEFF
                   END IF
                   IF( LSB ) THEN
                      BCOEFF = BSCALE*( SCALE*SALPHA )
-                  ELSE
+                  } else {
                      BCOEFF = SCALE*BCOEFF
                   END IF
                END IF
@@ -446,7 +446,7 @@
                   CALL CGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 )
                   ISRC = 2
                   IEND = N
-               ELSE
+               } else {
                   ISRC = 1
                   IEND = JE
                END IF
@@ -463,7 +463,7 @@
                   DO 230 JR = 1, IEND
                      VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
   230             CONTINUE
-               ELSE
+               } else {
                   IEND = 0
                END IF
 

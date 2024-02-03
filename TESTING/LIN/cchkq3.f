@@ -112,7 +112,7 @@
                   DO 30 I = 1, MNMIN
                      S( I ) = ZERO
    30             CONTINUE
-               ELSE
+               } else {
                   CALL CLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO )
                   IF( IMODE.GE.4 ) THEN
                      IF( IMODE.EQ.4 ) THEN

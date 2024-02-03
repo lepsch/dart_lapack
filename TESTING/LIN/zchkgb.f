@@ -203,7 +203,7 @@
                            IZERO = 1
                         ELSE IF( IMAT.EQ.3 ) THEN
                            IZERO = MIN( M, N )
-                        ELSE
+                        } else {
                            IZERO = MIN( M, N ) / 2 + 1
                         END IF
                         IOFF = ( IZERO-1 )*LDA
@@ -218,7 +218,7 @@
                            DO 30 I = I1, I2
                               A( IOFF+I ) = ZERO
    30                      CONTINUE
-                        ELSE
+                        } else {
                            DO 50 J = IZERO, N
                               DO 40 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( M-J ) )
                                  A( IOFF+I ) = ZERO
@@ -290,7 +290,7 @@
                            AINVNM = ZLANGE( 'O', N, N, WORK, LDB, RWORK )
                            IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDO = ONE
-                           ELSE
+                           } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
                            END IF
 
@@ -300,10 +300,10 @@
                            AINVNM = ZLANGE( 'I', N, N, WORK, LDB, RWORK )
                            IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDI = ONE
-                           ELSE
+                           } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM
                            END IF
-                        ELSE
+                        } else {
 
                            // Do only the condition estimate if INFO.NE.0.
 
@@ -325,7 +325,7 @@
                               IF( ITRAN.EQ.1 ) THEN
                                  RCONDC = RCONDO
                                  NORM = 'O'
-                              ELSE
+                              } else {
                                  RCONDC = RCONDI
                                  NORM = 'I'
                               END IF
@@ -388,7 +388,7 @@
                               ANORM = ANORMO
                               RCONDC = RCONDO
                               NORM = 'O'
-                           ELSE
+                           } else {
                               ANORM = ANORMI
                               RCONDC = RCONDI
                               NORM = 'I'

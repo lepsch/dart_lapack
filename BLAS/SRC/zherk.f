@@ -40,7 +40,7 @@
 
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
-      ELSE
+      } else {
           NROWA = K
       END IF
       UPPER = LSAME(UPLO,'U')
@@ -78,7 +78,7 @@
                           C(I,J) = ZERO
    10                 CONTINUE
    20             CONTINUE
-              ELSE
+              } else {
                   DO 40 J = 1,N
                       DO 30 I = 1,J - 1
                           C(I,J) = BETA*C(I,J)
@@ -86,14 +86,14 @@
                       C(J,J) = BETA*DBLE(C(J,J))
    40             CONTINUE
               END IF
-          ELSE
+          } else {
               IF (BETA.EQ.ZERO) THEN
                   DO 60 J = 1,N
                       DO 50 I = J,N
                           C(I,J) = ZERO
    50                 CONTINUE
    60             CONTINUE
-              ELSE
+              } else {
                   DO 80 J = 1,N
                       C(J,J) = BETA*DBLE(C(J,J))
                       DO 70 I = J + 1,N
@@ -122,7 +122,7 @@
                           C(I,J) = BETA*C(I,J)
   100                 CONTINUE
                       C(J,J) = BETA*DBLE(C(J,J))
-                  ELSE
+                  } else {
                       C(J,J) = DBLE(C(J,J))
                   END IF
                   DO 120 L = 1,K
@@ -135,7 +135,7 @@
                       END IF
   120             CONTINUE
   130         CONTINUE
-          ELSE
+          } else {
               DO 180 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 140 I = J,N
@@ -146,7 +146,7 @@
                       DO 150 I = J + 1,N
                           C(I,J) = BETA*C(I,J)
   150                 CONTINUE
-                  ELSE
+                  } else {
                       C(J,J) = DBLE(C(J,J))
                   END IF
                   DO 170 L = 1,K
@@ -160,7 +160,7 @@
   170             CONTINUE
   180         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  C := alpha*A**H*A + beta*C.
 
@@ -173,7 +173,7 @@
   190                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   200             CONTINUE
@@ -183,11 +183,11 @@
   210             CONTINUE
                   IF (BETA.EQ.ZERO) THEN
                       C(J,J) = ALPHA*RTEMP
-                  ELSE
+                  } else {
                       C(J,J) = ALPHA*RTEMP + BETA*DBLE(C(J,J))
                   END IF
   220         CONTINUE
-          ELSE
+          } else {
               DO 260 J = 1,N
                   RTEMP = ZERO
                   DO 230 L = 1,K
@@ -195,7 +195,7 @@
   230             CONTINUE
                   IF (BETA.EQ.ZERO) THEN
                       C(J,J) = ALPHA*RTEMP
-                  ELSE
+                  } else {
                       C(J,J) = ALPHA*RTEMP + BETA*DBLE(C(J,J))
                   END IF
                   DO 250 I = J + 1,N
@@ -205,7 +205,7 @@
   240                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   250             CONTINUE

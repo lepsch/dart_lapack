@@ -67,7 +67,7 @@
          XNORM = ABS(X(IDAMAX( N, X( 1, J ), 1 ),J))
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    10 CONTINUE

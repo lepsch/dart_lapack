@@ -109,7 +109,7 @@
             JTOP = MAX( KTOP, INCOL )
          ELSE IF( WANTT ) THEN
             JTOP = 1
-         ELSE
+         } else {
             JTOP = KTOP
          END IF
 
@@ -155,7 +155,7 @@
                   CALL DLAQR1( 2, H( K+1, K+1 ), LDH, SR( 2*M22-1 ), SI( 2*M22-1 ), SR( 2*M22 ), SI( 2*M22 ), V( 1, M22 ) )
                   BETA = V( 1, M22 )
                   CALL DLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
-               ELSE
+               } else {
                   BETA = H( K+1, K )
                   V( 2, M22 ) = H( K+2, K )
                   CALL DLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
@@ -182,7 +182,7 @@
                   JBOT = MIN( NDCOL, KBOT )
                ELSE IF( WANTT ) THEN
                   JBOT = N
-               ELSE
+               } else {
                   JBOT = KBOT
                END IF
                T1 = V( 1, M22 )
@@ -249,7 +249,7 @@
                   CALL DLAQR1( 3, H( KTOP, KTOP ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), V( 1, M ) )
                   ALPHA = V( 1, M )
                   CALL DLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
-               ELSE
+               } else {
 
                   // ==== Perform delayed transformation of row below
                   // .    Mth bulge. Exploit fact that first two elements
@@ -283,7 +283,7 @@
                      H( K+1, K ) = BETA
                      H( K+2, K ) = ZERO
                      H( K+3, K ) = ZERO
-                  ELSE
+                  } else {
 
                      // ==== Atypical case: collapsed.  Attempt to
                      // .    reintroduce ignoring H(K+1,K) and H(K+2,K).
@@ -308,7 +308,7 @@
                         H( K+1, K ) = BETA
                         H( K+2, K ) = ZERO
                         H( K+3, K ) = ZERO
-                     ELSE
+                     } else {
 
                         // ==== Starting a new bulge here would
                         // .    create only negligible fill.
@@ -384,7 +384,7 @@
                JBOT = MIN( NDCOL, KBOT )
             ELSE IF( WANTT ) THEN
                JBOT = N
-            ELSE
+            } else {
                JBOT = KBOT
             END IF
 
@@ -457,7 +457,7 @@
             IF( WANTT ) THEN
                JTOP = 1
                JBOT = N
-            ELSE
+            } else {
                JTOP = KTOP
                JBOT = KBOT
             END IF

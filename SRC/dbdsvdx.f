@@ -92,7 +92,7 @@
          IF( ALLSV .OR. INDSV ) THEN
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
-         ELSE
+         } else {
             IF( VL.LT.ABS( D( 1 ) ) .AND. VU.GE.ABS( D( 1 ) ) ) THEN
                NS = 1
                S( 1 ) = ABS( D( 1 ) )
@@ -188,7 +188,7 @@
          CALL DSTEVX( 'N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
          IF( NS.EQ.0 ) THEN
             RETURN
-         ELSE
+         } else {
             IF( WANTZ ) CALL DLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ )
          END IF
       ELSE IF( INDSV ) THEN
@@ -287,14 +287,14 @@
                      IF( ISPLT.NE.IDBEG ) THEN
                         NRU = NRU + 1
                      END IF
-                  ELSE
+                  } else {
                      IF( ISPLT.EQ.IDBEG ) THEN
 
                         // Split: top rectangular submatrix.
 
                         NRU = (IDPTR-IDBEG)/2
                         NRV = NRU + 1
-                     ELSE
+                     } else {
 
                         // Split: middle square submatrix.
 
@@ -312,7 +312,7 @@
 
                      NRU = (IDEND-IDBEG)/2 + 1
                      NRV = NRU
-                  ELSE
+                  } else {
 
                      // Split: bottom rectangular submatrix.
 
@@ -497,7 +497,7 @@
          IF( LOWER ) THEN
             CALL DCOPY( N, WORK( 2 ), 2, Z( N+1,I ), 1 )
             CALL DCOPY( N, WORK( 1 ), 2, Z( 1  ,I ), 1 )
-         ELSE
+         } else {
             CALL DCOPY( N, WORK( 2 ), 2, Z( 1  ,I ), 1 )
             CALL DCOPY( N, WORK( 1 ), 2, Z( N+1,I ), 1 )
          END IF

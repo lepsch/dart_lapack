@@ -81,7 +81,7 @@
                CALL SSYR( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Compute the Cholesky factorization A = L*L**T.
 

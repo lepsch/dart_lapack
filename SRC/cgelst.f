@@ -190,7 +190,7 @@
 
             SCLLEN = N
 
-         ELSE
+         } else {
 
             // M > N, A is transposed:
             // Underdetermined system of equations,
@@ -225,7 +225,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // M < N:
          // Compute the blocked LQ factorization of A,
@@ -267,7 +267,7 @@
 
             SCLLEN = N
 
-         ELSE
+         } else {
 
             // M < N, A is transposed:
             // Overdetermined system of equations,

@@ -55,7 +55,7 @@
       DO 10 K = N, 1, -1
          IF( K.GT.M ) THEN
             CALL STRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
-         ELSE
+         } else {
 
             // Compute elements (K+1:M,K)
 
@@ -90,7 +90,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF
 

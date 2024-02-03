@@ -83,7 +83,7 @@
             ENRMIN = MIN( ENRMIN, TEMP1 )
             ENRMAX = MAX( ENRMAX, TEMP1 )
    20    CONTINUE
-      ELSE
+      } else {
          DO 30 JVEC = 1, N
             RWORK( JVEC ) = ZERO
    30    CONTINUE
@@ -118,7 +118,7 @@
       DO 100 JCOL = 1, N
          IF( ITRNSW.EQ.0 ) THEN
             WTEMP = W( JCOL )
-         ELSE
+         } else {
             WTEMP = CONJG( W( JCOL ) )
          END IF
 
@@ -130,7 +130,7 @@
             DO 80 JROW = 1, N
                WORK( JOFF+JROW ) = E( JCOL, JROW )*WTEMP
    80       CONTINUE
-         ELSE
+         } else {
             DO 90 JROW = 1, N
                WORK( JOFF+JROW ) = CONJG( E( JCOL, JROW ) )*WTEMP
    90       CONTINUE
@@ -146,10 +146,10 @@
 
       IF( ANORM.GT.ERRNRM ) THEN
          RESULT( 1 ) = ( ERRNRM / ANORM ) / ULP
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ONE / ULP
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( ERRNRM / ANORM, ONE ) / ULP
          END IF
       END IF

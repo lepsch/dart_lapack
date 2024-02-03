@@ -36,7 +36,7 @@
 
       IF( ONE.EQ.RND ) THEN
          EPS = EPSILON(ZERO) * 0.5
-      ELSE
+      } else {
          EPS = EPSILON(ZERO)
       END IF
 
@@ -69,7 +69,7 @@
          RMACH = MAXEXPONENT(ZERO)
       ELSE IF( LSAME( CMACH, 'O' ) ) THEN
          RMACH = HUGE(ZERO)
-      ELSE
+      } else {
          RMACH = ZERO
       END IF
 

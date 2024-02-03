@@ -214,7 +214,7 @@
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N + M, BDSPAC )
                END IF
-            ELSE
+            } else {
 
                // Path 10 (M at least N, but not much larger)
 
@@ -367,7 +367,7 @@
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M + N, BDSPAC )
                END IF
-            ELSE
+            } else {
 
                // Path 10t(N greater than M, but not much larger)
 
@@ -510,7 +510,7 @@
 
                      LDWRKU = LDA
                      LDWRKR = N
-                  ELSE
+                  } else {
 
                      // WORK(IU) is LDWRKU by N, WORK(IR) is N by N
 
@@ -567,7 +567,7 @@
                      CALL DLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
    10             CONTINUE
 
-               ELSE
+               } else {
 
                   // Insufficient workspace for a fast algorithm
 
@@ -618,7 +618,7 @@
 
                      LDWRKU = LDA
                      LDWRKR = N
-                  ELSE
+                  } else {
 
                      // WORK(IU) is LDWRKU by N and WORK(IR) is N by N
 
@@ -682,7 +682,7 @@
                      CALL DLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
    20             CONTINUE
 
-               ELSE
+               } else {
 
                   // Insufficient workspace for a fast algorithm
 
@@ -751,7 +751,7 @@
                         // WORK(IR) is LDA by N
 
                         LDWRKR = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IR) is N by N
 
@@ -801,7 +801,7 @@
 
                      CALL DGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IR ), LDWRKR, ZERO, U, LDU )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -873,7 +873,7 @@
                         LDWRKU = LDA
                         IR = IU + LDWRKU*N
                         LDWRKR = N
-                     ELSE
+                     } else {
 
                         // WORK(IU) is N by N and WORK(IR) is N by N
 
@@ -940,7 +940,7 @@
 
                      CALL DLACPY( 'F', N, N, WORK( IR ), LDWRKR, A, LDA )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -1010,7 +1010,7 @@
                         // WORK(IU) is LDA by N
 
                         LDWRKU = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IU) is N by N
 
@@ -1068,7 +1068,7 @@
 
                      CALL DGEMM( 'N', 'N', M, N, N, ONE, A, LDA, WORK( IU ), LDWRKU, ZERO, U, LDU )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -1141,7 +1141,7 @@
                         // WORK(IR) is LDA by N
 
                         LDWRKR = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IR) is N by N
 
@@ -1196,7 +1196,7 @@
 
                      CALL DLACPY( 'F', M, N, A, LDA, U, LDU )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -1269,7 +1269,7 @@
                         LDWRKU = LDA
                         IR = IU + LDWRKU*N
                         LDWRKR = N
-                     ELSE
+                     } else {
 
                         // WORK(IU) is N by N and WORK(IR) is N by N
 
@@ -1340,7 +1340,7 @@
 
                      CALL DLACPY( 'F', N, N, WORK( IR ), LDWRKR, A, LDA )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -1411,7 +1411,7 @@
                         // WORK(IU) is LDA by N
 
                         LDWRKU = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IU) is N by N
 
@@ -1474,7 +1474,7 @@
 
                      CALL DLACPY( 'F', M, N, A, LDA, U, LDU )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -1531,7 +1531,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // M .LT. MNTHR
 
@@ -1599,7 +1599,7 @@
                // (Workspace: need BDSPAC)
 
                CALL DBDSQR( 'U', N, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
-            ELSE
+            } else {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in A and computing right singular
@@ -1611,7 +1611,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce using the LQ decomposition (if
@@ -1690,7 +1690,7 @@
                      LDWRKU = LDA
                      CHUNK = N
                      LDWRKR = M
-                  ELSE
+                  } else {
 
                      // WORK(IU) is M by CHUNK and WORK(IR) is M by M
 
@@ -1748,7 +1748,7 @@
                      CALL DLACPY( 'F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA )
    30             CONTINUE
 
-               ELSE
+               } else {
 
                   // Insufficient workspace for a fast algorithm
 
@@ -1801,7 +1801,7 @@
                      LDWRKU = LDA
                      CHUNK = N
                      LDWRKR = M
-                  ELSE
+                  } else {
 
                      // WORK(IU) is M by CHUNK and WORK(IR) is M by M
 
@@ -1866,7 +1866,7 @@
                      CALL DLACPY( 'F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA )
    40             CONTINUE
 
-               ELSE
+               } else {
 
                   // Insufficient workspace for a fast algorithm
 
@@ -1935,7 +1935,7 @@
                         // WORK(IR) is LDA by M
 
                         LDWRKR = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IR) is M by M
 
@@ -1986,7 +1986,7 @@
 
                      CALL DGEMM( 'N', 'N', M, N, M, ONE, WORK( IR ), LDWRKR, A, LDA, ZERO, VT, LDVT )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -2059,7 +2059,7 @@
                         LDWRKU = LDA
                         IR = IU + LDWRKU*M
                         LDWRKR = M
-                     ELSE
+                     } else {
 
                         // WORK(IU) is M by M and WORK(IR) is M by M
 
@@ -2126,7 +2126,7 @@
 
                      CALL DLACPY( 'F', M, M, WORK( IR ), LDWRKR, A, LDA )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -2194,7 +2194,7 @@
                         // WORK(IU) is LDA by N
 
                         LDWRKU = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IU) is LDA by M
 
@@ -2252,7 +2252,7 @@
 
                      CALL DGEMM( 'N', 'N', M, N, M, ONE, WORK( IU ), LDWRKU, A, LDA, ZERO, VT, LDVT )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -2325,7 +2325,7 @@
                         // WORK(IR) is LDA by M
 
                         LDWRKR = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IR) is M by M
 
@@ -2381,7 +2381,7 @@
 
                      CALL DLACPY( 'F', M, N, A, LDA, VT, LDVT )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -2452,7 +2452,7 @@
                         LDWRKU = LDA
                         IR = IU + LDWRKU*M
                         LDWRKR = M
-                     ELSE
+                     } else {
 
                         // WORK(IU) is M by M and WORK(IR) is M by M
 
@@ -2523,7 +2523,7 @@
 
                      CALL DLACPY( 'F', M, M, WORK( IR ), LDWRKR, A, LDA )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -2592,7 +2592,7 @@
                         // WORK(IU) is LDA by M
 
                         LDWRKU = LDA
-                     ELSE
+                     } else {
 
                         // WORK(IU) is M by M
 
@@ -2654,7 +2654,7 @@
 
                      CALL DLACPY( 'F', M, N, A, LDA, VT, LDVT )
 
-                  ELSE
+                  } else {
 
                      // Insufficient workspace for a fast algorithm
 
@@ -2711,7 +2711,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N .LT. MNTHR
 
@@ -2779,7 +2779,7 @@
                // (Workspace: need BDSPAC)
 
                CALL DBDSQR( 'L', M, NCVT, NRU, 0, S, WORK( IE ), A, LDA, U, LDU, DUM, 1, WORK( IWORK ), INFO )
-            ELSE
+            } else {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in A and computing right singular

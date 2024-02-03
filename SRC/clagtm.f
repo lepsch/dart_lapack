@@ -57,7 +57,7 @@
             DO 60 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DL( N-1 )*X( N-1, J ) + D( N )*X( N, J )
                   DO 50 I = 2, N - 1
                      B( I, J ) = B( I, J ) + DL( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DU( I )*X( I+1, J )
@@ -71,7 +71,7 @@
             DO 80 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DU( N-1 )*X( N-1, J ) + D( N )*X( N, J )
                   DO 70 I = 2, N - 1
                      B( I, J ) = B( I, J ) + DU( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DL( I )*X( I+1, J )
@@ -85,7 +85,7 @@
             DO 100 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + CONJG( D( 1 ) )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) + CONJG( D( 1 ) )*X( 1, J ) + CONJG( DL( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) + CONJG( DU( N-1 ) )* X( N-1, J ) + CONJG( D( N ) )*X( N, J )
                   DO 90 I = 2, N - 1
                      B( I, J ) = B( I, J ) + CONJG( DU( I-1 ) )* X( I-1, J ) + CONJG( D( I ) )* X( I, J ) + CONJG( DL( I ) )* X( I+1, J )
@@ -101,7 +101,7 @@
             DO 120 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DL( N-1 )*X( N-1, J ) - D( N )*X( N, J )
                   DO 110 I = 2, N - 1
                      B( I, J ) = B( I, J ) - DL( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DU( I )*X( I+1, J )
@@ -115,7 +115,7 @@
             DO 140 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DU( N-1 )*X( N-1, J ) - D( N )*X( N, J )
                   DO 130 I = 2, N - 1
                      B( I, J ) = B( I, J ) - DU( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DL( I )*X( I+1, J )
@@ -129,7 +129,7 @@
             DO 160 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - CONJG( D( 1 ) )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) - CONJG( D( 1 ) )*X( 1, J ) - CONJG( DL( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) - CONJG( DU( N-1 ) )* X( N-1, J ) - CONJG( D( N ) )*X( N, J )
                   DO 150 I = 2, N - 1
                      B( I, J ) = B( I, J ) - CONJG( DU( I-1 ) )* X( I-1, J ) - CONJG( D( I ) )* X( I, J ) - CONJG( DL( I ) )* X( I+1, J )

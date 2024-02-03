@@ -84,7 +84,7 @@
 
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )'ZCPOSV'
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9998 )'ZCPOSV'
       END IF
 

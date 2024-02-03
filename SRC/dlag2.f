@@ -75,7 +75,7 @@
          ABI22 = AS22*BINV22 - SS*B12
          PP = HALF*ABI22
          SHIFT = S1
-      ELSE
+      } else {
          AS12 = A12 - S2*B12
          AS11 = A11 - S2*B11
          SS = A21*( BINV11*BINV22 )
@@ -87,11 +87,11 @@
       IF( ABS( PP*RTMIN ).GE.ONE ) THEN
          DISCR = ( RTMIN*PP )**2 + QQ*SAFMIN
          R = SQRT( ABS( DISCR ) )*RTMAX
-      ELSE
+      } else {
          IF( PP**2+ABS( QQ ).LE.SAFMIN ) THEN
             DISCR = ( RTMAX*PP )**2 + QQ*SAFMAX
             R = SQRT( ABS( DISCR ) )*RTMIN
-         ELSE
+         } else {
             DISCR = PP**2 + QQ
             R = SQRT( ABS( DISCR ) )
          END IF
@@ -122,12 +122,12 @@
          IF( PP.GT.ABI22 ) THEN
             WR1 = MIN( WBIG, WSMALL )
             WR2 = MAX( WBIG, WSMALL )
-         ELSE
+         } else {
             WR1 = MAX( WBIG, WSMALL )
             WR2 = MIN( WBIG, WSMALL )
          END IF
          WI = ZERO
-      ELSE
+      } else {
 
          // Complex eigenvalues
 
@@ -153,12 +153,12 @@
       C3 = BSIZE*SAFMIN
       IF( ASCALE.LE.ONE .AND. BSIZE.LE.ONE ) THEN
          C4 = MIN( ONE, ( ASCALE / SAFMIN )*BSIZE )
-      ELSE
+      } else {
          C4 = ONE
       END IF
       IF( ASCALE.LE.ONE .OR. BSIZE.LE.ONE ) THEN
          C5 = MIN( ONE, ASCALE*BSIZE )
-      ELSE
+      } else {
          C5 = ONE
       END IF
 
@@ -170,7 +170,7 @@
          WSCALE = ONE / WSIZE
          IF( WSIZE.GT.ONE ) THEN
             SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
-         ELSE
+         } else {
             SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
          END IF
          WR1 = WR1*WSCALE
@@ -179,7 +179,7 @@
             WR2 = WR1
             SCALE2 = SCALE1
          END IF
-      ELSE
+      } else {
          SCALE1 = ASCALE*BSIZE
          SCALE2 = SCALE1
       END IF
@@ -192,11 +192,11 @@
             WSCALE = ONE / WSIZE
             IF( WSIZE.GT.ONE ) THEN
                SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
-            ELSE
+            } else {
                SCALE2 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
             END IF
             WR2 = WR2*WSCALE
-         ELSE
+         } else {
             SCALE2 = ASCALE*BSIZE
          END IF
       END IF

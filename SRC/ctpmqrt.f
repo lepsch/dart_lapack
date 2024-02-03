@@ -86,7 +86,7 @@
             MB = MIN( M-L+I+IB-1, M )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = MB-M+L-I+1
             END IF
             CALL CTPRFB( 'L', 'C', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
@@ -99,7 +99,7 @@
             MB = MIN( N-L+I+IB-1, N )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = MB-N+L-I+1
             END IF
             CALL CTPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
@@ -113,7 +113,7 @@
             MB = MIN( M-L+I+IB-1, M )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = MB-M+L-I+1
             END IF
             CALL CTPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
@@ -127,7 +127,7 @@
             MB = MIN( N-L+I+IB-1, N )
             IF( I.GE.L ) THEN
                LB = 0
-            ELSE
+            } else {
                LB = MB-N+L-I+1
             END IF
             CALL CTPRFB( 'R', 'C', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )

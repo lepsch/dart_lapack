@@ -40,7 +40,7 @@
       IF( LEFT ) THEN
         LW = N * NB
         Q = M
-      ELSE
+      } else {
         LW = M * NB
         Q = N
       END IF
@@ -48,7 +48,7 @@
       MINMNK = MIN( M, N, K )
       IF( MINMNK.EQ.0 ) THEN
         LWMIN = 1
-      ELSE
+      } else {
         LWMIN = MAX( 1, LW )
       END IF
 
@@ -107,7 +107,7 @@
          IF (KK.GT.0) THEN
            II=M-KK+1
            CALL CTPMQRT('L','N',KK , N, K, 0, NB, A(II,1), LDA, T(1, CTR*K+1),LDT , C(1,1), LDC, C(II,1), LDC, WORK, INFO )
-         ELSE
+         } else {
            II=M+1
          END IF
 
@@ -158,7 +158,7 @@
           IF (KK.GT.0) THEN
             II=N-KK+1
             CALL CTPMQRT('R','C',M , KK, K, 0, NB, A(II,1), LDA, T(1, CTR*K+1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
-          ELSE
+          } else {
             II=N+1
           END IF
 

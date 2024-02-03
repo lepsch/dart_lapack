@@ -119,7 +119,7 @@
             CALL STEST1(SB,DBTRUE(K),DBTRUE(K),SFAC)
             CALL STEST1(SC,DC1(K),DC1(K),SFAC)
             CALL STEST1(SS,DS1(K),DS1(K),SFAC)
-         ELSE
+         } else {
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
          END IF
@@ -184,7 +184,7 @@
             ELSE IF (ICASE.EQ.10) THEN
                // .. IDAMAXTEST ..
                CALL ITEST1(IDAMAXTEST(N,SX,INCX),ITRUE2(NP1))
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             END IF
@@ -271,7 +271,7 @@
    80          CONTINUE
                CALL STEST(LENX,SX,STX,SSIZE2(1,1),1.0D0)
                CALL STEST(LENY,SY,STY,SSIZE2(1,1),1.0D0)
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             END IF
@@ -334,7 +334,7 @@
                CALL DROTTEST(N,SX,INCX,SY,INCY,SC,SS)
                CALL STEST(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC)
                CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
             END IF

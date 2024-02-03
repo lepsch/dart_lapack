@@ -195,7 +195,7 @@
                   MAXWRK = MAX( MAXWRK, 2*N + LWORK_ZUNGBR_P_NN )
                   MAXWRK = MAX( MAXWRK, 2*N + LWORK_ZUNGBR_Q_MM )
                END IF
-            ELSE
+            } else {
 
                // Path 6 (M >= N, but not much larger)
 
@@ -325,7 +325,7 @@
                   MAXWRK = MAX( MAXWRK, 2*M + LWORK_ZUNGBR_Q_MM )
                   MAXWRK = MAX( MAXWRK, 2*M + LWORK_ZUNGBR_P_NN )
                END IF
-            ELSE
+            } else {
 
                // Path 6t (N > M, but not much larger)
 
@@ -454,7 +454,7 @@
                   // WORK(IR) is M by N
 
                   LDWRKR = M
-               ELSE
+               } else {
                   LDWRKR = ( LWORK - N*N - 3*N ) / N
                END IF
                ITAU = IR + LDWRKR*N
@@ -751,7 +751,7 @@
                   // WORK( IU ) is M by N
 
                   LDWRKU = M
-               ELSE
+               } else {
 
                   // WORK(IU) is LDWRKU by N
 
@@ -834,7 +834,7 @@
                NRWORK = IRVT
                CALL ZLACRM( M, N, U, LDU, RWORK( IRU ), N, A, LDA, RWORK( NRWORK ) )
                CALL ZLACPY( 'F', M, N, A, LDA, U, LDU )
-            ELSE
+            } else {
 
                // Path 5a (M >> N, JOBZ='A')
                // Copy A to VT, generate P**H
@@ -882,7 +882,7 @@
                CALL ZLACPY( 'F', M, N, A, LDA, U, LDU )
             END IF
 
-         ELSE
+         } else {
 
             // M .LT. MNTHR2
 
@@ -920,7 +920,7 @@
                   // WORK( IU ) is M by N
 
                   LDWRKU = M
-               ELSE
+               } else {
 
                   // WORK( IU ) is LDWRKU by N
 
@@ -958,7 +958,7 @@
 
                   CALL ZLASET( 'F', M, N, CZERO, CZERO, WORK( IU ), LDWRKU )                   CALL ZLACP2( 'F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                   CALL ZUNMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR )
                   CALL ZLACPY( 'F', M, N, WORK( IU ), LDWRKU, A, LDA )
-               ELSE
+               } else {
 
                   // Path 6o-slow
                   // Generate Q in A
@@ -1015,7 +1015,7 @@
 
                CALL ZLACP2( 'F', N, N, RWORK( IRVT ), N, VT, LDVT )
                CALL ZUNMBR( 'P', 'R', 'C', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
-            ELSE
+            } else {
 
                // Path 6a (M >= N, JOBZ='A')
                // Perform bidiagonal SVD, computing left singular vectors
@@ -1057,7 +1057,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce using the LQ decomposition (if
@@ -1120,7 +1120,7 @@
 
                   LDWRKL = M
                   CHUNK = N
-               ELSE
+               } else {
 
                   // WORK(IL) is M by CHUNK
 
@@ -1424,7 +1424,7 @@
 
                   NWORK = IVT + LDWKVT*N
                   CHUNK = N
-               ELSE
+               } else {
 
                   // WORK( IVT ) is M by CHUNK
 
@@ -1506,7 +1506,7 @@
                NRWORK = IRU
                CALL ZLARCM( M, N, RWORK( IRVT ), M, VT, LDVT, A, LDA, RWORK( NRWORK ) )
                CALL ZLACPY( 'F', M, N, A, LDA, VT, LDVT )
-            ELSE
+            } else {
 
                // Path 5ta (N >> M, JOBZ='A')
                // Copy A to U, generate Q
@@ -1554,7 +1554,7 @@
                CALL ZLACPY( 'F', M, N, A, LDA, VT, LDVT )
             END IF
 
-         ELSE
+         } else {
 
             // N .LT. MNTHR2
 
@@ -1592,7 +1592,7 @@
 
                   CALL ZLASET( 'F', M, N, CZERO, CZERO, WORK( IVT ), LDWKVT )
                   NWORK = IVT + LDWKVT*N
-               ELSE
+               } else {
 
                   // WORK( IVT ) is M by CHUNK
 
@@ -1632,7 +1632,7 @@
 
                   CALL ZLACP2( 'F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                   CALL ZUNMBR( 'P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
                   CALL ZLACPY( 'F', M, N, WORK( IVT ), LDWKVT, A, LDA )
-               ELSE
+               } else {
 
                   // Path 6to-slow
                   // Generate P**H in A
@@ -1688,7 +1688,7 @@
                CALL ZLASET( 'F', M, N, CZERO, CZERO, VT, LDVT )
                CALL ZLACP2( 'F', M, M, RWORK( IRVT ), M, VT, LDVT )
                CALL ZUNMBR( 'P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK-NWORK+1, IERR )
-            ELSE
+            } else {
 
                // Path 6ta (N > M, JOBZ='A')
                // Perform bidiagonal SVD, computing left singular vectors

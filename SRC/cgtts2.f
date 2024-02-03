@@ -41,7 +41,7 @@
             DO 20 I = 1, N - 1
                IF( IPIV( I ).EQ.I ) THEN
                   B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
-               ELSE
+               } else {
                   TEMP = B( I, J )
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - DL( I )*B( I, J )
@@ -59,7 +59,7 @@
                J = J + 1
                GO TO 10
             END IF
-         ELSE
+         } else {
             DO 60 J = 1, NRHS
 
             // Solve L*x = b.
@@ -67,7 +67,7 @@
                DO 40 I = 1, N - 1
                   IF( IPIV( I ).EQ.I ) THEN
                      B( I+1, J ) = B( I+1, J ) - DL( I )*B( I, J )
-                  ELSE
+                  } else {
                      TEMP = B( I, J )
                      B( I, J ) = B( I+1, J )
                      B( I+1, J ) = TEMP - DL( I )*B( I, J )
@@ -104,7 +104,7 @@
             DO 90 I = N - 1, 1, -1
                IF( IPIV( I ).EQ.I ) THEN
                   B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
-               ELSE
+               } else {
                   TEMP = B( I+1, J )
                   B( I+1, J ) = B( I, J ) - DL( I )*TEMP
                   B( I, J ) = TEMP
@@ -114,7 +114,7 @@
                J = J + 1
                GO TO 70
             END IF
-         ELSE
+         } else {
             DO 120 J = 1, NRHS
 
             // Solve U**T * x = b.
@@ -130,7 +130,7 @@
                DO 110 I = N - 1, 1, -1
                   IF( IPIV( I ).EQ.I ) THEN
                      B( I, J ) = B( I, J ) - DL( I )*B( I+1, J )
-                  ELSE
+                  } else {
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - DL( I )*TEMP
                      B( I, J ) = TEMP
@@ -138,7 +138,7 @@
   110          CONTINUE
   120       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // Solve A**H * X = B.
 
@@ -159,7 +159,7 @@
             DO 150 I = N - 1, 1, -1
                IF( IPIV( I ).EQ.I ) THEN
                   B( I, J ) = B( I, J ) - CONJG( DL( I ) )*B( I+1, J )
-               ELSE
+               } else {
                   TEMP = B( I+1, J )
                   B( I+1, J ) = B( I, J ) - CONJG( DL( I ) )*TEMP
                   B( I, J ) = TEMP
@@ -169,7 +169,7 @@
                J = J + 1
                GO TO 130
             END IF
-         ELSE
+         } else {
             DO 180 J = 1, NRHS
 
             // Solve U**H * x = b.
@@ -185,7 +185,7 @@
                DO 170 I = N - 1, 1, -1
                   IF( IPIV( I ).EQ.I ) THEN
                      B( I, J ) = B( I, J ) - CONJG( DL( I ) )* B( I+1, J )
-                  ELSE
+                  } else {
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - CONJG( DL( I ) )*TEMP
                      B( I, J ) = TEMP

@@ -65,7 +65,7 @@
          INFO = -10
       ELSE IF( LDQ.LT.1 .OR. ( WANTZ .AND. LDQ.LT.N ) ) THEN
          INFO = -12
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -14
          ELSE IF( INDEIG ) THEN
@@ -111,7 +111,7 @@
       INDWRK = INDE + N
       IF( WANTZ ) THEN
          VECT = 'U'
-      ELSE
+      } else {
          VECT = 'N'
       END IF
       CALL DSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
@@ -132,7 +132,7 @@
          CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
          IF( .NOT.WANTZ ) THEN
             CALL DSTERF( N, W, WORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL DLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL DSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
             IF( INFO.EQ.0 ) THEN
@@ -153,7 +153,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDISP = 1 + N

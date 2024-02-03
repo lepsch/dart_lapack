@@ -26,18 +26,18 @@
          I = I + 1
          IF( I.LE.M ) THEN
             SLCTSX = .FALSE.
-         ELSE
+         } else {
             SLCTSX = .TRUE.
          END IF
          IF( I.EQ.MPLUSN ) THEN
             FS = .FALSE.
             I = 0
          END IF
-      ELSE
+      } else {
          I = I + 1
          IF( I.LE.N ) THEN
             SLCTSX = .TRUE.
-         ELSE
+         } else {
             SLCTSX = .FALSE.
          END IF
          IF( I.EQ.MPLUSN ) THEN

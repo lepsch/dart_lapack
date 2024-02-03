@@ -105,13 +105,13 @@
 
             IF( C.LE.TEMP ) THEN
                TAU = RHO
-            ELSE
+            } else {
                DELSQ = ( D( N )-D( N-1 ) )*( D( N )+D( N-1 ) )
                A = -C*DELSQ + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
                B = Z( N )*Z( N )*DELSQ
                IF( A.LT.ZERO ) THEN
                   TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
-               ELSE
+               } else {
                   TAU2 = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
                END IF
                TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
@@ -120,7 +120,7 @@
             // It can be proved that
                 // D(N)^2+RHO/2 <= SIGMA_n^2 < D(N)^2+TAU2 <= D(N)^2+RHO
 
-         ELSE
+         } else {
             DELSQ = ( D( N )-D( N-1 ) )*( D( N )+D( N-1 ) )
             A = -C*DELSQ + Z( N-1 )*Z( N-1 ) + Z( N )*Z( N )
             B = Z( N )*Z( N )*DELSQ
@@ -130,7 +130,7 @@
 
             IF( A.LT.ZERO ) THEN
                TAU2 = TWO*B / ( SQRT( A*A+FOUR*B*C )-A )
-            ELSE
+            } else {
                TAU2 = ( A+SQRT( A*A+FOUR*B*C ) ) / ( TWO*C )
             END IF
             TAU = TAU2 / ( D( N )+SQRT( D( N )*D( N )+TAU2 ) )
@@ -193,7 +193,7 @@
             ETA = RHO - SIGMA*SIGMA
          ELSE IF( A.GE.ZERO ) THEN
             ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-         ELSE
+         } else {
             ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
          END IF
 
@@ -261,7 +261,7 @@
             B = DTNSQ1*DTNSQ*W
             IF( A.GE.ZERO ) THEN
                ETA = ( A+SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-            ELSE
+            } else {
                ETA = TWO*B / ( A-SQRT( ABS( A*A-FOUR*B*C ) ) )
             END IF
 
@@ -316,7 +316,7 @@
 
          // End for the case I = N
 
-      ELSE
+      } else {
 
          // The case for I < N
 
@@ -361,7 +361,7 @@
             B = Z( I )*Z( I )*DELSQ
             IF( A.GT.ZERO ) THEN
                TAU2 = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
-            ELSE
+            } else {
                TAU2 = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             END IF
 
@@ -375,7 +375,7 @@
                TAU = MIN( TEN*D(I), SGUB )
                GEOMAVG = .TRUE.
             END IF
-         ELSE
+         } else {
 
             // (d(i)^2+d(i+1)^2)/2 <= the ith sigma^2 < d(i+1)^2/2
 
@@ -389,7 +389,7 @@
             B = Z( IP1 )*Z( IP1 )*DELSQ
             IF( A.LT.ZERO ) THEN
                TAU2 = TWO*B / ( A-SQRT( ABS( A*A+FOUR*B*C ) ) )
-            ELSE
+            } else {
                TAU2 = -( A+SQRT( ABS( A*A+FOUR*B*C ) ) ) / ( TWO*C )
             END IF
 
@@ -440,7 +440,7 @@
          SWTCH3 = .FALSE.
          IF( ORGATI ) THEN
             IF( W.LT.ZERO ) SWTCH3 = .TRUE.
-         ELSE
+         } else {
             IF( W.GT.ZERO ) SWTCH3 = .TRUE.
          END IF
          IF( II.EQ.1 .OR. II.EQ.N ) SWTCH3 = .FALSE.
@@ -460,7 +460,7 @@
 
          IF( W.LE.ZERO ) THEN
             SGLB = MAX( SGLB, TAU )
-         ELSE
+         } else {
             SGUB = MIN( SGUB, TAU )
          END IF
 
@@ -472,7 +472,7 @@
             DTISQ = WORK( I )*DELTA( I )
             IF( ORGATI ) THEN
                C = W - DTIPSQ*DW + DELSQ*( Z( I ) / DTISQ )**2
-            ELSE
+            } else {
                C = W - DTISQ*DW - DELSQ*( Z( IP1 ) / DTIPSQ )**2
             END IF
             A = ( DTIPSQ+DTISQ )*W - DTIPSQ*DTISQ*DW
@@ -481,17 +481,17 @@
                IF( A.EQ.ZERO ) THEN
                   IF( ORGATI ) THEN
                      A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ*( DPSI+DPHI )
-                  ELSE
+                  } else {
                      A = Z( IP1 )*Z( IP1 ) + DTISQ*DTISQ*( DPSI+DPHI )
                   END IF
                END IF
                ETA = B / A
             ELSE IF( A.LE.ZERO ) THEN
                ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-            ELSE
+            } else {
                ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
             END IF
-         ELSE
+         } else {
 
             // Interpolation using THREE most relevant poles
 
@@ -505,16 +505,16 @@
                ZZ( 1 ) = Z( IIM1 )*Z( IIM1 )
                IF( DPSI.LT.TEMP1 ) THEN
                   ZZ( 3 ) = DTIIP*DTIIP*DPHI
-               ELSE
+               } else {
                   ZZ( 3 ) = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI )
                END IF
-            ELSE
+            } else {
                TEMP1 = Z( IIP1 ) / DTIIP
                TEMP1 = TEMP1*TEMP1
                C = ( TEMP - DTIIM*( DPSI+DPHI ) ) - ( D( IIP1 )-D( IIM1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
                IF( DPHI.LT.TEMP1 ) THEN
                   ZZ( 1 ) = DTIIM*DTIIM*DPSI
-               ELSE
+               } else {
                   ZZ( 1 ) = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) )
                END IF
                ZZ( 3 ) = Z( IIP1 )*Z( IIP1 )
@@ -536,7 +536,7 @@
                DTISQ = WORK( I )*DELTA( I )
                IF( ORGATI ) THEN
                   C = W - DTIPSQ*DW + DELSQ*( Z( I ) / DTISQ )**2
-               ELSE
+               } else {
                   C = W - DTISQ*DW - DELSQ*( Z( IP1 ) / DTIPSQ )**2
                END IF
                A = ( DTIPSQ+DTISQ )*W - DTIPSQ*DTISQ*DW
@@ -545,14 +545,14 @@
                   IF( A.EQ.ZERO ) THEN
                      IF( ORGATI ) THEN
                         A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ*( DPSI+DPHI )
-                     ELSE
+                     } else {
                         A = Z( IP1 )*Z( IP1 ) + DTISQ*DTISQ*( DPSI+DPHI)
                      END IF
                   END IF
                   ETA = B / A
                ELSE IF( A.LE.ZERO ) THEN
                   ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-               ELSE
+               } else {
                   ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
                END IF
             END IF
@@ -571,7 +571,7 @@
          IF( TEMP.GT.SGUB .OR. TEMP.LT.SGLB ) THEN
             IF( W.LT.ZERO ) THEN
                ETA = ( SGUB-TAU ) / TWO
-            ELSE
+            } else {
                ETA = ( SGLB-TAU ) / TWO
             END IF
             IF( GEOMAVG ) THEN
@@ -579,7 +579,7 @@
                   IF( TAU .GT. ZERO ) THEN
                      ETA = SQRT(SGUB*TAU)-TAU
                   END IF
-               ELSE
+               } else {
                   IF( SGLB .GT. ZERO ) THEN
                      ETA = SQRT(SGLB*TAU)-TAU
                   END IF
@@ -632,7 +632,7 @@
          SWTCH = .FALSE.
          IF( ORGATI ) THEN
             IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
-         ELSE
+         } else {
             IF( W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
          END IF
 
@@ -651,7 +651,7 @@
 
             IF( W.LE.ZERO ) THEN
                SGLB = MAX( SGLB, TAU )
-            ELSE
+            } else {
                SGUB = MIN( SGUB, TAU )
             END IF
 
@@ -663,14 +663,14 @@
                IF( .NOT.SWTCH ) THEN
                   IF( ORGATI ) THEN
                      C = W - DTIPSQ*DW + DELSQ*( Z( I ) / DTISQ )**2
-                  ELSE
+                  } else {
                      C = W - DTISQ*DW - DELSQ*( Z( IP1 ) / DTIPSQ )**2
                   END IF
-               ELSE
+               } else {
                   TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
                   IF( ORGATI ) THEN
                      DPSI = DPSI + TEMP*TEMP
-                  ELSE
+                  } else {
                      DPHI = DPHI + TEMP*TEMP
                   END IF
                   C = W - DTISQ*DPSI - DTIPSQ*DPHI
@@ -682,20 +682,20 @@
                      IF( .NOT.SWTCH ) THEN
                         IF( ORGATI ) THEN
                            A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
-                        ELSE
+                        } else {
                            A = Z( IP1 )*Z( IP1 ) + DTISQ*DTISQ*( DPSI+DPHI )
                         END IF
-                     ELSE
+                     } else {
                         A = DTISQ*DTISQ*DPSI + DTIPSQ*DTIPSQ*DPHI
                      END IF
                   END IF
                   ETA = B / A
                ELSE IF( A.LE.ZERO ) THEN
                   ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-               ELSE
+               } else {
                   ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
                END IF
-            ELSE
+            } else {
 
                // Interpolation using THREE most relevant poles
 
@@ -706,7 +706,7 @@
                   C = TEMP - DTIIM*DPSI - DTIIP*DPHI
                   ZZ( 1 ) = DTIIM*DTIIM*DPSI
                   ZZ( 3 ) = DTIIP*DTIIP*DPHI
-               ELSE
+               } else {
                   IF( ORGATI ) THEN
                      TEMP1 = Z( IIM1 ) / DTIIM
                      TEMP1 = TEMP1*TEMP1
@@ -715,17 +715,17 @@
                      ZZ( 1 ) = Z( IIM1 )*Z( IIM1 )
                      IF( DPSI.LT.TEMP1 ) THEN
                         ZZ( 3 ) = DTIIP*DTIIP*DPHI
-                     ELSE
+                     } else {
                         ZZ( 3 ) = DTIIP*DTIIP*( ( DPSI-TEMP1 )+DPHI )
                      END IF
-                  ELSE
+                  } else {
                      TEMP1 = Z( IIP1 ) / DTIIP
                      TEMP1 = TEMP1*TEMP1
                      TEMP2 = ( D( IIP1 )-D( IIM1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1
                      C = TEMP - DTIIM*( DPSI+DPHI ) - TEMP2
                      IF( DPHI.LT.TEMP1 ) THEN
                         ZZ( 1 ) = DTIIM*DTIIM*DPSI
-                     ELSE
+                     } else {
                         ZZ( 1 ) = DTIIM*DTIIM*( DPSI+( DPHI-TEMP1 ) )
                      END IF
                      ZZ( 3 ) = Z( IIP1 )*Z( IIP1 )
@@ -748,14 +748,14 @@
                   IF( .NOT.SWTCH ) THEN
                      IF( ORGATI ) THEN
                         C = W - DTIPSQ*DW + DELSQ*( Z( I )/DTISQ )**2
-                     ELSE
+                     } else {
                         C = W - DTISQ*DW - DELSQ*( Z( IP1 )/DTIPSQ )**2
                      END IF
-                  ELSE
+                  } else {
                      TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
                      IF( ORGATI ) THEN
                         DPSI = DPSI + TEMP*TEMP
-                     ELSE
+                     } else {
                         DPHI = DPHI + TEMP*TEMP
                      END IF
                      C = W - DTISQ*DPSI - DTIPSQ*DPHI
@@ -767,17 +767,17 @@
                         IF( .NOT.SWTCH ) THEN
                            IF( ORGATI ) THEN
                               A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
-                           ELSE
+                           } else {
                               A = Z( IP1 )*Z( IP1 ) + DTISQ*DTISQ*( DPSI+DPHI )
                            END IF
-                        ELSE
+                        } else {
                            A = DTISQ*DTISQ*DPSI + DTIPSQ*DTIPSQ*DPHI
                         END IF
                      END IF
                      ETA = B / A
                   ELSE IF( A.LE.ZERO ) THEN
                      ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-                  ELSE
+                  } else {
                      ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
                   END IF
                END IF
@@ -796,7 +796,7 @@
             IF( TEMP.GT.SGUB .OR. TEMP.LT.SGLB ) THEN
                IF( W.LT.ZERO ) THEN
                   ETA = ( SGUB-TAU ) / TWO
-               ELSE
+               } else {
                   ETA = ( SGLB-TAU ) / TWO
                END IF
                IF( GEOMAVG ) THEN
@@ -804,7 +804,7 @@
                      IF( TAU .GT. ZERO ) THEN
                         ETA = SQRT(SGUB*TAU)-TAU
                      END IF
-                  ELSE
+                  } else {
                      IF( SGLB .GT. ZERO ) THEN
                         ETA = SQRT(SGLB*TAU)-TAU
                      END IF

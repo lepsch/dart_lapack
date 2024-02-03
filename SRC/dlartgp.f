@@ -53,7 +53,7 @@
          CS = ZERO
          SN = SIGN( ONE, G )
          R = ABS( G )
-      ELSE
+      } else {
          F1 = F
          G1 = G
          SCALE = MAX( ABS( F1 ), ABS( G1 ) )
@@ -85,7 +85,7 @@
             DO 40 I = 1, COUNT
                R = R*SAFMN2
    40       CONTINUE
-         ELSE
+         } else {
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R

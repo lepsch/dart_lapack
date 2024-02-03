@@ -36,7 +36,7 @@
 
       IF( SELOPT.EQ.0 ) THEN
          DSLECT = ( ZR.LT.ZERO )
-      ELSE
+      } else {
          RMIN = DLAPY2( ZR-SELWR( 1 ), ZI-SELWI( 1 ) )
          DSLECT = SELVAL( 1 )
          DO 10 I = 2, SELDIM

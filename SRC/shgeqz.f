@@ -48,7 +48,7 @@
       ELSE IF( LSAME( JOB, 'S' ) ) THEN
          ILSCHR = .TRUE.
          ISCHUR = 2
-      ELSE
+      } else {
          ISCHUR = 0
       END IF
 
@@ -61,7 +61,7 @@
       ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
          ILQ = .TRUE.
          ICOMPQ = 3
-      ELSE
+      } else {
          ICOMPQ = 0
       END IF
 
@@ -74,7 +74,7 @@
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ILZ = .TRUE.
          ICOMPZ = 3
-      ELSE
+      } else {
          ICOMPZ = 0
       END IF
 
@@ -146,7 +146,7 @@
                   H( JR, J ) = -H( JR, J )
                   T( JR, J ) = -T( JR, J )
    10          CONTINUE
-            ELSE
+            } else {
                H( J, J ) = -H( J, J )
                T( J, J ) = -T( J, J )
             END IF
@@ -184,7 +184,7 @@
       IF( ILSCHR ) THEN
          IFRSTM = 1
          ILASTM = N
-      ELSE
+      } else {
          IFRSTM = ILO
          ILASTM = IHI
       END IF
@@ -205,7 +205,7 @@
             // Special case: j=ILAST
 
             GO TO 80
-         ELSE
+         } else {
             IF( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
                H( ILAST, ILAST-1 ) = ZERO
                GO TO 80
@@ -225,11 +225,11 @@
 
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
-            ELSE
+            } else {
                IF( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) THEN
                   H( J, J-1 ) = ZERO
                   ILAZRO = .TRUE.
-               ELSE
+               } else {
                   ILAZRO = .FALSE.
                END IF
             END IF
@@ -270,7 +270,7 @@
                      IF( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) THEN
                         IF( JCH+1.GE.ILAST ) THEN
                            GO TO 80
-                        ELSE
+                        } else {
                            IFIRST = JCH + 1
                            GO TO 110
                         END IF
@@ -278,7 +278,7 @@
                      T( JCH+1, JCH+1 ) = ZERO
    40             CONTINUE
                   GO TO 70
-               ELSE
+               } else {
 
                   // Only test 2 passed -- chase the zero to T(ILAST,ILAST)
                   // Then process as in the case T(ILAST,ILAST)=0
@@ -331,7 +331,7 @@
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
    90          CONTINUE
-            ELSE
+            } else {
                H( ILAST, ILAST ) = -H( ILAST, ILAST )
                T( ILAST, ILAST ) = -T( ILAST, ILAST )
             END IF
@@ -383,13 +383,13 @@
             // (Single shift only.)
 
             IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ).LT. ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 )
-            ELSE
+            } else {
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) )
             END IF
             S1 = ONE
             WR = ESHIFT
 
-         ELSE
+         } else {
 
             // Shifts based on the generalized eigenvalues of the
             // bottom-right 2x2 block of A and B. The first eigenvalue
@@ -414,7 +414,7 @@
          TEMP = MIN( ASCALE, ONE )*( HALF*SAFMAX )
          IF( S1.GT.TEMP ) THEN
             SCALE = TEMP / S1
-         ELSE
+         } else {
             SCALE = ONE
          END IF
 
@@ -589,13 +589,13 @@
                CZ = C12 / T1
                SZR = -C11R / T1
                SZI = -C11I / T1
-            ELSE
+            } else {
                CZ = SLAPY2( C22R, C22I )
                IF( CZ.LE.SAFMIN ) THEN
                   CZ = ZERO
                   SZR = ONE
                   SZI = ZERO
-               ELSE
+               } else {
                   TEMPR = C22R / CZ
                   TEMPI = C22I / CZ
                   T1 = SLAPY2( CZ, C21 )
@@ -618,7 +618,7 @@
                CQ = CZ*B11
                SQR = SZR*B22
                SQI = -SZI*B22
-            ELSE
+            } else {
                A1R = CZ*A11 + SZR*A12
                A1I = SZI*A12
                A2R = CZ*A21 + SZR*A22
@@ -628,7 +628,7 @@
                   CQ = ZERO
                   SQR = ONE
                   SQI = ZERO
-               ELSE
+               } else {
                   TEMPR = A1R / CQ
                   TEMPI = A1I / CQ
                   SQR = TEMPR*A2R + TEMPI*A2I
@@ -674,7 +674,7 @@
                IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
             END IF
             GO TO 350
-         ELSE
+         } else {
 
             // Usual case: 3x3 or larger block, using Francis implicit
                         // double-shift
@@ -760,7 +760,7 @@
                   W22 = T( J+2, J+2 )
                   U1 = T( J+1, J )
                   U2 = T( J+2, J )
-               ELSE
+               } else {
                   W21 = T( J+1, J+1 )
                   W11 = T( J+2, J+1 )
                   W22 = T( J+1, J+2 )
@@ -926,7 +926,7 @@
                   H( JR, J ) = -H( JR, J )
                   T( JR, J ) = -T( JR, J )
   390          CONTINUE
-            ELSE
+            } else {
                H( J, J ) = -H( J, J )
                T( J, J ) = -T( J, J )
             END IF

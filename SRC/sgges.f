@@ -54,7 +54,7 @@
       ELSE IF( LSAME( JOBVSL, 'V' ) ) THEN
          IJOBVL = 2
          ILVSL = .TRUE.
-      ELSE
+      } else {
          IJOBVL = -1
          ILVSL = .FALSE.
       END IF
@@ -65,7 +65,7 @@
       ELSE IF( LSAME( JOBVSR, 'V' ) ) THEN
          IJOBVR = 2
          ILVSR = .TRUE.
-      ELSE
+      } else {
          IJOBVR = -1
          ILVSR = .FALSE.
       END IF
@@ -108,7 +108,7 @@
             IF( ILVSL ) THEN
                MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) )
             END IF
-         ELSE
+         } else {
             MINWRK = 1
             MAXWRK = 1
          END IF
@@ -217,7 +217,7 @@
             INFO = IERR
          ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
             INFO = IERR - N
-         ELSE
+         } else {
             INFO = N + 1
          END IF
          GO TO 40
@@ -316,7 +316,7 @@
                IF( CURSL ) SDIM = SDIM + 1
                IP = 0
                IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
-            ELSE
+            } else {
                IF( IP.EQ.1 ) THEN
 
                   // Last eigenvalue of conjugate pair
@@ -326,7 +326,7 @@
                   IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
                   IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
-               ELSE
+               } else {
 
                   // First eigenvalue of conjugate pair
 

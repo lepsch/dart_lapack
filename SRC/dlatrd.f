@@ -72,7 +72,7 @@
             END IF
 
    10    CONTINUE
-      ELSE
+      } else {
 
          // Reduce first NB columns of lower triangle
 

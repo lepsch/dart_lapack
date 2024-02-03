@@ -48,7 +48,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -78,7 +78,7 @@
 
          IF( M.EQ.0 .OR. N.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             NB = MIN( NBMAX, ILAENV( 1, 'ZUNMRQ', SIDE // TRANS, M, N, K, -1 ) )
             LWKOPT = NW*NB + TSIZE
          END IF
@@ -116,7 +116,7 @@
          // Use unblocked code
 
          CALL ZUNMR3( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC, WORK, IINFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -125,7 +125,7 @@
             I1 = 1
             I2 = K
             I3 = NB
-         ELSE
+         } else {
             I1 = ( ( K-1 ) / NB )*NB + 1
             I2 = 1
             I3 = -NB
@@ -135,7 +135,7 @@
             NI = N
             JC = 1
             JA = M - L + 1
-         ELSE
+         } else {
             MI = M
             IC = 1
             JA = N - L + 1
@@ -143,7 +143,7 @@
 
          IF( NOTRAN ) THEN
             TRANST = 'C'
-         ELSE
+         } else {
             TRANST = 'N'
          END IF
 
@@ -161,7 +161,7 @@
 
                MI = M - I + 1
                IC = I
-            ELSE
+            } else {
 
                // H or H**H is applied to C(1:m,i:n)
 

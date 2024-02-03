@@ -27,7 +27,7 @@
          ILASLR = M
       ELSEIF( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
          ILASLR = M
-      ELSE
+      } else {
       // Scan up each column tracking the last zero row seen.
          ILASLR = 0
          DO J = 1, N

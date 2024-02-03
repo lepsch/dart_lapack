@@ -61,7 +61,7 @@
       CALL DLASET( 'Full', P, P, ROGUE, ROGUE, Z, LDB )
       IF( N.LE.P ) THEN
          IF( N.GT.0 .AND. N.LT.P ) CALL DLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL DLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
-      ELSE
+      } else {
          IF( P.GT.1 ) CALL DLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
       END IF
       CALL DORGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
@@ -76,7 +76,7 @@
       CALL DLASET( 'Full', N, P, ZERO, ZERO, T, LDB )
       IF( N.LE.P ) THEN
          CALL DLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
-      ELSE
+      } else {
          CALL DLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
          CALL DLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
       END IF
@@ -90,7 +90,7 @@
       RESID = DLANGE( '1', N, M, R, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 
@@ -103,7 +103,7 @@
       RESID = DLANGE( '1', N, P, BWK, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
          RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
-      ELSE
+      } else {
          RESULT( 2 ) = ZERO
       END IF
 

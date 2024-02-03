@@ -85,7 +85,7 @@
 
          LWKOPT = 1
          IF( LWORK.NE.-1 ) CALL ZLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO )
-      ELSE
+      } else {
 
          // ==== Use small bulge multi-shift QR with aggressive early
          // .    deflation on larger-than-tiny matrices. ====
@@ -98,12 +98,12 @@
 
          IF( WANTT ) THEN
             JBCMPZ( 1: 1 ) = 'S'
-         ELSE
+         } else {
             JBCMPZ( 1: 1 ) = 'E'
          END IF
          IF( WANTZ ) THEN
             JBCMPZ( 2: 2 ) = 'V'
-         ELSE
+         } else {
             JBCMPZ( 2: 2 ) = 'N'
          END IF
 
@@ -221,13 +221,13 @@
             NWUPBD = MIN( NH, NWMAX )
             IF( NDFL.LT.KEXNW ) THEN
                NW = MIN( NWUPBD, NWR )
-            ELSE
+            } else {
                NW = MIN( NWUPBD, 2*NW )
             END IF
             IF( NW.LT.NWMAX ) THEN
                IF( NW.GE.NH-1 ) THEN
                   NW = NH
-               ELSE
+               } else {
                   KWTOP = KBOT - NW + 1
                   IF( CABS1( H( KWTOP, KWTOP-1 ) ).GT. CABS1( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
                END IF
@@ -297,7 +297,7 @@
                      W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) )
                      W( I-1 ) = W( I )
    30             CONTINUE
-               ELSE
+               } else {
 
                   // ==== Got NS/2 or fewer shifts? Use ZLAQR4 or
                   // .    ZLAHQR on a trailing principal submatrix to
@@ -311,7 +311,7 @@
                      CALL ZLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )
                      IF( NS.GT.NMIN ) THEN
                         CALL ZLAQR4( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF )
-                     ELSE
+                     } else {
                         CALL ZLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF )
                      END IF
                      KS = KS + INF
@@ -366,7 +366,7 @@
                IF( KBOT-KS+1.EQ.2 ) THEN
                   IF( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT. CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) THEN
                      W( KBOT-1 ) = W( KBOT )
-                  ELSE
+                  } else {
                      W( KBOT ) = W( KBOT-1 )
                   END IF
                END IF
@@ -407,7 +407,7 @@
 
             IF( LD.GT.0 ) THEN
                NDFL = 1
-            ELSE
+            } else {
                NDFL = NDFL + 1
             END IF
 

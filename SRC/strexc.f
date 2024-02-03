@@ -117,7 +117,7 @@
                IF( T( HERE+1, HERE ).EQ.ZERO ) NBF = 3
             END IF
 
-         ELSE
+         } else {
 
             // Current block consists of two 1 by 1 blocks each of which
             // must be swapped individually
@@ -137,7 +137,7 @@
 
                CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO )
                HERE = HERE + 1
-            ELSE
+            } else {
 
                // Recompute NBNEXT in case 2 by 2 split
 
@@ -152,7 +152,7 @@
                      RETURN
                   END IF
                   HERE = HERE + 2
-               ELSE
+               } else {
 
                   // 2 by 2 Block did split
 
@@ -163,7 +163,7 @@
          END IF
          IF( HERE.LT.ILST ) GO TO 10
 
-      ELSE
+      } else {
 
          HERE = IFST
    20    CONTINUE
@@ -191,7 +191,7 @@
                IF( T( HERE+1, HERE ).EQ.ZERO ) NBF = 3
             END IF
 
-         ELSE
+         } else {
 
             // Current block consists of two 1 by 1 blocks each of which
             // must be swapped individually
@@ -211,7 +211,7 @@
 
                CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO )
                HERE = HERE - 1
-            ELSE
+            } else {
 
                // Recompute NBNEXT in case 2 by 2 split
 
@@ -226,7 +226,7 @@
                      RETURN
                   END IF
                   HERE = HERE - 2
-               ELSE
+               } else {
 
                   // 2 by 2 Block did split
 

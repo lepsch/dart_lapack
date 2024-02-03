@@ -92,7 +92,7 @@
             // Multiply by inv(U).
 
             CALL SLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(L).
 

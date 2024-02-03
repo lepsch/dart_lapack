@@ -44,7 +44,7 @@
          DO I = MP1,N,5
           DTEMP = DTEMP + DX(I)*DY(I) + DX(I+1)*DY(I+1) + DX(I+2)*DY(I+2) + DX(I+3)*DY(I+3) + DX(I+4)*DY(I+4)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

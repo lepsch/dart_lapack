@@ -39,7 +39,7 @@
 
       IF (LSAME(TRANS,'N')) THEN
           NROWA = N
-      ELSE
+      } else {
           NROWA = K
       END IF
       UPPER = LSAME(UPLO,'U')
@@ -77,21 +77,21 @@
                           C(I,J) = ZERO
    10                 CONTINUE
    20             CONTINUE
-              ELSE
+              } else {
                   DO 40 J = 1,N
                       DO 30 I = 1,J
                           C(I,J) = BETA*C(I,J)
    30                 CONTINUE
    40             CONTINUE
               END IF
-          ELSE
+          } else {
               IF (BETA.EQ.ZERO) THEN
                   DO 60 J = 1,N
                       DO 50 I = J,N
                           C(I,J) = ZERO
    50                 CONTINUE
    60             CONTINUE
-              ELSE
+              } else {
                   DO 80 J = 1,N
                       DO 70 I = J,N
                           C(I,J) = BETA*C(I,J)
@@ -128,7 +128,7 @@
                       END IF
   120             CONTINUE
   130         CONTINUE
-          ELSE
+          } else {
               DO 180 J = 1,N
                   IF (BETA.EQ.ZERO) THEN
                       DO 140 I = J,N
@@ -149,7 +149,7 @@
   170             CONTINUE
   180         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  C := alpha*A**T*A + beta*C.
 
@@ -162,12 +162,12 @@
   190                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   200             CONTINUE
   210         CONTINUE
-          ELSE
+          } else {
               DO 240 J = 1,N
                   DO 230 I = J,N
                       TEMP = ZERO
@@ -176,7 +176,7 @@
   220                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   230             CONTINUE

@@ -59,7 +59,7 @@
          IDIST = 2
       ELSE IF( LSAME( DIST, 'N' ) ) THEN
          IDIST = 3
-      ELSE
+      } else {
          IDIST = -1
       END IF
 
@@ -77,7 +77,7 @@
       ELSE IF( LSAME( SYM, 'H' ) ) THEN
          ISYM = 2
          IRSIGN = 1
-      ELSE
+      } else {
          ISYM = -1
       END IF
 
@@ -106,7 +106,7 @@
          ISYMPK = 2
       ELSE IF( LSAME( PACK, 'Z' ) ) THEN
          IPACK = 7
-      ELSE
+      } else {
          IPACK = -1
       END IF
 
@@ -122,7 +122,7 @@
          MINLDA = UUB + 1
       ELSE IF( IPACK.EQ.7 ) THEN
          MINLDA = LLB + UUB + 1
-      ELSE
+      } else {
          MINLDA = M
       END IF
 
@@ -132,7 +132,7 @@
       GIVENS = .FALSE.
       IF( ISYM.EQ.1 ) THEN
          IF( DBLE( LLB+UUB ).LT.0.3D0*DBLE( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
-      ELSE
+      } else {
          IF( 2*LLB.LT.M ) GIVENS = .TRUE.
       END IF
       IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
@@ -191,7 +191,7 @@
 
       IF( ABS( D( 1 ) ).LE.ABS( D( RANK ) ) ) THEN
          TOPDWN = .TRUE.
-      ELSE
+      } else {
          TOPDWN = .FALSE.
       END IF
 
@@ -206,7 +206,7 @@
 
          IF( TEMP.GT.ZERO ) THEN
             ALPHA = DMAX / TEMP
-         ELSE
+         } else {
             INFO = 2
             RETURN
          END IF
@@ -229,10 +229,10 @@
          ISKEW = 1
          IF( IPACK.GT.5 ) THEN
             IOFFST = UUB + 1
-         ELSE
+         } else {
             IOFFST = 1
          END IF
-      ELSE
+      } else {
          ILDA = LDA
          ISKEW = 0
          IOFFST = 0
@@ -263,7 +263,7 @@
 
             IF( IPACK.GT.4 ) THEN
                IPACKG = IPACK
-            ELSE
+            } else {
                IPACKG = 0
             END IF
 
@@ -357,7 +357,7 @@
   160             CONTINUE
   170          CONTINUE
 
-            ELSE
+            } else {
 
                // Bottom-Up -- Start at the bottom right.
 
@@ -450,7 +450,7 @@
   230          CONTINUE
             END IF
 
-         ELSE
+         } else {
 
             // Symmetric -- A = U D U'
 
@@ -464,7 +464,7 @@
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 6
                   IOFFG = UUB + 1
-               ELSE
+               } else {
                   IPACKG = 1
                END IF
                CALL DCOPY( MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 )
@@ -515,18 +515,18 @@
                   END IF
                   IF( IPACKG.EQ.6 ) THEN
                      IPACKG = IPACK
-                  ELSE
+                  } else {
                      IPACKG = 0
                   END IF
                END IF
-            ELSE
+            } else {
 
                // Bottom-Up -- Generate Lower triangle only
 
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 5
                   IF( IPACK.EQ.6 ) IOFFG = 1
-               ELSE
+               } else {
                   IPACKG = 2
                END IF
                CALL DCOPY( MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 )
@@ -577,14 +577,14 @@
                   END IF
                   IF( IPACKG.EQ.5 ) THEN
                      IPACKG = IPACK
-                  ELSE
+                  } else {
                      IPACKG = 0
                   END IF
                END IF
             END IF
          END IF
 
-      ELSE
+      } else {
 
          // 4)      Generate Banded Matrix by first
                  // Rotating by random Unitary matrices,
@@ -598,7 +598,7 @@
             // Non-symmetric -- A = U D V
 
             CALL DLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO )
-         ELSE
+         } else {
 
             // Symmetric -- A = U D U'
 

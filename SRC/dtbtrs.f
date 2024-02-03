@@ -72,7 +72,7 @@
             DO 10 INFO = 1, N
                IF( AB( KD+1, INFO ).EQ.ZERO ) RETURN
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 INFO = 1, N
                IF( AB( 1, INFO ).EQ.ZERO ) RETURN
    20       CONTINUE

@@ -56,7 +56,7 @@
       IF( LEFT ) THEN
          TRANS = 'C'
          NORMAB = 'I'
-      ELSE
+      } else {
          TRANS = 'N'
          NORMAB = 'O'
       END IF

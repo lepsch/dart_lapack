@@ -67,12 +67,12 @@
                CALL CLACGV( N-I, A( I, I+1 ), LDA )
                CALL CGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, CMPLX( AII ), A( 1, I ), 1 )
                CALL CLACGV( N-I, A( I, I+1 ), LDA )
-            ELSE
+            } else {
                CALL CSSCAL( I, AII, A( 1, I ), 1 )
             END IF
    10    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute the product L**H * L.
 
@@ -83,7 +83,7 @@
                CALL CLACGV( I-1, A( I, 1 ), LDA )
                CALL CGEMV( 'Conjugate transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, CMPLX( AII ), A( I, 1 ), LDA )
                CALL CLACGV( I-1, A( I, 1 ), LDA )
-            ELSE
+            } else {
                CALL CSSCAL( I, AII, A( I, 1 ), LDA )
             END IF
    20    CONTINUE

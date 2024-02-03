@@ -79,7 +79,7 @@
          S = Z( NN-3 )*( Z( NN-5 ) / T )
          IF( S.LE.T ) THEN
             S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
-         ELSE
+         } else {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
          END IF
          T = Z( NN-7 ) + ( S+Z( NN-5 ) )
@@ -168,7 +168,7 @@
 
             TAU = ( TAU+DMIN )*( ONE-TWO*EPS )
             TTYPE = TTYPE - 11
-         ELSE
+         } else {
 
             // Early failure. Divide by 4.
 
@@ -182,11 +182,11 @@
 
          IF( TAU.EQ.ZERO ) THEN
             GO TO 80
-         ELSE
+         } else {
             TAU = ZERO
             GO TO 70
          END IF
-      ELSE
+      } else {
 
          // Possible underflow. Play it safe.
 
@@ -206,7 +206,7 @@
          DESIG = DESIG + TAU
          T = SIGMA + DESIG
          DESIG = DESIG - ( T-SIGMA )
-      ELSE
+      } else {
          T = SIGMA + TAU
          DESIG = SIGMA - ( T-TAU ) + DESIG
       END IF

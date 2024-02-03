@@ -74,7 +74,7 @@
          INFO = -10
       ELSE IF( LWORK.LT.MAX( 1, 3*N ) .AND. .NOT.LQUERY ) THEN
          INFO = -14
-      ELSE
+      } else {
 
          // Set M to the number of columns required to store the selected
          // eigenvectors, standardize the array SELECT if necessary, and
@@ -87,23 +87,23 @@
                IF( PAIR ) THEN
                   PAIR = .FALSE.
                   SELECT( J ) = .FALSE.
-               ELSE
+               } else {
                   IF( J.LT.N ) THEN
                      IF( T( J+1, J ).EQ.ZERO ) THEN
                         IF( SELECT( J ) ) M = M + 1
-                     ELSE
+                     } else {
                         PAIR = .TRUE.
                         IF( SELECT( J ) .OR. SELECT( J+1 ) ) THEN
                            SELECT( J ) = .TRUE.
                            M = M + 2
                         END IF
                      END IF
-                  ELSE
+                  } else {
                      IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
-         ELSE
+         } else {
             M = N
          END IF
 
@@ -129,7 +129,7 @@
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
          CALL SLASET( 'F', N, 1+2*NB, ZERO, ZERO, WORK, N )
-      ELSE
+      } else {
          NB = 1
       END IF
 
@@ -187,7 +187,7 @@
             ELSE IF( T( KI, KI-1 ).EQ.ZERO ) THEN
                // zero on sub-diagonal, so this ki is real eigenvalue
                IP = 0
-            ELSE
+            } else {
                // non-zero on sub-diagonal, so this ki is second of conjugate pair
                IP = -1
             END IF
@@ -195,7 +195,7 @@
             IF( SOMEV ) THEN
                IF( IP.EQ.0 ) THEN
                   IF( .NOT.SELECT( KI ) ) GO TO 140
-               ELSE
+               } else {
                   IF( .NOT.SELECT( KI-1 ) ) GO TO 140
                END IF
             END IF
@@ -261,7 +261,7 @@
 
                      CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 )
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -315,7 +315,7 @@
                   REMAX = ONE / ABS( VR( II, KI ) )
                   CALL SSCAL( N, REMAX, VR( 1, KI ), 1 )
 
-               ELSE
+               } else {
                   // ------------------------------
                   // version 2: back-transform block of vectors with GEMM
                   // zero out below vector
@@ -325,7 +325,7 @@
                   ISCOMPLEX( IV ) = IP
                   // back-transform and normalization is done below
                END IF
-            ELSE
+            } else {
 
                // --------------------------------------------------------
                // Complex right eigenvector.
@@ -337,7 +337,7 @@
                IF( ABS( T( KI-1, KI ) ).GE.ABS( T( KI, KI-1 ) ) ) THEN
                   WORK( KI-1 + (IV-1)*N ) = ONE
                   WORK( KI   + (IV  )*N ) = WI / T( KI-1, KI )
-               ELSE
+               } else {
                   WORK( KI-1 + (IV-1)*N ) = -WI / T( KI, KI-1 )
                   WORK( KI   + (IV  )*N ) = ONE
                END IF
@@ -397,7 +397,7 @@
 
                      CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N ), 1 )                      CALL SAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 )
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -461,7 +461,7 @@
                   // version 1: back-transform each vector with GEMV, Q*x.
                   IF( KI.GT.2 ) THEN
                      CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1    + (IV-1)*N ), 1, WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1)                      CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1  + (IV)*N ), 1, WORK( KI + (IV)*N ), VR( 1, KI ), 1 )
-                  ELSE
+                  } else {
                      CALL SSCAL( N, WORK(KI-1+(IV-1)*N), VR(1,KI-1), 1)
                      CALL SSCAL( N, WORK(KI  +(IV  )*N), VR(1,KI  ), 1)
                   END IF
@@ -474,7 +474,7 @@
                   CALL SSCAL( N, REMAX, VR( 1, KI-1 ), 1 )
                   CALL SSCAL( N, REMAX, VR( 1, KI   ), 1 )
 
-               ELSE
+               } else {
                   // ------------------------------
                   // version 2: back-transform block of vectors with GEMM
                   // zero out below vector
@@ -495,7 +495,7 @@
                // For complex case, KI2 includes both vectors (KI-1 and KI)
                IF( IP.EQ.0 ) THEN
                   KI2 = KI
-               ELSE
+               } else {
                   KI2 = KI - 1
                END IF
 
@@ -525,7 +525,7 @@
                   END DO
                   CALL SLACPY( 'F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI2 ), LDVR )
                   IV = NB
-               ELSE
+               } else {
                   IV = IV - 1
                END IF
             END IF ! blocked back-transform
@@ -560,7 +560,7 @@
             ELSE IF( T( KI+1, KI ).EQ.ZERO ) THEN
                // zero on sub-diagonal, so this ki is real eigenvalue
                IP = 0
-            ELSE
+            } else {
                // non-zero on sub-diagonal, so this ki is first of conjugate pair
                IP = 1
             END IF
@@ -635,7 +635,7 @@
                      VMAX = MAX( ABS( WORK( J+IV*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -696,7 +696,7 @@
                   REMAX = ONE / ABS( VL( II, KI ) )
                   CALL SSCAL( N, REMAX, VL( 1, KI ), 1 )
 
-               ELSE
+               } else {
                   // ------------------------------
                   // version 2: back-transform block of vectors with GEMM
                   // zero out above vector
@@ -707,7 +707,7 @@
                   ISCOMPLEX( IV ) = IP
                   // back-transform and normalization is done below
                END IF
-            ELSE
+            } else {
 
                // --------------------------------------------------------
                // Complex left eigenvector.
@@ -719,7 +719,7 @@
                IF( ABS( T( KI, KI+1 ) ).GE.ABS( T( KI+1, KI ) ) ) THEN
                   WORK( KI   + (IV  )*N ) = WI / T( KI, KI+1 )
                   WORK( KI+1 + (IV+1)*N ) = ONE
-               ELSE
+               } else {
                   WORK( KI   + (IV  )*N ) = ONE
                   WORK( KI+1 + (IV+1)*N ) = -WI / T( KI+1, KI )
                END IF
@@ -784,7 +784,7 @@
                      VMAX = MAX( ABS( WORK( J+(IV  )*N ) ), ABS( WORK( J+(IV+1)*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 
-                  ELSE
+                  } else {
 
                      // 2-by-2 diagonal block
 
@@ -855,7 +855,7 @@
                   // version 1: back-transform each vector with GEMV, Q*x.
                   IF( KI.LT.N-1 ) THEN
                      CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 )                      CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 )
-                  ELSE
+                  } else {
                      CALL SSCAL( N, WORK(KI+  (IV  )*N), VL(1, KI  ), 1)
                      CALL SSCAL( N, WORK(KI+1+(IV+1)*N), VL(1, KI+1), 1)
                   END IF
@@ -868,7 +868,7 @@
                   CALL SSCAL( N, REMAX, VL( 1, KI   ), 1 )
                   CALL SSCAL( N, REMAX, VL( 1, KI+1 ), 1 )
 
-               ELSE
+               } else {
                   // ------------------------------
                   // version 2: back-transform block of vectors with GEMM
                   // zero out above vector
@@ -890,7 +890,7 @@
                // For complex case, KI2 includes both vectors (KI and KI+1)
                IF( IP.EQ.0 ) THEN
                   KI2 = KI
-               ELSE
+               } else {
                   KI2 = KI + 1
                END IF
 
@@ -920,7 +920,7 @@
                   END DO
                   CALL SLACPY( 'F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI2-IV+1 ), LDVL )
                   IV = 1
-               ELSE
+               } else {
                   IV = IV + 1
                END IF
             END IF ! blocked back-transform

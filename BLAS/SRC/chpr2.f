@@ -61,12 +61,12 @@
       IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
           IF (INCX.GT.0) THEN
               KX = 1
-          ELSE
+          } else {
               KX = 1 - (N-1)*INCX
           END IF
           IF (INCY.GT.0) THEN
               KY = 1
-          ELSE
+          } else {
               KY = 1 - (N-1)*INCY
           END IF
           JX = KX
@@ -92,12 +92,12 @@
                           K = K + 1
    10                 CONTINUE
                       AP(KK+J-1) = REAL(AP(KK+J-1)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
-                  ELSE
+                  } else {
                       AP(KK+J-1) = REAL(AP(KK+J-1))
                   END IF
                   KK = KK + J
    20         CONTINUE
-          ELSE
+          } else {
               DO 40 J = 1,N
                   IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
                       TEMP1 = ALPHA*CONJG(Y(JY))
@@ -110,7 +110,7 @@
                           IY = IY + INCY
    30                 CONTINUE
                       AP(KK+J-1) = REAL(AP(KK+J-1)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
-                  ELSE
+                  } else {
                       AP(KK+J-1) = REAL(AP(KK+J-1))
                   END IF
                   JX = JX + INCX
@@ -118,7 +118,7 @@
                   KK = KK + J
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when lower triangle is stored in AP.
 
@@ -133,12 +133,12 @@
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
    50                 CONTINUE
-                  ELSE
+                  } else {
                       AP(KK) = REAL(AP(KK))
                   END IF
                   KK = KK + N - J + 1
    60         CONTINUE
-          ELSE
+          } else {
               DO 80 J = 1,N
                   IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
                       TEMP1 = ALPHA*CONJG(Y(JY))
@@ -151,7 +151,7 @@
                           IY = IY + INCY
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
    70                 CONTINUE
-                  ELSE
+                  } else {
                       AP(KK) = REAL(AP(KK))
                   END IF
                   JX = JX + INCX

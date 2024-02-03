@@ -88,7 +88,7 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             MAXWRK = N + N*ILAENV( 1, 'CGEHRD', ' ', N, 1, N, 0 )
 
             IF( WANTVL ) THEN
@@ -101,10 +101,10 @@
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, LWORK_TREVC )
                CALL CHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
-            ELSE
+            } else {
                IF( WNTSNN ) THEN
                   CALL CHSEQR( 'E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
-               ELSE
+               } else {
                   CALL CHSEQR( 'S', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
                END IF
             END IF
@@ -115,7 +115,7 @@
                IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
                IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
-            ELSE
+            } else {
                MINWRK = 2*N
                IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
@@ -233,14 +233,14 @@
          IWRK = ITAU
          CALL CHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 
-      ELSE
+      } else {
 
          // Compute eigenvalues only
          // If condition numbers desired, compute Schur form
 
          IF( WNTSNN ) THEN
             JOB = 'E'
-         ELSE
+         } else {
             JOB = 'S'
          END IF
 
@@ -321,7 +321,7 @@
          CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR )
          IF( INFO.EQ.0 ) THEN
             IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
-         ELSE
+         } else {
             CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR )
          END IF
       END IF

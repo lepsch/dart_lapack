@@ -44,7 +44,7 @@
             DY(I+5) = DX(I+5)
             DY(I+6) = DX(I+6)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

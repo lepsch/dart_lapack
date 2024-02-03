@@ -141,7 +141,7 @@
             DO 80 I = 1, N
                WSRT( I ) = REAL( W( I ) )
    80       CONTINUE
-         ELSE
+         } else {
 
             // Sort by increasing imaginary part
 
@@ -182,12 +182,12 @@
          DO 120 I = 1, N
             IF( V.GT.SEPTMP( I ) ) THEN
                TOL = ONE
-            ELSE
+            } else {
                TOL = V / SEPTMP( I )
             END IF
             IF( V.GT.SEPIN( I ) ) THEN
                TOLIN = ONE
-            ELSE
+            } else {
                TOLIN = V / SEPIN( I )
             END IF
             TOL = MAX( TOL, SMLNUM / EPS )
@@ -200,7 +200,7 @@
                VMAX = ONE / EPS
             ELSE IF( SIN( I )+TOLIN.LT.STMP( I )-TOL ) THEN
                VMAX = ( STMP( I )-TOL ) / ( SIN( I )+TOLIN )
-            ELSE
+            } else {
                VMAX = ONE
             END IF
             IF( VMAX.GT.RMAX( 2 ) ) THEN
@@ -215,12 +215,12 @@
          DO 130 I = 1, N
             IF( V.GT.SEPTMP( I )*STMP( I ) ) THEN
                TOL = SEPTMP( I )
-            ELSE
+            } else {
                TOL = V / STMP( I )
             END IF
             IF( V.GT.SEPIN( I )*SIN( I ) ) THEN
                TOLIN = SEPIN( I )
-            ELSE
+            } else {
                TOLIN = V / SIN( I )
             END IF
             TOL = MAX( TOL, SMLNUM / EPS )
@@ -233,7 +233,7 @@
                VMAX = ONE / EPS
             ELSE IF( SEPIN( I )+TOLIN.LT.SEPTMP( I )-TOL ) THEN
                VMAX = ( SEPTMP( I )-TOL ) / ( SEPIN( I )+TOLIN )
-            ELSE
+            } else {
                VMAX = ONE
             END IF
             IF( VMAX.GT.RMAX( 2 ) ) THEN
@@ -256,7 +256,7 @@
                VMAX = ONE / EPS
             ELSE IF( SIN( I ).LT.STMP( I ) ) THEN
                VMAX = STMP( I ) / SIN( I )
-            ELSE
+            } else {
                VMAX = ONE
             END IF
             IF( VMAX.GT.RMAX( 3 ) ) THEN
@@ -279,7 +279,7 @@
                VMAX = ONE / EPS
             ELSE IF( SEPIN( I ).LT.SEPTMP( I ) ) THEN
                VMAX = SEPTMP( I ) / SEPIN( I )
-            ELSE
+            } else {
                VMAX = ONE
             END IF
             IF( VMAX.GT.RMAX( 3 ) ) THEN

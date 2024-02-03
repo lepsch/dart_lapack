@@ -49,7 +49,7 @@
       IF( LSAME( UPLO, 'U' ) ) THEN
          LOWER = .FALSE.
          CUPLO = 'U'
-      ELSE
+      } else {
          LOWER = .TRUE.
          CUPLO = 'L'
       END IF
@@ -80,7 +80,7 @@
                J = J + 1
                WORK( J ) = ZERO
    20       CONTINUE
-         ELSE
+         } else {
             DO 30 JR = IKA + 2, JC
                J = J + 1
                WORK( J ) = ZERO
@@ -105,10 +105,10 @@
 
       IF( ANORM.GT.WNORM ) THEN
          RESULT( 1 ) = ( WNORM / ANORM ) / ( N*ULP )
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, REAL( N ) ) / ( N*ULP )
          END IF
       END IF

@@ -120,7 +120,7 @@
                   NK = 2
                ELSE IF( MINMN.LE.3 ) THEN
                   NK = 3
-               ELSE
+               } else {
                   NK = 4
                END IF
 
@@ -151,7 +151,7 @@
                         // returned by DLQT01
 
                         CALL DLQT02( M, N, K, A, AF, AQ, AL, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
-                     ELSE
+                     } else {
                         RESULT( 1 ) = ZERO
                         RESULT( 2 ) = ZERO
                      END IF
@@ -191,10 +191,10 @@
 
                            CALL DGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
                            NT = NT + 1
-                        ELSE
+                        } else {
                            RESULT( 7 ) = ZERO
                         END IF
-                     ELSE
+                     } else {
                         RESULT( 3 ) = ZERO
                         RESULT( 4 ) = ZERO
                         RESULT( 5 ) = ZERO

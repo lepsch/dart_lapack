@@ -188,7 +188,7 @@
                         IZERO = 1
                      ELSE IF( IMAT.EQ.3 ) THEN
                         IZERO = N
-                     ELSE
+                     } else {
                         IZERO = N / 2 + 1
                      END IF
                      IOFF = ( IZERO-1 )*LDA
@@ -198,7 +198,7 @@
                         DO 20 I = I1, I2
                            A( IOFF+I ) = ZERO
    20                   CONTINUE
-                     ELSE
+                     } else {
                         DO 40 J = IZERO, N
                            DO 30 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( N-J ) )
                               A( IOFF+I ) = ZERO
@@ -216,7 +216,7 @@
                      EQUED = EQUEDS( IEQUED )
                      IF( IEQUED.EQ.1 ) THEN
                         NFACT = 3
-                     ELSE
+                     } else {
                         NFACT = 1
                      END IF
 
@@ -290,7 +290,7 @@
                            AINVNM = DLANGE( '1', N, N, WORK, LDB, RWORK )
                            IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDO = ONE
-                           ELSE
+                           } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
                            END IF
 
@@ -300,7 +300,7 @@
                            AINVNM = DLANGE( 'I', N, N, WORK, LDB, RWORK )
                            IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDI = ONE
-                           ELSE
+                           } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM
                            END IF
                         END IF
@@ -312,7 +312,7 @@
                            TRANS = TRANSS( ITRAN )
                            IF( ITRAN.EQ.1 ) THEN
                               RCONDC = RCONDO
-                           ELSE
+                           } else {
                               RCONDC = RCONDI
                            END IF
 
@@ -409,14 +409,14 @@
                               RPVGRW = DLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ) ), LDAFB, WORK )
                               IF( RPVGRW.EQ.ZERO ) THEN
                                  RPVGRW = ONE
-                              ELSE
+                              } else {
                                  RPVGRW = ANRMPV / RPVGRW
                               END IF
-                           ELSE
+                           } else {
                               RPVGRW = DLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, WORK )
                               IF( RPVGRW.EQ.ZERO ) THEN
                                  RPVGRW = ONE
-                              ELSE
+                              } else {
                                  RPVGRW = DLANGB( 'M', N, KL, KU, A, LDA, WORK ) / RPVGRW
                               END IF
                            END IF
@@ -429,7 +429,7 @@
 
                               CALL DGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                               K1 = 1
-                           ELSE
+                           } else {
                               K1 = 2
                            END IF
 
@@ -444,10 +444,10 @@
                               // solution.
 
                               IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
-                              ELSE
+                              } else {
                                  IF( ITRAN.EQ.1 ) THEN
                                     ROLDC = ROLDO
-                                 ELSE
+                                 } else {
                                     ROLDC = ROLDI
                                  END IF
                                  CALL DGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
@@ -457,7 +457,7 @@
                               // refinement.
 
                               CALL DGBT05( TRANS, N, KL, KU, NRHS, ASAV, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
-                           ELSE
+                           } else {
                               TRFCON = .TRUE.
                            END IF
 
@@ -475,18 +475,18 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                     IF( PREFAC ) THEN
                                        WRITE( NOUT, FMT = 9995 ) 'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
-                                    ELSE
+                                    } else {
                                        WRITE( NOUT, FMT = 9996 ) 'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K )
                                     END IF
                                     NFAIL = NFAIL + 1
                                  END IF
    80                         CONTINUE
                               NRUN = NRUN + 7 - K1
-                           ELSE
+                           } else {
                               IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                  IF( PREFAC ) THEN
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
-                                 ELSE
+                                 } else {
                                     WRITE( NOUT, FMT = 9996 )'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 )
                                  END IF
                                  NFAIL = NFAIL + 1
@@ -496,7 +496,7 @@
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                  IF( PREFAC ) THEN
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
-                                 ELSE
+                                 } else {
                                     WRITE( NOUT, FMT = 9996 )'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 )
                                  END IF
                                  NFAIL = NFAIL + 1
@@ -506,7 +506,7 @@
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                  IF( PREFAC ) THEN
                                     WRITE( NOUT, FMT = 9995 )'DGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
-                                 ELSE
+                                 } else {
                                     WRITE( NOUT, FMT = 9996 )'DGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 )
                                  END IF
                                  NFAIL = NFAIL + 1
@@ -552,7 +552,7 @@
 
                      IF ( INFO .GT. 0 .AND. INFO .LT. N+1 ) THEN
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
-                     ELSE
+                     } else {
                         RPVGRW = DLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)
                      ENDIF
                       RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / MAX( rpvgrw_svxx, RPVGRW ) / DLAMCH( 'E' )
@@ -564,7 +564,7 @@
 
                         CALL DGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                         K1 = 1
-                     ELSE
+                     } else {
                         K1 = 2
                      END IF
 
@@ -578,15 +578,15 @@
                         // Check solution from generated exact solution.
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
-                        ELSE
+                        } else {
                            IF( ITRAN.EQ.1 ) THEN
                               ROLDC = ROLDO
-                           ELSE
+                           } else {
                               ROLDC = ROLDI
                            END IF
                            CALL DGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
                         END IF
-                     ELSE
+                     } else {
                         TRFCON = .TRUE.
                      END IF
 
@@ -604,18 +604,18 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               IF( PREFAC ) THEN
                                  WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
-                              ELSE
+                              } else {
                                  WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K )
                               END IF
                               NFAIL = NFAIL + 1
                            END IF
  45                     CONTINUE
                         NRUN = NRUN + 7 - K1
-                     ELSE
+                     } else {
                         IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 )
                            END IF
                            NFAIL = NFAIL + 1
@@ -625,7 +625,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 )
                            END IF
                            NFAIL = NFAIL + 1
@@ -635,7 +635,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9995 )'DGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9996 )'DGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 )
                            END IF
                            NFAIL = NFAIL + 1

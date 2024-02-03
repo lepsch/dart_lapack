@@ -65,11 +65,11 @@
             LWMIN = 1
             LOPT = LWMIN
             LIOPT = LIWMIN
-         ELSE
+         } else {
             IF( WANTZ ) THEN
                LIWMIN = 3 + 5*N
                LWMIN = 1 + 6*N + 2*N**2
-            ELSE
+            } else {
                LIWMIN = 1
                LWMIN = 2*N + 1
             END IF
@@ -143,7 +143,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL DLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF

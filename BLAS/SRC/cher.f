@@ -79,11 +79,11 @@
                           A(I,J) = A(I,J) + X(I)*TEMP
    10                 CONTINUE
                       A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP)
-                  ELSE
+                  } else {
                       A(J,J) = REAL(A(J,J))
                   END IF
    20         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 40 J = 1,N
                   IF (X(JX).NE.ZERO) THEN
@@ -94,13 +94,13 @@
                           IX = IX + INCX
    30                 CONTINUE
                       A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP)
-                  ELSE
+                  } else {
                       A(J,J) = REAL(A(J,J))
                   END IF
                   JX = JX + INCX
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when A is stored in lower triangle.
 
@@ -112,11 +112,11 @@
                       DO 50 I = J + 1,N
                           A(I,J) = A(I,J) + X(I)*TEMP
    50                 CONTINUE
-                  ELSE
+                  } else {
                       A(J,J) = REAL(A(J,J))
                   END IF
    60         CONTINUE
-          ELSE
+          } else {
               JX = KX
               DO 80 J = 1,N
                   IF (X(JX).NE.ZERO) THEN
@@ -127,7 +127,7 @@
                           IX = IX + INCX
                           A(I,J) = A(I,J) + X(IX)*TEMP
    70                 CONTINUE
-                  ELSE
+                  } else {
                       A(J,J) = REAL(A(J,J))
                   END IF
                   JX = JX + INCX

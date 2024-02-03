@@ -55,7 +55,7 @@
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
             KLEN = KEND + 1 - KBEG
-         ELSE
+         } else {
             KBEG = 1
             KEND = N
             KLEN = N

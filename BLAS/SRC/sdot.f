@@ -44,7 +44,7 @@
          DO I = MP1,N,5
           STEMP = STEMP + SX(I)*SY(I) + SX(I+1)*SY(I+1) + SX(I+2)*SY(I+2) + SX(I+3)*SY(I+3) + SX(I+4)*SY(I+4)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

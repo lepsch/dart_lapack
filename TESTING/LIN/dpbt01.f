@@ -73,7 +73,7 @@
 
       // UPLO = 'L':  Compute the product L*L', overwriting L.
 
-      ELSE
+      } else {
          DO 20 K = N, 1, -1
             KLEN = MIN( KD, N-K )
 
@@ -99,7 +99,7 @@
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
    30       CONTINUE
    40    CONTINUE
-      ELSE
+      } else {
          DO 60 J = 1, N
             ML = MIN( KD+1, N-J+1 )
             DO 50 I = 1, ML

@@ -53,7 +53,7 @@
       ELSE IF( LSAME( JOBVSL, 'V' ) ) THEN
          IJOBVL = 2
          ILVSL = .TRUE.
-      ELSE
+      } else {
          IJOBVL = -1
          ILVSL = .FALSE.
       END IF
@@ -64,7 +64,7 @@
       ELSE IF( LSAME( JOBVSR, 'V' ) ) THEN
          IJOBVR = 2
          ILVSR = .TRUE.
-      ELSE
+      } else {
          IJOBVR = -1
          ILVSR = .FALSE.
       END IF
@@ -77,7 +77,7 @@
       LQUERY = ( LWORK.EQ.-1 )
       IF( N.EQ.0 ) THEN
          LWKMIN = 1
-      ELSE
+      } else {
          LWKMIN = 6*N+16
       END IF
 
@@ -122,7 +122,7 @@
          END IF
          IF( N.EQ.0 ) THEN
             WORK( 1 ) = 1
-         ELSE
+         } else {
             WORK( 1 ) = LWKOPT
          END IF
       END IF
@@ -221,7 +221,7 @@
             INFO = IERR
          ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
             INFO = IERR - N
-         ELSE
+         } else {
             INFO = N + 1
          END IF
          GO TO 50
@@ -318,7 +318,7 @@
                IF( CURSL ) SDIM = SDIM + 1
                IP = 0
                IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
-            ELSE
+            } else {
                IF( IP.EQ.1 ) THEN
 
                   // Last eigenvalue of conjugate pair
@@ -328,7 +328,7 @@
                   IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
                   IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
-               ELSE
+               } else {
 
                   // First eigenvalue of conjugate pair
 

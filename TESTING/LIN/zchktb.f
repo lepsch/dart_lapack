@@ -133,7 +133,7 @@
 
                   IF( LSAME( DIAG, 'N' ) ) THEN
                      IDIAG = 1
-                  ELSE
+                  } else {
                      IDIAG = 2
                   END IF
 
@@ -145,7 +145,7 @@
                      DO 20 J = 1, N
                         CALL ZTBSV( UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 )
    20                CONTINUE
-                  ELSE
+                  } else {
                      DO 30 J = 1, N
                         CALL ZTBSV( UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 )
    30                CONTINUE
@@ -156,7 +156,7 @@
                   ANORM = ZLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = ZLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK )
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDO = ONE
-                  ELSE
+                  } else {
                      RCONDO = ( ONE / ANORM ) / AINVNM
                   END IF
 
@@ -165,7 +165,7 @@
                   ANORM = ZLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = ZLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDI = ONE
-                  ELSE
+                  } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM
                   END IF
 
@@ -181,7 +181,7 @@
                         IF( ITRAN.EQ.1 ) THEN
                            NORM = 'O'
                            RCONDC = RCONDO
-                        ELSE
+                        } else {
                            NORM = 'I'
                            RCONDC = RCONDI
                         END IF
@@ -241,7 +241,7 @@
                      IF( ITRAN.EQ.1 ) THEN
                         NORM = 'O'
                         RCONDC = RCONDO
-                     ELSE
+                     } else {
                         NORM = 'I'
                         RCONDC = RCONDI
                      END IF

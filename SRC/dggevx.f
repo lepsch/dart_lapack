@@ -52,7 +52,7 @@
       ELSE IF( LSAME( JOBVL, 'V' ) ) THEN
          IJOBVL = 2
          ILVL = .TRUE.
-      ELSE
+      } else {
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
@@ -63,7 +63,7 @@
       ELSE IF( LSAME( JOBVR, 'V' ) ) THEN
          IJOBVR = 2
          ILVR = .TRUE.
-      ELSE
+      } else {
          IJOBVR = -1
          ILVR = .FALSE.
       END IF
@@ -111,10 +111,10 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             IF( NOSCL .AND. .NOT.ILV ) THEN
                MINWRK = 2*N
-            ELSE
+            } else {
                MINWRK = 6*N
             END IF
             IF( WANTSE .OR. WANTSB ) THEN
@@ -209,7 +209,7 @@
       IROWS = IHI + 1 - ILO
       IF( ILV .OR. .NOT.WANTSN ) THEN
          ICOLS = N + 1 - ILO
-      ELSE
+      } else {
          ICOLS = IROWS
       END IF
       ITAU = 1
@@ -242,7 +242,7 @@
          // Eigenvectors requested -- work on whole matrix.
 
          CALL DGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
-      ELSE
+      } else {
          CALL DGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
 
@@ -252,7 +252,7 @@
 
       IF( ILV .OR. .NOT.WANTSN ) THEN
          CHTEMP = 'S'
-      ELSE
+      } else {
          CHTEMP = 'E'
       END IF
 
@@ -262,7 +262,7 @@
             INFO = IERR
          ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
             INFO = IERR - N
-         ELSE
+         } else {
             INFO = N + 1
          END IF
          GO TO 130
@@ -278,10 +278,10 @@
             IF( ILVL ) THEN
                IF( ILVR ) THEN
                   CHTEMP = 'B'
-               ELSE
+               } else {
                   CHTEMP = 'L'
                END IF
-            ELSE
+            } else {
                CHTEMP = 'R'
             END IF
 
@@ -360,7 +360,7 @@
                DO 30 JR = 1, N
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
    30          CONTINUE
-            ELSE
+            } else {
                DO 40 JR = 1, N
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    40          CONTINUE
@@ -371,7 +371,7 @@
                DO 50 JR = 1, N
                   VL( JR, JC ) = VL( JR, JC )*TEMP
    50          CONTINUE
-            ELSE
+            } else {
                DO 60 JR = 1, N
                   VL( JR, JC ) = VL( JR, JC )*TEMP
                   VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
@@ -388,7 +388,7 @@
                DO 80 JR = 1, N
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
    80          CONTINUE
-            ELSE
+            } else {
                DO 90 JR = 1, N
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    90          CONTINUE
@@ -399,7 +399,7 @@
                DO 100 JR = 1, N
                   VR( JR, JC ) = VR( JR, JC )*TEMP
   100          CONTINUE
-            ELSE
+            } else {
                DO 110 JR = 1, N
                   VR( JR, JC ) = VR( JR, JC )*TEMP
                   VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP

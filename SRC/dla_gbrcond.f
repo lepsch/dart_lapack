@@ -77,14 +77,14 @@
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                      TMP = TMP + ABS( AB( KD+I-J, J ) )
                   END DO
-               ELSE
+               } else {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                      TMP = TMP + ABS( AB( KD+I-J, J ) / C( J ) )
                   END DO
                END IF
             WORK( 2*N+I ) = TMP
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0D+0
             IF ( CMODE .EQ. 1 ) THEN
@@ -95,7 +95,7 @@
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) )
                END DO
-            ELSE
+            } else {
                DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                   TMP = TMP + ABS( AB( KE-I+J, I ) / C( J ) )
                END DO
@@ -122,7 +122,7 @@
 
             IF ( NOTRANS ) THEN
                CALL DGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL DGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 
@@ -137,7 +137,7 @@
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             END IF
-         ELSE
+         } else {
 
             // Multiply by inv(C**T).
 
@@ -153,7 +153,7 @@
 
             IF ( NOTRANS ) THEN
                CALL DGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL DGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 

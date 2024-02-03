@@ -31,7 +31,7 @@
          DO I = 1,N
             STEMP = STEMP + DCABS1(ZX(I))
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

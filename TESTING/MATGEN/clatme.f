@@ -70,7 +70,7 @@
          IDIST = 3
       ELSE IF( LSAME( DIST, 'D' ) ) THEN
          IDIST = 4
-      ELSE
+      } else {
          IDIST = -1
       END IF
 
@@ -80,7 +80,7 @@
          IRSIGN = 1
       ELSE IF( LSAME( RSIGN, 'F' ) ) THEN
          IRSIGN = 0
-      ELSE
+      } else {
          IRSIGN = -1
       END IF
 
@@ -90,7 +90,7 @@
          IUPPER = 1
       ELSE IF( LSAME( UPPER, 'F' ) ) THEN
          IUPPER = 0
-      ELSE
+      } else {
          IUPPER = -1
       END IF
 
@@ -100,7 +100,7 @@
          ISIM = 1
       ELSE IF( LSAME( SIM, 'F' ) ) THEN
          ISIM = 0
-      ELSE
+      } else {
          ISIM = -1
       END IF
 
@@ -176,7 +176,7 @@
 
          IF( TEMP.GT.ZERO ) THEN
             ALPHA = DMAX / TEMP
-         ELSE
+         } else {
             INFO = 2
             RETURN
          END IF
@@ -228,7 +228,7 @@
             CALL CSSCAL( N, DS( J ), A( J, 1 ), LDA )
             IF( DS( J ).NE.ZERO ) THEN
                CALL CSSCAL( N, ONE / DS( J ), A( 1, J ), 1 )
-            ELSE
+            } else {
                INFO = 5
                RETURN
             END IF

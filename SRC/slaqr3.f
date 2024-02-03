@@ -40,7 +40,7 @@
       JW = MIN( NW, KBOT-KTOP+1 )
       IF( JW.LE.2 ) THEN
          LWKOPT = 1
-      ELSE
+      } else {
 
          // ==== Workspace query call to SGEHRD ====
 
@@ -91,7 +91,7 @@
       KWTOP = KBOT - JW + 1
       IF( KWTOP.EQ.KTOP ) THEN
          S = ZERO
-      ELSE
+      } else {
          S = H( KWTOP, KWTOP-1 )
       END IF
 
@@ -125,7 +125,7 @@
       NMIN = ILAENV( 12, 'SLAQR3', 'SV', JW, 1, JW, LWORK )
       IF( JW.GT.NMIN ) THEN
          CALL SLAQR4( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
-      ELSE
+      } else {
          CALL SLAHQR( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR )
       END IF
 
@@ -145,7 +145,7 @@
       IF( ILST.LE.NS ) THEN
          IF( NS.EQ.1 ) THEN
             BULGE = .FALSE.
-         ELSE
+         } else {
             BULGE = T( NS, NS-1 ).NE.ZERO
          END IF
 
@@ -162,7 +162,7 @@
                // ==== Deflatable ====
 
                NS = NS - 1
-            ELSE
+            } else {
 
                // ==== Undeflatable.   Move it up out of the way.
                // .    (STREXC can not fail in this case.) ====
@@ -171,7 +171,7 @@
                CALL STREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                ILST = ILST + 1
             END IF
-         ELSE
+         } else {
 
             // ==== Complex conjugate pair ====
 
@@ -180,7 +180,7 @@
                // ==== Deflatable ====
 
                NS = NS - 2
-            ELSE
+            } else {
 
                // ==== Undeflatable. Move them up out of the way.
                // .    Fortunately, STREXC does the right thing with
@@ -219,14 +219,14 @@
             K = I + 1
          ELSE IF( T( I+1, I ).EQ.ZERO ) THEN
             K = I + 1
-         ELSE
+         } else {
             K = I + 2
          END IF
    40    CONTINUE
          IF( K.LE.KEND ) THEN
             IF( K.EQ.I+1 ) THEN
                EVI = ABS( T( I, I ) )
-            ELSE
+            } else {
                EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) )
             END IF
 
@@ -234,20 +234,20 @@
                EVK = ABS( T( K, K ) )
             ELSE IF( T( K+1, K ).EQ.ZERO ) THEN
                EVK = ABS( T( K, K ) )
-            ELSE
+            } else {
                EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) )
             END IF
 
             IF( EVI.GE.EVK ) THEN
                I = K
-            ELSE
+            } else {
                SORTED = .false.
                IFST = I
                ILST = K
                CALL STREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                IF( INFO.EQ.0 ) THEN
                   I = ILST
-               ELSE
+               } else {
                   I = K
                END IF
             END IF
@@ -255,7 +255,7 @@
                K = I + 1
             ELSE IF( T( I+1, I ).EQ.ZERO ) THEN
                K = I + 1
-            ELSE
+            } else {
                K = I + 2
             END IF
             GO TO 40
@@ -277,7 +277,7 @@
             SR( KWTOP+I-1 ) = T( I, I )
             SI( KWTOP+I-1 ) = ZERO
             I = I - 1
-         ELSE
+         } else {
             AA = T( I-1, I-1 )
             CC = T( I, I-1 )
             BB = T( I-1, I )
@@ -320,7 +320,7 @@
 
          IF( WANTT ) THEN
             LTOP = 1
-         ELSE
+         } else {
             LTOP = KTOP
          END IF
          DO 70 KROW = LTOP, KWTOP - 1, NV

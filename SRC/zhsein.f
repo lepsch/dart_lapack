@@ -105,7 +105,7 @@
       KLN = 0
       IF( FROMQR ) THEN
          KR = 0
-      ELSE
+      } else {
          KR = N
       END IF
       KS = 1
@@ -154,7 +154,7 @@
                   RETURN
                ELSE IF( HNORM.GT.RZERO ) THEN
                   EPS3 = HNORM*ULP
-               ELSE
+               } else {
                   EPS3 = SMLNUM
                END IF
             END IF
@@ -181,7 +181,7 @@
                IF( IINFO.GT.0 ) THEN
                   INFO = INFO + 1
                   IFAILL( KS ) = K
-               ELSE
+               } else {
                   IFAILL( KS ) = 0
                END IF
                DO 80 I = 1, KL - 1
@@ -196,7 +196,7 @@
                IF( IINFO.GT.0 ) THEN
                   INFO = INFO + 1
                   IFAILR( KS ) = K
-               ELSE
+               } else {
                   IFAILR( KS ) = 0
                END IF
                DO 90 I = KR + 1, N

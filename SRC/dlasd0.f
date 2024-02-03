@@ -95,7 +95,7 @@
    10    CONTINUE
          IF( I.EQ.ND ) THEN
             SQREI = SQRE
-         ELSE
+         } else {
             SQREI = 1
          END IF
          NRP1 = NR + SQREI
@@ -119,7 +119,7 @@
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
-         ELSE
+         } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          END IF
@@ -131,7 +131,7 @@
             NLF = IC - NL
             IF( ( SQRE.EQ.0 ) .AND. ( I.EQ.LL ) ) THEN
                SQREI = SQRE
-            ELSE
+            } else {
                SQREI = 1
             END IF
             IDXQC = IDXQ + NLF - 1

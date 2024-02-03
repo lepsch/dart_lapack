@@ -46,7 +46,7 @@
          // H  =  I
 
          TAU = ZERO
-      ELSE
+      } else {
 
          // general case
 

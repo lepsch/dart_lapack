@@ -30,7 +30,7 @@
             CY( I ) = C*CY( I ) - S*CX( I )
             CX( I ) = CTEMP
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments not equal
           t // o 1

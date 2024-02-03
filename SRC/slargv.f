@@ -44,7 +44,7 @@
             C( IC ) = ONE / TT
             Y( IY ) = T*C( IC )
             X( IX ) = F*TT
-         ELSE
+         } else {
             T = F / G
             TT = SQRT( ONE+T*T )
             Y( IY ) = ONE / TT

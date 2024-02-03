@@ -56,7 +56,7 @@
          INFO = -4
       ELSE IF( LDZ.LT.MAX( 1, N ) ) THEN
          INFO = -9
-      ELSE
+      } else {
          DO 20 J = 2, M
             IF( IBLOCK( J ).LT.IBLOCK( J-1 ) ) THEN
                INFO = -6
@@ -111,7 +111,7 @@
 
          IF( NBLK.EQ.1 ) THEN
             B1 = 1
-         ELSE
+         } else {
             B1 = ISPLIT( NBLK-1 ) + 1
          END IF
          BN = ISPLIT( NBLK )

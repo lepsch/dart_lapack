@@ -54,12 +54,12 @@
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 )
-               ELSE
+               } else {
                   INFO = I
                   RETURN
                END IF
                DL( I ) = ZERO
-            ELSE
+            } else {
 
                // Interchange rows I and I+1
 
@@ -82,11 +82,11 @@
                   FACT = DL( I ) / D( I )
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   B( I+1, 1 ) = B( I+1, 1 ) - FACT*B( I, 1 )
-               ELSE
+               } else {
                   INFO = I
                   RETURN
                END IF
-            ELSE
+            } else {
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
                TEMP = D( I+1 )
@@ -101,7 +101,7 @@
             INFO = N
             RETURN
          END IF
-      ELSE
+      } else {
          DO 40 I = 1, N - 2
             IF( ABS( D( I ) ).GE.ABS( DL( I ) ) ) THEN
 
@@ -113,12 +113,12 @@
                   DO 20 J = 1, NRHS
                      B( I+1, J ) = B( I+1, J ) - FACT*B( I, J )
    20             CONTINUE
-               ELSE
+               } else {
                   INFO = I
                   RETURN
                END IF
                DL( I ) = ZERO
-            ELSE
+            } else {
 
                // Interchange rows I and I+1
 
@@ -145,11 +145,11 @@
                   DO 50 J = 1, NRHS
                      B( I+1, J ) = B( I+1, J ) - FACT*B( I, J )
    50             CONTINUE
-               ELSE
+               } else {
                   INFO = I
                   RETURN
                END IF
-            ELSE
+            } else {
                FACT = D( I ) / DL( I )
                D( I ) = DL( I )
                TEMP = D( I+1 )
@@ -182,7 +182,7 @@
             J = J + 1
             GO TO 70
          END IF
-      ELSE
+      } else {
          DO 100 J = 1, NRHS
             B( N, J ) = B( N, J ) / D( N )
             IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )

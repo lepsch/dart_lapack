@@ -50,7 +50,7 @@
 
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
-         ELSE
+         } else {
             ANORM = ABS( D( 1 ) )+ABS( DL( 1 ) )
             TEMP = ABS( D( N ) )+ABS( DU( N-1 ) )
             IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
@@ -65,7 +65,7 @@
 
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
-         ELSE
+         } else {
             ANORM = ABS( D( 1 ) )+ABS( DU( 1 ) )
             TEMP = ABS( D( N ) )+ABS( DL( N-1 ) )
             IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP

@@ -219,7 +219,7 @@
 
          IF( TSTDRV ) THEN
             CALL ZDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )'ZCGESV'
          END IF
 
@@ -235,11 +235,11 @@
 
          IF( TSTDRV ) THEN
             CALL ZDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )'ZCPOSV'
          END IF
 
-      ELSE
+      } else {
 
       END IF
 

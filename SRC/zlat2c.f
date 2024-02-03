@@ -42,7 +42,7 @@
                SA( I, J ) = CMPLX( A( I, J ) )
    10       CONTINUE
    20    CONTINUE
-      ELSE
+      } else {
          DO 40 J = 1, N
             DO 30 I = J, N
                IF( ( DBLE( A( I, J ) ).LT.-RMAX ) .OR. ( DBLE( A( I, J ) ).GT.RMAX ) .OR. ( DIMAG( A( I, J ) ).LT.-RMAX ) .OR. ( DIMAG( A( I, J ) ).GT.RMAX ) ) THEN

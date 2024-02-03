@@ -31,7 +31,7 @@
 
       IF( ABS( B ).EQ.ZERO ) THEN
          W = ONE
-      ELSE
+      } else {
          W = DCONJG( B ) / ABS( B )
       END IF
       CALL DLAEV2( DBLE( A ), ABS( B ), DBLE( C ), RT1, RT2, CS1, T )

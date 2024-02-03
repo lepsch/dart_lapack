@@ -100,7 +100,7 @@
          IF( K.GT.1 ) THEN
             IMAX = ICAMAX( K-1, A( 1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -111,7 +111,7 @@
             IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = REAL( A( K, K ) )
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -127,7 +127,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -145,7 +145,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = IMAX + ICAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -185,7 +185,7 @@
                      DONE = .TRUE.
 
                   // Case(4)
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -255,7 +255,7 @@
                   A( K-1, K ) = A( KP, K )
                   A( KP, K ) = T
                END IF
-            ELSE
+            } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = REAL( A( K, K ) )
                IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = REAL( A( K-1, K-1 ) )
@@ -288,7 +288,7 @@
                      // Store U(k) in column k
 
                      CALL CSSCAL( K-1, D11, A( 1, K ), 1 )
-                  ELSE
+                  } else {
 
                      // Store L(k) in column K
 
@@ -306,7 +306,7 @@
                   END IF
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
 
@@ -362,7 +362,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
          END IF
@@ -372,7 +372,7 @@
          K = K - KSTEP
          GO TO 10
 
-      ELSE
+      } else {
 
          // Factorize A as L*D*L**H using the lower triangle of A
 
@@ -400,7 +400,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + ICAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = CABS1( A( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -411,7 +411,7 @@
             IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = REAL( A( K, K ) )
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -427,7 +427,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -445,7 +445,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = K - 1 + ICAMAX( IMAX-K, A( IMAX, K ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -485,7 +485,7 @@
                      DONE = .TRUE.
 
                   // Case(4)
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -556,7 +556,7 @@
                   A( K+1, K ) = A( KP, K )
                   A( KP, K ) = T
                END IF
-            ELSE
+            } else {
                // (*) Make sure that diagonal element of pivot is real
                A( K, K ) = REAL( A( K, K ) )
                IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = REAL( A( K+1, K+1 ) )
@@ -591,7 +591,7 @@
                      // Store L(k) in column k
 
                      CALL CSSCAL( N-K, D11, A( K+1, K ), 1 )
-                  ELSE
+                  } else {
 
                      // Store L(k) in column k
 
@@ -609,7 +609,7 @@
                   END IF
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 now hold
 
@@ -666,7 +666,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
          END IF

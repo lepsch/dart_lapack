@@ -35,7 +35,7 @@
                DMAX = DABS(DX(I))
             END IF
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

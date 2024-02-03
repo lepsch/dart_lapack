@@ -65,7 +65,7 @@
       IF( MOD( N, 2 ).EQ.0 ) THEN
          K = N / 2
          NISODD = .FALSE.
-      ELSE
+      } else {
          NISODD = .TRUE.
       END IF
 
@@ -74,7 +74,7 @@
       IF( LOWER ) THEN
          N2 = N / 2
          N1 = N - N2
-      ELSE
+      } else {
          N1 = N / 2
          N2 = N - N1
       END IF
@@ -100,7 +100,7 @@
                CALL SSYRK( 'L', 'T', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N )                CALL STRMM( 'L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N, A( N1 ), N )
                CALL SLAUUM( 'U', N2, A( N ), N, INFO )
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:N2-1)
                // T1 -> a(N1+1,0), T2 -> a(N1,0), S -> a(0,0)
@@ -112,7 +112,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is odd and TRANSR = 'T'
 
@@ -125,7 +125,7 @@
                CALL SSYRK( 'U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 )                CALL STRMM( 'R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1, A( N1*N1 ), N1 )
                CALL SLAUUM( 'L', N2, A( 1 ), N1, INFO )
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, TRANSPOSE, and N is odd
                // T1 -> a(0+N2*N2), T2 -> a(0+N1*N2), S -> a(0)
@@ -138,7 +138,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // N is even
 
@@ -156,7 +156,7 @@
                CALL SSYRK( 'L', 'T', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 )                CALL STRMM( 'L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1, A( K+1 ), N+1 )
                CALL SLAUUM( 'U', K, A( 0 ), N+1, INFO )
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
                // T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
@@ -168,7 +168,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is even and TRANSR = 'T'
 
@@ -182,7 +182,7 @@
                CALL SSYRK( 'U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K )                CALL STRMM( 'R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K, A( K*( K+1 ) ), K )
                CALL SLAUUM( 'L', K, A( 0 ), K, INFO )
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, TRANSPOSE, and N is even (see paper)
                // T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0),

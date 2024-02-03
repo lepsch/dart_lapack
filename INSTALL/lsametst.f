@@ -16,7 +16,7 @@
       I2 = ICHAR( 'a' )
       IF( I2-I1.EQ.32 ) THEN
          WRITE( *, * ) ' ASCII String    set';
-      ELSE
+      } else {
          WRITE( *, * ) ' Non-ASCII String    set, IOFF should be ',I2-I1;
       END IF
 

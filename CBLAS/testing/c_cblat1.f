@@ -134,7 +134,7 @@
             ELSE IF (ICASE.EQ.10) THEN
                // .. ICAMAXTEST ..
                CALL ITEST1(ICAMAXTEST(N,CX,INCX),ITRUE3(NP1))
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             END IF
@@ -254,7 +254,7 @@
                CALL CSWAPTEST(N,CX,INCX,CY,INCY)
                CALL CTEST(LENX,CX,CT10X(1,KN,KI),CSIZE3,1.0E0)
                CALL CTEST(LENY,CY,CT10Y(1,KN,KI),CSIZE3,1.0E0)
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             END IF

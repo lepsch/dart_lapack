@@ -80,7 +80,7 @@
 
       IF(NEGCNT.GE.IW) THEN
          RIGHT = MID
-      ELSE
+      } else {
          LEFT = MID
       ENDIF
       GOTO 10

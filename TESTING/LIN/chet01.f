@@ -83,7 +83,7 @@
    20       CONTINUE
             C( J, J ) = C( J, J ) - REAL( A( J, J ) )
    30    CONTINUE
-      ELSE
+      } else {
          DO 50 J = 1, N
             C( J, J ) = C( J, J ) - REAL( A( J, J ) )
             DO 40 I = J + 1, N
@@ -98,7 +98,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF
 

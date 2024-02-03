@@ -45,7 +45,7 @@
       IF( N.EQ.0 ) THEN
          LHMIN = 1
          LWMIN = 1
-      ELSE
+      } else {
          LHMIN = ILAENV2STAGE( 3, 'ZHETRD_2STAGE', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'ZHETRD_2STAGE', VECT, N, KD, IB, -1 )
       END IF

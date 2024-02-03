@@ -47,11 +47,11 @@
       IF( N.LE.1 ) THEN
          LIWMIN = 1
          LWMIN = 1
-      ELSE
+      } else {
          IF( WANTZ ) THEN
             LIWMIN = 3 + 5*N
             LWMIN = 1 + 5*N + 2*N**2
-         ELSE
+         } else {
             LIWMIN = 1
             LWMIN = 2*N
          END IF
@@ -121,7 +121,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( LOWER ) THEN
             CALL DLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         ELSE
+         } else {
             CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
       END IF
@@ -138,7 +138,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N )
          CALL DLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF

@@ -81,7 +81,7 @@
                RETURN
             END IF
    20    CONTINUE
-      ELSE
+      } else {
 
          // Set the scale factors to the reciprocals
          // of the diagonal elements.

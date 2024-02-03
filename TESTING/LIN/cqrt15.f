@@ -62,7 +62,7 @@
          DO 10 J = RANK + 1, MN
             S( J ) = ZERO
    10    CONTINUE
-      ELSE
+      } else {
          CALL XERBLA( 'CQRT15', 2 )
       END IF
 
@@ -76,7 +76,7 @@
             TEMP = SLARND( 1, ISEED )
             IF( TEMP.GT.SVMIN ) THEN
                S( J ) = ABS( TEMP )
-            ELSE
+            } else {
                GO TO 20
             END IF
    30    CONTINUE
@@ -106,7 +106,7 @@
          IF( RANK.LT.N ) CALL CLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA )
          CALL CLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO )
 
-      ELSE
+      } else {
 
          // work space used 2*n+m
 
@@ -135,7 +135,7 @@
                // matrix scaled down
 
                CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO )
-            ELSE
+            } else {
                CALL XERBLA( 'CQRT15', 1 )
                RETURN
             END IF

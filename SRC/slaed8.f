@@ -121,7 +121,7 @@
             DO 50 J = 1, N
                PERM( J ) = INDXQ( INDX( J ) )
    50       CONTINUE
-         ELSE
+         } else {
             DO 60 J = 1, N
                PERM( J ) = INDXQ( INDX( J ) )
                CALL SCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
@@ -147,7 +147,7 @@
             K2 = K2 - 1
             INDXP( K2 ) = J
             IF( J.EQ.N ) GO TO 110
-         ELSE
+         } else {
             JLAM = J
             GO TO 80
          END IF
@@ -161,7 +161,7 @@
 
          K2 = K2 - 1
          INDXP( K2 ) = J
-      ELSE
+      } else {
 
          // Check if eigenvalues are close enough to allow deflation.
 
@@ -204,14 +204,14 @@
                   INDXP( K2+I ) = JLAM
                   I = I + 1
                   GO TO 90
-               ELSE
+               } else {
                   INDXP( K2+I-1 ) = JLAM
                END IF
-            ELSE
+            } else {
                INDXP( K2+I-1 ) = JLAM
             END IF
             JLAM = J
-         ELSE
+         } else {
             K = K + 1
             W( K ) = Z( JLAM )
             DLAMBDA( K ) = D( JLAM )
@@ -242,7 +242,7 @@
             DLAMBDA( J ) = D( JP )
             PERM( J ) = INDXQ( INDX( JP ) )
   120    CONTINUE
-      ELSE
+      } else {
          DO 130 J = 1, N
             JP = INDXP( J )
             DLAMBDA( J ) = D( JP )
@@ -257,7 +257,7 @@
       IF( K.LT.N ) THEN
          IF( ICOMPQ.EQ.0 ) THEN
             CALL SCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
-         ELSE
+         } else {
             CALL SCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
             CALL SLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
          END IF

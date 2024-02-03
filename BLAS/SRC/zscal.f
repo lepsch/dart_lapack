@@ -29,7 +29,7 @@
          DO I = 1,N
             ZX(I) = ZA*ZX(I)
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

@@ -48,7 +48,7 @@
            // - swap row I1 and I2 from I2+1 to N
          IF ( I2.LT.N ) CALL DSWAP( N-I2, A(I1,I2+1), LDA, A(I2,I2+1), LDA )
 
-        ELSE
+        } else {
 
           // LOWER
           // first swap

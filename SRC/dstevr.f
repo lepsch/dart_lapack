@@ -62,7 +62,7 @@
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
          ELSE IF( INDEIG ) THEN
@@ -106,7 +106,7 @@
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
             W( 1 ) = D( 1 )
-         ELSE
+         } else {
             IF( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) THEN
                M = 1
                W( 1 ) = D( 1 )
@@ -184,11 +184,11 @@
          IF( .NOT.WANTZ ) THEN
             CALL DCOPY( N, D, 1, W, 1 )
             CALL DSTERF( N, W, WORK, INFO )
-         ELSE
+         } else {
             CALL DCOPY( N, D, 1, WORK( N+1 ), 1 )
             IF (ABSTOL .LE. TWO*N*EPS) THEN
                TRYRAC = .TRUE.
-            ELSE
+            } else {
                TRYRAC = .FALSE.
             END IF
             CALL DSTEMR( JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO )
@@ -205,7 +205,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
        CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK, IWORK( INDIWO ), INFO )
@@ -220,7 +220,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

@@ -50,7 +50,7 @@
                      IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    10             CONTINUE
    20          CONTINUE
-            ELSE
+            } else {
                DO 40 J = 1, N
                   DO 30 I = J + 1, M
                      SUM = ABS( A( I, J ) )
@@ -58,7 +58,7 @@
    30             CONTINUE
    40          CONTINUE
             END IF
-         ELSE
+         } else {
             VALUE = ZERO
             IF( LSAME( UPLO, 'U' ) ) THEN
                DO 60 J = 1, N
@@ -67,7 +67,7 @@
                      IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    50             CONTINUE
    60          CONTINUE
-            ELSE
+            } else {
                DO 80 J = 1, N
                   DO 70 I = J, M
                      SUM = ABS( A( I, J ) )
@@ -89,7 +89,7 @@
                   DO 90 I = 1, J - 1
                      SUM = SUM + ABS( A( I, J ) )
    90             CONTINUE
-               ELSE
+               } else {
                   SUM = ZERO
                   DO 100 I = 1, MIN( M, J )
                      SUM = SUM + ABS( A( I, J ) )
@@ -97,14 +97,14 @@
                END IF
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
   110       CONTINUE
-         ELSE
+         } else {
             DO 140 J = 1, N
                IF( UDIAG ) THEN
                   SUM = ONE
                   DO 120 I = J + 1, M
                      SUM = SUM + ABS( A( I, J ) )
   120             CONTINUE
-               ELSE
+               } else {
                   SUM = ZERO
                   DO 130 I = J, M
                      SUM = SUM + ABS( A( I, J ) )
@@ -127,7 +127,7 @@
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
   160             CONTINUE
   170          CONTINUE
-            ELSE
+            } else {
                DO 180 I = 1, M
                   WORK( I ) = ZERO
   180          CONTINUE
@@ -137,7 +137,7 @@
   190             CONTINUE
   200          CONTINUE
             END IF
-         ELSE
+         } else {
             IF( LSAME( DIAG, 'U' ) ) THEN
                DO 210 I = 1, MIN( M, N )
                   WORK( I ) = ONE
@@ -150,7 +150,7 @@
                      WORK( I ) = WORK( I ) + ABS( A( I, J ) )
   230             CONTINUE
   240          CONTINUE
-            ELSE
+            } else {
                DO 250 I = 1, M
                   WORK( I ) = ZERO
   250          CONTINUE
@@ -177,21 +177,21 @@
                DO 290 J = 2, N
                   CALL DLASSQ( MIN( M, J-1 ), A( 1, J ), 1, SCALE, SUM )
   290          CONTINUE
-            ELSE
+            } else {
                SCALE = ZERO
                SUM = ONE
                DO 300 J = 1, N
                   CALL DLASSQ( MIN( M, J ), A( 1, J ), 1, SCALE, SUM )
   300          CONTINUE
             END IF
-         ELSE
+         } else {
             IF( LSAME( DIAG, 'U' ) ) THEN
                SCALE = ONE
                SUM = MIN( M, N )
                DO 310 J = 1, N
                   CALL DLASSQ( M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM )
   310          CONTINUE
-            ELSE
+            } else {
                SCALE = ZERO
                SUM = ONE
                DO 320 J = 1, N

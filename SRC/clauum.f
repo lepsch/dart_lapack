@@ -66,7 +66,7 @@
          // Use unblocked code
 
          CALL CLAUU2( UPLO, N, A, LDA, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -83,7 +83,7 @@
                   CALL CHERK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
                END IF
    10       CONTINUE
-         ELSE
+         } else {
 
             // Compute the product L**H * L.
 

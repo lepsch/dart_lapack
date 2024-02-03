@@ -42,7 +42,7 @@
       LSIDE = LSAME(SIDE,'L')
       IF (LSIDE) THEN
           NROWA = M
-      ELSE
+      } else {
           NROWA = N
       END IF
       NOCONJ = LSAME(TRANSA,'T')
@@ -107,7 +107,7 @@
                           END IF
    40                 CONTINUE
    50             CONTINUE
-              ELSE
+              } else {
                   DO 80 J = 1,N
                       DO 70 K = M,1,-1
                           IF (B(K,J).NE.ZERO) THEN
@@ -121,7 +121,7 @@
    70                 CONTINUE
    80             CONTINUE
               END IF
-          ELSE
+          } else {
 
             // Form  B := alpha*A**T*B   or   B := alpha*A**H*B.
 
@@ -134,7 +134,7 @@
                               DO 90 K = 1,I - 1
                                   TEMP = TEMP + A(K,I)*B(K,J)
    90                         CONTINUE
-                          ELSE
+                          } else {
                               IF (NOUNIT) TEMP = TEMP*CONJG(A(I,I))
                               DO 100 K = 1,I - 1
                                   TEMP = TEMP + CONJG(A(K,I))*B(K,J)
@@ -143,7 +143,7 @@
                           B(I,J) = ALPHA*TEMP
   110                 CONTINUE
   120             CONTINUE
-              ELSE
+              } else {
                   DO 160 J = 1,N
                       DO 150 I = 1,M
                           TEMP = B(I,J)
@@ -152,7 +152,7 @@
                               DO 130 K = I + 1,M
                                   TEMP = TEMP + A(K,I)*B(K,J)
   130                         CONTINUE
-                          ELSE
+                          } else {
                               IF (NOUNIT) TEMP = TEMP*CONJG(A(I,I))
                               DO 140 K = I + 1,M
                                   TEMP = TEMP + CONJG(A(K,I))*B(K,J)
@@ -163,7 +163,7 @@
   160             CONTINUE
               END IF
           END IF
-      ELSE
+      } else {
           IF (LSAME(TRANSA,'N')) THEN
 
             // Form  B := alpha*B*A.
@@ -184,7 +184,7 @@
                           END IF
   190                 CONTINUE
   200             CONTINUE
-              ELSE
+              } else {
                   DO 240 J = 1,N
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(J,J)
@@ -201,7 +201,7 @@
   230                 CONTINUE
   240             CONTINUE
               END IF
-          ELSE
+          } else {
 
             // Form  B := alpha*B*A**T   or   B := alpha*B*A**H.
 
@@ -211,7 +211,7 @@
                           IF (A(J,K).NE.ZERO) THEN
                               IF (NOCONJ) THEN
                                   TEMP = ALPHA*A(J,K)
-                              ELSE
+                              } else {
                                   TEMP = ALPHA*CONJG(A(J,K))
                               END IF
                               DO 250 I = 1,M
@@ -223,7 +223,7 @@
                       IF (NOUNIT) THEN
                           IF (NOCONJ) THEN
                               TEMP = TEMP*A(K,K)
-                          ELSE
+                          } else {
                               TEMP = TEMP*CONJG(A(K,K))
                           END IF
                       END IF
@@ -233,13 +233,13 @@
   270                     CONTINUE
                       END IF
   280             CONTINUE
-              ELSE
+              } else {
                   DO 320 K = N,1,-1
                       DO 300 J = K + 1,N
                           IF (A(J,K).NE.ZERO) THEN
                               IF (NOCONJ) THEN
                                   TEMP = ALPHA*A(J,K)
-                              ELSE
+                              } else {
                                   TEMP = ALPHA*CONJG(A(J,K))
                               END IF
                               DO 290 I = 1,M
@@ -251,7 +251,7 @@
                       IF (NOUNIT) THEN
                           IF (NOCONJ) THEN
                               TEMP = TEMP*A(K,K)
-                          ELSE
+                          } else {
                               TEMP = TEMP*CONJG(A(K,K))
                           END IF
                       END IF

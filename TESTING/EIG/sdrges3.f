@@ -132,7 +132,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -187,7 +187,7 @@
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
-               ELSE
+               } else {
                   IN = N
                END IF
                CALL SLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
@@ -199,7 +199,7 @@
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL SLASET( 'Full', N, N, ZERO, ZERO, B, LDA )
-               ELSE
+               } else {
                   IN = N
                END IF
                CALL SLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
@@ -241,7 +241,7 @@
    70             CONTINUE
                   CALL SORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL SORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL SORM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL SORM2R( 'R', 'T', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
                END IF
-            ELSE
+            } else {
 
                // Random matrices
 
@@ -272,7 +272,7 @@
                IF( ISORT.EQ.0 ) THEN
                   SORT = 'N'
                   RSUB = 0
-               ELSE
+               } else {
                   SORT = 'S'
                   RSUB = 5
                END IF
@@ -305,7 +305,7 @@
 
                IF( ISORT.EQ.0 ) THEN
                   CALL SGET51( 1, N, A, LDA, S, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 1 ) )                   CALL SGET51( 1, N, B, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 2 ) )
-               ELSE
+               } else {
                   CALL SGET54( N, A, LDA, B, LDA, S, LDA, T, LDA, Q, LDQ, Z, LDQ, WORK, RESULT( 7 ) )
                END IF
                CALL SGET51( 3, N, A, LDA, T, LDA, Q, LDQ, Q, LDQ, WORK, RESULT( 3+RSUB ) )                CALL SGET51( 3, N, B, LDA, T, LDA, Z, LDQ, Z, LDQ, WORK, RESULT( 4+RSUB ) )
@@ -335,10 +335,10 @@
                         END IF
                      END IF
 
-                  ELSE
+                  } else {
                      IF( ALPHAI( J ).GT.ZERO ) THEN
                         I1 = J
-                     ELSE
+                     } else {
                         I1 = J - 1
                      END IF
                      IF( I1.LE.0 .OR. I1.GE.N ) THEN
@@ -360,7 +360,7 @@
                            WRITE( NOUNIT, FMT = 9998 )IERR, J, N, JTYPE, IOLDSD
                            INFO = ABS( IERR )
                         END IF
-                     ELSE
+                     } else {
                         TEMP2 = ULPINV
                      END IF
 
@@ -427,7 +427,7 @@
                   NERRS = NERRS + 1
                   IF( RESULT( JR ).LT.10000.0 ) THEN
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
-                  ELSE
+                  } else {
                      WRITE( NOUNIT, FMT = 9990 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   END IF
                END IF

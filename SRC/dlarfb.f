@@ -37,7 +37,7 @@
 
       IF( LSAME( TRANS, 'N' ) ) THEN
          TRANST = 'T'
-      ELSE
+      } else {
          TRANST = 'N'
       END IF
 
@@ -145,7 +145,7 @@
    60          CONTINUE
             END IF
 
-         ELSE
+         } else {
 
             // Let  V =  ( V1 )
                       // ( V2 )    (last K rows)
@@ -352,7 +352,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // Let  V =  ( V1  V2 )    (V2: last K columns)
             // where  V2  is unit lower triangular.

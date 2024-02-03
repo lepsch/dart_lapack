@@ -137,7 +137,7 @@
                      IZERO = 1
                   ELSE IF( IMAT.EQ.4 ) THEN
                      IZERO = N
-                  ELSE
+                  } else {
                      IZERO = N / 2 + 1
                   END IF
                   IOFF = ( IZERO-1 )*LDA
@@ -153,7 +153,7 @@
                         A( IOFF ) = ZERO
                         IOFF = IOFF + LDA
    30                CONTINUE
-                  ELSE
+                  } else {
                      IOFF = IZERO
                      DO 40 I = 1, IZERO - 1
                         A( IOFF ) = ZERO
@@ -164,7 +164,7 @@
                         A( IOFF+I ) = ZERO
    50                CONTINUE
                   END IF
-               ELSE
+               } else {
                   IZERO = 0
                END IF
 
@@ -180,7 +180,7 @@
                   EQUED = EQUEDS( IEQUED )
                   IF( IEQUED.EQ.1 ) THEN
                      NFACT = 3
-                  ELSE
+                  } else {
                      NFACT = 1
                   END IF
 
@@ -240,7 +240,7 @@
                         AINVNM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
                         IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                            RCONDC = ONE
-                        ELSE
+                        } else {
                            RCONDC = ( ONE / ANORM ) / AINVNM
                         END IF
                      END IF
@@ -338,7 +338,7 @@
 
                            CALL ZPOT01( UPLO, N, A, LDA, AFAC, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                            K1 = 1
-                        ELSE
+                        } else {
                            K1 = 2
                         END IF
 
@@ -349,7 +349,7 @@
                         // Check solution from generated exact solution.
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
-                        ELSE
+                        } else {
                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
 
@@ -357,7 +357,7 @@
                         // refinement.
 
                         CALL ZPOT05( UPLO, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
-                     ELSE
+                     } else {
                         K1 = 6
                      END IF
 
@@ -374,7 +374,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9997 )'ZPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9998 )'ZPOSVX', FACT, UPLO, N, IMAT, K, RESULT( K )
                            END IF
                            NFAIL = NFAIL + 1

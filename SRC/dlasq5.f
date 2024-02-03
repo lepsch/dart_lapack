@@ -52,7 +52,7 @@
                Z( J4 ) = Z( J4-1 )*TEMP
                EMIN = MIN( Z( J4 ), EMIN )
    10       CONTINUE
-         ELSE
+         } else {
             DO 20 J4 = 4*I0, 4*( N0-3 ), 4
                Z( J4-3 ) = D + Z( J4 )
                TEMP = Z( J4+2 ) / Z( J4-3 )
@@ -82,7 +82,7 @@
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU
          DMIN = MIN( DMIN, DN )
 
-      ELSE
+      } else {
 
          // Code for non IEEE arithmetic.
 
@@ -91,19 +91,19 @@
                Z( J4-2 ) = D + Z( J4-1 )
                IF( D.LT.ZERO ) THEN
                   RETURN
-               ELSE
+               } else {
                   Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
                   D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU
                END IF
                DMIN = MIN( DMIN, D )
                EMIN = MIN( EMIN, Z( J4 ) )
    30       CONTINUE
-         ELSE
+         } else {
             DO 40 J4 = 4*I0, 4*( N0-3 ), 4
                Z( J4-3 ) = D + Z( J4 )
                IF( D.LT.ZERO ) THEN
                   RETURN
-               ELSE
+               } else {
                   Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
                   D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU
                END IF
@@ -121,7 +121,7 @@
          Z( J4-2 ) = DNM2 + Z( J4P2 )
          IF( DNM2.LT.ZERO ) THEN
             RETURN
-         ELSE
+         } else {
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
             DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU
          END IF
@@ -133,14 +133,14 @@
          Z( J4-2 ) = DNM1 + Z( J4P2 )
          IF( DNM1.LT.ZERO ) THEN
             RETURN
-         ELSE
+         } else {
             Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
             DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU
          END IF
          DMIN = MIN( DMIN, DN )
 
       END IF
-      ELSE
+      } else {
       // This is the version that sets d's to zero if they are small enough
          J4 = 4*I0 + PP - 3
          EMIN = Z( J4+4 )
@@ -161,7 +161,7 @@
                   Z( J4 ) = Z( J4-1 )*TEMP
                   EMIN = MIN( Z( J4 ), EMIN )
  50            CONTINUE
-            ELSE
+            } else {
                DO 60 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
                   TEMP = Z( J4+2 ) / Z( J4-3 )
@@ -192,7 +192,7 @@
             DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU
             DMIN = MIN( DMIN, DN )
 
-         ELSE
+         } else {
 
       // Code for non IEEE arithmetic.
 
@@ -201,7 +201,7 @@
                   Z( J4-2 ) = D + Z( J4-1 )
                   IF( D.LT.ZERO ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
                      D = Z( J4+1 )*( D / Z( J4-2 ) ) - TAU
                   END IF
@@ -209,12 +209,12 @@
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4 ) )
  70            CONTINUE
-            ELSE
+            } else {
                DO 80 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
                   IF( D.LT.ZERO ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
                      D = Z( J4+2 )*( D / Z( J4-3 ) ) - TAU
                   END IF
@@ -233,7 +233,7 @@
             Z( J4-2 ) = DNM2 + Z( J4P2 )
             IF( DNM2.LT.ZERO ) THEN
                RETURN
-            ELSE
+            } else {
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
                DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) ) - TAU
             END IF
@@ -245,7 +245,7 @@
             Z( J4-2 ) = DNM1 + Z( J4P2 )
             IF( DNM1.LT.ZERO ) THEN
                RETURN
-            ELSE
+            } else {
                Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
                DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) ) - TAU
             END IF

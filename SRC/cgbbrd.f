@@ -92,7 +92,7 @@
          IF( KU.GT.0 ) THEN
             ML0 = 1
             MU0 = 2
-         ELSE
+         } else {
             ML0 = 2
             MU0 = 1
          END IF
@@ -132,7 +132,7 @@
                DO 10 L = 1, KB
                   IF( J2-KLM+L-1.GT.N ) THEN
                      NRT = NR - 1
-                  ELSE
+                  } else {
                      NRT = NR
                   END IF
                   IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 )
@@ -197,7 +197,7 @@
                DO 50 L = 1, KB
                   IF( J2+L-1.GT.M ) THEN
                      NRT = NR - 1
-                  ELSE
+                  } else {
                      NRT = NR
                   END IF
                   IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 )
@@ -245,7 +245,7 @@
 
                IF( ML.GT.ML0 ) THEN
                   ML = ML - 1
-               ELSE
+               } else {
                   MU = MU - 1
                END IF
    80       CONTINUE
@@ -269,7 +269,7 @@
             END IF
             IF( WANTQ ) CALL CROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, CONJG( RS ) )             IF( WANTC ) CALL CROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS )
   100    CONTINUE
-      ELSE
+      } else {
 
          // A has been reduced to complex upper bidiagonal form or is
          // diagonal
@@ -301,7 +301,7 @@
          D( I ) = ABST
          IF( ABST.NE.ZERO ) THEN
             T = T / ABST
-         ELSE
+         } else {
             T = CONE
          END IF
          IF( WANTQ ) CALL CSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL CSCAL( NCC, CONJG( T ), C( I, 1 ), LDC )
@@ -309,17 +309,17 @@
             IF( KU.EQ.0 .AND. KL.EQ.0 ) THEN
                E( I ) = ZERO
                T = AB( 1, I+1 )
-            ELSE
+            } else {
                IF( KU.EQ.0 ) THEN
                   T = AB( 2, I )*CONJG( T )
-               ELSE
+               } else {
                   T = AB( KU, I+1 )*CONJG( T )
                END IF
                ABST = ABS( T )
                E( I ) = ABST
                IF( ABST.NE.ZERO ) THEN
                   T = T / ABST
-               ELSE
+               } else {
                   T = CONE
                END IF
                IF( WANTPT ) CALL CSCAL( N, T, PT( I+1, 1 ), LDPT )

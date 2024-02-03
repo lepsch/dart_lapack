@@ -147,7 +147,7 @@
                            DO ITRAN = 1, 2
                               IF( ITRAN.EQ.1 ) THEN
                                  TRANS = 'N'
-                              ELSE
+                              } else {
                                  TRANS = 'C'
                               END IF
 
@@ -234,7 +234,7 @@
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
-                              ELSE
+                              } else {
                                  TRANS = 'C'
                                  NROWS = N
                                  NCOLS = M
@@ -274,7 +274,7 @@
                                  // Solving LS system
 
                                  RESULT( 2 ) = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
-                              ELSE
+                              } else {
 
                                  // Solving overdetermined system
 
@@ -320,7 +320,7 @@
                                  TRANS = 'N'
                                  NROWS = M
                                  NCOLS = N
-                              ELSE
+                              } else {
                                  TRANS = 'C'
                                  NROWS = N
                                  NCOLS = M
@@ -360,7 +360,7 @@
                                  // Solving LS system
 
                                  RESULT( 4 ) = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
-                              ELSE
+                              } else {
 
                                  // Solving overdetermined system
 
@@ -412,7 +412,7 @@
                                     TRANS = 'N'
                                     NROWS = M
                                     NCOLS = N
-                                 ELSE
+                                 } else {
                                     TRANS = 'C'
                                     NROWS = N
                                     NCOLS = M
@@ -452,7 +452,7 @@
                                   // / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 
                                     RESULT( 6 ) = CQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
-                                 ELSE
+                                 } else {
 
                                     // Solving overdetermined system
 
@@ -558,7 +558,7 @@
                         IF( RANK.GT.0 ) THEN
                            CALL SAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 11 ) = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) )
-                        ELSE
+                        } else {
                            RESULT( 11 ) = ZERO
                         END IF
 
@@ -595,7 +595,7 @@
                         IF( RANK.GT.0 ) THEN
                            CALL SAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
                            RESULT( 15 ) = SASUM( MNMIN, S, 1 ) / SASUM( MNMIN, COPYS, 1 ) / ( EPS*REAL( MNMIN ) )
-                        ELSE
+                        } else {
                            RESULT( 15 ) = ZERO
                         END IF
 

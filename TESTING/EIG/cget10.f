@@ -56,10 +56,10 @@
 
       IF( ANORM.GT.WNORM ) THEN
          RESULT = ( WNORM / ANORM ) / ( M*EPS )
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*EPS )
-         ELSE
+         } else {
             RESULT = MIN( WNORM / ANORM, REAL( M ) ) / ( M*EPS )
          END IF
       END IF

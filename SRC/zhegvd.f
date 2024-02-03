@@ -52,7 +52,7 @@
          LWMIN = 2*N + N*N
          LRWMIN = 1 + 5*N + 2*N*N
          LIWMIN = 3 + 5*N
-      ELSE
+      } else {
          LWMIN = N + 1
          LRWMIN = N
          LIWMIN = 1
@@ -126,7 +126,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'C'
             END IF
 
@@ -139,7 +139,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'C'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

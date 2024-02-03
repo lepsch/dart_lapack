@@ -51,7 +51,7 @@
       ELSE IF( LQUERY ) THEN
          IF( K.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             LWKOPT = N*NB
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
@@ -113,7 +113,7 @@
                CALL CLARFB( 'Left', 'Conjugate transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
             END IF
    10    CONTINUE
-      ELSE
+      } else {
          I = 1
       END IF
 

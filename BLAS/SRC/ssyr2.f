@@ -63,12 +63,12 @@
       IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
           IF (INCX.GT.0) THEN
               KX = 1
-          ELSE
+          } else {
               KX = 1 - (N-1)*INCX
           END IF
           IF (INCY.GT.0) THEN
               KY = 1
-          ELSE
+          } else {
               KY = 1 - (N-1)*INCY
           END IF
           JX = KX
@@ -93,7 +93,7 @@
    10                 CONTINUE
                   END IF
    20         CONTINUE
-          ELSE
+          } else {
               DO 40 J = 1,N
                   IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
                       TEMP1 = ALPHA*Y(JY)
@@ -110,7 +110,7 @@
                   JY = JY + INCY
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when A is stored in the lower triangle.
 
@@ -124,7 +124,7 @@
    50                 CONTINUE
                   END IF
    60         CONTINUE
-          ELSE
+          } else {
               DO 80 J = 1,N
                   IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
                       TEMP1 = ALPHA*Y(JY)

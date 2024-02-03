@@ -60,7 +60,7 @@
 
       IF( ICOMPQ.EQ.1 ) THEN
          LDQ2 = QSIZ
-      ELSE
+      } else {
          LDQ2 = N
       END IF
 
@@ -115,7 +115,7 @@
          N1 = K
          N2 = N - K
          CALL DLAMRG( N1, N2, D, 1, -1, INDXQ )
-      ELSE
+      } else {
          QPTR( CURR+1 ) = QPTR( CURR )
          DO 20 I = 1, N
             INDXQ( I ) = I

@@ -83,6 +83,16 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t]$//g' %
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/      \1}/g' %
 ```
 
+### Comma
+```
+^( \s*[^/\s](.(?!(THEN|IF|SE|CONTINUE|\{|\}|;)))*)$
+ $1;
+```
+
+### ELSE -> } else {
+```
+
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

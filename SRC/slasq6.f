@@ -51,14 +51,14 @@
                TEMP = Z( J4+1 ) / Z( J4-2 )
                Z( J4 ) = Z( J4-1 )*TEMP
                D = D*TEMP
-            ELSE
+            } else {
                Z( J4 ) = Z( J4+1 )*( Z( J4-1 ) / Z( J4-2 ) )
                D = Z( J4+1 )*( D / Z( J4-2 ) )
             END IF
             DMIN = MIN( DMIN, D )
             EMIN = MIN( EMIN, Z( J4 ) )
    10    CONTINUE
-      ELSE
+      } else {
          DO 20 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-3 ) = D + Z( J4 )
             IF( Z( J4-3 ).EQ.ZERO ) THEN
@@ -70,7 +70,7 @@
                TEMP = Z( J4+2 ) / Z( J4-3 )
                Z( J4-1 ) = Z( J4 )*TEMP
                D = D*TEMP
-            ELSE
+            } else {
                Z( J4-1 ) = Z( J4+2 )*( Z( J4 ) / Z( J4-3 ) )
                D = Z( J4+2 )*( D / Z( J4-3 ) )
             END IF
@@ -95,7 +95,7 @@
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DNM1 = DNM2*TEMP
-      ELSE
+      } else {
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
          DNM1 = Z( J4P2+2 )*( DNM2 / Z( J4-2 ) )
       END IF
@@ -114,7 +114,7 @@
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DN = DNM1*TEMP
-      ELSE
+      } else {
          Z( J4 ) = Z( J4P2+2 )*( Z( J4P2 ) / Z( J4-2 ) )
          DN = Z( J4P2+2 )*( DNM1 / Z( J4-2 ) )
       END IF

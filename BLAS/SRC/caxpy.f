@@ -30,7 +30,7 @@
          DO I = 1,N
             CY(I) = CY(I) + CA*CX(I)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

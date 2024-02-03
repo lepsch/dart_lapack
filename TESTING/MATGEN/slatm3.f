@@ -85,7 +85,7 @@
 
       IF( I.EQ.J ) THEN
          TEMP = D( I )
-      ELSE
+      } else {
          TEMP = SLARND( IDIST, ISEED )
       END IF
       IF( IGRADE.EQ.1 ) THEN

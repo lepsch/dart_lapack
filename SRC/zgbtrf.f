@@ -81,7 +81,7 @@
          // Use unblocked code
 
          CALL ZGBTF2( M, N, KL, KU, AB, LDAB, IPIV, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -163,7 +163,7 @@
                      IF( JP+JJ-1.LT.J+KL ) THEN
 
                         CALL ZSWAP( JB, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
-                     ELSE
+                     } else {
 
                         // The interchange affects columns J to JJ-1 of A31
                         // which are stored in the work array WORK31
@@ -182,7 +182,7 @@
 
                   JM = MIN( JU, J+JB-1 )
                   IF( JM.GT.JJ ) CALL ZGERU( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 )
-               ELSE
+               } else {
 
                   // If pivot is zero, set INFO to the index of the pivot
                   // unless a zero pivot has already been found.
@@ -289,7 +289,7 @@
   140                CONTINUE
   150             CONTINUE
                END IF
-            ELSE
+            } else {
 
                // Adjust the pivot indices.
 
@@ -313,7 +313,7 @@
                      // The interchange does not affect A31
 
                      CALL ZSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
-                  ELSE
+                  } else {
 
                      // The interchange does affect A31
 

@@ -136,7 +136,7 @@
          RANK = 0
          CALL ZLASET( 'F', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
          GO TO 100
-      ELSE
+      } else {
          RANK = 1
       END IF
 

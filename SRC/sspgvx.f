@@ -52,7 +52,7 @@
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) THEN
                INFO = -9
@@ -106,7 +106,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'T'
             END IF
 
@@ -121,7 +121,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'T'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

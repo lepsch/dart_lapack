@@ -45,7 +45,7 @@
       ELSE IF( LSAME( JOBVSL, 'V' ) ) THEN
          IJOBVL = 2
          ILVSL = .TRUE.
-      ELSE
+      } else {
          IJOBVL = -1
          ILVSL = .FALSE.
       END IF
@@ -56,7 +56,7 @@
       ELSE IF( LSAME( JOBVSR, 'V' ) ) THEN
          IJOBVR = 2
          ILVSR = .TRUE.
-      ELSE
+      } else {
          IJOBVR = -1
          ILVSR = .FALSE.
       END IF
@@ -219,7 +219,7 @@
             INFO = IINFO
          ELSE IF( IINFO.GT.N .AND. IINFO.LE.2*N ) THEN
             INFO = IINFO - N
-         ELSE
+         } else {
             INFO = N + 6
          END IF
          GO TO 10

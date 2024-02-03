@@ -54,7 +54,7 @@
                S = ZERO
                C = ONE
                SESTPR = ZERO
-            ELSE
+            } else {
                S = ALPHA / S1
                C = GAMMA / S1
                TMP = DBLE( SQRT( S*DCONJG( S )+C*DCONJG( C ) ) )
@@ -78,7 +78,7 @@
                S = ONE
                C = ZERO
                SESTPR = S2
-            ELSE
+            } else {
                S = ZERO
                C = ONE
                SESTPR = S1
@@ -93,7 +93,7 @@
                SESTPR = S2*SCL
                S = ( ALPHA / S2 ) / SCL
                C = ( GAMMA / S2 ) / SCL
-            ELSE
+            } else {
                TMP = S2 / S1
                SCL = SQRT( ONE+TMP*TMP )
                SESTPR = S1*SCL
@@ -101,7 +101,7 @@
                C = ( GAMMA / S1 ) / SCL
             END IF
             RETURN
-         ELSE
+         } else {
 
             // normal case
 
@@ -112,7 +112,7 @@
             C = ZETA1*ZETA1
             IF( B.GT.ZERO ) THEN
                T = DBLE( C / ( B+SQRT( B*B+C ) ) )
-            ELSE
+            } else {
                T = DBLE( SQRT( B*B+C ) - B )
             END IF
 
@@ -137,7 +137,7 @@
             IF( MAX( ABSGAM, ABSALP ).EQ.ZERO ) THEN
                SINE = ONE
                COSINE = ZERO
-            ELSE
+            } else {
                SINE = -DCONJG( GAMMA )
                COSINE = DCONJG( ALPHA )
             END IF
@@ -160,7 +160,7 @@
                S = ZERO
                C = ONE
                SESTPR = S1
-            ELSE
+            } else {
                S = ONE
                C = ZERO
                SESTPR = S2
@@ -175,7 +175,7 @@
                SESTPR = ABSEST*( TMP / SCL )
                S = -( DCONJG( GAMMA ) / S2 ) / SCL
                C = ( DCONJG( ALPHA ) / S2 ) / SCL
-            ELSE
+            } else {
                TMP = S2 / S1
                SCL = SQRT( ONE+TMP*TMP )
                SESTPR = ABSEST / SCL
@@ -183,7 +183,7 @@
                C = ( DCONJG( ALPHA ) / S1 ) / SCL
             END IF
             RETURN
-         ELSE
+         } else {
 
             // normal case
 
@@ -205,7 +205,7 @@
                SINE = ( ALPHA / ABSEST ) / ( ONE-T )
                COSINE = -( GAMMA / ABSEST ) / T
                SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
-            ELSE
+            } else {
 
                // root is closer to ONE, shift by that amount
 
@@ -213,7 +213,7 @@
                C = ZETA1*ZETA1
                IF( B.GE.ZERO ) THEN
                   T = DBLE( -C / ( B+SQRT( B*B+C ) ) )
-               ELSE
+               } else {
                   T = DBLE( B - SQRT( B*B+C ) )
                END IF
                SINE = -( ALPHA / ABSEST ) / T

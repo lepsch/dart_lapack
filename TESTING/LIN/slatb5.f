@@ -69,7 +69,7 @@
 
       IF( IMAT.EQ.1 ) THEN
          KL = 0
-      ELSE
+      } else {
          KL = MAX( N-1, 0 )
       END IF
       KU = KL
@@ -89,7 +89,7 @@
          CNDNUM = BADC1
       ELSE IF( IMAT.EQ.7 ) THEN
          CNDNUM = BADC2
-      ELSE
+      } else {
          CNDNUM = TWO
       END IF
 
@@ -97,7 +97,7 @@
          ANORM = SMALL
       ELSE IF( IMAT.EQ.9 ) THEN
          ANORM = LARGE
-      ELSE
+      } else {
          ANORM = ONE
       END IF
 

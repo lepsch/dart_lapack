@@ -43,7 +43,7 @@
             DY(I+2) = DY(I+2) + DA*DX(I+2)
             DY(I+3) = DY(I+3) + DA*DX(I+3)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

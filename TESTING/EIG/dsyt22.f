@@ -71,10 +71,10 @@
 
       IF( ANORM.GT.WNORM ) THEN
          RESULT( 1 ) = ( WNORM / ANORM ) / ( M*ULP )
-      ELSE
+      } else {
          IF( ANORM.LT.ONE ) THEN
             RESULT( 1 ) = ( MIN( WNORM, M*ANORM ) / ANORM ) / ( M*ULP )
-         ELSE
+         } else {
             RESULT( 1 ) = MIN( WNORM / ANORM, DBLE( M ) ) / ( M*ULP )
          END IF
       END IF

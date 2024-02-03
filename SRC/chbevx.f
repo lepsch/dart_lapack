@@ -66,7 +66,7 @@
          INFO = -7
       ELSE IF( WANTZ .AND. LDQ.LT.MAX( 1, N ) ) THEN
          INFO = -9
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
          ELSE IF( INDEIG ) THEN
@@ -95,7 +95,7 @@
          M = 1
          IF( LOWER ) THEN
             CTMP1 = AB( 1, 1 )
-         ELSE
+         } else {
             CTMP1 = AB( KD+1, 1 )
          END IF
          TMP1 = REAL( CTMP1 )
@@ -125,7 +125,7 @@
       IF ( VALEIG ) THEN
          VLL = VL
          VUU = VU
-      ELSE
+      } else {
          VLL = ZERO
          VUU = ZERO
       ENDIF
@@ -140,7 +140,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( LOWER ) THEN
             CALL CLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         ELSE
+         } else {
             CALL CLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -174,7 +174,7 @@
          IF( .NOT.WANTZ ) THEN
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL SSTERF( N, W, RWORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL CLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL CSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
@@ -195,7 +195,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDIBL = 1
@@ -221,7 +221,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

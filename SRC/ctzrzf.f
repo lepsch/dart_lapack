@@ -50,7 +50,7 @@
          IF( M.EQ.0 .OR. M.EQ.N ) THEN
             LWKOPT = 1
             LWKMIN = 1
-         ELSE
+         } else {
 
             // Determine the block size.
 
@@ -137,7 +137,7 @@
             END IF
    20    CONTINUE
          MU = I + NB - 1
-      ELSE
+      } else {
          MU = M
       END IF
 

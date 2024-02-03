@@ -156,7 +156,7 @@
             IDXP( K2 ) = J
             COLTYP( J ) = 4
             IF( J.EQ.N ) GO TO 120
-         ELSE
+         } else {
             JPREV = J
             GO TO 90
          END IF
@@ -173,7 +173,7 @@
          K2 = K2 - 1
          IDXP( K2 ) = J
          COLTYP( J ) = 4
-      ELSE
+      } else {
 
          // Check if singular values are close enough to allow deflation.
 
@@ -213,7 +213,7 @@
             K2 = K2 - 1
             IDXP( K2 ) = JPREV
             JPREV = J
-         ELSE
+         } else {
             K = K + 1
             U2( K, 1 ) = Z( JPREV )
             DSIGMA( K ) = D( JPREV )
@@ -294,14 +294,14 @@
             C = ONE
             S = ZERO
             Z( 1 ) = TOL
-         ELSE
+         } else {
             C = Z1 / Z( 1 )
             S = Z( M ) / Z( 1 )
          END IF
-      ELSE
+      } else {
          IF( ABS( Z1 ).LE.TOL ) THEN
             Z( 1 ) = TOL
-         ELSE
+         } else {
             Z( 1 ) = Z1
          END IF
       END IF
@@ -324,7 +324,7 @@
             VT2( 1, I ) = S*VT( M, I )
             VT( M, I ) = C*VT( M, I )
   180    CONTINUE
-      ELSE
+      } else {
          CALL DCOPY( M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 )
       END IF
       IF( M.GT.N ) THEN

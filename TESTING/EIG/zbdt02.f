@@ -56,13 +56,13 @@
 
       IF( BNORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )
-         ELSE
+         } else {
             IF( BNORM.LT.ONE ) THEN
                RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS )
-            ELSE
+            } else {
                RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS )
             END IF
          END IF

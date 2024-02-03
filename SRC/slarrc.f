@@ -66,7 +66,7 @@
                RCNT = RCNT + 1
             ENDIF
  10      CONTINUE
-      ELSE
+      } else {
          // Sturm sequence count on L D L^T
          SL = -VL
          SU = -VU
@@ -84,14 +84,14 @@
             TMP2 = TMP / LPIVOT
             IF( TMP2.EQ.ZERO ) THEN
                SL =  TMP - VL
-            ELSE
+            } else {
                SL = SL*TMP2 - VL
             END IF
 
             TMP2 = TMP / RPIVOT
             IF( TMP2.EQ.ZERO ) THEN
                SU =  TMP - VU
-            ELSE
+            } else {
                SU = SU*TMP2 - VU
             END IF
  20      CONTINUE

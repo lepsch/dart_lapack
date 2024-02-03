@@ -77,7 +77,7 @@
          DO I = 1, N
             WORK(I) = ZERO
          END DO
-      ELSE
+      } else {
          CALL ZGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
       END IF
 
@@ -119,7 +119,7 @@
          DO I = 1, N
             WORK(I) = ZERO
          END DO
-      ELSE
+      } else {
          CALL ZGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
       END IF
 

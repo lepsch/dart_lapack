@@ -50,7 +50,7 @@
 
       IF( LSAME( TRANS, 'N' ) ) THEN
          TRANST = 'C'
-      ELSE
+      } else {
          TRANST = 'N'
       END IF
 

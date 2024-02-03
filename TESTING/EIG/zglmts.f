@@ -71,7 +71,7 @@
 
       IF( XNORM.LE.ZERO ) THEN
          RESULT = ZERO
-      ELSE
+      } else {
          RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS
       END IF
 

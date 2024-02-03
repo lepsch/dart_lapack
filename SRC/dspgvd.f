@@ -55,11 +55,11 @@
          IF( N.LE.1 ) THEN
             LIWMIN = 1
             LWMIN = 1
-         ELSE
+         } else {
             IF( WANTZ ) THEN
                LIWMIN = 3 + 5*N
                LWMIN = 1 + 6*N + 2*N**2
-            ELSE
+            } else {
                LIWMIN = 1
                LWMIN = 2*N
             END IF
@@ -112,7 +112,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'T'
             END IF
 
@@ -127,7 +127,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'T'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

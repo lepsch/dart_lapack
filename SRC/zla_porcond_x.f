@@ -77,7 +77,7 @@
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0D+0
             DO J = 1, I
@@ -118,7 +118,7 @@
 
             IF ( UP ) THEN
                CALL ZPOTRS( 'U', N, 1, AF, LDAF, WORK, N, INFO )
-            ELSE
+            } else {
                CALL ZPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
             ENDIF
 
@@ -127,7 +127,7 @@
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
-         ELSE
+         } else {
 
             // Multiply by inv(X**H).
 
@@ -137,7 +137,7 @@
 
             IF ( UP ) THEN
                CALL ZPOTRS( 'U', N, 1, AF, LDAF, WORK, N, INFO )
-            ELSE
+            } else {
                CALL ZPOTRS( 'L', N, 1, AF, LDAF, WORK, N, INFO )
             END IF
 

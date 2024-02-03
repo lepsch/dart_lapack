@@ -58,7 +58,7 @@
       WANTVT = LSAME( JOBVT, 'V' )
       IF( WANTU .OR. WANTVT ) THEN
          JOBZ = 'V'
-      ELSE
+      } else {
          JOBZ = 'N'
       END IF
       ALLS = LSAME( RANGE, 'A' )
@@ -130,7 +130,7 @@
                   IF (WANTU .OR. WANTVT) THEN
                      MAXWRK = MAX(MAXWRK, N*N+2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1))
                   END IF
-               ELSE
+               } else {
 
                   // Path 2 (M at least N, but not much larger)
 
@@ -140,7 +140,7 @@
                      MAXWRK = MAX(MAXWRK, 2*N+N*ILAENV(1,'ZUNMQR','LN',N,N,N,-1))
                   END IF
                END IF
-            ELSE
+            } else {
                MNTHR = ILAENV( 6, 'ZGESVD', JOBU // JOBVT, M, N, 0, 0 )
                IF( N.GE.MNTHR ) THEN
 
@@ -152,7 +152,7 @@
                   IF (WANTU .OR. WANTVT) THEN
                      MAXWRK = MAX(MAXWRK, M*M+2*M+M*ILAENV(1,'ZUNMQR','LN',M,M,M,-1))
                   END IF
-               ELSE
+               } else {
 
                   // Path 2t (N greater than M, but not much larger)
 
@@ -196,7 +196,7 @@
          RNGTGK = 'I'
          ILTGK = IL
          IUTGK = IU
-      ELSE
+      } else {
          RNGTGK = 'V'
          ILTGK = 0
          IUTGK = 0
@@ -300,7 +300,7 @@
 
                CALL ZUNMBR( 'P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
-         ELSE
+         } else {
 
             // Path 2 (M at least N, but not much larger)
             // Reduce A to bidiagonal form without QR decomposition
@@ -361,7 +361,7 @@
                CALL ZUNMBR( 'P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
             END IF
          END IF
-      ELSE
+      } else {
 
          // A has more columns than rows. If A has sufficiently more
          // columns than rows, first reduce A using the LQ decomposition.
@@ -440,7 +440,7 @@
 
                CALL ZUNMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
-         ELSE
+         } else {
 
             // Path 2t (N greater than M, but not much larger)
             // Reduce to bidiagonal form without LQ decomposition

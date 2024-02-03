@@ -21,7 +21,7 @@
 
       IF( IEEEOK.EQ.0 ) THEN
          WRITE( 6, FMT = * ) 'Infinity arithmetic did not perform per the ieee spec'
-      ELSE
+      } else {
          WRITE( 6, FMT = * ) 'Infinity arithmetic performed as per the ieee spec.'          WRITE( 6, FMT = * ) 'However, this is not an exhaustive test and does not'          WRITE( 6, FMT = * ) 'guarantee that infinity arithmetic meets the', ' ieee spec.'
       END IF
 
@@ -36,7 +36,7 @@
       WRITE( 6, FMT = * )
       IF( IEEEOK.EQ.0 ) THEN
          WRITE( 6, FMT = * ) 'NaN arithmetic did not perform per the ieee spec'
-      ELSE
+      } else {
          WRITE( 6, FMT = * )'NaN arithmetic performed as per the ieee', ' spec.'          WRITE( 6, FMT = * ) 'However, this is not an exhaustive test and does not'          WRITE( 6, FMT = * )'guarantee that NaN arithmetic meets the', ' ieee spec.'
       END IF
       WRITE( 6, FMT = * )

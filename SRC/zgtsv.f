@@ -73,7 +73,7 @@
                B( K+1, J ) = B( K+1, J ) - MULT*B( K, J )
    10       CONTINUE
             IF( K.LT.( N-1 ) ) DL( K ) = ZERO
-         ELSE
+         } else {
 
             // Interchange rows K and K+1
 

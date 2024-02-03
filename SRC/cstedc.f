@@ -50,7 +50,7 @@
          ICOMPZ = 1
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ICOMPZ = 2
-      ELSE
+      } else {
          ICOMPZ = -1
       END IF
       IF( ICOMPZ.LT.0 ) THEN
@@ -136,7 +136,7 @@
 
          CALL CSTEQR( COMPZ, N, D, E, Z, LDZ, RWORK, INFO )
 
-      ELSE
+      } else {
 
          // If COMPZ = 'I', we simply call SSTEDC instead.
 
@@ -205,7 +205,7 @@
 
                CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
 
-            ELSE
+            } else {
                CALL SSTEQR( 'I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL CLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) )
                CALL CLACPY( 'A', N, M, WORK, N, Z( 1, START ), LDZ )
                IF( INFO.GT.0 ) THEN

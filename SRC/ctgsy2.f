@@ -114,7 +114,7 @@
    10                CONTINUE
                      SCALE = SCALE*SCALOC
                   END IF
-               ELSE
+               } else {
                   CALL CLATDF( IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                END IF
 
@@ -136,7 +136,7 @@
 
    20       CONTINUE
    30    CONTINUE
-      ELSE
+      } else {
 
          // Solve transposed (I, J) - system:
             // A(I, I)**H * R(I, J) + D(I, I)**H * L(J, J) = C(I, J)

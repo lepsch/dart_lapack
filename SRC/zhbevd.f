@@ -51,12 +51,12 @@
          LWMIN = 1
          LRWMIN = 1
          LIWMIN = 1
-      ELSE
+      } else {
          IF( WANTZ ) THEN
             LWMIN = 2*N**2
             LRWMIN = 1 + 5*N + 2*N**2
             LIWMIN = 3 + 5*N
-         ELSE
+         } else {
             LWMIN = N
             LRWMIN = N
             LIWMIN = 1
@@ -130,7 +130,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( LOWER ) THEN
             CALL ZLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         ELSE
+         } else {
             CALL ZLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
       END IF
@@ -148,7 +148,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO )
          CALL ZGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL ZLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
@@ -159,7 +159,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

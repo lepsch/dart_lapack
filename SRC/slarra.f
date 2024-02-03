@@ -51,7 +51,7 @@
                NSPLIT = NSPLIT + 1
             END IF
  9       CONTINUE
-      ELSE
+      } else {
          // Criterion that guarantees relative accuracy
          DO 10 I = 1, N-1
             EABS = ABS( E(I) )

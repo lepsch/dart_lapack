@@ -80,10 +80,10 @@
          IF( NOTRAN ) THEN
             IF( IJOB.EQ.1 .OR. IJOB.EQ.2 ) THEN
                LWMIN = MAX( 1, 2*M*N )
-            ELSE
+            } else {
                LWMIN = 1
             END IF
-         ELSE
+         } else {
             LWMIN = 1
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
@@ -143,7 +143,7 @@
             IF( DSCALE.NE.ZERO ) THEN
                IF( IJOB.EQ.1 .OR. IJOB.EQ.3 ) THEN
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
-               ELSE
+               } else {
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                END IF
             END IF
@@ -251,7 +251,7 @@
             IF( DSCALE.NE.ZERO ) THEN
                IF( IJOB.EQ.1 .OR. IJOB.EQ.3 ) THEN
                   DIF = SQRT( REAL( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
-               ELSE
+               } else {
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                END IF
             END IF
@@ -270,7 +270,7 @@
                SCALE = SCALE2
             END IF
   150    CONTINUE
-      ELSE
+      } else {
 
          // Solve transposed (I, J)-subsystem
              // A(I, I)**H * R(I, J) + D(I, I)**H * L(I, J) = C(I, J)

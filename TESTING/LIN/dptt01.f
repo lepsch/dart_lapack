@@ -54,7 +54,7 @@
       IF( N.EQ.1 ) THEN
          ANORM = D( 1 )
          RESID = ABS( WORK( 1 ) )
-      ELSE
+      } else {
          ANORM = MAX( D( 1 )+ABS( E( 1 ) ), D( N )+ABS( E( N-1 ) ) )
          RESID = MAX( ABS( WORK( 1 ) )+ABS( WORK( N+1 ) ), ABS( WORK( N ) )+ABS( WORK( 2*N-1 ) ) )
          DO 20 I = 2, N - 1
@@ -67,7 +67,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF
 

@@ -59,7 +59,7 @@
       IF( N.GT.1 ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL CLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL CLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
-         ELSE
+         } else {
             CALL CLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL CLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          ENDIF
 
@@ -67,7 +67,7 @@
 
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL CTRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N, CONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
-         ELSE
+         } else {
             CALL CTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, CONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
          END IF
 
@@ -75,7 +75,7 @@
 
          IF( LSAME( UPLO, 'U' ) ) THEN
             CALL CTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, CONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
-         ELSE
+         } else {
             CALL CTRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
          END IF
       ENDIF
@@ -100,7 +100,7 @@
                C( I, J ) = C( I, J ) - A( I, J )
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, N
             DO I = J, N
                C( I, J ) = C( I, J ) - A( I, J )
@@ -114,7 +114,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF
 

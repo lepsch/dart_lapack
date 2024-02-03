@@ -163,7 +163,7 @@
                         IZERO = 1
                      ELSE IF( IMAT.EQ.4 ) THEN
                         IZERO = N
-                     ELSE
+                     } else {
                         IZERO = N / 2 + 1
                      END IF
 
@@ -181,7 +181,7 @@
                               A( IOFF ) = CZERO
                               IOFF = IOFF + LDA
    30                      CONTINUE
-                        ELSE
+                        } else {
                            IOFF = IZERO
                            DO 40 I = 1, IZERO - 1
                               A( IOFF ) = CZERO
@@ -192,7 +192,7 @@
                               A( IOFF+I ) = CZERO
    50                      CONTINUE
                         END IF
-                     ELSE
+                     } else {
                         IF( IUPLO.EQ.1 ) THEN
 
                            // Set the first IZERO rows and columns to zero.
@@ -205,7 +205,7 @@
    60                         CONTINUE
                               IOFF = IOFF + LDA
    70                      CONTINUE
-                        ELSE
+                        } else {
 
                            // Set the last IZERO rows and columns to zero.
 
@@ -219,11 +219,11 @@
    90                      CONTINUE
                         END IF
                      END IF
-                  ELSE
+                  } else {
                      IZERO = 0
                   END IF
 
-               ELSE
+               } else {
 
                   // For matrix kind IMAT = 11, generate special block
                   // diagonal matrix to test alternate code
@@ -286,7 +286,7 @@
 
                   IF( INFO.NE.0 ) THEN
                      TRFCON = .TRUE.
-                  ELSE
+                  } else {
                      TRFCON = .FALSE.
                   END IF
 
@@ -351,7 +351,7 @@
                         // in column k in in U
 
                         STEMP = CLANGE( 'M', K-1, 1, AFAC( ( K-1 )*LDA+1 ), LDA, RWORK )
-                     ELSE
+                     } else {
 
                         // Get max absolute value from elements
                         // in columns k and k-1 in U
@@ -371,7 +371,7 @@
                      GO TO 120
   130                CONTINUE
 
-                  ELSE
+                  } else {
 
                   // Compute largest element in L
 
@@ -385,7 +385,7 @@
                         // in column k in in L
 
                         STEMP = CLANGE( 'M', N-K, 1, AFAC( ( K-1 )*LDA+K+1 ), LDA, RWORK )
-                     ELSE
+                     } else {
 
                         // Get max absolute value from elements
                         // in columns k and k+1 in L
@@ -456,7 +456,7 @@
                      GO TO 160
   170                CONTINUE
 
-                  ELSE
+                  } else {
 
                      // Loop forward for UPLO = 'L'
 

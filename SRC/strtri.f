@@ -75,7 +75,7 @@
          // Use unblocked code
 
          CALL STRTI2( UPLO, DIAG, N, A, LDA, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -94,7 +94,7 @@
 
                CALL STRTI2( 'Upper', DIAG, JB, A( J, J ), LDA, INFO )
    20       CONTINUE
-         ELSE
+         } else {
 
             // Compute inverse of lower triangular matrix
 

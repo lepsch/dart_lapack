@@ -860,7 +860,7 @@
 
       IF( OK ) THEN
          WRITE( NOUT, FMT = 9999 )PATH, NT
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9998 )PATH
       END IF
 

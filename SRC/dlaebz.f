@@ -135,7 +135,7 @@
                      // just use the upper interval.
 
                      AB( JI, 1 ) = C( JI )
-                  ELSE
+                  } else {
                      KLNEW = KLNEW + 1
                      IF( KLNEW.LE.MMAX ) THEN
 
@@ -148,14 +148,14 @@
                         NAB( KLNEW, 1 ) = IWORK( JI )
                         AB( JI, 2 ) = C( JI )
                         NAB( JI, 2 ) = IWORK( JI )
-                     ELSE
+                     } else {
                         INFO = MMAX + 1
                      END IF
                   END IF
    70          CONTINUE
                IF( INFO.NE.0 ) RETURN
                KL = KLNEW
-            ELSE
+            } else {
 
                // IJOB=3: Binary search.  Keep only the interval containing
                        // w   s.t. N(w) = NVAL
@@ -172,7 +172,7 @@
    80          CONTINUE
             END IF
 
-         ELSE
+         } else {
 
             // End of Parallel Version of the loop
 
@@ -234,11 +234,11 @@
                      NAB( KLNEW, 1 ) = ITMP1
                      AB( JI, 2 ) = TMP1
                      NAB( JI, 2 ) = ITMP1
-                  ELSE
+                  } else {
                      INFO = MMAX + 1
                      RETURN
                   END IF
-               ELSE
+               } else {
 
                   // IJOB=3: Binary search.  Keep only the interval
                           // containing  w  s.t. N(w) = NVAL

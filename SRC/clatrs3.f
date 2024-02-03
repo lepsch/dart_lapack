@@ -79,7 +79,7 @@
 
       IF( MIN( N, NRHS ).EQ.0 ) THEN
          LWMIN = 1
-      ELSE
+      } else {
          LWMIN = LSCALE + LANRM
       END IF
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
@@ -147,7 +147,7 @@
          IF ( UPPER ) THEN
             IFIRST = 1
             ILAST = J - 1
-         ELSE
+         } else {
             IFIRST = J + 1
             ILAST = NBA
          END IF
@@ -160,7 +160,7 @@
             IF( NOTRAN ) THEN
                ANRM = CLANGE( 'I', I2-I1, J2-J1, A( I1, J1 ), LDA, W )
                WORK( AWRK + I+(J-1)*NBA ) = ANRM
-            ELSE
+            } else {
                ANRM = CLANGE( '1', I2-I1, J2-J1, A( I1, J1 ), LDA, W )
                WORK( AWRK + J+(I-1)*NBA ) = ANRM
             END IF
@@ -212,12 +212,12 @@
                JFIRST = NBA
                JLAST = 1
                JINC = -1
-            ELSE
+            } else {
                JFIRST = 1
                JLAST = NBA
                JINC = 1
             END IF
-         ELSE
+         } else {
 
             // Solve op(A) * X(:, K1:K2-1) = B * diag(scale(K1:K2-1))
             // where op(A) = A**T or op(A) = A**H
@@ -226,7 +226,7 @@
                JFIRST = 1
                JLAST = NBA
                JINC = 1
-            ELSE
+            } else {
                JFIRST = NBA
                JLAST = 1
                JINC = -1
@@ -246,7 +246,7 @@
                RHS = K1 + KK - 1
                IF( KK.EQ.1 ) THEN
                   CALL CLATRS( UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
-               ELSE
+               } else {
                   CALL CLATRS( UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
                END IF
                // Find largest absolute value entry in the vector segment
@@ -289,7 +289,7 @@
                      XNRM( KK ) = XNRM( KK ) * RSCAL
                      CALL CSSCAL( J2-J1, RSCAL, X( J1, RHS ), 1 )
                      SCALOC = ONE
-                  ELSE
+                  } else {
                      // The system op(A) * x = b is badly scaled and its
                      // solution cannot be represented as (1/scale) * x.
                      // Set x to zero. This approach deviates from LATRS
@@ -317,17 +317,17 @@
                   IFIRST = J - 1
                   ILAST = 1
                   IINC = -1
-               ELSE
+               } else {
                   IFIRST = J + 1
                   ILAST = NBA
                   IINC = 1
                END IF
-            ELSE
+            } else {
                IF( UPPER ) THEN
                   IFIRST = J + 1
                   ILAST = NBA
                   IINC = 1
-               ELSE
+               } else {
                   IFIRST = J - 1
                   ILAST = 1
                   IINC = -1
@@ -387,7 +387,7 @@
                   // B( I, K ) := B( I, K ) - A( I, J )**T * X( J, K )
 
                   CALL CGEMM( 'T', 'N', I2-I1, K2-K1, J2-J1, -CONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, CONE, X( I1, K1 ), LDX )
-               ELSE
+               } else {
 
                   // B( I, K ) := B( I, K ) - A( I, J )**H * X( J, K )
 

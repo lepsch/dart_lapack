@@ -43,7 +43,7 @@
          DO I = MP1,N,6
             DTEMP = DTEMP + DABS(DX(I)) + DABS(DX(I+1)) + DABS(DX(I+2)) + DABS(DX(I+3)) + DABS(DX(I+4)) + DABS(DX(I+5))
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

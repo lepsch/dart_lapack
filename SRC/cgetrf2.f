@@ -90,17 +90,17 @@
 
             IF( ABS(A( 1, 1 )) .GE. SFMIN ) THEN
                CALL CSCAL( M-1, ONE / A( 1, 1 ), A( 2, 1 ), 1 )
-            ELSE
+            } else {
                DO 10 I = 1, M-1
                   A( 1+I, 1 ) = A( 1+I, 1 ) / A( 1, 1 )
    10          CONTINUE
             END IF
 
-         ELSE
+         } else {
             INFO = 1
          END IF
 
-      ELSE
+      } else {
 
          // Use recursive code
 

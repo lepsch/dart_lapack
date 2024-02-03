@@ -75,7 +75,7 @@
          DO 30 I = 1, N
             V( I ) = EPS3
    30    CONTINUE
-      ELSE
+      } else {
 
          // Scale supplied initial vector.
 
@@ -101,7 +101,7 @@
                   B( I+1, J ) = B( I, J ) - X*TEMP
                   B( I, J ) = TEMP
    40          CONTINUE
-            ELSE
+            } else {
 
                // Eliminate without interchange.
 
@@ -118,7 +118,7 @@
 
          TRANS = 'N'
 
-      ELSE
+      } else {
 
          // UL decomposition with partial pivoting of B, replacing zero
          // pivots by EPS3.
@@ -136,7 +136,7 @@
                   B( I, J-1 ) = B( I, J ) - X*TEMP
                   B( I, J ) = TEMP
    70          CONTINUE
-            ELSE
+            } else {
 
                // Eliminate without interchange.
 

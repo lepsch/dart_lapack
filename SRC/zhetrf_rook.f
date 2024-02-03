@@ -71,7 +71,7 @@
             NB = MAX( LWORK / LDWORK, 1 )
             NBMIN = MAX( 2, ILAENV( 2, 'ZHETRF_ROOK', UPLO, N, -1, -1, -1 ) )
          END IF
-      ELSE
+      } else {
          IWS = 1
       END IF
       IF( NB.LT.NBMIN ) NB = N
@@ -97,7 +97,7 @@
             // update columns 1:k-kb
 
             CALL ZLAHEF_ROOK( UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO )
-         ELSE
+         } else {
 
             // Use unblocked code to factorize columns 1:k of A
 
@@ -116,7 +116,7 @@
          K = K - KB
          GO TO 10
 
-      ELSE
+      } else {
 
          // Factorize A as L*D*L**T using the lower triangle of A
 
@@ -137,7 +137,7 @@
             // update columns k+kb:n
 
             CALL ZLAHEF_ROOK( UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO )
-         ELSE
+         } else {
 
             // Use unblocked code to factorize columns k:n of A
 
@@ -154,7 +154,7 @@
          DO 30 J = K, K + KB - 1
             IF( IPIV( J ).GT.0 ) THEN
                IPIV( J ) = IPIV( J ) + K - 1
-            ELSE
+            } else {
                IPIV( J ) = IPIV( J ) - K + 1
             END IF
    30    CONTINUE

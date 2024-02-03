@@ -47,7 +47,7 @@
 
       IF( LSAME( TRANS, 'N' ) ) THEN
          ANORM = SLANTP( '1', UPLO, DIAG, N, AP, WORK )
-      ELSE
+      } else {
          ANORM = SLANTP( 'I', UPLO, DIAG, N, AP, WORK )
       END IF
 
@@ -71,7 +71,7 @@
          XNORM = SASUM( N, X( 1, J ), 1 )
          IF( XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          END IF
    10 CONTINUE

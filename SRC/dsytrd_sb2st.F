@@ -58,7 +58,7 @@
       IF( N.EQ.0 .OR. KD.LE.1 ) THEN
          LHMIN = 1
          LWMIN = 1
-      ELSE
+      } else {
          LHMIN = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', VECT, N, KD, IB, -1 )
       END IF
@@ -122,7 +122,7 @@
           OFDPOS   = DPOS - 1
           ABDPOS   = KD + 1
           ABOFDPOS = KD
-      ELSE
+      } else {
           APOS     = INDA
           AWPOS    = INDA + KD + 1
           DPOS     = APOS
@@ -170,7 +170,7 @@
               DO 60 I = 1, N-1
                  E( I ) = ( AB( ABOFDPOS, I+1 ) )
    60         CONTINUE
-          ELSE
+          } else {
               DO 70 I = 1, N-1
                  E( I ) = ( AB( ABOFDPOS, I ) )
    70         CONTINUE
@@ -222,7 +222,7 @@
                           MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
                           IF ( MYID.EQ.1 ) THEN
                               TTYPE = 1
-                          ELSE
+                          } else {
                               TTYPE = MOD( MYID, 2 ) + 2
                           ENDIF
 
@@ -231,13 +231,13 @@
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
                               BLKLASTIND = COLPT
-                          ELSE
+                          } else {
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
                               IF( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) THEN
                                   BLKLASTIND = N
-                              ELSE
+                              } else {
                                   BLKLASTIND = 0
                               ENDIF
                           ENDIF
@@ -252,7 +252,7 @@
                               TID      = OMP_GET_THREAD_NUM()
                               CALL DSB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
 !$OMP END TASK
-                          ELSE
+                          } else {
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
@@ -291,7 +291,7 @@
           DO 160 I = 1, N-1
              E( I ) = ( WORK( OFDPOS+I*LDA ) )
   160     CONTINUE
-      ELSE
+      } else {
           DO 170 I = 1, N-1
              E( I ) = ( WORK( OFDPOS+(I-1)*LDA ) )
   170     CONTINUE

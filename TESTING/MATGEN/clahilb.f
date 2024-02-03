@@ -92,7 +92,7 @@
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1)
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, N
             DO I = 1, N
                A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1)
@@ -121,7 +121,7 @@
                X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
             END DO
          END DO
-      ELSE
+      } else {
          DO J = 1, NRHS
             DO I = 1, N
                X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)

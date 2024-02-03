@@ -23,12 +23,12 @@
       N2SV = N2
       IF( DTRD1.GT.0 ) THEN
          IND1 = 1
-      ELSE
+      } else {
          IND1 = N1
       END IF
       IF( DTRD2.GT.0 ) THEN
          IND2 = 1 + N1
-      ELSE
+      } else {
          IND2 = N1 + N2
       END IF
       I = 1
@@ -40,7 +40,7 @@
             I = I + 1
             IND1 = IND1 + DTRD1
             N1SV = N1SV - 1
-         ELSE
+         } else {
             INDEX( I ) = IND2
             I = I + 1
             IND2 = IND2 + DTRD2
@@ -55,7 +55,7 @@
             I = I + 1
             IND2 = IND2 + DTRD2
    20    CONTINUE
-      ELSE
+      } else {
       // N2SV .EQ. 0
          DO 30 N2SV = 1, N1SV
             INDEX( I ) = IND1

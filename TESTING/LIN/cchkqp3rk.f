@@ -338,7 +338,7 @@
                      S( I ) = ZERO
                   END DO
 
-               ELSE
+               } else {
 
                      // IF(MINMN.LT.2) skip this size for this matrix type.
 

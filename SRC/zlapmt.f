@@ -57,7 +57,7 @@
 
    50    CONTINUE
 
-      ELSE
+      } else {
 
          // Backward permutation
 

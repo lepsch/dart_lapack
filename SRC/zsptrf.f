@@ -94,7 +94,7 @@
          IF( K.GT.1 ) THEN
             IMAX = IZAMAX( K-1, AP( KC ), 1 )
             COLMAX = CABS1( AP( KC+IMAX-1 ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -104,13 +104,13 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-         ELSE
+         } else {
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
 
                // no interchange, use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                ROWMAX = ZERO
                JMAX = IMAX
@@ -139,7 +139,7 @@
                   // pivot block
 
                   KP = IMAX
-               ELSE
+               } else {
 
                   // interchange rows and columns K-1 and IMAX, use 2-by-2
                   // pivot block
@@ -194,7 +194,7 @@
                // Store U(k) in column k
 
                CALL ZSCAL( K-1, R1, AP( KC ), 1 )
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
 
@@ -233,7 +233,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -KP
             IPIV( K-1 ) = -KP
          END IF
@@ -244,7 +244,7 @@
          KC = KNC - K
          GO TO 10
 
-      ELSE
+      } else {
 
          // Factorize A as L*D*L**T using the lower triangle of A
 
@@ -273,7 +273,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + IZAMAX( N-K, AP( KC+1 ), 1 )
             COLMAX = CABS1( AP( KC+IMAX-K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -283,13 +283,13 @@
 
             IF( INFO.EQ.0 ) INFO = K
             KP = K
-         ELSE
+         } else {
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
 
                // no interchange, use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value
@@ -320,7 +320,7 @@
                   // pivot block
 
                   KP = IMAX
-               ELSE
+               } else {
 
                   // interchange rows and columns K+1 and IMAX, use 2-by-2
                   // pivot block
@@ -378,7 +378,7 @@
 
                   CALL ZSCAL( N-K, R1, AP( KC+1 ), 1 )
                END IF
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns K and K+1 now hold
 
@@ -419,7 +419,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -KP
             IPIV( K+1 ) = -KP
          END IF

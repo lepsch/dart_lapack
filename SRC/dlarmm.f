@@ -28,7 +28,7 @@
          IF( ANORM * BNORM .GT. BIGNUM - CNORM ) THEN
             DLARMM = HALF
          END IF
-      ELSE
+      } else {
          IF( ANORM .GT. (BIGNUM - CNORM) / BNORM ) THEN
             DLARMM = HALF / BNORM
          END IF

@@ -204,7 +204,7 @@
          IF( .NOT.LTEST( ISNUM ) )THEN
             // Subprogram is not to be tested.
             WRITE( NOUT, FMT = 9987 )SNAMES( ISNUM )
-         ELSE
+         } else {
             SRNAMT = SNAMES( ISNUM )
             // Test error exits.
             IF( TSTERR )THEN
@@ -375,7 +375,7 @@
                   IF( TRANA )THEN
                      MA = K
                      NA = M
-                  ELSE
+                  } else {
                      MA = M
                      NA = K
                   END IF
@@ -397,7 +397,7 @@
                      IF( TRANB )THEN
                         MB = N
                         NB = K
-                     ELSE
+                     } else {
                         MB = K
                         NB = N
                      END IF
@@ -475,7 +475,7 @@
                            ISAME( 11 ) = BLS.EQ.BETA
                            IF( NULL )THEN
                               ISAME( 12 ) = LZE( CS, CC, LCC )
-                           ELSE
+                           } else {
                               ISAME( 12 ) = LZERES( 'GE', ' ', M, N, CS, CC, LDC )
                            END IF
                            ISAME( 13 ) = LDCS.EQ.LDC
@@ -522,7 +522,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -637,7 +637,7 @@
 
                IF( LEFT )THEN
                   NA = M
-               ELSE
+               } else {
                   NA = N
                END IF
                // Set LDA to 1 more than minimum value if room.
@@ -694,7 +694,7 @@
                         IF( REWI ) REWIND NTRA
                         IF( CONJ )THEN
                            CALL ZHEMM( SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
-                        ELSE
+                        } else {
                            CALL ZSYMM( SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
                         END IF
 
@@ -720,7 +720,7 @@
                         ISAME( 10 ) = BLS.EQ.BETA
                         IF( NULL )THEN
                            ISAME( 11 ) = LZE( CS, CC, LCC )
-                        ELSE
+                        } else {
                            ISAME( 11 ) = LZERES( 'GE', ' ', M, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
@@ -744,7 +744,7 @@
 
                            IF( LEFT )THEN
                               CALL ZMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                           ELSE
+                           } else {
                               CALL ZMMCH( 'N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                            END IF
                            ERRMAX = MAX( ERRMAX, ERR )
@@ -769,7 +769,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 120
@@ -879,7 +879,7 @@
                LEFT = SIDE.EQ.'L'
                IF( LEFT )THEN
                   NA = M
-               ELSE
+               } else {
                   NA = N
                END IF
                // Set LDA to 1 more than minimum value if room.
@@ -961,7 +961,7 @@
                            ISAME( 9 ) = LDAS.EQ.LDA
                            IF( NULL )THEN
                               ISAME( 10 ) = LZE( BS, BB, LBB )
-                           ELSE
+                           } else {
                               ISAME( 10 ) = LZERES( 'GE', ' ', M, N, BS, BB, LDB )
                            END IF
                            ISAME( 11 ) = LDBS.EQ.LDB
@@ -986,7 +986,7 @@
 
                                  IF( LEFT )THEN
                                     CALL ZMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
-                                 ELSE
+                                 } else {
                                     CALL ZMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  END IF
                               ELSE IF( SNAME( 4: 5 ).EQ.'SM' )THEN
@@ -1002,7 +1002,7 @@
 
                                  IF( LEFT )THEN
                                     CALL ZMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
-                                 ELSE
+                                 } else {
                                     CALL ZMMCH( 'N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
                                  END IF
                               END IF
@@ -1030,7 +1030,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 160
@@ -1135,7 +1135,7 @@
                IF( TRAN )THEN
                   MA = K
                   NA = N
-               ELSE
+               } else {
                   MA = N
                   NA = K
                END IF
@@ -1184,7 +1184,7 @@
                         KS = K
                         IF( CONJ )THEN
                            RALS = RALPHA
-                        ELSE
+                        } else {
                            ALS = ALPHA
                         END IF
                         DO 10 I = 1, LAA
@@ -1193,7 +1193,7 @@
                         LDAS = LDA
                         IF( CONJ )THEN
                            RBETS = RBETA
-                        ELSE
+                        } else {
                            BETS = BETA
                         END IF
                         DO 20 I = 1, LCC
@@ -1206,7 +1206,7 @@
                         IF( CONJ )THEN
                            IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL ZHERK( UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC )
-                        ELSE
+                        } else {
                            IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL ZSYRK( UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC )
                         END IF
@@ -1227,19 +1227,19 @@
                         ISAME( 4 ) = KS.EQ.K
                         IF( CONJ )THEN
                            ISAME( 5 ) = RALS.EQ.RALPHA
-                        ELSE
+                        } else {
                            ISAME( 5 ) = ALS.EQ.ALPHA
                         END IF
                         ISAME( 6 ) = LZE( AS, AA, LAA )
                         ISAME( 7 ) = LDAS.EQ.LDA
                         IF( CONJ )THEN
                            ISAME( 8 ) = RBETS.EQ.RBETA
-                        ELSE
+                        } else {
                            ISAME( 8 ) = BETS.EQ.BETA
                         END IF
                         IF( NULL )THEN
                            ISAME( 9 ) = LZE( CS, CC, LCC )
-                        ELSE
+                        } else {
                            ISAME( 9 ) = LZERES( SNAME( 2: 3 ), UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 10 ) = LDCS.EQ.LDC
@@ -1263,7 +1263,7 @@
 
                            IF( CONJ )THEN
                               TRANST = 'C'
-                           ELSE
+                           } else {
                               TRANST = 'T'
                            END IF
                            JC = 1
@@ -1271,18 +1271,18 @@
                               IF( UPPER )THEN
                                  JJ = 1
                                  LJ = J
-                              ELSE
+                              } else {
                                  JJ = J
                                  LJ = N - J + 1
                               END IF
                               IF( TRAN )THEN
                                  CALL ZMMCH( TRANST, 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                              ELSE
+                              } else {
                                  CALL ZMMCH( 'N', TRANST, LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               END IF
                               IF( UPPER )THEN
                                  JC = JC + LDC
-                              ELSE
+                              } else {
                                  JC = JC + LDC + 1
                               END IF
                               ERRMAX = MAX( ERRMAX, ERR )
@@ -1308,7 +1308,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 130
@@ -1320,7 +1320,7 @@
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( CONJ )THEN
          WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC
       END IF
 
@@ -1424,7 +1424,7 @@
                IF( TRAN )THEN
                   MA = K
                   NA = N
-               ELSE
+               } else {
                   MA = N
                   NA = K
                END IF
@@ -1439,7 +1439,7 @@
 
                IF( TRAN )THEN
                   CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
-               ELSE
+               } else {
                   CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
                END IF
 
@@ -1449,7 +1449,7 @@
                LBB = LAA
                IF( TRAN )THEN
                   CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO )
-               ELSE
+               } else {
                   CALL ZMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
                END IF
 
@@ -1492,7 +1492,7 @@
                         LDBS = LDB
                         IF( CONJ )THEN
                            RBETS = RBETA
-                        ELSE
+                        } else {
                            BETS = BETA
                         END IF
                         DO 30 I = 1, LCC
@@ -1505,7 +1505,7 @@
                         IF( CONJ )THEN
                            IF( TRACE ) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL ZHER2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC )
-                        ELSE
+                        } else {
                            IF( TRACE ) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC
                            IF( REWI ) REWIND NTRA                            CALL ZSYR2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
                         END IF
@@ -1531,12 +1531,12 @@
                         ISAME( 9 ) = LDBS.EQ.LDB
                         IF( CONJ )THEN
                            ISAME( 10 ) = RBETS.EQ.RBETA
-                        ELSE
+                        } else {
                            ISAME( 10 ) = BETS.EQ.BETA
                         END IF
                         IF( NULL )THEN
                            ISAME( 11 ) = LZE( CS, CC, LCC )
-                        ELSE
+                        } else {
                            ISAME( 11 ) = LZERES( 'HE', UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
@@ -1560,7 +1560,7 @@
 
                            IF( CONJ )THEN
                               TRANST = 'C'
-                           ELSE
+                           } else {
                               TRANST = 'T'
                            END IF
                            JJAB = 1
@@ -1569,7 +1569,7 @@
                               IF( UPPER )THEN
                                  JJ = 1
                                  LJ = J
-                              ELSE
+                              } else {
                                  JJ = J
                                  LJ = N - J + 1
                               END IF
@@ -1578,16 +1578,16 @@
                                     W( I ) = ALPHA*AB( ( J - 1 )*2* NMAX + K + I )
                                     IF( CONJ )THEN
                                        W( K + I ) = DCONJG( ALPHA )* AB( ( J - 1 )*2* NMAX + I )
-                                    ELSE
+                                    } else {
                                        W( K + I ) = ALPHA* AB( ( J - 1 )*2* NMAX + I )
                                     END IF
    50                            CONTINUE
                                  CALL ZMMCH( TRANST, 'N', LJ, 1, 2*K, ONE, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
-                              ELSE
+                              } else {
                                  DO 60 I = 1, K
                                     IF( CONJ )THEN
                                        W( I ) = ALPHA*DCONJG( AB( ( K + I - 1 )*NMAX + J ) )                                        W( K + I ) = DCONJG( ALPHA* AB( ( I - 1 )*NMAX + J ) )
-                                    ELSE
+                                    } else {
                                        W( I ) = ALPHA*AB( ( K + I - 1 )* NMAX + J )                                        W( K + I ) = ALPHA* AB( ( I - 1 )*NMAX + J )
                                     END IF
    60                            CONTINUE
@@ -1595,7 +1595,7 @@
                               END IF
                               IF( UPPER )THEN
                                  JC = JC + LDC
-                              ELSE
+                              } else {
                                  JC = JC + LDC + 1
                                  IF( TRAN ) JJAB = JJAB + 2*NMAX
                               END IF
@@ -1622,7 +1622,7 @@
 
       IF( ERRMAX.LT.THRESH )THEN
          WRITE( NOUT, FMT = 9999 )SNAME, NC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9997 )SNAME, NC, ERRMAX
       END IF
       GO TO 160
@@ -1634,7 +1634,7 @@
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( CONJ )THEN
          WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC
       END IF
 
@@ -2592,7 +2592,7 @@
 
   100 IF( OK )THEN
          WRITE( NOUT, FMT = 9999 )SRNAMT
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9998 )SRNAMT
       END IF
       RETURN
@@ -2693,13 +2693,13 @@
                IBEG = 1
                IF( UNIT )THEN
                   IEND = J - 1
-               ELSE
+               } else {
                   IEND = J
                END IF
-            ELSE
+            } else {
                IF( UNIT )THEN
                   IBEG = J + 1
-               ELSE
+               } else {
                   IBEG = J
                END IF
                IEND = N
@@ -2792,7 +2792,7 @@
                      G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( K, J ) )
    40             CONTINUE
    50          CONTINUE
-            ELSE
+            } else {
                DO 70 K = 1, KK
                   DO 60 I = 1, M
                      CT( I ) = CT( I ) + A( K, I )*B( K, J )
@@ -2808,7 +2808,7 @@
                      G( I ) = G( I ) + ABS1( A( I, K ) )* ABS1( B( J, K ) )
    80             CONTINUE
    90          CONTINUE
-            ELSE
+            } else {
                DO 110 K = 1, KK
                   DO 100 I = 1, M
                      CT( I ) = CT( I ) + A( I, K )*B( J, K )
@@ -2824,21 +2824,21 @@
                         CT( I ) = CT( I ) + DCONJG( A( K, I ) )* DCONJG( B( J, K ) )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) )
   120                CONTINUE
   130             CONTINUE
-               ELSE
+               } else {
                   DO 150 K = 1, KK
                      DO 140 I = 1, M
                         CT( I ) = CT( I ) + DCONJG( A( K, I ) )* B( J, K )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) )
   140                CONTINUE
   150             CONTINUE
                END IF
-            ELSE
+            } else {
                IF( CTRANB )THEN
                   DO 170 K = 1, KK
                      DO 160 I = 1, M
                         CT( I ) = CT( I ) + A( K, I )* DCONJG( B( J, K ) )                         G( I ) = G( I ) + ABS1( A( K, I ) )* ABS1( B( J, K ) )
   160                CONTINUE
   170             CONTINUE
-               ELSE
+               } else {
                   DO 190 K = 1, KK
                      DO 180 I = 1, M
                         CT( I ) = CT( I ) + A( K, I )*B( J, K )
@@ -2875,7 +2875,7 @@
       DO 240 I = 1, M
          IF( MV )THEN
             WRITE( NOUT, FMT = 9998 )I, CT( I ), CC( I, J )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
          END IF
   240 CONTINUE
@@ -2960,7 +2960,7 @@
             IF( UPPER )THEN
                IBEG = 1
                IEND = J
-            ELSE
+            } else {
                IBEG = J
                IEND = N
             END IF
@@ -3119,7 +3119,7 @@
       IF( INFO.NE.INFOT )THEN
          IF( INFOT.NE.0 )THEN
             WRITE( NOUT, FMT = 9999 )INFO, INFOT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9997 )INFO
          END IF
          OK = .FALSE.

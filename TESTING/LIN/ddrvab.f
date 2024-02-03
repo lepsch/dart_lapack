@@ -117,7 +117,7 @@
                   IZERO = 1
                ELSE IF( IMAT.EQ.6 ) THEN
                   IZERO = MIN( M, N )
-               ELSE
+               } else {
                   IZERO = MIN( M, N ) / 2 + 1
                END IF
                IOFF = ( IZERO-1 )*LDA
@@ -125,10 +125,10 @@
                   DO 20 I = 1, M
                      A( IOFF+I ) = ZERO
    20             CONTINUE
-               ELSE
+               } else {
                   CALL DLASET( 'Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA )
                END IF
-            ELSE
+            } else {
                IZERO = 0
             END IF
 
@@ -162,7 +162,7 @@
 
                   IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9988 )'DSGESV',INFO, IZERO,M,IMAT
-                  ELSE
+                  } else {
                      WRITE( NOUT, FMT = 9975 )'DSGESV',INFO, M, IMAT
                   END IF
                END IF
@@ -212,7 +212,7 @@
 
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9996 )'DSGESV', NFAIL, NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9995 )'DSGESV', NRUN
       END IF
       IF( NERRS.GT.0 ) THEN

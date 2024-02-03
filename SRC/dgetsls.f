@@ -78,7 +78,7 @@
          LWM = MAX( LWM, INT( WORKQ( 1 ) ) )
          WSIZEO = TSZO + LWO
          WSIZEM = TSZM + LWM
-       ELSE
+       } else {
          CALL DGELQ( M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 )
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
@@ -112,7 +112,7 @@
       IF( LWORK.LT.WSIZEO ) THEN
         LW1 = TSZM
         LW2 = LWM
-      ELSE
+      } else {
         LW1 = TSZO
         LW2 = LWO
       END IF
@@ -193,7 +193,7 @@
             RETURN
           END IF
           SCLLEN = N
-        ELSE
+        } else {
 
             // Overdetermined system of equations A**T * X = B
 
@@ -221,7 +221,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Compute LQ factorization of A
 
@@ -257,7 +257,7 @@
 
             SCLLEN = N
 
-         ELSE
+         } else {
 
             // overdetermined system min || A**T * X - B ||
 

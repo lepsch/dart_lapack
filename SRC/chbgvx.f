@@ -68,7 +68,7 @@
          INFO = -10
       ELSE IF( LDQ.LT.1 .OR. ( WANTZ .AND. LDQ.LT.N ) ) THEN
          INFO = -12
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -14
          ELSE IF( INDEIG ) THEN
@@ -116,7 +116,7 @@
       INDWRK = 1
       IF( WANTZ ) THEN
          VECT = 'U'
-      ELSE
+      } else {
          VECT = 'N'
       END IF
       CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
@@ -137,7 +137,7 @@
          CALL SCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
          IF( .NOT.WANTZ ) THEN
             CALL SSTERF( N, W, RWORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL CLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL CSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
             IF( INFO.EQ.0 ) THEN
@@ -158,7 +158,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDISP = 1 + N

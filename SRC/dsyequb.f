@@ -79,7 +79,7 @@
             S( J ) = MAX( S( J ), ABS( A( J, J ) ) )
             AMAX = MAX( AMAX, ABS( A( J, J ) ) )
          END DO
-      ELSE
+      } else {
          DO J = 1, N
             S( J ) = MAX( S( J ), ABS( A( J, J ) ) )
             AMAX = MAX( AMAX, ABS( A( J, J ) ) )
@@ -111,7 +111,7 @@
                END DO
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
             END DO
-         ELSE
+         } else {
             DO J = 1, N
                WORK( J ) = WORK( J ) + ABS( A( J, J ) ) * S( J )
                DO I = J+1, N
@@ -164,7 +164,7 @@
                   U = U + S( J )*T
                   WORK( J ) = WORK( J ) + D*T
                END DO
-            ELSE
+            } else {
                DO J = 1, I
                   T = ABS( A( I, J ) )
                   U = U + S( J )*T

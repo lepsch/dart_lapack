@@ -36,7 +36,7 @@
                DMAX = DCABS1(ZX(I))
             END IF
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

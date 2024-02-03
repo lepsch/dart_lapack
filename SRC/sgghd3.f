@@ -47,7 +47,7 @@
       NH = IHI - ILO + 1
       IF( NH.LE.1 ) THEN
          LWKOPT = 1
-      ELSE
+      } else {
          LWKOPT = 6*N*NB
       END IF
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
@@ -121,7 +121,7 @@
                NBMIN = MAX( 2, ILAENV( 2, 'SGGHD3', ' ', N, ILO, IHI, -1 ) )
                IF( LWORK.GE.6*N*NBMIN ) THEN
                   NB = LWORK / ( 6*N )
-               ELSE
+               } else {
                   NB = 1
                END IF
             END IF
@@ -134,7 +134,7 @@
 
          JCOL = ILO
 
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -213,7 +213,7 @@
 
                IF( JCOL.LE.2 ) THEN
                   TOP = 0
-               ELSE
+               } else {
                   TOP = JCOL
                END IF
 
@@ -367,7 +367,7 @@
                  t // riangular and U12 is lower triangular.
 
                   CALL SORM22( 'Left', 'Transpose', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR )
-               ELSE
+               } else {
 
                   // Ignore the structure of U.
 
@@ -384,7 +384,7 @@
                IF ( INITQ ) THEN
                   TOPQ = MAX( 2, J - JCOL + 1 )
                   NH  = IHI - TOPQ + 1
-               ELSE
+               } else {
                   TOPQ = 1
                   NH = N
                END IF
@@ -402,7 +402,7 @@
                      // Exploit the structure of U.
 
                      CALL SORM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Q( TOPQ, J ), LDQ, WORK( PW ), LWORK-PW+1, IERR )
-                  ELSE
+                  } else {
 
                      // Ignore the structure of U.
 
@@ -468,7 +468,7 @@
                      PPWO = PPWO + 4*NNB*NNB
                   END DO
                END DO
-            ELSE
+            } else {
 
                CALL SLASET( 'Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, A( JCOL + 2, JCOL ), LDA )                CALL SLASET( 'Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, B( JCOL + 2, JCOL ), LDB )
             END IF
@@ -487,7 +487,7 @@
                      // Exploit the structure of U.
 
                      CALL SORM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, A( 1, J ), LDA, WORK( PW ), LWORK-PW+1, IERR )
-                  ELSE
+                  } else {
 
                      // Ignore the structure of U.
 
@@ -508,7 +508,7 @@
                      // Exploit the structure of U.
 
                      CALL SORM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, B( 1, J ), LDB, WORK( PW ), LWORK-PW+1, IERR )
-                  ELSE
+                  } else {
 
                      // Ignore the structure of U.
 
@@ -526,7 +526,7 @@
                IF ( INITQ ) THEN
                   TOPQ = MAX( 2, J - JCOL + 1 )
                   NH  = IHI - TOPQ + 1
-               ELSE
+               } else {
                   TOPQ = 1
                   NH = N
                END IF
@@ -544,7 +544,7 @@
                      // Exploit the structure of U.
 
                      CALL SORM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Z( TOPQ, J ), LDZ, WORK( PW ), LWORK-PW+1, IERR )
-                  ELSE
+                  } else {
 
                      // Ignore the structure of U.
 

@@ -82,7 +82,7 @@
                   CALL CLACGV( N-K, A( K, K+1 ), LDA )
                END IF
    10       CONTINUE
-         ELSE
+         } else {
 
             // Compute inv(L)*A*inv(L**H)
 
@@ -104,7 +104,7 @@
                END IF
    20       CONTINUE
          END IF
-      ELSE
+      } else {
          IF( UPPER ) THEN
 
             // Compute U*A*U**H
@@ -123,7 +123,7 @@
                CALL CSSCAL( K-1, BKK, A( 1, K ), 1 )
                A( K, K ) = AKK*BKK**2
    30       CONTINUE
-         ELSE
+         } else {
 
             // Compute L**H *A*L
 

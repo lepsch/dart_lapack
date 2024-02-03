@@ -67,7 +67,7 @@
             X( I-4, I-4 ) = CLARND( 2, ISEED )
             IF( ABS( X( I-3, I-3 ) ).GT.ABS( X( I-4, I-4 ) ) ) THEN
                X( I-4, I-3 ) = 2.0*X( I-3, I-3 )
-            ELSE
+            } else {
                X( I-4, I-3 ) = 2.0*X( I-4, I-4 )
             END IF
    30    CONTINUE
@@ -92,7 +92,7 @@
             X( I-1, I-1 ) = CLARND( 2, ISEED )
             IF( ABS( X( I, I ) ).GT.ABS( X( I-1, I-1 ) ) ) THEN
                X( I-1, I ) = 2.0*X( I, I )
-            ELSE
+            } else {
                X( I-1, I ) = 2.0*X( I-1, I-1 )
             END IF
             I = I - 2
@@ -103,7 +103,7 @@
 
       // UPLO = 'L':  Lower triangular storage
 
-      ELSE
+      } else {
 
          // Fill the lower triangle of the matrix with zeros.
 
@@ -129,7 +129,7 @@
             X( I+4, I+4 ) = CLARND( 2, ISEED )
             IF( ABS( X( I+3, I+3 ) ).GT.ABS( X( I+4, I+4 ) ) ) THEN
                X( I+4, I+3 ) = 2.0*X( I+3, I+3 )
-            ELSE
+            } else {
                X( I+4, I+3 ) = 2.0*X( I+4, I+4 )
             END IF
    60    CONTINUE
@@ -154,7 +154,7 @@
             X( I+1, I+1 ) = CLARND( 2, ISEED )
             IF( ABS( X( I, I ) ).GT.ABS( X( I+1, I+1 ) ) ) THEN
                X( I+1, I ) = 2.0*X( I, I )
-            ELSE
+            } else {
                X( I+1, I ) = 2.0*X( I+1, I+1 )
             END IF
             I = I + 2

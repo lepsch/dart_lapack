@@ -96,7 +96,7 @@
                         END IF
                      END DO
                   END DO
-               ELSE
+               } else {
                   DO J = 1, N
                      DO I = 1, J
                         IF ( A(I,J).NE.ASAV(I,J) ) THEN
@@ -126,7 +126,7 @@
                         END IF
                      END DO
                   END DO
-               ELSE
+               } else {
                   DO J = 1, N
                      DO I = 1, J
                         IF ( A(I,J).NE.ASAV(I,J) ) THEN
@@ -153,7 +153,7 @@
 
       IF ( NERRS.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9997 ) NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9996 ) NERRS, NRUN
       END IF
 

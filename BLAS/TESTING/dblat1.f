@@ -167,7 +167,7 @@
             DTEMP(9) = 0.0
             CALL DROTMG(DTEMP(1),DTEMP(2),DTEMP(3),DTEMP(4),DTEMP(5))
             CALL STEST(9,DTEMP,DTRUE(1,K),DTRUE(1,K),SFAC)
-         ELSE
+         } else {
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
          END IF
@@ -246,7 +246,7 @@
                   SX(I) = 42.0D0
   100          CONTINUE
                CALL ITEST1(IDAMAX(N,SX,INCX),ITRUEC(NP1))
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             END IF
@@ -364,7 +364,7 @@
                   SY0(1) = 43.0D0
                   IF (N.EQ.0) THEN
                      STY0(1) = SY0(1)
-                  ELSE
+                  } else {
                      STY0(1) = SX0(1)
                   END IF
                   LINCX = INCX
@@ -414,7 +414,7 @@
             ELSE IF (ICASE.EQ.13) THEN
                // .. DSDOT ..
             CALL TESTDSDOT(REAL(DSDOT(N,REAL(SX),INCX,REAL(SY),INCY)), REAL(DT7(KN,KI)),REAL(SSIZE1(KN)), .3125E-1)
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             END IF
@@ -480,7 +480,7 @@
                CALL DROT(N,SX,INCX,SY,INCY,SC,SS)
                CALL STEST(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC)
                CALL STEST(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC)
-            ELSE
+            } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
             END IF
@@ -883,7 +883,7 @@
             Y1 = ABS(V0)
             IF (N.GT.1) THEN
                Y2 = ABS(V1)*SQRT(WORKSSQ)
-            ELSE
+            } else {
                Y2 = ZERO
             END IF
             YMIN = MIN(Y1, Y2)
@@ -900,7 +900,7 @@
                YNRM = ZERO
             ELSE IF (YMIN == YMAX) THEN
                YNRM = SQRT(TWO)*YMAX
-            ELSE
+            } else {
                YNRM = YMAX*SQRT(ONE + (YMIN / YMAX)**2)
             END IF
 
@@ -925,7 +925,7 @@
 
             IF (INCX.EQ.0) THEN
                ZNRM = SQRT(DBLE(N))*ABS(X(1))
-            ELSE
+            } else {
                ZNRM = YNRM
             END IF
 
@@ -934,14 +934,14 @@
             IF ((SNRM.NE.SNRM).OR.(ZNRM.NE.ZNRM)) THEN
                IF ((SNRM.NE.SNRM).NEQV.(ZNRM.NE.ZNRM)) THEN
                   TRAT = ONE / ULP
-               ELSE
+               } else {
                   TRAT = ZERO
                END IF
             ELSE IF (SNRM == ZNRM) THEN
                TRAT = ZERO
             ELSE IF (ZNRM == ZERO) THEN
                TRAT = SNRM / ULP
-            ELSE
+            } else {
                TRAT = (ABS(SNRM-ZNRM) / ZNRM) / (DBLE(N)*ULP)
             END IF
             IF ((TRAT.NE.TRAT).OR.(TRAT.GE.THRESH)) THEN

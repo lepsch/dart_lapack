@@ -100,7 +100,7 @@
             END IF
          END IF
 
-      ELSE
+      } else {
 
          DO I = 1, MN
             RWORK( I ) = ZERO

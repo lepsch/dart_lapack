@@ -51,7 +51,7 @@
                SUM = ABS( DBLE( AB( K+1, J ) ) )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    20       CONTINUE
-         ELSE
+         } else {
             DO 40 J = 1, N
                SUM = ABS( DBLE( AB( 1, J ) ) )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
@@ -81,7 +81,7 @@
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
-         ELSE
+         } else {
             DO 80 I = 1, N
                WORK( I ) = ZERO
    80       CONTINUE
@@ -108,14 +108,14 @@
                   CALL ZLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
   110          CONTINUE
                L = K + 1
-            ELSE
+            } else {
                DO 120 J = 1, N - 1
                   CALL ZLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
   120          CONTINUE
                L = 1
             END IF
             SUM = 2*SUM
-         ELSE
+         } else {
             L = 1
          END IF
          DO 130 J = 1, N
@@ -124,7 +124,7 @@
                IF( SCALE.LT.ABSA ) THEN
                   SUM = ONE + SUM*( SCALE / ABSA )**2
                   SCALE = ABSA
-               ELSE
+               } else {
                   SUM = SUM + ( ABSA / SCALE )**2
                END IF
             END IF

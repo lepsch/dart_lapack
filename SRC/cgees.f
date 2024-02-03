@@ -79,7 +79,7 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             MAXWRK = N + N*ILAENV( 1, 'CGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 2*N
 
@@ -88,7 +88,7 @@
 
             IF( .NOT.WANTVS ) THEN
                MAXWRK = MAX( MAXWRK, HSWORK )
-            ELSE
+            } else {
                MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'CUNGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, HSWORK )
             END IF

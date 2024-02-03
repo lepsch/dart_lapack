@@ -135,7 +135,7 @@
                            IZERO = 1
                         ELSE IF( IIT.EQ.4 ) THEN
                            IZERO = N
-                        ELSE
+                        } else {
                            IZERO = N / 2 + 1
                         END IF
                         IOFF = ( IZERO-1 )*LDA
@@ -151,7 +151,7 @@
                               A( IOFF ) = ZERO
                               IOFF = IOFF + LDA
    30                      CONTINUE
-                        ELSE
+                        } else {
                            IOFF = IZERO
                            DO 40 I = 1, IZERO - 1
                               A( IOFF ) = ZERO
@@ -162,7 +162,7 @@
                               A( IOFF+I ) = ZERO
    50                      CONTINUE
                         END IF
-                     ELSE
+                     } else {
                         IZERO = 0
                      END IF
 
@@ -174,7 +174,7 @@
 
                      IF( ZEROT ) THEN
                         RCONDC = ZERO
-                     ELSE
+                     } else {
 
                         // Compute the 1-norm of A.
 
@@ -254,7 +254,7 @@
 
                      IF(MOD(N,2).EQ.0)THEN
                         CALL DLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
-                     ELSE
+                     } else {
                         CALL DLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
                      END IF
 

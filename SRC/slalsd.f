@@ -59,7 +59,7 @@
 
       IF( ( RCOND.LE.ZERO ) .OR. ( RCOND.GE.ONE ) ) THEN
          RCND = EPS
-      ELSE
+      } else {
          RCND = RCOND
       END IF
 
@@ -72,7 +72,7 @@
       ELSE IF( N.EQ.1 ) THEN
          IF( D( 1 ).EQ.ZERO ) THEN
             CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, B, LDB )
-         ELSE
+         } else {
             RANK = 1
             CALL SLASCL( 'G', 0, 0, D( 1 ), ONE, 1, NRHS, B, LDB, INFO )
             D( 1 ) = ABS( D( 1 ) )
@@ -90,7 +90,7 @@
             D( I+1 ) = CS*D( I+1 )
             IF( NRHS.EQ.1 ) THEN
                CALL SROT( 1, B( I, 1 ), 1, B( I+1, 1 ), 1, CS, SN )
-            ELSE
+            } else {
                WORK( I*2-1 ) = CS
                WORK( I*2 ) = SN
             END IF
@@ -132,7 +132,7 @@
          DO 40 I = 1, N
             IF( D( I ).LE.TOL ) THEN
                CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
-            ELSE
+            } else {
                CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO )
                RANK = RANK + 1
             END IF
@@ -206,7 +206,7 @@
 
                NSIZE = N - ST + 1
                IWORK( SIZEI+NSUB-1 ) = NSIZE
-            ELSE
+            } else {
 
                // A subproblem with E(NM1) small. This implies an
                // 1-by-1 subproblem at D(N), which is not solved
@@ -235,7 +235,7 @@
                   RETURN
                END IF
                CALL SLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
-            ELSE
+            } else {
 
                // A large problem. Solve it using divide and conquer.
 
@@ -264,7 +264,7 @@
 
          IF( ABS( D( I ) ).LE.TOL ) THEN
             CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, WORK( BX+I-1 ), N )
-         ELSE
+         } else {
             RANK = RANK + 1
             CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO )
          END IF
@@ -283,7 +283,7 @@
             CALL SCOPY( NRHS, WORK( BXST ), N, B( ST, 1 ), LDB )
          ELSE IF( NSIZE.LE.SMLSIZ ) THEN
             CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO, B( ST, 1 ), LDB )
-         ELSE
+         } else {
             CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
             IF( INFO.NE.0 ) THEN
                RETURN

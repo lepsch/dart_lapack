@@ -70,7 +70,7 @@
          // Use unblocked code
 
          CALL CHEGS2( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -89,7 +89,7 @@
                      CALL CTRSM( 'Left', UPLO, 'Conjugate transpose', 'Non-unit', KB, N-K-KB+1, CONE, B( K, K ), LDB, A( K, K+KB ), LDA )                      CALL CHEMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, CONE, A( K, K+KB ), LDA )                      CALL CHER2K( UPLO, 'Conjugate transpose', N-K-KB+1, KB, -CONE, A( K, K+KB ), LDA, B( K, K+KB ), LDB, ONE, A( K+KB, K+KB ), LDA )                      CALL CHEMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, CONE, A( K, K+KB ), LDA )                      CALL CTRSM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, N-K-KB+1, CONE, B( K+KB, K+KB ), LDB, A( K, K+KB ), LDA )
                   END IF
    10          CONTINUE
-            ELSE
+            } else {
 
                // Compute inv(L)*A*inv(L**H)
 
@@ -104,7 +104,7 @@
                   END IF
    20          CONTINUE
             END IF
-         ELSE
+         } else {
             IF( UPPER ) THEN
 
                // Compute U*A*U**H
@@ -117,7 +117,7 @@
                   CALL CTRMM( 'Left', UPLO, 'No transpose', 'Non-unit', K-1, KB, CONE, B, LDB, A( 1, K ), LDA )                   CALL CHEMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, CONE, A( 1, K ), LDA )                   CALL CHER2K( UPLO, 'No transpose', K-1, KB, CONE, A( 1, K ), LDA, B( 1, K ), LDB, ONE, A, LDA )                   CALL CHEMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, CONE, A( 1, K ), LDA )                   CALL CTRMM( 'Right', UPLO, 'Conjugate transpose', 'Non-unit', K-1, KB, CONE, B( K, K ), LDB, A( 1, K ), LDA )
                   CALL CHEGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
    30          CONTINUE
-            ELSE
+            } else {
 
                // Compute L**H*A*L
 

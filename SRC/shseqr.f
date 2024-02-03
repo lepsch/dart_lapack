@@ -104,7 +104,7 @@
          WORK( 1 ) = MAX( REAL( MAX( 1, N ) ), WORK( 1 ) )
          RETURN
 
-      ELSE
+      } else {
 
          // ==== copy eigenvalues isolated by SGEBAL ====
 
@@ -138,7 +138,7 @@
 
          IF( N.GT.NMIN ) THEN
             CALL SLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
-         ELSE
+         } else {
 
             // ==== Small matrix ====
 
@@ -158,7 +158,7 @@
 
                   CALL SLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 
-               ELSE
+               } else {
 
                   // ==== Tiny matrices don't have enough subdiagonal
                   // .    scratch space to benefit from SLAQR0.  Hence,

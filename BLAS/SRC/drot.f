@@ -28,7 +28,7 @@
             DY(I) = C*DY(I) - S*DX(I)
             DX(I) = DTEMP
          END DO
-      ELSE
+      } else {
 
         // code for unequal increments or equal increments not equal
          t // o 1

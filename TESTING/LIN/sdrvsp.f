@@ -106,7 +106,7 @@
                IF( IUPLO.EQ.1 ) THEN
                   UPLO = 'U'
                   PACKIT = 'C'
-               ELSE
+               } else {
                   UPLO = 'L'
                   PACKIT = 'R'
                END IF
@@ -134,7 +134,7 @@
                      IZERO = 1
                   ELSE IF( IMAT.EQ.4 ) THEN
                      IZERO = N
-                  ELSE
+                  } else {
                      IZERO = N / 2 + 1
                   END IF
 
@@ -152,7 +152,7 @@
                            A( IOFF ) = ZERO
                            IOFF = IOFF + I
    30                   CONTINUE
-                     ELSE
+                     } else {
                         IOFF = IZERO
                         DO 40 I = 1, IZERO - 1
                            A( IOFF ) = ZERO
@@ -163,7 +163,7 @@
                            A( IOFF+I ) = ZERO
    50                   CONTINUE
                      END IF
-                  ELSE
+                  } else {
                      IOFF = 0
                      IF( IUPLO.EQ.1 ) THEN
 
@@ -176,7 +176,7 @@
    60                      CONTINUE
                            IOFF = IOFF + J
    70                   CONTINUE
-                     ELSE
+                     } else {
 
                         // Set the last IZERO rows and columns to zero.
 
@@ -189,7 +189,7 @@
    90                   CONTINUE
                      END IF
                   END IF
-               ELSE
+               } else {
                   IZERO = 0
                END IF
 
@@ -227,7 +227,7 @@
 
                      IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                         RCONDC = ONE
-                     ELSE
+                     } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM
                      END IF
                   END IF
@@ -346,7 +346,7 @@
 
                         CALL SSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
-                     ELSE
+                     } else {
                         K1 = 2
                      END IF
 
@@ -362,7 +362,7 @@
                      // Check the error bounds from iterative refinement.
 
                      CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
-                  ELSE
+                  } else {
                      K1 = 6
                   END IF
 

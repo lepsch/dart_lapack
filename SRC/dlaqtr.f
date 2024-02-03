@@ -150,7 +150,7 @@
                      XMAX = ABS( X( K ) )
                   END IF
 
-               ELSE
+               } else {
 
                   // Meet 2 by 2 diagonal block
 
@@ -194,7 +194,7 @@
 
    30       CONTINUE
 
-         ELSE
+         } else {
 
             // Solve T**T*p = scale*c
 
@@ -250,7 +250,7 @@
                   X( J1 ) = X( J1 ) / TMP
                   XMAX = MAX( XMAX, ABS( X( J1 ) ) )
 
-               ELSE
+               } else {
 
                   // 2 by 2 diagonal block
 
@@ -284,7 +284,7 @@
    40       CONTINUE
          END IF
 
-      ELSE
+      } else {
 
          SMINW = MAX( EPS*ABS( W ), SMIN )
          IF( NOTRAN ) THEN
@@ -360,7 +360,7 @@
    50                CONTINUE
                   END IF
 
-               ELSE
+               } else {
 
                   // Meet 2 by 2 diagonal block
 
@@ -411,7 +411,7 @@
                END IF
    70       CONTINUE
 
-         ELSE
+         } else {
 
             // Solve (T + iB)**T*(p+iq) = c+id
 
@@ -480,7 +480,7 @@
                   X( J1+N ) = SI
                   XMAX = MAX( ABS( X( J1 ) )+ABS( X( J1+N ) ), XMAX )
 
-               ELSE
+               } else {
 
                   // 2 by 2 diagonal block
 

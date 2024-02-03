@@ -66,13 +66,13 @@
             LWMIN = 1
             LRWMIN = 1
             LIWMIN = 1
-         ELSE
+         } else {
             KD    = ILAENV2STAGE( 1, 'CHETRD_2STAGE', JOBZ, N, -1, -1, -1 )             IB    = ILAENV2STAGE( 2, 'CHETRD_2STAGE', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'CHETRD_2STAGE', JOBZ, N, KD, IB, -1 )
             IF( WANTZ ) THEN
                LWMIN = 2*N + N*N
                LRWMIN = 1 + 5*N + 2*N**2
                LIWMIN = 3 + 5*N
-            ELSE
+            } else {
                LWMIN = N + 1 + LHTRD + LWTRD
                LRWMIN = N
                LIWMIN = 1
@@ -152,7 +152,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
          CALL CUNMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL CLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
@@ -163,7 +163,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

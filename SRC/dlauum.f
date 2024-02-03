@@ -64,7 +64,7 @@
          // Use unblocked code
 
          CALL DLAUU2( UPLO, N, A, LDA, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -80,7 +80,7 @@
                   CALL DGEMM( 'No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )                   CALL DSYRK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
                END IF
    10       CONTINUE
-         ELSE
+         } else {
 
             // Compute the product L**T * L.
 

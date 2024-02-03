@@ -52,7 +52,7 @@
          ICOMPQ = 1
       ELSE IF( LSAME( COMPQ, 'I' ) ) THEN
          ICOMPQ = 2
-      ELSE
+      } else {
          ICOMPQ = -1
       END IF
       IF( IUPLO.EQ.0 ) THEN
@@ -200,7 +200,7 @@
                // A subproblem with E(NM1) not too small but I = NM1.
 
                NSIZE = N - START + 1
-            ELSE
+            } else {
 
                // A subproblem with E(NM1) small. This implies an
                // 1-by-1 subproblem at D(N). Solve this 1-by-1 problem
@@ -218,7 +218,7 @@
             END IF
             IF( ICOMPQ.EQ.2 ) THEN
                CALL DLASD0( NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO )
-            ELSE
+            } else {
                CALL DLASDA( ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO )
             END IF
             IF( INFO.NE.0 ) THEN
@@ -264,7 +264,7 @@
       IF( ICOMPQ.EQ.1 ) THEN
          IF( IUPLO.EQ.1 ) THEN
             IQ( N ) = 1
-         ELSE
+         } else {
             IQ( N ) = 0
          END IF
       END IF

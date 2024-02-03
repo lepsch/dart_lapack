@@ -69,7 +69,7 @@
          DO 10 J = 1, N
             IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
-      ELSE
+      } else {
          M = N
       END IF
 
@@ -116,7 +116,7 @@
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
          CALL CLASET( 'F', N, 1+2*NB, CZERO, CZERO, WORK, N )
-      ELSE
+      } else {
          NB = 1
       END IF
 
@@ -206,7 +206,7 @@
                REMAX = ONE / CABS1( VR( II, KI ) )
                CALL CSSCAL( N, REMAX, VR( 1, KI ), 1 )
 
-            ELSE
+            } else {
                // ------------------------------
                // version 2: back-transform block of vectors with GEMM
                // zero out below vector
@@ -227,7 +227,7 @@
                   END DO
                   CALL CLACPY( 'F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI ), LDVR )
                   IV = NB
-               ELSE
+               } else {
                   IV = IV - 1
                END IF
             END IF
@@ -308,7 +308,7 @@
                REMAX = ONE / CABS1( VL( II, KI ) )
                CALL CSSCAL( N, REMAX, VL( 1, KI ), 1 )
 
-            ELSE
+            } else {
                // ------------------------------
                // version 2: back-transform block of vectors with GEMM
                // zero out above vector
@@ -330,7 +330,7 @@
                   END DO
                   CALL CLACPY( 'F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI-IV+1 ), LDVL )
                   IV = 1
-               ELSE
+               } else {
                   IV = IV + 1
                END IF
             END IF

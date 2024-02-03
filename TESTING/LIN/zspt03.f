@@ -104,7 +104,7 @@
                WORK( I, J ) = -T
    60       CONTINUE
    70    CONTINUE
-      ELSE
+      } else {
 
          // Case where both A and AINV are lower triangular
 

@@ -72,10 +72,10 @@
 
       IF( ABNORM.GT.WNORM ) THEN
          RESULT = ( WNORM / ABNORM ) / ( 2*N*ULP )
-      ELSE
+      } else {
          IF( ABNORM.LT.ONE ) THEN
             RESULT = ( MIN( WNORM, 2*N*ABNORM ) / ABNORM ) / ( 2*N*ULP )
-         ELSE
+         } else {
             RESULT = MIN( WNORM / ABNORM, DBLE( 2*N ) ) / ( 2*N*ULP )
          END IF
       END IF

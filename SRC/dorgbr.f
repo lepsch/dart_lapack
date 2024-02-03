@@ -59,15 +59,15 @@
          IF( WANTQ ) THEN
             IF( M.GE.K ) THEN
                CALL DORGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
-            ELSE
+            } else {
                IF( M.GT.1 ) THEN
                   CALL DORGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
             END IF
-         ELSE
+         } else {
             IF( K.LT.N ) THEN
                CALL DORGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
-            ELSE
+            } else {
                IF( N.GT.1 ) THEN
                   CALL DORGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
@@ -103,7 +103,7 @@
 
             CALL DORGQR( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 
-         ELSE
+         } else {
 
             // If m < k, assume m = n
 
@@ -128,7 +128,7 @@
                CALL DORGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
          END IF
-      ELSE
+      } else {
 
          // Form P**T, determined by a call to DGEBRD to reduce a k-by-n
          // matrix
@@ -139,7 +139,7 @@
 
             CALL DORGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 
-         ELSE
+         } else {
 
             // If k >= n, assume m = n
 

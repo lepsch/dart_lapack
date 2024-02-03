@@ -64,7 +64,7 @@
          INFO = -7
       ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
          INFO = -9
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
          ELSE IF( INDEIG ) THEN
@@ -130,7 +130,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'C'
             END IF
 
@@ -143,7 +143,7 @@
 
             IF( UPPER ) THEN
                TRANS = 'C'
-            ELSE
+            } else {
                TRANS = 'N'
             END IF
 

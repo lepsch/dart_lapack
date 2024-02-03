@@ -60,15 +60,15 @@
          IF( WANTQ ) THEN
             IF( M.GE.K ) THEN
                CALL SORGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
-            ELSE
+            } else {
                IF( M.GT.1 ) THEN
                   CALL SORGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
             END IF
-         ELSE
+         } else {
             IF( K.LT.N ) THEN
                CALL SORGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
-            ELSE
+            } else {
                IF( N.GT.1 ) THEN
                   CALL SORGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
@@ -104,7 +104,7 @@
 
             CALL SORGQR( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 
-         ELSE
+         } else {
 
             // If m < k, assume m = n
 
@@ -129,7 +129,7 @@
                CALL SORGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
          END IF
-      ELSE
+      } else {
 
          // Form P**T, determined by a call to SGEBRD to reduce a k-by-n
          // matrix
@@ -140,7 +140,7 @@
 
             CALL SORGLQ( M, N, K, A, LDA, TAU, WORK, LWORK, IINFO )
 
-         ELSE
+         } else {
 
             // If k >= n, assume m = n
 

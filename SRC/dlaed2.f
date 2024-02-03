@@ -143,7 +143,7 @@
             COLTYP( NJ ) = 4
             INDXP( K2 ) = NJ
             IF( J.EQ.N ) GO TO 100
-         ELSE
+         } else {
             PJ = NJ
             GO TO 80
          END IF
@@ -159,7 +159,7 @@
          K2 = K2 - 1
          COLTYP( NJ ) = 4
          INDXP( K2 ) = NJ
-      ELSE
+      } else {
 
          // Check if eigenvalues are close enough to allow deflation.
 
@@ -194,14 +194,14 @@
                   INDXP( K2+I ) = PJ
                   I = I + 1
                   GO TO 90
-               ELSE
+               } else {
                   INDXP( K2+I-1 ) = PJ
                END IF
-            ELSE
+            } else {
                INDXP( K2+I-1 ) = PJ
             END IF
             PJ = NJ
-         ELSE
+         } else {
             K = K + 1
             DLAMBDA( K ) = D( PJ )
             W( K ) = Z( PJ )

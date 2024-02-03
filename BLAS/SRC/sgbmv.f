@@ -69,18 +69,18 @@
       IF (LSAME(TRANS,'N')) THEN
           LENX = N
           LENY = M
-      ELSE
+      } else {
           LENX = M
           LENY = N
       END IF
       IF (INCX.GT.0) THEN
           KX = 1
-      ELSE
+      } else {
           KX = 1 - (LENX-1)*INCX
       END IF
       IF (INCY.GT.0) THEN
           KY = 1
-      ELSE
+      } else {
           KY = 1 - (LENY-1)*INCY
       END IF
 
@@ -95,19 +95,19 @@
                   DO 10 I = 1,LENY
                       Y(I) = ZERO
    10             CONTINUE
-              ELSE
+              } else {
                   DO 20 I = 1,LENY
                       Y(I) = BETA*Y(I)
    20             CONTINUE
               END IF
-          ELSE
+          } else {
               IY = KY
               IF (BETA.EQ.ZERO) THEN
                   DO 30 I = 1,LENY
                       Y(IY) = ZERO
                       IY = IY + INCY
    30             CONTINUE
-              ELSE
+              } else {
                   DO 40 I = 1,LENY
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
@@ -131,7 +131,7 @@
    50             CONTINUE
                   JX = JX + INCX
    60         CONTINUE
-          ELSE
+          } else {
               DO 80 J = 1,N
                   TEMP = ALPHA*X(JX)
                   IY = KY
@@ -144,7 +144,7 @@
                   IF (J.GT.KU) KY = KY + INCY
    80         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  y := alpha*A**T*x + y.
 
@@ -159,7 +159,7 @@
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
   100         CONTINUE
-          ELSE
+          } else {
               DO 120 J = 1,N
                   TEMP = ZERO
                   IX = KX

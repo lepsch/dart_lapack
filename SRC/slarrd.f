@@ -62,7 +62,7 @@
          IRANGE = VALRNG
       ELSE IF( LSAME( RANGE, 'I' ) ) THEN
          IRANGE = INDRNG
-      ELSE
+      } else {
          IRANGE = 0
       END IF
 
@@ -173,7 +173,7 @@
             WU = WORK( N+4 )
             WUL = WORK( N+2 )
             NWU = IWORK( 4 )
-         ELSE
+         } else {
             WL = WORK( N+2 )
             WLU = WORK( N+4 )
             NWL = IWORK( 2 )
@@ -272,7 +272,7 @@
                 // IBLOCK( M ) = JBLK
                 // INDEXW( M ) = 2
              // ENDIF
-         ELSE
+         } else {
             // General Case - block of size IN >= 2
             // Compute local Gerschgorin interval and use it as the initial
             // interval for SLAEBZ
@@ -338,7 +338,7 @@
                   // Flag non-convergence.
                   NCNVRG = .TRUE.
                   IB = -JBLK
-               ELSE
+               } else {
                   IB = JBLK
                END IF
                DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
@@ -366,7 +366,7 @@
                // at the end IDISCL =0. Move all eigenvalues up to the left.
                IF( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) THEN
                   IDISCL = IDISCL - 1
-               ELSE
+               } else {
                   IM = IM + 1
                   W( IM ) = W( JE )
                   WERR( IM ) = WERR( JE )
@@ -383,7 +383,7 @@
             DO 81 JE = M, 1, -1
                IF( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) THEN
                   IDISCU = IDISCU - 1
-               ELSE
+               } else {
                   IM = IM - 1
                   W( IM ) = W( JE )
                   WERR( IM ) = WERR( JE )

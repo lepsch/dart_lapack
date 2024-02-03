@@ -81,11 +81,11 @@
 
          IF( ISPEC.EQ.17 ) THEN
              ILAENV = IPARMS( 1 )
-         ELSE
+         } else {
              ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
          ENDIF
 
-      ELSE
+      } else {
 
          // Invalid value for ISPEC
 
@@ -128,12 +128,12 @@
 
          IF( ISPEC.EQ.1 ) THEN
              ILAENV2STAGE = IPARMS( 1 )
-         ELSE
+         } else {
              IISPEC = 16 + ISPEC
              ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
          ENDIF
 
-      ELSE
+      } else {
 
          // Invalid value for ISPEC
 
@@ -204,7 +204,7 @@
 
          IF( NH.LE.KNWSWP ) THEN
             IPARMQ = NS
-         ELSE
+         } else {
             IPARMQ = 3*NS / 2
          END IF
 
@@ -220,7 +220,7 @@
          IPARMQ = 0
          IF( NS.GE.KACMIN ) IPARMQ = 1          IF( NS.GE.K22MIN ) IPARMQ = 2
 
-      ELSE
+      } else {
          // ===== invalid value of ispec =====
          IPARMQ = -1
 

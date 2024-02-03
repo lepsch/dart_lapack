@@ -87,7 +87,7 @@
             END DO
             C( J, J ) = C( J, J ) - REAL( A( J, J ) )
          END DO
-      ELSE
+      } else {
          DO J = 1, N
             C( J, J ) = C( J, J ) - REAL( A( J, J ) )
             DO I = J + 1, N
@@ -102,7 +102,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
       END IF
 

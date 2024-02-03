@@ -50,7 +50,7 @@
          ANORM = CLANGE( 'I', M, N, A, LDA, RWORK )
          N1 = N
          N2 = M
-      ELSE
+      } else {
          ANORM = CLANGE( '1', M, N, A, LDA, RWORK )
          N1 = M
          N2 = N
@@ -73,7 +73,7 @@
             RESID = ZERO
          ELSE IF( ANORM.LE.ZERO .OR. XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )
          END IF
    10 CONTINUE

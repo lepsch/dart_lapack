@@ -42,7 +42,7 @@
          MINSIZE = 1
       ELSE IF( NBMAX.GE.N ) THEN
          MINSIZE = N
-      ELSE
+      } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
       END IF
 
@@ -70,7 +70,7 @@
 
       IF( NBMAX.GE.N ) THEN
          CALL DSYTRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
-      ELSE
+      } else {
          CALL DSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
       END IF
 

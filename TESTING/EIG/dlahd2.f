@@ -48,7 +48,7 @@
 
             WRITE( IOUNIT, FMT = 9984 )'orthogonal', '''=transpose', ( '''', J = 1, 6 )
 
-         ELSE
+         } else {
 
             // Complex Non-symmetric Eigenvalue Problem:
 
@@ -84,7 +84,7 @@
 
             WRITE( IOUNIT, FMT = 9968 )
 
-         ELSE
+         } else {
 
             // Complex Hermitian Eigenvalue Problem:
 
@@ -120,7 +120,7 @@
             WRITE( IOUNIT, FMT = 9977 )
             WRITE( IOUNIT, FMT = 9976 )
 
-         ELSE
+         } else {
 
             // Complex Hermitian Generalized Eigenvalue Problem:
 
@@ -155,7 +155,7 @@
 
             WRITE( IOUNIT, FMT = 9972 )'orthogonal'
             WRITE( IOUNIT, FMT = 9971 )
-         ELSE
+         } else {
 
             // Complex Singular Value Decomposition:
 
@@ -186,7 +186,7 @@
             // Tests performed
 
             WRITE( IOUNIT, FMT = 9969 )'orthogonal'
-         ELSE
+         } else {
 
             // Complex Band reduction to bidiagonal form:
 
@@ -201,7 +201,7 @@
             WRITE( IOUNIT, FMT = 9969 )'unitary   '
          END IF
 
-      ELSE
+      } else {
 
          WRITE( IOUNIT, FMT = 9999 )PATH
          RETURN

@@ -57,7 +57,7 @@
       IF( N.EQ.1 ) THEN
          IF( NORMALTRANSR ) THEN
             ARF( 0 ) = AP( 0 )
-         ELSE
+         } else {
             ARF( 0 ) = DCONJG( AP( 0 ) )
          END IF
          RETURN
@@ -72,7 +72,7 @@
       IF( LOWER ) THEN
          N2 = N / 2
          N1 = N - N2
-      ELSE
+      } else {
          N1 = N / 2
          N2 = N - N1
       END IF
@@ -87,7 +87,7 @@
          K = N / 2
          NISODD = .FALSE.
          LDA = N + 1
-      ELSE
+      } else {
          NISODD = .TRUE.
          LDA = N
       END IF
@@ -130,7 +130,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
               // SRPA for UPPER, NORMAL and N is odd ( a(0:n-1,0:n2-1)
               // T1 -> a(n1+1,0), T2 -> a(n1,0), S -> a(0,0)
@@ -157,7 +157,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is odd and TRANSR = 'C'
 
@@ -183,7 +183,7 @@
                   JS = JS + LDA + 1
                END DO
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, TRANSPOSE and N is odd
                // T1 -> A(0,n1+1), T2 -> A(0,n1), S -> A(0,0)
@@ -209,7 +209,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // N is even
 
@@ -241,7 +241,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, NORMAL, and N is even ( a(0:n,0:k-1) )
                // T1 -> a(k+1,0) ,  T2 -> a(k,0),   S -> a(0,0)
@@ -268,7 +268,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is even and TRANSR = 'C'
 
@@ -294,7 +294,7 @@
                   JS = JS + LDA + 1
                END DO
 
-            ELSE
+            } else {
 
                // SRPA for UPPER, TRANSPOSE and N is even (see paper)
                // T1 -> B(0,k+1),     T2 -> B(0,k),   S -> B(0,0)

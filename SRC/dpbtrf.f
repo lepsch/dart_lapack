@@ -74,7 +74,7 @@
          // Use unblocked code
 
          CALL DPBTF2( UPLO, N, KD, AB, LDAB, INFO )
-      ELSE
+      } else {
 
          // Use blocked code
 
@@ -166,7 +166,7 @@
                   END IF
                END IF
    70       CONTINUE
-         ELSE
+         } else {
 
             // Compute the Cholesky factorization of a symmetric band
             // matrix, given the lower triangle of the matrix in band

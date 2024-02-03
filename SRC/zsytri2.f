@@ -38,7 +38,7 @@
       NBMAX = ILAENV( 1, 'ZSYTRI2', UPLO, N, -1, -1, -1 )
       IF ( NBMAX .GE. N ) THEN
          MINSIZE = N
-      ELSE
+      } else {
          MINSIZE = (N+NBMAX+1)*(NBMAX+3)
       END IF
 
@@ -66,7 +66,7 @@
 
       IF( NBMAX .GE. N ) THEN
          CALL ZSYTRI( UPLO, N, A, LDA, IPIV, WORK, INFO )
-      ELSE
+      } else {
          CALL ZSYTRI2X( UPLO, N, A, LDA, IPIV, WORK, NBMAX, INFO )
       END IF
       RETURN

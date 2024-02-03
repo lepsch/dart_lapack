@@ -80,7 +80,7 @@
             WA = SIGN( WN, WORK( 1 ) )
             IF( WN.EQ.ZERO ) THEN
                TAU = ZERO
-            ELSE
+            } else {
                WB = WORK( 1 ) + WA
                CALL SSCAL( M-I, ONE / WB, WORK( 2 ), 1 )
                WORK( 1 ) = ONE
@@ -100,7 +100,7 @@
             WA = SIGN( WN, WORK( 1 ) )
             IF( WN.EQ.ZERO ) THEN
                TAU = ZERO
-            ELSE
+            } else {
                WB = WORK( 1 ) + WA
                CALL SSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
                WORK( 1 ) = ONE
@@ -129,7 +129,7 @@
                WA = SIGN( WN, A( KL+I, I ) )
                IF( WN.EQ.ZERO ) THEN
                   TAU = ZERO
-               ELSE
+               } else {
                   WB = A( KL+I, I ) + WA
                   CALL SSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
                   A( KL+I, I ) = ONE
@@ -151,7 +151,7 @@
                WA = SIGN( WN, A( I, KU+I ) )
                IF( WN.EQ.ZERO ) THEN
                   TAU = ZERO
-               ELSE
+               } else {
                   WB = A( I, KU+I ) + WA
                   CALL SSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
                   A( I, KU+I ) = ONE
@@ -164,7 +164,7 @@
                CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
                A( I, KU+I ) = -WA
             END IF
-         ELSE
+         } else {
 
             // annihilate superdiagonal elements first (necessary if
             // KU = 0)
@@ -177,7 +177,7 @@
                WA = SIGN( WN, A( I, KU+I ) )
                IF( WN.EQ.ZERO ) THEN
                   TAU = ZERO
-               ELSE
+               } else {
                   WB = A( I, KU+I ) + WA
                   CALL SSCAL( N-KU-I, ONE / WB, A( I, KU+I+1 ), LDA )
                   A( I, KU+I ) = ONE
@@ -199,7 +199,7 @@
                WA = SIGN( WN, A( KL+I, I ) )
                IF( WN.EQ.ZERO ) THEN
                   TAU = ZERO
-               ELSE
+               } else {
                   WB = A( KL+I, I ) + WA
                   CALL SSCAL( M-KL-I, ONE / WB, A( KL+I+1, I ), 1 )
                   A( KL+I, I ) = ONE

@@ -45,7 +45,7 @@
          K = MIN( M, N )
          IF( K.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             NB = ILAENV( 1, 'ZGERQF', ' ', M, N, -1, -1 )
             LWKOPT = M*NB
          END IF
@@ -123,7 +123,7 @@
    10    CONTINUE
          MU = M - K + I + NB - 1
          NU = N - K + I + NB - 1
-      ELSE
+      } else {
          MU = M
          NU = N
       END IF

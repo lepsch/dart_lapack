@@ -37,7 +37,7 @@
       MINMN = MIN( M, N )
       IF( MINMN.EQ.0 ) THEN
         LWMIN = 1
-      ELSE
+      } else {
         LWMIN = N*NB
       END IF
 

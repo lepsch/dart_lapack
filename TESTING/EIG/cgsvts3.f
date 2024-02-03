@@ -92,7 +92,7 @@
       RESID = CLANGE( '1', M, N, A, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / REAL( MAX( 1, M, N ) ) ) / ANORM ) / ULP
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 
@@ -113,7 +113,7 @@
       RESID = CLANGE( '1', P, N, B, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
          RESULT( 2 ) = ( ( RESID / REAL( MAX( 1, P, N ) ) ) / BNORM ) / ULP
-      ELSE
+      } else {
          RESULT( 2 ) = ZERO
       END IF
 

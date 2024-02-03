@@ -74,7 +74,7 @@
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0D+0
             DO J = 1, N
@@ -110,7 +110,7 @@
 
             IF ( NOTRANS ) THEN
                CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 
@@ -119,7 +119,7 @@
             DO I = 1, N
                WORK( I ) = WORK( I ) / X( I )
             END DO
-         ELSE
+         } else {
 
             // Multiply by inv(X**H).
 
@@ -129,7 +129,7 @@
 
             IF ( NOTRANS ) THEN
                CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 

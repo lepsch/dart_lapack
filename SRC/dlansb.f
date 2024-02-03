@@ -48,7 +48,7 @@
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    10          CONTINUE
    20       CONTINUE
-         ELSE
+         } else {
             DO 40 J = 1, N
                DO 30 I = 1, MIN( N+1-J, K+1 )
                   SUM = ABS( AB( I, J ) )
@@ -76,7 +76,7 @@
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
    70       CONTINUE
-         ELSE
+         } else {
             DO 80 I = 1, N
                WORK( I ) = ZERO
    80       CONTINUE
@@ -103,14 +103,14 @@
                   CALL DLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
   110          CONTINUE
                L = K + 1
-            ELSE
+            } else {
                DO 120 J = 1, N - 1
                   CALL DLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
   120          CONTINUE
                L = 1
             END IF
             SUM = 2*SUM
-         ELSE
+         } else {
             L = 1
          END IF
          CALL DLASSQ( N, AB( L, 1 ), LDAB, SCALE, SUM )

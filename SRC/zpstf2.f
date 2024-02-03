@@ -85,7 +85,7 @@
 
       IF( TOL.LT.ZERO ) THEN
          DSTOP = N * DLAMCH( 'Epsilon' ) * AJJ
-      ELSE
+      } else {
          DSTOP = TOL
       END IF
 
@@ -162,7 +162,7 @@
 
   150    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute the Cholesky factorization P**T * A * P = L * L**H
 

@@ -95,7 +95,7 @@
 
       // Compute the product L*L', overwriting L.
 
-      ELSE
+      } else {
 
          IF( RANK.LT.N ) THEN
             DO 150 J = RANK + 1, N
@@ -128,7 +128,7 @@
                IF( PIV( I ).LE.PIV( J ) ) THEN
                   IF( I.LE.J ) THEN
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
-                  ELSE
+                  } else {
                      PERM( PIV( I ), PIV( J ) ) = DCONJG( AFAC( J, I ) )
                   END IF
                END IF
@@ -136,14 +136,14 @@
   180    CONTINUE
 
 
-      ELSE
+      } else {
 
          DO 200 J = 1, N
             DO 190 I = 1, N
                IF( PIV( I ).GE.PIV( J ) ) THEN
                   IF( I.GE.J ) THEN
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
-                  ELSE
+                  } else {
                      PERM( PIV( I ), PIV( J ) ) = DCONJG( AFAC( J, I ) )
                   END IF
                END IF
@@ -161,7 +161,7 @@
   210       CONTINUE
             PERM( J, J ) = PERM( J, J ) - DBLE( A( J, J ) )
   220    CONTINUE
-      ELSE
+      } else {
          DO 240 J = 1, N
             PERM( J, J ) = PERM( J, J ) - DBLE( A( J, J ) )
             DO 230 I = J + 1, N

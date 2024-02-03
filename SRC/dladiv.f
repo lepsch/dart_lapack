@@ -68,7 +68,7 @@
       END IF
       IF( ABS( D ).LE.ABS( C ) ) THEN
          CALL DLADIV1(AA, BB, CC, DD, P, Q)
-      ELSE
+      } else {
          CALL DLADIV1(BB, AA, DD, CC, P, Q)
          Q = -Q
       END IF
@@ -148,10 +148,10 @@
          BR = B * R
          IF( BR.NE.ZERO ) THEN
             DLADIV2 = (A + BR) * T
-         ELSE
+         } else {
             DLADIV2 = A * T + (B * T) * R
          END IF
-      ELSE
+      } else {
          DLADIV2 = (A + D * (B / C)) * T
       END IF
 

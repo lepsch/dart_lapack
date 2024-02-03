@@ -29,7 +29,7 @@
       IF( INFO.NE.INFOT ) THEN
          IF( INFOT.NE.0 ) THEN
             WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
          END IF
          OK = .FALSE.

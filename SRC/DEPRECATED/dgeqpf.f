@@ -62,11 +62,11 @@
                CALL DSWAP( M, A( 1, I ), 1, A( 1, ITEMP ), 1 )
                JPVT( I ) = JPVT( ITEMP )
                JPVT( ITEMP ) = I
-            ELSE
+            } else {
                JPVT( I ) = I
             END IF
             ITEMP = ITEMP + 1
-         ELSE
+         } else {
             JPVT( I ) = I
          END IF
    10 CONTINUE
@@ -113,7 +113,7 @@
 
             IF( I.LT.M ) THEN
                CALL DLARFG( M-I+1, A( I, I ), A( I+1, I ), 1, TAU( I ) )
-            ELSE
+            } else {
                CALL DLARFG( 1, A( M, M ), A( M, M ), 1, TAU( M ) )
             END IF
 
@@ -142,11 +142,11 @@
                      IF( M-I.GT.0 ) THEN
                         WORK( J ) = DNRM2( M-I, A( I+1, J ), 1 )
                         WORK( N+J ) = WORK( J )
-                     ELSE
+                     } else {
                         WORK( J ) = ZERO
                         WORK( N+J ) = ZERO
                      END IF
-                  ELSE
+                  } else {
                      WORK( J ) = WORK( J )*SQRT( TEMP )
                   END IF
                END IF

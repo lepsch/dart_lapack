@@ -47,7 +47,7 @@
       IF( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) THEN
          TRANSU = 'N'
          K = N
-      ELSE
+      } else {
          TRANSU = 'T'
          K = M
       END IF
@@ -55,7 +55,7 @@
 
       IF( ( MNMIN+1 )*MNMIN.LE.LWORK ) THEN
          LDWORK = MNMIN
-      ELSE
+      } else {
          LDWORK = 0
       END IF
       IF( LDWORK.GT.0 ) THEN
@@ -77,7 +77,7 @@
             DO 10 I = 1, J
                IF( I.NE.J ) THEN
                   TMP = ZERO
-               ELSE
+               } else {
                   TMP = ONE
                END IF
                TMP = TMP - SDOT( M, U( 1, I ), 1, U( 1, J ), 1 )
@@ -85,7 +85,7 @@
    10       CONTINUE
    20    CONTINUE
          RESID = ( RESID / REAL( M ) ) / EPS
-      ELSE
+      } else {
 
          // Find the maximum element in abs( I - U*U' ) / ( n * EPS )
 
@@ -93,7 +93,7 @@
             DO 30 I = 1, J
                IF( I.NE.J ) THEN
                   TMP = ZERO
-               ELSE
+               } else {
                   TMP = ONE
                END IF
                TMP = TMP - SDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU )

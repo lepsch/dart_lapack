@@ -38,7 +38,7 @@
       IF( ABS( A ).GT.ABS( C ) ) THEN
          ACMX = A
          ACMN = C
-      ELSE
+      } else {
          ACMX = C
          ACMN = A
       END IF
@@ -46,7 +46,7 @@
          RT = ADF*SQRT( ONE+( AB / ADF )**2 )
       ELSE IF( ADF.LT.AB ) THEN
          RT = AB*SQRT( ONE+( ADF / AB )**2 )
-      ELSE
+      } else {
 
          // Includes case AB=ADF=0
 
@@ -68,7 +68,7 @@
          // next line needs to be executed in higher precision.
 
          RT2 = ( ACMX / RT1 )*ACMN - ( B / RT1 )*B
-      ELSE
+      } else {
 
          // Includes case RT1 = RT2 = 0
 

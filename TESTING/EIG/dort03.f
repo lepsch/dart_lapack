@@ -44,7 +44,7 @@
          IRC = 0
       ELSE IF( LSAME( RC, 'C' ) ) THEN
          IRC = 1
-      ELSE
+      } else {
          IRC = -1
       END IF
       IF( IRC.EQ.-1 ) THEN
@@ -94,7 +94,7 @@
 
          CALL DORT01( 'Rows', MV, N, V, LDV, WORK, LWORK, RES2 )
 
-      ELSE
+      } else {
 
          // Compare columns
 

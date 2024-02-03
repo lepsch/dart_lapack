@@ -78,7 +78,7 @@
                DO J = I+1, N
                   TMP = TMP + ABS( A( I, J ) )
                END DO
-            ELSE
+            } else {
                DO J = 1, I
                   TMP = TMP + ABS( A( J, I ) / C( J ) )
                END DO
@@ -88,7 +88,7 @@
             END IF
             WORK( 2*N+I ) = TMP
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0D+0
             IF ( CMODE .EQ. 1 ) THEN
@@ -105,7 +105,7 @@
                DO J = I+1, N
                   TMP = TMP + ABS( A( J, I ) )
                END DO
-            ELSE
+            } else {
                DO J = 1, I
                   TMP = TMP + ABS( A( I, J) / C( J ) )
                END DO
@@ -137,7 +137,7 @@
 
             IF ( UP ) THEN
                CALL DSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL DSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 
@@ -152,7 +152,7 @@
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             END IF
-         ELSE
+         } else {
 
             // Multiply by inv(C**T).
 
@@ -168,7 +168,7 @@
 
             IF ( UP ) THEN
                CALL DSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL DSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 

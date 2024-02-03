@@ -46,7 +46,7 @@
       ELSE IF( WANTZ ) THEN
          LIWMIN = 3 + 5*N
          LWMIN = 1 + 5*N + 2*N**2
-      ELSE
+      } else {
          LIWMIN = 1
          LWMIN = 2*N
       END IF
@@ -111,7 +111,7 @@
 
       IF( WANTZ ) THEN
          VECT = 'U'
-      ELSE
+      } else {
          VECT = 'N'
       END IF
       CALL DSBTRD( VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
@@ -120,7 +120,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N )
          CALL DLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF

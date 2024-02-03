@@ -68,7 +68,7 @@
       IF( LOWER ) THEN
          N2 = N / 2
          N1 = N - N2
-      ELSE
+      } else {
          N1 = N / 2
          N2 = N - N1
       END IF
@@ -81,7 +81,7 @@
          K = N / 2
          NISODD = .FALSE.
          IF( .NOT.LOWER ) NP1X2 = N + N + 2
-      ELSE
+      } else {
          NISODD = .TRUE.
          IF( .NOT.LOWER ) NX2 = N + N
       END IF
@@ -110,7 +110,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
                // N is odd, TRANSR = 'N', and UPLO = 'U'
 
@@ -129,7 +129,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is odd and TRANSR = 'T'
 
@@ -155,7 +155,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
                // N is odd, TRANSR = 'T', and UPLO = 'U'
 
@@ -181,7 +181,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // N is even
 
@@ -205,7 +205,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
                // N is even, TRANSR = 'N', and UPLO = 'U'
 
@@ -224,7 +224,7 @@
 
             END IF
 
-         ELSE
+         } else {
 
             // N is even and TRANSR = 'T'
 
@@ -255,7 +255,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
                // N is even, TRANSR = 'T', and UPLO = 'U'
 

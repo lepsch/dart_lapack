@@ -53,7 +53,7 @@
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
          ELSE IF( INDEIG ) THEN
@@ -82,7 +82,7 @@
          IF( ALLEIG .OR. INDEIG ) THEN
             M = 1
             W( 1 ) = D( 1 )
-         ELSE
+         } else {
             IF( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) THEN
                M = 1
                W( 1 ) = D( 1 )
@@ -107,7 +107,7 @@
       IF( VALEIG ) THEN
          VLL = VL
          VUU = VU
-      ELSE
+      } else {
          VLL = ZERO
          VUU = ZERO
       END IF
@@ -144,7 +144,7 @@
          INDWRK = N + 1
          IF( .NOT.WANTZ ) THEN
             CALL DSTERF( N, W, WORK, INFO )
-         ELSE
+         } else {
             CALL DSTEQR( 'I', N, W, WORK, Z, LDZ, WORK( INDWRK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
@@ -163,7 +163,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDWRK = 1
@@ -181,7 +181,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

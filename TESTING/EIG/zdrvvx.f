@@ -126,7 +126,7 @@
          N = NN( JSIZE )
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -226,7 +226,7 @@
                   CONDS = ONE
                ELSE IF( KCONDS( JTYPE ).EQ.2 ) THEN
                   CONDS = RTULPI
-               ELSE
+               } else {
                   CONDS = ZERO
                END IF
 
@@ -260,7 +260,7 @@
 
                CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
 
-            ELSE
+            } else {
 
                IINFO = 1
             END IF
@@ -280,7 +280,7 @@
                   NNWORK = 2*N
                ELSE IF( IWK.EQ.2 ) THEN
                   NNWORK = 2*N + N**2
-               ELSE
+               } else {
                   NNWORK = 6*N + 2*N**2
                END IF
                NNWORK = MAX( NNWORK, 1 )

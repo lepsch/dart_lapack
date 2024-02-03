@@ -285,7 +285,7 @@
                         NERRS = NERRS + 1
                         IF( RESULT( J ).LT.10000.0 ) THEN
                            WRITE( NOUT, FMT = 9992 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
-                        ELSE
+                        } else {
                            WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         END IF
                      END IF
@@ -438,7 +438,7 @@
             NERRS = NERRS + 1
             IF( RESULT( J ).LT.10000.0 ) THEN
                WRITE( NOUT, FMT = 9990 )NPTKNT, MPLUSN, J, RESULT( J )
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9989 )NPTKNT, MPLUSN, J, RESULT( J )
             END IF
          END IF

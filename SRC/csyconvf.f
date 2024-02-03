@@ -75,7 +75,7 @@
                   E( I-1 ) = ZERO
                   A( I-1, I ) = ZERO
                   I = I - 1
-               ELSE
+               } else {
                   E( I ) = ZERO
                END IF
                I = I - 1
@@ -101,7 +101,7 @@
                      END IF
                   END IF
 
-               ELSE
+               } else {
 
                   // 2-by-2 pivot interchange
 
@@ -127,7 +127,7 @@
                I = I - 1
             END DO
 
-         ELSE
+         } else {
 
             // Revert A (A is upper)
 
@@ -152,7 +152,7 @@
                      END IF
                   END IF
 
-               ELSE
+               } else {
 
                   // 2-by-2 pivot interchange
 
@@ -194,7 +194,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Begin A is LOWER
 
@@ -215,7 +215,7 @@
                   E( I+1 ) = ZERO
                   A( I+1, I ) = ZERO
                   I = I + 1
-               ELSE
+               } else {
                   E( I ) = ZERO
                END IF
                I = I + 1
@@ -241,7 +241,7 @@
                      END IF
                   END IF
 
-               ELSE
+               } else {
 
                   // 2-by-2 pivot interchange
 
@@ -267,7 +267,7 @@
                I = I + 1
             END DO
 
-         ELSE
+         } else {
 
             // Revert A (A is lower)
 
@@ -292,7 +292,7 @@
                      END IF
                   END IF
 
-               ELSE
+               } else {
 
                   // 2-by-2 pivot interchange
 

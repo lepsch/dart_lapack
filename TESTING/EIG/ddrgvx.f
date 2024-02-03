@@ -152,7 +152,7 @@
                            IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         ELSE IF( DTRU( I ).EQ.ZERO ) THEN
                            IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
-                        ELSE
+                        } else {
                            WORK( I ) = MAX( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) )
                            RESULT( 3 ) = MAX( RESULT( 3 ), WORK( I ) )
                         END IF
@@ -169,7 +169,7 @@
                         IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      ELSE IF( DIFTRU( 5 ).EQ.ZERO ) THEN
                         IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-                     ELSE
+                     } else {
                         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
                         RESULT( 4 ) = MAX( RATIO1, RATIO2 )
                      END IF
@@ -203,7 +203,7 @@
                            NERRS = NERRS + 1
                            IF( RESULT( J ).LT.10000.0D0 ) THEN
                               WRITE( NOUT, FMT = 9991 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            END IF
                         END IF
@@ -280,7 +280,7 @@
             IF( DTRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
          ELSE IF( DTRU( I ).EQ.ZERO ) THEN
             IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
-         ELSE
+         } else {
             WORK( I ) = MAX( ABS( DTRU( I ) / S( I ) ), ABS( S( I ) / DTRU( I ) ) )
             RESULT( 3 ) = MAX( RESULT( 3 ), WORK( I ) )
          END IF
@@ -297,7 +297,7 @@
          IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       ELSE IF( DIFTRU( 5 ).EQ.ZERO ) THEN
          IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
-      ELSE
+      } else {
          RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
          RESULT( 4 ) = MAX( RATIO1, RATIO2 )
       END IF
@@ -329,7 +329,7 @@
             NERRS = NERRS + 1
             IF( RESULT( J ).LT.10000.0D0 ) THEN
                WRITE( NOUT, FMT = 9989 )NPTKNT, N, J, RESULT( J )
-            ELSE
+            } else {
                WRITE( NOUT, FMT = 9988 )NPTKNT, N, J, RESULT( J )
             END IF
          END IF

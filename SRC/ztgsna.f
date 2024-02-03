@@ -70,7 +70,7 @@
          INFO = -10
       ELSE IF( WANTS .AND. LDVR.LT.N ) THEN
          INFO = -12
-      ELSE
+      } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
@@ -80,7 +80,7 @@
             DO 10 K = 1, N
                IF( SELECT( K ) ) M = M + 1
    10       CONTINUE
-         ELSE
+         } else {
             M = N
          END IF
 
@@ -88,7 +88,7 @@
             LWMIN = 1
          ELSE IF( LSAME( JOB, 'V' ) .OR. LSAME( JOB, 'B' ) ) THEN
             LWMIN = 2*N*N
-         ELSE
+         } else {
             LWMIN = N
          END IF
          WORK( 1 ) = LWMIN
@@ -142,7 +142,7 @@
             COND = DLAPY2( ABS( YHAX ), ABS( YHBX ) )
             IF( COND.EQ.ZERO ) THEN
                S( KS ) = -ONE
-            ELSE
+            } else {
                S( KS ) = COND / ( RNRM*LNRM )
             END IF
          END IF
@@ -150,7 +150,7 @@
          IF( WANTDF ) THEN
             IF( N.EQ.1 ) THEN
                DIF( KS ) = DLAPY2( ABS( A( 1, 1 ) ), ABS( B( 1, 1 ) ) )
-            ELSE
+            } else {
 
                // Estimate the reciprocal condition number of the k-th
                // eigenvectors.
@@ -170,7 +170,7 @@
                   // Ill-conditioned problem - swap rejected.
 
                   DIF( KS ) = ZERO
-               ELSE
+               } else {
 
                   // Reordering successful, solve generalized Sylvester
                   // equation for R and L,

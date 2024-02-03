@@ -89,12 +89,12 @@
       IF( INFO .EQ. 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) THEN
          IF( COLMAJOR ) THEN
             TRANST = 'T'
-         ELSE
+         } else {
             TRANST = 'N'
          END IF
          IF( DEFAULTSIGNS ) THEN
             SIGNST = 'O'
-         ELSE
+         } else {
             SIGNST = 'D'
          END IF
          CALL CUNCSD( JOBV1T, JOBV2T, JOBU1, JOBU2, TRANST, SIGNST, M, Q, P, X11, LDX11, X21, LDX21, X12, LDX12, X22, LDX22, THETA, V1T, LDV1T, V2T, LDV2T, U1, LDU1, U2, LDU2, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
@@ -107,7 +107,7 @@
       IF( INFO .EQ. 0 .AND. M-Q .LT. Q ) THEN
          IF( DEFAULTSIGNS ) THEN
             SIGNST = 'O'
-         ELSE
+         } else {
             SIGNST = 'D'
          END IF
          CALL CUNCSD( JOBU2, JOBU1, JOBV2T, JOBV1T, TRANS, SIGNST, M, M-P, M-Q, X22, LDX22, X21, LDX21, X12, LDX12, X11, LDX11, THETA, U2, LDU2, U1, LDU1, V2T, LDV2T, V1T, LDV1T, WORK, LWORK, RWORK, LRWORK, IWORK, INFO )
@@ -163,7 +163,7 @@
             INFO = -22
          ELSE IF( LRWORK .LT. LRWORKMIN .AND. .NOT. ( LQUERY .OR. LRQUERY ) ) THEN
             INFO = -24
-         ELSE
+         } else {
             LORGQRWORK = LWORK - IORGQR + 1
             LORGLQWORK = LWORK - IORGLQ + 1
             LORBDBWORK = LWORK - IORBDB + 1
@@ -213,7 +213,7 @@
                CALL CUNGLQ( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO )
             END IF
          END IF
-      ELSE
+      } else {
          IF( WANTU1 .AND. P .GT. 0 ) THEN
             CALL CLACPY( 'U', Q, P, X11, LDX11, U1, LDU1 )
             CALL CUNGLQ( P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO)
@@ -260,7 +260,7 @@
          END DO
          IF( COLMAJOR ) THEN
             CALL CLAPMT( .FALSE., M-P, M-P, U2, LDU2, IWORK )
-         ELSE
+         } else {
             CALL CLAPMR( .FALSE., M-P, M-P, U2, LDU2, IWORK )
          END IF
       END IF
@@ -273,7 +273,7 @@
          END DO
          IF( .NOT. COLMAJOR ) THEN
             CALL CLAPMT( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
-         ELSE
+         } else {
             CALL CLAPMR( .FALSE., M-Q, M-Q, V2T, LDV2T, IWORK )
          END IF
       END IF

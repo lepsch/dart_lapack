@@ -67,7 +67,7 @@
             END IF
             KC = KC + K + 1
    10    CONTINUE
-      ELSE
+      } else {
          DO 20 K = 1, N
             IF( DIMAG( AFAC( KC ) ).NE.ZERO ) THEN
                RESID = ONE / EPS
@@ -109,7 +109,7 @@
 
       // Compute the product L*L', overwriting L.
 
-      ELSE
+      } else {
          KC = ( N*( N+1 ) ) / 2
          DO 60 K = N, 1, -1
 

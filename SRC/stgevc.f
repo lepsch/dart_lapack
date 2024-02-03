@@ -55,7 +55,7 @@
          IHWMNY = 3
          ILALL = .TRUE.
          ILBACK = .TRUE.
-      ELSE
+      } else {
          IHWMNY = -1
          ILALL = .TRUE.
       END IF
@@ -72,7 +72,7 @@
          ISIDE = 3
          COMPL = .TRUE.
          COMPR = .TRUE.
-      ELSE
+      } else {
          ISIDE = -1
       END IF
 
@@ -108,11 +108,11 @@
             END IF
             IF( ILCPLX ) THEN
                IF( SELECT( J ) .OR. SELECT( J+1 ) ) IM = IM + 2
-            ELSE
+            } else {
                IF( SELECT( J ) ) IM = IM + 1
             END IF
    10    CONTINUE
-      ELSE
+      } else {
          IM = N
       END IF
 
@@ -175,7 +175,7 @@
          TEMP2 = ZERO
          IF( S( J, J-1 ).EQ.ZERO ) THEN
             IEND = J - 1
-         ELSE
+         } else {
             IEND = J - 2
          END IF
          DO 30 I = 1, IEND
@@ -225,7 +225,7 @@
                ILCOMP = .TRUE.
             ELSE IF( ILCPLX ) THEN
                ILCOMP = SELECT( JE ) .OR. SELECT( JE+1 )
-            ELSE
+            } else {
                ILCOMP = SELECT( JE )
             END IF
             IF( .NOT.ILCOMP ) GO TO 220
@@ -277,12 +277,12 @@
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   IF( LSA ) THEN
                      ACOEF = ASCALE*( SCALE*SBETA )
-                  ELSE
+                  } else {
                      ACOEF = SCALE*ACOEF
                   END IF
                   IF( LSB ) THEN
                      BCOEFR = BSCALE*( SCALE*SALFAR )
-                  ELSE
+                  } else {
                      BCOEFR = SCALE*BCOEFR
                   END IF
                END IF
@@ -293,7 +293,7 @@
 
                WORK( 2*N+JE ) = ONE
                XMAX = ONE
-            ELSE
+            } else {
 
                // Complex eigenvalue
 
@@ -328,7 +328,7 @@
                   WORK( 3*N+JE ) = ZERO
                   WORK( 2*N+JE+1 ) = -TEMP2R / TEMP
                   WORK( 3*N+JE+1 ) = -TEMP2I / TEMP
-               ELSE
+               } else {
                   WORK( 2*N+JE+1 ) = ONE
                   WORK( 3*N+JE+1 ) = ZERO
                   TEMP = ACOEF*S( JE, JE+1 )
@@ -407,7 +407,7 @@
                DO 130 JA = 1, NA
                   IF( ILCPLX ) THEN
                      SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 )
-                  ELSE
+                  } else {
                      SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 )
                   END IF
   130          CONTINUE
@@ -438,7 +438,7 @@
   170          CONTINUE
                CALL SLACPY( ' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ), LDVL )
                IBEG = 1
-            ELSE
+            } else {
                CALL SLACPY( ' ', N, NW, WORK( 2*N+1 ), N, VL( 1, IEIG ), LDVL )
                IBEG = JE
             END IF
@@ -450,7 +450,7 @@
                DO 180 J = IBEG, N
                   XMAX = MAX( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) )
   180          CONTINUE
-            ELSE
+            } else {
                DO 190 J = IBEG, N
                   XMAX = MAX( XMAX, ABS( VL( J, IEIG ) ) )
   190          CONTINUE
@@ -503,7 +503,7 @@
                ILCOMP = .TRUE.
             ELSE IF( ILCPLX ) THEN
                ILCOMP = SELECT( JE ) .OR. SELECT( JE-1 )
-            ELSE
+            } else {
                ILCOMP = SELECT( JE )
             END IF
             IF( .NOT.ILCOMP ) GO TO 500
@@ -557,12 +557,12 @@
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   IF( LSA ) THEN
                      ACOEF = ASCALE*( SCALE*SBETA )
-                  ELSE
+                  } else {
                      ACOEF = SCALE*ACOEF
                   END IF
                   IF( LSB ) THEN
                      BCOEFR = BSCALE*( SCALE*SALFAR )
-                  ELSE
+                  } else {
                      BCOEFR = SCALE*BCOEFR
                   END IF
                END IF
@@ -580,7 +580,7 @@
                DO 260 JR = 1, JE - 1
                   WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE )
   260          CONTINUE
-            ELSE
+            } else {
 
                // Complex eigenvalue
 
@@ -615,7 +615,7 @@
                   WORK( 3*N+JE ) = ZERO
                   WORK( 2*N+JE-1 ) = -TEMP2R / TEMP
                   WORK( 3*N+JE-1 ) = -TEMP2I / TEMP
-               ELSE
+               } else {
                   WORK( 2*N+JE-1 ) = ONE
                   WORK( 3*N+JE-1 ) = ZERO
                   TEMP = ACOEF*S( JE-1, JE )
@@ -660,7 +660,7 @@
                IF( IL2BY2 ) THEN
                   NA = 2
                   BDIAG( 2 ) = P( J+1, J+1 )
-               ELSE
+               } else {
                   NA = 1
                END IF
 
@@ -716,7 +716,7 @@
                         DO 340 JR = 1, J - 1
                            WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )                            WORK( 3*N+JR ) = WORK( 3*N+JR ) - CIMAGA*S( JR, J+JA-1 ) + CIMAGB*P( JR, J+JA-1 )
   340                   CONTINUE
-                     ELSE
+                     } else {
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 )
                         DO 350 JR = 1, J - 1
@@ -758,7 +758,7 @@
   430          CONTINUE
 
                IEND = N
-            ELSE
+            } else {
                DO 450 JW = 0, NW - 1
                   DO 440 JR = 1, N
                      VR( JR, IEIG+JW ) = WORK( ( JW+2 )*N+JR )
@@ -775,7 +775,7 @@
                DO 460 J = 1, IEND
                   XMAX = MAX( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) )
   460          CONTINUE
-            ELSE
+            } else {
                DO 470 J = 1, IEND
                   XMAX = MAX( XMAX, ABS( VR( J, IEIG ) ) )
   470          CONTINUE

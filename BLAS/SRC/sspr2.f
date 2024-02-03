@@ -58,12 +58,12 @@
       IF ((INCX.NE.1) .OR. (INCY.NE.1)) THEN
           IF (INCX.GT.0) THEN
               KX = 1
-          ELSE
+          } else {
               KX = 1 - (N-1)*INCX
           END IF
           IF (INCY.GT.0) THEN
               KY = 1
-          ELSE
+          } else {
               KY = 1 - (N-1)*INCY
           END IF
           JX = KX
@@ -91,7 +91,7 @@
                   END IF
                   KK = KK + J
    20         CONTINUE
-          ELSE
+          } else {
               DO 40 J = 1,N
                   IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
                       TEMP1 = ALPHA*Y(JY)
@@ -109,7 +109,7 @@
                   KK = KK + J
    40         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  A  when lower triangle is stored in AP.
 
@@ -126,7 +126,7 @@
                   END IF
                   KK = KK + N - J + 1
    60         CONTINUE
-          ELSE
+          } else {
               DO 80 J = 1,N
                   IF ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) THEN
                       TEMP1 = ALPHA*Y(JY)

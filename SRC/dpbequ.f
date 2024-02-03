@@ -64,7 +64,7 @@
 
       IF( UPPER ) THEN
          J = KD + 1
-      ELSE
+      } else {
          J = 1
       END IF
 
@@ -92,7 +92,7 @@
                RETURN
             END IF
    20    CONTINUE
-      ELSE
+      } else {
 
          // Set the scale factors to the reciprocals
          // of the diagonal elements.

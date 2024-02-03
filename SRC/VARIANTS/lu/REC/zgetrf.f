@@ -101,7 +101,7 @@
          IF( PIVMAG.NE.ZERO .AND. .NOT.DISNAN( PIVMAG ) ) THEN
                IF( PIVMAG .GE. SFMIN ) THEN
                   CALL ZSCAL( M-J, ONE / A( J, J ), A( J+1, J ), 1 )
-               ELSE
+               } else {
                  DO I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
                  END DO

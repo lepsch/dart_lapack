@@ -61,7 +61,7 @@
          INFO = -6
       ELSE IF( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) THEN
          INFO = -8
-      ELSE
+      } else {
 
          // Set M to the dimension of the specified invariant subspace,
          // and test LWORK and LIWORK.
@@ -71,15 +71,15 @@
          DO 10 K = 1, N
             IF( PAIR ) THEN
                PAIR = .FALSE.
-            ELSE
+            } else {
                IF( K.LT.N ) THEN
                   IF( T( K+1, K ).EQ.ZERO ) THEN
                      IF( SELECT( K ) ) M = M + 1
-                  ELSE
+                  } else {
                      PAIR = .TRUE.
                      IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                   END IF
-               ELSE
+               } else {
                   IF( SELECT( N ) ) M = M + 1
                END IF
             END IF
@@ -133,7 +133,7 @@
       DO 20 K = 1, N
          IF( PAIR ) THEN
             PAIR = .FALSE.
-         ELSE
+         } else {
             SWAP = SELECT( K )
             IF( K.LT.N ) THEN
                IF( T( K+1, K ).NE.ZERO ) THEN
@@ -177,7 +177,7 @@
          RNORM = DLANGE( 'F', N1, N2, WORK, N1, WORK )
          IF( RNORM.EQ.ZERO ) THEN
             S = ONE
-         ELSE
+         } else {
             S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
          END IF
       END IF
@@ -196,7 +196,7 @@
                // Solve  T11*R - R*T22 = scale*X.
 
                CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
-            ELSE
+            } else {
 
                // Solve T11**T*R - R*T22**T = scale*X.
 

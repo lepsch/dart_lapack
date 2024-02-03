@@ -62,7 +62,7 @@
 
       IF( LOWER ) THEN
          CALL CTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, CONE, A, B, LDB )          CALL CTFSM( TRANSR, 'L', UPLO, 'C', 'N', N, NRHS, CONE, A, B, LDB )
-      ELSE
+      } else {
          CALL CTFSM( TRANSR, 'L', UPLO, 'C', 'N', N, NRHS, CONE, A, B, LDB )          CALL CTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, CONE, A, B, LDB )
       END IF
 

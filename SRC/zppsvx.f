@@ -44,7 +44,7 @@
       IF( NOFACT .OR. EQUIL ) THEN
          EQUED = 'N'
          RCEQU = .FALSE.
-      ELSE
+      } else {
          RCEQU = LSAME( EQUED, 'Y' )
          SMLNUM = DLAMCH( 'Safe minimum' )
          BIGNUM = ONE / SMLNUM
@@ -62,7 +62,7 @@
          INFO = -4
       ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -7
-      ELSE
+      } else {
          IF( RCEQU ) THEN
             SMIN = BIGNUM
             SMAX = ZERO
@@ -74,7 +74,7 @@
                INFO = -8
             ELSE IF( N.GT.0 ) THEN
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
-            ELSE
+            } else {
                SCOND = ONE
             END IF
          END IF

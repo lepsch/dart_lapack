@@ -78,7 +78,7 @@
          INFO = - 15
       ELSE IF ( (.NOT.(LSVEC .OR. RSVEC .OR. ERREST).AND. (LWORK .LT. MAX(7,4*N+1,2*M+N))) .OR. (.NOT.(LSVEC .OR. RSVEC) .AND. ERREST .AND. (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) .OR. (LSVEC .AND. (.NOT.RSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (RSVEC .AND. (.NOT.LSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (LSVEC .AND. RSVEC .AND. (.NOT.JRACC) .AND. (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) .OR. (LSVEC .AND. RSVEC .AND. JRACC .AND. LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) THEN
          INFO = - 17
-      ELSE
+      } else {
          // #:)
          INFO = 0
       END IF
@@ -135,7 +135,7 @@
          AAQQ = DSQRT(AAQQ)
          IF ( ( AAPP .LT. (BIG / AAQQ) ) .AND. NOSCAL  ) THEN
             SVA(p)  = AAPP * AAQQ
-         ELSE
+         } else {
             NOSCAL  = .FALSE.
             SVA(p)  = AAPP * ( AAQQ * SCALEM )
             IF ( GOSCAL ) THEN
@@ -214,10 +214,10 @@
             IWORK(1) = 1
             IF ( ( SVA(1) / SCALEM) .GE. SFMIN ) THEN
                IWORK(2) = 1
-            ELSE
+            } else {
                IWORK(2) = 0
             END IF
-         ELSE
+         } else {
             IWORK(1) = 0
             IWORK(2) = 0
          END IF
@@ -259,7 +259,7 @@
                AATMAX = MAX( AATMAX, WORK(N+p) )
                IF (WORK(N+p) .NE. ZERO) AATMIN = MIN(AATMIN,WORK(N+p))
  1950       CONTINUE
-         ELSE
+         } else {
             DO 1904 p = 1, M
                WORK(M+N+p) = SCALEM*DABS( A(p,IDAMAX(N,A(p,1),LDA)) )
                AATMAX = MAX( AATMAX, WORK(M+N+p) )
@@ -359,7 +359,7 @@
       CALL DLASCL( 'G', 0, 0, AAPP, TEMP1, N, 1, SVA, N, IERR )
       IF ( AAQQ .GT. (AAPP * SFMIN) ) THEN
           AAQQ = ( AAQQ / AAPP ) * TEMP1
-      ELSE
+      } else {
           AAQQ = ( AAQQ * TEMP1 ) / AAPP
       END IF
       TEMP1 = TEMP1 * SCALEM
@@ -376,7 +376,7 @@
         t // he restricted range of condition number of the initial A,
          // sigma_max(A) / sigma_min(A) approx. DSQRT(BIG)/DSQRT(SFMIN).
          XSC = DSQRT( SFMIN )
-      ELSE
+      } else {
          XSC = SMALL
 
          // Now, if the condition number of A is too big,
@@ -460,7 +460,7 @@
          DO 3001 p = 2, N
             IF ( DABS(A(p,p)) .GE. (TEMP1*DABS(A(1,1))) ) THEN
                NR = NR + 1
-            ELSE
+            } else {
                GO TO 3002
             END IF
  3001    CONTINUE
@@ -476,7 +476,7 @@
  3401    CONTINUE
  3402    CONTINUE
 
-      ELSE
+      } else {
          // The goal is high relative accuracy. However, if the matrix
          // has high scaled condition number the relative accuracy is in
          // general not feasible. Later on, a condition number estimator
@@ -526,7 +526,7 @@
                   CALL DSCAL( p, ONE/TEMP1, U(1,p), 1 )
  3054          CONTINUE
                CALL DPOCON( 'U', N, U, LDU, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR )
-            ELSE
+            } else {
                CALL DLACPY( 'U', N, N, A, LDA, WORK(N+1), N )
                DO 3052 p = 1, N
                   TEMP1 = SVA(IWORK(p))
@@ -538,7 +538,7 @@
             SCONDA = ONE / DSQRT(TEMP1)
             // SCONDA is an estimate of DSQRT(||(R^t * R)^(-1)||_1).
             // N^(-1/4) * SCONDA <= ||R^(-1)||_2 <= N^(1/4) * SCONDA
-         ELSE
+         } else {
             SCONDA = - ONE
          END IF
       END IF
@@ -580,7 +580,7 @@
                      IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
  4949             CONTINUE
  4947          CONTINUE
-            ELSE
+            } else {
                CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, A(1,2),LDA )
             END IF
 
@@ -608,7 +608,7 @@
                      IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
  1949             CONTINUE
  1947          CONTINUE
-            ELSE
+            } else {
                CALL DLASET( 'U', NR-1, NR-1, ZERO, ZERO, A(1,2), LDA )
             END IF
 
@@ -638,7 +638,7 @@
             SCALEM  = WORK(1)
             NUMRANK = IDNINT(WORK(2))
 
-         ELSE
+         } else {
 
          // .. two more QR factorizations ( one QRF is not enough, two require
          // accumulated product of Jacobi rotations, three are perfect )
@@ -718,7 +718,7 @@
             CALL DLACPY( 'All', N, N, U, LDU, V, LDV )
          END IF
 
-      ELSE
+      } else {
 
          // .. Full SVD ..
 
@@ -758,7 +758,7 @@
                      IF ( p .LT. q ) V(p,q) = - V(p,q)
  2968             CONTINUE
  2969          CONTINUE
-            ELSE
+            } else {
                CALL DLASET( 'U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
             END IF
 
@@ -808,7 +808,7 @@
 
                CONDR2 = CONDR1
 
-            ELSE
+            } else {
 
                // .. ill-conditioned case: second QRF with pivoting
                // Note that windowed pivoting would be equally good
@@ -844,7 +844,7 @@
                         V(p,q) = - DSIGN( TEMP1, V(q,p) )
  8971                CONTINUE
  8970             CONTINUE
-               ELSE
+               } else {
                   CALL DLASET( 'L',NR-1,NR-1,ZERO,ZERO,V(2,1),LDV )
                END IF
                // Now, compute R2 = L3 * Q3, the LQ factorization.
@@ -879,7 +879,7 @@
                      V(p,q) = - DSIGN( TEMP1, V(p,q) )
  4969             CONTINUE
  4968          CONTINUE
-            ELSE
+            } else {
                CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
             END IF
 
@@ -907,7 +907,7 @@
                   // used in DGESVJ, premultiplied with the orthogonal matrix
                   // from the second QR factorization.
                   CALL DTRSM( 'L','U','N','N', NR,NR,ONE, A,LDA, V,LDV )
-               ELSE
+               } else {
                   // .. R1 is well conditioned, but non-square. Transpose(R2)
                   // is inverted to get the product of the Jacobi rotations
                   // used in DGESVJ. The Q-factor from the second QR
@@ -952,7 +952,7 @@
                   CALL DLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
                END IF
                CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
-            ELSE
+            } else {
                // Last line of defense.
 * #:(          This is a rather pathological case: no scaled condition
                // improvement after two pivoted QR factorizations. Other
@@ -1028,7 +1028,7 @@
 
             IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 
-         ELSE
+         } else {
 
          // .. the initial matrix A has almost orthogonal columns and
         t // he second QRF is not needed
@@ -1042,7 +1042,7 @@
                      WORK(N+(q-1)*N+p)=-DSIGN(TEMP1,WORK(N+(p-1)*N+q))
  5971             CONTINUE
  5970          CONTINUE
-            ELSE
+            } else {
                CALL DLASET( 'Lower',N-1,N-1,ZERO,ZERO,WORK(N+2),N )
             END IF
 
@@ -1087,7 +1087,7 @@
 
          // end of the  >> almost orthogonal case <<  in the full SVD
 
-         ELSE
+         } else {
 
          // This branch deploys a preconditioned Jacobi SVD with explicitly
          // accumulated rotations. It is included as optional, mainly for
@@ -1112,7 +1112,7 @@
                   IF ( p .LT. q ) V(p,q) = - V(p,q)
  5968          CONTINUE
  5969       CONTINUE
-         ELSE
+         } else {
             CALL DLASET( 'U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
          END IF
           CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
@@ -1130,7 +1130,7 @@
                   U(p,q) = - DSIGN( TEMP1, U(q,p) )
  9971          CONTINUE
  9970       CONTINUE
-         ELSE
+         } else {
             CALL DLASET('U', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
          END IF
           CALL DGESVJ( 'G', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV, WORK(2*N+N*NR+1), LWORK-2*N-N*NR, INFO )

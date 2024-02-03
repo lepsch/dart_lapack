@@ -70,7 +70,7 @@
          INFO = -15
       ELSE IF( LWORK.LT.M ) THEN
          INFO = -17
-      ELSE
+      } else {
          INFO = 0
       END IF
 
@@ -186,24 +186,24 @@
                            IF( AAQQ.GE.ONE ) THEN
                               IF( AAPP.GE.AAQQ ) THEN
                                  ROTOK = ( SMALL*AAPP ).LE.AAQQ
-                              ELSE
+                              } else {
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
                               END IF
                               IF( AAPP.LT.( BIG / AAQQ ) ) THEN
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
-                              ELSE
+                              } else {
                                  CALL ZCOPY( M, A( 1, p ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )
                                  AAPQ = ZDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
                               END IF
-                           ELSE
+                           } else {
                               IF( AAPP.GE.AAQQ ) THEN
                                  ROTOK = AAPP.LE.( AAQQ / SMALL )
-                              ELSE
+                              } else {
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
                               END IF
                               IF( AAPP.GT.( SMALL / AAQQ ) ) THEN
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
-                              ELSE
+                              } else {
                                  CALL ZCOPY( M, A( 1, q ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR )
                                  AAPQ = ZDOTC( M, A( 1, p ), 1, WORK, 1 ) / AAPP
                               END IF
@@ -238,7 +238,7 @@
                                     END IF
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
-                                 ELSE
+                                 } else {
 
                   // .. choose correct signum for THETA and rotate
 
@@ -257,13 +257,13 @@
                                  END IF
                                  D(p) = -D(q) * OMPQ
 
-                              ELSE
+                              } else {
                // .. have to use modified Gram-Schmidt like transformation
                                IF( AAPP.GT.AAQQ ) THEN
                                     CALL ZCOPY( M, A( 1, p ), 1, WORK, 1 )                                     CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR )                                     CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL ZAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                     CALL ZLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
-                               ELSE
+                               } else {
                                    CALL ZCOPY( M, A( 1, q ), 1, WORK, 1 )                                     CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK,LDA, IERR )                                     CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR )                                     CALL ZAXPY( M, -CONJG(AAPQ), WORK, 1, A( 1, p ), 1 )                                     CALL ZLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR )
                                     SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
@@ -275,7 +275,7 @@
             // .. recompute SVA(q), SVA(p)
                               IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1)
-                                  ELSE
+                                  } else {
                                     T = ZERO
                                     AAQQ = ONE
                                     CALL ZLASSQ( M, A( 1, q ), 1, T, AAQQ )
@@ -285,7 +285,7 @@
                               IF( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) THEN
                                  IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN
                                     AAPP = DZNRM2( M, A( 1, p ), 1 )
-                                 ELSE
+                                 } else {
                                     T = ZERO
                                     AAPP = ONE
                                     CALL ZLASSQ( M, A( 1, p ), 1, T, AAPP )
@@ -294,13 +294,13 @@
                                  SVA( p ) = AAPP
                               END IF
                // end of OK rotation
-                           ELSE
+                           } else {
                               NOTROT = NOTROT + 1
 *[RTD]      SKIPPED  = SKIPPED  + 1
                               PSKIPPED = PSKIPPED + 1
                               IJBLSK = IJBLSK + 1
                            END IF
-                        ELSE
+                        } else {
                            NOTROT = NOTROT + 1
                            PSKIPPED = PSKIPPED + 1
                            IJBLSK = IJBLSK + 1
@@ -323,7 +323,7 @@
 
                      SVA( p ) = AAPP
 
-                  ELSE
+                  } else {
 
                      IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
                      IF( AAPP.LT.ZERO )NOTROT = 0
@@ -346,7 +346,7 @@
       // .. update SVA(N)
          IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
             SVA( N ) = DZNRM2( M, A( 1, N ), 1 )
-         ELSE
+         } else {
             T = ZERO
             AAPP = ONE
             CALL ZLASSQ( M, A( 1, N ), 1, T, AAPP )

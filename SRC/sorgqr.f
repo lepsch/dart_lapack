@@ -106,7 +106,7 @@
                A( I, J ) = ZERO
    10       CONTINUE
    20    CONTINUE
-      ELSE
+      } else {
          KK = 0
       END IF
 

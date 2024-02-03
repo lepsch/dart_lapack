@@ -21,7 +21,7 @@
          CHLA_TRANSTYPE = 'T'
       ELSE IF( TRANS.EQ.BLAS_CONJ_TRANS ) THEN
          CHLA_TRANSTYPE = 'C'
-      ELSE
+      } else {
          CHLA_TRANSTYPE = 'X'
       END IF
       RETURN

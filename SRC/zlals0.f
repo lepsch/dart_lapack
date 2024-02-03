@@ -97,7 +97,7 @@
             IF( Z( 1 ).LT.ZERO ) THEN
                CALL ZDSCAL( NRHS, NEGONE, B, LDB )
             END IF
-         ELSE
+         } else {
             DO 100 J = 1, K
                DIFLJ = DIFL( J )
                DJ = POLES( J, 1 )
@@ -108,13 +108,13 @@
                END IF
                IF( ( Z( J ).EQ.ZERO ) .OR. ( POLES( J, 2 ).EQ.ZERO ) ) THEN
                   RWORK( J ) = ZERO
-               ELSE
+               } else {
                   RWORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
                END IF
                DO 30 I = 1, J - 1
                   IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
                      RWORK( I ) = ZERO
-                  ELSE
+                  } else {
 
                      // Use calls to the subroutine DLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
@@ -126,7 +126,7 @@
                DO 40 I = J + 1, K
                   IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
                      RWORK( I ) = ZERO
-                  ELSE
+                  } else {
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
                   END IF
    40          CONTINUE
@@ -165,7 +165,7 @@
          // Move the deflated rows of BX to B also.
 
          IF( K.LT.MAX( M, N ) ) CALL ZLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
-      ELSE
+      } else {
 
          // Apply back the right orthogonal transformations.
 
@@ -174,18 +174,18 @@
 
          IF( K.EQ.1 ) THEN
             CALL ZCOPY( NRHS, B, LDB, BX, LDBX )
-         ELSE
+         } else {
             DO 180 J = 1, K
                DSIGJ = POLES( J, 2 )
                IF( Z( J ).EQ.ZERO ) THEN
                   RWORK( J ) = ZERO
-               ELSE
+               } else {
                   RWORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
                END IF
                DO 110 I = 1, J - 1
                   IF( Z( J ).EQ.ZERO ) THEN
                      RWORK( I ) = ZERO
-                  ELSE
+                  } else {
 
                      // Use calls to the subroutine DLAMC3 to enforce the
                      // parentheses (x+y)+z. The goal is to prevent
@@ -197,7 +197,7 @@
                DO 120 I = J + 1, K
                   IF( Z( J ).EQ.ZERO ) THEN
                      RWORK( I ) = ZERO
-                  ELSE
+                  } else {
                      RWORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   END IF
   120          CONTINUE

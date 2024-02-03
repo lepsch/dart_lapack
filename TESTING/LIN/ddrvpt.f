@@ -120,7 +120,7 @@
                   IA = IA + 2
    20          CONTINUE
                IF( N.GT.0 ) D( N ) = A( IA )
-            ELSE
+            } else {
 
                // Type 7-12:  generate a diagonally dominant matrix with
                // unknown condition number in the vectors D and E.
@@ -136,7 +136,7 @@
 
                   IF( N.EQ.1 ) THEN
                      D( 1 ) = ABS( D( 1 ) )
-                  ELSE
+                  } else {
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
@@ -162,7 +162,7 @@
                   ELSE IF( IZERO.EQ.N ) THEN
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
-                  ELSE
+                  } else {
                      E( IZERO-1 ) = Z( 1 )
                      D( IZERO ) = Z( 2 )
                      E( IZERO ) = Z( 3 )
@@ -217,7 +217,7 @@
             DO 100 IFACT = 1, 2
                IF( IFACT.EQ.1 ) THEN
                   FACT = 'F'
-               ELSE
+               } else {
                   FACT = 'N'
                END IF
 
@@ -258,7 +258,7 @@
 
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDC = ONE
-                  ELSE
+                  } else {
                      RCONDC = ( ONE / ANORM ) / AINVNM
                   END IF
                END IF
@@ -342,7 +342,7 @@
 
                      K1 = 1
                      CALL DPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
-                  ELSE
+                  } else {
                      K1 = 2
                   END IF
 
@@ -358,7 +358,7 @@
                   // Check error bounds from iterative refinement.
 
                   CALL DPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
-               ELSE
+               } else {
                   K1 = 6
                END IF
 

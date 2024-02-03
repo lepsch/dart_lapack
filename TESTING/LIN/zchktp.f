@@ -111,7 +111,7 @@
 
                IF( LSAME( DIAG, 'N' ) ) THEN
                   IDIAG = 1
-               ELSE
+               } else {
                   IDIAG = 2
                END IF
 
@@ -132,7 +132,7 @@
                AINVNM = ZLANTP( 'I', UPLO, DIAG, N, AINVP, RWORK )
                IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                   RCONDI = ONE
-               ELSE
+               } else {
                   RCONDI = ( ONE / ANORM ) / AINVNM
                END IF
 
@@ -161,7 +161,7 @@
                      IF( ITRAN.EQ.1 ) THEN
                         NORM = 'O'
                         RCONDC = RCONDO
-                     ELSE
+                     } else {
                         NORM = 'I'
                         RCONDC = RCONDI
                      END IF
@@ -221,7 +221,7 @@
                   IF( ITRAN.EQ.1 ) THEN
                      NORM = 'O'
                      RCONDC = RCONDO
-                  ELSE
+                  } else {
                      NORM = 'I'
                      RCONDC = RCONDI
                   END IF

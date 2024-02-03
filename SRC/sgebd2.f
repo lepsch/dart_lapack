@@ -73,11 +73,11 @@
 
                CALL SLARF( 'Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK )
                A( I, I+1 ) = E( I )
-            ELSE
+            } else {
                TAUP( I ) = ZERO
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Reduce to lower bidiagonal form
 
@@ -107,7 +107,7 @@
 
                CALL SLARF( 'Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK )
                A( I+1, I ) = E( I )
-            ELSE
+            } else {
                TAUQ( I ) = ZERO
             END IF
    20    CONTINUE

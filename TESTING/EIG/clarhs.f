@@ -85,7 +85,7 @@
       IF( TRAN ) THEN
          NX = M
          MB = N
-      ELSE
+      } else {
          NX = N
          MB = M
       END IF
@@ -165,7 +165,7 @@
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
             DIAG = 'U'
-         ELSE
+         } else {
             DIAG = 'N'
          END IF
          CALL CTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
@@ -177,7 +177,7 @@
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
             DIAG = 'U'
-         ELSE
+         } else {
             DIAG = 'N'
          END IF
          DO 70 J = 1, NRHS
@@ -191,14 +191,14 @@
          CALL CLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
             DIAG = 'U'
-         ELSE
+         } else {
             DIAG = 'N'
          END IF
          DO 80 J = 1, NRHS
             CALL CTBMV( UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 )
    80    CONTINUE
 
-      ELSE
+      } else {
 
          // If none of the above, set INFO = -1 and return
 

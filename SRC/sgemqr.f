@@ -46,7 +46,7 @@
       IF( LEFT ) THEN
         LW = N * NB
         MN = M
-      ELSE
+      } else {
         LW = MB * NB
         MN = N
       END IF
@@ -54,17 +54,17 @@
       MINMNK = MIN( M, N, K )
       IF( MINMNK.EQ.0 ) THEN
          LWMIN = 1
-      ELSE
+      } else {
          LWMIN = MAX( 1, LW )
       END IF
 
       IF( ( MB.GT.K ) .AND. ( MN.GT.K ) ) THEN
         IF( MOD( MN - K, MB - K ).EQ.0 ) THEN
           NBLCKS = ( MN - K ) / ( MB - K )
-        ELSE
+        } else {
           NBLCKS = ( MN - K ) / ( MB - K ) + 1
         END IF
-      ELSE
+      } else {
         NBLCKS = 1
       END IF
 
@@ -107,7 +107,7 @@
       END IF
 
       IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
-      ELSE
+      } else {
         CALL SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO )
       END IF
 

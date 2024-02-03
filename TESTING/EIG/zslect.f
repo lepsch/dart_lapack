@@ -35,7 +35,7 @@
 
       IF( SELOPT.EQ.0 ) THEN
          ZSLECT = ( DBLE( Z ).LT.ZERO )
-      ELSE
+      } else {
          RMIN = ABS( Z-DCMPLX( SELWR( 1 ), SELWI( 1 ) ) )
          ZSLECT = SELVAL( 1 )
          DO 10 I = 2, SELDIM

@@ -98,7 +98,7 @@
                   MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + 2*M*ILAENV( 1, 'SGEBRD', ' ', M, M, -1, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + NRHS*ILAENV( 1, 'SORMBR', 'QLT', M, NRHS, M, -1 ) )                   MAXWRK = MAX( MAXWRK, M*M + 4*M + ( M - 1 )*ILAENV( 1, 'SORMBR', 'PLN', M, NRHS, M, -1 ) )
                   IF( NRHS.GT.1 ) THEN
                      MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
-                  ELSE
+                  } else {
                      MAXWRK = MAX( MAXWRK, M*M + 2*M )
                   END IF
                   MAXWRK = MAX( MAXWRK, M + NRHS*ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) )
@@ -106,7 +106,7 @@
       // XXX: Ensure the Path 2a case below is triggered.  The workspace
       // calculation should use queries for all routines eventually.
                   MAXWRK = MAX( MAXWRK, 4*M+M*M+MAX( M, 2*M-4, NRHS, N-3*M ) )
-               ELSE
+               } else {
 
                   // Path 2 - remaining underdetermined cases.
 
@@ -308,7 +308,7 @@
 
          CALL SORMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( NWORK ), LWORK-NWORK+1, INFO )
 
-      ELSE
+      } else {
 
          // Path 2 - remaining underdetermined cases.
 

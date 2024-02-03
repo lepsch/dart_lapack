@@ -57,7 +57,7 @@
 
          IF( USE_RECURSIVE_QR ) THEN
             CALL CGEQRT3( M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO )
-         ELSE
+         } else {
             CALL CGEQRT2( M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO )
          END IF
          IF( I+IB.LE.N ) THEN

@@ -48,7 +48,7 @@
          // No equilibration
 
          EQUED = 'N'
-      ELSE
+      } else {
 
          // Replace A by diag(S) * A * diag(S).
 
@@ -62,7 +62,7 @@
                   A( I, J ) = CJ*S( I )*A( I, J )
    10          CONTINUE
    20       CONTINUE
-         ELSE
+         } else {
 
             // Lower triangle of A is stored.
 

@@ -32,18 +32,18 @@
          I = I + 1
          IF( I.LE.M ) THEN
             ZLCTSX = .FALSE.
-         ELSE
+         } else {
             ZLCTSX = .TRUE.
          END IF
          IF( I.EQ.MPLUSN ) THEN
             FS = .FALSE.
             I = 0
          END IF
-      ELSE
+      } else {
          I = I + 1
          IF( I.LE.N ) THEN
             ZLCTSX = .TRUE.
-         ELSE
+         } else {
             ZLCTSX = .FALSE.
          END IF
          IF( I.EQ.MPLUSN ) THEN

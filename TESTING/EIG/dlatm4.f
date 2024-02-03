@@ -52,7 +52,7 @@
             KBEG = MAX( 1, MIN( N, NZ1+1 ) )
             KEND = MAX( KBEG, MIN( N, N-NZ2 ) )
             KLEN = KEND + 1 - KBEG
-         ELSE
+         } else {
             KBEG = 1
             KEND = N
             KLEN = N
@@ -245,7 +245,7 @@
       IF( TRIANG.NE.ZERO ) THEN
          IF( ISIGN.NE.2 .OR. ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) THEN
             IOFF = 1
-         ELSE
+         } else {
             IOFF = 2
             DO 300 JR = 1, N - 1
                IF( A( JR+1, JR ).EQ.ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED )

@@ -53,7 +53,7 @@
       IF( MIN( M, N ).GT.0 ) THEN
         MB = ILAENV( 1, 'SGELQ ', ' ', M, N, 1, -1 )
         NB = ILAENV( 1, 'SGELQ ', ' ', M, N, 2, -1 )
-      ELSE
+      } else {
         MB = 1
         NB = N
       END IF
@@ -63,10 +63,10 @@
       IF ( NB.GT.M .AND. N.GT.M ) THEN
         IF( MOD( N - M, NB - M ).EQ.0 ) THEN
           NBLCKS = ( N - M ) / ( NB - M )
-        ELSE
+        } else {
           NBLCKS = ( N - M ) / ( NB - M ) + 1
         END IF
-      ELSE
+      } else {
         NBLCKS = 1
       END IF
 
@@ -75,7 +75,7 @@
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
          LWMIN = MAX( 1, N )
          LWOPT = MAX( 1, MB*N )
-      ELSE
+      } else {
          LWMIN = MAX( 1, M )
          LWOPT = MAX( 1, MB*M )
       END IF
@@ -93,7 +93,7 @@
       END IF
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
          LWREQ = MAX( 1, MB*N )
-      ELSE
+      } else {
          LWREQ = MAX( 1, MB*M )
       END IF
 
@@ -112,14 +112,14 @@
       IF( INFO.EQ.0 ) THEN
         IF( MINT ) THEN
           T( 1 ) = MINTSZ
-        ELSE
+        } else {
           T( 1 ) = MB*M*NBLCKS + 5
         END IF
         T( 2 ) = MB
         T( 3 ) = NB
         IF( MINW ) THEN
           WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-        ELSE
+        } else {
           WORK( 1 ) = SROUNDUP_LWORK( LWREQ )
         END IF
       END IF
@@ -140,7 +140,7 @@
 
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
         CALL SGELQT( M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO )
-      ELSE
+      } else {
         CALL SLASWLQ( M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO )
       END IF
 

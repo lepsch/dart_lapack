@@ -218,7 +218,7 @@
 
          IF( TSTDRV ) THEN
             CALL DDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )'DSGESV'
          END IF
 
@@ -235,10 +235,10 @@
 
          IF( TSTDRV ) THEN
             CALL DDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT )
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9989 )PATH
          END IF
-      ELSE
+      } else {
 
       END IF
 

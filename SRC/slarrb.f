@@ -109,7 +109,7 @@
             // Make sure that I1 always points to the first unconverged interval
             IF((I.EQ.I1).AND.(I.LT.ILAST)) I1 = I + 1
             IF((PREV.GE.I1).AND.(I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
-         ELSE
+         } else {
             // unconverged interval found
             PREV = I
             NINT = NINT + 1
@@ -153,7 +153,7 @@
             IWORK( K-1 ) = 0
             IF( I1.EQ.I ) THEN
                I1 = NEXT
-            ELSE
+            } else {
                // Prev holds the last unconverged interval previously examined
                IF(PREV.GE.I1) IWORK( 2*PREV-1 ) = NEXT
             END IF
@@ -167,7 +167,7 @@
          NEGCNT = SLANEG( N, D, LLD, MID, PIVMIN, R )
          IF( NEGCNT.LE.I-1 ) THEN
             WORK( K-1 ) = MID
-         ELSE
+         } else {
             WORK( K ) = MID
          END IF
          I = NEXT

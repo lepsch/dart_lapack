@@ -106,7 +106,7 @@
                                  ALPHA = ZERO
                               ELSE IF ( IALPHA.EQ.2 ) THEN
                                  ALPHA = ONE
-                              ELSE
+                              } else {
                                  ALPHA = ZLARND( 4, ISEED )
                               END IF
 
@@ -124,7 +124,7 @@
 
                                  NA = M
 
-                              ELSE
+                              } else {
 
                                  // The case ISIDE.EQ.2 is when SIDE.EQ.'R'
                                  // -> A is N-by-N ( B is M-by-N )
@@ -167,7 +167,7 @@
                                     END DO
                                  END IF
 
-                              ELSE
+                              } else {
 
                                  // The case IUPLO.EQ.2 is when SIDE.EQ.'L'
                                  // -> QL factorization.
@@ -259,7 +259,7 @@
 
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'ZTFSM', NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9995 ) 'ZTFSM', NFAIL, NRUN
       END IF
 

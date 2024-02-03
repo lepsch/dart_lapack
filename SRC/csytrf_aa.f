@@ -156,7 +156,7 @@
                   // Not first panel
 
                   K2 = 1
-               ELSE
+               } else {
 
                   // First panel
 
@@ -193,7 +193,7 @@
             CALL CCOPY( N-J, A( J+1, J+1 ), LDA, WORK( 1 ), 1 )
          END IF
          GO TO 10
-      ELSE
+      } else {
 
          // .....................................................
          // Factorize A as L*D*L**T using the lower triangle of A
@@ -263,7 +263,7 @@
                   // Not first panel
 
                   K2 = 1
-               ELSE
+               } else {
 
                   // First panel
 

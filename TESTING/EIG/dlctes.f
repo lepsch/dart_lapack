@@ -21,7 +21,7 @@
 
       IF( D.EQ.ZERO ) THEN
          DLCTES = ( ZR.LT.ZERO )
-      ELSE
+      } else {
          DLCTES = ( SIGN( ONE, ZR ).NE.SIGN( ONE, D ) )
       END IF
 

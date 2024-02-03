@@ -51,7 +51,7 @@
          // No equilibration
 
          EQUED = 'N'
-      ELSE
+      } else {
 
          // Replace A by diag(S) * A * diag(S).
 
@@ -66,7 +66,7 @@
    10          CONTINUE
                AB( KD+1, J ) = CJ*CJ*DBLE( AB( KD+1, J ) )
    20       CONTINUE
-         ELSE
+         } else {
 
             // Lower triangle of A is stored.
 

@@ -107,7 +107,7 @@
          IF( K.GT.1 ) THEN
             IMAX = ICAMAX( K-1, W( 1, KW ), 1 )
             COLMAX = CABS1( W( IMAX, KW ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -124,7 +124,7 @@
 
             IF( K.GT.1 ) E( K ) = CZERO
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -139,7 +139,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                // Lop until pivot found
 
@@ -170,7 +170,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = IMAX + ICAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, KW-1 ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -215,7 +215,7 @@
                      DONE = .TRUE.
 
                   // Case(4)
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -327,7 +327,7 @@
                   IF( ABS( T ).GE.SFMIN ) THEN
                      R1 = ONE / T
                      CALL CSSCAL( K-1, R1, A( 1, K ), 1 )
-                  ELSE
+                  } else {
                      DO 14 II = 1, K-1
                         A( II, K ) = A( II, K ) / T
    14                CONTINUE
@@ -343,7 +343,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns kw and kw-1 of W now hold
 
@@ -446,7 +446,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
          END IF
@@ -485,7 +485,7 @@
 
          KB = N - K
 
-      ELSE
+      } else {
 
          // Factorize the leading columns of A using the lower triangle
          // of A and working forwards, and compute the matrix W = L21*D
@@ -528,7 +528,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + ICAMAX( N-K, W( K+1, K ), 1 )
             COLMAX = CABS1( W( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -545,7 +545,7 @@
 
             IF( K.LT.N ) E( K ) = CZERO
 
-         ELSE
+         } else {
 
             // ============================================================
 
@@ -561,7 +561,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -592,7 +592,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = K - 1 + ICAMAX( IMAX-K, W( K, K+1 ), 1 )
                      ROWMAX = CABS1( W( JMAX, K+1 ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -637,7 +637,7 @@
                      DONE = .TRUE.
 
                   // Case(4)
-                  ELSE
+                  } else {
 
                      // Pivot not found: set params and repeat
 
@@ -745,7 +745,7 @@
                   IF( ABS( T ).GE.SFMIN ) THEN
                      R1 = ONE / T
                      CALL CSSCAL( N-K, R1, A( K+1, K ), 1 )
-                  ELSE
+                  } else {
                      DO 74 II = K + 1, N
                         A( II, K ) = A( II, K ) / T
    74                CONTINUE
@@ -761,7 +761,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 of W now hold
 
@@ -864,7 +864,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
          END IF

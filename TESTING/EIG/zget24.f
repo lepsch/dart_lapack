@@ -101,7 +101,7 @@
          IF( ISORT.EQ.0 ) THEN
             SORT = 'N'
             RSUB = 0
-         ELSE
+         } else {
             SORT = 'S'
             RSUB = 6
          END IF
@@ -114,7 +114,7 @@
             RESULT( 1+RSUB ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX1', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX1', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -152,10 +152,10 @@
 
          IF( ANORM.GT.WNORM ) THEN
             RESULT( 2+RSUB ) = ( WNORM / ANORM ) / ( N*ULP )
-         ELSE
+         } else {
             IF( ANORM.LT.ONE ) THEN
                RESULT( 2+RSUB ) = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
-            ELSE
+            } else {
                RESULT( 2+RSUB ) = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
             END IF
          END IF
@@ -179,7 +179,7 @@
             RESULT( 5+RSUB ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX2', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX2', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -233,7 +233,7 @@
             RESULT( 15 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX3', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX3', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -259,7 +259,7 @@
             RESULT( 15 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX4', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX4', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -288,7 +288,7 @@
             RESULT( 14 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX5', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX5', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -317,7 +317,7 @@
             RESULT( 14 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX6', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX6', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -346,7 +346,7 @@
             RESULT( 15 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX7', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX7', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -375,7 +375,7 @@
             RESULT( 15 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
                WRITE( NOUNIT, FMT = 9998 )'ZGEESX8', IINFO, N, JTYPE, ISEED
-            ELSE
+            } else {
                WRITE( NOUNIT, FMT = 9999 )'ZGEESX8', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
@@ -422,13 +422,13 @@
             KMIN = I
             IF( ISRT.EQ.0 ) THEN
                VRIMIN = DBLE( WTMP( I ) )
-            ELSE
+            } else {
                VRIMIN = DIMAG( WTMP( I ) )
             END IF
             DO 240 J = I + 1, N
                IF( ISRT.EQ.0 ) THEN
                   VRICMP = DBLE( WTMP( J ) )
-               ELSE
+               } else {
                   VRICMP = DIMAG( WTMP( J ) )
                END IF
                IF( VRICMP.LT.VRIMIN ) THEN
@@ -467,12 +467,12 @@
          IF( ANORM.EQ.ZERO ) V = ONE
          IF( V.GT.RCONDV ) THEN
             TOL = ONE
-         ELSE
+         } else {
             TOL = V / RCONDV
          END IF
          IF( V.GT.RCDVIN ) THEN
             TOLIN = ONE
-         ELSE
+         } else {
             TOLIN = V / RCDVIN
          END IF
          TOL = MAX( TOL, SMLNUM / EPS )
@@ -485,7 +485,7 @@
             RESULT( 16 ) = ULPINV
          ELSE IF( RCDEIN+TOLIN.LT.RCONDE-TOL ) THEN
             RESULT( 16 ) = ( RCONDE-TOL ) / ( RCDEIN+TOLIN )
-         ELSE
+         } else {
             RESULT( 16 ) = ONE
          END IF
 
@@ -494,12 +494,12 @@
 
          IF( V.GT.RCONDV*RCONDE ) THEN
             TOL = RCONDV
-         ELSE
+         } else {
             TOL = V / RCONDE
          END IF
          IF( V.GT.RCDVIN*RCDEIN ) THEN
             TOLIN = RCDVIN
-         ELSE
+         } else {
             TOLIN = V / RCDEIN
          END IF
          TOL = MAX( TOL, SMLNUM / EPS )
@@ -512,7 +512,7 @@
             RESULT( 17 ) = ULPINV
          ELSE IF( RCDVIN+TOLIN.LT.RCONDV-TOL ) THEN
             RESULT( 17 ) = ( RCONDV-TOL ) / ( RCDVIN+TOLIN )
-         ELSE
+         } else {
             RESULT( 17 ) = ONE
          END IF
 

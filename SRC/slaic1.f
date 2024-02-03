@@ -51,7 +51,7 @@
                S = ZERO
                C = ONE
                SESTPR = ZERO
-            ELSE
+            } else {
                S = ALPHA / S1
                C = GAMMA / S1
                TMP = SQRT( S*S+C*C )
@@ -75,7 +75,7 @@
                S = ONE
                C = ZERO
                SESTPR = S2
-            ELSE
+            } else {
                S = ZERO
                C = ONE
                SESTPR = S1
@@ -90,7 +90,7 @@
                SESTPR = S2*S
                C = ( GAMMA / S2 ) / S
                S = SIGN( ONE, ALPHA ) / S
-            ELSE
+            } else {
                TMP = S2 / S1
                C = SQRT( ONE+TMP*TMP )
                SESTPR = S1*C
@@ -98,7 +98,7 @@
                C = SIGN( ONE, GAMMA ) / C
             END IF
             RETURN
-         ELSE
+         } else {
 
             // normal case
 
@@ -109,7 +109,7 @@
             C = ZETA1*ZETA1
             IF( B.GT.ZERO ) THEN
                T = C / ( B+SQRT( B*B+C ) )
-            ELSE
+            } else {
                T = SQRT( B*B+C ) - B
             END IF
 
@@ -133,7 +133,7 @@
             IF( MAX( ABSGAM, ABSALP ).EQ.ZERO ) THEN
                SINE = ONE
                COSINE = ZERO
-            ELSE
+            } else {
                SINE = -GAMMA
                COSINE = ALPHA
             END IF
@@ -156,7 +156,7 @@
                S = ZERO
                C = ONE
                SESTPR = S1
-            ELSE
+            } else {
                S = ONE
                C = ZERO
                SESTPR = S2
@@ -171,7 +171,7 @@
                SESTPR = ABSEST*( TMP / C )
                S = -( GAMMA / S2 ) / C
                C = SIGN( ONE, ALPHA ) / C
-            ELSE
+            } else {
                TMP = S2 / S1
                S = SQRT( ONE+TMP*TMP )
                SESTPR = ABSEST / S
@@ -179,7 +179,7 @@
                S = -SIGN( ONE, GAMMA ) / S
             END IF
             RETURN
-         ELSE
+         } else {
 
             // normal case
 
@@ -201,7 +201,7 @@
                SINE = ZETA1 / ( ONE-T )
                COSINE = -ZETA2 / T
                SESTPR = SQRT( T+FOUR*EPS*EPS*NORMA )*ABSEST
-            ELSE
+            } else {
 
                // root is closer to ONE, shift by that amount
 
@@ -209,7 +209,7 @@
                C = ZETA1*ZETA1
                IF( B.GE.ZERO ) THEN
                   T = -C / ( B+SQRT( B*B+C ) )
-               ELSE
+               } else {
                   T = B - SQRT( B*B+C )
                END IF
                SINE = -ZETA1 / T

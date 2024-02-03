@@ -45,7 +45,7 @@
       IF( R.EQ.0 ) THEN
          R1 = B1
          R2 = BN
-      ELSE
+      } else {
          R1 = R
          R2 = R
       END IF
@@ -59,7 +59,7 @@
 
       IF( B1.EQ.1 ) THEN
          WORK( INDS ) = ZERO
-      ELSE
+      } else {
          WORK( INDS+B1-1 ) = LLD( B1-1 )
       END IF
 
@@ -148,7 +148,7 @@
       IF( MINGMA.LT.ZERO ) NEG1 = NEG1 + 1
       IF( WANTNC ) THEN
          NEGCNT = NEG1 + NEG2
-      ELSE
+      } else {
          NEGCNT = -1
       ENDIF
       IF( ABS(MINGMA).EQ.ZERO ) MINGMA = EPS*WORK( INDS+R1-1 )
@@ -182,12 +182,12 @@
             ZTZ = ZTZ + REAL( Z( I )*Z( I ) )
  210     CONTINUE
  220     CONTINUE
-      ELSE
+      } else {
          // Run slower loop if NaN occurred.
          DO 230 I = R - 1, B1, -1
             IF( Z( I+1 ).EQ.ZERO ) THEN
                Z( I ) = -( LD( I+1 ) / LD( I ) )*Z( I+2 )
-            ELSE
+            } else {
                Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
             END IF
             IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
@@ -212,12 +212,12 @@
             ZTZ = ZTZ + REAL( Z( I+1 )*Z( I+1 ) )
  250     CONTINUE
  260     CONTINUE
-      ELSE
+      } else {
          // Run slower loop if NaN occurred.
          DO 270 I = R, BN - 1
             IF( Z( I ).EQ.ZERO ) THEN
                Z( I+1 ) = -( LD( I-1 ) / LD( I ) )*Z( I-1 )
-            ELSE
+            } else {
                Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
             END IF
             IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN

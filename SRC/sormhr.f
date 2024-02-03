@@ -44,7 +44,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -71,7 +71,7 @@
       IF( INFO.EQ.0 ) THEN
          IF( LEFT ) THEN
             NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, NH, N, NH, -1 )
-         ELSE
+         } else {
             NB = ILAENV( 1, 'SORMQR', SIDE // TRANS, M, NH, NH, -1 )
          END IF
          LWKOPT = NW*NB
@@ -97,7 +97,7 @@
          NI = N
          I1 = ILO + 1
          I2 = 1
-      ELSE
+      } else {
          MI = M
          NI = NH
          I1 = 1

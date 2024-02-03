@@ -45,7 +45,7 @@
       WRITE( 6, 9999 )TOTAL, TNOSEC
       IF( TNOSEC.GT.0.0 ) THEN
          WRITE( 6, 9998 )(TOTAL/1.0E6)/TNOSEC
-      ELSE
+      } else {
          WRITE( 6, 9994 )
       END IF
 

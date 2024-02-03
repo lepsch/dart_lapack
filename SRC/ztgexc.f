@@ -67,7 +67,7 @@
          HERE = HERE + 1
          IF( HERE.LT.ILST ) GO TO 10
          HERE = HERE - 1
-      ELSE
+      } else {
          HERE = IFST - 1
 
    20    CONTINUE

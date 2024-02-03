@@ -65,7 +65,7 @@
          MUL = BIGNUM
          DONE = .FALSE.
          CNUM = CNUM1
-      ELSE
+      } else {
 
          // Multiply X by CNUM / CDEN and return.
 

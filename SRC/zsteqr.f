@@ -50,7 +50,7 @@
          ICOMPZ = 1
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ICOMPZ = 2
-      ELSE
+      } else {
          ICOMPZ = -1
       END IF
       IF( ICOMPZ.LT.0 ) THEN
@@ -170,7 +170,7 @@
                WORK( L ) = C
                WORK( N-1+L ) = S
                CALL ZLASR( 'R', 'V', 'B', N, 2, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
-            ELSE
+            } else {
                CALL DLAE2( D( L ), E( L ), D( L+1 ), RT1, RT2 )
             END IF
             D( L ) = RT1
@@ -237,7 +237,7 @@
          IF( L.LE.LEND ) GO TO 40
          GO TO 140
 
-      ELSE
+      } else {
 
          // QR Iteration
 
@@ -268,7 +268,7 @@
                WORK( M ) = C
                WORK( N-1+M ) = S
                CALL ZLASR( 'R', 'V', 'F', N, 2, WORK( M ), WORK( N-1+M ), Z( 1, L-1 ), LDZ )
-            ELSE
+            } else {
                CALL DLAE2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2 )
             END IF
             D( L-1 ) = RT1
@@ -366,7 +366,7 @@
 
          CALL DLASRT( 'I', N, D, INFO )
 
-      ELSE
+      } else {
 
          // Use Selection Sort to minimize swaps of eigenvectors
 

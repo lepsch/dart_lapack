@@ -64,7 +64,7 @@
             END IF
             JC = JC + J + 1
    10    CONTINUE
-      ELSE
+      } else {
          DO 20 J = 1, N
             IF( AIMAG( AFAC( JC ) ).NE.ZERO ) THEN
                RESID = ONE / EPS
@@ -97,7 +97,7 @@
             C( J, J ) = C( J, J ) - REAL( A( JC+J ) )
             JC = JC + J
    40    CONTINUE
-      ELSE
+      } else {
          JC = 1
          DO 60 J = 1, N
             C( J, J ) = C( J, J ) - REAL( A( JC ) )
@@ -114,7 +114,7 @@
 
       IF( ANORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF
 

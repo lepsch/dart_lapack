@@ -77,7 +77,7 @@
             CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN )
          END IF
 
-      ELSE
+      } else {
 
          // Swapping involves at least one 2-by-2 block.
 

@@ -107,7 +107,7 @@
                   THETA(I) = PIOVER2 * THETA(I) / THETA(R+1)
                END DO
                CALL SLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
-            ELSE
+            } else {
                CALL SLASET( 'F', M, M, ZERO, ONE, X, LDX )
                DO I = 1, M
                   J = INT( SLARAN( ISEED ) * M ) + 1

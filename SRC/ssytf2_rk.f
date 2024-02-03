@@ -97,7 +97,7 @@
          IF( K.GT.1 ) THEN
             IMAX = ISAMAX( K-1, A( 1, K ), 1 )
             COLMAX = ABS( A( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -112,7 +112,7 @@
 
             IF( K.GT.1 ) E( K ) = ZERO
 
-         ELSE
+         } else {
 
             // Test for interchange
 
@@ -125,7 +125,7 @@
                // use 1-by-1 pivot block
 
                KP = K
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -142,7 +142,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = IMAX + ISAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = ABS( A( IMAX, JMAX ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -177,7 +177,7 @@
                      KP = IMAX
                      KSTEP = 2
                      DONE = .TRUE.
-                  ELSE
+                  } else {
 
                      // Pivot NOT found, set variables and repeat
 
@@ -265,7 +265,7 @@
                      // Store U(k) in column k
 
                      CALL SSCAL( K-1, D11, A( 1, K ), 1 )
-                  ELSE
+                  } else {
 
                      // Store L(k) in column K
 
@@ -288,7 +288,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k-1 now hold
 
@@ -346,7 +346,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K-1 ) = -KP
          END IF
@@ -358,7 +358,7 @@
 
    34    CONTINUE
 
-      ELSE
+      } else {
 
          // Factorize A as L*D*L**T using the lower triangle of A
 
@@ -390,7 +390,7 @@
          IF( K.LT.N ) THEN
             IMAX = K + ISAMAX( N-K, A( K+1, K ), 1 )
             COLMAX = ABS( A( IMAX, K ) )
-         ELSE
+         } else {
             COLMAX = ZERO
          END IF
 
@@ -405,7 +405,7 @@
 
             IF( K.LT.N ) E( K ) = ZERO
 
-         ELSE
+         } else {
 
             // Test for interchange
 
@@ -418,7 +418,7 @@
 
                KP = K
 
-            ELSE
+            } else {
 
                DONE = .FALSE.
 
@@ -435,7 +435,7 @@
                   IF( IMAX.NE.K ) THEN
                      JMAX = K - 1 + ISAMAX( IMAX-K, A( IMAX, K ), LDA )
                      ROWMAX = ABS( A( IMAX, JMAX ) )
-                  ELSE
+                  } else {
                      ROWMAX = ZERO
                   END IF
 
@@ -470,7 +470,7 @@
                      KP = IMAX
                      KSTEP = 2
                      DONE = .TRUE.
-                  ELSE
+                  } else {
 
                      // Pivot NOT found, set variables and repeat
 
@@ -558,7 +558,7 @@
                      // Store L(k) in column k
 
                      CALL SSCAL( N-K, D11, A( K+1, K ), 1 )
-                  ELSE
+                  } else {
 
                      // Store L(k) in column k
 
@@ -581,7 +581,7 @@
 
                END IF
 
-            ELSE
+            } else {
 
                // 2-by-2 pivot block D(k): columns k and k+1 now hold
 
@@ -644,7 +644,7 @@
 
          IF( KSTEP.EQ.1 ) THEN
             IPIV( K ) = KP
-         ELSE
+         } else {
             IPIV( K ) = -P
             IPIV( K+1 ) = -KP
          END IF

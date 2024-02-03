@@ -88,7 +88,7 @@
             S = Z( 3 )*( Z( 2 ) / T )
             IF( S.LE.T ) THEN
                S = Z( 3 )*( Z( 2 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
-            ELSE
+            } else {
                S = Z( 3 )*( Z( 2 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
             END IF
             T = Z( 1 ) + ( S+Z( 2 ) )
@@ -195,7 +195,7 @@
             IF( Z( I4-1 ).LE.TOL2*D ) THEN
                Z( I4-1 ) = -ZERO
                D = Z( I4-3 )
-            ELSE
+            } else {
                D = Z( I4-3 )*( D / ( D+Z( I4-1 ) ) )
             END IF
    50    CONTINUE
@@ -215,7 +215,7 @@
                TEMP = Z( I4+1 ) / Z( I4-2*PP-2 )
                Z( I4-2*PP ) = Z( I4-1 )*TEMP
                D = D*TEMP
-            ELSE
+            } else {
                Z( I4-2*PP ) = Z( I4+1 )*( Z( I4-1 ) / Z( I4-2*PP-2 ) )
                D = Z( I4+1 )*( D / Z( I4-2*PP-2 ) )
             END IF
@@ -261,7 +261,7 @@
          DESIG = ZERO
          IF( N0.EQ.N ) THEN
             SIGMA = ZERO
-         ELSE
+         } else {
             SIGMA = -Z( 4*N0-1 )
          END IF
          IF( SIGMA.LT.ZERO ) THEN
@@ -275,7 +275,7 @@
          EMAX = ZERO
          IF( N0.GT.I0 ) THEN
             EMIN = ABS( Z( 4*N0-5 ) )
-         ELSE
+         } else {
             EMIN = ZERO
          END IF
          QMIN = Z( 4*N0-3 )
@@ -361,7 +361,7 @@
                         QMAX = ZERO
                         EMIN = Z( I4+3 )
                         OLDEMN = Z( I4+4 )
-                     ELSE
+                     } else {
                         QMAX = MAX( QMAX, Z( I4+1 ) )
                         EMIN = MIN( EMIN, Z( I4-1 ) )
                         OLDEMN = MIN( OLDEMN, Z( I4 ) )
@@ -413,7 +413,7 @@
 
             IF( K.LT.N0 ) THEN
                Z( 2*K ) = Z( 4*K-1 )
-            ELSE
+            } else {
                Z( 2*K ) = 0
             END IF
          END DO

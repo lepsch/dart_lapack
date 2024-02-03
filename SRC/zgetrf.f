@@ -60,7 +60,7 @@
          // Use unblocked code.
 
          CALL ZGETRF2( M, N, A, LDA, IPIV, INFO )
-      ELSE
+      } else {
 
          // Use blocked code.
 

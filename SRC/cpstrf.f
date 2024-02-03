@@ -73,7 +73,7 @@
          CALL CPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO )
          GO TO 230
 
-      ELSE
+      } else {
 
       // Initialize PIV
 
@@ -98,7 +98,7 @@
 
          IF( TOL.LT.ZERO ) THEN
             SSTOP = N * SLAMCH( 'Epsilon' ) * AJJ
-         ELSE
+         } else {
             SSTOP = TOL
          END IF
 
@@ -191,7 +191,7 @@
 
   160       CONTINUE
 
-         ELSE
+         } else {
 
          // Compute the Cholesky factorization P**T * A * P = L * L**H
 

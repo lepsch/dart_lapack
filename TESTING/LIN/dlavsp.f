@@ -102,7 +102,7 @@
                END IF
                KC = KC + K
                K = K + 1
-            ELSE
+            } else {
 
                // 2 x 2 pivot block
 
@@ -145,7 +145,7 @@
          // Compute  B := L*B
          // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
 
-         ELSE
+         } else {
 
             // Loop backward applying the transformations to B.
 
@@ -182,7 +182,7 @@
                END IF
                K = K - 1
 
-            ELSE
+            } else {
 
                // 2 x 2 pivot block:
 
@@ -228,7 +228,7 @@
       // Compute  B := A' * B  (transpose)
 
 *----------------------------------------
-      ELSE
+      } else {
 
          // Form  B := U'*B
          // where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
@@ -263,7 +263,7 @@
 
             // 2 x 2 pivot block.
 
-            ELSE
+            } else {
                KCNEXT = KC - ( K-1 )
                IF( K.GT.2 ) THEN
 
@@ -301,7 +301,7 @@
          // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
          // and   L' = inv(L(m))*P(m)* ... *inv(L(1))*P(1)
 
-         ELSE
+         } else {
 
             // Loop forward applying the L-transformations.
 
@@ -330,7 +330,7 @@
 
             // 2 x 2 pivot block.
 
-            ELSE
+            } else {
                KCNEXT = KC + N - K + 1
                IF( K.LT.N-1 ) THEN
 

@@ -116,7 +116,7 @@
             LWEDC = MAX( 2*N+N*N, 2*N*N )
             LRWEDC = 1 + 4*N + 2*N*LGN + 3*N**2
             LIWEDC = 3 + 5*N
-         ELSE
+         } else {
             LWEDC = 2
             LRWEDC = 8
             LIWEDC = 8
@@ -125,7 +125,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -238,7 +238,7 @@
                      A( I, J ) = U( IROW, J )
    90             CONTINUE
   100          CONTINUE
-            ELSE
+            } else {
                IINFO = 1
             END IF
 
@@ -254,7 +254,7 @@
             IF( N.LE.1 ) THEN
                IL = 1
                IU = N
-            ELSE
+            } else {
                IL = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
                IU = 1 + INT( ( N-1 )*SLARND( 1, ISEED2 ) )
                IF( IL.GT.IU ) THEN
@@ -270,7 +270,7 @@
             DO 1200 IUPLO = 0, 1
                IF( IUPLO.EQ.0 ) THEN
                   UPLO = 'L'
-               ELSE
+               } else {
                   UPLO = 'U'
                END IF
 
@@ -285,7 +285,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -306,7 +306,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 130
                   END IF
@@ -339,7 +339,7 @@
                   ELSE IF( N.GT.0 ) THEN
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   END IF
-               ELSE
+               } else {
                   TEMP3 = ZERO
                   VL = ZERO
                   VU = ONE
@@ -351,7 +351,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -372,7 +372,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 150
                   END IF
@@ -399,7 +399,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 160
                   END IF
@@ -419,7 +419,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 160
                   END IF
@@ -431,7 +431,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
@@ -447,7 +447,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 170
                   END IF
@@ -467,7 +467,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 170
                   END IF
@@ -484,7 +484,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
@@ -506,7 +506,7 @@
                         INDX = INDX + 1
   180                CONTINUE
   190             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 210 J = 1, N
                      DO 200 I = J, N
@@ -524,7 +524,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -544,7 +544,7 @@
                         INDX = INDX + 1
   220                CONTINUE
   230             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 250 J = 1, N
                      DO 240 I = J, N
@@ -562,7 +562,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 270
                   END IF
@@ -590,7 +590,7 @@
                         INDX = INDX + 1
   280                CONTINUE
   290             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 310 J = 1, N
                      DO 300 I = J, N
@@ -614,7 +614,7 @@
                   ELSE IF( N.GT.0 ) THEN
                      VU = D1( N ) + MAX( HALF*( D1( N )-D1( 1 ) ), TEN*ULP*TEMP3, TEN*RTUNFL )
                   END IF
-               ELSE
+               } else {
                   TEMP3 = ZERO
                   VL = ZERO
                   VU = ONE
@@ -626,7 +626,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -648,7 +648,7 @@
                         INDX = INDX + 1
   320                CONTINUE
   330             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 350 J = 1, N
                      DO 340 I = J, N
@@ -664,7 +664,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 370
                   END IF
@@ -690,7 +690,7 @@
                         INDX = INDX + 1
   380                CONTINUE
   390             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 410 J = 1, N
                      DO 400 I = J, N
@@ -706,7 +706,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -728,7 +728,7 @@
                         INDX = INDX + 1
   420                CONTINUE
   430             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 450 J = 1, N
                      DO 440 I = J, N
@@ -744,7 +744,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 460
                   END IF
@@ -756,7 +756,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
@@ -771,7 +771,7 @@
                         INDX = INDX + 1
   470                CONTINUE
   480             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 500 J = 1, N
                      DO 490 I = J, N
@@ -787,7 +787,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -809,7 +809,7 @@
                         INDX = INDX + 1
   510                CONTINUE
   520             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 540 J = 1, N
                      DO 530 I = J, N
@@ -825,7 +825,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 550
                   END IF
@@ -842,7 +842,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
@@ -855,7 +855,7 @@
                   KD = 0
                ELSE IF( JTYPE.GE.8 .AND. JTYPE.LE.15 ) THEN
                   KD = MAX( N-1, 0 )
-               ELSE
+               } else {
                   KD = IHBW
                END IF
 
@@ -868,7 +868,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   560                CONTINUE
   570             CONTINUE
-               ELSE
+               } else {
                   DO 590 J = 1, N
                      DO 580 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -883,7 +883,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -901,7 +901,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   600                CONTINUE
   610             CONTINUE
-               ELSE
+               } else {
                   DO 630 J = 1, N
                      DO 620 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -916,7 +916,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 650
                   END IF
@@ -942,7 +942,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   660                CONTINUE
   670             CONTINUE
-               ELSE
+               } else {
                   DO 690 J = 1, N
                      DO 680 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -957,7 +957,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -977,7 +977,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   700                CONTINUE
   710             CONTINUE
-               ELSE
+               } else {
                   DO 730 J = 1, N
                      DO 720 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -991,7 +991,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 750
                   END IF
@@ -1018,7 +1018,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   760                CONTINUE
   770             CONTINUE
-               ELSE
+               } else {
                   DO 790 J = 1, N
                      DO 780 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -1032,7 +1032,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1052,7 +1052,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   800                CONTINUE
   810             CONTINUE
-               ELSE
+               } else {
                   DO 830 J = 1, N
                      DO 820 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -1065,7 +1065,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 840
                   END IF
@@ -1077,7 +1077,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
@@ -1093,7 +1093,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   850                CONTINUE
   860             CONTINUE
-               ELSE
+               } else {
                   DO 880 J = 1, N
                      DO 870 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -1106,7 +1106,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1126,7 +1126,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
   890                CONTINUE
   900             CONTINUE
-               ELSE
+               } else {
                   DO 920 J = 1, N
                      DO 910 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -1139,7 +1139,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 930
                   END IF
@@ -1156,7 +1156,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
@@ -1174,7 +1174,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1195,7 +1195,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 950
                   END IF
@@ -1228,7 +1228,7 @@
                         INDX = INDX + 1
   960                CONTINUE
   970             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 990 J = 1, N
                      DO 980 I = J, N
@@ -1246,7 +1246,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1266,7 +1266,7 @@
                         INDX = INDX + 1
  1000                CONTINUE
  1010             CONTINUE
-               ELSE
+               } else {
                   INDX = 1
                   DO 1030 J = 1, N
                      DO 1020 I = J, N
@@ -1284,7 +1284,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1050
                   END IF
@@ -1308,7 +1308,7 @@
                   KD = 0
                ELSE IF( JTYPE.GE.8 .AND. JTYPE.LE.15 ) THEN
                   KD = MAX( N-1, 0 )
-               ELSE
+               } else {
                   KD = IHBW
                END IF
 
@@ -1321,7 +1321,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
  1060                CONTINUE
  1070             CONTINUE
-               ELSE
+               } else {
                   DO 1090 J = 1, N
                      DO 1080 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -1336,7 +1336,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1354,7 +1354,7 @@
                         V( KD+1+I-J, J ) = A( I, J )
  1100                CONTINUE
  1110             CONTINUE
-               ELSE
+               } else {
                   DO 1130 J = 1, N
                      DO 1120 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
@@ -1369,7 +1369,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1140
                   END IF
@@ -1395,7 +1395,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1416,7 +1416,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1170
                   END IF
@@ -1442,7 +1442,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1464,7 +1464,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1180
                   END IF
@@ -1485,7 +1485,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      RESULT( NTEST+1 ) = ULPINV
                      RESULT( NTEST+2 ) = ULPINV
@@ -1507,7 +1507,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( NTEST ) = ULPINV
                      GO TO 1190
                   END IF
@@ -1524,7 +1524,7 @@
                TEMP2 = SSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                IF( N.GT.0 ) THEN
                   TEMP3 = MAX( ABS( WA1( 1 ) ), ABS( WA1( N ) ) )
-               ELSE
+               } else {
                   TEMP3 = ZERO
                END IF
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )

@@ -67,7 +67,7 @@
 
             CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( N**2+1 ), N, V, LDV, CONE, WORK, N )
 
-         ELSE
+         } else {
 
             // ITYPE=2: Compute W = A - B
 
@@ -86,15 +86,15 @@
 
          IF( ANORM.GT.WNORM ) THEN
             RESULT = ( WNORM / ANORM ) / ( N*ULP )
-         ELSE
+         } else {
             IF( ANORM.LT.ONE ) THEN
                RESULT = ( MIN( WNORM, N*ANORM ) / ANORM ) / ( N*ULP )
-            ELSE
+            } else {
                RESULT = MIN( WNORM / ANORM, DBLE( N ) ) / ( N*ULP )
             END IF
          END IF
 
-      ELSE
+      } else {
 
          // Tests not scaled by norm(A)
 

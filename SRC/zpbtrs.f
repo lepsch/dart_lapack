@@ -70,7 +70,7 @@
 
             CALL ZTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    10    CONTINUE
-      ELSE
+      } else {
 
          // Solve A*X = B where A = L*L**H.
 

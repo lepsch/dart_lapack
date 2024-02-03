@@ -53,7 +53,7 @@
       IF( MIN( M, N ).GT.0 ) THEN
         MB = ILAENV( 1, 'CGEQR ', ' ', M, N, 1, -1 )
         NB = ILAENV( 1, 'CGEQR ', ' ', M, N, 2, -1 )
-      ELSE
+      } else {
         MB = M
         NB = 1
       END IF
@@ -63,10 +63,10 @@
       IF( MB.GT.N .AND. M.GT.N ) THEN
         IF( MOD( M - N, MB - N ).EQ.0 ) THEN
           NBLCKS = ( M - N ) / ( MB - N )
-        ELSE
+        } else {
           NBLCKS = ( M - N ) / ( MB - N ) + 1
         END IF
-      ELSE
+      } else {
         NBLCKS = 1
       END IF
 
@@ -102,14 +102,14 @@
       IF( INFO.EQ.0 ) THEN
         IF( MINT ) THEN
           T( 1 ) = MINTSZ
-        ELSE
+        } else {
           T( 1 ) = NB*N*NBLCKS + 5
         END IF
         T( 2 ) = MB
         T( 3 ) = NB
         IF( MINW ) THEN
           WORK( 1 ) = SROUNDUP_LWORK( LWMIN )
-        ELSE
+        } else {
           WORK( 1 ) = SROUNDUP_LWORK( LWREQ )
         END IF
       END IF
@@ -130,7 +130,7 @@
 
       IF( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) THEN
         CALL CGEQRT( M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO )
-      ELSE
+      } else {
         CALL CLATSQR( M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO )
       END IF
 

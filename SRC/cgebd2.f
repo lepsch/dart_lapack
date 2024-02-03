@@ -79,11 +79,11 @@
                CALL CLARF( 'Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK )
                CALL CLACGV( N-I, A( I, I+1 ), LDA )
                A( I, I+1 ) = E( I )
-            ELSE
+            } else {
                TAUP( I ) = ZERO
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Reduce to lower bidiagonal form
 
@@ -117,7 +117,7 @@
 
                CALL CLARF( 'Left', M-I, N-I, A( I+1, I ), 1, CONJG( TAUQ( I ) ), A( I+1, I+1 ), LDA, WORK )
                A( I+1, I ) = E( I )
-            ELSE
+            } else {
                TAUQ( I ) = ZERO
             END IF
    20    CONTINUE

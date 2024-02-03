@@ -131,7 +131,7 @@
          RNORM = CLANGE( 'F', N1, N2, WORK, N1, RWORK )
          IF( RNORM.EQ.ZERO ) THEN
             S = ONE
-         ELSE
+         } else {
             S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
          END IF
       END IF
@@ -150,7 +150,7 @@
                // Solve T11*R - R*T22 = scale*X.
 
                CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
-            ELSE
+            } else {
 
                // Solve T11**H*R - R*T22**H = scale*X.
 

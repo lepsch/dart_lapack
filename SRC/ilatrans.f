@@ -25,7 +25,7 @@
          ILATRANS = BLAS_TRANS
       ELSE IF( LSAME( TRANS, 'C' ) ) THEN
          ILATRANS = BLAS_CONJ_TRANS
-      ELSE
+      } else {
          ILATRANS = -1
       END IF
       RETURN

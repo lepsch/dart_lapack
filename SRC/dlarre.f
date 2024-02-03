@@ -138,7 +138,7 @@
          // Set interval [VL,VU] that contains all eigenvalues
          VL = GL
          VU = GU
-      ELSE
+      } else {
          // We call DLARRD to find crude approximations to the eigenvalues
          // in the desired range. In case IRANGE = INDRNG, we also obtain the
          // interval (VL,VU] that contains all the wanted eigenvalues.
@@ -207,7 +207,7 @@
             DO 20 I = WBEGIN,MM
                IF( IBLOCK(I).EQ.JBLK ) THEN
                   MB = MB+1
-               ELSE
+               } else {
                   GOTO 21
                ENDIF
  20         CONTINUE
@@ -219,7 +219,7 @@
                E( IEND ) = ZERO
                IBEGIN = IEND + 1
                GO TO 170
-            ELSE
+            } else {
 
                // Decide whether dqds or bisection is more efficient
                USEDQD = ( (MB .GT. FAC*IN) .AND. (.NOT.FORCEB) )
@@ -254,7 +254,7 @@
             ISRGHT = MIN(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1))
             // Improve the estimate of the spectral diameter
             SPDIAM = ISRGHT - ISLEFT
-         ELSE
+         } else {
             // Case of bisection
             // Find approximations to the wanted extremal eigenvalues
             ISLEFT = MAX(GL, W(WBEGIN) - WERR(WBEGIN) - HNDRD * EPS*ABS(W(WBEGIN)- WERR(WBEGIN) ))             ISRGHT = MIN(GU,W(WEND) + WERR(WEND) + HNDRD * EPS * ABS(W(WEND)+ WERR(WEND)))
@@ -281,14 +281,14 @@
             // Define 1/4 and 3/4 points of the spectrum
             S1 = ISLEFT + FOURTH * SPDIAM
             S2 = ISRGHT - FOURTH * SPDIAM
-         ELSE
+         } else {
             // DLARRD has computed IBLOCK and INDEXW for each eigenvalue
             // approximation.
             // choose sigma
             IF( USEDQD ) THEN
                S1 = ISLEFT + FOURTH * SPDIAM
                S2 = ISRGHT - FOURTH * SPDIAM
-            ELSE
+            } else {
                TMP = MIN(ISRGHT,VU) -  MAX(ISLEFT,VL)
                S1 =  MAX(ISLEFT,VL) + FOURTH * TMP
                S2 =  MIN(ISRGHT,VU) - FOURTH * TMP
@@ -310,20 +310,20 @@
                // use Gerschgorin bound as shift to get pos def matrix
                // for dqds
                SIGMA = ISLEFT
-            ELSE
+            } else {
                // use approximation of the first desired eigenvalue of the
                // block as shift
                SIGMA = MAX(ISLEFT,VL)
             ENDIF
             SGNDEF = ONE
-         ELSE
+         } else {
             IF( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) THEN
                SIGMA = MIN(ISRGHT,GU)
             ELSEIF( USEDQD ) THEN
                // use Gerschgorin bound as shift to get neg def matrix
                // for dqds
                SIGMA = ISRGHT
-            ELSE
+            } else {
                // use approximation of the first desired eigenvalue of the
                // block as shift
                SIGMA = MIN(ISRGHT,VU)
@@ -342,18 +342,18 @@
            t // he matrix is definite and we need not retreat.
             TAU = SPDIAM*EPS*N + TWO*PIVMIN
             TAU = MAX( TAU,TWO*EPS*ABS(SIGMA) )
-         ELSE
+         } else {
             IF(MB.GT.1) THEN
                CLWDTH = W(WEND) + WERR(WEND) - W(WBEGIN) - WERR(WBEGIN)
                AVGAP = ABS(CLWDTH / DBLE(WEND-WBEGIN))
                IF( SGNDEF.EQ.ONE ) THEN
                   TAU = HALF*MAX(WGAP(WBEGIN),AVGAP)
                   TAU = MAX(TAU,WERR(WBEGIN))
-               ELSE
+               } else {
                   TAU = HALF*MAX(WGAP(WEND-1),AVGAP)
                   TAU = MAX(TAU,WERR(WEND))
                ENDIF
-            ELSE
+            } else {
                TAU = WERR(WBEGIN)
             ENDIF
          ENDIF
@@ -378,7 +378,7 @@
             // check for element growth
             IF( DMAX .GT. MAXGROWTH*SPDIAM ) THEN
                NOREP = .TRUE.
-            ELSE
+            } else {
                NOREP = .FALSE.
             ENDIF
             IF( USEDQD .AND. .NOT.NOREP ) THEN
@@ -397,14 +397,14 @@
                   IF( SGNDEF.EQ.ONE ) THEN
                      // The fudged Gerschgorin shift should succeed
                      SIGMA = GL - FUDGE*SPDIAM*EPS*N - FUDGE*TWO*PIVMIN
-                  ELSE
+                  } else {
                      SIGMA = GU + FUDGE*SPDIAM*EPS*N + FUDGE*TWO*PIVMIN
                   END IF
-               ELSE
+               } else {
                   SIGMA = SIGMA - SGNDEF * TAU
                   TAU = TWO * TAU
                END IF
-            ELSE
+            } else {
                // an initial RRR is found
                GO TO 83
             END IF
@@ -478,7 +478,7 @@
                IBLOCK(M) = JBLK
                INDEXW(M) = I
  138        CONTINUE
-         ELSE
+         } else {
             // Call dqds to get all eigs (and then possibly delete unwanted
             // eigenvalues).
             // Note that dqds finds the eigenvalues of the L D L^T representation
@@ -506,7 +506,7 @@
                // gap is in WORK(N+1)
                INFO = -5
                RETURN
-            ELSE
+            } else {
                // Test that all eigenvalues are positive as expected
                DO 149 I = 1, IN
                   IF( WORK( I ).LT.ZERO ) THEN
@@ -522,7 +522,7 @@
                   IBLOCK( M ) = JBLK
                   INDEXW( M ) = I
  150           CONTINUE
-            ELSE
+            } else {
                DO 160 I = INDL, INDU
                   M = M + 1
                   W( M ) = -WORK( I )

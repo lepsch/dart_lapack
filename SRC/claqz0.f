@@ -36,7 +36,7 @@
       ELSE IF( LSAME( WANTS, 'S' ) ) THEN
          ILSCHUR = .TRUE.
          IWANTS = 2
-      ELSE
+      } else {
          IWANTS = 0
       END IF
 
@@ -49,7 +49,7 @@
       ELSE IF( LSAME( WANTQ, 'I' ) ) THEN
          ILQ = .TRUE.
          IWANTQ = 3
-      ELSE
+      } else {
          IWANTQ = 0
       END IF
 
@@ -62,7 +62,7 @@
       ELSE IF( LSAME( WANTZ, 'I' ) ) THEN
          ILZ = .TRUE.
          IWANTZ = 3
-      ELSE
+      } else {
          IWANTZ = 0
       END IF
 
@@ -217,7 +217,7 @@
          IF ( ILSCHUR ) THEN
             ISTARTM = 1
             ISTOPM = N
-         ELSE
+         } else {
             ISTARTM = ISTART2
             ISTOPM = ISTOP
          END IF
@@ -288,7 +288,7 @@
             IF ( ISTOP-ISTART+1 .LT. NMIN ) THEN
                NW = ISTOP-ISTART+1
                ISTART2 = ISTART
-            ELSE
+            } else {
                NW = ISTOP-ISTART2+1
             END IF
          END IF
@@ -321,7 +321,7 @@
 
             IF( ( REAL( MAXIT )*SAFMIN )*ABS( A( ISTOP, ISTOP-1 ) ).LT.ABS( A( ISTOP-1, ISTOP-1 ) ) ) THEN
                ESHIFT = A( ISTOP, ISTOP-1 )/B( ISTOP-1, ISTOP-1 )
-            ELSE
+            } else {
                ESHIFT = ESHIFT+CONE/( SAFMIN*REAL( MAXIT ) )
             END IF
             ALPHA( SHIFTPOS ) = CONE

@@ -97,7 +97,7 @@
       IF( LTRANR ) THEN
          TMP( 2 ) = SGN*TR( 2, 1 )
          TMP( 3 ) = SGN*TR( 1, 2 )
-      ELSE
+      } else {
          TMP( 2 ) = SGN*TR( 1, 2 )
          TMP( 3 ) = SGN*TR( 2, 1 )
       END IF
@@ -116,7 +116,7 @@
       IF( LTRANL ) THEN
          TMP( 2 ) = TL( 1, 2 )
          TMP( 3 ) = TL( 2, 1 )
-      ELSE
+      } else {
          TMP( 2 ) = TL( 2, 1 )
          TMP( 3 ) = TL( 1, 2 )
       END IF
@@ -146,7 +146,7 @@
          TEMP = BTMP( 2 )
          BTMP( 2 ) = BTMP( 1 ) - L21*TEMP
          BTMP( 1 ) = TEMP
-      ELSE
+      } else {
          BTMP( 2 ) = BTMP( 2 ) - L21*BTMP( 1 )
       END IF
       SCALE = ONE
@@ -166,7 +166,7 @@
       IF( N1.EQ.1 ) THEN
          X( 1, 2 ) = X2( 2 )
          XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) )
-      ELSE
+      } else {
          X( 2, 1 ) = X2( 2 )
          XNORM = MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) )
       END IF
@@ -193,7 +193,7 @@
          T16( 2, 1 ) = TL( 1, 2 )
          T16( 3, 4 ) = TL( 2, 1 )
          T16( 4, 3 ) = TL( 1, 2 )
-      ELSE
+      } else {
          T16( 1, 2 ) = TL( 1, 2 )
          T16( 2, 1 ) = TL( 2, 1 )
          T16( 3, 4 ) = TL( 1, 2 )
@@ -204,7 +204,7 @@
          T16( 2, 4 ) = SGN*TR( 1, 2 )
          T16( 3, 1 ) = SGN*TR( 2, 1 )
          T16( 4, 2 ) = SGN*TR( 2, 1 )
-      ELSE
+      } else {
          T16( 1, 3 ) = SGN*TR( 2, 1 )
          T16( 2, 4 ) = SGN*TR( 2, 1 )
          T16( 3, 1 ) = SGN*TR( 1, 2 )

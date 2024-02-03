@@ -62,12 +62,12 @@
          IF( N.LE.1 ) THEN
             LIWMIN = 1
             LWMIN = 1
-         ELSE
+         } else {
             KD    = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', JOBZ, N, -1, -1, -1 )             IB    = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
             IF( WANTZ ) THEN
                LIWMIN = 3 + 5*N
                LWMIN = 1 + 6*N + 2*N**2
-            ELSE
+            } else {
                LIWMIN = 1
                LWMIN = 2*N + 1 + LHTRD + LWTRD
             END IF
@@ -140,7 +140,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          // Not available in this release, and argument checking should not
          // let it getting here
          RETURN

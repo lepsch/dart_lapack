@@ -62,7 +62,7 @@
             IF( NOUNIT ) THEN
                A( J, J ) = ONE / A( J, J )
                AJJ = -A( J, J )
-            ELSE
+            } else {
                AJJ = -ONE
             END IF
 
@@ -71,7 +71,7 @@
             CALL STRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 )
             CALL SSCAL( J-1, AJJ, A( 1, J ), 1 )
    10    CONTINUE
-      ELSE
+      } else {
 
          // Compute inverse of lower triangular matrix.
 
@@ -79,7 +79,7 @@
             IF( NOUNIT ) THEN
                A( J, J ) = ONE / A( J, J )
                AJJ = -A( J, J )
-            ELSE
+            } else {
                AJJ = -ONE
             END IF
             IF( J.LT.N ) THEN

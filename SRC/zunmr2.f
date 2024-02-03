@@ -45,7 +45,7 @@
 
       IF( LEFT ) THEN
          NQ = M
-      ELSE
+      } else {
          NQ = N
       END IF
       IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
@@ -76,7 +76,7 @@
          I1 = 1
          I2 = K
          I3 = 1
-      ELSE
+      } else {
          I1 = K
          I2 = 1
          I3 = -1
@@ -84,7 +84,7 @@
 
       IF( LEFT ) THEN
          NI = N
-      ELSE
+      } else {
          MI = M
       END IF
 
@@ -94,7 +94,7 @@
             // H(i) or H(i)**H is applied to C(1:m-k+i,1:n)
 
             MI = M - K + I
-         ELSE
+         } else {
 
             // H(i) or H(i)**H is applied to C(1:m,1:n-k+i)
 
@@ -105,7 +105,7 @@
 
          IF( NOTRAN ) THEN
             TAUI = DCONJG( TAU( I ) )
-         ELSE
+         } else {
             TAUI = TAU( I )
          END IF
          CALL ZLACGV( NQ-K+I-1, A( I, 1 ), LDA )

@@ -54,7 +54,7 @@
       IF( INFO.EQ.0 ) THEN
          IF ( UPPER ) THEN
            NB = ILAENV( 1, 'CUNGQL', ' ', N-1, N-1, N-1, -1 )
-         ELSE
+         } else {
            NB = ILAENV( 1, 'CUNGQR', ' ', N-1, N-1, N-1, -1 )
          END IF
          LWKOPT = MAX( 1, N-1 )*NB
@@ -98,7 +98,7 @@
 
          CALL CUNGQL( N-1, N-1, N-1, A, LDA, TAU, WORK, LWORK, IINFO )
 
-      ELSE
+      } else {
 
          // Q was determined by a call to CHETRD with UPLO = 'L'.
 

@@ -70,7 +70,7 @@
          INFO = -7
       ELSE IF( WANTZ .AND. LDQ.LT.MAX( 1, N ) ) THEN
          INFO = -9
-      ELSE
+      } else {
          IF( VALEIG ) THEN
             IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
          ELSE IF( INDEIG ) THEN
@@ -89,7 +89,7 @@
          IF( N.LE.1 ) THEN
             LWMIN = 1
             WORK( 1 ) = LWMIN
-         ELSE
+         } else {
             IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
             LWMIN = LHTRD + LWTRD
             WORK( 1 )  = LWMIN
@@ -114,7 +114,7 @@
          M = 1
          IF( LOWER ) THEN
             CTMP1 = AB( 1, 1 )
-         ELSE
+         } else {
             CTMP1 = AB( KD+1, 1 )
          END IF
          TMP1 = DBLE( CTMP1 )
@@ -144,7 +144,7 @@
       IF( VALEIG ) THEN
          VLL = VL
          VUU = VU
-      ELSE
+      } else {
          VLL = ZERO
          VUU = ZERO
       END IF
@@ -159,7 +159,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( LOWER ) THEN
             CALL ZLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         ELSE
+         } else {
             CALL ZLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
@@ -197,7 +197,7 @@
          IF( .NOT.WANTZ ) THEN
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL DSTERF( N, W, RWORK( INDEE ), INFO )
-         ELSE
+         } else {
             CALL ZLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
@@ -218,7 +218,7 @@
 
       IF( WANTZ ) THEN
          ORDER = 'B'
-      ELSE
+      } else {
          ORDER = 'E'
       END IF
       INDIBL = 1
@@ -244,7 +244,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = M
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

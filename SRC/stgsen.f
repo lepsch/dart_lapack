@@ -87,15 +87,15 @@
       DO 10 K = 1, N
          IF( PAIR ) THEN
             PAIR = .FALSE.
-         ELSE
+         } else {
             IF( K.LT.N ) THEN
                IF( A( K+1, K ).EQ.ZERO ) THEN
                   IF( SELECT( K ) ) M = M + 1
-               ELSE
+               } else {
                   PAIR = .TRUE.
                   IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                END IF
-            ELSE
+            } else {
                IF( SELECT( N ) ) M = M + 1
             END IF
          END IF
@@ -108,7 +108,7 @@
       ELSE IF( IJOB.EQ.3 .OR. IJOB.EQ.5 ) THEN
          LWMIN = MAX( 1, 4*N+16, 4*M*(N-M) )
          LIWMIN = MAX( 1, 2*M*(N-M), N+6 )
-      ELSE
+      } else {
          LWMIN = MAX( 1, 4*N+16 )
          LIWMIN = 1
       END IF
@@ -156,7 +156,7 @@
       DO 30 K = 1, N
          IF( PAIR ) THEN
             PAIR = .FALSE.
-         ELSE
+         } else {
 
             SWAP = SELECT( K )
             IF( K.LT.N ) THEN
@@ -218,7 +218,7 @@
          PL = RDSCAL*SQRT( DSUM )
          IF( PL.EQ.ZERO ) THEN
             PL = ONE
-         ELSE
+         } else {
             PL = DSCALE / ( SQRT( DSCALE*DSCALE / PL+PL )*SQRT( PL ) )
          END IF
          RDSCAL = ZERO
@@ -227,7 +227,7 @@
          PR = RDSCAL*SQRT( DSUM )
          IF( PR.EQ.ZERO ) THEN
             PR = ONE
-         ELSE
+         } else {
             PR = DSCALE / ( SQRT( DSCALE*DSCALE / PR+PR )*SQRT( PR ) )
          END IF
       END IF
@@ -249,7 +249,7 @@
             // Frobenius norm-based Difl-estimate.
 
             CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-         ELSE
+         } else {
 
 
             // Compute 1-norm-based estimates of Difu and Difl using
@@ -274,7 +274,7 @@
                   // Solve generalized Sylvester equation.
 
                   CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-               ELSE
+               } else {
 
                   // Solve the transposed variant.
 
@@ -294,7 +294,7 @@
                   // Solve generalized Sylvester equation.
 
                   CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
-               ELSE
+               } else {
 
                   // Solve the transposed variant.
 
@@ -316,7 +316,7 @@
       DO 70 K = 1, N
          IF( PAIR ) THEN
             PAIR = .FALSE.
-         ELSE
+         } else {
 
             IF( K.LT.N ) THEN
                IF( A( K+1, K ).NE.ZERO ) THEN
@@ -339,7 +339,7 @@
                CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) )
                ALPHAI( K+1 ) = -ALPHAI( K )
 
-            ELSE
+            } else {
 
                IF( SIGN( ONE, B( K, K ) ).LT.ZERO ) THEN
 

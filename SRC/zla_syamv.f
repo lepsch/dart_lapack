@@ -72,12 +72,12 @@
 
       IF( INCX.GT.0 )THEN
          KX = 1
-      ELSE
+      } else {
          KX = 1 - ( N - 1 )*INCX
       END IF
       IF( INCY.GT.0 )THEN
          KY = 1
-      ELSE
+      } else {
          KY = 1 - ( N - 1 )*INCY
       END IF
 
@@ -102,7 +102,7 @@
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF
@@ -124,14 +124,14 @@
 
                IY = IY + INCY
             END DO
-         ELSE
+         } else {
             DO I = 1, N
                IF ( BETA .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF
@@ -154,7 +154,7 @@
                IY = IY + INCY
             END DO
          END IF
-      ELSE
+      } else {
          IF ( UPLO .EQ. ILAUPLO( 'U' ) ) THEN
             DO I = 1, N
                IF ( BETA .EQ. ZERO ) THEN
@@ -162,7 +162,7 @@
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF
@@ -187,14 +187,14 @@
 
                IY = IY + INCY
             END DO
-         ELSE
+         } else {
             DO I = 1, N
                IF ( BETA .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
                   Y( IY ) = 0.0D+0
                ELSE IF ( Y( IY ) .EQ. ZERO ) THEN
                   SYMB_ZERO = .TRUE.
-               ELSE
+               } else {
                   SYMB_ZERO = .FALSE.
                   Y( IY ) = BETA * ABS( Y( IY ) )
                END IF

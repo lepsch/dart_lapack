@@ -39,7 +39,7 @@
                ELSE IF( I.EQ.J-1 ) THEN
                   A( I, J ) = -ONE
                   D( I, J ) = ZERO
-               ELSE
+               } else {
                   A( I, J ) = ZERO
                   D( I, J ) = ZERO
                END IF
@@ -54,7 +54,7 @@
                ELSE IF( I.EQ.J-1 ) THEN
                   B( I, J ) = ONE
                   E( I, J ) = ZERO
-               ELSE
+               } else {
                   B( I, J ) = ZERO
                   E( I, J ) = ZERO
                END IF
@@ -74,7 +74,7 @@
                IF( I.LE.J ) THEN
                   A( I, J ) = ( HALF-SIN( REAL( I ) ) )*TWO
                   D( I, J ) = ( HALF-SIN( REAL( I*J ) ) )*TWO
-               ELSE
+               } else {
                   A( I, J ) = ZERO
                   D( I, J ) = ZERO
                END IF
@@ -86,7 +86,7 @@
                IF( I.LE.J ) THEN
                   B( I, J ) = ( HALF-SIN( REAL( I+J ) ) )*TWO
                   E( I, J ) = ( HALF-SIN( REAL( J ) ) )*TWO
-               ELSE
+               } else {
                   B( I, J ) = ZERO
                   E( I, J ) = ZERO
                END IF
@@ -162,7 +162,7 @@
             ELSE IF( I.LE.8 ) THEN
                IF( I.LE.6 ) THEN
                   A( I, I ) = REEPS
-               ELSE
+               } else {
                   A( I, I ) = -REEPS
                END IF
                IF( MOD( I, 2 ).NE.0 .AND. I.LT.M ) THEN
@@ -170,7 +170,7 @@
                ELSE IF( I.GT.1 ) THEN
                   A( I, I-1 ) = -ONE
                END IF
-            ELSE
+            } else {
                A( I, I ) = ONE
                IF( MOD( I, 2 ).NE.0 .AND. I.LT.M ) THEN
                   A( I, I+1 ) = IMEPS*2
@@ -193,7 +193,7 @@
             ELSE IF( I.LE.8 ) THEN
                IF( I.LE.6 ) THEN
                   B( I, I ) = REEPS
-               ELSE
+               } else {
                   B( I, I ) = -REEPS
                END IF
                IF( MOD( I, 2 ).NE.0 .AND. I.LT.N ) THEN
@@ -201,7 +201,7 @@
                ELSE IF( I.GT.1 ) THEN
                   B( I, I-1 ) = -ONE - IMEPS
                END IF
-            ELSE
+            } else {
                B( I, I ) = ONE - REEPS
                IF( MOD( I, 2 ).NE.0 .AND. I.LT.N ) THEN
                   B( I, I+1 ) = IMEPS*2

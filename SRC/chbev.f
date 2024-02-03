@@ -69,7 +69,7 @@
       IF( N.EQ.1 ) THEN
          IF( LOWER ) THEN
             W( 1 ) = REAL( AB( 1, 1 ) )
-         ELSE
+         } else {
             W( 1 ) = REAL( AB( KD+1, 1 ) )
          END IF
          IF( WANTZ ) Z( 1, 1 ) = ONE
@@ -99,7 +99,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( LOWER ) THEN
             CALL CLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         ELSE
+         } else {
             CALL CLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
       END IF
@@ -113,7 +113,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          INDRWK = INDE + N
          CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
       END IF
@@ -123,7 +123,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL SSCAL( IMAX, ONE / SIGMA, W, 1 )

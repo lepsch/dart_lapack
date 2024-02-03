@@ -48,12 +48,12 @@
       CONJB = LSAME(TRANSB,'C')
       IF (NOTA) THEN
           NROWA = M
-      ELSE
+      } else {
           NROWA = K
       END IF
       IF (NOTB) THEN
           NROWB = K
-      ELSE
+      } else {
           NROWB = N
       END IF
 
@@ -95,7 +95,7 @@
                       C(I,J) = ZERO
    10             CONTINUE
    20         CONTINUE
-          ELSE
+          } else {
               DO 40 J = 1,N
                   DO 30 I = 1,M
                       C(I,J) = BETA*C(I,J)
@@ -141,12 +141,12 @@
   100                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   110             CONTINUE
   120         CONTINUE
-          ELSE
+          } else {
 
             // Form  C := alpha*A**T*B + beta*C
 
@@ -158,7 +158,7 @@
   130                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   140             CONTINUE
@@ -186,7 +186,7 @@
   180                 CONTINUE
   190             CONTINUE
   200         CONTINUE
-          ELSE
+          } else {
 
             // Form  C := alpha*A*B**T + beta*C
 
@@ -221,12 +221,12 @@
   260                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   270             CONTINUE
   280         CONTINUE
-          ELSE
+          } else {
 
             // Form  C := alpha*A**H*B**T + beta*C
 
@@ -238,13 +238,13 @@
   290                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   300             CONTINUE
   310         CONTINUE
           END IF
-      ELSE
+      } else {
           IF (CONJB) THEN
 
             // Form  C := alpha*A**T*B**H + beta*C
@@ -257,12 +257,12 @@
   320                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   330             CONTINUE
   340         CONTINUE
-          ELSE
+          } else {
 
             // Form  C := alpha*A**T*B**T + beta*C
 
@@ -274,7 +274,7 @@
   350                 CONTINUE
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP
-                      ELSE
+                      } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       END IF
   360             CONTINUE

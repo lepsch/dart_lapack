@@ -170,7 +170,7 @@
             // reference DUMMY(1,1) to B with LDDUMMY=1.
 
             CALL ZLARFB_GETT( 'N', 0, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, DUMMY( 1, 1 ), 1, WORK, KNB )
-         ELSE
+         } else {
             CALL ZLARFB_GETT( 'N', MB1-KB-KNB+1, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, A( KB+KNB, KB), LDA, WORK, KNB )
 
          END IF

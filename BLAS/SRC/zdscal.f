@@ -31,7 +31,7 @@
          DO I = 1,N
             ZX(I) = DCMPLX(DA*DBLE(ZX(I)),DA*DIMAG(ZX(I)))
          END DO
-      ELSE
+      } else {
 
          // code for increment not equal to 1
 

@@ -134,7 +134,7 @@
                   IZERO = 1
                ELSE IF( IMAT.EQ.6 ) THEN
                   IZERO = N
-               ELSE
+               } else {
                   IZERO = N / 2 + 1
                END IF
                IOFF = ( IZERO-1 )*LDA
@@ -142,10 +142,10 @@
                   DO 20 I = 1, N
                      A( IOFF+I ) = ZERO
    20             CONTINUE
-               ELSE
+               } else {
                   CALL DLASET( 'Full', N, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA )
                END IF
-            ELSE
+            } else {
                IZERO = 0
             END IF
 
@@ -157,7 +157,7 @@
                EQUED = EQUEDS( IEQUED )
                IF( IEQUED.EQ.1 ) THEN
                   NFACT = 3
-               ELSE
+               } else {
                   NFACT = 1
                END IF
 
@@ -234,7 +234,7 @@
                      AINVNM = DLANGE( '1', N, N, A, LDA, RWORK )
                      IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                         RCONDO = ONE
-                     ELSE
+                     } else {
                         RCONDO = ( ONE / ANORMO ) / AINVNM
                      END IF
 
@@ -243,7 +243,7 @@
                      AINVNM = DLANGE( 'I', N, N, A, LDA, RWORK )
                      IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                         RCONDI = ONE
-                     ELSE
+                     } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM
                      END IF
                   END IF
@@ -255,7 +255,7 @@
                      TRANS = TRANSS( ITRAN )
                      IF( ITRAN.EQ.1 ) THEN
                         RCONDC = RCONDO
-                     ELSE
+                     } else {
                         RCONDC = RCONDI
                      END IF
 
@@ -345,14 +345,14 @@
                         RPVGRW = DLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, WORK )
                         IF( RPVGRW.EQ.ZERO ) THEN
                            RPVGRW = ONE
-                        ELSE
+                        } else {
                            RPVGRW = DLANGE( 'M', N, INFO, A, LDA, WORK ) / RPVGRW
                         END IF
-                     ELSE
+                     } else {
                         RPVGRW = DLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, WORK )
                         IF( RPVGRW.EQ.ZERO ) THEN
                            RPVGRW = ONE
-                        ELSE
+                        } else {
                            RPVGRW = DLANGE( 'M', N, N, A, LDA, WORK ) / RPVGRW
                         END IF
                      END IF
@@ -365,7 +365,7 @@
 
                         CALL DGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
-                     ELSE
+                     } else {
                         K1 = 2
                      END IF
 
@@ -379,10 +379,10 @@
                         // Check solution from generated exact solution.
 
                         IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
-                        ELSE
+                        } else {
                            IF( ITRAN.EQ.1 ) THEN
                               ROLDC = ROLDO
-                           ELSE
+                           } else {
                               ROLDC = ROLDI
                            END IF
                            CALL DGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
@@ -392,7 +392,7 @@
                         // refinement.
 
                         CALL DGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) )
-                     ELSE
+                     } else {
                         TRFCON = .TRUE.
                      END IF
 
@@ -410,18 +410,18 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               IF( PREFAC ) THEN
                                  WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
-                              ELSE
+                              } else {
                                  WRITE( NOUT, FMT = 9998 )'DGESVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                               END IF
                               NFAIL = NFAIL + 1
                            END IF
    40                   CONTINUE
                         NRUN = NRUN + NTESTS - K1 + 1
-                     ELSE
+                     } else {
                         IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9998 )'DGESVX', FACT, TRANS, N, IMAT, 1, RESULT( 1 )
                            END IF
                            NFAIL = NFAIL + 1
@@ -431,7 +431,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9998 )'DGESVX', FACT, TRANS, N, IMAT, 6, RESULT( 6 )
                            END IF
                            NFAIL = NFAIL + 1
@@ -441,7 +441,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
-                           ELSE
+                           } else {
                               WRITE( NOUT, FMT = 9998 )'DGESVX', FACT, TRANS, N, IMAT, 7, RESULT( 7 )
                            END IF
                            NFAIL = NFAIL + 1

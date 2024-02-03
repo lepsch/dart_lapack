@@ -56,21 +56,21 @@
             DO 60 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + E( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DCONJG( E( N-1 ) )* X( N-1, J ) + D( N )*X( N, J )
                   DO 50 I = 2, N - 1
                      B( I, J ) = B( I, J ) + DCONJG( E( I-1 ) )* X( I-1, J ) + D( I )*X( I, J ) + E( I )*X( I+1, J )
    50             CONTINUE
                END IF
    60       CONTINUE
-         ELSE
+         } else {
 
             // Compute B := B + A*X, where E is the subdiagonal of A.
 
             DO 80 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DCONJG( E( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) + E( N-1 )*X( N-1, J ) + D( N )*X( N, J )
                   DO 70 I = 2, N - 1
                      B( I, J ) = B( I, J ) + E( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DCONJG( E( I ) )*X( I+1, J )
@@ -86,21 +86,21 @@
             DO 100 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - E( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DCONJG( E( N-1 ) )* X( N-1, J ) - D( N )*X( N, J )
                   DO 90 I = 2, N - 1
                      B( I, J ) = B( I, J ) - DCONJG( E( I-1 ) )* X( I-1, J ) - D( I )*X( I, J ) - E( I )*X( I+1, J )
    90             CONTINUE
                END IF
   100       CONTINUE
-         ELSE
+         } else {
 
             // Compute B := B - A*X, where E is the subdiagonal of A.
 
             DO 120 J = 1, NRHS
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
-               ELSE
+               } else {
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DCONJG( E( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) - E( N-1 )*X( N-1, J ) - D( N )*X( N, J )
                   DO 110 I = 2, N - 1
                      B( I, J ) = B( I, J ) - E( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DCONJG( E( I ) )*X( I+1, J )

@@ -158,7 +158,7 @@
 
       IF ( NFAIL.EQ.0 ) THEN
          WRITE( NOUT, FMT = 9996 ) 'DLANSF', NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9995 ) 'DLANSF', NFAIL, NRUN
       END IF
       IF ( NERRS.NE.0 ) THEN

@@ -47,7 +47,7 @@
          ICOMPZ = 1
       ELSE IF( LSAME( COMPZ, 'I' ) ) THEN
          ICOMPZ = 2
-      ELSE
+      } else {
          ICOMPZ = -1
       END IF
       IF( ICOMPZ.LT.0 ) THEN
@@ -88,7 +88,7 @@
 
       IF( ICOMPZ.GT.0 ) THEN
          NRU = N
-      ELSE
+      } else {
          NRU = 0
       END IF
       CALL CBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
@@ -99,7 +99,7 @@
          DO 30 I = 1, N
             D( I ) = D( I )*D( I )
    30    CONTINUE
-      ELSE
+      } else {
          INFO = N + INFO
       END IF
 

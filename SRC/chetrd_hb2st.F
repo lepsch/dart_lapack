@@ -62,7 +62,7 @@
       IF( N.EQ.0 .OR. KD.LE.1 ) THEN
          LHMIN = 1
          LWMIN = 1
-      ELSE
+      } else {
          LHMIN = ILAENV2STAGE( 3, 'CHETRD_HB2ST', VECT, N, KD, IB, -1 )
          LWMIN = ILAENV2STAGE( 4, 'CHETRD_HB2ST', VECT, N, KD, IB, -1 )
       END IF
@@ -126,7 +126,7 @@
           OFDPOS   = DPOS - 1
           ABDPOS   = KD + 1
           ABOFDPOS = KD
-      ELSE
+      } else {
           APOS     = INDA
           AWPOS    = INDA + KD + 1
           DPOS     = APOS
@@ -180,7 +180,7 @@
                   E( I ) = ABSTMP
                   IF( ABSTMP.NE.RZERO ) THEN
                      TMP = TMP / ABSTMP
-                  ELSE
+                  } else {
                      TMP = ONE
                   END IF
                   IF( I.LT.N-1 ) AB( ABOFDPOS, I+2 ) = AB( ABOFDPOS, I+2 )*TMP
@@ -188,7 +188,7 @@
                       // CALL CSCAL( N, CONJG( TMP ), Q( 1, I+1 ), 1 )
                    // END IF
    60         CONTINUE
-          ELSE
+          } else {
               DO 70 I = 1, N - 1
                  TMP = AB( ABOFDPOS, I )
                  ABSTMP = ABS( TMP )
@@ -196,7 +196,7 @@
                  E( I ) = ABSTMP
                  IF( ABSTMP.NE.RZERO ) THEN
                     TMP = TMP / ABSTMP
-                 ELSE
+                 } else {
                     TMP = ONE
                  END IF
                  IF( I.LT.N-1 ) AB( ABOFDPOS, I+1 ) = AB( ABOFDPOS, I+1 )*TMP
@@ -252,7 +252,7 @@
                           MYID  = (I-SWEEPID)*(STEPERCOL*GRSIZ) + (M-1)*GRSIZ + K
                           IF ( MYID.EQ.1 ) THEN
                               TTYPE = 1
-                          ELSE
+                          } else {
                               TTYPE = MOD( MYID, 2 ) + 2
                           ENDIF
 
@@ -261,13 +261,13 @@
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
                               BLKLASTIND = COLPT
-                          ELSE
+                          } else {
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
                               IF( ( STIND.GE.EDIND-1 ).AND. ( EDIND.EQ.N ) ) THEN
                                   BLKLASTIND = N
-                              ELSE
+                              } else {
                                   BLKLASTIND = 0
                               ENDIF
                           ENDIF
@@ -282,7 +282,7 @@
                               TID      = OMP_GET_THREAD_NUM()
                               CALL CHB2ST_KERNELS( UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) )
 !$OMP END TASK
-                          ELSE
+                          } else {
 !$OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 !$OMP$     DEPEND(out:WORK(MYID))
                               TID      = OMP_GET_THREAD_NUM()
@@ -321,7 +321,7 @@
           DO 160 I = 1, N-1
              E( I ) = REAL( WORK( OFDPOS+I*LDA ) )
   160     CONTINUE
-      ELSE
+      } else {
           DO 170 I = 1, N-1
              E( I ) = REAL( WORK( OFDPOS+(I-1)*LDA ) )
   170     CONTINUE

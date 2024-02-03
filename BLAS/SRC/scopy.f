@@ -44,7 +44,7 @@
             SY(I+5) = SX(I+5)
             SY(I+6) = SX(I+6)
          END DO
-      ELSE
+      } else {
 
          // code for unequal increments or equal increments
            // not equal to 1

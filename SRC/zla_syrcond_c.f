@@ -78,7 +78,7 @@
                DO J = I+1, N
                   TMP = TMP + CABS1( A( I, J ) ) / C( J )
                END DO
-            ELSE
+            } else {
                DO J = 1, I
                   TMP = TMP + CABS1( A( J, I ) )
                END DO
@@ -89,7 +89,7 @@
             RWORK( I ) = TMP
             ANORM = MAX( ANORM, TMP )
          END DO
-      ELSE
+      } else {
          DO I = 1, N
             TMP = 0.0D+0
             IF ( CAPPLY ) THEN
@@ -99,7 +99,7 @@
                DO J = I+1, N
                   TMP = TMP + CABS1( A( J, I ) ) / C( J )
                END DO
-            ELSE
+            } else {
                DO J = 1, I
                   TMP = TMP + CABS1( A( I, J ) )
                END DO
@@ -139,7 +139,7 @@
 
             IF ( UP ) THEN
                CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 
@@ -150,7 +150,7 @@
                   WORK( I ) = WORK( I ) * C( I )
                END DO
             END IF
-         ELSE
+         } else {
 
             // Multiply by inv(C**T).
 
@@ -162,7 +162,7 @@
 
             IF ( UP ) THEN
                CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
-            ELSE
+            } else {
                CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 

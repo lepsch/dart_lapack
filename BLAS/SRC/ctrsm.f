@@ -42,7 +42,7 @@
       LSIDE = LSAME(SIDE,'L')
       IF (LSIDE) THEN
           NROWA = M
-      ELSE
+      } else {
           NROWA = N
       END IF
       NOCONJ = LSAME(TRANSA,'T')
@@ -110,7 +110,7 @@
                           END IF
    50                 CONTINUE
    60             CONTINUE
-              ELSE
+              } else {
                   DO 100 J = 1,N
                       IF (ALPHA.NE.ONE) THEN
                           DO 70 I = 1,M
@@ -127,7 +127,7 @@
    90                 CONTINUE
   100             CONTINUE
               END IF
-          ELSE
+          } else {
 
             // Form  B := alpha*inv( A**T )*B
             // or    B := alpha*inv( A**H )*B.
@@ -141,7 +141,7 @@
                                   TEMP = TEMP - A(K,I)*B(K,J)
   110                         CONTINUE
                               IF (NOUNIT) TEMP = TEMP/A(I,I)
-                          ELSE
+                          } else {
                               DO 120 K = 1,I - 1
                                   TEMP = TEMP - CONJG(A(K,I))*B(K,J)
   120                         CONTINUE
@@ -150,7 +150,7 @@
                           B(I,J) = TEMP
   130                 CONTINUE
   140             CONTINUE
-              ELSE
+              } else {
                   DO 180 J = 1,N
                       DO 170 I = M,1,-1
                           TEMP = ALPHA*B(I,J)
@@ -159,7 +159,7 @@
                                   TEMP = TEMP - A(K,I)*B(K,J)
   150                         CONTINUE
                               IF (NOUNIT) TEMP = TEMP/A(I,I)
-                          ELSE
+                          } else {
                               DO 160 K = I + 1,M
                                   TEMP = TEMP - CONJG(A(K,I))*B(K,J)
   160                         CONTINUE
@@ -170,7 +170,7 @@
   180             CONTINUE
               END IF
           END IF
-      ELSE
+      } else {
           IF (LSAME(TRANSA,'N')) THEN
 
             // Form  B := alpha*B*inv( A ).
@@ -196,7 +196,7 @@
   220                     CONTINUE
                       END IF
   230             CONTINUE
-              ELSE
+              } else {
                   DO 280 J = N,1,-1
                       IF (ALPHA.NE.ONE) THEN
                           DO 240 I = 1,M
@@ -218,7 +218,7 @@
                       END IF
   280             CONTINUE
               END IF
-          ELSE
+          } else {
 
             // Form  B := alpha*B*inv( A**T )
             // or    B := alpha*B*inv( A**H ).
@@ -228,7 +228,7 @@
                       IF (NOUNIT) THEN
                           IF (NOCONJ) THEN
                               TEMP = ONE/A(K,K)
-                          ELSE
+                          } else {
                               TEMP = ONE/CONJG(A(K,K))
                           END IF
                           DO 290 I = 1,M
@@ -239,7 +239,7 @@
                           IF (A(J,K).NE.ZERO) THEN
                               IF (NOCONJ) THEN
                                   TEMP = A(J,K)
-                              ELSE
+                              } else {
                                   TEMP = CONJG(A(J,K))
                               END IF
                               DO 300 I = 1,M
@@ -253,12 +253,12 @@
   320                     CONTINUE
                       END IF
   330             CONTINUE
-              ELSE
+              } else {
                   DO 380 K = 1,N
                       IF (NOUNIT) THEN
                           IF (NOCONJ) THEN
                               TEMP = ONE/A(K,K)
-                          ELSE
+                          } else {
                               TEMP = ONE/CONJG(A(K,K))
                           END IF
                           DO 340 I = 1,M
@@ -269,7 +269,7 @@
                           IF (A(J,K).NE.ZERO) THEN
                               IF (NOCONJ) THEN
                                   TEMP = A(J,K)
-                              ELSE
+                              } else {
                                   TEMP = CONJG(A(J,K))
                               END IF
                               DO 350 I = 1,M

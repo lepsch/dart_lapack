@@ -123,7 +123,7 @@
                      IZERO = 1
                   ELSE IF( IMAT.EQ.4 ) THEN
                      IZERO = N
-                  ELSE
+                  } else {
                      IZERO = N / 2 + 1
                   END IF
                   IOFF = ( IZERO-1 )*LDA
@@ -139,7 +139,7 @@
                         A( IOFF ) = ZERO
                         IOFF = IOFF + LDA
    30                CONTINUE
-                  ELSE
+                  } else {
                      IOFF = IZERO
                      DO 40 I = 1, IZERO - 1
                         A( IOFF ) = ZERO
@@ -150,7 +150,7 @@
                         A( IOFF+I ) = ZERO
    50                CONTINUE
                   END IF
-               ELSE
+               } else {
                   IZERO = 0
                END IF
 
@@ -190,7 +190,7 @@
 
                      IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
                         WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N, IMAT
-                     ELSE
+                     } else {
                         WRITE( NOUT, FMT = 9975 )'ZCPOSV',INFO,N,IMAT
                      END IF
                   END IF
@@ -245,7 +245,7 @@
 
       IF( NFAIL.GT.0 ) THEN
          WRITE( NOUT, FMT = 9996 )'ZCPOSV', NFAIL, NRUN
-      ELSE
+      } else {
          WRITE( NOUT, FMT = 9995 )'ZCPOSV', NRUN
       END IF
       IF( NERRS.GT.0 ) THEN

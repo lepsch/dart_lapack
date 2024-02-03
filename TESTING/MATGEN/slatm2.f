@@ -84,7 +84,7 @@
 
       IF( ISUB.EQ.JSUB ) THEN
          TEMP = D( ISUB )
-      ELSE
+      } else {
          TEMP = SLARND( IDIST, ISEED )
       END IF
       IF( IGRADE.EQ.1 ) THEN

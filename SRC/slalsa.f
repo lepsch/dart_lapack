@@ -113,7 +113,7 @@
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
-         ELSE
+         } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          END IF
@@ -147,7 +147,7 @@
          IF( LVL.EQ.1 ) THEN
             LF = 1
             LL = 1
-         ELSE
+         } else {
             LF = 2**( LVL-1 )
             LL = 2*LF - 1
          END IF
@@ -160,7 +160,7 @@
             NRF = IC + 1
             IF( I.EQ.LL ) THEN
                SQRE = 0
-            ELSE
+            } else {
                SQRE = 1
             END IF
             J = J + 1
@@ -181,7 +181,7 @@
          NLP1 = NL + 1
          IF( I.EQ.ND ) THEN
             NRP1 = NR
-         ELSE
+         } else {
             NRP1 = NR + 1
          END IF
          NLF = IC - NL

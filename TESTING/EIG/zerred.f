@@ -221,7 +221,7 @@
          NT = NT + 8
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )
          END IF
 
@@ -249,7 +249,7 @@
          NT = NT - 2
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )
          END IF
 
@@ -292,7 +292,7 @@
          NT = 11
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )
          END IF
 
@@ -338,7 +338,7 @@
          NT = 12
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )
          END IF
 
@@ -381,7 +381,7 @@
          NT = 11
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )
          END IF
       END IF
@@ -391,7 +391,7 @@
       IF( .NOT.LSAMEN( 2, C2, 'BD' ) ) THEN
          IF( OK ) THEN
             WRITE( NOUT, FMT = 9999 )SRNAMT( 1:LEN_TRIM( SRNAMT ) ), NT
-         ELSE
+         } else {
             WRITE( NOUT, FMT = 9998 )
          END IF
       END IF

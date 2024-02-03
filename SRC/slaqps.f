@@ -71,7 +71,7 @@
 
          IF( RK.LT.M ) THEN
             CALL SLARFG( M-RK+1, A( RK, K ), A( RK+1, K ), 1, TAU( K ) )
-         ELSE
+         } else {
             CALL SLARFG( 1, A( RK, K ), A( RK, K ), 1, TAU( K ) )
          END IF
 
@@ -124,7 +124,7 @@
                   IF( TEMP2 .LE. TOL3Z ) THEN
                      VN2( J ) = REAL( LSTICC )
                      LSTICC = J
-                  ELSE
+                  } else {
                      VN1( J ) = VN1( J )*SQRT( TEMP )
                   END IF
                END IF

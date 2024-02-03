@@ -47,7 +47,7 @@
       LQUERY = ( LWORK.EQ.-1 )
       IF( N.LE.KD+1 ) THEN
          LWMIN = 1
-      ELSE
+      } else {
          LWMIN = ILAENV2STAGE( 4, 'CHETRD_HE2HB', '', N, KD, -1, -1 )
       END IF
 
@@ -82,7 +82,7 @@
                   LK = MIN( KD+1, I )
                   CALL CCOPY( LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 )
   100         CONTINUE
-          ELSE
+          } else {
               DO 110 I = 1, N
                   LK = MIN( KD+1, N-I+1 )
                   CALL CCOPY( LK, A( I, I ), 1, AB( 1, I ), 1 )
@@ -108,7 +108,7 @@
       IF( UPPER ) THEN
           LDW    = KD
           LDS2   = KD
-      ELSE
+      } else {
           LDW    = N
           LDS2   = N
       ENDIF
@@ -165,7 +165,7 @@
             CALL CCOPY( LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 )
    30    CONTINUE
 
-      ELSE
+      } else {
 
           // Reduce the lower triangle of A to lower band matrix
 

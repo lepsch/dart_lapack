@@ -59,7 +59,7 @@
 
          IF( NH.LE.1 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             NB = MIN( NBMAX, ILAENV( 1, 'DGEHRD', ' ', N, ILO, IHI, -1 ) )
             LWKOPT = N*NB + TSIZE
          ENDIF
@@ -112,7 +112,7 @@
                NBMIN = MAX( 2, ILAENV( 2, 'DGEHRD', ' ', N, ILO, IHI, -1 ) )
                IF( LWORK.GE.(N*NBMIN + TSIZE) ) THEN
                   NB = (LWORK-TSIZE) / N
-               ELSE
+               } else {
                   NB = 1
                END IF
             END IF
@@ -126,7 +126,7 @@
 
          I = ILO
 
-      ELSE
+      } else {
 
          // Use blocked code
 

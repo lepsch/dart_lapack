@@ -40,7 +40,7 @@
       LSIDE = LSAME(SIDE,'L')
       IF (LSIDE) THEN
           NROWA = M
-      ELSE
+      } else {
           NROWA = N
       END IF
       NOUNIT = LSAME(DIAG,'N')
@@ -104,7 +104,7 @@
                           END IF
    40                 CONTINUE
    50             CONTINUE
-              ELSE
+              } else {
                   DO 80 J = 1,N
                       DO 70 K = M,1,-1
                           IF (B(K,J).NE.ZERO) THEN
@@ -118,7 +118,7 @@
    70                 CONTINUE
    80             CONTINUE
               END IF
-          ELSE
+          } else {
 
             // Form  B := alpha*A**T*B.
 
@@ -133,7 +133,7 @@
                           B(I,J) = ALPHA*TEMP
   100                 CONTINUE
   110             CONTINUE
-              ELSE
+              } else {
                   DO 140 J = 1,N
                       DO 130 I = 1,M
                           TEMP = B(I,J)
@@ -146,7 +146,7 @@
   140             CONTINUE
               END IF
           END IF
-      ELSE
+      } else {
           IF (LSAME(TRANSA,'N')) THEN
 
             // Form  B := alpha*B*A.
@@ -167,7 +167,7 @@
                           END IF
   170                 CONTINUE
   180             CONTINUE
-              ELSE
+              } else {
                   DO 220 J = 1,N
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(J,J)
@@ -184,7 +184,7 @@
   210                 CONTINUE
   220             CONTINUE
               END IF
-          ELSE
+          } else {
 
             // Form  B := alpha*B*A**T.
 
@@ -206,7 +206,7 @@
   250                     CONTINUE
                       END IF
   260             CONTINUE
-              ELSE
+              } else {
                   DO 300 K = N,1,-1
                       DO 280 J = K + 1,N
                           IF (A(J,K).NE.ZERO) THEN

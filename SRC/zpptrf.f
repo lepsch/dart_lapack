@@ -76,7 +76,7 @@
             END IF
             AP( JJ ) = SQRT( AJJ )
    10    CONTINUE
-      ELSE
+      } else {
 
          // Compute the Cholesky factorization A = L * L**H.
 

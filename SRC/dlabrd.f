@@ -70,7 +70,7 @@
                CALL DSCAL( M-I, TAUP( I ), X( I+1, I ), 1 )
             END IF
    10    CONTINUE
-      ELSE
+      } else {
 
          // Reduce to lower bidiagonal form
 

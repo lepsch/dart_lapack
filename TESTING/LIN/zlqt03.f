@@ -67,7 +67,7 @@
             SIDE = 'L'
             MC = N
             NC = M
-         ELSE
+         } else {
             SIDE = 'R'
             MC = M
             NC = N
@@ -84,7 +84,7 @@
          DO 20 ITRANS = 1, 2
             IF( ITRANS.EQ.1 ) THEN
                TRANS = 'N'
-            ELSE
+            } else {
                TRANS = 'C'
             END IF
 
@@ -101,7 +101,7 @@
 
             IF( LSAME( SIDE, 'L' ) ) THEN
                CALL ZGEMM( TRANS, 'No transpose', MC, NC, MC, DCMPLX( -ONE ), Q, LDA, C, LDA, DCMPLX( ONE ), CC, LDA )
-            ELSE
+            } else {
                CALL ZGEMM( 'No transpose', TRANS, MC, NC, NC, DCMPLX( -ONE ), C, LDA, Q, LDA, DCMPLX( ONE ), CC, LDA )
             END IF
 

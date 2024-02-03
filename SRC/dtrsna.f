@@ -63,7 +63,7 @@
          INFO = -8
       ELSE IF( LDVR.LT.1 .OR. ( WANTS .AND. LDVR.LT.N ) ) THEN
          INFO = -10
-      ELSE
+      } else {
 
          // Set M to the number of eigenpairs for which condition numbers
          // are required, and test MM.
@@ -74,20 +74,20 @@
             DO 10 K = 1, N
                IF( PAIR ) THEN
                   PAIR = .FALSE.
-               ELSE
+               } else {
                   IF( K.LT.N ) THEN
                      IF( T( K+1, K ).EQ.ZERO ) THEN
                         IF( SELECT( K ) ) M = M + 1
-                     ELSE
+                     } else {
                         PAIR = .TRUE.
                         IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                      END IF
-                  ELSE
+                  } else {
                      IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
-         ELSE
+         } else {
             M = N
          END IF
 
@@ -129,7 +129,7 @@
          IF( PAIR ) THEN
             PAIR = .FALSE.
             GO TO 60
-         ELSE
+         } else {
             IF( K.LT.N ) PAIR = T( K+1, K ).NE.ZERO
          END IF
 
@@ -139,7 +139,7 @@
          IF( SOMCON ) THEN
             IF( PAIR ) THEN
                IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 60
-            ELSE
+            } else {
                IF( .NOT.SELECT( K ) ) GO TO 60
             END IF
          END IF
@@ -159,7 +159,7 @@
                RNRM = DNRM2( N, VR( 1, KS ), 1 )
                LNRM = DNRM2( N, VL( 1, KS ), 1 )
                S( KS ) = ABS( PROD ) / ( RNRM*LNRM )
-            ELSE
+            } else {
 
                // Complex eigenvalue.
 
@@ -192,7 +192,7 @@
 
                SCALE = ONE
                EST = BIGNUM
-            ELSE
+            } else {
 
                // Reordering successful
 
@@ -205,7 +205,7 @@
    20             CONTINUE
                   N2 = 1
                   NN = N - 1
-               ELSE
+               } else {
 
                   // Triangularize the 2 by 2 block by unitary
                  t // ransformation U = [  cs   i*ss ]
@@ -258,20 +258,20 @@
                         // Real eigenvalue: solve C**T*x = scale*c.
 
                         CALL DLAQTR( .TRUE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
-                     ELSE
+                     } else {
 
                         // Complex eigenvalue: solve
                         // C**T*(p+iq) = scale*(c+id) in real arithmetic.
 
                         CALL DLAQTR( .TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      END IF
-                  ELSE
+                  } else {
                      IF( N2.EQ.1 ) THEN
 
                         // Real eigenvalue: solve C*x = scale*c.
 
                         CALL DLAQTR( .FALSE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
-                     ELSE
+                     } else {
 
                         // Complex eigenvalue: solve
                         // C*(p+iq) = scale*(c+id) in real arithmetic.

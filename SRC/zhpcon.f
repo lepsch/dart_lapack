@@ -74,7 +74,7 @@
             IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP - I
    10    CONTINUE
-      ELSE
+      } else {
 
          // Lower triangular storage: examine D from top to bottom.
 

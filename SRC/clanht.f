@@ -54,7 +54,7 @@
 
          IF( N.EQ.1 ) THEN
             ANORM = ABS( D( 1 ) )
-         ELSE
+         } else {
             ANORM = ABS( D( 1 ) )+ABS( E( 1 ) )
             SUM = ABS( E( N-1 ) )+ABS( D( N ) )
             IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM

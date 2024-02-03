@@ -112,7 +112,7 @@
                RETURN
             END IF
    50    CONTINUE
-      ELSE
+      } else {
 
          // Invert the scale factors.
 
@@ -162,7 +162,7 @@
                RETURN
             END IF
   110    CONTINUE
-      ELSE
+      } else {
 
          // Invert the scale factors.
 

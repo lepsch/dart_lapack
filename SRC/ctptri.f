@@ -58,7 +58,7 @@
                JJ = JJ + INFO
                IF( AP( JJ ).EQ.ZERO ) RETURN
    10       CONTINUE
-         ELSE
+         } else {
             JJ = 1
             DO 20 INFO = 1, N
                IF( AP( JJ ).EQ.ZERO ) RETURN
@@ -77,7 +77,7 @@
             IF( NOUNIT ) THEN
                AP( JC+J-1 ) = ONE / AP( JC+J-1 )
                AJJ = -AP( JC+J-1 )
-            ELSE
+            } else {
                AJJ = -ONE
             END IF
 
@@ -88,7 +88,7 @@
             JC = JC + J
    30    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute inverse of lower triangular matrix.
 
@@ -97,7 +97,7 @@
             IF( NOUNIT ) THEN
                AP( JC ) = ONE / AP( JC )
                AJJ = -AP( JC )
-            ELSE
+            } else {
                AJJ = -ONE
             END IF
             IF( J.LT.N ) THEN

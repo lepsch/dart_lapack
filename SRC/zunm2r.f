@@ -45,7 +45,7 @@
 
       IF( LEFT ) THEN
          NQ = M
-      ELSE
+      } else {
          NQ = N
       END IF
       IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
@@ -76,7 +76,7 @@
          I1 = 1
          I2 = K
          I3 = 1
-      ELSE
+      } else {
          I1 = K
          I2 = 1
          I3 = -1
@@ -85,7 +85,7 @@
       IF( LEFT ) THEN
          NI = N
          JC = 1
-      ELSE
+      } else {
          MI = M
          IC = 1
       END IF
@@ -97,7 +97,7 @@
 
             MI = M - I + 1
             IC = I
-         ELSE
+         } else {
 
             // H(i) or H(i)**H is applied to C(1:m,i:n)
 
@@ -109,7 +109,7 @@
 
          IF( NOTRAN ) THEN
             TAUI = TAU( I )
-         ELSE
+         } else {
             TAUI = DCONJG( TAU( I ) )
          END IF
          AII = A( I, I )

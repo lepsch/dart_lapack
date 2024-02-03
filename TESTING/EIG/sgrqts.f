@@ -55,7 +55,7 @@
       CALL SLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
       IF( M.LE.N ) THEN
          IF( M.GT.0 .AND. M.LT.N ) CALL SLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL SLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
-      ELSE
+      } else {
          IF( N.GT.1 ) CALL SLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
       END IF
       CALL SORGRQ( N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO )
@@ -71,7 +71,7 @@
       CALL SLASET( 'Full', M, N, ZERO, ZERO, R, LDA )
       IF( M.LE.N )THEN
          CALL SLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
-      ELSE
+      } else {
          CALL SLACPY( 'Full', M-N, N, AF, LDA, R, LDA )
          CALL SLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
       END IF
@@ -90,7 +90,7 @@
       RESID = SLANGE( '1', M, N, R, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
          RESULT( 1 ) = ( ( RESID / REAL(MAX(1,M,N) ) ) / ANORM ) / ULP
-      ELSE
+      } else {
          RESULT( 1 ) = ZERO
       END IF
 
@@ -103,7 +103,7 @@
       RESID = SLANGE( '1', P, N, BWK, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
          RESULT( 2 ) = ( ( RESID / REAL( MAX( 1,P,M ) ) )/BNORM ) / ULP
-      ELSE
+      } else {
          RESULT( 2 ) = ZERO
       END IF
 

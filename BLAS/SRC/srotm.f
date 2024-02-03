@@ -46,7 +46,7 @@
                SX(I) = W + Z*SH12
                SY(I) = W*SH21 + Z
             END DO
-         ELSE
+         } else {
             SH11 = SPARAM(2)
             SH22 = SPARAM(5)
             DO I = 1,NSTEPS,INCX
@@ -56,7 +56,7 @@
                SY(I) = -W + SH22*Z
             END DO
          END IF
-      ELSE
+      } else {
          KX = 1
          KY = 1
          IF (INCX.LT.0) KX = 1 + (1-N)*INCX
@@ -86,7 +86,7 @@
                KX = KX + INCX
                KY = KY + INCY
             END DO
-         ELSE
+         } else {
              SH11 = SPARAM(2)
              SH22 = SPARAM(5)
              DO I = 1,N

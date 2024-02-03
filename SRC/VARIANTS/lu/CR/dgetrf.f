@@ -60,7 +60,7 @@
          // Use unblocked code.
 
          CALL DGETF2( M, N, A, LDA, IPIV, INFO )
-      ELSE
+      } else {
 
          // Use blocked code.
 

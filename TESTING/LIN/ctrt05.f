@@ -74,7 +74,7 @@
             GO TO 20
          ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
             GO TO 20
-         ELSE
+         } else {
             ERRBND = ONE / EPS
             GO TO 30
          END IF
@@ -82,7 +82,7 @@
    20    CONTINUE
          IF( DIFF / XNORM.LE.FERR( J ) ) THEN
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
-         ELSE
+         } else {
             ERRBND = ONE / EPS
          END IF
    30 CONTINUE
@@ -102,19 +102,19 @@
                      TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
    40             CONTINUE
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
-               ELSE
+               } else {
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                   DO 50 J = I + IFU, N
                      TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
    50             CONTINUE
                END IF
-            ELSE
+            } else {
                IF( NOTRAN ) THEN
                   DO 60 J = 1, I - IFU
                      TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
    60             CONTINUE
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
-               ELSE
+               } else {
                   IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                   DO 70 J = I + IFU, N
                      TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
@@ -123,14 +123,14 @@
             END IF
             IF( I.EQ.1 ) THEN
                AXBI = TMP
-            ELSE
+            } else {
                AXBI = MIN( AXBI, TMP )
             END IF
    80    CONTINUE
          TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
          IF( K.EQ.1 ) THEN
             RESLTS( 2 ) = TMP
-         ELSE
+         } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
          END IF
    90 CONTINUE

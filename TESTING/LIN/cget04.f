@@ -68,7 +68,7 @@
    10    CONTINUE
          IF( XNORM.LE.ZERO ) THEN
             IF( DIFFNM.GT.ZERO ) RESID = 1.0 / EPS
-         ELSE
+         } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          END IF
    20 CONTINUE

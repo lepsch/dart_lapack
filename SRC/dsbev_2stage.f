@@ -64,7 +64,7 @@
          IF( N.LE.1 ) THEN
             LWMIN = 1
             WORK( 1 ) = LWMIN
-         ELSE
+         } else {
             IB    = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'DSYTRD_SB2ST', JOBZ, N, KD, IB, -1 )
             LWMIN = N + LHTRD + LWTRD
             WORK( 1 )  = LWMIN
@@ -87,7 +87,7 @@
       IF( N.EQ.1 ) THEN
          IF( LOWER ) THEN
             W( 1 ) = AB( 1, 1 )
-         ELSE
+         } else {
             W( 1 ) = AB( KD+1, 1 )
          END IF
          IF( WANTZ ) Z( 1, 1 ) = ONE
@@ -117,7 +117,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( LOWER ) THEN
             CALL DLASCL( 'B', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
-         ELSE
+         } else {
             CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
       END IF
@@ -135,7 +135,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
       END IF
 
@@ -144,7 +144,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

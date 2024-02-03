@@ -74,7 +74,7 @@
             AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE
             JC = JC + J
    10    CONTINUE
-      ELSE
+      } else {
          JC = 1
          DO 20 J = 1, N
             IF( UNITD ) AINVP( JC ) = ONE

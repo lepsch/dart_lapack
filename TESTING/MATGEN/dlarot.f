@@ -31,7 +31,7 @@
       IF( LROWS ) THEN
          IINC = LDA
          INEXT = 1
-      ELSE
+      } else {
          IINC = 1
          INEXT = LDA
       END IF
@@ -42,7 +42,7 @@
          IY = 2 + LDA
          XT( 1 ) = A( 1 )
          YT( 1 ) = XLEFT
-      ELSE
+      } else {
          NT = 0
          IX = 1
          IY = 1 + INEXT

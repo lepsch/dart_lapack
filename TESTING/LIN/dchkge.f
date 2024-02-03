@@ -129,7 +129,7 @@
                      IZERO = 1
                   ELSE IF( IMAT.EQ.6 ) THEN
                      IZERO = MIN( M, N )
-                  ELSE
+                  } else {
                      IZERO = MIN( M, N ) / 2 + 1
                   END IF
                   IOFF = ( IZERO-1 )*LDA
@@ -137,10 +137,10 @@
                      DO 20 I = 1, M
                         A( IOFF+I ) = ZERO
    20                CONTINUE
-                  ELSE
+                  } else {
                      CALL DLASET( 'Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA )
                   END IF
-               ELSE
+               } else {
                   IZERO = 0
                END IF
 
@@ -202,11 +202,11 @@
                      AINVNM = DLANGE( 'I', N, N, AINV, LDA, RWORK )
                      IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                         RCONDI = ONE
-                     ELSE
+                     } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM
                      END IF
                      NT = 2
-                  ELSE
+                  } else {
 
                      // Do only the condition estimate if INFO > 0.
 
@@ -242,7 +242,7 @@
                         TRANS = TRANSS( ITRAN )
                         IF( ITRAN.EQ.1 ) THEN
                            RCONDC = RCONDO
-                        ELSE
+                        } else {
                            RCONDC = RCONDI
                         END IF
 
@@ -303,7 +303,7 @@
                         ANORM = ANORMO
                         RCONDC = RCONDO
                         NORM = 'O'
-                     ELSE
+                     } else {
                         ANORM = ANORMI
                         RCONDC = RCONDI
                         NORM = 'I'

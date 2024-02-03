@@ -48,7 +48,7 @@
       ELSE IF( LSAME( JOBVL, 'V' ) ) THEN
          IJOBVL = 2
          ILVL = .TRUE.
-      ELSE
+      } else {
          IJOBVL = -1
          ILVL = .FALSE.
       END IF
@@ -59,7 +59,7 @@
       ELSE IF( LSAME( JOBVR, 'V' ) ) THEN
          IJOBVR = 2
          ILVR = .TRUE.
-      ELSE
+      } else {
          IJOBVR = -1
          ILVR = .FALSE.
       END IF
@@ -102,13 +102,13 @@
             LWKOPT = MAX( LWKOPT, 3*N+INT( WORK( 1 ) ) )
             CALL SLAQZ0( 'S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
-         ELSE
+         } else {
             CALL SLAQZ0( 'E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, -1, 0, IERR )
             LWKOPT = MAX( LWKOPT, 2*N+INT( WORK( 1 ) ) )
          END IF
          IF( N.EQ.0 ) THEN
             WORK( 1 ) = 1
-         ELSE
+         } else {
             WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
          END IF
       END IF
@@ -170,7 +170,7 @@
       IROWS = IHI + 1 - ILO
       IF( ILV ) THEN
          ICOLS = N + 1 - ILO
-      ELSE
+      } else {
          ICOLS = IROWS
       END IF
       ITAU = IWRK
@@ -202,7 +202,7 @@
          // Eigenvectors requested -- work on whole matrix.
 
          CALL SGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
-      ELSE
+      } else {
          CALL SGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 
@@ -212,7 +212,7 @@
       IWRK = ITAU
       IF( ILV ) THEN
          CHTEMP = 'S'
-      ELSE
+      } else {
          CHTEMP = 'E'
       END IF
       CALL SLAQZ0( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, 0, IERR )
@@ -221,7 +221,7 @@
             INFO = IERR
          ELSE IF( IERR.GT.N .AND. IERR.LE.2*N ) THEN
             INFO = IERR - N
-         ELSE
+         } else {
             INFO = N + 1
          END IF
          GO TO 110
@@ -233,10 +233,10 @@
          IF( ILVL ) THEN
             IF( ILVR ) THEN
                CHTEMP = 'B'
-            ELSE
+            } else {
                CHTEMP = 'L'
             END IF
-         ELSE
+         } else {
             CHTEMP = 'R'
          END IF
          CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), IERR )
@@ -256,7 +256,7 @@
                   DO 10 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
    10             CONTINUE
-               ELSE
+               } else {
                   DO 20 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    20             CONTINUE
@@ -267,7 +267,7 @@
                   DO 30 JR = 1, N
                      VL( JR, JC ) = VL( JR, JC )*TEMP
    30             CONTINUE
-               ELSE
+               } else {
                   DO 40 JR = 1, N
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                      VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
@@ -284,7 +284,7 @@
                   DO 60 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
    60             CONTINUE
-               ELSE
+               } else {
                   DO 70 JR = 1, N
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    70             CONTINUE
@@ -295,7 +295,7 @@
                   DO 80 JR = 1, N
                      VR( JR, JC ) = VR( JR, JC )*TEMP
    80             CONTINUE
-               ELSE
+               } else {
                   DO 90 JR = 1, N
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                      VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP

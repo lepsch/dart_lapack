@@ -36,16 +36,16 @@
          IF ( NAME(2:6).EQ.'GEQR ' ) THEN
             IF (N3.EQ.2) THEN
                ILAENV = IPARMS ( 2 )
-            ELSE
+            } else {
                ILAENV = IPARMS ( 1 )
             END IF
          ELSE IF ( NAME(2:6).EQ.'GELQ ' ) THEN
             IF (N3.EQ.2) THEN
                ILAENV = IPARMS ( 2 )
-            ELSE
+            } else {
                ILAENV = IPARMS ( 1 )
             END IF
-         ELSE
+         } else {
             ILAENV = IPARMS( ISPEC )
          END IF
 
@@ -81,7 +81,7 @@
             ILAENV = IEEECK( 0, 0.0, 1.0 )
          END IF
 
-      ELSE
+      } else {
 
          // Invalid value for ISPEC
 
@@ -124,12 +124,12 @@
 
          IF( ISPEC.EQ.1 ) THEN
              ILAENV2STAGE = IPARMS( 1 )
-         ELSE
+         } else {
              IISPEC = 16 + ISPEC
              ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
          ENDIF
 
-      ELSE
+      } else {
 
          // Invalid value for ISPEC
 

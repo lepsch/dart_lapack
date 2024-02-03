@@ -39,12 +39,12 @@
             DLAM = D( 1 ) + TAU
             DELTA( 1 ) = -Z( 1 ) / TAU
             DELTA( 2 ) = Z( 2 ) / ( DEL-TAU )
-         ELSE
+         } else {
             B = -DEL + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 2 )*Z( 2 )*DEL
             IF( B.GT.ZERO ) THEN
                TAU = -TWO*C / ( B+SQRT( B*B+FOUR*C ) )
-            ELSE
+            } else {
                TAU = ( B-SQRT( B*B+FOUR*C ) ) / TWO
             END IF
             DLAM = D( 2 ) + TAU
@@ -54,7 +54,7 @@
          TEMP = SQRT( DELTA( 1 )*DELTA( 1 )+DELTA( 2 )*DELTA( 2 ) )
          DELTA( 1 ) = DELTA( 1 ) / TEMP
          DELTA( 2 ) = DELTA( 2 ) / TEMP
-      ELSE
+      } else {
 
       // Now I=2
 
@@ -62,7 +62,7 @@
          C = RHO*Z( 2 )*Z( 2 )*DEL
          IF( B.GT.ZERO ) THEN
             TAU = ( B+SQRT( B*B+FOUR*C ) ) / TWO
-         ELSE
+         } else {
             TAU = TWO*C / ( -B+SQRT( B*B+FOUR*C ) )
          END IF
          DLAM = D( 2 ) + TAU

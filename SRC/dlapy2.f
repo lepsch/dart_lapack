@@ -45,7 +45,7 @@
          Z = MIN( XABS, YABS )
          IF( Z.EQ.ZERO .OR. W.GT.HUGEVAL ) THEN
             DLAPY2 = W
-         ELSE
+         } else {
             DLAPY2 = W*SQRT( ONE+( Z / W )**2 )
          END IF
       END IF

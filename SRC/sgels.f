@@ -72,14 +72,14 @@
             NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
             IF( TPSD ) THEN
                NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) )
-            ELSE
+            } else {
                NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) )
             END IF
-         ELSE
+         } else {
             NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )
             IF( TPSD ) THEN
                NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) )
-            ELSE
+            } else {
                NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) )
             END IF
          END IF
@@ -178,7 +178,7 @@
 
             SCLLEN = N
 
-         ELSE
+         } else {
 
             // Underdetermined system of equations A**T * X = B
 
@@ -208,7 +208,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Compute LQ factorization of A
 
@@ -244,7 +244,7 @@
 
             SCLLEN = N
 
-         ELSE
+         } else {
 
             // overdetermined system min || A**T * X - B ||
 

@@ -51,7 +51,7 @@
       BIGNUM = ( ONE-ULP ) / SMLNUM
       IF( ( IMAT.GE.7 .AND. IMAT.LE.10 ) .OR. IMAT.EQ.18 ) THEN
          DIAG = 'U'
-      ELSE
+      } else {
          DIAG = 'N'
       END IF
       INFO = 0
@@ -66,7 +66,7 @@
       IF( UPPER ) THEN
          CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'C'
-      ELSE
+      } else {
          CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'R'
       END IF
@@ -91,7 +91,7 @@
                AP( JC+J-1 ) = J
                JC = JC + J
    20       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 40 J = 1, N
                AP( JC ) = J
@@ -118,7 +118,7 @@
                AP( JC+J ) = J
                JC = JC + J
    60       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 80 J = 1, N
                AP( JC ) = J
@@ -201,7 +201,7 @@
                REXP = DBLE( ZLARND( 2, ISEED ) )
                IF( REXP.LT.ZERO ) THEN
                   STAR1 = -SFAC**( ONE-REXP )*ZLARND( 5, ISEED )
-               ELSE
+               } else {
                   STAR1 = SFAC**( ONE+REXP )*ZLARND( 5, ISEED )
                END IF
             END IF
@@ -210,7 +210,7 @@
          X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM )
          IF( N.GT.2 ) THEN
             Y = SQRT( TWO / DBLE( N-2 ) )*X
-         ELSE
+         } else {
             Y = ZERO
          END IF
          Z = X*X
@@ -231,7 +231,7 @@
             DO 110 J = 2, N - 1
                AP( JC+J ) = Y
   110       CONTINUE
-         ELSE
+         } else {
 
             // Set the lower triangle of A with a unit triangular matrix
             // of known condition number.
@@ -280,7 +280,7 @@
                AP( JCNEXT+J-1 ) = -AP( JCNEXT+J-1 )
                JC = JCNEXT
   150       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 170 J = 1, N - 1
                JCNEXT = JC + N - J + 1
@@ -329,7 +329,7 @@
                AP( JC+J-1 ) = ZLARND( 5, ISEED )*TWO
                JC = JC + J
   180       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 190 J = 1, N
                IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
@@ -363,7 +363,7 @@
                JC = JC + J
   200       CONTINUE
             AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 )
-         ELSE
+         } else {
             JC = 1
             DO 210 J = 1, N
                CALL ZLARNV( 2, ISEED, N-J, AP( JC+1 ) )
@@ -389,7 +389,7 @@
                JC = JC + J
   220       CONTINUE
             AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 )
-         ELSE
+         } else {
             JC = 1
             DO 230 J = 1, N
                CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
@@ -414,14 +414,14 @@
   240          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   AP( JC+J-1 ) = SMLNUM*ZLARND( 5, ISEED )
-               ELSE
+               } else {
                   AP( JC+J-1 ) = ZLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC - J + 1
   250       CONTINUE
-         ELSE
+         } else {
             JCOUNT = 1
             JC = 1
             DO 270 J = 1, N
@@ -430,7 +430,7 @@
   260          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   AP( JC ) = SMLNUM*ZLARND( 5, ISEED )
-               ELSE
+               } else {
                   AP( JC ) = ZLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
@@ -447,7 +447,7 @@
                B( I ) = ZERO
                B( I-1 ) = SMLNUM*ZLARND( 5, ISEED )
   280       CONTINUE
-         ELSE
+         } else {
             B( N ) = ZERO
             DO 290 I = 1, N - 1, 2
                B( I ) = ZERO
@@ -475,7 +475,7 @@
                JC = JC + J
   310       CONTINUE
             B( N ) = DCMPLX( ONE, ONE )
-         ELSE
+         } else {
             JC = 1
             DO 330 J = 1, N
                DO 320 I = J + 2, N
@@ -499,18 +499,18 @@
                CALL ZLARNV( 4, ISEED, J, AP( JC ) )
                IF( J.NE.IY ) THEN
                   AP( JC+J-1 ) = ZLARND( 5, ISEED )*TWO
-               ELSE
+               } else {
                   AP( JC+J-1 ) = ZERO
                END IF
                JC = JC + J
   340       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 350 J = 1, N
                CALL ZLARNV( 4, ISEED, N-J+1, AP( JC ) )
                IF( J.NE.IY ) THEN
                   AP( JC ) = ZLARND( 5, ISEED )*TWO
-               ELSE
+               } else {
                   AP( JC ) = ZERO
                END IF
                JC = JC + N - J + 1
@@ -546,7 +546,7 @@
                JC = JC - J + 2
   370       CONTINUE
             B( 1 ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL
-         ELSE
+         } else {
             JC = 1
             DO 380 J = 1, N - 1, 2
                AP( JC+N-J ) = -TSCAL / DBLE( N+1 )
@@ -575,7 +575,7 @@
                AP( JC+J-1 ) = ZERO
                JC = JC + J
   390       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 400 J = 1, N
                IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
@@ -611,7 +611,7 @@
   410          CONTINUE
                JC = JC + J
   420       CONTINUE
-         ELSE
+         } else {
             JC = 1
             DO 440 J = 1, N
                CALL ZLARNV( 5, ISEED, N-J+1, AP( JC ) )
@@ -644,7 +644,7 @@
                JJ = JJ + J + 1
                JR = JR - ( N-J+1 )
   460       CONTINUE
-         ELSE
+         } else {
             JL = 1
             JJ = N*( N+1 ) / 2
             DO 480 J = 1, N / 2

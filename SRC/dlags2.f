@@ -63,10 +63,10 @@
             IF( ( ABS( UA11R )+ABS( UA12 ) ).NE.ZERO ) THEN
                IF( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS( VB12 ) ) ) THEN
                   CALL DLARTG( -UA11R, UA12, CSQ, SNQ, R )
-               ELSE
+               } else {
                   CALL DLARTG( -VB11R, VB12, CSQ, SNQ, R )
                END IF
-            ELSE
+            } else {
                CALL DLARTG( -VB11R, VB12, CSQ, SNQ, R )
             END IF
 
@@ -75,7 +75,7 @@
             CSV = CSR
             SNV = -SNR
 
-         ELSE
+         } else {
 
             // Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
             // and (2,2) element of |U|**T *|A| and |V|**T *|B|.
@@ -94,10 +94,10 @@
             IF( ( ABS( UA21 )+ABS( UA22 ) ).NE.ZERO ) THEN
                IF( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 / ( ABS( VB21 )+ABS( VB22 ) ) ) THEN
                   CALL DLARTG( -UA21, UA22, CSQ, SNQ, R )
-               ELSE
+               } else {
                   CALL DLARTG( -VB21, VB22, CSQ, SNQ, R )
                END IF
-            ELSE
+            } else {
                CALL DLARTG( -VB21, VB22, CSQ, SNQ, R )
             END IF
 
@@ -108,7 +108,7 @@
 
          END IF
 
-      ELSE
+      } else {
 
          // Input matrices A and B are lower triangular matrices
 
@@ -145,10 +145,10 @@
             IF( ( ABS( UA21 )+ABS( UA22R ) ).NE.ZERO ) THEN
                IF( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS( VB21 )+ABS( VB22R ) ) ) THEN
                   CALL DLARTG( UA22R, UA21, CSQ, SNQ, R )
-               ELSE
+               } else {
                   CALL DLARTG( VB22R, VB21, CSQ, SNQ, R )
                END IF
-            ELSE
+            } else {
                CALL DLARTG( VB22R, VB21, CSQ, SNQ, R )
             END IF
 
@@ -157,7 +157,7 @@
             CSV = CSL
             SNV = -SNL
 
-         ELSE
+         } else {
 
             // Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
             // and (1,1) element of |U|**T *|A| and |V|**T *|B|.
@@ -176,10 +176,10 @@
             IF( ( ABS( UA11 )+ABS( UA12 ) ).NE.ZERO ) THEN
                IF( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 / ( ABS( VB11 )+ABS( VB12 ) ) ) THEN
                   CALL DLARTG( UA12, UA11, CSQ, SNQ, R )
-               ELSE
+               } else {
                   CALL DLARTG( VB12, VB11, CSQ, SNQ, R )
                END IF
-            ELSE
+            } else {
                CALL DLARTG( VB12, VB11, CSQ, SNQ, R )
             END IF
 

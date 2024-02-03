@@ -84,7 +84,7 @@
                CNORM( J ) = DASUM( J-1, AP( IP ), 1 )
                IP = IP + J
    10       CONTINUE
-         ELSE
+         } else {
 
             // A is lower triangular.
 
@@ -104,7 +104,7 @@
       TMAX = CNORM( IMAX )
       IF( TMAX.LE.BIGNUM ) THEN
          TSCAL = ONE
-      ELSE
+      } else {
          TSCAL = ONE / ( SMLNUM*TMAX )
          CALL DSCAL( N, TSCAL, CNORM, 1 )
       END IF
@@ -123,7 +123,7 @@
             JFIRST = N
             JLAST = 1
             JINC = -1
-         ELSE
+         } else {
             JFIRST = 1
             JLAST = N
             JINC = 1
@@ -160,7 +160,7 @@
                   // G(j) = G(j-1)*( 1 + CNORM(j) / abs(A(j,j)) )
 
                   GROW = GROW*( TJJ / ( TJJ+CNORM( J ) ) )
-               ELSE
+               } else {
 
                   // G(j) could overflow, set GROW to 0.
 
@@ -170,7 +170,7 @@
                JLEN = JLEN - 1
    30       CONTINUE
             GROW = XBND
-         ELSE
+         } else {
 
             // A is unit triangular.
 
@@ -190,7 +190,7 @@
          END IF
    50    CONTINUE
 
-      ELSE
+      } else {
 
          // Compute the growth in A**T * x = b.
 
@@ -198,7 +198,7 @@
             JFIRST = 1
             JLAST = N
             JINC = 1
-         ELSE
+         } else {
             JFIRST = N
             JLAST = 1
             JINC = -1
@@ -239,7 +239,7 @@
                IP = IP + JINC*JLEN
    60       CONTINUE
             GROW = MIN( GROW, XBND )
-         ELSE
+         } else {
 
             // A is unit triangular.
 
@@ -267,7 +267,7 @@
          // elements of X is not too small.
 
          CALL DTPSV( UPLO, TRANS, DIAG, N, AP, X, 1 )
-      ELSE
+      } else {
 
          // Use a Level 1 BLAS solve, scaling intermediate results.
 
@@ -293,7 +293,7 @@
                XJ = ABS( X( J ) )
                IF( NOUNIT ) THEN
                   TJJS = AP( IP )*TSCAL
-               ELSE
+               } else {
                   TJJS = TSCAL
                   IF( TSCAL.EQ.ONE ) GO TO 100
                END IF
@@ -338,7 +338,7 @@
                   END IF
                   X( J ) = X( J ) / TJJS
                   XJ = ABS( X( J ) )
-               ELSE
+               } else {
 
                      // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                      // scale = 0, and compute a solution to A*x = 0.
@@ -385,7 +385,7 @@
                      XMAX = ABS( X( I ) )
                   END IF
                   IP = IP - J
-               ELSE
+               } else {
                   IF( J.LT.N ) THEN
 
                      // Compute the update
@@ -399,7 +399,7 @@
                END IF
   110       CONTINUE
 
-         ELSE
+         } else {
 
             // Solve A**T * x = b
 
@@ -420,7 +420,7 @@
                   REC = REC*HALF
                   IF( NOUNIT ) THEN
                      TJJS = AP( IP )*TSCAL
-                  ELSE
+                  } else {
                      TJJS = TSCAL
                   END IF
                   TJJ = ABS( TJJS )
@@ -449,7 +449,7 @@
                   ELSE IF( J.LT.N ) THEN
                      SUMJ = DDOT( N-J, AP( IP+1 ), 1, X( J+1 ), 1 )
                   END IF
-               ELSE
+               } else {
 
                   // Otherwise, use in-line code for the dot product.
 
@@ -476,7 +476,7 @@
                      // Compute x(j) = x(j) / A(j,j), scaling if necessary.
 
                      TJJS = AP( IP )*TSCAL
-                  ELSE
+                  } else {
                      TJJS = TSCAL
                      IF( TSCAL.EQ.ONE ) GO TO 150
                   END IF
@@ -511,7 +511,7 @@
                         XMAX = XMAX*REC
                      END IF
                      X( J ) = X( J ) / TJJS
-                  ELSE
+                  } else {
 
                         // A(j,j) = 0:  Set x(1:n) = 0, x(j) = 1, and
                         // scale = 0, and compute a solution to A**T*x = 0.
@@ -524,7 +524,7 @@
                      XMAX = ZERO
                   END IF
   150             CONTINUE
-               ELSE
+               } else {
 
                   // Compute x(j) := x(j) / A(j,j)  - sumj if the dot
                   // product has already been divided by 1/A(j,j).

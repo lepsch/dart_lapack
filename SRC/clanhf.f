@@ -65,11 +65,11 @@
       IF( IFM.EQ.1 ) THEN
          IF( NOE.EQ.1 ) THEN
             LDA = N
-         ELSE
+         } else {
             // noe=0
             LDA = N + 1
          END IF
-      ELSE
+      } else {
          // ifm=0
          LDA = ( N+1 ) / 2
       END IF
@@ -112,7 +112,7 @@
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-               ELSE
+               } else {
                   // uplo = 'U'
                   DO J = 0, K - 2
                      DO I = 0, K + J - 2
@@ -141,7 +141,7 @@
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                   IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                END IF
-            ELSE
+            } else {
                // xpose case; A is k by n
                IF( ILU.EQ.1 ) THEN
                   // uplo ='L'
@@ -178,7 +178,7 @@
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-               ELSE
+               } else {
                   // uplo = 'U'
                   DO J = 0, K - 2
                      DO I = 0, K - 1
@@ -214,7 +214,7 @@
                   END DO
                END IF
             END IF
-         ELSE
+         } else {
             // n is even & k = n/2
             IF( IFM.EQ.1 ) THEN
                // A is n+1 by k
@@ -248,7 +248,7 @@
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-               ELSE
+               } else {
                   // uplo = 'U'
                   DO J = 0, K - 2
                      DO I = 0, K + J - 1
@@ -281,7 +281,7 @@
                   TEMP = ABS( REAL( A( I+J*LDA ) ) )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                END IF
-            ELSE
+            } else {
                // xpose case; A is k by n+1
                IF( ILU.EQ.1 ) THEN
                   // uplo ='L'
@@ -326,7 +326,7 @@
                         IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                      END DO
                   END DO
-               ELSE
+               } else {
                   // uplo = 'U'
                   DO J = 0, K - 1
                      DO I = 0, K - 1
@@ -418,7 +418,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu = 1 & uplo = 'L'
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
@@ -460,7 +460,7 @@
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
-            ELSE
+            } else {
                // n is even & A is n+1 by k = n/2
                IF( ILU.EQ.0 ) THEN
                   // uplo = 'U'
@@ -497,7 +497,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu = 1 & uplo = 'L'
                   DO I = K, N - 1
                      WORK( I ) = ZERO
@@ -536,7 +536,7 @@
                   END DO
                END IF
             END IF
-         ELSE
+         } else {
             // ifm=0
             K = N / 2
             IF( NOE.EQ.1 ) THEN
@@ -600,7 +600,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu=1 & uplo = 'L'
                   K = K + 1
                   // k=(n+1)/2 for n odd and ilu=1
@@ -665,7 +665,7 @@
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
-            ELSE
+            } else {
                // n is even & A is k=n/2 by n+1
                IF( ILU.EQ.0 ) THEN
                   // uplo = 'U'
@@ -737,7 +737,7 @@
                      TEMP = WORK( I )
                      IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
-               ELSE
+               } else {
                   // ilu=1 & uplo = 'L'
                   DO I = K, N - 1
                      WORK( I ) = ZERO
@@ -846,7 +846,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -856,7 +856,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -868,11 +868,11 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
-               ELSE
+               } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL CLASSQ( N-J-1, A( J+1+J*LDA ), 1, SCALE, S )
@@ -890,7 +890,7 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
@@ -903,7 +903,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -913,14 +913,14 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
                      L = L + LDA + 1
                   END DO
                END IF
-            ELSE
+            } else {
                // A is xpose & A is k by n
                IF( ILU.EQ.0 ) THEN
                   // A**H is upper
@@ -946,7 +946,7 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
@@ -959,7 +959,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -969,13 +969,13 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
                      L = L + LDA + 1
                   END DO
-               ELSE
+               } else {
                   // A**H is lower
                   DO J = 1, K - 1
                      CALL CLASSQ( J, A( 0+J*LDA ), 1, SCALE, S )
@@ -1000,7 +1000,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1010,7 +1010,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1023,13 +1023,13 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
                END IF
             END IF
-         ELSE
+         } else {
             // n is even
             IF( IFM.EQ.1 ) THEN
                // A is normal
@@ -1054,7 +1054,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1064,13 +1064,13 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
                      L = L + LDA + 1
                   END DO
-               ELSE
+               } else {
                   // ilu=1 & A is lower
                   DO J = 0, K - 1
                      CALL CLASSQ( N-J-1, A( J+2+J*LDA ), 1, SCALE, S )
@@ -1091,7 +1091,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1101,14 +1101,14 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
                      L = L + LDA + 1
                   END DO
                END IF
-            ELSE
+            } else {
                // A is xpose
                IF( ILU.EQ.0 ) THEN
                   // A**H is upper
@@ -1134,7 +1134,7 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
@@ -1147,7 +1147,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1157,7 +1157,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1171,11 +1171,11 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
-               ELSE
+               } else {
                   // A**H is lower
                   DO J = 1, K - 1
                      CALL CLASSQ( J, A( 0+( J+1 )*LDA ), 1, SCALE, S )
@@ -1199,7 +1199,7 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF
@@ -1212,7 +1212,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1222,7 +1222,7 @@
                         IF( SCALE.LT.AA ) THEN
                            S = ONE + S*( SCALE / AA )**2
                            SCALE = AA
-                        ELSE
+                        } else {
                            S = S + ( AA / SCALE )**2
                         END IF
                      END IF
@@ -1235,7 +1235,7 @@
                      IF( SCALE.LT.AA ) THEN
                         S = ONE + S*( SCALE / AA )**2
                         SCALE = AA
-                     ELSE
+                     } else {
                         S = S + ( AA / SCALE )**2
                      END IF
                   END IF

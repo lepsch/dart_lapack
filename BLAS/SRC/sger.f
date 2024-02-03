@@ -57,7 +57,7 @@
 
       IF (INCY.GT.0) THEN
           JY = 1
-      ELSE
+      } else {
           JY = 1 - (N-1)*INCY
       END IF
       IF (INCX.EQ.1) THEN
@@ -70,10 +70,10 @@
               END IF
               JY = JY + INCY
    20     CONTINUE
-      ELSE
+      } else {
           IF (INCX.GT.0) THEN
               KX = 1
-          ELSE
+          } else {
               KX = 1 - (M-1)*INCX
           END IF
           DO 40 J = 1,N

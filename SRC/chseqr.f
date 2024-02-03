@@ -106,7 +106,7 @@
          WORK( 1 ) = CMPLX( MAX( REAL( WORK( 1 ) ), REAL( MAX( 1, N ) ) ), RZERO )
          RETURN
 
-      ELSE
+      } else {
 
          // ==== copy eigenvalues isolated by CGEBAL ====
 
@@ -132,7 +132,7 @@
 
          IF( N.GT.NMIN ) THEN
             CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
-         ELSE
+         } else {
 
             // ==== Small matrix ====
 
@@ -152,7 +152,7 @@
 
                   CALL CLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 
-               ELSE
+               } else {
 
                   // ==== Tiny matrices don't have enough subdiagonal
                   // .    scratch space to benefit from CLAQR0.  Hence,

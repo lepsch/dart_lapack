@@ -43,7 +43,7 @@
 
       IF( N.EQ.0 ) THEN
          LWKOPT = 1
-      ELSE
+      } else {
          NB = MAX( 1, ILAENV( 1, 'CHETRI_3', UPLO, N, -1, -1, -1 ) )
          LWKOPT = ( N+NB+1 ) * ( NB+3 )
       END IF

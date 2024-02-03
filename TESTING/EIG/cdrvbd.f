@@ -136,7 +136,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -170,7 +170,7 @@
                   S( I ) = ONE
    40          CONTINUE
 
-            ELSE
+            } else {
 
                // (Scaled) random matrix
 
@@ -331,7 +331,7 @@
                      IF( IJQ.EQ.1 ) THEN
                         IF( M.GE.N ) THEN
                            CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO )
-                        ELSE
+                        } else {
                            CALL CUNT03( 'C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO )
                         END IF
                      ELSE IF( IJQ.EQ.2 ) THEN
@@ -347,7 +347,7 @@
                      IF( IJQ.EQ.1 ) THEN
                         IF( M.GE.N ) THEN
                            CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO )
-                        ELSE
+                        } else {
                            CALL CUNT03( 'R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO )
                         END IF
                      ELSE IF( IJQ.EQ.2 ) THEN
@@ -593,7 +593,7 @@
                IF( MNMIN.LE.1 ) THEN
                   IL = 1
                   IU = MAX( 1, MNMIN )
-               ELSE
+               } else {
                   IL = 1 + INT( ( MNMIN-1 )*SLARND( 1, ISEED2 ) )
                   IU = 1 + INT( ( MNMIN-1 )*SLARND( 1, ISEED2 ) )
                   IF( IU.LT.IL ) THEN
@@ -624,18 +624,18 @@
                IF( MNMIN.GT.0 .AND. NSI.GT.1 ) THEN
                   IF( IL.NE.1 ) THEN
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
-                  ELSE
+                  } else {
                      VU = SSAV( 1 ) + MAX( HALF*ABS( SSAV( NS )-SSAV( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                   END IF
                   IF( IU.NE.NS ) THEN
                      VL = SSAV( IU ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( IU+1 )-SSAV( IU ) ) )
-                  ELSE
+                  } else {
                      VL = SSAV( NS ) - MAX( ULP*ANORM, TWO*RTUNFL, HALF*ABS( SSAV( NS )-SSAV( 1 ) ) )
                   END IF
                   VL = MAX( VL,ZERO )
                   VU = MAX( VU,ZERO )
                   IF( VL.GE.VU ) VU = MAX( VU*2, VU+VL+HALF )
-               ELSE
+               } else {
                   VL = ZERO
                   VU = ONE
                END IF

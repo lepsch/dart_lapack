@@ -74,7 +74,7 @@
          DO INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
          END DO
-      ELSE
+      } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
@@ -114,7 +114,7 @@
                // 1 x 1 diagonal NNB
                WORK( K, INVD ) = ONE / REAL( A( K, K ) )
                WORK( K, INVD+1 ) = CZERO
-            ELSE
+            } else {
                // 2 x 2 diagonal NNB
                T = ABS( WORK( K+1, 1 ) )
                AK = REAL( A( K, K ) ) / T
@@ -139,7 +139,7 @@
             NNB = NB
             IF( CUT.LE.NNB ) THEN
                NNB = CUT
-            ELSE
+            } else {
                ICOUNT = 0
                // count negative elements,
                DO I = CUT+1-NNB, CUT
@@ -179,7 +179,7 @@
                   DO J = 1, NNB
                      WORK( I, J ) = WORK( I, INVD ) * WORK( I, J )
                   END DO
-               ELSE
+               } else {
                   DO J = 1, NNB
                      U01_I_J = WORK( I, J )
                      U01_IP1_J = WORK( I+1, J )
@@ -198,7 +198,7 @@
                   DO J = I, NNB
                      WORK( U11+I, J ) = WORK(CUT+I,INVD) * WORK(U11+I,J)
                   END DO
-               ELSE
+               } else {
                   DO J = I, NNB
                      U11_I_J = WORK(U11+I,J)
                      U11_IP1_J = WORK(U11+I+1,J)
@@ -268,7 +268,7 @@
              END IF
          END DO
 
-      ELSE
+      } else {
 
          // Begin Lower
 
@@ -284,7 +284,7 @@
                // 1 x 1 diagonal NNB
                WORK( K, INVD ) = ONE / REAL( A( K, K ) )
                WORK( K, INVD+1 ) = CZERO
-            ELSE
+            } else {
                // 2 x 2 diagonal NNB
                T = ABS( WORK( K-1, 1 ) )
                AK = REAL( A( K-1, K-1 ) ) / T
@@ -309,7 +309,7 @@
             NNB = NB
             IF( (CUT + NNB).GT.N ) THEN
                NNB = N - CUT
-            ELSE
+            } else {
                ICOUNT = 0
                // count negative elements,
                DO I = CUT + 1, CUT+NNB
@@ -347,7 +347,7 @@
                   DO J = 1, NNB
                      WORK( I, J ) = WORK( CUT+NNB+I, INVD) * WORK( I, J)
                   END DO
-               ELSE
+               } else {
                   DO J = 1, NNB
                      U01_I_J = WORK(I,J)
                      U01_IP1_J = WORK(I-1,J)
@@ -367,7 +367,7 @@
                      WORK( U11+I, J ) = WORK( CUT+I, INVD)*WORK(U11+I,J)
                   END DO
 
-               ELSE
+               } else {
                   DO J = 1, NNB
                      U11_I_J = WORK( U11+I, J )
                      U11_IP1_J = WORK( U11+I-1, J )
@@ -416,7 +416,7 @@
                   END DO
                END DO
 
-            ELSE
+            } else {
 
                // L11 =  L11**H * invD1 * L11
 

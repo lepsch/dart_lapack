@@ -118,7 +118,7 @@
             IF( CPREC ) THEN
                KD = 128
                IB = 32
-            ELSE
+            } else {
                KD = 160
                IB = 40
             ENDIF
@@ -126,15 +126,15 @@
             IF( CPREC ) THEN
                KD = 64
                IB = 32
-            ELSE
+            } else {
                KD = 64
                IB = 32
             ENDIF
-         ELSE
+         } else {
             IF( CPREC ) THEN
                KD = 16
                IB = 16
-            ELSE
+            } else {
                KD = 32
                IB = 16
             ENDIF
@@ -152,13 +152,13 @@
          VECT  = OPTS(1:1)
          IF( LSAME( VECT, 'N' ) ) THEN
             LHOUS = MAX( 1, 4*NI )
-         ELSE
+         } else {
             // This is not correct, it need to call the ALGO and the stage2
             LHOUS = MAX( 1, 4*NI ) + IBI
          ENDIF
          IF( LHOUS.GE.0 ) THEN
             IPARAM2STAGE = LHOUS
-         ELSE
+         } else {
             IPARAM2STAGE = -1
          ENDIF
 
@@ -206,7 +206,7 @@
 
          IF( LWORK.GT.0 ) THEN
             IPARAM2STAGE = LWORK
-         ELSE
+         } else {
             IPARAM2STAGE = -1
          ENDIF
 

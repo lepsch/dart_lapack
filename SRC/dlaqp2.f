@@ -61,7 +61,7 @@
 
          IF( OFFPI.LT.M ) THEN
             CALL DLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) )
-         ELSE
+         } else {
             CALL DLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
          END IF
 
@@ -90,11 +90,11 @@
                   IF( OFFPI.LT.M ) THEN
                      VN1( J ) = DNRM2( M-OFFPI, A( OFFPI+1, J ), 1 )
                      VN2( J ) = VN1( J )
-                  ELSE
+                  } else {
                      VN1( J ) = ZERO
                      VN2( J ) = ZERO
                   END IF
-               ELSE
+               } else {
                   VN1( J ) = VN1( J )*SQRT( TEMP )
                END IF
             END IF

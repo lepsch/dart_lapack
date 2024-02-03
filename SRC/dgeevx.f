@@ -87,7 +87,7 @@
          IF( N.EQ.0 ) THEN
             MINWRK = 1
             MAXWRK = 1
-         ELSE
+         } else {
             MAXWRK = N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
 
             IF( WANTVL ) THEN
@@ -100,10 +100,10 @@
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
-            ELSE
+            } else {
                IF( WNTSNN ) THEN
                   CALL DHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
-               ELSE
+               } else {
                   CALL DHSEQR( 'S', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                END IF
             END IF
@@ -114,7 +114,7 @@
                IF( .NOT.WNTSNN ) MINWRK = MAX( MINWRK, N*N+6*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
                IF( .NOT.WNTSNN ) MAXWRK = MAX( MAXWRK, N*N + 6*N )
-            ELSE
+            } else {
                MINWRK = 3*N
                IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 6*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
@@ -227,14 +227,14 @@
          IWRK = ITAU
          CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 
-      ELSE
+      } else {
 
          // Compute eigenvalues only
          // If condition numbers desired, compute Schur form
 
          IF( WNTSNN ) THEN
             JOB = 'E'
-         ELSE
+         } else {
             JOB = 'S'
          END IF
 
@@ -324,7 +324,7 @@
          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR )
          IF( INFO.EQ.0 ) THEN
             IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
-         ELSE
+         } else {
             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR )
          END IF
       END IF

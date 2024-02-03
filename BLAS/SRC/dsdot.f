@@ -34,7 +34,7 @@
          DO I = 1,NS,INCX
             DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I))
          END DO
-      ELSE
+      } else {
 
       // Code for unequal or nonpositive increments.
 

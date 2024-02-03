@@ -51,7 +51,7 @@
       BIGNUM = ( ONE-ULP ) / SMLNUM
       IF( ( IMAT.GE.7 .AND. IMAT.LE.10 ) .OR. IMAT.EQ.18 ) THEN
          DIAG = 'U'
-      ELSE
+      } else {
          DIAG = 'N'
       END IF
       INFO = 0
@@ -65,7 +65,7 @@
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
          CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
-      ELSE
+      } else {
          CALL CLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       END IF
 
@@ -87,7 +87,7 @@
    10          CONTINUE
                A( J, J ) = J
    20       CONTINUE
-         ELSE
+         } else {
             DO 40 J = 1, N
                A( J, J ) = J
                DO 30 I = J + 1, N
@@ -110,7 +110,7 @@
    50          CONTINUE
                A( J, J ) = J
    60       CONTINUE
-         ELSE
+         } else {
             DO 80 J = 1, N
                A( J, J ) = J
                DO 70 I = J + 1, N
@@ -191,7 +191,7 @@
                REXP = SLARND( 2, ISEED )
                IF( REXP.LT.ZERO ) THEN
                   STAR1 = -SFAC**( ONE-REXP )*CLARND( 5, ISEED )
-               ELSE
+               } else {
                   STAR1 = SFAC**( ONE+REXP )*CLARND( 5, ISEED )
                END IF
             END IF
@@ -200,7 +200,7 @@
          X = SQRT( CNDNUM ) - 1 / SQRT( CNDNUM )
          IF( N.GT.2 ) THEN
             Y = SQRT( 2. / ( N-2 ) )*X
-         ELSE
+         } else {
             Y = ZERO
          END IF
          Z = X*X
@@ -215,7 +215,7 @@
                A( J, N ) = Y
   100       CONTINUE
             A( 1, N ) = Z
-         ELSE
+         } else {
             IF( N.GT.3 ) THEN
                CALL CCOPY( N-3, WORK, 1, A( 3, 2 ), LDA+1 )
                IF( N.GT.4 ) CALL CCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
@@ -247,7 +247,7 @@
 
                A( J, J+1 ) = -A( J, J+1 )
   120       CONTINUE
-         ELSE
+         } else {
             DO 130 J = 1, N - 1
                RA = A( J+1, J )
                RB = 2.0
@@ -283,7 +283,7 @@
                CALL CLARNV( 4, ISEED, J-1, A( 1, J ) )
                A( J, J ) = CLARND( 5, ISEED )*TWO
   140       CONTINUE
-         ELSE
+         } else {
             DO 150 J = 1, N
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = CLARND( 5, ISEED )*TWO
@@ -313,7 +313,7 @@
                A( J, J ) = CLARND( 5, ISEED )
   160       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
-         ELSE
+         } else {
             DO 170 J = 1, N
                IF( J.LT.N ) THEN
                   CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
@@ -337,7 +337,7 @@
                A( J, J ) = CLARND( 5, ISEED )
   180       CONTINUE
             A( N, N ) = SMLNUM*A( N, N )
-         ELSE
+         } else {
             DO 190 J = 1, N
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = CLARND( 5, ISEED )
@@ -359,13 +359,13 @@
   200          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   A( J, J ) = SMLNUM*CLARND( 5, ISEED )
-               ELSE
+               } else {
                   A( J, J ) = CLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
   210       CONTINUE
-         ELSE
+         } else {
             JCOUNT = 1
             DO 230 J = 1, N
                DO 220 I = J + 1, N
@@ -373,7 +373,7 @@
   220          CONTINUE
                IF( JCOUNT.LE.2 ) THEN
                   A( J, J ) = SMLNUM*CLARND( 5, ISEED )
-               ELSE
+               } else {
                   A( J, J ) = CLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
@@ -389,7 +389,7 @@
                B( I ) = ZERO
                B( I-1 ) = SMLNUM*CLARND( 5, ISEED )
   240       CONTINUE
-         ELSE
+         } else {
             B( N ) = ZERO
             DO 250 I = 1, N - 1, 2
                B( I ) = ZERO
@@ -415,7 +415,7 @@
                A( J, J ) = TSCAL*CLARND( 5, ISEED )
   270       CONTINUE
             B( N ) = CMPLX( ONE, ONE )
-         ELSE
+         } else {
             DO 290 J = 1, N
                DO 280 I = J + 2, N
                   A( I, J ) = 0.
@@ -436,16 +436,16 @@
                CALL CLARNV( 4, ISEED, J-1, A( 1, J ) )
                IF( J.NE.IY ) THEN
                   A( J, J ) = CLARND( 5, ISEED )*TWO
-               ELSE
+               } else {
                   A( J, J ) = ZERO
                END IF
   300       CONTINUE
-         ELSE
+         } else {
             DO 310 J = 1, N
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
                IF( J.NE.IY ) THEN
                   A( J, J ) = CLARND( 5, ISEED )*TWO
-               ELSE
+               } else {
                   A( J, J ) = ZERO
                END IF
   310       CONTINUE
@@ -479,7 +479,7 @@
                TEXP = TEXP*2.
   340       CONTINUE
             B( 1 ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL
-         ELSE
+         } else {
             DO 350 J = 1, N - 1, 2
                A( N, J ) = -TSCAL / REAL( N+1 )
                A( J, J ) = ONE
@@ -503,7 +503,7 @@
                CALL CLARNV( 4, ISEED, J-1, A( 1, J ) )
                A( J, J ) = ZERO
   360       CONTINUE
-         ELSE
+         } else {
             DO 370 J = 1, N
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZERO
@@ -535,7 +535,7 @@
                   A( I, J ) = A( I, J )*( TLEFT+RWORK( I )*TSCAL )
   380          CONTINUE
   390       CONTINUE
-         ELSE
+         } else {
             DO 410 J = 1, N
                CALL CLARNV( 5, ISEED, N-J+1, A( J, J ) )
                CALL SLARNV( 1, ISEED, N-J+1, RWORK )
@@ -555,7 +555,7 @@
             DO 420 J = 1, N / 2
                CALL CSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 )
   420       CONTINUE
-         ELSE
+         } else {
             DO 430 J = 1, N / 2
                CALL CSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA )
   430       CONTINUE

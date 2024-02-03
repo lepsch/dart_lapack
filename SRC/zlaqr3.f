@@ -49,7 +49,7 @@
       JW = MIN( NW, KBOT-KTOP+1 )
       IF( JW.LE.2 ) THEN
          LWKOPT = 1
-      ELSE
+      } else {
 
          // ==== Workspace query call to ZGEHRD ====
 
@@ -100,7 +100,7 @@
       KWTOP = KBOT - JW + 1
       IF( KWTOP.EQ.KTOP ) THEN
          S = ZERO
-      ELSE
+      } else {
          S = H( KWTOP, KWTOP-1 )
       END IF
 
@@ -133,7 +133,7 @@
       NMIN = ILAENV( 12, 'ZLAQR3', 'SV', JW, 1, JW, LWORK )
       IF( JW.GT.NMIN ) THEN
          CALL ZLAQR4( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
-      ELSE
+      } else {
          CALL ZLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR )
       END IF
 
@@ -151,7 +151,7 @@
             // ==== One more converged eigenvalue ====
 
             NS = NS - 1
-         ELSE
+         } else {
 
             // ==== One undeflatable eigenvalue.  Move it up out of the
             // .    way.   (ZTREXC can not fail in this case.) ====
@@ -223,7 +223,7 @@
 
          IF( WANTT ) THEN
             LTOP = 1
-         ELSE
+         } else {
             LTOP = KTOP
          END IF
          DO 60 KROW = LTOP, KWTOP - 1, NV

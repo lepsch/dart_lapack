@@ -125,15 +125,15 @@
                    // H(I,J) = T(I,I)*U(I,J) + T(I+1,I)*U(I+1,J)
                   IF( I .EQ. (J-1) ) THEN
                      JB = NB+KB
-                  ELSE
+                  } else {
                      JB = 2*NB
                   END IF
                   CALL ZGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( (I-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
-               ELSE
+               } else {
                   // H(I,J) = T(I,I-1)*U(I-1,J) + T(I,I)*U(I,J) + T(I,I+1)*U(I+1,J)
                   IF( I .EQ. (J-1) ) THEN
                      JB = 2*NB+KB
-                  ELSE
+                  } else {
                      JB = 3*NB
                   END IF
                   CALL ZGEMM( 'NoTranspose', 'NoTranspose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( (I-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
@@ -171,7 +171,7 @@
 
                   IF( J.EQ.1 ) THEN
                      CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( (J-1)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
-                  ELSE
+                  } else {
                      CALL ZGEMM( 'NoTranspose', 'NoTranspose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( (J-2)*NB+1, J*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
                   END IF
 
@@ -244,7 +244,7 @@
                END DO
             END IF
          END DO
-      ELSE
+      } else {
 
          // .....................................................
          // Factorize A as L*D*L**T using the lower triangle of A
@@ -260,15 +260,15 @@
                    // H(I,J) = T(I,I)*L(J,I)' + T(I+1,I)'*L(J,I+1)'
                   IF( I .EQ. (J-1) ) THEN
                      JB = NB+KB
-                  ELSE
+                  } else {
                      JB = 2*NB
                   END IF
                   CALL ZGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, CONE, TB( TD+1 + (I*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-1)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
-               ELSE
+               } else {
                   // H(I,J) = T(I,I-1)*L(J,I-1)' + T(I,I)*L(J,I)' + T(I,I+1)*L(J,I+1)'
                   IF( I .EQ. (J-1) ) THEN
                      JB = 2*NB+KB
-                  ELSE
+                  } else {
                      JB = 3*NB
                   END IF
                   CALL ZGEMM( 'NoTranspose', 'Transpose', NB, KB, JB, CONE,  TB( TD+NB+1 + ((I-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (I-2)*NB+1 ), LDA, CZERO, WORK( I*NB+1 ), N )
@@ -314,7 +314,7 @@
 
                   IF( J.EQ.1 ) THEN
                      CALL ZGEMM( 'NoTranspose', 'Transpose', KB, KB, KB, CONE,  TB( TD+1 + (J*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-1)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
-                  ELSE
+                  } else {
                      CALL ZGEMM( 'NoTranspose', 'Transpose', KB, KB, NB+KB, CONE, TB( TD+NB+1 + ((J-1)*NB)*LDTB ), LDTB-1, A( J*NB+1, (J-2)*NB+1 ), LDA, CZERO, WORK( J*NB+1 ), N )
                   END IF
 

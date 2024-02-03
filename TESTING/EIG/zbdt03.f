@@ -63,12 +63,12 @@
                IF( J.GT.1 ) THEN
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
                   BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J-1 ) ) )
-               ELSE
+               } else {
                   BNORM = MAX( BNORM, ABS( D( J ) ) )
                END IF
                RESID = MAX( RESID, DZASUM( N, WORK, 1 ) )
    20       CONTINUE
-         ELSE
+         } else {
 
             // B is lower bidiagonal.
 
@@ -81,13 +81,13 @@
                IF( J.LT.N ) THEN
                   WORK( J+1 ) = WORK( J+1 ) + E( J )
                   BNORM = MAX( BNORM, ABS( D( J ) )+ABS( E( J ) ) )
-               ELSE
+               } else {
                   BNORM = MAX( BNORM, ABS( D( J ) ) )
                END IF
                RESID = MAX( RESID, DZASUM( N, WORK, 1 ) )
    40       CONTINUE
          END IF
-      ELSE
+      } else {
 
          // B is diagonal.
 
@@ -109,13 +109,13 @@
 
       IF( BNORM.LE.ZERO ) THEN
          IF( RESID.NE.ZERO ) RESID = ONE / EPS
-      ELSE
+      } else {
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
-         ELSE
+         } else {
             IF( BNORM.LT.ONE ) THEN
                RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
-            ELSE
+            } else {
                RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF

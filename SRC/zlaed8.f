@@ -139,7 +139,7 @@
             K2 = K2 - 1
             INDXP( K2 ) = J
             IF( J.EQ.N ) GO TO 100
-         ELSE
+         } else {
             JLAM = J
             GO TO 70
          END IF
@@ -153,7 +153,7 @@
 
          K2 = K2 - 1
          INDXP( K2 ) = J
-      ELSE
+      } else {
 
          // Check if eigenvalues are close enough to allow deflation.
 
@@ -194,14 +194,14 @@
                   INDXP( K2+I ) = JLAM
                   I = I + 1
                   GO TO 80
-               ELSE
+               } else {
                   INDXP( K2+I-1 ) = JLAM
                END IF
-            ELSE
+            } else {
                INDXP( K2+I-1 ) = JLAM
             END IF
             JLAM = J
-         ELSE
+         } else {
             K = K + 1
             W( K ) = Z( JLAM )
             DLAMBDA( K ) = D( JLAM )

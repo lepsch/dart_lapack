@@ -142,11 +142,11 @@
                   MAXWRK = MAX( MAXWRK, M*M + M + BDSPAC )
                   IF( NRHS.GT.1 ) THEN
                      MAXWRK = MAX( MAXWRK, M*M + M + M*NRHS )
-                  ELSE
+                  } else {
                      MAXWRK = MAX( MAXWRK, M*M + 2*M )
                   END IF
                   MAXWRK = MAX( MAXWRK, M + LWORK_SORMLQ )
-               ELSE
+               } else {
 
                   // Path 2 - underdetermined
 
@@ -305,7 +305,7 @@
             IF( S( I ).GT.THR ) THEN
                CALL SRSCL( NRHS, S( I ), B( I, 1 ), LDB )
                RANK = RANK + 1
-            ELSE
+            } else {
                CALL SLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
             END IF
    10    CONTINUE
@@ -385,7 +385,7 @@
             IF( S( I ).GT.THR ) THEN
                CALL SRSCL( NRHS, S( I ), B( I, 1 ), LDB )
                RANK = RANK + 1
-            ELSE
+            } else {
                CALL SLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
             END IF
    30    CONTINUE
@@ -418,7 +418,7 @@
 
          CALL SORMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 
-      ELSE
+      } else {
 
          // Path 2 - remaining underdetermined cases
 
@@ -459,7 +459,7 @@
             IF( S( I ).GT.THR ) THEN
                CALL SRSCL( NRHS, S( I ), B( I, 1 ), LDB )
                RANK = RANK + 1
-            ELSE
+            } else {
                CALL SLASET( 'F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
             END IF
    50    CONTINUE

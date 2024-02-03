@@ -48,7 +48,7 @@
          EQUED = 'N'
          ROWEQU = .FALSE.
          COLEQU = .FALSE.
-      ELSE
+      } else {
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          SMLNUM = DLAMCH( 'Safe minimum' )
@@ -71,7 +71,7 @@
          INFO = -8
       ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -10
-      ELSE
+      } else {
          IF( ROWEQU ) THEN
             RCMIN = BIGNUM
             RCMAX = ZERO
@@ -83,7 +83,7 @@
                INFO = -11
             ELSE IF( N.GT.0 ) THEN
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-            ELSE
+            } else {
                ROWCND = ONE
             END IF
          END IF
@@ -98,7 +98,7 @@
                INFO = -12
             ELSE IF( N.GT.0 ) THEN
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-            ELSE
+            } else {
                COLCND = ONE
             END IF
          END IF
@@ -166,7 +166,7 @@
             RPVGRW = ZLANTR( 'M', 'U', 'N', INFO, INFO, AF, LDAF, RWORK )
             IF( RPVGRW.EQ.ZERO ) THEN
                RPVGRW = ONE
-            ELSE
+            } else {
                RPVGRW = ZLANGE( 'M', N, INFO, A, LDA, RWORK ) / RPVGRW
             END IF
             RWORK( 1 ) = RPVGRW
@@ -180,14 +180,14 @@
 
       IF( NOTRAN ) THEN
          NORM = '1'
-      ELSE
+      } else {
          NORM = 'I'
       END IF
       ANORM = ZLANGE( NORM, N, N, A, LDA, RWORK )
       RPVGRW = ZLANTR( 'M', 'U', 'N', N, N, AF, LDAF, RWORK )
       IF( RPVGRW.EQ.ZERO ) THEN
          RPVGRW = ONE
-      ELSE
+      } else {
          RPVGRW = ZLANGE( 'M', N, N, A, LDA, RWORK ) / RPVGRW
       END IF
 

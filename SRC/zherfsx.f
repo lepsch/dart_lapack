@@ -67,7 +67,7 @@
       IF ( NPARAMS .GE. LA_LINRX_ITREF_I ) THEN
          IF ( PARAMS( LA_LINRX_ITREF_I ) .LT. 0.0D+0 ) THEN
             PARAMS( LA_LINRX_ITREF_I ) = ITREF_DEFAULT
-         ELSE
+         } else {
             REF_TYPE = PARAMS( LA_LINRX_ITREF_I )
          END IF
       END IF
@@ -83,7 +83,7 @@
       IF ( NPARAMS.GE.LA_LINRX_ITHRESH_I ) THEN
          IF ( PARAMS( LA_LINRX_ITHRESH_I ).LT.0.0D+0 ) THEN
             PARAMS( LA_LINRX_ITHRESH_I ) = ITHRESH
-         ELSE
+         } else {
             ITHRESH = INT( PARAMS( LA_LINRX_ITHRESH_I ) )
          END IF
       END IF
@@ -91,10 +91,10 @@
          IF ( PARAMS(LA_LINRX_CWISE_I ).LT.0.0D+0 ) THEN
             IF ( IGNORE_CWISE ) THEN
                PARAMS( LA_LINRX_CWISE_I ) = 0.0D+0
-            ELSE
+            } else {
                PARAMS( LA_LINRX_CWISE_I ) = 1.0D+0
             END IF
-         ELSE
+         } else {
             IGNORE_CWISE = PARAMS( LA_LINRX_CWISE_I ) .EQ. 0.0D+0
          END IF
       END IF
@@ -102,7 +102,7 @@
          N_NORMS = 0
       ELSE IF ( IGNORE_CWISE ) THEN
          N_NORMS = 1
-      ELSE
+      } else {
          N_NORMS = 2
       END IF
 
@@ -195,7 +195,7 @@
 
          IF ( RCEQU ) THEN
             RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .TRUE., INFO, WORK, RWORK )
-         ELSE
+         } else {
             RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .FALSE., INFO, WORK, RWORK )
          END IF
          DO J = 1, NRHS
@@ -236,7 +236,7 @@
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
          DO J = 1, NRHS
             IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = ZLA_HERCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X( 1, J ), INFO, WORK, RWORK )
-            ELSE
+            } else {
                RCOND_TMP = 0.0D+0
             END IF
 

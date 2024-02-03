@@ -90,7 +90,7 @@
             // Multiply by inv(U).
 
             CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(L).
 

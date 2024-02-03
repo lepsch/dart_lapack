@@ -54,7 +54,7 @@
          INFO = -2
       ELSE IF( K.LT.0 ) THEN
          INFO = -3
-      ELSE
+      } else {
          INCR = .TRUE.
          DECR = .TRUE.
          DO 10 I = 1, K - 1
@@ -78,7 +78,7 @@
 
       IF( K.EQ.1 ) THEN
          SEP( 1 ) = DLAMCH( 'O' )
-      ELSE
+      } else {
          OLDGAP = ABS( D( 2 )-D( 1 ) )
          SEP( 1 ) = OLDGAP
          DO 20 I = 2, K - 1
@@ -102,7 +102,7 @@
       ANORM = MAX( ABS( D( 1 ) ), ABS( D( K ) ) )
       IF( ANORM.EQ.ZERO ) THEN
          THRESH = EPS
-      ELSE
+      } else {
          THRESH = MAX( EPS*ANORM, SAFMIN )
       END IF
       DO 30 I = 1, K

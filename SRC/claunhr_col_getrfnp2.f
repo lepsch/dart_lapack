@@ -98,13 +98,13 @@
 
          IF( CABS1( A( 1, 1 ) ) .GE. SFMIN ) THEN
             CALL CSCAL( M-1, CONE / A( 1, 1 ), A( 2, 1 ), 1 )
-         ELSE
+         } else {
             DO I = 2, M
                A( I, 1 ) = A( I, 1 ) / A( 1, 1 )
             END DO
          END IF
 
-      ELSE
+      } else {
 
          // Divide the matrix B into four submatrices
 

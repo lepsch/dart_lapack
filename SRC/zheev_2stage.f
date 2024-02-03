@@ -127,7 +127,7 @@
 
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
-      ELSE
+      } else {
          CALL ZUNGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
          INDWRK = INDE + N
          CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA, RWORK( INDWRK ), INFO )
@@ -138,7 +138,7 @@
       IF( ISCALE.EQ.1 ) THEN
          IF( INFO.EQ.0 ) THEN
             IMAX = N
-         ELSE
+         } else {
             IMAX = INFO - 1
          END IF
          CALL DSCAL( IMAX, ONE / SIGMA, W, 1 )

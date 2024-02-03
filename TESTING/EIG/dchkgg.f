@@ -122,7 +122,7 @@
 
          IF( NSIZES.NE.1 ) THEN
             MTYPES = MIN( MAXTYP, NTYPES )
-         ELSE
+         } else {
             MTYPES = MIN( MAXTYP+1, NTYPES )
          END IF
 
@@ -175,7 +175,7 @@
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
-               ELSE
+               } else {
                   IN = N
                END IF
                CALL DLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
@@ -187,7 +187,7 @@
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
                   IF( IN.NE.N ) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA )
-               ELSE
+               } else {
                   IN = N
                END IF
                CALL DLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
@@ -229,7 +229,7 @@
    70             CONTINUE
                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
                END IF
-            ELSE
+            } else {
 
                // Random matrices
 
@@ -493,7 +493,7 @@
                TEMP2 = TEMP2 / MAX( SAFMIN, ULP*MAX( TEMP2, BNORM ) )
                RESULT( 15 ) = MAX( TEMP1, TEMP2 )
                NTEST = 15
-            ELSE
+            } else {
                RESULT( 13 ) = ZERO
                RESULT( 14 ) = ZERO
                RESULT( 15 ) = ZERO
@@ -531,7 +531,7 @@
                   NERRS = NERRS + 1
                   IF( RESULT( JR ).LT.10000.0D0 ) THEN
                      WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
-                  ELSE
+                  } else {
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   END IF
                END IF

@@ -72,7 +72,7 @@
       AINVNM = ZERO
       IF( ONENRM ) THEN
          KASE1 = 1
-      ELSE
+      } else {
          KASE1 = 2
       END IF
       KASE = 0
@@ -84,7 +84,7 @@
             // Multiply by inv(U)*inv(L).
 
             CALL SGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
-         ELSE
+         } else {
 
             // Multiply by inv(L**T)*inv(U**T).
 

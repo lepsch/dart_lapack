@@ -46,7 +46,7 @@
       IF( LEFT ) THEN
          NQ = M
          NW = MAX( 1, N )
-      ELSE
+      } else {
          NQ = N
          NW = MAX( 1, M )
       END IF
@@ -75,18 +75,18 @@
             IF( APPLYQ ) THEN
                IF( LEFT ) THEN
                   NB = ILAENV( 1, 'CUNMQR', SIDE // TRANS, M-1, N, M-1, -1 )
-               ELSE
+               } else {
                   NB = ILAENV( 1, 'CUNMQR', SIDE // TRANS, M, N-1, N-1, -1 )
                END IF
-            ELSE
+            } else {
                IF( LEFT ) THEN
                   NB = ILAENV( 1, 'CUNMLQ', SIDE // TRANS, M-1, N, M-1, -1 )
-               ELSE
+               } else {
                   NB = ILAENV( 1, 'CUNMLQ', SIDE // TRANS, M, N-1, N-1, -1 )
                END IF
             END IF
             LWKOPT = NW*NB
-         ELSE
+         } else {
             LWKOPT = 1
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
@@ -121,7 +121,7 @@
                NI = N
                I1 = 2
                I2 = 1
-            ELSE
+            } else {
                MI = M
                NI = N - 1
                I1 = 1
@@ -129,13 +129,13 @@
             END IF
             CALL CUNMQR( SIDE, TRANS, MI, NI, NQ-1, A( 2, 1 ), LDA, TAU, C( I1, I2 ), LDC, WORK, LWORK, IINFO )
          END IF
-      ELSE
+      } else {
 
          // Apply P
 
          IF( NOTRAN ) THEN
             TRANST = 'C'
-         ELSE
+         } else {
             TRANST = 'N'
          END IF
          IF( NQ.GT.K ) THEN
@@ -152,7 +152,7 @@
                NI = N
                I1 = 2
                I2 = 1
-            ELSE
+            } else {
                MI = M
                NI = N - 1
                I1 = 1

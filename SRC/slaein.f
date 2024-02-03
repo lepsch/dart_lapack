@@ -67,7 +67,7 @@
             DO 30 I = 1, N
                VR( I ) = EPS3
    30       CONTINUE
-         ELSE
+         } else {
 
             // Scale supplied initial vector.
 
@@ -93,7 +93,7 @@
                      B( I+1, J ) = B( I, J ) - X*TEMP
                      B( I, J ) = TEMP
    40             CONTINUE
-               ELSE
+               } else {
 
                   // Eliminate without interchange.
 
@@ -110,7 +110,7 @@
 
             TRANS = 'N'
 
-         ELSE
+         } else {
 
             // UL decomposition with partial pivoting of B, replacing zero
             // pivots by EPS3.
@@ -128,7 +128,7 @@
                      B( I, J-1 ) = B( I, J ) - X*TEMP
                      B( I, J ) = TEMP
    70             CONTINUE
-               ELSE
+               } else {
 
                   // Eliminate without interchange.
 
@@ -182,7 +182,7 @@
 
          I = ISAMAX( N, VR, 1 )
          CALL SSCAL( N, ONE / ABS( VR( I ) ), VR, 1 )
-      ELSE
+      } else {
 
          // Complex eigenvalue.
 
@@ -194,7 +194,7 @@
                VR( I ) = EPS3
                VI( I ) = ZERO
   130       CONTINUE
-         ELSE
+         } else {
 
             // Scale supplied initial vector.
 
@@ -238,7 +238,7 @@
                   B( I+2, I ) = -WI
                   B( I+1, I+1 ) = B( I+1, I+1 ) - XI*WI
                   B( I+2, I+1 ) = B( I+2, I+1 ) + XR*WI
-               ELSE
+               } else {
 
                   // Eliminate without interchanging rows.
 
@@ -267,7 +267,7 @@
             I1 = N
             I2 = 1
             I3 = -1
-         ELSE
+         } else {
 
             // UL decomposition with partial pivoting of conjg(B),
             // replacing zero pivots by EPS3.
@@ -301,7 +301,7 @@
                   B( J+1, J-1 ) = WI
                   B( J-1, J-1 ) = B( J-1, J-1 ) + XI*WI
                   B( J, J-1 ) = B( J, J-1 ) - XR*WI
-               ELSE
+               } else {
 
                   // Eliminate without interchange.
 
@@ -359,7 +359,7 @@
                      XR = XR - B( I, J )*VR( J ) + B( J+1, I )*VI( J )
                      XI = XI - B( I, J )*VI( J ) - B( J+1, I )*VR( J )
   220             CONTINUE
-               ELSE
+               } else {
                   DO 230 J = 1, I - 1
                      XR = XR - B( J, I )*VR( J ) + B( I+1, J )*VI( J )
                      XI = XI - B( J, I )*VI( J ) - B( I+1, J )*VR( J )
@@ -386,7 +386,7 @@
                   CALL SLADIV( XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) )
                   VMAX = MAX( ABS( VR( I ) )+ABS( VI( I ) ), VMAX )
                   VCRIT = BIGNUM / VMAX
-               ELSE
+               } else {
                   DO 240 J = 1, N
                      VR( J ) = ZERO
                      VI( J ) = ZERO

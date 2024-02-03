@@ -46,7 +46,7 @@
          INFO = -6
       ELSE IF( LDT.LT.MAX( 1, MIN( NB, N ) ) ) THEN
          INFO = -8
-      ELSE
+      } else {
 
          // Test the input LWORK for the dimension of the array WORK.
          // This workspace is used to store array C(LDC, N) and WORK(LWORK)
@@ -54,7 +54,7 @@
 
          IF( LWORK.LT.2 .AND. (.NOT.LQUERY) ) THEN
             INFO = -10
-         ELSE
+         } else {
 
             // Set block size for column blocks
 

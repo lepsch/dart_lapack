@@ -85,7 +85,7 @@
       IF( TRAN ) THEN
          NX = M
          MB = N
-      ELSE
+      } else {
          NX = N
          MB = M
       END IF
@@ -143,7 +143,7 @@
          CALL DLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
             DIAG = 'U'
-         ELSE
+         } else {
             DIAG = 'N'
          END IF
          CALL DTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
@@ -155,7 +155,7 @@
          CALL DLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
             DIAG = 'U'
-         ELSE
+         } else {
             DIAG = 'N'
          END IF
          DO 50 J = 1, NRHS
@@ -169,14 +169,14 @@
          CALL DLACPY( 'Full', N, NRHS, X, LDX, B, LDB )
          IF( KU.EQ.2 ) THEN
             DIAG = 'U'
-         ELSE
+         } else {
             DIAG = 'N'
          END IF
          DO 60 J = 1, NRHS
             CALL DTBMV( UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 )
    60    CONTINUE
 
-      ELSE
+      } else {
 
          // If PATH is none of the above, return with an error code.
 

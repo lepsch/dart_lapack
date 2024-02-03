@@ -43,13 +43,13 @@
       IF( ORGATI ) THEN
          LBD = D(2)
          UBD = D(3)
-      ELSE
+      } else {
          LBD = D(1)
          UBD = D(2)
       END IF
       IF( FINIT .LT. ZERO )THEN
          LBD = ZERO
-      ELSE
+      } else {
          UBD = ZERO
       END IF
 
@@ -61,7 +61,7 @@
             C = RHO + Z( 1 ) / ( ( D( 1 )-D( 2 ) )-TEMP )
             A = C*( D( 2 )+D( 3 ) ) + Z( 2 ) + Z( 3 )
             B = C*D( 2 )*D( 3 ) + Z( 2 )*D( 3 ) + Z( 3 )*D( 2 )
-         ELSE
+         } else {
             TEMP = ( D( 1 )-D( 2 ) ) / TWO
             C = RHO + Z( 3 ) / ( ( D( 3 )-D( 2 ) )-TEMP )
             A = C*( D( 1 )+D( 2 ) ) + Z( 1 ) + Z( 2 )
@@ -75,17 +75,17 @@
             TAU = B / A
          ELSE IF( A.LE.ZERO ) THEN
             TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-         ELSE
+         } else {
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          END IF
          IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD+UBD )/TWO
          IF( D(1).EQ.TAU .OR. D(2).EQ.TAU .OR. D(3).EQ.TAU ) THEN
             TAU = ZERO
-         ELSE
+         } else {
             TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) + TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) + TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
             IF( TEMP .LE. ZERO )THEN
                LBD = TAU
-            ELSE
+            } else {
                UBD = TAU
             END IF
             IF( ABS( FINIT ).LE.ABS( TEMP ) ) TAU = ZERO
@@ -110,7 +110,7 @@
 
       IF( ORGATI ) THEN
          TEMP = MIN( ABS( D( 2 )-TAU ), ABS( D( 3 )-TAU ) )
-      ELSE
+      } else {
          TEMP = MIN( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) )
       END IF
       SCALE = .FALSE.
@@ -122,7 +122,7 @@
 
             SCLFAC = SMINV2
             SCLINV = SMALL2
-         ELSE
+         } else {
 
          // Scale up by power of radix nearest 1/SAFMIN**(1/3)
 
@@ -139,7 +139,7 @@
          TAU = TAU*SCLFAC
          LBD = LBD*SCLFAC
          UBD = UBD*SCLFAC
-      ELSE
+      } else {
 
          // Copy D and Z to DSCALE and ZSCALE
 
@@ -166,7 +166,7 @@
       IF( ABS( F ).LE.ZERO ) GO TO 60
       IF( F .LE. ZERO )THEN
          LBD = TAU
-      ELSE
+      } else {
          UBD = TAU
       END IF
 
@@ -188,7 +188,7 @@
          IF( ORGATI ) THEN
             TEMP1 = DSCALE( 2 ) - TAU
             TEMP2 = DSCALE( 3 ) - TAU
-         ELSE
+         } else {
             TEMP1 = DSCALE( 1 ) - TAU
             TEMP2 = DSCALE( 2 ) - TAU
          END IF
@@ -203,7 +203,7 @@
             ETA = B / A
          ELSE IF( A.LE.ZERO ) THEN
             ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
-         ELSE
+         } else {
             ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          END IF
          IF( F*ETA.GE.ZERO ) THEN
@@ -228,7 +228,7 @@
                ERRETM = ERRETM + ABS( TEMP4 )
                DF = DF + TEMP2
                DDF = DDF + TEMP3
-            ELSE
+            } else {
                GO TO 60
             END IF
    40    CONTINUE
@@ -236,7 +236,7 @@
          ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) .OR. ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
          IF( F .LE. ZERO )THEN
             LBD = TAU
-         ELSE
+         } else {
             UBD = TAU
          END IF
    50 CONTINUE

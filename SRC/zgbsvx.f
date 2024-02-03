@@ -51,7 +51,7 @@
          EQUED = 'N'
          ROWEQU = .FALSE.
          COLEQU = .FALSE.
-      ELSE
+      } else {
          ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
          COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          SMLNUM = DLAMCH( 'Safe minimum' )
@@ -78,7 +78,7 @@
          INFO = -10
       ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -12
-      ELSE
+      } else {
          IF( ROWEQU ) THEN
             RCMIN = BIGNUM
             RCMAX = ZERO
@@ -90,7 +90,7 @@
                INFO = -13
             ELSE IF( N.GT.0 ) THEN
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-            ELSE
+            } else {
                ROWCND = ONE
             END IF
          END IF
@@ -105,7 +105,7 @@
                INFO = -14
             ELSE IF( N.GT.0 ) THEN
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
-            ELSE
+            } else {
                COLCND = ONE
             END IF
          END IF
@@ -184,7 +184,7 @@
             RPVGRW = ZLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, RWORK )
             IF( RPVGRW.EQ.ZERO ) THEN
                RPVGRW = ONE
-            ELSE
+            } else {
                RPVGRW = ANORM / RPVGRW
             END IF
             RWORK( 1 ) = RPVGRW
@@ -198,14 +198,14 @@
 
       IF( NOTRAN ) THEN
          NORM = '1'
-      ELSE
+      } else {
          NORM = 'I'
       END IF
       ANORM = ZLANGB( NORM, N, KL, KU, AB, LDAB, RWORK )
       RPVGRW = ZLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, RWORK )
       IF( RPVGRW.EQ.ZERO ) THEN
          RPVGRW = ONE
-      ELSE
+      } else {
          RPVGRW = ZLANGB( 'M', N, KL, KU, AB, LDAB, RWORK ) / RPVGRW
       END IF
 

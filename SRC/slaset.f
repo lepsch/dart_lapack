@@ -49,7 +49,7 @@
    30       CONTINUE
    40    CONTINUE
 
-      ELSE
+      } else {
 
          // Set the leading m-by-n submatrix to ALPHA.
 

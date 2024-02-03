@@ -51,7 +51,7 @@
          // No equilibration
 
          EQUED = 'N'
-      ELSE
+      } else {
 
          // Replace A by diag(S) * A * diag(S).
 
@@ -66,7 +66,7 @@
    10          CONTINUE
                A( J, J ) = CJ*CJ*REAL( A( J, J ) )
    20       CONTINUE
-         ELSE
+         } else {
 
             // Lower triangle of A is stored.
 

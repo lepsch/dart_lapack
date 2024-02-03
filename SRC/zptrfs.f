@@ -110,7 +110,7 @@
                DX = D( 1 )*X( 1, J )
                WORK( 1 ) = BI - DX
                RWORK( 1 ) = CABS1( BI ) + CABS1( DX )
-            ELSE
+            } else {
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                EX = E( 1 )*X( 2, J )
@@ -130,13 +130,13 @@
                WORK( N ) = BI - CX - DX
                RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX )
             END IF
-         ELSE
+         } else {
             IF( N.EQ.1 ) THEN
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                WORK( 1 ) = BI - DX
                RWORK( 1 ) = CABS1( BI ) + CABS1( DX )
-            ELSE
+            } else {
                BI = B( 1, J )
                DX = D( 1 )*X( 1, J )
                EX = DCONJG( E( 1 ) )*X( 2, J )
@@ -171,7 +171,7 @@
          DO 50 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
-            ELSE
+            } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    50    CONTINUE
@@ -215,7 +215,7 @@
          DO 60 I = 1, N
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
-            ELSE
+            } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    60    CONTINUE

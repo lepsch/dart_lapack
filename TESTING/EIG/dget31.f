@@ -108,7 +108,7 @@
                            DO 10 IWR = 1, 4
                               IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
                                  WR = VWR( IWR )*A( 1, 1 )
-                              ELSE
+                              } else {
                                  WR = VWR( IWR )
                               END IF
                               WI = ZERO
@@ -116,7 +116,7 @@
                               IF( INFO.LT.0 ) NINFO( 1 ) = NINFO( 1 ) + 1                               IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )-SCALE*B( 1, 1 ) )
                               IF( INFO.EQ.0 ) THEN
                                  DEN = MAX( EPS*( ABS( ( CA*A( 1, 1 )-WR*D1 )*X( 1, 1 ) ) ), SMLNUM )
-                              ELSE
+                              } else {
                                  DEN = MAX( SMIN*ABS( X( 1, 1 ) ), SMLNUM )
                               END IF
                               RES = RES / DEN
@@ -141,20 +141,20 @@
                            DO 50 IWR = 1, 4
                               IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
                                  WR = VWR( IWR )*A( 1, 1 )
-                              ELSE
+                              } else {
                                  WR = VWR( IWR )
                               END IF
                               DO 40 IWI = 1, 4
                                  IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) THEN
                                     WI = VWI( IWI )*A( 1, 1 )
-                                 ELSE
+                                 } else {
                                     WI = VWI( IWI )
                                  END IF
                                  CALL DLALN2( LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO )
                                  IF( INFO.LT.0 ) NINFO( 1 ) = NINFO( 1 ) + 1                                  IF( INFO.GT.0 ) NINFO( 2 ) = NINFO( 2 ) + 1                                  RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( WI*D1 )*X( 1, 2 )- SCALE*B( 1, 1 ) )                                  RES = RES + ABS( ( -WI*D1 )*X( 1, 1 )+ ( CA*A( 1, 1 )-WR*D1 )*X( 1, 2 )- SCALE*B( 1, 2 ) )
                                  IF( INFO.EQ.0 ) THEN
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 ), ABS( D1*WI ) )* ( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ) ), SMLNUM )
-                                 ELSE
+                                 } else {
                                     DEN = MAX( SMIN*( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ), SMLNUM )
                                  END IF
                                  RES = RES / DEN
@@ -184,7 +184,7 @@
                            DO 80 IWR = 1, 4
                               IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
                                  WR = VWR( IWR )*A( 1, 1 )
-                              ELSE
+                              } else {
                                  WR = VWR( IWR )
                               END IF
                               WI = ZERO
@@ -198,7 +198,7 @@
                               RES = ABS( ( CA*A( 1, 1 )-WR*D1 )* X( 1, 1 )+( CA*A( 1, 2 ) )* X( 2, 1 )-SCALE*B( 1, 1 ) )                               RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )-SCALE*B( 2, 1 ) )
                               IF( INFO.EQ.0 ) THEN
                                  DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
-                              ELSE
+                              } else {
                                  DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
                               END IF
                               RES = RES / DEN
@@ -229,13 +229,13 @@
                            DO 120 IWR = 1, 4
                               IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ. ONE ) THEN
                                  WR = VWR( IWR )*A( 1, 1 )
-                              ELSE
+                              } else {
                                  WR = VWR( IWR )
                               END IF
                               DO 110 IWI = 1, 4
                                  IF( D1.EQ.ONE .AND. D2.EQ.ONE .AND. CA.EQ.ONE ) THEN
                                     WI = VWI( IWI )*A( 1, 1 )
-                                 ELSE
+                                 } else {
                                     WI = VWI( IWI )
                                  END IF
                                  CALL DLALN2( LTRANS( ITRANS ), NA, NW, SMIN, CA, A, 2, D1, D2, B, 2, WR, WI, X, 2, SCALE, XNORM, INFO )
@@ -249,7 +249,7 @@
                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 1 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 1 )+( WI*D2 )*X( 2, 2 )- SCALE*B( 2, 1 ) )                                  RES = RES + ABS( ( CA*A( 2, 1 ) )* X( 1, 2 )+( CA*A( 2, 2 )-WR*D2 )* X( 2, 2 )-( WI*D2 )*X( 2, 1 )- SCALE*B( 2, 2 ) )
                                  IF( INFO.EQ.0 ) THEN
                                     DEN = MAX( EPS*( MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
-                                 ELSE
+                                 } else {
                                     DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
                                  END IF
                                  RES = RES / DEN

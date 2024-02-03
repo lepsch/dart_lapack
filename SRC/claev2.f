@@ -31,7 +31,7 @@
 
       IF( ABS( B ).EQ.ZERO ) THEN
          W = ONE
-      ELSE
+      } else {
          W = CONJG( B ) / ABS( B )
       END IF
       CALL SLAEV2( REAL( A ), ABS( B ), REAL( C ), RT1, RT2, CS1, T )

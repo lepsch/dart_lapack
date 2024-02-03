@@ -74,7 +74,7 @@
          WA = ( WN / ABS( WORK( 1 ) ) )*WORK( 1 )
          IF( WN.EQ.ZERO ) THEN
             TAU = ZERO
-         ELSE
+         } else {
             WB = WORK( 1 ) + WA
             CALL CSCAL( N-I, ONE / WB, WORK( 2 ), 1 )
             WORK( 1 ) = ONE
@@ -117,7 +117,7 @@
          WA = ( WN / ABS( A( K+I, I ) ) )*A( K+I, I )
          IF( WN.EQ.ZERO ) THEN
             TAU = ZERO
-         ELSE
+         } else {
             WB = A( K+I, I ) + WA
             CALL CSCAL( N-K-I, ONE / WB, A( K+I+1, I ), 1 )
             A( K+I, I ) = ONE

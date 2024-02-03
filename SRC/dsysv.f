@@ -52,7 +52,7 @@
       IF( INFO.EQ.0 ) THEN
          IF( N.EQ.0 ) THEN
             LWKOPT = 1
-         ELSE
+         } else {
             CALL DSYTRF( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
             LWKOPT = INT( WORK( 1 ) )
          END IF
@@ -79,7 +79,7 @@
 
             CALL DSYTRS( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 
-         ELSE
+         } else {
 
          // Solve with TRS2 ( Use Level BLAS 3)
 

@@ -76,7 +76,7 @@
             NB = LWORK / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'SGETRI', ' ', N, -1, -1, -1 ) )
          END IF
-      ELSE
+      } else {
          IWS = N
       END IF
 
@@ -99,7 +99,7 @@
 
             IF( J.LT.N ) CALL SGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 )
    20    CONTINUE
-      ELSE
+      } else {
 
          // Use blocked code.
 

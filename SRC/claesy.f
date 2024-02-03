@@ -44,11 +44,11 @@
             RT2 = TMP
             CS1 = ZERO
             SN1 = ONE
-         ELSE
+         } else {
             CS1 = ONE
             SN1 = ZERO
          END IF
-      ELSE
+      } else {
 
          // Compute the eigenvalues and eigenvectors.
          // The characteristic equation is
@@ -85,7 +85,7 @@
          TABS = ABS( SN1 )
          IF( TABS.GT.ONE ) THEN
             T = TABS*SQRT( ( ONE / TABS )**2+( SN1 / TABS )**2 )
-         ELSE
+         } else {
             T = SQRT( CONE+SN1*SN1 )
          END IF
          EVNORM = ABS( T )
@@ -93,7 +93,7 @@
             EVSCAL = CONE / T
             CS1 = EVSCAL
             SN1 = SN1*EVSCAL
-         ELSE
+         } else {
             EVSCAL = ZERO
          END IF
       END IF

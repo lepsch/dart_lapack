@@ -54,7 +54,7 @@
          IF( MINMN.EQ.0 ) THEN
             IWS = 1
             LWKOPT = 1
-         ELSE
+         } else {
             IWS = N + 1
             NB = ILAENV( INB, 'CGEQRF', ' ', M, N, -1, -1 )
             LWKOPT = ( N + 1 )*NB
@@ -82,11 +82,11 @@
                CALL CSWAP( M, A( 1, J ), 1, A( 1, NFXD ), 1 )
                JPVT( J ) = JPVT( NFXD )
                JPVT( NFXD ) = J
-            ELSE
+            } else {
                JPVT( J ) = J
             END IF
             NFXD = NFXD + 1
-         ELSE
+         } else {
             JPVT( J ) = J
          END IF
    10 CONTINUE
@@ -182,7 +182,7 @@
                J = J + FJB
                GO TO 30
             END IF
-         ELSE
+         } else {
             J = NFXD + 1
          END IF
 

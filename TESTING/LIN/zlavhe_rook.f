@@ -101,7 +101,7 @@
                   IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
                K = K + 1
-            ELSE
+            } else {
 
                // 2 x 2 pivot block
 
@@ -149,7 +149,7 @@
          // Compute  B := L*B
          // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
 
-         ELSE
+         } else {
 
             // Loop backward applying the transformations to B.
 
@@ -184,7 +184,7 @@
                END IF
                K = K - 1
 
-            ELSE
+            } else {
 
                // 2 x 2 pivot block:
 
@@ -236,7 +236,7 @@
       // Compute  B := A^H * B  (conjugate transpose)
 
 *--------------------------------------------------
-      ELSE
+      } else {
 
          // Form  B := U^H*B
          // where U  = P(m)*inv(U(m))* ... *P(1)*inv(U(1))
@@ -273,7 +273,7 @@
 
             // 2 x 2 pivot block.
 
-            ELSE
+            } else {
                IF( K.GT.2 ) THEN
 
                   // Swap the second of pair with Pth
@@ -323,7 +323,7 @@
          // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
          // and   L^H = inv(L^H(m))*P(m)* ... *inv(L^H(1))*P(1)
 
-         ELSE
+         } else {
 
             // Loop forward applying the L-transformations.
 
@@ -352,7 +352,7 @@
 
             // 2 x 2 pivot block.
 
-            ELSE
+            } else {
                IF( K.LT.N-1 ) THEN
 
                   // Swap the first of pair with Pth

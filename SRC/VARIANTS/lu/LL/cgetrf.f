@@ -61,7 +61,7 @@
 
          CALL CGETF2( M, N, A, LDA, IPIV, INFO )
 
-      ELSE
+      } else {
 
          // Use blocked code.
 

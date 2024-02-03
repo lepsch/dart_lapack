@@ -33,7 +33,7 @@
          I1 = K2
          I2 = K1
          INC = -1
-      ELSE
+      } else {
          RETURN
       END IF
 

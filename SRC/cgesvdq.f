@@ -68,7 +68,7 @@
       IF ( ROWPRM ) THEN
          IMINWRK = MAX( 1, N + M - 1 )
          RMINWRK = MAX( 2, M, 5*N )
-      ELSE
+      } else {
          IMINWRK = MAX( 1, N )
          RMINWRK = MAX( 2, 5*N )
       END IF
@@ -131,7 +131,7 @@
              ELSE IF ( WNTUA ) THEN
                  CALL CUNMQR( 'L', 'N', M, M, N, A, LDA, CDUMMY, U, LDU, CDUMMY, -1, IERR )
                  LWRK_CUNMQR = INT( CDUMMY(1) )
-             ELSE
+             } else {
                  LWRK_CUNMQR = 0
              END IF
          END IF
@@ -142,7 +142,7 @@
              // only the singular values are requested
              IF ( CONDA ) THEN
                 MINWRK = MAX( N+LWQP3, LWCON, LWSVD )
-             ELSE
+             } else {
                 MINWRK = MAX( N+LWQP3, LWSVD )
              END IF
              IF ( LQUERY ) THEN
@@ -150,7 +150,7 @@
                  LWRK_CGESVD = INT( CDUMMY(1) )
                  IF ( CONDA ) THEN
                     OPTWRK = MAX( N+LWRK_CGEQP3, N+LWCON, LWRK_CGESVD )
-                 ELSE
+                 } else {
                     OPTWRK = MAX( N+LWRK_CGEQP3, LWRK_CGESVD )
                  END IF
              END IF
@@ -159,19 +159,19 @@
              // singular values and the left singular vectors are requested
              IF ( CONDA ) THEN
                  MINWRK = N + MAX( LWQP3, LWCON, LWSVD, LWUNQ )
-             ELSE
+             } else {
                  MINWRK = N + MAX( LWQP3, LWSVD, LWUNQ )
              END IF
              IF ( LQUERY ) THEN
                 IF ( RTRANS ) THEN
                    CALL CGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
-                ELSE
+                } else {
                    CALL CGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
                 END IF
                 LWRK_CGESVD = INT( CDUMMY(1) )
                 IF ( CONDA ) THEN
                     OPTWRK = N + MAX( LWRK_CGEQP3, LWCON, LWRK_CGESVD, LWRK_CUNMQR )
-                ELSE
+                } else {
                     OPTWRK = N + MAX( LWRK_CGEQP3, LWRK_CGESVD, LWRK_CUNMQR )
                 END IF
              END IF
@@ -180,23 +180,23 @@
              // singular values and the right singular vectors are requested
              IF ( CONDA ) THEN
                  MINWRK = N + MAX( LWQP3, LWCON, LWSVD )
-             ELSE
+             } else {
                  MINWRK = N + MAX( LWQP3, LWSVD )
              END IF
              IF ( LQUERY ) THEN
                  IF ( RTRANS ) THEN
                      CALL CGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
-                 ELSE
+                 } else {
                      CALL CGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
                  END IF
                  LWRK_CGESVD = INT( CDUMMY(1) )
                  IF ( CONDA ) THEN
                      OPTWRK = N + MAX( LWRK_CGEQP3, LWCON, LWRK_CGESVD )
-                 ELSE
+                 } else {
                      OPTWRK = N + MAX( LWRK_CGEQP3, LWRK_CGESVD )
                  END IF
              END IF
-         ELSE
+         } else {
              // .. minimal and optimal sizes of the complex workspace if the
              // full SVD is requested
              IF ( RTRANS ) THEN
@@ -214,7 +214,7 @@
                     MINWRK2 = N + MINWRK2
                     MINWRK = MAX( MINWRK, MINWRK2 )
                  END IF
-             ELSE
+             } else {
                  MINWRK = MAX( LWQP3, LWSVD, LWUNQ )
                  IF ( CONDA ) MINWRK = MAX( MINWRK, LWCON )
                  MINWRK = MINWRK + N
@@ -248,7 +248,7 @@
                        OPTWRK2 = N + OPTWRK2
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    END IF
-                ELSE
+                } else {
                    CALL CGESVD( 'S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, CDUMMY, -1, RDUMMY, IERR )
                    LWRK_CGESVD = INT( CDUMMY(1) )
                    OPTWRK = MAX(LWRK_CGEQP3,LWRK_CGESVD,LWRK_CUNMQR)
@@ -428,7 +428,7 @@
  3401    CONTINUE
  3402    CONTINUE
 
-      ELSE
+      } else {
          // .. RRQR not authorized to determine numerical rank except in the
          // obvious case of zero pivots.
          // .. inspect R for exact zeros on the diagonal;
@@ -456,7 +456,7 @@
  3053          CONTINUE
                IF ( .NOT. ( LSVEC .OR. RSVEC ) ) THEN
                    CALL CPOCON( 'U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR )
-               ELSE
+               } else {
                    CALL CPOCON( 'U', NR, V, LDV, ONE, RTMP, CWORK(N+1), RWORK, IERR )
                END IF
                SCONDA = ONE / SQRT(RTMP)
@@ -494,7 +494,7 @@
 
             CALL CGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO )
 
-         ELSE
+         } else {
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
@@ -530,7 +530,7 @@
  1120              CONTINUE
  1119          CONTINUE
 
-         ELSE
+         } else {
              // .. apply CGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
              CALL CLACPY( 'U', NR, N, A, LDA, U, LDU )
@@ -594,7 +594,7 @@
  1103              CONTINUE
                END IF
                CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
-            ELSE
+            } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:N,1:NR)
                 // by padding a zero block. In the case NR << N, a more efficient
@@ -614,7 +614,7 @@
                 CALL CLAPMT( .FALSE., N, N, V, LDV, IWORK )
             END IF
 
-          ELSE
+          } else {
              // .. aply CGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
              CALL CLACPY( 'U', NR, N, A, LDA, V, LDV )
@@ -625,7 +625,7 @@
                 CALL CGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO )
                 CALL CLAPMT( .FALSE., NR, N, V, LDV, IWORK )
                 // .. now [V](1:NR,1:N) contains V(1:N,1:NR)**H
-             ELSE
+             } else {
                 // .. need all N right singular vectors and NR < N
                 // [!] This is simple implementation that augments [V](1:NR,1:N)
                 // by padding a zero block. In the case NR << N, a more efficient
@@ -639,7 +639,7 @@
              // vectors of A.
           END IF
 
-      ELSE
+      } else {
 *.......................................................................
         // .. FULL SVD requested
 *.......................................................................
@@ -696,7 +696,7 @@
                   END IF
                END IF
 
-            ELSE
+            } else {
                 // .. need all N right singular vectors and NR < N
              // .. copy R**H into [V] and overwrite [V] with the left singular
              // vectors of R**H
@@ -745,7 +745,7 @@
                         CALL CLASET('A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU )
                       END IF
                    END IF
-                ELSE
+                } else {
                    // .. copy R**H into [U] and overwrite [U] with the right
                    // singular vectors of R
                    DO 1196 p = 1, NR
@@ -778,7 +778,7 @@
                 END IF
             END IF
 
-         ELSE
+         } else {
 
              // .. apply CGESVD to R [[this is the recommended option]]
 
@@ -801,7 +801,7 @@
                   END IF
                END IF
 
-             ELSE
+             } else {
                // .. need all N right singular vectors and NR < N
                // .. the requested number of the left singular vectors
                 // is then N1 (N or M)
@@ -831,7 +831,7 @@
                         CALL CLASET( 'A',M-N,N1-N,CZERO,CONE, U(N+1,N+1), LDU )
                       END IF
                   END IF
-               ELSE
+               } else {
                   CALL CLACPY( 'U', NR, N, A, LDA, U(NR+1,1), LDU )
                   IF ( NR .GT. 1 ) CALL CLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU)                   CALL CGELQF( NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR )
                   CALL CLACPY('L',NR,NR,U(NR+1,1),LDU,V,LDV)

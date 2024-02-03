@@ -57,7 +57,7 @@
          ITRANS = 0
       ELSE IF( TRANS.EQ.'T' .OR. TRANS.EQ.'t' ) THEN
          ITRANS = 1
-      ELSE
+      } else {
          ITRANS = 2
       END IF
 
@@ -65,13 +65,13 @@
 
       IF( NRHS.EQ.1 ) THEN
          NB = 1
-      ELSE
+      } else {
          NB = MAX( 1, ILAENV( 1, 'ZGTTRS', TRANS, N, NRHS, -1, -1 ) )
       END IF
 
       IF( NB.GE.NRHS ) THEN
          CALL ZGTTS2( ITRANS, N, NRHS, DL, D, DU, DU2, IPIV, B, LDB )
-      ELSE
+      } else {
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             CALL ZGTTS2( ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB )

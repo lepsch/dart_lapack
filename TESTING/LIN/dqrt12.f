@@ -99,7 +99,7 @@
             END IF
          END IF
 
-      ELSE
+      } else {
 
          DO I = 1, MN
             WORK( M*N+I ) = ZERO

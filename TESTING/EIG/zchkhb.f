@@ -127,7 +127,7 @@
 
             IF( NSIZES.NE.1 ) THEN
                MTYPES = MIN( MAXTYP, NTYPES )
-            ELSE
+            } else {
                MTYPES = MIN( MAXTYP+1, NTYPES )
             END IF
 
@@ -184,7 +184,7 @@
                IINFO = 0
                IF( JTYPE.LE.15 ) THEN
                   COND = ULPINV
-               ELSE
+               } else {
                   COND = ULPINV*ANINV / TEN
                END IF
 
@@ -245,7 +245,7 @@
                      END IF
    90             CONTINUE
 
-               ELSE
+               } else {
 
                   IINFO = 1
                END IF
@@ -270,7 +270,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 1 ) = ULPINV
                      GO TO 150
                   END IF
@@ -306,7 +306,7 @@
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
-                  ELSE
+                  } else {
                      RESULT( 3 ) = ULPINV
                      GO TO 150
                   END IF

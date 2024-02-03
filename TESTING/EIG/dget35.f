@@ -82,7 +82,7 @@
                                        A( I, J ) = IVAL( I, J, IMA )
                                        IF( ABS( I-J ).LE.1 ) THEN
                                           A( I, J ) = A( I, J )* VM1( IMLDA1 )                                           A( I, J ) = A( I, J )* VM2( IMLDA2 )
-                                       ELSE
+                                       } else {
                                           A( I, J ) = A( I, J )* VM1( IMLOFF )
                                        END IF
                                        TNRM = MAX( TNRM, ABS( A( I, J ) ) )
@@ -93,7 +93,7 @@
                                        B( I, J ) = IVAL( I, J, IMB )
                                        IF( ABS( I-J ).LE.1 ) THEN
                                           B( I, J ) = B( I, J )* VM1( IMLDB1 )
-                                       ELSE
+                                       } else {
                                           B( I, J ) = B( I, J )* VM1( IMLOFF )
                                        END IF
                                        TNRM = MAX( TNRM, ABS( B( I, J ) ) )

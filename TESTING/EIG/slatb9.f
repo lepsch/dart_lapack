@@ -93,7 +93,7 @@
             KLB = 0
             KUB = MAX( N-1, 0 )
 
-         ELSE
+         } else {
 
             // A: general dense, B: general dense
 
@@ -134,7 +134,7 @@
             KLB = 0
             KUB = MAX( P-1, 0 )
 
-         ELSE
+         } else {
 
             // A: general dense, B: general dense
 

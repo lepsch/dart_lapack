@@ -112,7 +112,7 @@
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
    30                CONTINUE
-                  ELSE
+                  } else {
                      CALL ZLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
                      CALL ZGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL ZLASET( 'Lower', M-1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A( 2 ), LDA )
                      CALL DLAORD( 'Decreasing', MNMIN, S, 1 )

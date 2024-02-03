@@ -75,7 +75,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-1
-         ELSE
+         } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
@@ -126,7 +126,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+1
-         ELSE
+         } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
@@ -135,7 +135,7 @@
          ENDIF
         END DO
 
-      ELSE
+      } else {
 
          // Solve A*X = B, where A = L*D*L**T.
 
@@ -148,7 +148,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+1
-         ELSE
+         } else {
             // 2 x 2 diagonal block
             // Interchange rows K and -IPIV(K+1).
             KP = -IPIV( K+1 )
@@ -167,7 +167,7 @@
          DO WHILE ( I .LE. N )
             IF( IPIV(I) .GT. 0 ) THEN
               CALL DSCAL( NRHS, ONE / A( I, I ), B( I, 1 ), LDB )
-            ELSE
+            } else {
                   AKM1K = WORK(I)
                   AKM1 = A( I, I ) / AKM1K
                   AK = A( I+1, I+1 ) / AKM1K
@@ -197,7 +197,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-1
-         ELSE
+         } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )

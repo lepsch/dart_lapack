@@ -62,7 +62,7 @@
 
       IF( LOWER ) THEN
          CALL ZTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, CONE, A, B, LDB )          CALL ZTFSM( TRANSR, 'L', UPLO, 'C', 'N', N, NRHS, CONE, A, B, LDB )
-      ELSE
+      } else {
          CALL ZTFSM( TRANSR, 'L', UPLO, 'C', 'N', N, NRHS, CONE, A, B, LDB )          CALL ZTFSM( TRANSR, 'L', UPLO, 'N', 'N', N, NRHS, CONE, A, B, LDB )
       END IF
 

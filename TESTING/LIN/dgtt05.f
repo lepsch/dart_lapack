@@ -65,7 +65,7 @@
             GO TO 20
          ELSE IF( DIFF.LE.OVFL*XNORM ) THEN
             GO TO 20
-         ELSE
+         } else {
             ERRBND = ONE / EPS
             GO TO 30
          END IF
@@ -73,7 +73,7 @@
    20    CONTINUE
          IF( DIFF / XNORM.LE.FERR( J ) ) THEN
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
-         ELSE
+         } else {
             ERRBND = ONE / EPS
          END IF
    30 CONTINUE
@@ -86,7 +86,7 @@
          IF( NOTRAN ) THEN
             IF( N.EQ.1 ) THEN
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
-            ELSE
+            } else {
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DU( 1 )*X( 2, K ) )
                DO 40 I = 2, N - 1
                   TMP = ABS( B( I, K ) ) + ABS( DL( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DU( I )*X( I+1, K ) )
@@ -95,10 +95,10 @@
                TMP = ABS( B( N, K ) ) + ABS( DL( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             END IF
-         ELSE
+         } else {
             IF( N.EQ.1 ) THEN
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
-            ELSE
+            } else {
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DL( 1 )*X( 2, K ) )
                DO 50 I = 2, N - 1
                   TMP = ABS( B( I, K ) ) + ABS( DU( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DL( I )*X( I+1, K ) )
@@ -111,7 +111,7 @@
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
          IF( K.EQ.1 ) THEN
             RESLTS( 2 ) = TMP
-         ELSE
+         } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
          END IF
    60 CONTINUE

@@ -61,12 +61,12 @@
 
       IF (INCX.GT.0) THEN
           KX = 1
-      ELSE
+      } else {
           KX = 1 - (N-1)*INCX
       END IF
       IF (INCY.GT.0) THEN
           KY = 1
-      ELSE
+      } else {
           KY = 1 - (N-1)*INCY
       END IF
 
@@ -82,19 +82,19 @@
                   DO 10 I = 1,N
                       Y(I) = ZERO
    10             CONTINUE
-              ELSE
+              } else {
                   DO 20 I = 1,N
                       Y(I) = BETA*Y(I)
    20             CONTINUE
               END IF
-          ELSE
+          } else {
               IY = KY
               IF (BETA.EQ.ZERO) THEN
                   DO 30 I = 1,N
                       Y(IY) = ZERO
                       IY = IY + INCY
    30             CONTINUE
-              ELSE
+              } else {
                   DO 40 I = 1,N
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
@@ -117,7 +117,7 @@
    50             CONTINUE
                   Y(J) = Y(J) + TEMP1*A(J,J) + ALPHA*TEMP2
    60         CONTINUE
-          ELSE
+          } else {
               JX = KX
               JY = KY
               DO 80 J = 1,N
@@ -136,7 +136,7 @@
                   JY = JY + INCY
    80         CONTINUE
           END IF
-      ELSE
+      } else {
 
          // Form  y  when A is stored in lower triangle.
 
@@ -151,7 +151,7 @@
    90             CONTINUE
                   Y(J) = Y(J) + ALPHA*TEMP2
   100         CONTINUE
-          ELSE
+          } else {
               JX = KX
               JY = KY
               DO 120 J = 1,N

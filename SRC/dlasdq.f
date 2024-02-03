@@ -132,14 +132,14 @@
          IF( NRU.GT.0 ) THEN
             IF( SQRE1.EQ.0 ) THEN
                CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU )
-            ELSE
+            } else {
                CALL DLASR( 'R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU )
             END IF
          END IF
          IF( NCC.GT.0 ) THEN
             IF( SQRE1.EQ.0 ) THEN
                CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
-            ELSE
+            } else {
                CALL DLASR( 'L', 'V', 'F', NP1, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
             END IF
          END IF
