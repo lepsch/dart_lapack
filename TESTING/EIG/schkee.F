@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SBB, SBK, SBL, SEP, SES, SEV, SGG, SGK, SGL, SGS, SGV, SGX, SSB, SSX, SVD, SVX, SXV, TSTCHK, TSTDIF, TSTDRV, TSTERR
-      CHARACTER          C1
+      String             C1;
       String             C3, PATH;
       String             VNAME;
       String             INTSTR;

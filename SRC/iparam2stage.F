@@ -9,7 +9,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER*( * )    NAME, OPTS
+      String   *( * )    NAME, OPTS;
       INTEGER            ISPEC, NI, NBI, IBI, NXI
 *
 *  ================================================================
@@ -17,7 +17,7 @@
 *     .. Local Scalars ..
       INTEGER            I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB
       LOGICAL            RPREC, CPREC
-      CHARACTER          PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1
+      String             PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1;
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CHAR, ICHAR, MAX

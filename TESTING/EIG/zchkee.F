@@ -30,7 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZBK, ZBL, ZES, ZEV, ZGK, ZGL, ZGS, ZGV, ZGX, ZSX, ZVX, ZXV, CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF, TSTDRV, TSTERR, ZBB, ZGG, ZHB
-      CHARACTER          C1
+      String             C1;
       String             C3, PATH;
       String             VNAME;
       String             INTSTR;

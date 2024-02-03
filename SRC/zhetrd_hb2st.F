@@ -12,7 +12,7 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      CHARACTER          STAGE1, UPLO, VECT
+      String             STAGE1, UPLO, VECT;
       INTEGER            N, KD, LDAB, LHOUS, LWORK, INFO
 *     ..
 *     .. Array Arguments ..
