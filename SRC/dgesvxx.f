@@ -68,9 +68,9 @@
 
       // Test the input parameters.  PARAMS is not tested until DGERFSX.
 
-      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) {
+      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT. LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -80,7 +80,7 @@
          INFO = -6
       } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
          if ( ROWEQU ) {
@@ -98,7 +98,7 @@
                ROWCND = ONE
             }
          }
-         if ( COLEQU .AND. INFO == 0 ) {
+         if ( COLEQU && INFO == 0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             for (J = 1; J <= N; J++) { // 20
@@ -199,9 +199,9 @@
 
       // Scale solutions.
 
-      if ( COLEQU .AND. NOTRAN ) {
+      if ( COLEQU && NOTRAN ) {
          dlascl2(N, NRHS, C, X, LDX );
-      } else if ( ROWEQU .AND. .NOT.NOTRAN ) {
+      } else if ( ROWEQU && .NOT.NOTRAN ) {
          dlascl2(N, NRHS, R, X, LDX );
       }
 

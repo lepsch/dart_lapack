@@ -84,7 +84,7 @@
                            DEN = SMLNUM*MAX( ABS( X( 1, 1 ) ), ONE )
                         }
                         RES = RES / DEN
-                        if (SCALE.GT.ONE) RES = RES + ONE / EPS                         RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 .AND. INFO != 1 ) RES = RES + ONE / EPS;
+                        if (SCALE.GT.ONE) RES = RES + ONE / EPS                         RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                         IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                         if ( RES.GT.RMAX ) {
                            LMAX = KNT
                            RMAX = RES

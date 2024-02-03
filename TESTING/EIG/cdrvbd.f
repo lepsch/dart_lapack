@@ -216,7 +216,7 @@
                // Do tests 1--4
 
                cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) );
                   cunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
@@ -235,7 +235,7 @@
                RESULT( 7 ) = ZERO
                for (IJU = 0; IJU <= 3; IJU++) { // 100
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 90
-                     IF( ( IJU == 3 .AND. IJVT == 3 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) )GO TO 90
+                     IF( ( IJU == 3 && IJVT == 3 ) .OR. ( IJU == 1 && IJVT == 1 ) )GO TO 90
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
                      clacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -245,7 +245,7 @@
                      // Compare U
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJU == 1 ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else if ( IJU == 2 ) {
@@ -259,7 +259,7 @@
                      // Compare VT
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJVT == 1 ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
                         } else if ( IJVT == 2 ) {
@@ -304,7 +304,7 @@
                // Do tests 1--4
 
                cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) );
                   cunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
@@ -330,7 +330,7 @@
                   // Compare U
 
                   DIF = ZERO
-                  if ( M.GT.0 .AND. N.GT.0 ) {
+                  if ( M.GT.0 && N.GT.0 ) {
                      if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, RWORK, DIF, IINFO );
@@ -346,7 +346,7 @@
                   // Compare VT
 
                   DIF = ZERO
-                  if ( M.GT.0 .AND. N.GT.0 ) {
+                  if ( M.GT.0 && N.GT.0 ) {
                      if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
@@ -402,7 +402,7 @@
                   // Do tests 36--39
 
                   cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) );
-                  if ( M != 0 .AND. N != 0 ) {
+                  if ( M != 0 && N != 0 ) {
                      cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) );
                      cunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
@@ -452,7 +452,7 @@
                   // Do tests 15--18
 
                   cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) );
-                  if ( M != 0 .AND. N != 0 ) {
+                  if ( M != 0 && N != 0 ) {
                      cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) );
                      cunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
@@ -501,7 +501,7 @@
                   // Do tests 19--22
 
                   cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) );
-                  if ( M != 0 .AND. N != 0 ) {
+                  if ( M != 0 && N != 0 ) {
                      cunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) );
                      cunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
@@ -533,7 +533,7 @@
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
                cbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   cunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) );
                   cunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
@@ -552,7 +552,7 @@
                RESULT( 29 ) = ZERO
                for (IJU = 0; IJU <= 1; IJU++) { // 170
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 160
-                     IF( ( IJU == 0 .AND. IJVT == 0 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) ) GO TO 160
+                     IF( ( IJU == 0 && IJVT == 0 ) .OR. ( IJU == 1 && IJVT == 1 ) ) GO TO 160
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )
@@ -563,7 +563,7 @@
                      // Compare U
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJU == 1 ) {
                            cunt03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, RWORK, DIF, IINFO );
                         }
@@ -573,7 +573,7 @@
                      // Compare VT
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJVT == 1 ) {
                            cunt03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, RWORK, DIF, IINFO );
                         }
@@ -622,14 +622,14 @@
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
                cbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   cunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) );
                   cunt01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) );
                }
 
                // Do tests 11--13
 
-               if ( MNMIN.GT.0 .AND. NSI.GT.1 ) {
+               if ( MNMIN.GT.0 && NSI.GT.1 ) {
                   if ( IL != 1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {
@@ -660,7 +660,7 @@
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
                cbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   cunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) );
                   cunt01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) );
                }

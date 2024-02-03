@@ -47,7 +47,7 @@
       WANTC = NCC.GT.0
       KLU1 = KL + KU + 1
       INFO = 0
-      if ( .NOT.WANTQ .AND. .NOT.WANTPT .AND. .NOT.LSAME( VECT, 'N' ) ) {
+      if ( .NOT.WANTQ && .NOT.WANTPT && .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
@@ -61,11 +61,11 @@
          INFO = -6
       } else if ( LDAB.LT.KLU1 ) {
          INFO = -8
-      } else if ( LDQ.LT.1 .OR. WANTQ .AND. LDQ.LT.MAX( 1, M ) ) {
+      } else if ( LDQ.LT.1 .OR. WANTQ && LDQ.LT.MAX( 1, M ) ) {
          INFO = -12
-      } else if ( LDPT.LT.1 .OR. WANTPT .AND. LDPT.LT.MAX( 1, N ) ) {
+      } else if ( LDPT.LT.1 .OR. WANTPT && LDPT.LT.MAX( 1, N ) ) {
          INFO = -14
-      } else if ( LDC.LT.1 .OR. WANTC .AND. LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC.LT.1 .OR. WANTC && LDC.LT.MAX( 1, M ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -203,7 +203,7 @@
                   if (NRT.GT.0) CALL ZLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
-               if ( ML == ML0 .AND. MU.GT.MU0 ) {
+               if ( ML == ML0 && MU.GT.MU0 ) {
                   if ( MU.LE.N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
@@ -252,7 +252,7 @@
          } // 90
       }
 
-      if ( KU == 0 .AND. KL.GT.0 ) {
+      if ( KU == 0 && KL.GT.0 ) {
 
          // A has been reduced to complex lower bidiagonal form
 
@@ -274,7 +274,7 @@
          // A has been reduced to complex upper bidiagonal form or is
          // diagonal
 
-         if ( KU.GT.0 .AND. M.LT.N ) {
+         if ( KU.GT.0 && M.LT.N ) {
 
             // Annihilate a(m,m+1) by applying plane rotations from the
             // right
@@ -306,7 +306,7 @@
          }
          if (WANTQ) CALL ZSCAL( M, T, Q( 1, I ), 1 )          IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC );
          if ( I.LT.MINMN ) {
-            if ( KU == 0 .AND. KL == 0 ) {
+            if ( KU == 0 && KL == 0 ) {
                E( I ) = ZERO
                T = AB( 1, I+1 )
             } else {

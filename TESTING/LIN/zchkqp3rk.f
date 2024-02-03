@@ -152,7 +152,7 @@
                      S( I ) = ZERO
                   }
 
-               } else if ( (IMAT.GE.2 .AND. IMAT.LE.4 ) .OR. (IMAT.GE.14 .AND. IMAT.LE.19 ) ) {
+               } else if ( (IMAT.GE.2 && IMAT.LE.4 ) .OR. (IMAT.GE.14 && IMAT.LE.19 ) ) {
 
                   // Matrices 2-5.
 
@@ -173,7 +173,7 @@
 
                   dlaord('Decreasing', MINMN, S, 1 );
 
-               } else if ( MINMN.GE.2 .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) {
+               } else if ( MINMN.GE.2 && IMAT.GE.5 && IMAT.LE.13 ) {
 
                   // Rectangular matrices 5-13 that contain zero columns,
                   // only for matrices MINMN >=2.
@@ -416,7 +416,7 @@
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }
@@ -447,7 +447,7 @@
 
                   for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                         NFAIL = NFAIL + 1
                      }
                   }
@@ -482,7 +482,7 @@
 
                      for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }
@@ -522,7 +522,7 @@
 
                      for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'ZGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }

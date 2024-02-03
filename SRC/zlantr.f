@@ -85,7 +85,7 @@
          UDIAG = LSAME( DIAG, 'U' )
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 110
-               if ( ( UDIAG ) .AND. ( J.LE.M ) ) {
+               if ( ( UDIAG ) && ( J.LE.M ) ) {
                   SUM = ONE
                   for (I = 1; I <= J - 1; I++) { // 90
                      SUM = SUM + ABS( A( I, J ) )

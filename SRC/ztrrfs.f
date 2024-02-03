@@ -57,11 +57,11 @@
       NOTRAN = LSAME( TRANS, 'N' )
       NOUNIT = LSAME( DIAG, 'N' )
 
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4

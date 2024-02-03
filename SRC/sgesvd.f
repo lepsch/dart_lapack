@@ -59,7 +59,7 @@
 
       if ( .NOT.( WNTUA .OR. WNTUS .OR. WNTUO .OR. WNTUN ) ) {
          INFO = -1
-      } else if ( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR. ( WNTVO .AND. WNTUO ) ) {
+      } else if ( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR. ( WNTVO && WNTUO ) ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -67,9 +67,9 @@
          INFO = -4
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LDU.LT.1 .OR. ( WNTUAS .AND. LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 .OR. ( WNTUAS && LDU.LT.M ) ) {
          INFO = -9
-      } else if ( LDVT.LT.1 .OR. ( WNTVA .AND. LDVT.LT.N ) .OR. ( WNTVS .AND. LDVT.LT.MINMN ) ) {
+      } else if ( LDVT.LT.1 .OR. ( WNTVA && LDVT.LT.N ) .OR. ( WNTVS && LDVT.LT.MINMN ) ) {
          INFO = -11
       }
 
@@ -83,7 +83,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N .AND. MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN.GT.0 ) {
 
             // Compute space needed for SBDSQR
 
@@ -117,7 +117,7 @@
                   if (WNTVO .OR. WNTVAS) MAXWRK = MAX( MAXWRK, 3*N+LWORK_SORGBR_P );
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MINWRK = MAX( 4*N, BDSPAC )
-               } else if ( WNTUO .AND. WNTVN ) {
+               } else if ( WNTUO && WNTVN ) {
 
                   // Path 2 (M much larger than N, JOBU='O', JOBVT='N')
 
@@ -128,7 +128,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N )
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUO .AND. WNTVAS ) {
+               } else if ( WNTUO && WNTVAS ) {
 
                   // Path 3 (M much larger than N, JOBU='O', JOBVT='S' or
                   // 'A')
@@ -141,7 +141,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( N*N+WRKBL, N*N+M*N+N )
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUS .AND. WNTVN ) {
+               } else if ( WNTUS && WNTVN ) {
 
                   // Path 4 (M much larger than N, JOBU='S', JOBVT='N')
 
@@ -152,7 +152,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUS .AND. WNTVO ) {
+               } else if ( WNTUS && WNTVO ) {
 
                   // Path 5 (M much larger than N, JOBU='S', JOBVT='O')
 
@@ -164,7 +164,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = 2*N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUS .AND. WNTVAS ) {
+               } else if ( WNTUS && WNTVAS ) {
 
                   // Path 6 (M much larger than N, JOBU='S', JOBVT='S' or
                   // 'A')
@@ -177,7 +177,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUA .AND. WNTVN ) {
+               } else if ( WNTUA && WNTVN ) {
 
                   // Path 7 (M much larger than N, JOBU='A', JOBVT='N')
 
@@ -188,7 +188,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUA .AND. WNTVO ) {
+               } else if ( WNTUA && WNTVO ) {
 
                   // Path 8 (M much larger than N, JOBU='A', JOBVT='O')
 
@@ -200,7 +200,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = 2*N*N + WRKBL
                   MINWRK = MAX( 3*N+M, BDSPAC )
-               } else if ( WNTUA .AND. WNTVAS ) {
+               } else if ( WNTUA && WNTVAS ) {
 
                   // Path 9 (M much larger than N, JOBU='A', JOBVT='S' or
                   // 'A')
@@ -270,7 +270,7 @@
                   if (WNTUO .OR. WNTUAS) MAXWRK = MAX( MAXWRK, 3*M+LWORK_SORGBR_Q );
                   MAXWRK = MAX( MAXWRK, BDSPAC )
                   MINWRK = MAX( 4*M, BDSPAC )
-               } else if ( WNTVO .AND. WNTUN ) {
+               } else if ( WNTVO && WNTUN ) {
 
                   // Path 2t(N much larger than M, JOBU='N', JOBVT='O')
 
@@ -281,7 +281,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M )
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               } else if ( WNTVO .AND. WNTUAS ) {
+               } else if ( WNTVO && WNTUAS ) {
 
                   // Path 3t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='O')
@@ -294,7 +294,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = MAX( M*M+WRKBL, M*M+M*N+M )
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               } else if ( WNTVS .AND. WNTUN ) {
+               } else if ( WNTVS && WNTUN ) {
 
                   // Path 4t(N much larger than M, JOBU='N', JOBVT='S')
 
@@ -305,7 +305,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               } else if ( WNTVS .AND. WNTUO ) {
+               } else if ( WNTVS && WNTUO ) {
 
                   // Path 5t(N much larger than M, JOBU='O', JOBVT='S')
 
@@ -318,7 +318,7 @@
                   MAXWRK = 2*M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
                   MAXWRK = MAX( MAXWRK, MINWRK )
-               } else if ( WNTVS .AND. WNTUAS ) {
+               } else if ( WNTVS && WNTUAS ) {
 
                   // Path 6t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='S')
@@ -331,7 +331,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               } else if ( WNTVA .AND. WNTUN ) {
+               } else if ( WNTVA && WNTUN ) {
 
                   // Path 7t(N much larger than M, JOBU='N', JOBVT='A')
 
@@ -342,7 +342,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               } else if ( WNTVA .AND. WNTUO ) {
+               } else if ( WNTVA && WNTUO ) {
 
                   // Path 8t(N much larger than M, JOBU='O', JOBVT='A')
 
@@ -354,7 +354,7 @@
                   WRKBL = MAX( WRKBL, BDSPAC )
                   MAXWRK = 2*M*M + WRKBL
                   MINWRK = MAX( 3*M+N, BDSPAC )
-               } else if ( WNTVA .AND. WNTUAS ) {
+               } else if ( WNTVA && WNTUAS ) {
 
                   // Path 9t(N much larger than M, JOBU='S' or 'A',
                   // JOBVT='A')
@@ -396,7 +396,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -13
          }
       }
@@ -424,7 +424,7 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ISCL = 1
          slascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {
@@ -488,7 +488,7 @@
 
                if (WNTVAS) CALL SLACPY( 'F', N, N, A, LDA, VT, LDVT );
 
-            } else if ( WNTUO .AND. WNTVN ) {
+            } else if ( WNTUO && WNTVN ) {
 
                // Path 2 (M much larger than N, JOBU='O', JOBVT='N')
                // N left singular vectors to be overwritten on A and
@@ -596,7 +596,7 @@
 
                }
 
-            } else if ( WNTUO .AND. WNTVAS ) {
+            } else if ( WNTUO && WNTVAS ) {
 
                // Path 3 (M much larger than N, JOBU='O', JOBVT='S' or 'A')
                // N left singular vectors to be overwritten on A and
@@ -1591,7 +1591,7 @@
             }
             IWORK = IE + N
             if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
-            if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
+            if ( ( .NOT.WNTUO ) && ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -1599,7 +1599,7 @@
                // (Workspace: need BDSPAC)
 
                sbdsqr('U', N, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
-            } else if ( ( .NOT.WNTUO ) .AND. WNTVO ) {
+            } else if ( ( .NOT.WNTUO ) && WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -1673,7 +1673,7 @@
 
                if (WNTUAS) CALL SLACPY( 'F', M, M, A, LDA, U, LDU );
 
-            } else if ( WNTVO .AND. WNTUN ) {
+            } else if ( WNTVO && WNTUN ) {
 
                // Path 2t(N much larger than M, JOBU='N', JOBVT='O')
                // M right singular vectors to be overwritten on A and
@@ -1784,7 +1784,7 @@
 
                }
 
-            } else if ( WNTVO .AND. WNTUAS ) {
+            } else if ( WNTVO && WNTUAS ) {
 
                // Path 3t(N much larger than M, JOBU='S' or 'A', JOBVT='O')
                // M right singular vectors to be overwritten on A and
@@ -2778,7 +2778,7 @@
             }
             IWORK = IE + M
             if (WNTUAS .OR. WNTUO) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0;
-            if ( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) {
+            if ( ( .NOT.WNTUO ) && ( .NOT.WNTVO ) ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -2786,7 +2786,7 @@
                // (Workspace: need BDSPAC)
 
                sbdsqr('L', M, NCVT, NRU, 0, S, WORK( IE ), VT, LDVT, U, LDU, DUM, 1, WORK( IWORK ), INFO );
-            } else if ( ( .NOT.WNTUO ) .AND. WNTVO ) {
+            } else if ( ( .NOT.WNTUO ) && WNTVO ) {
 
                // Perform bidiagonal QR iteration, if desired, computing
                // left singular vectors in U and computing right singular
@@ -2827,7 +2827,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 .AND. ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 .AND. ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM.GT.BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

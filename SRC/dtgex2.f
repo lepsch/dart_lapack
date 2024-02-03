@@ -124,7 +124,7 @@
          // Weak stability test: |S21| <= O(EPS F-norm((A)))
                             // and  |T21| <= O(EPS F-norm((B)))
 
-         WEAK = ABS( S( 2, 1 ) ) .LE. THRESHA .AND. ABS( T( 2, 1 ) ) .LE. THRESHB          IF( .NOT.WEAK ) GO TO 70
+         WEAK = ABS( S( 2, 1 ) ) .LE. THRESHA && ABS( T( 2, 1 ) ) .LE. THRESHB          IF( .NOT.WEAK ) GO TO 70
 
          if ( WANDS ) {
 
@@ -148,7 +148,7 @@
             DSUM = ONE
             dlassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
-            STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
+            STRONG = SA.LE.THRESHA && SB.LE.THRESHB
             if (.NOT.STRONG) GO TO 70;
          }
 
@@ -268,7 +268,7 @@
            // Weak stability test:
               // F-norm(S21) <= O(EPS * F-norm((S)))
 
-         if ( BQRA21.LE.BRQA21 .AND. BQRA21.LE.THRESHA ) {
+         if ( BQRA21.LE.BRQA21 && BQRA21.LE.THRESHA ) {
             dlacpy('F', M, M, SCPY, LDST, S, LDST );
             dlacpy('F', M, M, TCPY, LDST, T, LDST );
             dlacpy('F', M, M, IRCOP, LDST, IR, LDST );
@@ -303,7 +303,7 @@
             DSUM = ONE
             dlassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
-            STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
+            STRONG = SA.LE.THRESHA && SB.LE.THRESHB
             if (.NOT.STRONG) GO TO 70;
 
          }

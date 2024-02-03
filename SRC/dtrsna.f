@@ -51,17 +51,17 @@
       SOMCON = LSAME( HOWMNY, 'S' )
 
       INFO = 0
-      if ( .NOT.WANTS .AND. .NOT.WANTSP ) {
+      if ( .NOT.WANTS && .NOT.WANTSP ) {
          INFO = -1
-      } else if ( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) {
+      } else if ( .NOT.LSAME( HOWMNY, 'A' ) && .NOT.SOMCON ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 .OR. ( WANTS .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( WANTS && LDVL.LT.N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 .OR. ( WANTS .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( WANTS && LDVR.LT.N ) ) {
          INFO = -10
       } else {
 
@@ -93,7 +93,7 @@
 
          if ( MM.LT.M ) {
             INFO = -13
-         } else if ( LDWORK.LT.1 .OR. ( WANTSP .AND. LDWORK.LT.N ) ) {
+         } else if ( LDWORK.LT.1 .OR. ( WANTSP && LDWORK.LT.N ) ) {
             INFO = -16
          }
       }
@@ -138,7 +138,7 @@
 
          if ( SOMCON ) {
             if ( PAIR ) {
-               IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 60
+               IF( .NOT.SELECT( K ) && .NOT.SELECT( K+1 ) ) GO TO 60
             } else {
                IF( .NOT.SELECT( K ) ) GO TO 60
             }

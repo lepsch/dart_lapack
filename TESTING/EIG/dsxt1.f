@@ -32,7 +32,7 @@
       J = 1
       for (I = 1; I <= N1; I++) { // 20
          } // 10
-         if ( D2( J ).LT.D1( I ) .AND. J.LT.N2 ) {
+         if ( D2( J ).LT.D1( I ) && J.LT.N2 ) {
             J = J + 1
             GO TO 10
          }

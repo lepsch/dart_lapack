@@ -75,7 +75,7 @@
          if ( MINMN.GT.0 ) {
             MM = M
             MNTHR = ILAENV( 6, 'CGELSS', ' ', M, N, NRHS, -1 )
-            if ( M.GE.N .AND. M.GE.MNTHR ) {
+            if ( M.GE.N && M.GE.MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns
@@ -165,7 +165,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if (LWORK.LT.MINWRK .AND. .NOT.LQUERY) INFO = -12;
+         if (LWORK.LT.MINWRK && .NOT.LQUERY) INFO = -12;
       }
 
       if ( INFO != 0 ) {
@@ -193,7 +193,7 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -219,7 +219,7 @@
 
       BNRM = CLANGE( 'M', M, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -315,7 +315,7 @@
          // (CWorkspace: need N, prefer N*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS && NRHS.GT.1 ) {
             cgemm('C', 'N', N, NRHS, N, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
             clacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
@@ -330,7 +330,7 @@
             ccopy(N, WORK, 1, B, 1 );
          }
 
-      } else if ( N.GE.MNTHR .AND. LWORK.GE.3*M+M*M+MAX( M, NRHS, N-2*M ) ) {
+      } else if ( N.GE.MNTHR && LWORK.GE.3*M+M*M+MAX( M, NRHS, N-2*M ) ) {
 
          // Underdetermined case, M much less than N
 
@@ -404,7 +404,7 @@
          // (CWorkspace: need M*M+2*M, prefer M*M+M+M*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS+IWORK-1 && NRHS.GT.1 ) {
             cgemm('C', 'N', M, NRHS, M, CONE, WORK( IL ), LDWORK, B, LDB, CZERO, WORK( IWORK ), LDB );
             clacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
@@ -484,7 +484,7 @@
          // (CWorkspace: need N, prefer N*NRHS)
          // (RWorkspace: none)
 
-         if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS && NRHS.GT.1 ) {
             cgemm('C', 'N', N, NRHS, M, CONE, A, LDA, B, LDB, CZERO, WORK, LDB );
             clacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {

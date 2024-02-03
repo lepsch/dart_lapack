@@ -64,7 +64,7 @@
          LWMIN = 2*N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 
-         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -8;
+         if (LWORK.LT.LWMIN && .NOT.LQUERY) INFO = -8;
       }
 
       if ( INFO != 0 ) {
@@ -100,7 +100,7 @@
 
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

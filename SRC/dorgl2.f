@@ -57,7 +57,7 @@
             for (L = K + 1; L <= M; L++) { // 10
                A( L, J ) = ZERO
             } // 10
-            if (J.GT.K .AND. J.LE.M) A( J, J ) = ONE;
+            if (J.GT.K && J.LE.M) A( J, J ) = ONE;
          } // 20
       }
 

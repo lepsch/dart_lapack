@@ -116,7 +116,7 @@
 
             // Apply symmetric pivot
 
-            if ( (I2 != 2) .AND. (PIV != 0) ) {
+            if ( (I2 != 2) && (PIV != 0) ) {
 
                // Swap WORK(I1) and WORK(I2)
 
@@ -256,7 +256,7 @@
 
             // Apply symmetric pivot
 
-            if ( (I2 != 2) .AND. (PIV != 0) ) {
+            if ( (I2 != 2) && (PIV != 0) ) {
 
                // Swap WORK(I1) and WORK(I2)
 

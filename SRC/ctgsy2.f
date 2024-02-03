@@ -47,7 +47,7 @@
       INFO = 0
       IERR = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
          if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) {

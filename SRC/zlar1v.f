@@ -171,7 +171,7 @@
 
       // Compute the FP vector upwards from R
 
-      if ( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) {
+      if ( .NOT.SAWNAN1 && .NOT.SAWNAN2 ) {
          DO 210 I = R-1, B1, -1
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
             if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {
@@ -201,7 +201,7 @@
       }
 
       // Compute the FP vector downwards from R in blocks of size BLKSIZ
-      if ( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) {
+      if ( .NOT.SAWNAN1 && .NOT.SAWNAN2 ) {
          for (I = R; I <= BN-1; I++) { // 250
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
             if ( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) {

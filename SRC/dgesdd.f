@@ -62,9 +62,9 @@
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDU.LT.1 .OR. ( WNTQAS .AND. LDU.LT.M ) .OR. ( WNTQO .AND. M.LT.N .AND. LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 .OR. ( WNTQAS && LDU.LT.M ) .OR. ( WNTQO && M.LT.N && LDU.LT.M ) ) {
          INFO = -8
-      } else if ( LDVT.LT.1 .OR. ( WNTQA .AND. LDVT.LT.N ) .OR. ( WNTQS .AND. LDVT.LT.MINMN ) .OR. ( WNTQO .AND. M.GE.N .AND. LDVT.LT.N ) ) {
+      } else if ( LDVT.LT.1 .OR. ( WNTQA && LDVT.LT.N ) .OR. ( WNTQS && LDVT.LT.MINMN ) .OR. ( WNTQO && M.GE.N && LDVT.LT.N ) ) {
          INFO = -10
       }
 
@@ -80,7 +80,7 @@
          MAXWRK = 1
          BDSPAC = 0
          MNTHR  = INT( MINMN*11.0D0 / 6.0D0 )
-         if ( M.GE.N .AND. MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN.GT.0 ) {
 
             // Compute space needed for DBDSDC
 
@@ -323,7 +323,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = DROUNDUP_LWORK( MAXWRK )
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -355,7 +355,7 @@
           RETURN
       }
       ISCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ISCL = 1
          dlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {

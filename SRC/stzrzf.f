@@ -60,7 +60,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
             INFO = -7
          }
       }
@@ -86,7 +86,7 @@
       NBMIN = 2
       NX = 1
       IWS = M
-      if ( NB.GT.1 .AND. NB.LT.M ) {
+      if ( NB.GT.1 && NB.LT.M ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -108,7 +108,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN .AND. NB.LT.M .AND. NX.LT.M ) {
+      if ( NB.GE.NBMIN && NB.LT.M && NX.LT.M ) {
 
          // Use blocked code initially.
          // The last kk rows are handled by the block method.

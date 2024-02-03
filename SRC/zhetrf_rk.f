@@ -37,13 +37,13 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
          INFO = -8
       }
 
@@ -65,7 +65,7 @@
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 .AND. NB.LT.N ) {
+      if ( NB.GT.1 && NB.LT.N ) {
          IWS = LDWORK*NB
          if ( LWORK.LT.IWS ) {
             NB = MAX( LWORK / LDWORK, 1 )
@@ -107,7 +107,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO;
+         if (INFO == 0 && IINFO.GT.0) INFO = IINFO;
 
          // No need to adjust IPIV
 
@@ -174,7 +174,7 @@
 
          // Set INFO on the first occurrence of a zero pivot
 
-         if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO + K - 1;
+         if (INFO == 0 && IINFO.GT.0) INFO = IINFO + K - 1;
 
          // Adjust IPIV
 

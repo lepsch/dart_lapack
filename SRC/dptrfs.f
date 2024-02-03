@@ -141,7 +141,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
+         if ( BERR( J ).GT.EPS && TWO*BERR( J ).LE.LSTRES && COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 

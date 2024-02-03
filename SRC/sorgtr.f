@@ -41,13 +41,13 @@
       INFO = 0
       LQUERY = ( LWORK == -1 )
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.MAX( 1, N-1 ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N-1 ) && .NOT.LQUERY ) {
          INFO = -7
       }
 

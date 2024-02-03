@@ -54,7 +54,7 @@
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -3
-      } else if ( N.LT.0 .OR. ( ITYPE == 3 .AND. N != M ) ) {
+      } else if ( N.LT.0 .OR. ( ITYPE == 3 && N != M ) ) {
          INFO = -4
       } else if ( LDA.LT.M ) {
          INFO = -6

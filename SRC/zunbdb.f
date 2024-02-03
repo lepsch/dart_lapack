@@ -65,21 +65,21 @@
          INFO = -4
       } else if ( Q .LT. 0 .OR. Q .GT. P .OR. Q .GT. M-P .OR. Q .GT. M-Q ) {
          INFO = -5
-      } else if ( COLMAJOR .AND. LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
          INFO = -7
-      } else if ( .NOT.COLMAJOR .AND. LDX11 .LT. MAX( 1, Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX11 .LT. MAX( 1, Q ) ) {
          INFO = -7
-      } else if ( COLMAJOR .AND. LDX12 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX12 .LT. MAX( 1, P ) ) {
          INFO = -9
-      } else if ( .NOT.COLMAJOR .AND. LDX12 .LT. MAX( 1, M-Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX12 .LT. MAX( 1, M-Q ) ) {
          INFO = -9
-      } else if ( COLMAJOR .AND. LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX21 .LT. MAX( 1, M-P ) ) {
          INFO = -11
-      } else if ( .NOT.COLMAJOR .AND. LDX21 .LT. MAX( 1, Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX21 .LT. MAX( 1, Q ) ) {
          INFO = -11
-      } else if ( COLMAJOR .AND. LDX22 .LT. MAX( 1, M-P ) ) {
+      } else if ( COLMAJOR && LDX22 .LT. MAX( 1, M-P ) ) {
          INFO = -13
-      } else if ( .NOT.COLMAJOR .AND. LDX22 .LT. MAX( 1, M-Q ) ) {
+      } else if ( .NOT.COLMAJOR && LDX22 .LT. MAX( 1, M-Q ) ) {
          INFO = -13
       }
 
@@ -89,7 +89,7 @@
          LWORKOPT = M - Q
          LWORKMIN = M - Q
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN .AND. .NOT. LQUERY ) {
+         if ( LWORK .LT. LWORKMIN && .NOT. LQUERY ) {
             INFO = -21
          }
       }

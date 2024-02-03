@@ -58,7 +58,7 @@
 
       claset('Full', M, M, ROGUE, ROGUE, Q, LDA );
       if ( M.GE.N ) {
-         if (N.LT.M .AND. N.GT.0) CALL CLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N.GT.1 ) CALL CLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
+         if (N.LT.M && N.GT.0) CALL CLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA )          IF( N.GT.1 ) CALL CLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
       } else {
          if (M.GT.1) CALL CLACPY( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA );
       }
@@ -74,7 +74,7 @@
       if ( M.GE.N ) {
          if (N.GT.0) CALL CLACPY( 'Lower', N, N, AF( M-N+1, 1 ), LDA, L( M-N+1, 1 ), LDA );
       } else {
-         if (N.GT.M .AND. M.GT.0) CALL CLACPY( 'Full', M, N-M, AF, LDA, L, LDA )          IF( M.GT.0 ) CALL CLACPY( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA );
+         if (N.GT.M && M.GT.0) CALL CLACPY( 'Full', M, N-M, AF, LDA, L, LDA )          IF( M.GT.0 ) CALL CLACPY( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA );
       }
 
       // Compute L - Q'*A

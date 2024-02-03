@@ -121,7 +121,7 @@
       } // 110
       JLAST = J
       J = ISAMAX( N, X, 1 )
-      if ( ( X( JLAST ) != ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
+      if ( ( X( JLAST ) != ABS( X( J ) ) ) && ( ITER.LT.ITMAX ) ) {
          ITER = ITER + 1
          GO TO 50
       }

@@ -41,17 +41,17 @@
       WANTQ = LSAME( VECT, 'Q' )
       MN = MIN( M, N )
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'P' ) ) {
+      if ( .NOT.WANTQ && .NOT.LSAME( VECT, 'P' ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
-      } else if ( N.LT.0 .OR. ( WANTQ .AND. ( N.GT.M .OR. N.LT.MIN( M, K ) ) ) .OR. ( .NOT.WANTQ .AND. ( M.GT.N .OR. M.LT. MIN( N, K ) ) ) ) {
+      } else if ( N.LT.0 .OR. ( WANTQ && ( N.GT.M .OR. N.LT.MIN( M, K ) ) ) .OR. ( .NOT.WANTQ && ( M.GT.N .OR. M.LT. MIN( N, K ) ) ) ) {
          INFO = -3
       } else if ( K.LT.0 ) {
          INFO = -4
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -6
-      } else if ( LWORK.LT.MAX( 1, MN ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, MN ) && .NOT.LQUERY ) {
          INFO = -9
       }
 

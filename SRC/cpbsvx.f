@@ -53,9 +53,9 @@
 
       // Test the input parameters.
 
-      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) {
+      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -67,7 +67,7 @@
          INFO = -7
       } else if ( LDAFB.LT.KD+1 ) {
          INFO = -9
-      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -10
       } else {
          if ( RCEQU ) {

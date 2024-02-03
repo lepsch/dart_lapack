@@ -46,15 +46,15 @@
       UPPER = LSAME( UPLO, 'U' )
       WQUERY = ( LWORK == -1 )
       TQUERY = ( LTB == -1 )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LTB.LT.MAX( 1, 4*N ) .AND. .NOT.TQUERY ) {
+      } else if ( LTB.LT.MAX( 1, 4*N ) && .NOT.TQUERY ) {
          INFO = -6
-      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.WQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.WQUERY ) {
          INFO = -10
       }
 
@@ -188,7 +188,7 @@
                // Factorize panel
 
                sgetrf(N-(J+1)*NB, NB,  WORK, N, IPIV( (J+1)*NB+1 ), IINFO );
-                // IF (IINFO != 0 .AND. INFO == 0) THEN
+                // IF (IINFO != 0 && INFO == 0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
 
@@ -316,7 +316,7 @@
                // Factorize panel
 
                sgetrf(N-(J+1)*NB, NB,  A( (J+1)*NB+1, J*NB+1 ), LDA, IPIV( (J+1)*NB+1 ), IINFO );
-                // IF (IINFO != 0 .AND. INFO == 0) THEN
+                // IF (IINFO != 0 && INFO == 0) THEN
                    // INFO = IINFO+(J+1)*NB
                 // END IF
 

@@ -205,7 +205,7 @@
          // If ISIGN = 2, and no subdiagonals already, then apply
          // random rotations to make 2x2 blocks.
 
-         if ( ISIGN == 2 .AND. ITYPE != 2 .AND. ITYPE != 3 ) {
+         if ( ISIGN == 2 && ITYPE != 2 && ITYPE != 3 ) {
             SAFMIN = DLAMCH( 'S' )
             DO 290 JD = KBEG, KEND - 1, 2
                if ( DLARAN( ISEED ).GT.HALF ) {

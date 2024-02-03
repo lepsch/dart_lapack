@@ -323,7 +323,7 @@
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 110
                         VTST = DLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-                        if (VTST.GT.VMX) VMX = VTST                         IF( VR( JJ, J+1 ) == ZERO .AND. ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) );
+                        if (VTST.GT.VMX) VMX = VTST                         IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ).GT.VRMX ) VRMX = ABS( VR( JJ, J ) );
                      } // 110
                      if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                   }
@@ -344,7 +344,7 @@
                      VRMX = ZERO
                      for (JJ = 1; JJ <= N; JJ++) { // 130
                         VTST = DLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-                        if (VTST.GT.VMX) VMX = VTST                         IF( VL( JJ, J+1 ) == ZERO .AND. ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) );
+                        if (VTST.GT.VMX) VMX = VTST                         IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ).GT.VRMX ) VRMX = ABS( VL( JJ, J ) );
                      } // 130
                      if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                   }

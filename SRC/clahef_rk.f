@@ -81,7 +81,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -251,7 +251,7 @@
             // Interchange rows and columns P and K.
             // Updated column P is already stored in column KW of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column K to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -502,7 +502,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -669,7 +669,7 @@
             // Interchange rows and columns P and K (only for 2-by-2 pivot).
             // Updated column P is already stored in column K of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column KK-1 to column P of submatrix A
                // at step K. No need to copy element into columns

@@ -51,15 +51,15 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) {
+      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.WANTS && .NOT.WANTSP ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
+      } else if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
          INFO = -8
       } else {
 
@@ -100,9 +100,9 @@
             LIWMIN = 1
          }
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -15
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -17
          }
       }

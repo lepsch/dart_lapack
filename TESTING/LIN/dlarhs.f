@@ -54,25 +54,25 @@
          INFO = -1
       } else if ( .NOT.( LSAME( XTYPE, 'N' ) .OR. LSAME( XTYPE, 'C' ) ) ) {
          INFO = -2
-      } else if ( ( SYM .OR. TRI ) .AND. .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
+      } else if ( ( SYM .OR. TRI ) && .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) {
          INFO = -3
-      } else if ( ( GEN .OR. QRS ) .AND. .NOT. ( TRAN .OR. LSAME( TRANS, 'N' ) ) ) {
+      } else if ( ( GEN .OR. QRS ) && .NOT. ( TRAN .OR. LSAME( TRANS, 'N' ) ) ) {
          INFO = -4
       } else if ( M.LT.0 ) {
          INFO = -5
       } else if ( N.LT.0 ) {
          INFO = -6
-      } else if ( BAND .AND. KL.LT.0 ) {
+      } else if ( BAND && KL.LT.0 ) {
          INFO = -7
-      } else if ( BAND .AND. KU.LT.0 ) {
+      } else if ( BAND && KU.LT.0 ) {
          INFO = -8
       } else if ( NRHS.LT.0 ) {
          INFO = -9
-      } else if ( ( .NOT.BAND .AND. LDA.LT.MAX( 1, M ) ) .OR. ( BAND .AND. ( SYM .OR. TRI ) .AND. LDA.LT.KL+1 ) .OR. ( BAND .AND. GEN .AND. LDA.LT.KL+KU+1 ) ) {
+      } else if ( ( .NOT.BAND && LDA.LT.MAX( 1, M ) ) .OR. ( BAND && ( SYM .OR. TRI ) && LDA.LT.KL+1 ) .OR. ( BAND && GEN && LDA.LT.KL+KU+1 ) ) {
          INFO = -11
-      } else if ( ( NOTRAN .AND. LDX.LT.MAX( 1, N ) ) .OR. ( TRAN .AND. LDX.LT.MAX( 1, M ) ) ) {
+      } else if ( ( NOTRAN && LDX.LT.MAX( 1, N ) ) .OR. ( TRAN && LDX.LT.MAX( 1, M ) ) ) {
          INFO = -13
-      } else if ( ( NOTRAN .AND. LDB.LT.MAX( 1, M ) ) .OR. ( TRAN .AND. LDB.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NOTRAN && LDB.LT.MAX( 1, M ) ) .OR. ( TRAN && LDB.LT.MAX( 1, N ) ) ) {
          INFO = -15
       }
       if ( INFO != 0 ) {

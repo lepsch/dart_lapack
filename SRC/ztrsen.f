@@ -71,17 +71,17 @@
          LWMIN = MAX( 1, NN )
       }
 
-      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) {
+      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.WANTS && .NOT.WANTSP ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
+      } else if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
          INFO = -14
       }
 

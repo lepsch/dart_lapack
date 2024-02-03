@@ -57,7 +57,7 @@
                } // 30
                I = I + 1
                if ( I.GT.LENP ) {
-                  if ( J == NMATS .AND. I1.GT.0 ) {
+                  if ( J == NMATS && I1.GT.0 ) {
                      GO TO 60
                   } else {
                      WRITE( NOUT, FMT = 9995 )LINE
@@ -65,7 +65,7 @@
                      GO TO 80
                   }
                }
-               if ( LINE( I: I ) != ' ' .AND. LINE( I: I ) != ',' ) {
+               if ( LINE( I: I ) != ' ' && LINE( I: I ) != ',' ) {
                   I1 = I
                   C1 = LINE( I1: I1 )
 
@@ -92,7 +92,7 @@
          }
          for (I = 1; I <= NMATS; I++) { // 70
             NT = NREQ( I )
-            if ( NT.GT.0 .AND. NT.LE.NTYPES ) {
+            if ( NT.GT.0 && NT.LE.NTYPES ) {
                if ( DOTYPE( NT ) ) {
                   if (FIRSTT) WRITE( NOUT, FMT = * );
                   FIRSTT = false;

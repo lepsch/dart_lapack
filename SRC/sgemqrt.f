@@ -46,9 +46,9 @@
          LDWORK = MAX( 1, M )
          Q = N
       }
-      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
+      if ( .NOT.LEFT && .NOT.RIGHT ) {
          INFO = -1
-      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
+      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -56,7 +56,7 @@
          INFO = -4
       } else if ( K.LT.0 .OR. K.GT.Q ) {
          INFO = -5
-      } else if ( NB.LT.1 .OR. (NB.GT.K .AND. K.GT.0)) {
+      } else if ( NB.LT.1 .OR. (NB.GT.K && K.GT.0)) {
          INFO = -6
       } else if ( LDV.LT.MAX( 1, Q ) ) {
          INFO = -8
@@ -75,21 +75,21 @@
 
       if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
 
-      if ( LEFT .AND. TRAN ) {
+      if ( LEFT && TRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             slarfb('L', 'T', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          }
 
-      } else if ( RIGHT .AND. NOTRAN ) {
+      } else if ( RIGHT && NOTRAN ) {
 
          DO I = 1, K, NB
             IB = MIN( NB, K-I+1 )
             slarfb('R', 'N', 'F', 'C', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          }
 
-      } else if ( LEFT .AND. NOTRAN ) {
+      } else if ( LEFT && NOTRAN ) {
 
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB
@@ -97,7 +97,7 @@
             slarfb('L', 'N', 'F', 'C', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          }
 
-      } else if ( RIGHT .AND. TRAN ) {
+      } else if ( RIGHT && TRAN ) {
 
          KF = ((K-1)/NB)*NB+1
          DO I = KF, 1, -NB

@@ -38,7 +38,7 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 ) {
+      } else if ( LWORK.LT.1 .OR. LWORK.LT.NRHS && M.GT.0 && N.GT.0 ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

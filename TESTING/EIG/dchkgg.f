@@ -185,7 +185,7 @@
                }
                dlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 .AND. IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
+               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
 
                // Generate B (w/o rotation)
 
@@ -197,9 +197,9 @@
                }
                dlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
+               if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
-               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
 
                   // Include rotations
 

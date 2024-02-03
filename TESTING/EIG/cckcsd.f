@@ -81,7 +81,7 @@
 
             if ( IMAT == 1 ) {
                claror('L', 'I', M, M, X, LDX, ISEED, WORK, IINFO );
-               if ( M != 0 .AND. IINFO != 0 ) {
+               if ( M != 0 && IINFO != 0 ) {
                   WRITE( NOUT, FMT = 9999 ) M, IINFO
                   INFO = ABS( IINFO )
                   GO TO 20
@@ -128,7 +128,7 @@
 
             for (I = 1; I <= NT; I++) { // 10
                if ( RESULT( I ).GE.THRESH ) {
-                  if ( NFAIL == 0 .AND. FIRSTT ) {
+                  if ( NFAIL == 0 && FIRSTT ) {
                      FIRSTT = false;
                      alahdg(NOUT, PATH );
                   }

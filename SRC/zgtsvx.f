@@ -42,9 +42,9 @@
       INFO = 0
       NOFACT = LSAME( FACT, 'N' )
       NOTRAN = LSAME( TRANS, 'N' )
-      if ( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) {
+      if ( .NOT.NOFACT && .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3

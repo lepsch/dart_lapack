@@ -320,7 +320,7 @@
             clacpy(' ', N, N, H, LDA, T2, LDA );
 
             chseqr('S', 'N', N, ILO, IHI, T2, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -332,7 +332,7 @@
             clacpy(' ', N, N, U, LDU, UZ, LDU );
 
             chseqr('S', 'V', N, ILO, IHI, T1, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'CHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240

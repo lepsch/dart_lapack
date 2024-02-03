@@ -89,17 +89,17 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( VALEIG .AND. N.GT.0 .AND. WU.LE.WL ) {
+      } else if ( VALEIG && N.GT.0 && WU.LE.WL ) {
          INFO = -7
-      } else if ( INDEIG .AND. ( IIL.LT.1 .OR. IIL.GT.N ) ) {
+      } else if ( INDEIG && ( IIL.LT.1 .OR. IIL.GT.N ) ) {
          INFO = -8
-      } else if ( INDEIG .AND. ( IIU.LT.IIL .OR. IIU.GT.N ) ) {
+      } else if ( INDEIG && ( IIU.LT.IIL .OR. IIU.GT.N ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -13
-      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
          INFO = -17
-      } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+      } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
          INFO = -19
       }
 
@@ -116,19 +116,19 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
 
-         if ( WANTZ .AND. ALLEIG ) {
+         if ( WANTZ && ALLEIG ) {
             NZCMIN = N
-         } else if ( WANTZ .AND. VALEIG ) {
+         } else if ( WANTZ && VALEIG ) {
             slarrc('T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO );
-         } else if ( WANTZ .AND. INDEIG ) {
+         } else if ( WANTZ && INDEIG ) {
             NZCMIN = IIU-IIL+1
          } else {
             // WANTZ == FALSE.
             NZCMIN = 0
          }
-         if ( ZQUERY .AND. INFO == 0 ) {
+         if ( ZQUERY && INFO == 0 ) {
             Z( 1,1 ) = NZCMIN
-         } else if ( NZC.LT.NZCMIN .AND. .NOT.ZQUERY ) {
+         } else if ( NZC.LT.NZCMIN && .NOT.ZQUERY ) {
             INFO = -14
          }
       }
@@ -152,12 +152,12 @@
             M = 1
             W( 1 ) = D( 1 )
          } else {
-            if ( WL.LT.D( 1 ) .AND. WU.GE.D( 1 ) ) {
+            if ( WL.LT.D( 1 ) && WU.GE.D( 1 ) ) {
                M = 1
                W( 1 ) = D( 1 )
             }
          }
-         if ( WANTZ.AND.(.NOT.ZQUERY) ) {
+         if ( WANTZ && (.NOT.ZQUERY) ) {
             Z( 1, 1 ) = ONE
             ISUPPZ(1) = 1
             ISUPPZ(2) = 1
@@ -168,7 +168,7 @@
       if ( N == 2 ) {
          if ( .NOT.WANTZ ) {
             slae2(D(1), E(1), D(2), R1, R2 );
-         } else if ( WANTZ.AND.(.NOT.ZQUERY) ) {
+         } else if ( WANTZ && (.NOT.ZQUERY) ) {
             slaev2(D(1), E(1), D(2), R1, R2, CS, SN );
          }
          // D/S/LAE2 and D/S/LAEV2 outputs satisfy |R1| >= |R2|. However,
@@ -180,10 +180,10 @@
             R2 = E(2)
             LAESWAP = true;
          }
-         if ( ALLEIG.OR. (VALEIG.AND.(R2.GT.WL).AND. (R2.LE.WU)).OR. (INDEIG.AND.(IIL == 1)) ) {
+         if ( ALLEIG.OR. (VALEIG && (R2.GT.WL) && (R2.LE.WU)).OR. (INDEIG && (IIL == 1)) ) {
             M = M+1
             W( M ) = R2
-            if ( WANTZ.AND.(.NOT.ZQUERY) ) {
+            if ( WANTZ && (.NOT.ZQUERY) ) {
                if ( LAESWAP ) {
                   Z( 1, M ) = CS
                   Z( 2, M ) = SN
@@ -206,10 +206,10 @@
                }
             }
          }
-         if ( ALLEIG.OR. (VALEIG.AND.(R1.GT.WL).AND. (R1.LE.WU)).OR. (INDEIG.AND.(IIU == 2)) ) {
+         if ( ALLEIG.OR. (VALEIG && (R1.GT.WL) && (R1.LE.WU)).OR. (INDEIG && (IIU == 2)) ) {
             M = M+1
             W( M ) = R1
-            if ( WANTZ.AND.(.NOT.ZQUERY) ) {
+            if ( WANTZ && (.NOT.ZQUERY) ) {
                if ( LAESWAP ) {
                   Z( 1, M ) = -SN
                   Z( 2, M ) = CS
@@ -256,7 +256,7 @@
 
          SCALE = ONE
          TNRM = SLANST( 'M', N, D, E )
-         if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
+         if ( TNRM.GT.ZERO && TNRM.LT.RMIN ) {
             SCALE = RMIN / TNRM
          } else if ( TNRM.GT.RMAX ) {
             SCALE = RMAX / TNRM

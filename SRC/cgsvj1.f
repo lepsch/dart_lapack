@@ -59,9 +59,9 @@
          INFO = -4
       } else if ( LDA.LT.M ) {
          INFO = -6
-      } else if ( ( RSVEC.OR.APPLV ) .AND. ( MV.LT.0 ) ) {
+      } else if ( ( RSVEC.OR.APPLV ) && ( MV.LT.0 ) ) {
          INFO = -9
-      } else if ( ( RSVEC.AND.( LDV.LT.N ) ).OR. ( APPLV.AND.( LDV.LT.MV ) )  ) {
+      } else if ( ( RSVEC && ( LDV.LT.N ) ).OR. ( APPLV && ( LDV.LT.MV ) )  ) {
          INFO = -11
       } else if ( TOL.LE.EPS ) {
          INFO = -14
@@ -282,7 +282,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -292,7 +292,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 if ( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) {
+                                 if ( ( AAPP.LT.ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
                                     T = ZERO
@@ -315,12 +315,12 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -353,7 +353,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ).LT.ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          } else {
             T = ZERO
@@ -364,9 +364,9 @@
 
       // Additional steering devices
 
-         IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 
-         if ( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.SQRT( REAL( N ) )* TOL ) .AND. ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
+         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ.LT.SQRT( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
             GO TO 1994
          }
 

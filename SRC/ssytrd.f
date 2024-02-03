@@ -41,13 +41,13 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK == -1 )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
          INFO = -9
       }
 
@@ -76,7 +76,7 @@
 
       NX = N
       IWS = 1
-      if ( NB.GT.1 .AND. NB.LT.N ) {
+      if ( NB.GT.1 && NB.LT.N ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code).

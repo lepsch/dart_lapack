@@ -78,11 +78,11 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVSL.LT.1 .OR. ( ILVSL .AND. LDVSL.LT.N ) ) {
+      } else if ( LDVSL.LT.1 .OR. ( ILVSL && LDVSL.LT.N ) ) {
          INFO = -12
-      } else if ( LDVSR.LT.1 .OR. ( ILVSR .AND. LDVSR.LT.N ) ) {
+      } else if ( LDVSR.LT.1 .OR. ( ILVSR && LDVSR.LT.N ) ) {
          INFO = -14
-      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -16
       }
 
@@ -117,7 +117,7 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -137,7 +137,7 @@
 
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -216,9 +216,9 @@
       dhgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
+         if ( IINFO.GT.0 && IINFO.LE.N ) {
             INFO = IINFO
-         } else if ( IINFO.GT.N .AND. IINFO.LE.2*N ) {
+         } else if ( IINFO.GT.N && IINFO.LE.2*N ) {
             INFO = IINFO - N
          } else {
             INFO = N + 6

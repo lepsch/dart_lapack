@@ -133,7 +133,7 @@
                         if (IINFO != 0) NINFO( 1 ) = NINFO( 1 ) + 1;
                         XNRM = ZLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
-                        if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                        if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
                            if ( XNRM.GT.BIGNUM / TNRM ) {
                               RMUL = CONE / MAX( XNRM, TNRM )
                            }
@@ -149,7 +149,7 @@
                         if (INFO != 0) NINFO( 2 ) = NINFO( 2 ) + 1;
                         XNRM = ZLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = CONE
-                        if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                        if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
                            if ( XNRM.GT.BIGNUM / TNRM ) {
                               RMUL = CONE / MAX( XNRM, TNRM )
                            }
@@ -160,7 +160,7 @@
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but
                         // there may be cases where TRSYL3 avoid flushing).
-                        if ( SCALE3 == ZERO .AND. SCALE.GT.ZERO .OR. IINFO != INFO ) {
+                        if ( SCALE3 == ZERO && SCALE.GT.ZERO .OR. IINFO != INFO ) {
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         }
                         IF( RES.GT.THRESH .OR. DISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES

@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO == 0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK.GE.1 ) {
          MINWRK = MAX( 1, 8*NMAX, NMAX*( NMAX+1 ) )
          MAXWRK = 7*NMAX + NMAX*ILAENV( 1, 'SGEQRF', ' ', NMAX, 1, NMAX, 0 )
          MAXWRK = MAX( MAXWRK, NMAX*( NMAX+1 ) )
@@ -188,7 +188,7 @@
                }
                slatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 .AND. IADD.LE.N) A( IADD, IADD ) = ONE;
+               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = ONE;
 
                // Generate B (w/o rotation)
 
@@ -200,9 +200,9 @@
                }
                slatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
+               if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = ONE;
 
-               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
 
                   // Include rotations
 
@@ -278,7 +278,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev3('V', 'V', N, S, LDA, T, LDA, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV31', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -304,7 +304,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev3('N', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV32', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -323,7 +323,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev3('V', 'N', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV33', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -346,7 +346,7 @@
             slacpy(' ', N, N, A, LDA, S, LDA );
             slacpy(' ', N, N, B, LDA, T, LDA );
             sggev3('N', 'V', N, S, LDA, T, LDA, ALPHR1, ALPHI1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'SGGEV34', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )

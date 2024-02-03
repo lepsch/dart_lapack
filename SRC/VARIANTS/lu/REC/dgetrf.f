@@ -94,7 +94,7 @@
          dlaswp(KCOLS, A( 1,J+1 ), LDA, KSTART, J, IPIV, 1 );
 
          // Factor the current column
-         if ( A( J, J ) != ZERO .AND. .NOT.DISNAN( A( J, J ) ) ) {
+         if ( A( J, J ) != ZERO && .NOT.DISNAN( A( J, J ) ) ) {
                if ( ABS(A( J, J )) .GE. SFMIN ) {
                   dscal(M-J, ONE / A( J, J ), A( J+1, J ), 1 );
                } else {
@@ -102,7 +102,7 @@
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
                  }
                }
-         } else if ( A( J,J ) == ZERO .AND. INFO == 0 ) {
+         } else if ( A( J,J ) == ZERO && INFO == 0 ) {
             INFO = J
          }
 

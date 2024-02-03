@@ -60,9 +60,9 @@
          INFO = -4
       } else if ( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) {
          INFO = -5
-      } else if ( ( IRC == 0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC == 1 .AND. LDU.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDU.LT.MAX( 1, MU ) ) .OR. ( IRC == 1 && LDU.LT.MAX( 1, N ) ) ) {
          INFO = -7
-      } else if ( ( IRC == 0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC == 1 .AND. LDV.LT.MAX( 1, N ) ) ) {
+      } else if ( ( IRC == 0 && LDV.LT.MAX( 1, MV ) ) .OR. ( IRC == 1 && LDV.LT.MAX( 1, N ) ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {

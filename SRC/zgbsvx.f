@@ -60,9 +60,9 @@
 
       // Test the input parameters.
 
-      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) {
+      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT.LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -76,7 +76,7 @@
          INFO = -8
       } else if ( LDAFB.LT.2*KL+KU+1 ) {
          INFO = -10
-      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -12
       } else {
          if ( ROWEQU ) {
@@ -94,7 +94,7 @@
                ROWCND = ONE
             }
          }
-         if ( COLEQU .AND. INFO == 0 ) {
+         if ( COLEQU && INFO == 0 ) {
             RCMIN = BIGNUM
             RCMAX = ZERO
             for (J = 1; J <= N; J++) { // 20

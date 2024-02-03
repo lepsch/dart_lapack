@@ -38,7 +38,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( ICOMPQ == 1 .AND. QSIZ.LT.N ) {
+      } else if ( ICOMPQ == 1 && QSIZ.LT.N ) {
          INFO = -3
       } else if ( LDQ.LT.MAX( 1, N ) ) {
          INFO = -9

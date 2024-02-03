@@ -50,13 +50,13 @@
         INFO = -2
       } else if ( MB.LT.1 ) {
         INFO = -3
-      } else if ( NB.LT.1 .OR. ( NB.GT.N .AND. N.GT.0 ) ) {
+      } else if ( NB.LT.1 .OR. ( NB.GT.N && N.GT.0 ) ) {
         INFO = -4
       } else if ( LDA.LT.MAX( 1, M ) ) {
         INFO = -6
       } else if ( LDT.LT.NB ) {
         INFO = -8
-      } else if ( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) {
+      } else if ( LWORK.LT.LWMIN && (.NOT.LQUERY) ) {
         INFO = -10
       }
 

@@ -65,9 +65,9 @@
 
       // Test the input parameters.  PARAMS is not tested until ZHERFSX.
 
-      if ( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) {
+      if ( .NOT.NOFACT && .NOT.EQUIL && .NOT. LSAME( FACT, 'F' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -77,7 +77,7 @@
          INFO = -6
       } else if ( LDAF.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
+      } else if ( LSAME( FACT, 'F' ) && .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) {
          INFO = -9
       } else {
          if ( RCEQU ) {

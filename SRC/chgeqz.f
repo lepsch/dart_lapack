@@ -111,11 +111,11 @@
          INFO = -8
       } else if ( LDT.LT.N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( ILQ && LDQ.LT.N ) ) {
          INFO = -14
-      } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( ILZ && LDZ.LT.N ) ) {
          INFO = -16
-      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -18
       }
       if ( INFO != 0 ) {
@@ -413,7 +413,7 @@
 
             // Exceptional shift.  Chosen for no particularly good reason.
 
-            IF( ( IITER / 20 )*20 == IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
+            IF( ( IITER / 20 )*20 == IITER && BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             } else {
                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
             }
@@ -428,7 +428,7 @@
             TEMP = ABS1( CTEMP )
             TEMP2 = ASCALE*ABS1( H( J+1, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            if ( TEMPR.LT.ONE .AND. TEMPR != ZERO ) {
+            if ( TEMPR.LT.ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }

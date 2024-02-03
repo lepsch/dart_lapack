@@ -36,17 +36,17 @@
 
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
-      if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
+      if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if (( IFST.LT.1 .OR. IFST.GT.N ).AND.( N.GT.0 )) {
+      } else if (( IFST.LT.1 .OR. IFST.GT.N ) && ( N.GT.0 )) {
          INFO = -7
-      } else if (( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) {
+      } else if (( ILST.LT.1 .OR. ILST.GT.N ) && ( N.GT.0 )) {
          INFO = -8
       }
       if ( INFO != 0 ) {

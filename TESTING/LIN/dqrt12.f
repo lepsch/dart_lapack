@@ -70,7 +70,7 @@
 
       ANRM = DLANGE( 'M', M, N, WORK, M, DUMMY )
       ISCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 

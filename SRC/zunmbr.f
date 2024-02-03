@@ -49,11 +49,11 @@
          NQ = N
          NW = MAX( 1, M )
       }
-      if ( .NOT.APPLYQ .AND. .NOT.LSAME( VECT, 'P' ) ) {
+      if ( .NOT.APPLYQ && .NOT.LSAME( VECT, 'P' ) ) {
          INFO = -1
-      } else if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
+      } else if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -2
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -61,16 +61,16 @@
          INFO = -5
       } else if ( K.LT.0 ) {
          INFO = -6
-      } else if ( ( APPLYQ .AND. LDA.LT.MAX( 1, NQ ) ) .OR. ( .NOT.APPLYQ .AND. LDA.LT.MAX( 1, MIN( NQ, K ) ) ) ) {
+      } else if ( ( APPLYQ && LDA.LT.MAX( 1, NQ ) ) .OR. ( .NOT.APPLYQ && LDA.LT.MAX( 1, MIN( NQ, K ) ) ) ) {
          INFO = -8
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -11
-      } else if ( LWORK.LT.NW .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.NW && .NOT.LQUERY ) {
          INFO = -13
       }
 
       if ( INFO == 0 ) {
-         if ( M.GT.0 .AND. N.GT.0 ) {
+         if ( M.GT.0 && N.GT.0 ) {
             if ( APPLYQ ) {
                if ( LEFT ) {
                   NB = ILAENV( 1, 'ZUNMQR', SIDE // TRANS, M-1, N, M-1, -1 )

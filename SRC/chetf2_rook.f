@@ -52,7 +52,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -211,7 +211,7 @@
             // For only a 2x2 pivot, interchange rows and columns K and P
             // in the leading submatrix A(1:k,1:k)
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
                if (P.GT.1) CALL CSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
@@ -512,7 +512,7 @@
             // For only a 2x2 pivot, interchange rows and columns K and P
             // in the trailing submatrix A(k:n,k:n)
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
                if (P.LT.N) CALL CSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts

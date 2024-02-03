@@ -72,7 +72,7 @@
       strexc('N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J .AND. Q( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J .AND. Q( I, J ) != ZERO ) RES = RES + ONE / EPS
+            IF( I == J && Q( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J && Q( I, J ) != ZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 

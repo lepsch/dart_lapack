@@ -65,7 +65,7 @@
 
       if ( S1.LT.SAFMIN ) {
          INFO = 2
-         if ( SCALES.LT.SAFMIN .AND. ABSW.LT.SAFMIN ) {
+         if ( SCALES.LT.SAFMIN && ABSW.LT.SAFMIN ) {
             INFO = 3
             RESULT = ONE / ULP
             RETURN

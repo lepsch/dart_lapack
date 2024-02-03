@@ -71,7 +71,7 @@
          INFO = -18
       } else if ( LDLRE.LT.1 .OR. LDLRE.LT.N ) {
          INFO = -20
-      } else if ( LWORK.LT.3*N .OR. ( COMP .AND. LWORK.LT.6*N+N*N ) ) {
+      } else if ( LWORK.LT.3*N .OR. ( COMP && LWORK.LT.6*N+N*N ) ) {
          INFO = -31
       }
 
@@ -141,7 +141,7 @@
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
-               if (VTST.GT.VMX) VMX = VTST                IF( VR( JJ, J+1 ) == ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) );
+               if (VTST.GT.VMX) VMX = VTST                IF( VR( JJ, J+1 ) == ZERO && ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) );
             } // 20
             if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
          }
@@ -162,7 +162,7 @@
             VRMX = ZERO
             for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
-               if (VTST.GT.VMX) VMX = VTST                IF( VL( JJ, J+1 ) == ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) );
+               if (VTST.GT.VMX) VMX = VTST                IF( VL( JJ, J+1 ) == ZERO && ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) );
             } // 40
             if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
          }
@@ -206,7 +206,7 @@
 
          // Do Test (9)
 
-         if ( ISENS == 2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 && N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
@@ -252,7 +252,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 && N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
@@ -298,7 +298,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 && N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180

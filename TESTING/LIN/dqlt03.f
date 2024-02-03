@@ -65,7 +65,7 @@
       // Copy the last k columns of the factorization to the array Q
 
       dlaset('Full', M, M, ROGUE, ROGUE, Q, LDA );
-      if (K.GT.0 .AND. M.GT.K) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA )       IF( K.GT.1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA );
+      if (K.GT.0 && M.GT.K) CALL DLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA )       IF( K.GT.1 ) CALL DLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA );
 
       // Generate the m-by-m matrix Q
 

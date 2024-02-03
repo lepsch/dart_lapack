@@ -156,7 +156,7 @@
       // If inv(DL) is used, check to see if DL has a zero entry.
 
       DZERO = false;
-      if ( IGRADE == 4 .AND. MODEL == 0 ) {
+      if ( IGRADE == 4 && MODEL == 0 ) {
          for (I = 1; I <= M; I++) { // 10
             IF( DL( I ) == ZERO ) DZERO = true;
          } // 10
@@ -175,7 +175,7 @@
 
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( M != N .AND. ISYM == 0 ) {
+      } else if ( M != N && ISYM == 0 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -185,35 +185,35 @@
          INFO = -5
       } else if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -7
-      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND.LT.ONE ) {
          INFO = -8
-      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. IRSIGN == -1 ) {
+      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 .AND. M != N ) .OR. ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM == 0 ) ) {
+      } else if ( IGRADE == -1 .OR. ( IGRADE == 4 && M != N ) .OR. ( ( IGRADE.GE.1 && IGRADE.LE.4 ) && ISYM == 0 ) ) {
          INFO = -11
-      } else if ( IGRADE == 4 .AND. DZERO ) {
+      } else if ( IGRADE == 4 && DZERO ) {
          INFO = -12
-      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) && ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) {
          INFO = -13
-      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) .AND. ( MODEL != -6 .AND. MODEL != 0 .AND. MODEL != 6 ) .AND. CONDL.LT.ONE ) {
+      } else if ( ( IGRADE == 1 .OR. IGRADE == 3 .OR. IGRADE == 4 .OR. IGRADE == 5 ) && ( MODEL != -6 && MODEL != 0 && MODEL != 6 ) && CONDL.LT.ONE ) {
          INFO = -14
-      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) && ( MODER.LT.-6 .OR. MODER.GT.6 ) ) {
          INFO = -16
-      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) .AND. ( MODER != -6 .AND. MODER != 0 .AND. MODER != 6 ) .AND. CONDR.LT.ONE ) {
+      } else if ( ( IGRADE == 2 .OR. IGRADE == 3 ) && ( MODER != -6 && MODER != 0 && MODER != 6 ) && CONDR.LT.ONE ) {
          INFO = -17
-      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 .AND. M != N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) .AND. ISYM == 0 ) ) {
+      } else if ( IPVTNG == -1 .OR. ( IPVTNG == 3 && M != N ) .OR. ( ( IPVTNG == 1 .OR. IPVTNG == 2 ) && ISYM == 0 ) ) {
          INFO = -18
-      } else if ( IPVTNG != 0 .AND. BADPVT ) {
+      } else if ( IPVTNG != 0 && BADPVT ) {
          INFO = -19
       } else if ( KL.LT.0 ) {
          INFO = -20
-      } else if ( KU.LT.0 .OR. ( ISYM == 0 .AND. KL != KU ) ) {
+      } else if ( KU.LT.0 .OR. ( ISYM == 0 && KL != KU ) ) {
          INFO = -21
       } else if ( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) {
          INFO = -22
-      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) .AND. ISYM == 1 ) .OR. ( IPACK == 3 .AND. ISYM == 1 .AND. ( KL != 0 .OR. M != N ) ) .OR. ( IPACK == 4 .AND. ISYM == 1 .AND. ( KU != 0 .OR. M != N ) ) ) {
+      } else if ( IPACK == -1 .OR. ( ( IPACK == 1 .OR. IPACK == 2 .OR. IPACK == 5 .OR. IPACK == 6 ) && ISYM == 1 ) .OR. ( IPACK == 3 && ISYM == 1 && ( KL != 0 .OR. M != N ) ) .OR. ( IPACK == 4 && ISYM == 1 && ( KU != 0 .OR. M != N ) ) ) {
          INFO = -24
-      } else if ( ( ( IPACK == 0 .OR. IPACK == 1 .OR. IPACK == 2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK == 3 .OR. IPACK == 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK == 5 .OR. IPACK == 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK == 7 .AND. LDA.LT.KLL+KUU+1 ) ) {
+      } else if ( ( ( IPACK == 0 .OR. IPACK == 1 .OR. IPACK == 2 ) && LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK == 3 .OR. IPACK == 4 ) && LDA.LT.1 ) .OR. ( ( IPACK == 5 .OR. IPACK == 6 ) && LDA.LT.KUU+1 ) .OR. ( IPACK == 7 && LDA.LT.KLL+KUU+1 ) ) {
          INFO = -26
       }
 
@@ -225,7 +225,7 @@
       // Decide if we can pivot consistently
 
       FULBND = false;
-      if (KUU == N-1 .AND. KLL == M-1) FULBND = true ;
+      if (KUU == N-1 && KLL == M-1) FULBND = true ;
 
       // Initialize random number generator
 
@@ -244,7 +244,7 @@
          INFO = 1
          RETURN
       }
-      if ( MODE != 0 .AND. MODE != -6 .AND. MODE != 6 ) {
+      if ( MODE != 0 && MODE != -6 && MODE != 6 ) {
 
          // Scale by DMAX
 
@@ -252,7 +252,7 @@
          for (I = 2; I <= MNMIN; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
          } // 40
-         if ( TEMP == ZERO .AND. DMAX != ZERO ) {
+         if ( TEMP == ZERO && DMAX != ZERO ) {
             INFO = 2
             RETURN
          }
@@ -444,7 +444,7 @@
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
-                     if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
+                     if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 && MNSUB != MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP;
                   } // 250
                } // 260
             } else if ( ISYM == 1 ) {
@@ -572,7 +572,7 @@
                for (J = 1; J <= N; J++) { // 480
                   for (I = J - KUU; I <= J; I++) { // 470
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                     if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
+                     if (I.LT.1) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 && I != J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J );
                   } // 470
                } // 480
             } else if ( ISYM == 1 ) {
@@ -609,14 +609,14 @@
 
       if ( ANORM.GE.ZERO ) {
 
-         if ( ANORM.GT.ZERO .AND. ONORM == ZERO ) {
+         if ( ANORM.GT.ZERO && ONORM == ZERO ) {
 
             // Desired scaling impossible
 
             INFO = 5
             RETURN
 
-         } else if ( ( ANORM.GT.ONE .AND. ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE .AND. ONORM.GT.ONE ) ) {
+         } else if ( ( ANORM.GT.ONE && ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE && ONORM.GT.ONE ) ) {
 
             // Scale carefully to avoid over / underflow
 

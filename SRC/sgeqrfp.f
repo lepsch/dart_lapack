@@ -52,7 +52,7 @@
          INFO = -2
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -7
       }
       if ( INFO != 0 ) {
@@ -73,7 +73,7 @@
       NBMIN = 2
       NX = 0
       IWS = LWKMIN
-      if ( NB.GT.1 .AND. NB.LT.K ) {
+      if ( NB.GT.1 && NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -95,7 +95,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
+      if ( NB.GE.NBMIN && NB.LT.K && NX.LT.K ) {
 
          // Use blocked code initially
 

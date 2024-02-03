@@ -55,7 +55,7 @@
          INFO = -5
       } else {
          if ( VALEIG ) {
-            if ( N.GT.0 .AND. VU.LE.VL ) {
+            if ( N.GT.0 && VU.LE.VL ) {
                INFO = -9
             }
          } else if ( INDEIG ) {
@@ -67,7 +67,7 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
             INFO = -16
          }
       }

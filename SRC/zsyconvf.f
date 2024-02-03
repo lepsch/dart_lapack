@@ -34,9 +34,9 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       CONVERT = LSAME( WAY, 'C' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.CONVERT .AND. .NOT.LSAME( WAY, 'R' ) ) {
+      } else if ( .NOT.CONVERT && .NOT.LSAME( WAY, 'R' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -210,7 +210,7 @@
             I = 1
             E( N ) = ZERO
             DO WHILE ( I.LE.N )
-               if ( I.LT.N .AND. IPIV(I).LT.0 ) {
+               if ( I.LT.N && IPIV(I).LT.0 ) {
                   E( I ) = A( I+1, I )
                   E( I+1 ) = ZERO
                   A( I+1, I ) = ZERO

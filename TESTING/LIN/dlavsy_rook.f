@@ -39,11 +39,11 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.LSAME( TRANS, 'N' ) && .NOT. LSAME( TRANS, 'T' ) && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
-      } else if ( .NOT.LSAME( DIAG, 'U' ) .AND. .NOT.LSAME( DIAG, 'N' ) ) {
+      } else if ( .NOT.LSAME( DIAG, 'U' ) && .NOT.LSAME( DIAG, 'N' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4

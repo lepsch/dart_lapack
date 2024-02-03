@@ -29,7 +29,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ISPEC.GE.1 .AND. ISPEC.LE.5 ) {
+      if ( ISPEC.GE.1 && ISPEC.LE.5 ) {
 
          // Return a value from the common block.
 
@@ -41,7 +41,7 @@
 
          ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
 
-      } else if ( ISPEC.GE.7 .AND. ISPEC.LE.9 ) {
+      } else if ( ISPEC.GE.7 && ISPEC.LE.9 ) {
 
          // Return a value from the common block.
 
@@ -67,7 +67,7 @@
             ILAENV = IEEECK( 0, 0.0, 1.0 )
          }
 
-      } else if (( ISPEC.GE.12 ) .AND. (ISPEC.LE.16)) {
+      } else if (( ISPEC.GE.12 ) && (ISPEC.LE.16)) {
 
       // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
 
@@ -75,7 +75,7 @@
           // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
           // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 
-      } else if (( ISPEC.GE.17 ) .AND. (ISPEC.LE.21)) {
+      } else if (( ISPEC.GE.17 ) && (ISPEC.LE.21)) {
 
       // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 
@@ -122,7 +122,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) {
+      if (( ISPEC.GE.1 ) && (ISPEC.LE.5)) {
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 

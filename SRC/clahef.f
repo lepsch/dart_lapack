@@ -70,7 +70,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
 
          KSTEP = 1
 
@@ -399,7 +399,7 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP != JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
+            if (JP != JJ && J.LE.N) CALL CSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -418,7 +418,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
 
          KSTEP = 1
 
@@ -739,7 +739,7 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            if (JP != JJ .AND. J.GE.1) CALL CSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GE.1 ) GO TO 120;
+            if (JP != JJ && J.GE.1) CALL CSWAP( J, A( JP, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GE.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

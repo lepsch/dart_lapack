@@ -92,8 +92,8 @@
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            if (ZEROT .AND. N.LT.IMAT-2) GO TO 110;
+            ZEROT = IMAT.GE.3 && IMAT.LE.5
+            if (ZEROT && N.LT.IMAT-2) GO TO 110;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -185,10 +185,10 @@
 
                   if ( INFO != IZERO ) {
 
-                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                      NERRS = NERRS + 1
 
-                     if ( INFO != IZERO .AND. IZERO != 0 ) {
+                     if ( INFO != IZERO && IZERO != 0 ) {
                         WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N, IMAT
                      } else {
                         WRITE( NOUT, FMT = 9975 )'ZCPOSV',INFO,N,IMAT
@@ -217,9 +217,9 @@
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
 
-                  if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) {
+                  if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0) && (RESULT(1).GE.THRESH))) {
 
-                     if ( NFAIL == 0 .AND. NERRS == 0 ) {
+                     if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'ZPO'
                         WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
                         WRITE( NOUT, FMT = 8979 )

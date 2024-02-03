@@ -58,17 +58,17 @@
       WANTSB = LSAME( SENSE, 'B' )
       LQUERY = ( LWORK == -1 )
 
-      if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
+      if ( ( .NOT.WANTVS ) && ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) {
+      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) {
+      } else if ( LDVS.LT.1 .OR. ( WANTVS && LDVS.LT.N ) ) {
          INFO = -11
       }
 
@@ -108,7 +108,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWRK)
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -15
          }
       }
@@ -139,7 +139,7 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
@@ -188,7 +188,7 @@
 
       // Sort eigenvalues if desired
 
-      if ( WANTST .AND. INFO == 0 ) {
+      if ( WANTST && INFO == 0 ) {
          if (SCALEA) CALL CLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )
@@ -225,7 +225,7 @@
 
          clascl('U', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          ccopy(N, A, LDA+1, W, 1 );
-         if ( ( WANTSV .OR. WANTSB ) .AND. INFO == 0 ) {
+         if ( ( WANTSV .OR. WANTSB ) && INFO == 0 ) {
             DUM( 1 ) = RCONDV
             slascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )

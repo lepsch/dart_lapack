@@ -43,7 +43,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       } else if ( .NOT.LQUERY ) {
-         IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
+         IF( LWORK.LE.0 .OR. ( M.GT.0 && LWORK.LT.MAX( 1, N ) ) ) INFO = -7
       }
       if ( INFO != 0 ) {
          xerbla('SGEQRF', -INFO );
@@ -68,7 +68,7 @@
       NBMIN = 2
       NX = 0
       IWS = N
-      if ( NB.GT.1 .AND. NB.LT.K ) {
+      if ( NB.GT.1 && NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -90,7 +90,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
+      if ( NB.GE.NBMIN && NB.LT.K && NX.LT.K ) {
 
          // Use blocked code initially
 

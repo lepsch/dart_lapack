@@ -42,15 +42,15 @@
       LSIDE = LSAME( SIDE, 'L' )
       LOWER = LSAME( UPLO, 'L' )
       NOTRANS = LSAME( TRANS, 'N' )
-      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'C' ) ) {
+      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.LSIDE .AND. .NOT.LSAME( SIDE, 'R' ) ) {
+      } else if ( .NOT.LSIDE && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -2
-      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -3
-      } else if ( .NOT.NOTRANS .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRANS && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -4
-      } else if ( .NOT.LSAME( DIAG, 'N' ) .AND. .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( .NOT.LSAME( DIAG, 'N' ) && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -6

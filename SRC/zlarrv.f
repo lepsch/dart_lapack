@@ -99,7 +99,7 @@
       // Set expert flags for standard code.
       TRYRQC = true;
 
-      if ((DOL == 1).AND.(DOU == M)) {
+      if ((DOL == 1) && (DOU == M)) {
       } else {
          // Only selected eigenpairs are computed. Since the other evalues
          // are not refined by RQ iteration, bisection has to compute to full
@@ -235,7 +235,7 @@
                   // The RRR is stored in Z and overwritten once the eigenvectors
                   // have been computed or when the cluster is refined
 
-                  if ((DOL == 1).AND.(DOU == M)) {
+                  if ((DOL == 1) && (DOU == M)) {
                      // Get representation from location of the leftmost evalue
                      // of the cluster
                      J = WBEGIN + OLDFST - 1
@@ -325,7 +325,7 @@
 
                   // NEWFTT is the place in Z where the new RRR or the computed
                   // eigenvector is to be stored
-                  if ((DOL == 1).AND.(DOU == M)) {
+                  if ((DOL == 1) && (DOU == M)) {
                      // Store representation at location of the leftmost evalue
                      // of the cluster
                      NEWFTT = WBEGIN + NEWFST - 1
@@ -549,7 +549,7 @@
                      // Convergence test for Rayleigh-Quotient iteration
                      // (omitted when Bisection has been used)
 
-                     if ( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS) {
+                     if ( RESID.GT.TOL*GAP && ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) && .NOT. USEDBS) {
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
                         // towards a neighbor. -> protection with bisection
@@ -562,7 +562,7 @@
                         }
                         // We only use the RQCORR if it improves the
                         // the iterate reasonably.
-                        if ( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) {
+                        if ( ( RQCORR*SGNDEF.GE.ZERO ) && ( LAMBDA + RQCORR.LE. RIGHT) && ( LAMBDA + RQCORR.GE. LEFT) ) {
                            USEDRQ = true;
                            // Store new midpoint of bisection interval in WORK
                            if (SGNDEF == ONE) {
@@ -608,7 +608,7 @@
                         }
                      } else {
                         STP2II = false;
-        if (USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) {
+        if (USEDRQ && USEDBS && BSTRES.LE.RESID) {
                            LAMBDA = BSTW
                            STP2II = true;
                         }

@@ -120,9 +120,9 @@
 
       if ( ILBBAD ) {
          INFO = -7
-      } else if ( COMPL .AND. LDVL.LT.N .OR. LDVL.LT.1 ) {
+      } else if ( COMPL && LDVL.LT.N .OR. LDVL.LT.1 ) {
          INFO = -10
-      } else if ( COMPR .AND. LDVR.LT.N .OR. LDVR.LT.1 ) {
+      } else if ( COMPR && LDVR.LT.N .OR. LDVR.LT.1 ) {
          INFO = -12
       } else if ( MM.LT.IM ) {
          INFO = -13
@@ -184,7 +184,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG + 1
 
-               if ( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ).LE.SAFMIN && ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -208,8 +208,8 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEFF ).LT.SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ).LT.SMALL
+               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ).LT. SMALL
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );
@@ -338,7 +338,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG - 1
 
-               if ( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ).LE.SAFMIN && ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -362,8 +362,8 @@
 
                // Scale to avoid underflow
 
-               LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEFF ).LT.SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEFF ).LT.SMALL
+               LSB = ABS1( SALPHA ).GE.SAFMIN && ABS1( BCOEFF ).LT. SMALL
 
                SCALE = ONE
                if (LSA) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) );

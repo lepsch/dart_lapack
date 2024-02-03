@@ -47,9 +47,9 @@
       // Test the input parameters.
 
       INFO = 0
-      if ((.NOT.LSAME(SIDE,'L')) .AND. (.NOT.LSAME(SIDE,'R'))) {
+      if ((.NOT.LSAME(SIDE,'L')) && (.NOT.LSAME(SIDE,'R'))) {
           INFO = 1
-      } else if ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) {
+      } else if ((.NOT.UPPER) && (.NOT.LSAME(UPLO,'L'))) {
           INFO = 2
       } else if (M.LT.0) {
           INFO = 3
@@ -69,7 +69,7 @@
 
       // Quick return if possible.
 
-      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO).AND. (BETA == ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO) && (BETA == ONE))) RETURN
 
       // And when  alpha == zero.
 

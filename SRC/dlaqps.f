@@ -43,7 +43,7 @@
       // Beginning of while loop.
 
       } // 10
-      if ( ( K.LT.NB ) .AND. ( LSTICC == 0 ) ) {
+      if ( ( K.LT.NB ) && ( LSTICC == 0 ) ) {
          K = K + 1
          RK = OFFSET + K
 

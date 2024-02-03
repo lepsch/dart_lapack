@@ -63,11 +63,11 @@
          INFO = -8
       } else if ( LDBB.LT.KB+1 ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( WANTZ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTZ && LDQ.LT.N ) ) {
          INFO = -12
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -14;
+            if (N.GT.0 && VU.LE.VL) INFO = -14;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -15
@@ -77,7 +77,7 @@
          }
       }
       if ( INFO == 0) {
-         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
             INFO = -21
          }
       }
@@ -122,11 +122,11 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL == 1 .AND. IU == N ) {
+         if ( IL == 1 && IU == N ) {
             TEST = true;
          }
       }
-      if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
+      if ( ( ALLEIG .OR. TEST ) && ( ABSTOL.LE.ZERO ) ) {
          dcopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
          dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );

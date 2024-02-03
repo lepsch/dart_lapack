@@ -46,7 +46,7 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT == 17 ) {
+      if ( ( IMAT.GE.6 && IMAT.LE.9 ) .OR. IMAT == 17 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
@@ -346,7 +346,7 @@
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
                } // 240
-               if (J.GT.1 .AND. KD.GT.0) AB( KD, J ) = -ONE;
+               if (J.GT.1 && KD.GT.0) AB( KD, J ) = -ONE;
                AB( KD+1, J ) = TSCAL
             } // 250
             B( N ) = ONE
@@ -355,7 +355,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 260
-               if (J.LT.N .AND. KD.GT.0) AB( 2, J ) = -ONE;
+               if (J.LT.N && KD.GT.0) AB( 2, J ) = -ONE;
                AB( 1, J ) = TSCAL
             } // 270
             B( 1 ) = ONE

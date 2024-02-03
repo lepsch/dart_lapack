@@ -97,8 +97,8 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            if (ZEROT .AND. N.LT.IMAT-2) GO TO 170;
+            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            if (ZEROT && N.LT.IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -295,7 +295,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSPSV ', UPLO, N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSPSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110
@@ -305,7 +305,7 @@
 
                   // --- Test DSPSVX ---
 
-                  if (IFACT == 2 .AND. NPP.GT.0) CALL DLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
+                  if (IFACT == 2 && NPP.GT.0) CALL DLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
                   dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -376,7 +376,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DSPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DSPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 140

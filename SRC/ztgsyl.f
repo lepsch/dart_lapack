@@ -48,7 +48,7 @@
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
          if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.4 ) ) {
@@ -87,7 +87,7 @@
          }
          WORK( 1 ) = LWMIN
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -20
          }
       }
@@ -123,12 +123,12 @@
             IFUNC = IJOB - 2
             zlaset('F', M, N, CZERO, CZERO, C, LDC );
             zlaset('F', M, N, CZERO, CZERO, F, LDF );
-         } else if ( IJOB.GE.1 .AND. NOTRAN ) {
+         } else if ( IJOB.GE.1 && NOTRAN ) {
             ISOLVE = 2
          }
       }
 
-      if ( ( MB.LE.1 .AND. NB.LE.1 ) .OR. ( MB.GE.M .AND. NB.GE.N ) ) {
+      if ( ( MB.LE.1 && NB.LE.1 ) .OR. ( MB.GE.M && NB.GE.N ) ) {
 
          // Use unblocked Level 2 solver
 
@@ -146,7 +146,7 @@
                   DIF = SQRT( DBLE( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                }
             }
-            if ( ISOLVE == 2 .AND. IROUND == 1 ) {
+            if ( ISOLVE == 2 && IROUND == 1 ) {
                if ( NOTRAN ) {
                   IFUNC = IJOB
                }
@@ -155,7 +155,7 @@
                zlacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
                zlaset('F', M, N, CZERO, CZERO, C, LDC );
                zlaset('F', M, N, CZERO, CZERO, F, LDF );
-            } else if ( ISOLVE == 2 .AND. IROUND == 2 ) {
+            } else if ( ISOLVE == 2 && IROUND == 2 ) {
                zlacpy('F', M, N, WORK, M, C, LDC );
                zlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
@@ -260,7 +260,7 @@
                   DIF = SQRT( DBLE( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                }
             }
-            if ( ISOLVE == 2 .AND. IROUND == 1 ) {
+            if ( ISOLVE == 2 && IROUND == 1 ) {
                if ( NOTRAN ) {
                   IFUNC = IJOB
                }
@@ -269,7 +269,7 @@
                zlacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
                zlaset('F', M, N, CZERO, CZERO, C, LDC );
                zlaset('F', M, N, CZERO, CZERO, F, LDF );
-            } else if ( ISOLVE == 2 .AND. IROUND == 2 ) {
+            } else if ( ISOLVE == 2 && IROUND == 2 ) {
                zlacpy('F', M, N, WORK, M, C, LDC );
                zlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2

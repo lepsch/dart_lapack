@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ISPEC.GE.1 .AND. ISPEC.LE.16 ) {
+      if ( ISPEC.GE.1 && ISPEC.LE.16 ) {
          IPARMS( ISPEC ) = NVALUE
       }
 

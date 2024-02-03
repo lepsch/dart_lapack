@@ -62,19 +62,19 @@
          INFO = -8
       } else if ( Q .GT. P .OR. Q .GT. M-P .OR. Q .GT. M-Q ) {
          INFO = -8
-      } else if ( WANTU1 .AND. LDU1 .LT. P ) {
+      } else if ( WANTU1 && LDU1 .LT. P ) {
          INFO = -12
-      } else if ( WANTU2 .AND. LDU2 .LT. M-P ) {
+      } else if ( WANTU2 && LDU2 .LT. M-P ) {
          INFO = -14
-      } else if ( WANTV1T .AND. LDV1T .LT. Q ) {
+      } else if ( WANTV1T && LDV1T .LT. Q ) {
          INFO = -16
-      } else if ( WANTV2T .AND. LDV2T .LT. M-Q ) {
+      } else if ( WANTV2T && LDV2T .LT. M-Q ) {
          INFO = -18
       }
 
       // Quick return if Q = 0
 
-      if ( INFO == 0 .AND. Q == 0 ) {
+      if ( INFO == 0 && Q == 0 ) {
          LWORKMIN = 1
          WORK(1) = LWORKMIN
          RETURN
@@ -94,7 +94,7 @@
          LWORKOPT = IV2TSN + Q - 1
          LWORKMIN = LWORKOPT
          WORK(1) = LWORKOPT
-         if ( LWORK .LT. LWORKMIN .AND. .NOT. LQUERY ) {
+         if ( LWORK .LT. LWORKMIN && .NOT. LQUERY ) {
             INFO = -28
          }
       }
@@ -322,11 +322,11 @@
             // B21(I-1,I+1), and B22(I-1,I). If necessary, restart bulge-
             // chasing by applying the original shift again.
 
-            if ( .NOT. RESTART11 .AND. .NOT. RESTART21 ) {
+            if ( .NOT. RESTART11 && .NOT. RESTART21 ) {
                dlartgp(X2, X1, WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R );
-            } else if ( .NOT. RESTART11 .AND. RESTART21 ) {
+            } else if ( .NOT. RESTART11 && RESTART21 ) {
                dlartgp(B11BULGE, B11E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R );
-            } else if ( RESTART11 .AND. .NOT. RESTART21 ) {
+            } else if ( RESTART11 && .NOT. RESTART21 ) {
                dlartgp(B21BULGE, B21E(I-1), WORK(IV1TSN+I-1), WORK(IV1TCS+I-1), R );
             } else if ( MU .LE. NU ) {
                dlartgs(B11D(I), B11E(I), MU, WORK(IV1TCS+I-1), WORK(IV1TSN+I-1) );
@@ -335,11 +335,11 @@
             }
             WORK(IV1TCS+I-1) = -WORK(IV1TCS+I-1)
             WORK(IV1TSN+I-1) = -WORK(IV1TSN+I-1)
-            if ( .NOT. RESTART12 .AND. .NOT. RESTART22 ) {
+            if ( .NOT. RESTART12 && .NOT. RESTART22 ) {
                dlartgp(Y2, Y1, WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R );
-            } else if ( .NOT. RESTART12 .AND. RESTART22 ) {
+            } else if ( .NOT. RESTART12 && RESTART22 ) {
                dlartgp(B12BULGE, B12D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R );
-            } else if ( RESTART12 .AND. .NOT. RESTART22 ) {
+            } else if ( RESTART12 && .NOT. RESTART22 ) {
                dlartgp(B22BULGE, B22D(I-1), WORK(IV2TSN+I-1-1), WORK(IV2TCS+I-1-1), R );
             } else if ( NU .LT. MU ) {
                dlartgs(B12E(I-1), B12D(I), NU, WORK(IV2TCS+I-1-1), WORK(IV2TSN+I-1-1) );
@@ -387,22 +387,22 @@
             // B21(I+1,I), and B22(I+1,I-1). If necessary, restart bulge-
             // chasing by applying the original shift again.
 
-            if ( .NOT. RESTART11 .AND. .NOT. RESTART12 ) {
+            if ( .NOT. RESTART11 && .NOT. RESTART12 ) {
                dlartgp(X2, X1, WORK(IU1SN+I-1), WORK(IU1CS+I-1), R );
-            } else if ( .NOT. RESTART11 .AND. RESTART12 ) {
+            } else if ( .NOT. RESTART11 && RESTART12 ) {
                dlartgp(B11BULGE, B11D(I), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R );
-            } else if ( RESTART11 .AND. .NOT. RESTART12 ) {
+            } else if ( RESTART11 && .NOT. RESTART12 ) {
                dlartgp(B12BULGE, B12E(I-1), WORK(IU1SN+I-1), WORK(IU1CS+I-1), R );
             } else if ( MU .LE. NU ) {
                dlartgs(B11E(I), B11D(I+1), MU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) );
             } else {
                dlartgs(B12D(I), B12E(I), NU, WORK(IU1CS+I-1), WORK(IU1SN+I-1) );
             }
-            if ( .NOT. RESTART21 .AND. .NOT. RESTART22 ) {
+            if ( .NOT. RESTART21 && .NOT. RESTART22 ) {
                dlartgp(Y2, Y1, WORK(IU2SN+I-1), WORK(IU2CS+I-1), R );
-            } else if ( .NOT. RESTART21 .AND. RESTART22 ) {
+            } else if ( .NOT. RESTART21 && RESTART22 ) {
                dlartgp(B21BULGE, B21D(I), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R );
-            } else if ( RESTART21 .AND. .NOT. RESTART22 ) {
+            } else if ( RESTART21 && .NOT. RESTART22 ) {
                dlartgp(B22BULGE, B22E(I-1), WORK(IU2SN+I-1), WORK(IU2CS+I-1), R );
             } else if ( NU .LT. MU ) {
                dlartgs(B21E(I), B21E(I+1), NU, WORK(IU2CS+I-1), WORK(IU2SN+I-1) );
@@ -451,11 +451,11 @@
          RESTART12 = B12D(IMAX-1)**2 + B12BULGE**2 .LE. THRESH**2
          RESTART22 = B22D(IMAX-1)**2 + B22BULGE**2 .LE. THRESH**2
 
-         if ( .NOT. RESTART12 .AND. .NOT. RESTART22 ) {
+         if ( .NOT. RESTART12 && .NOT. RESTART22 ) {
             dlartgp(Y2, Y1, WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R );
-         } else if ( .NOT. RESTART12 .AND. RESTART22 ) {
+         } else if ( .NOT. RESTART12 && RESTART22 ) {
             dlartgp(B12BULGE, B12D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R );
-         } else if ( RESTART12 .AND. .NOT. RESTART22 ) {
+         } else if ( RESTART12 && .NOT. RESTART22 ) {
             dlartgp(B22BULGE, B22D(IMAX-1), WORK(IV2TSN+IMAX-1-1), WORK(IV2TCS+IMAX-1-1), R );
          } else if ( NU .LT. MU ) {
             dlartgs(B12E(IMAX-1), B12D(IMAX), NU, WORK(IV2TCS+IMAX-1-1), WORK(IV2TSN+IMAX-1-1) );

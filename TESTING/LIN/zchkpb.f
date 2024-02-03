@@ -125,8 +125,8 @@
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
-                  ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 60;
+                  ZEROT = IMAT.GE.2 && IMAT.LE.4
+                  if (ZEROT && N.LT.IMAT-1) GO TO 60;
 
                   if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
@@ -243,7 +243,7 @@
                      // Print the test ratio if it is .GE. THRESH.
 
                      if ( RESULT( 1 ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
@@ -312,7 +312,7 @@
 
                         for (K = 2; K <= 6; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 30
@@ -334,7 +334,7 @@
                      // Print the test ratio if it is .GE. THRESH.
 
                      if ( RESULT( 7 ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

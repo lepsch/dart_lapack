@@ -86,7 +86,7 @@
         // following subroutine, as returned by ILAENV.)
 
       MINWRK = 1
-      if ( INFO == 0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK.GE.1 ) {
          MINWRK = 3*NSIZE*NSIZE / 2
 
          // workspace for cggesx
@@ -173,7 +173,7 @@
 
                   cggesx('V', 'V', 'S', CLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
-                  if ( LINFO != 0 .AND. LINFO != MPLUSN+2 ) {
+                  if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
                      RESULT( 1 ) = ULPINV
                      WRITE( NOUT, FMT = 9999 )'CGGESX', LINFO, MPLUSN, PRTYPE
                      INFO = LINFO
@@ -239,7 +239,7 @@
 
                   RESULT( 8 ) = ZERO
                   MN2 = MM*( MPLUSN-MM )*2
-                  if ( IFUNC.GE.2 .AND. MN2.LE.NCMAX*NCMAX ) {
+                  if ( IFUNC.GE.2 && MN2.LE.NCMAX*NCMAX ) {
 
                      // Note: for either following two cases, there are
                      // almost same number of test cases fail the test.
@@ -261,7 +261,7 @@
 
                   RESULT( 9 ) = ZERO
                   if ( LINFO == ( MPLUSN+2 ) ) {
-                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) .AND. ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+                     if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
                      NTEST = NTEST + 1
                   }
 
@@ -335,7 +335,7 @@
 
       cggesx('V', 'V', 'S', CLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO );
 
-      if ( LINFO != 0 .AND. LINFO != MPLUSN+2 ) {
+      if ( LINFO != 0 && LINFO != MPLUSN+2 ) {
          RESULT( 1 ) = ULPINV
          WRITE( NOUT, FMT = 9998 )'CGGESX', LINFO, MPLUSN, NPTKNT
          GO TO 130
@@ -404,7 +404,7 @@
       NTEST = 9
       RESULT( 9 ) = ZERO
       if ( LINFO == ( MPLUSN+2 ) ) {
-         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) .AND. ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
+         if (DIFTRU.GT.ABNRM*ULP) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) && ( DIFEST( 2 ) != ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC == 1 ) && ( PL( 1 ) != ZERO ) ) RESULT( 9 ) = ULPINV;
       }
 
       // Test (10): compare the estimated value of PL and it true value.

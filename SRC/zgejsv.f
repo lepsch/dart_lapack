@@ -61,7 +61,7 @@
       L2RANK = LSAME( JOBA, 'R' )
       L2ABER = LSAME( JOBA, 'A' )
       ERREST = LSAME( JOBA, 'E' ) .OR. LSAME( JOBA, 'G' )
-      L2TRAN = LSAME( JOBT, 'T' ) .AND. ( M == N )
+      L2TRAN = LSAME( JOBT, 'T' ) && ( M == N )
       L2KILL = LSAME( JOBR, 'R' )
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
@@ -70,9 +70,9 @@
 
       if ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR. ERREST .OR. LSAME( JOBA, 'C' ) )) {
          INFO = - 1
-      } else if ( .NOT.( LSVEC .OR. LSAME( JOBU, 'N' ) .OR. ( LSAME( JOBU, 'W' ) .AND. RSVEC .AND. L2TRAN ) ) ) {
+      } else if ( .NOT.( LSVEC .OR. LSAME( JOBU, 'N' ) .OR. ( LSAME( JOBU, 'W' ) && RSVEC && L2TRAN ) ) ) {
          INFO = - 2
-      } else if ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. ( LSAME( JOBV, 'W' ) .AND. LSVEC .AND. L2TRAN ) ) ) {
+      } else if ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. ( LSAME( JOBV, 'W' ) && LSVEC && L2TRAN ) ) ) {
          INFO = - 3
       } else if ( .NOT. ( L2KILL .OR. DEFR ) ) {
          INFO = - 4
@@ -86,9 +86,9 @@
          INFO = - 8
       } else if ( LDA .LT. M ) {
          INFO = - 10
-      } else if ( LSVEC .AND. ( LDU .LT. M ) ) {
+      } else if ( LSVEC && ( LDU .LT. M ) ) {
          INFO = - 13
-      } else if ( RSVEC .AND. ( LDV .LT. N ) ) {
+      } else if ( RSVEC && ( LDV .LT. N ) ) {
          INFO = - 15
       } else {
          // #:)
@@ -164,7 +164,7 @@
                   }
               }
               if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
-          } else if ( RSVEC .AND. (.NOT.LSVEC) ) {
+          } else if ( RSVEC && (.NOT.LSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the right singular vectors are requested
              if ( ERREST ) {
@@ -197,7 +197,7 @@
                   }
              }
              if (ROWPIV .OR. L2TRAN) MINIWRK = MINIWRK + M;
-          } else if ( LSVEC .AND. (.NOT.RSVEC) ) {
+          } else if ( LSVEC && (.NOT.RSVEC) ) {
              // .. minimal and optimal sizes of the complex workspace if the
              // singular values and the left singular vectors are requested
              if ( ERREST ) {
@@ -292,8 +292,8 @@
           }
           MINWRK = MAX( 2, MINWRK )
           OPTWRK = MAX( MINWRK, OPTWRK )
-          IF ( LWORK  .LT. MINWRK  .AND. (.NOT.LQUERY) ) INFO = - 17
-          IF ( LRWORK .LT. MINRWRK .AND. (.NOT.LQUERY) ) INFO = - 19
+          IF ( LWORK  .LT. MINWRK && (.NOT.LQUERY) ) INFO = - 17
+          IF ( LRWORK .LT. MINRWRK && (.NOT.LQUERY) ) INFO = - 19
       }
 
       if ( INFO != 0 ) {
@@ -352,7 +352,7 @@
             RETURN
          }
          AAQQ = SQRT(AAQQ)
-         if ( ( AAPP .LT. (BIG / AAQQ) ) .AND. NOSCAL  ) {
+         if ( ( AAPP .LT. (BIG / AAQQ) ) && NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ
          } else {
             NOSCAL  = false;
@@ -381,7 +381,7 @@
          RWORK(1) = ONE
          RWORK(2) = ONE
          if (ERREST) RWORK(3) = ONE;
-         if ( LSVEC .AND. RSVEC ) {
+         if ( LSVEC && RSVEC ) {
             RWORK(4) = ONE
             RWORK(5) = ONE
          }
@@ -444,7 +444,7 @@
          IWORK(3) = 0
          IWORK(4) = -1
          if (ERREST) RWORK(3) = ONE;
-         if ( LSVEC .AND. RSVEC ) {
+         if ( LSVEC && RSVEC ) {
             RWORK(4) = ONE
             RWORK(5) = ONE
          }
@@ -613,7 +613,7 @@
          // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
-         if ( ( AAQQ.LT.SQRT(SFMIN) ) .AND. LSVEC .AND. RSVEC ) {
+         if ( ( AAQQ.LT.SQRT(SFMIN) ) && LSVEC && RSVEC ) {
             JRACC = true;
          }
 
@@ -635,7 +635,7 @@
          // row pivoting combined with standard column pivoting
          // has similar effect as Powell-Reid complete pivoting.
          // The ell-infinity norms of A are made nonincreasing.
-         if ( ( LSVEC .AND. RSVEC ) .AND. .NOT.( JRACC ) ) {
+         if ( ( LSVEC && RSVEC ) && .NOT.( JRACC ) ) {
               IWOFF = 2*N
          } else {
               IWOFF = N
@@ -702,7 +702,7 @@
          // close-to-rank-deficient.
          TEMP1 = SQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -717,7 +717,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = SQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( ABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (ABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
          } // 3301
          } // 3302
@@ -790,7 +790,7 @@
          }
       }
 
-      L2PERT = L2PERT .AND. ( ABS( A(1,1)/A(NR,NR) ) .GT. SQRT(BIG1) )
+      L2PERT = L2PERT && ( ABS( A(1,1)/A(NR,NR) ) .GT. SQRT(BIG1) )
       // If there is no violent scaling, artificial perturbation is not needed.
 
       // Phase 3:
@@ -826,7 +826,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = DCMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) .AND. (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
+                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -856,7 +856,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = DCMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) .AND. (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
+                     IF ( ( (p.GT.q) && (ABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) )
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947
@@ -874,7 +874,7 @@
             NUMRANK = NINT(RWORK(2))
 
 
-      } else if ( ( RSVEC .AND. ( .NOT. LSVEC ) .AND. ( .NOT. JRACC ) ) .OR. ( JRACC .AND. ( .NOT. LSVEC ) .AND. ( NR != N ) ) ) {
+      } else if ( ( RSVEC && ( .NOT. LSVEC ) && ( .NOT. JRACC ) ) .OR. ( JRACC && ( .NOT. LSVEC ) && ( NR != N ) ) ) {
 
          // -> Singular Values and Right Singular Vectors <-
 
@@ -930,7 +930,7 @@
             zlacpy('A', N, N, V, LDV, U, LDU );
           }
 
-      } else if ( JRACC .AND. (.NOT. LSVEC) .AND. ( NR == N ) ) {
+      } else if ( JRACC && (.NOT. LSVEC) && ( NR == N ) ) {
 
          zlaset('L', N-1,N-1, CZERO, CZERO, A(2,1), LDA );
 
@@ -939,7 +939,7 @@
           NUMRANK = NINT(RWORK(2))
           zlapmr( false , N, N, V, LDV, IWORK );
 
-      } else if ( LSVEC .AND. ( .NOT. RSVEC ) ) {
+      } else if ( LSVEC && ( .NOT. RSVEC ) ) {
 
          // .. Singular Values and Left Singular Vectors                 ..
 
@@ -1021,7 +1021,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = DCMPLX(XSC*ABS( V(q,q) ),ZERO)
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
+                     IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      if (p .LT. q) V(p,q) = - V(p,q);
                   } // 2968
@@ -1384,7 +1384,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                CTEMP = DCMPLX(XSC*ABS( V(q,q) ),ZERO)
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) .AND. ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
+                  IF ( ( p .GT. q ) && ( ABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) )
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   if (p .LT. q) V(p,q) = - V(p,q);
                } // 5968
@@ -1483,7 +1483,7 @@
       RWORK(1) = USCAL2 * SCALEM
       RWORK(2) = USCAL1
       if (ERREST) RWORK(3) = SCONDA;
-      if ( LSVEC .AND. RSVEC ) {
+      if ( LSVEC && RSVEC ) {
          RWORK(4) = CONDR1
          RWORK(5) = CONDR2
       }

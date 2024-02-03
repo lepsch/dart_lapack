@@ -43,7 +43,7 @@
       WANTC = NCC.GT.0
       KLU1 = KL + KU + 1
       INFO = 0
-      if ( .NOT.WANTQ .AND. .NOT.WANTPT .AND. .NOT.LSAME( VECT, 'N' ) ) {
+      if ( .NOT.WANTQ && .NOT.WANTPT && .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
@@ -57,11 +57,11 @@
          INFO = -6
       } else if ( LDAB.LT.KLU1 ) {
          INFO = -8
-      } else if ( LDQ.LT.1 .OR. WANTQ .AND. LDQ.LT.MAX( 1, M ) ) {
+      } else if ( LDQ.LT.1 .OR. WANTQ && LDQ.LT.MAX( 1, M ) ) {
          INFO = -12
-      } else if ( LDPT.LT.1 .OR. WANTPT .AND. LDPT.LT.MAX( 1, N ) ) {
+      } else if ( LDPT.LT.1 .OR. WANTPT && LDPT.LT.MAX( 1, N ) ) {
          INFO = -14
-      } else if ( LDC.LT.1 .OR. WANTC .AND. LDC.LT.MAX( 1, M ) ) {
+      } else if ( LDC.LT.1 .OR. WANTC && LDC.LT.MAX( 1, M ) ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -200,7 +200,7 @@
                   if (NRT.GT.0) CALL SLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
-               if ( ML == ML0 .AND. MU.GT.MU0 ) {
+               if ( ML == ML0 && MU.GT.MU0 ) {
                   if ( MU.LE.N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
@@ -249,7 +249,7 @@
          } // 90
       }
 
-      if ( KU == 0 .AND. KL.GT.0 ) {
+      if ( KU == 0 && KL.GT.0 ) {
 
          // A has been reduced to lower bidiagonal form
 

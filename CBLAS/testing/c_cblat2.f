@@ -119,7 +119,7 @@ void main() {
       }
       // Read the flag that directs rewinding of the snapshot file.
       READ( NIN, FMT = * )REWI
-      REWI = REWI.AND.TRACE
+      REWI = REWI && TRACE
       // Read the flag that directs stopping on any failure.
       READ( NIN, FMT = * )SFATAL
       // Read the flag that indicates whether error exits are to be tested.
@@ -343,7 +343,7 @@ void main() {
            cchk6(SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z, 1 );
            }
 
-  200       IF( FATAL.AND.SFATAL ) GO TO 220
+  200       IF( FATAL && SFATAL ) GO TO 220
          }
       } // 210
       WRITE( NOUT, FMT = 9982 )
@@ -581,7 +581,7 @@ void main() {
 
                               // See what data changed inside subroutines.
 
-         // IF(TRANS != 'C' .OR. (INCX .GT. 0 .AND. INCY .GT. 0)) THEN
+         // IF(TRANS != 'C' .OR. (INCX .GT. 0 && INCY .GT. 0)) THEN
                               ISAME( 1 ) = TRANS == TRANSS
                               ISAME( 2 ) = MS == M
                               ISAME( 3 ) = NS == N
@@ -620,7 +620,7 @@ void main() {
 
                               SAME = true;
                               for (I = 1; I <= NARGS; I++) { // 40
-                                 SAME = SAME.AND.ISAME( I )
+                                 SAME = SAME && ISAME( I )
                                  IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                               } // 40
                               if ( .NOT.SAME ) {
@@ -923,7 +923,7 @@ void main() {
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
-                              SAME = SAME.AND.ISAME( I )
+                              SAME = SAME && ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
                            if ( .NOT.SAME ) {
@@ -1235,7 +1235,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
@@ -1473,7 +1473,7 @@ void main() {
 
                      SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
-                        SAME = SAME.AND.ISAME( I )
+                        SAME = SAME && ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
                      if ( .NOT.SAME ) {
@@ -1715,7 +1715,7 @@ void main() {
 
                   SAME = true;
                   for (I = 1; I <= NARGS; I++) { // 30
-                     SAME = SAME.AND.ISAME( I )
+                     SAME = SAME && ISAME( I )
                      IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                   } // 30
                   if ( .NOT.SAME ) {
@@ -1990,7 +1990,7 @@ void main() {
 
                      SAME = true;
                      for (I = 1; I <= NARGS; I++) { // 40
-                        SAME = SAME.AND.ISAME( I )
+                        SAME = SAME && ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                      } // 40
                      if ( .NOT.SAME ) {
@@ -2418,15 +2418,15 @@ void main() {
       GEN = TYPE( 1: 1 ) == 'g'
       SYM = TYPE( 1: 1 ) == 'h'
       TRI = TYPE( 1: 1 ) == 't'
-      UPPER = ( SYM.OR.TRI ).AND.UPLO == 'U'
-      LOWER = ( SYM.OR.TRI ).AND.UPLO == 'L'
-      UNIT = TRI.AND.DIAG == 'U'
+      UPPER = ( SYM.OR.TRI ) && UPLO == 'U'
+      LOWER = ( SYM.OR.TRI ) && UPLO == 'L'
+      UNIT = TRI && DIAG == 'U'
 
       // Generate data in array A.
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN                IF( ( I.LE.J.AND.J - I.LE.KU ).OR. ( I.GE.J.AND.I - J.LE.KL ) ) {
+            if ( GEN.OR.( UPPER && I.LE.J ).OR.( LOWER && I.GE.J ) ) THEN                IF( ( I.LE.J && J - I.LE.KU ).OR. ( I.GE.J && I - J.LE.KL ) ) {
                   A( I, J ) = CBEG( RESET ) + TRANSL
                } else {
                   A( I, J ) = ZERO

@@ -57,19 +57,19 @@
       WNTSNB = LSAME( SENSE, 'B' )
       if ( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTVL ) .AND. ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
+      } else if ( ( .NOT.WANTVL ) && ( .NOT.LSAME( JOBVL, 'N' ) ) ) {
          INFO = -2
-      } else if ( ( .NOT.WANTVR ) .AND. ( .NOT.LSAME( JOBVR, 'N' ) ) ) {
+      } else if ( ( .NOT.WANTVR ) && ( .NOT.LSAME( JOBVR, 'N' ) ) ) {
          INFO = -3
-      } else if ( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND. WANTVR ) ) ) {
+      } else if ( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) && .NOT.( WANTVL && WANTVR ) ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( WANTVL .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( WANTVL && LDVL.LT.N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 .OR. ( WANTVR .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( WANTVR && LDVR.LT.N ) ) {
          INFO = -13
       }
 
@@ -109,23 +109,23 @@
             }
             HSWORK = INT( WORK(1) )
 
-            if ( ( .NOT.WANTVL ) .AND. ( .NOT.WANTVR ) ) {
+            if ( ( .NOT.WANTVL ) && ( .NOT.WANTVR ) ) {
                MINWRK = 2*N
                if (.NOT.WNTSNN) MINWRK = MAX( MINWRK, N*N+6*N );
                MAXWRK = MAX( MAXWRK, HSWORK )
                if (.NOT.WNTSNN) MAXWRK = MAX( MAXWRK, N*N + 6*N );
             } else {
                MINWRK = 3*N
-               IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 6*N )
+               IF( ( .NOT.WNTSNN ) && ( .NOT.WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 6*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )                IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 6*N )
+               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )                IF( ( .NOT.WNTSNN ) && ( .NOT.WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 6*N )
                MAXWRK = MAX( MAXWRK, 3*N )
             }
             MAXWRK = MAX( MAXWRK, MINWRK )
          }
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -21
          }
       }
@@ -154,7 +154,7 @@
       ICOND = 0
       ANRM = SLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
@@ -324,7 +324,7 @@
          slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO == 0 ) {
-            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND == 0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
+            IF( ( WNTSNV .OR. WNTSNB ) && ICOND == 0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
             slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
             slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );

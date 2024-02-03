@@ -75,7 +75,7 @@
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
-            if (SCALE.GE.SAFMX2 .AND. COUNT .LT. 20) GO TO 10;
+            if (SCALE.GE.SAFMX2 && COUNT .LT. 20) GO TO 10;
          } else if ( SCALE.LE.SAFMN2 ) {
             if ( G == CZERO ) {
                CS = ONE

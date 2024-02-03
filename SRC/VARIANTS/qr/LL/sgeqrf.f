@@ -37,7 +37,7 @@
       K = MIN( M, N )
       NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
 
-      if ( NB.GT.1 .AND. NB.LT.K ) {
+      if ( NB.GT.1 && NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -96,7 +96,7 @@
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
       } else if ( .NOT.LQUERY ) {
-         IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
+         IF( LWORK.LE.0 .OR. ( M.GT.0 && LWORK.LT.MAX( 1, N ) ) ) INFO = -7
       }
       if ( INFO != 0 ) {
          xerbla('SGEQRF', -INFO );
@@ -111,7 +111,7 @@
          RETURN
       }
 
-      if ( NB.GT.1 .AND. NB.LT.K ) {
+      if ( NB.GT.1 && NB.LT.K ) {
 
          if ( NX.LT.K ) {
 
@@ -138,7 +138,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
+      if ( NB.GE.NBMIN && NB.LT.K && NX.LT.K ) {
 
          // Use blocked code initially
 
@@ -200,7 +200,7 @@
 
       // Apply update to the column M+1:N when N > M
 
-      if ( M.LT.N .AND. I != 1) {
+      if ( M.LT.N && I != 1) {
 
           // Form the last triangular factor of the block reflector
           // H = H(i) H(i+1) . . . H(i+ib-1)

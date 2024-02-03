@@ -57,7 +57,7 @@
       NOBAL = LSAME( BALANC, 'N' )
       BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
       INFO = 0
-      if ( ISRT != 0 .AND. ISRT != 1 ) {
+      if ( ISRT != 0 && ISRT != 1 ) {
          INFO = -2
       } else if ( .NOT.BALOK ) {
          INFO = -3
@@ -75,7 +75,7 @@
          INFO = -17
       } else if ( LDLRE.LT.1 .OR. LDLRE.LT.N ) {
          INFO = -19
-      } else if ( LWORK.LT.2*N .OR. ( COMP .AND. LWORK.LT.2*N+N*N ) ) {
+      } else if ( LWORK.LT.2*N .OR. ( COMP && LWORK.LT.2*N+N*N ) ) {
          INFO = -30
       }
 
@@ -139,7 +139,7 @@
          VRMX = ZERO
          for (JJ = 1; JJ <= N; JJ++) { // 20
             VTST = ABS( VR( JJ, J ) )
-            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO .AND. ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
          } // 20
          if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
       } // 30
@@ -153,7 +153,7 @@
          VRMX = ZERO
          for (JJ = 1; JJ <= N; JJ++) { // 40
             VTST = ABS( VL( JJ, J ) )
-            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO .AND. ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+            if (VTST.GT.VMX) VMX = VTST             IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
          } // 40
          if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
       } // 50
@@ -196,7 +196,7 @@
 
          // Do Test (9)
 
-         if ( ISENS == 2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 && N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 80
@@ -242,7 +242,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 && N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 130
@@ -288,7 +288,7 @@
 
          // Do Test (9) again
 
-         if ( ISENS == 2 .AND. N.GT.1 ) {
+         if ( ISENS == 2 && N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ) != RCNDV1( J ) ) RESULT( 9 ) = ULPINV
             } // 180

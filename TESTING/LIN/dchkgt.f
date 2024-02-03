@@ -95,7 +95,7 @@
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
+            ZEROT = IMAT.GE.8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
@@ -194,7 +194,7 @@
             // Print the test ratio if it is .GE. THRESH.
 
             if ( RESULT( 1 ).GE.THRESH ) {
-               if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             }
@@ -257,7 +257,7 @@
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 7 ).GE.THRESH ) {
-                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
+                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
@@ -327,7 +327,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70

@@ -102,7 +102,7 @@
          CTEMP = CTEMP*DR( J )
       } else if ( IGRADE == 3 ) {
          CTEMP = CTEMP*DL( I )*DR( J )
-      } else if ( IGRADE == 4 .AND. I != J ) {
+      } else if ( IGRADE == 4 && I != J ) {
          CTEMP = CTEMP*DL( I ) / DL( J )
       } else if ( IGRADE == 5 ) {
          CTEMP = CTEMP*DL( I )*DCONJG( DL( J ) )

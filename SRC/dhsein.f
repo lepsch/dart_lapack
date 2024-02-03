@@ -71,19 +71,19 @@
       } // 10
 
       INFO = 0
-      if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
+      if ( .NOT.RIGHTV && .NOT.LEFTV ) {
          INFO = -1
-      } else if ( .NOT.FROMQR .AND. .NOT.LSAME( EIGSRC, 'N' ) ) {
+      } else if ( .NOT.FROMQR && .NOT.LSAME( EIGSRC, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.NOINIT .AND. .NOT.LSAME( INITV, 'U' ) ) {
+      } else if ( .NOT.NOINIT && .NOT.LSAME( INITV, 'U' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( LEFTV && LDVL.LT.N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( RIGHTV && LDVR.LT.N ) ) {
          INFO = -13
       } else if ( MM.LT.M ) {
          INFO = -14
@@ -172,7 +172,7 @@
             WKI = WI( K )
             } // 60
             DO 70 I = K - 1, KL, -1
-               if ( SELECT( I ) .AND. ABS( WR( I )-WKR )+ ABS( WI( I )-WKI ).LT.EPS3 ) {
+               if ( SELECT( I ) && ABS( WR( I )-WKR )+ ABS( WI( I )-WKI ).LT.EPS3 ) {
                   WKR = WKR + EPS3
                   GO TO 60
                }

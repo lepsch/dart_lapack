@@ -43,7 +43,7 @@
 
       // IF( ICOMPQ .LT. 0 .OR. ICOMPQ .GT. 2 ) THEN
          // INFO = -1
-      // ELSE IF( ( ICOMPQ == 1 ) .AND. ( QSIZ .LT. MAX( 0, N ) ) )
+      // ELSE IF( ( ICOMPQ == 1 ) && ( QSIZ .LT. MAX( 0, N ) ) )
 *    $        THEN
       if ( QSIZ.LT.MAX( 0, N ) ) {
          INFO = -1

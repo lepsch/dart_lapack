@@ -46,11 +46,11 @@
       NOTRNB = LSAME( TRANB, 'N' )
 
       INFO = 0
-      if ( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'T' ) .AND. .NOT. LSAME( TRANA, 'C' ) ) {
+      if ( .NOT.NOTRNA && .NOT.LSAME( TRANA, 'T' ) && .NOT. LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT. LSAME( TRANB, 'C' ) ) {
+      } else if ( .NOT.NOTRNB && .NOT.LSAME( TRANB, 'T' ) && .NOT. LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
+      } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -85,7 +85,7 @@
 
       SGN = ISGN
 
-      if ( NOTRNA .AND. NOTRNB ) {
+      if ( NOTRNA && NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B = scale*C.
 
@@ -141,7 +141,7 @@
                   }
                }
 
-               if ( L1 == L2 .AND. K1 == K2 ) {
+               if ( L1 == L2 && K1 == K2 ) {
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -155,7 +155,7 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+                  if ( DA11.LT.ONE && DB.GT.ONE ) {
                      if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
@@ -168,7 +168,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1 != K2 ) {
+               } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -190,7 +190,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -212,7 +212,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 != K2 ) {
+               } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -249,7 +249,7 @@
 
          } // 60
 
-      } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
+      } else if ( .NOT.NOTRNA && NOTRNB ) {
 
          // Solve    A**T *X + ISGN*X*B = scale*C.
 
@@ -305,7 +305,7 @@
                   }
                }
 
-               if ( L1 == L2 .AND. K1 == K2 ) {
+               if ( L1 == L2 && K1 == K2 ) {
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -319,7 +319,7 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+                  if ( DA11.LT.ONE && DB.GT.ONE ) {
                      if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
@@ -332,7 +332,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1 != K2 ) {
+               } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -354,7 +354,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -376,7 +376,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 != K2 ) {
+               } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
@@ -412,7 +412,7 @@
             } // 110
          } // 120
 
-      } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( .NOT.NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B**T = scale*C.
 
@@ -468,7 +468,7 @@
                   }
                }
 
-               if ( L1 == L2 .AND. K1 == K2 ) {
+               if ( L1 == L2 && K1 == K2 ) {
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -482,7 +482,7 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+                  if ( DA11.LT.ONE && DB.GT.ONE ) {
                      if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
@@ -495,7 +495,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1 != K2 ) {
+               } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -517,7 +517,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -539,7 +539,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 != K2 ) {
+               } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = DDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
@@ -575,7 +575,7 @@
             } // 170
          } // 180
 
-      } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**T = scale*C.
 
@@ -631,7 +631,7 @@
                   }
                }
 
-               if ( L1 == L2 .AND. K1 == K2 ) {
+               if ( L1 == L2 && K1 == K2 ) {
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
                   SCALOC = ONE
@@ -644,7 +644,7 @@
                      INFO = 1
                   }
                   DB = ABS( VEC( 1, 1 ) )
-                  if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+                  if ( DA11.LT.ONE && DB.GT.ONE ) {
                      if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                   }
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
@@ -657,7 +657,7 @@
                   }
                   C( K1, L1 ) = X( 1, 1 )
 
-               } else if ( L1 == L2 .AND. K1 != K2 ) {
+               } else if ( L1 == L2 && K1 != K2 ) {
 
                   SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
@@ -677,7 +677,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K2, L1 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 == K2 ) {
+               } else if ( L1 != L2 && K1 == K2 ) {
 
                   SUML = DDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) )
@@ -697,7 +697,7 @@
                   C( K1, L1 ) = X( 1, 1 )
                   C( K1, L2 ) = X( 2, 1 )
 
-               } else if ( L1 != L2 .AND. K1 != K2 ) {
+               } else if ( L1 != L2 && K1 != K2 ) {
 
                   SUML = DDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = DDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )

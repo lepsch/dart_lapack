@@ -42,9 +42,9 @@
       KA1 = KA + 1
       KB1 = KB + 1
       INFO = 0
-      if ( .NOT.WANTX .AND. .NOT.LSAME( VECT, 'N' ) ) {
+      if ( .NOT.WANTX && .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -56,7 +56,7 @@
          INFO = -7
       } else if ( LDBB.LT.KB+1 ) {
          INFO = -9
-      } else if ( LDX.LT.1 .OR. WANTX .AND. LDX.LT.MAX( 1, N ) ) {
+      } else if ( LDX.LT.1 .OR. WANTX && LDX.LT.MAX( 1, N ) ) {
          INFO = -11
       }
       if ( INFO != 0 ) {
@@ -214,7 +214,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I-K+KA.LT.N .AND. I-K.GT.1 ) {
+               if ( I-K+KA.LT.N && I-K.GT.1 ) {
 
                   // generate rotation to annihilate a(i,i-k+ka+1)
 
@@ -283,7 +283,7 @@
          } // 130
 
          if ( UPDATE ) {
-            if ( I2.LE.N .AND. KBT.GT.0 ) {
+            if ( I2.LE.N && KBT.GT.0 ) {
 
                // create nonzero element a(i-kbt,i-kbt+ka+1) outside the
                // band and store it in WORK(i-kbt)
@@ -320,7 +320,7 @@
                AB( 1, J+1 ) = WORK( N+J )*AB( 1, J+1 )
             } // 160
             if ( UPDATE ) {
-               if (I-K.LT.N-KA .AND. K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
+               if (I-K.LT.N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
             }
          } // 170
 
@@ -435,7 +435,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I-K+KA.LT.N .AND. I-K.GT.1 ) {
+               if ( I-K+KA.LT.N && I-K.GT.1 ) {
 
                   // generate rotation to annihilate a(i-k+ka+1,i)
 
@@ -504,7 +504,7 @@
          } // 360
 
          if ( UPDATE ) {
-            if ( I2.LE.N .AND. KBT.GT.0 ) {
+            if ( I2.LE.N && KBT.GT.0 ) {
 
                // create nonzero element a(i-kbt+ka+1,i-kbt) outside the
                // band and store it in WORK(i-kbt)
@@ -541,7 +541,7 @@
                AB( KA1, J-KA+1 ) = WORK( N+J )*AB( KA1, J-KA+1 )
             } // 390
             if ( UPDATE ) {
-               if (I-K.LT.N-KA .AND. K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
+               if (I-K.LT.N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
             }
          } // 400
 
@@ -704,7 +704,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I+K-KA1.GT.0 .AND. I+K.LT.M ) {
+               if ( I+K-KA1.GT.0 && I+K.LT.M ) {
 
                   // generate rotation to annihilate a(i+k-ka-1,i)
 
@@ -774,7 +774,7 @@
          } // 610
 
          if ( UPDATE ) {
-            if ( I2.GT.0 .AND. KBT.GT.0 ) {
+            if ( I2.GT.0 && KBT.GT.0 ) {
 
                // create nonzero element a(i+kbt-ka-1,i+kbt) outside the
                // band and store it in WORK(m-kb+i+kbt)
@@ -812,7 +812,7 @@
                AB( 1, J+KA-1 ) = WORK( N+M-KB+J )*AB( 1, J+KA-1 )
             } // 640
             if ( UPDATE ) {
-               if (I+K.GT.KA1 .AND. K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
+               if (I+K.GT.KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
             }
          } // 650
 
@@ -928,7 +928,7 @@
                // Determine the rotations which would annihilate the bulge
                // which has in theory just been created
 
-               if ( I+K-KA1.GT.0 .AND. I+K.LT.M ) {
+               if ( I+K-KA1.GT.0 && I+K.LT.M ) {
 
                   // generate rotation to annihilate a(i,i+k-ka-1)
 
@@ -998,7 +998,7 @@
          } // 840
 
          if ( UPDATE ) {
-            if ( I2.GT.0 .AND. KBT.GT.0 ) {
+            if ( I2.GT.0 && KBT.GT.0 ) {
 
                // create nonzero element a(i+kbt,i+kbt-ka-1) outside the
                // band and store it in WORK(m-kb+i+kbt)
@@ -1036,7 +1036,7 @@
                AB( KA1, J-1 ) = WORK( N+M-KB+J )*AB( KA1, J-1 )
             } // 870
             if ( UPDATE ) {
-               if (I+K.GT.KA1 .AND. K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
+               if (I+K.GT.KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
             }
          } // 880
 

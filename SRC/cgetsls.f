@@ -96,7 +96,7 @@
          WSIZEM = TSZM + LWM
        }
 
-       if ( ( LWORK.LT.WSIZEM ).AND.( .NOT.LQUERY ) ) {
+       if ( ( LWORK.LT.WSIZEM ) && ( .NOT.LQUERY ) ) {
           INFO = -10
        }
 
@@ -136,7 +136,7 @@
 
       ANRM = CLANGE( 'M', M, N, A, LDA, DUM )
       IASCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -162,7 +162,7 @@
       }
       BNRM = CLANGE( 'M', BROW, NRHS, B, LDB, DUM )
       IBSCL = 0
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 

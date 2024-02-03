@@ -58,7 +58,7 @@
          INFO = - 1
       } else if ( .NOT.( LSVEC  .OR. LSAME( JOBU, 'N' ) .OR. LSAME( JOBU, 'W' )) ) {
          INFO = - 2
-      } else if ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. LSAME( JOBV, 'W' )) .OR. ( JRACC .AND. (.NOT.LSVEC) ) ) {
+      } else if ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. LSAME( JOBV, 'W' )) .OR. ( JRACC && (.NOT.LSVEC) ) ) {
          INFO = - 3
       } else if ( .NOT. ( L2KILL .OR. DEFR ) ) {
          INFO = - 4
@@ -72,11 +72,11 @@
          INFO = - 8
       } else if ( LDA .LT. M ) {
          INFO = - 10
-      } else if ( LSVEC .AND. ( LDU .LT. M ) ) {
+      } else if ( LSVEC && ( LDU .LT. M ) ) {
          INFO = - 13
-      } else if ( RSVEC .AND. ( LDV .LT. N ) ) {
+      } else if ( RSVEC && ( LDV .LT. N ) ) {
          INFO = - 15
-      } else if ( (.NOT.(LSVEC .OR. RSVEC .OR. ERREST).AND. (LWORK .LT. MAX(7,4*N+1,2*M+N))) .OR. (.NOT.(LSVEC .OR. RSVEC) .AND. ERREST .AND. (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) .OR. (LSVEC .AND. (.NOT.RSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (RSVEC .AND. (.NOT.LSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (LSVEC .AND. RSVEC .AND. (.NOT.JRACC) .AND. (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) .OR. (LSVEC .AND. RSVEC .AND. JRACC .AND. LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
+      } else if ( (.NOT.(LSVEC .OR. RSVEC .OR. ERREST) && (LWORK .LT. MAX(7,4*N+1,2*M+N))) .OR. (.NOT.(LSVEC .OR. RSVEC) && ERREST && (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) .OR. (LSVEC && (.NOT.RSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (RSVEC && (.NOT.LSVEC) && (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (LSVEC && RSVEC && (.NOT.JRACC) && (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) .OR. (LSVEC && RSVEC && JRACC && LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) {
          INFO = - 17
       } else {
          // #:)
@@ -133,7 +133,7 @@
             RETURN
          }
          AAQQ = DSQRT(AAQQ)
-         if ( ( AAPP .LT. (BIG / AAQQ) ) .AND. NOSCAL  ) {
+         if ( ( AAPP .LT. (BIG / AAQQ) ) && NOSCAL  ) {
             SVA(p)  = AAPP * AAQQ
          } else {
             NOSCAL  = false;
@@ -162,7 +162,7 @@
          WORK(1) = ONE
          WORK(2) = ONE
          if (ERREST) WORK(3) = ONE;
-         if ( LSVEC .AND. RSVEC ) {
+         if ( LSVEC && RSVEC ) {
             WORK(4) = ONE
             WORK(5) = ONE
          }
@@ -223,7 +223,7 @@
          }
          IWORK(3) = 0
          if (ERREST) WORK(3) = ONE;
-         if ( LSVEC .AND. RSVEC ) {
+         if ( LSVEC && RSVEC ) {
             WORK(4) = ONE
             WORK(5) = ONE
          }
@@ -236,7 +236,7 @@
       }
 
       TRANSP = false;
-      L2TRAN = L2TRAN .AND. ( M == N )
+      L2TRAN = L2TRAN && ( M == N )
 
       AATMAX = -ONE
       AATMIN =  BIG
@@ -387,7 +387,7 @@
          // time. Depending on the concrete implementation of BLAS and LAPACK
          // (i.e. how they behave in presence of extreme ill-conditioning) the
          // implementor may decide to remove this switch.
-         if ( ( AAQQ.LT.DSQRT(SFMIN) ) .AND. LSVEC .AND. RSVEC ) {
+         if ( ( AAQQ.LT.DSQRT(SFMIN) ) && LSVEC && RSVEC ) {
             JRACC = true;
          }
 
@@ -471,7 +471,7 @@
          // close-to-rank-deficient.
          TEMP1 = DSQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3401
-            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR. ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR. ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
          } // 3401
          } // 3402
@@ -486,7 +486,7 @@
          // working hard to get the accuracy not warranted by the data.
          TEMP1  = DSQRT(SFMIN)
          for (p = 2; p <= N; p++) { // 3301
-            IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL && (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
          } // 3301
          } // 3302
@@ -543,7 +543,7 @@
          }
       }
 
-      L2PERT = L2PERT .AND. ( DABS( A(1,1)/A(NR,NR) ) .GT. DSQRT(BIG1) )
+      L2PERT = L2PERT && ( DABS( A(1,1)/A(NR,NR) ) .GT. DSQRT(BIG1) )
       // If there is no violent scaling, artificial perturbation is not needed.
 
       // Phase 3:
@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) && (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 1949
                } // 1947
             } else {
@@ -622,7 +622,7 @@
             NUMRANK = IDNINT(WORK(2))
 
 
-      } else if ( RSVEC .AND. ( .NOT. LSVEC ) ) {
+      } else if ( RSVEC && ( .NOT. LSVEC ) ) {
 
          // -> Singular Values and Right Singular Vectors <-
 
@@ -675,7 +675,7 @@
             dlacpy('All', N, N, V, LDV, U, LDU );
          }
 
-      } else if ( LSVEC .AND. ( .NOT. RSVEC ) ) {
+      } else if ( LSVEC && ( .NOT. RSVEC ) ) {
 
          // .. Singular Values and Left Singular Vectors                 ..
 
@@ -754,7 +754,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*DABS( V(q,q) )
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                     IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                      if (p .LT. q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -1108,7 +1108,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*DABS( V(q,q) )
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                  IF ( ( p .GT. q ) && ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                   if (p .LT. q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1204,7 +1204,7 @@
       WORK(1) = USCAL2 * SCALEM
       WORK(2) = USCAL1
       if (ERREST) WORK(3) = SCONDA;
-      if ( LSVEC .AND. RSVEC ) {
+      if ( LSVEC && RSVEC ) {
          WORK(4) = CONDR1
          WORK(5) = CONDR2
       }

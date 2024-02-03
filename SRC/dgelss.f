@@ -71,7 +71,7 @@
          if ( MINMN.GT.0 ) {
             MM = M
             MNTHR = ILAENV( 6, 'DGELSS', ' ', M, N, NRHS, -1 )
-            if ( M.GE.N .AND. M.GE.MNTHR ) {
+            if ( M.GE.N && M.GE.MNTHR ) {
 
                // Path 1a - overdetermined, with many more rows than
                          // columns
@@ -173,7 +173,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if (LWORK.LT.MINWRK .AND. .NOT.LQUERY) INFO = -12;
+         if (LWORK.LT.MINWRK && .NOT.LQUERY) INFO = -12;
       }
 
       if ( INFO != 0 ) {
@@ -201,7 +201,7 @@
 
       ANRM = DLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -227,7 +227,7 @@
 
       BNRM = DLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -316,7 +316,7 @@
          // Multiply B by right singular vectors
          // (Workspace: need N, prefer N*NRHS)
 
-         if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS && NRHS.GT.1 ) {
             dgemm('T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
             dlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
@@ -331,7 +331,7 @@
             dcopy(N, WORK, 1, B, 1 );
          }
 
-      } else if ( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
+      } else if ( N.GE.MNTHR && LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) {
 
          // Path 2a - underdetermined, with many more columns than rows
          // and sufficient workspace for an efficient algorithm
@@ -397,7 +397,7 @@
          // Multiply B by right singular vectors of L in WORK(IL)
          // (Workspace: need M*M+2*M, prefer M*M+M+M*NRHS)
 
-         if ( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS+IWORK-1 && NRHS.GT.1 ) {
             dgemm('T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB );
             dlacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {
@@ -471,7 +471,7 @@
          // Multiply B by right singular vectors of A
          // (Workspace: need N, prefer N*NRHS)
 
-         if ( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) {
+         if ( LWORK.GE.LDB*NRHS && NRHS.GT.1 ) {
             dgemm('T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB );
             dlacpy('F', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS.GT.1 ) {

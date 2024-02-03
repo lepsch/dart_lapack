@@ -41,7 +41,7 @@
 
       INFO = 0
       ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
-      if ( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) {
+      if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2

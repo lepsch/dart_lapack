@@ -51,7 +51,7 @@
       } // 10
       CDEN1 = CDEN*SMLNUM
       CNUM1 = CNUM / BIGNUM
-      if ( ABS( CDEN1 ).GT.ABS( CNUM ) .AND. CNUM != ZERO ) {
+      if ( ABS( CDEN1 ).GT.ABS( CNUM ) && CNUM != ZERO ) {
 
          // Pre-multiply X by SMLNUM if CDEN is large compared to CNUM.
 

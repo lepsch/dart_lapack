@@ -80,11 +80,11 @@
          RWORK( 1 ) = LROPT
          IWORK( 1 ) = LIOPT
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -11
-         } else if ( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LRWORK.LT.LRWMIN && .NOT.LQUERY ) {
             INFO = -13
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -15
          }
       }
@@ -116,7 +116,7 @@
       LROPT = INT( MAX( REAL( LROPT ), REAL( RWORK( 1 ) ) ) )
       LIOPT = INT( MAX( REAL( LIOPT ), REAL( IWORK( 1 ) ) ) )
 
-      if ( WANTZ .AND. INFO == 0 ) {
+      if ( WANTZ && INFO == 0 ) {
 
          // Backtransform eigenvectors to the original problem.
 

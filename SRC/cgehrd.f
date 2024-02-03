@@ -49,7 +49,7 @@
          INFO = -3
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -5
-      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -8
       }
 
@@ -94,7 +94,7 @@
 
       NB = MIN( NBMAX, ILAENV( 1, 'CGEHRD', ' ', N, ILO, IHI, -1 ) )
       NBMIN = 2
-      if ( NB.GT.1 .AND. NB.LT.NH ) {
+      if ( NB.GT.1 && NB.LT.NH ) {
 
          // Determine when to cross over from blocked to unblocked code
          // (last block is always handled by unblocked code)

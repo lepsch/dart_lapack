@@ -58,17 +58,17 @@
       WANTSB = LSAME( SENSE, 'B' )
       LQUERY = ( LWORK == -1 .OR. LIWORK == -1 )
 
-      if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
+      if ( ( .NOT.WANTVS ) && ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
-      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) {
+      } else if ( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST && .NOT.WANTSN ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -5
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) {
+      } else if ( LDVS.LT.1 .OR. ( WANTVS && LDVS.LT.N ) ) {
          INFO = -12
       }
 
@@ -110,9 +110,9 @@
          IWORK( 1 ) = LIWRK
          WORK( 1 ) = LWRK
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -16
-         } else if ( LIWORK.LT.1 .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.1 && .NOT.LQUERY ) {
             INFO = -18
          }
       }
@@ -143,7 +143,7 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
@@ -187,7 +187,7 @@
 
       // Sort eigenvalues if desired
 
-      if ( WANTST .AND. INFO == 0 ) {
+      if ( WANTST && INFO == 0 ) {
          if ( SCALEA ) {
             dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WR, N, IERR );
             dlascl('G', 0, 0, CSCALE, ANRM, N, 1, WI, N, IERR );
@@ -237,7 +237,7 @@
 
          dlascl('H', 0, 0, CSCALE, ANRM, N, N, A, LDA, IERR );
          dcopy(N, A, LDA+1, WR, 1 );
-         if ( ( WANTSV .OR. WANTSB ) .AND. INFO == 0 ) {
+         if ( ( WANTSV .OR. WANTSB ) && INFO == 0 ) {
             DUM( 1 ) = RCONDV
             dlascl('G', 0, 0, CSCALE, ANRM, 1, 1, DUM, 1, IERR );
             RCONDV = DUM( 1 )
@@ -268,7 +268,7 @@
                   if ( A( I+1, I ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                  } else if ( A( I+1, I ) != ZERO .AND. A( I, I+1 ) == ZERO ) {
+                  } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
                      if (I.GT.1) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
@@ -285,7 +285,7 @@
          dlascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR );
       }
 
-      if ( WANTST .AND. INFO == 0 ) {
+      if ( WANTST && INFO == 0 ) {
 
          // Check if reordering successful
 
@@ -298,7 +298,7 @@
             if ( WI( I ) == ZERO ) {
                if (CURSL) SDIM = SDIM + 1;
                IP = 0
-               if (CURSL .AND. .NOT.LASTSL) INFO = N + 2;
+               if (CURSL && .NOT.LASTSL) INFO = N + 2;
             } else {
                if ( IP == 1 ) {
 
@@ -308,7 +308,7 @@
                   LASTSL = CURSL
                   if (CURSL) SDIM = SDIM + 2;
                   IP = -1
-                  if (CURSL .AND. .NOT.LST2SL) INFO = N + 2;
+                  if (CURSL && .NOT.LST2SL) INFO = N + 2;
                } else {
 
                   // First eigenvalue of conjugate pair

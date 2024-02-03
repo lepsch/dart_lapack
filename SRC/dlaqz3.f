@@ -173,7 +173,7 @@
          }
       }
 
-      if ( KWTOP != ILO .AND. S != ZERO ) {
+      if ( KWTOP != ILO && S != ZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 )*QC( 1, 1:JW-ND )
          DO K = KWBOT-1, KWTOP, -1
@@ -191,7 +191,7 @@
          ISTOPM = IHI
          K = KWBOT-1
          DO WHILE ( K .GE. KWTOP )
-            if ( ( K .GE. KWTOP+1 ) .AND. A( K+1, K-1 ) != ZERO ) {
+            if ( ( K .GE. KWTOP+1 ) && A( K+1, K-1 ) != ZERO ) {
 
                // Move double pole block down and remove it
                for (K2 = K-1; K2 <= KWBOT-2; K2++) {

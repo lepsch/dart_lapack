@@ -54,7 +54,7 @@
          INFO = -2
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -4
-      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -10
       }
       if ( INFO.LT.0 ) {
@@ -75,7 +75,7 @@
       LDWRKX = M
       LDWRKY = N
 
-      if ( NB.GT.1 .AND. NB.LT.MINMN ) {
+      if ( NB.GT.1 && NB.LT.MINMN ) {
 
          // Set the crossover point NX.
 

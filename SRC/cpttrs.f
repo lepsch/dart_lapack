@@ -35,7 +35,7 @@
 
       INFO = 0
       UPPER = ( UPLO == 'U' .OR. UPLO == 'u' )
-      if ( .NOT.UPPER .AND. .NOT.( UPLO == 'L' .OR. UPLO == 'l' ) ) {
+      if ( .NOT.UPPER && .NOT.( UPLO == 'L' .OR. UPLO == 'l' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2

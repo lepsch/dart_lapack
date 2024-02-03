@@ -63,7 +63,7 @@
       LSTICC = 0
       DONE = false;
 
-      DO WHILE ( K.LT.NB .AND. LSTICC == 0 )
+      DO WHILE ( K.LT.NB && LSTICC == 0 )
          K = K + 1
          I = IOFFSET + K
 
@@ -129,7 +129,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
+               if ( NRHS.GT.0 && KB.LT.(M-IOFFSET) ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -176,7 +176,7 @@
                // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                                 // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-               if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
+               if ( NRHS.GT.0 && KB.LT.(M-IOFFSET) ) {
                   cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
                }
 
@@ -208,7 +208,7 @@
             // matrix is larger than 1, since the condition for whole
             // original matrix is checked in the main routine.
 
-            if ( INFO == 0 .AND. MAXC2NRMK.GT.HUGEVAL ) {
+            if ( INFO == 0 && MAXC2NRMK.GT.HUGEVAL ) {
                INFO = N + K - 1 + KP
             }
 
@@ -372,7 +372,7 @@
             // A(I+1:M,N+1:N+NRHS) := A(I+1:M,N+1:N+NRHS) -
                              // A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
-            if ( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) {
+            if ( NRHS.GT.0 && KB.LT.(M-IOFFSET) ) {
                cgemm('No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA );
             }
 

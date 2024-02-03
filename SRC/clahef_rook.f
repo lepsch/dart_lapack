@@ -76,7 +76,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -241,7 +241,7 @@
             // Interchange rows and columns P and K.
             // Updated column P is already stored in column KW of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column K to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -484,9 +484,9 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP2 != JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
+            if (JP2 != JJ && J.LE.N) CALL CSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = JJ + 1
-            if (KSTEP == 2 .AND. JP1 != JJ .AND. J.LE.N) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
+            if (KSTEP == 2 && JP1 != JJ && J.LE.N) CALL CSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LT.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -505,7 +505,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -667,7 +667,7 @@
             // Interchange rows and columns P and K (only for 2-by-2 pivot).
             // Updated column P is already stored in column K of W.
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column KK-1 to column P of submatrix A
                // at step K. No need to copy element into columns
@@ -910,9 +910,9 @@
             // (NOTE: Here, J is used to determine row length. Length J
             // of the rows to swap back doesn't include diagonal element)
             J = J - 1
-            if (JP2 != JJ .AND. J.GE.1) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
+            if (JP2 != JJ && J.GE.1) CALL CSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = JJ -1
-            if (KSTEP == 2 .AND. JP1 != JJ .AND. J.GE.1) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
+            if (KSTEP == 2 && JP1 != JJ && J.GE.1) CALL CSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GT.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

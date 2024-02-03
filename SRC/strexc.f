@@ -38,17 +38,17 @@
 
       INFO = 0
       WANTQ = LSAME( COMPQ, 'V' )
-      if ( .NOT.WANTQ .AND. .NOT.LSAME( COMPQ, 'N' ) ) {
+      if ( .NOT.WANTQ && .NOT.LSAME( COMPQ, 'N' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if (( IFST.LT.1 .OR. IFST.GT.N ).AND.( N.GT.0 )) {
+      } else if (( IFST.LT.1 .OR. IFST.GT.N ) && ( N.GT.0 )) {
          INFO = -7
-      } else if (( ILST.LT.1 .OR. ILST.GT.N ).AND.( N.GT.0 )) {
+      } else if (( ILST.LT.1 .OR. ILST.GT.N ) && ( N.GT.0 )) {
          INFO = -8
       }
       if ( INFO != 0 ) {
@@ -88,7 +88,7 @@
 
          // Update ILST
 
-         if (NBF == 2 .AND. NBL == 1) ILST = ILST - 1          IF( NBF == 1 .AND. NBL == 2 ) ILST = ILST + 1;
+         if (NBF == 2 && NBL == 1) ILST = ILST - 1          IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
 
          HERE = IFST
 

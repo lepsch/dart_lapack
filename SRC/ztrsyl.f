@@ -48,11 +48,11 @@
       NOTRNB = LSAME( TRANB, 'N' )
 
       INFO = 0
-      if ( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'C' ) ) {
+      if ( .NOT.NOTRNA && .NOT.LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'C' ) ) {
+      } else if ( .NOT.NOTRNB && .NOT.LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
+      } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -85,7 +85,7 @@
       SMIN = MAX( SMLNUM, EPS*ZLANGE( 'M', M, M, A, LDA, DUM ), EPS*ZLANGE( 'M', N, N, B, LDB, DUM ) )
       SGN = ISGN
 
-      if ( NOTRNA .AND. NOTRNB ) {
+      if ( NOTRNA && NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B = scale*C.
 
@@ -115,7 +115,7 @@
                   INFO = 1
                }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+               if ( DA11.LT.ONE && DB.GT.ONE ) {
                   if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
                X11 = ZLADIV( VEC*DCMPLX( SCALOC ), A11 )
@@ -131,7 +131,7 @@
             } // 20
          } // 30
 
-      } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
+      } else if ( .NOT.NOTRNA && NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B = scale*C.
 
@@ -161,7 +161,7 @@
                   INFO = 1
                }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+               if ( DA11.LT.ONE && DB.GT.ONE ) {
                   if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
@@ -178,7 +178,7 @@
             } // 50
          } // 60
 
-      } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( .NOT.NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A**H*X + ISGN*X*B**H = C.
 
@@ -211,7 +211,7 @@
                   INFO = 1
                }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+               if ( DA11.LT.ONE && DB.GT.ONE ) {
                   if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
 
@@ -228,7 +228,7 @@
             } // 80
          } // 90
 
-      } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**H = C.
 
@@ -257,7 +257,7 @@
                   INFO = 1
                }
                DB = ABS( DBLE( VEC ) ) + ABS( DIMAG( VEC ) )
-               if ( DA11.LT.ONE .AND. DB.GT.ONE ) {
+               if ( DA11.LT.ONE && DB.GT.ONE ) {
                   if (DB.GT.BIGNUM*DA11) SCALOC = ONE / DB;
                }
 

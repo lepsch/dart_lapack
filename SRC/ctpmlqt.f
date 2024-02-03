@@ -44,9 +44,9 @@
       } else if ( RIGHT ) {
          LDAQ = MAX( 1, M )
       }
-      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
+      if ( .NOT.LEFT && .NOT.RIGHT ) {
          INFO = -1
-      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
+      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -56,7 +56,7 @@
          INFO = -5
       } else if ( L.LT.0 .OR. L.GT.K ) {
          INFO = -6
-      } else if ( MB.LT.1 .OR. (MB.GT.K .AND. K.GT.0) ) {
+      } else if ( MB.LT.1 .OR. (MB.GT.K && K.GT.0) ) {
          INFO = -7
       } else if ( LDV.LT.K ) {
          INFO = -9
@@ -77,7 +77,7 @@
 
       if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
 
-      if ( LEFT .AND. NOTRAN ) {
+      if ( LEFT && NOTRAN ) {
 
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
@@ -90,7 +90,7 @@
             ctprfb('L', 'C', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          }
 
-      } else if ( RIGHT .AND. TRAN ) {
+      } else if ( RIGHT && TRAN ) {
 
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
@@ -103,7 +103,7 @@
             ctprfb('R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M );
          }
 
-      } else if ( LEFT .AND. TRAN ) {
+      } else if ( LEFT && TRAN ) {
 
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
@@ -117,7 +117,7 @@
             ctprfb('L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB );
          }
 
-      } else if ( RIGHT .AND. NOTRAN ) {
+      } else if ( RIGHT && NOTRAN ) {
 
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB

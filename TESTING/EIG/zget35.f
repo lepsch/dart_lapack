@@ -112,7 +112,7 @@
                            if (INFO != 0) NINFO = NINFO + 1;
                            XNRM = ZLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
-                           if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                           if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
                               if ( XNRM.GT.BIGNUM / TNRM ) {
                                  RMUL = MAX( XNRM, TNRM )
                                  RMUL = CONE / RMUL

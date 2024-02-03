@@ -50,7 +50,7 @@
       INFO = 0
       IERR = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) {
+      if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
          if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.2 ) ) {
@@ -141,7 +141,7 @@
                MB = IE - IS + 1
                ZDIM = MB*NB*2
 
-               if ( ( MB == 1 ) .AND. ( NB == 1 ) ) {
+               if ( ( MB == 1 ) && ( NB == 1 ) ) {
 
                   // Build a 2-by-2 system Z * x = RHS
 
@@ -191,7 +191,7 @@
                      saxpy(N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
-               } else if ( ( MB == 1 ) .AND. ( NB == 2 ) ) {
+               } else if ( ( MB == 1 ) && ( NB == 2 ) ) {
 
                   // Build a 4-by-4 system Z * x = RHS
 
@@ -261,7 +261,7 @@
                      saxpy(N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
-               } else if ( ( MB == 2 ) .AND. ( NB == 1 ) ) {
+               } else if ( ( MB == 2 ) && ( NB == 1 ) ) {
 
                   // Build a 4-by-4 system Z * x = RHS
 
@@ -328,7 +328,7 @@
                      sger(MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
-               } else if ( ( MB == 2 ) .AND. ( NB == 2 ) ) {
+               } else if ( ( MB == 2 ) && ( NB == 2 ) ) {
 
                   // Build an 8-by-8 system Z * x = RHS
 
@@ -448,7 +448,7 @@
                JE = IWORK( J+1 ) - 1
                NB = JE - JS + 1
                ZDIM = MB*NB*2
-               if ( ( MB == 1 ) .AND. ( NB == 1 ) ) {
+               if ( ( MB == 1 ) && ( NB == 1 ) ) {
 
                   // Build a 2-by-2 system Z**T * x = RHS
 
@@ -497,7 +497,7 @@
                      saxpy(M-IE, ALPHA, D( IS, IE+1 ), LDD, C( IE+1, JS ), 1 );
                   }
 
-               } else if ( ( MB == 1 ) .AND. ( NB == 2 ) ) {
+               } else if ( ( MB == 1 ) && ( NB == 2 ) ) {
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
@@ -562,7 +562,7 @@
                      sger(M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC );
                   }
 
-               } else if ( ( MB == 2 ) .AND. ( NB == 1 ) ) {
+               } else if ( ( MB == 2 ) && ( NB == 1 ) ) {
 
                   // Build a 4-by-4 system Z**T * x = RHS
 
@@ -626,7 +626,7 @@
                      sgemv('T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 );
                   }
 
-               } else if ( ( MB == 2 ) .AND. ( NB == 2 ) ) {
+               } else if ( ( MB == 2 ) && ( NB == 2 ) ) {
 
                   // Build an 8-by-8 system Z**T * x = RHS
 

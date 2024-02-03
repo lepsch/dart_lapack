@@ -72,7 +72,7 @@
 
                // Test DGELQT and DGEMLQT
 
-               if ( (NB.LE.MINMN).AND.(NB.GT.0) ) {
+               if ( (NB.LE.MINMN) && (NB.GT.0) ) {
                   dlqt04(M, N, NB, RESULT );
 
                   // Print information about the tests that did not
@@ -80,7 +80,7 @@
 
                   for (T = 1; T <= NTESTS; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T );
                         NFAIL = NFAIL + 1
                      }
                   }

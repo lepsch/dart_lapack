@@ -45,7 +45,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -6
       }
 
@@ -76,7 +76,7 @@
 
       ISCALE = 0
       TNRM = DLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
+      if ( TNRM.GT.ZERO && TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
       } else if ( TNRM.GT.RMAX ) {

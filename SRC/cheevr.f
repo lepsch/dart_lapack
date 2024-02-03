@@ -76,7 +76,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -8;
+            if (N.GT.0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
@@ -86,7 +86,7 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
             INFO = -15
          }
       }
@@ -99,11 +99,11 @@
          RWORK( 1 ) = SROUNDUP_LWORK( LRWMIN )
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -18
-         } else if ( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LRWORK.LT.LRWMIN && .NOT.LQUERY ) {
             INFO = -20
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -22
          }
       }
@@ -129,7 +129,7 @@
             M = 1
             W( 1 ) = REAL( A( 1, 1 ) )
          } else {
-            if ( VL.LT.REAL( A( 1, 1 ) ) .AND. VU.GE.REAL( A( 1, 1 ) ) ) {
+            if ( VL.LT.REAL( A( 1, 1 ) ) && VU.GE.REAL( A( 1, 1 ) ) ) {
                M = 1
                W( 1 ) = REAL( A( 1, 1 ) )
             }
@@ -160,7 +160,7 @@
          VUU = VU
       }
       ANRM = CLANSY( 'M', UPLO, N, A, LDA, RWORK )
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -236,11 +236,11 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL == 1 .AND. IU == N ) {
+         if ( IL == 1 && IU == N ) {
             TEST = true;
          }
       }
-      if ( ( ALLEIG.OR.TEST ) .AND. ( IEEEOK == 1 ) ) {
+      if ( ( ALLEIG.OR.TEST ) && ( IEEEOK == 1 ) ) {
          if ( .NOT.WANTZ ) {
             scopy(N, RWORK( INDRD ), 1, W, 1 );
             scopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );
@@ -259,7 +259,7 @@
             // Apply unitary matrix used in reduction to tridiagonal
             // form to eigenvectors returned by CSTEMR.
 
-            if ( WANTZ .AND. INFO == 0 ) {
+            if ( WANTZ && INFO == 0 ) {
                INDWKN = INDWK
                LLWRKN = LWORK - INDWKN + 1
                cunmtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );

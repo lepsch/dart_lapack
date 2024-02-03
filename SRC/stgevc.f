@@ -133,9 +133,9 @@
          INFO = -5
       } else if ( ILBBAD ) {
          INFO = -7
-      } else if ( COMPL .AND. LDVL.LT.N .OR. LDVL.LT.1 ) {
+      } else if ( COMPL && LDVL.LT.N .OR. LDVL.LT.1 ) {
          INFO = -10
-      } else if ( COMPR .AND. LDVR.LT.N .OR. LDVR.LT.1 ) {
+      } else if ( COMPR && LDVR.LT.N .OR. LDVR.LT.1 ) {
          INFO = -12
       } else if ( MM.LT.IM ) {
          INFO = -13
@@ -234,7 +234,7 @@
             // (c) complex eigenvalue.
 
             if ( .NOT.ILCPLX ) {
-               if ( ABS( S( JE, JE ) ).LE.SAFMIN .AND. ABS( P( JE, JE ) ).LE.SAFMIN ) {
+               if ( ABS( S( JE, JE ) ).LE.SAFMIN && ABS( P( JE, JE ) ).LE.SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -271,8 +271,8 @@
                // Scale to avoid underflow
 
                SCALE = ONE
-               LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEF ).LT.SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN .AND. ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ).LT.SMALL
+               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                if ( LSA .OR. LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
@@ -309,7 +309,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP.LT.SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -512,7 +512,7 @@
             // (c) complex eigenvalue.
 
             if ( .NOT.ILCPLX ) {
-               if ( ABS( S( JE, JE ) ).LE.SAFMIN .AND. ABS( P( JE, JE ) ).LE.SAFMIN ) {
+               if ( ABS( S( JE, JE ) ).LE.SAFMIN && ABS( P( JE, JE ) ).LE.SAFMIN ) {
 
                   // Singular matrix pencil -- unit eigenvector
 
@@ -551,8 +551,8 @@
                // Scale to avoid underflow
 
                SCALE = ONE
-               LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEF ).LT.SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN .AND. ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
+               LSA = ABS( SBETA ).GE.SAFMIN && ABS( ACOEF ).LT.SMALL
+               LSB = ABS( SALFAR ).GE.SAFMIN && ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                if ( LSA .OR. LSB ) {
                   SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   if ( LSA ) {
@@ -595,7 +595,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               if (ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
+               if (ACOEFA*ULP.LT.SAFMIN && ACOEFA.GE.SAFMIN) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN && BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) );
                if ( SCALE != ONE ) {
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -650,7 +650,7 @@
                // If a 2-by-2 block, is in position j-1:j, wait until
                // next iteration to process it (when it will be j:j+1)
 
-               if ( .NOT.IL2BY2 .AND. J.GT.1 ) {
+               if ( .NOT.IL2BY2 && J.GT.1 ) {
                   if ( S( J, J-1 ) != ZERO ) {
                      IL2BY2 = true;
                      GO TO 370

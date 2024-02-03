@@ -97,8 +97,8 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            if (ZEROT .AND. N.LT.IMAT-2) GO TO 160;
+            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            if (ZEROT && N.LT.IMAT-2) GO TO 160;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -252,7 +252,7 @@
 
                for (K = 1; K <= NT; K++) { // 110
                   if ( RESULT( K ).GE.THRESH ) {
-                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 110
@@ -308,7 +308,7 @@
 
                   for (K = 3; K <= 7; K++) { // 120
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 120
@@ -332,7 +332,7 @@
                // Print the test ratio if it is .GE. THRESH.
 
                if ( RESULT( 8 ).GE.THRESH ) {
-                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
+                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1

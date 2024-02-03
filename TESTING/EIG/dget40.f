@@ -79,7 +79,7 @@
       dtgexc( false , false , N, T1, LDT, S1, LDT, Q, LDT, Z, LDT, IFST1, ILST1, WORK, LWORK, NINFO ( 1 ) );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J .AND. Q( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J .AND. Q( I, J ) != ZERO ) RES = RES + ONE / EPS             IF( I == J .AND. Z( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J .AND. Z( I, J ) != ZERO ) RES = RES + ONE / EPS
+            IF( I == J && Q( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J && Q( I, J ) != ZERO ) RES = RES + ONE / EPS             IF( I == J && Z( I, J ) != ONE ) RES = RES + ONE / EPS             IF( I != J && Z( I, J ) != ZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 

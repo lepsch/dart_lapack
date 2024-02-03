@@ -55,7 +55,7 @@
 
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
-      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LOWER ) {
+      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LOWER ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -65,11 +65,11 @@
          INFO = -4
       } else if ( NCC.LT.0 ) {
          INFO = -5
-      } else if ( ( NCVT == 0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT.LT.1 ) .OR. ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -9
       } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -11
-      } else if ( ( NCC == 0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC.LT.1 ) .OR. ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
          INFO = -13
       }
       if ( INFO != 0 ) {
@@ -189,13 +189,13 @@
 
       // Find diagonal block of matrix to work on
 
-      IF( TOL.LT.ZERO .AND. ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
+      IF( TOL.LT.ZERO && ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
       SMAX = ABS( D( M ) )
       for (LLL = 1; LLL <= M - 1; LLL++) { // 70
          LL = M - LLL
          ABSS = ABS( D( LL ) )
          ABSE = ABS( E( LL ) )
-         if (TOL.LT.ZERO .AND. ABSS.LE.THRESH) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80;
+         if (TOL.LT.ZERO && ABSS.LE.THRESH) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80;
          SMAX = MAX( SMAX, ABSS, ABSE )
       } // 70
       LL = 0
@@ -257,7 +257,7 @@
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( M-1 ) ).LE.THRESH ) ) {
+         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR. ( TOL.LT.ZERO && ABS( E( M-1 ) ).LE.THRESH ) ) {
             E( M-1 ) = ZERO
             GO TO 60
          }
@@ -284,7 +284,7 @@
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( LL ) ).LE.THRESH ) ) {
+         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR. ( TOL.LT.ZERO && ABS( E( LL ) ).LE.THRESH ) ) {
             E( LL ) = ZERO
             GO TO 60
          }
@@ -312,7 +312,7 @@
       // Compute shift.  First, test if shifting would ruin relative
       // accuracy, and if so set the shift to zero.
 
-      if ( TOL.GE.ZERO .AND. N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) {
+      if ( TOL.GE.ZERO && N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) {
 
          // Use a zero shift to avoid loss of relative accuracy
 

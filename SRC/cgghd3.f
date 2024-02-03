@@ -59,9 +59,9 @@
       WANTZ = INITZ .OR. LSAME( COMPZ, 'V' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) {
+      if ( .NOT.LSAME( COMPQ, 'N' ) && .NOT.WANTQ ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPZ, 'N' ) .AND. .NOT.WANTZ ) {
+      } else if ( .NOT.LSAME( COMPZ, 'N' ) && .NOT.WANTZ ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -73,11 +73,11 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( ( WANTQ .AND. LDQ.LT.N ) .OR. LDQ.LT.1 ) {
+      } else if ( ( WANTQ && LDQ.LT.N ) .OR. LDQ.LT.1 ) {
          INFO = -11
-      } else if ( ( WANTZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) {
+      } else if ( ( WANTZ && LDZ.LT.N ) .OR. LDZ.LT.1 ) {
          INFO = -13
-      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
          INFO = -15
       }
       if ( INFO != 0 ) {
@@ -105,7 +105,7 @@
       // Determine the blocksize.
 
       NBMIN = ILAENV( 2, 'CGGHD3', ' ', N, ILO, IHI, -1 )
-      if ( NB.GT.1 .AND. NB.LT.NH ) {
+      if ( NB.GT.1 && NB.LT.NH ) {
 
          // Determine when to use unblocked instead of blocked code.
 

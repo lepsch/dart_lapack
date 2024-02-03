@@ -79,23 +79,23 @@
       WORK(1) = SROUNDUP_LWORK(MAXWRK)
       RWORK(1) = MAX( 1, N )
       LQUERY = ( LWORK == -1 .OR. LRWORK == -1 )
-      if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
+      if ( .NOT.RIGHTV && .NOT.LEFTV ) {
          INFO = -1
-      } else if ( .NOT.ALLV .AND. .NOT.OVER .AND. .NOT.SOMEV ) {
+      } else if ( .NOT.ALLV && .NOT.OVER && .NOT.SOMEV ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -4
       } else if ( LDT.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVL.LT.1 .OR. ( LEFTV .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( LEFTV && LDVL.LT.N ) ) {
          INFO = -8
-      } else if ( LDVR.LT.1 .OR. ( RIGHTV .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( RIGHTV && LDVR.LT.N ) ) {
          INFO = -10
       } else if ( MM.LT.M ) {
          INFO = -11
-      } else if ( LWORK.LT.MAX( 1, 2*N ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, 2*N ) && .NOT.LQUERY ) {
          INFO = -14
-      } else if ( LRWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
+      } else if ( LRWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -16
       }
       if ( INFO != 0 ) {
@@ -112,7 +112,7 @@
       // Use blocked version of back-transformation if sufficient workspace.
       // Zero-out the workspace to avoid potential NaN propagation.
 
-      if ( OVER .AND. LWORK .GE. N + 2*N*NBMIN ) {
+      if ( OVER && LWORK .GE. N + 2*N*NBMIN ) {
          NB = (LWORK - N) / (2*N)
          NB = MIN( NB, NBMAX )
          claset('F', N, 1+2*NB, CZERO, CZERO, WORK, N );

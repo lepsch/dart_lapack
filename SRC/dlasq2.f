@@ -211,7 +211,7 @@
                Z( I4-2*PP-2 ) = D
                Z( I4-2*PP ) = ZERO
                D = Z( I4+1 )
-            } else if ( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) .AND. SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) {
+            } else if ( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) && SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) {
                TEMP = Z( I4+1 ) / Z( I4-2*PP-2 )
                Z( I4-2*PP ) = Z( I4-1 )*TEMP
                D = D*TEMP
@@ -306,7 +306,7 @@
                   KMIN = ( I4+3 )/4
                }
             } // 110
-            if ( (KMIN-I0)*2.LT.N0-KMIN .AND. DEEMIN.LE.HALF*Z(4*N0-3) ) {
+            if ( (KMIN-I0)*2.LT.N0-KMIN && DEEMIN.LE.HALF*Z(4*N0-3) ) {
                IPN4 = 4*( I0+N0 )
                PP = 2
                DO 120 I4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -348,7 +348,7 @@
 
             // When EMIN is very small check for splits.
 
-            if ( PP == 0 .AND. N0-I0.GE.3 ) {
+            if ( PP == 0 && N0-I0.GE.3 ) {
                if ( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )
@@ -397,7 +397,7 @@
 
          if ( I1.GT.1 ) {
             N1 = I1-1
-            DO WHILE( ( I1.GE.2 ) .AND. ( Z(4*I1-5).GE.ZERO ) )
+            DO WHILE( ( I1.GE.2 ) && ( Z(4*I1-5).GE.ZERO ) )
                I1 = I1 - 1
             }
             SIGMA = -Z(4*N1-1)

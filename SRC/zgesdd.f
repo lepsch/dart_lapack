@@ -70,9 +70,9 @@
          INFO = -3
       } else if ( LDA.LT.MAX( 1, M ) ) {
          INFO = -5
-      } else if ( LDU.LT.1 .OR. ( WNTQAS .AND. LDU.LT.M ) .OR. ( WNTQO .AND. M.LT.N .AND. LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 .OR. ( WNTQAS && LDU.LT.M ) .OR. ( WNTQO && M.LT.N && LDU.LT.M ) ) {
          INFO = -8
-      } else if ( LDVT.LT.1 .OR. ( WNTQA .AND. LDVT.LT.N ) .OR. ( WNTQS .AND. LDVT.LT.MINMN ) .OR. ( WNTQO .AND. M.GE.N .AND. LDVT.LT.N ) ) {
+      } else if ( LDVT.LT.1 .OR. ( WNTQA && LDVT.LT.N ) .OR. ( WNTQS && LDVT.LT.MINMN ) .OR. ( WNTQO && M.GE.N && LDVT.LT.N ) ) {
          INFO = -10
       }
 
@@ -87,7 +87,7 @@
       if ( INFO == 0 ) {
          MINWRK = 1
          MAXWRK = 1
-         if ( M.GE.N .AND. MINMN.GT.0 ) {
+         if ( M.GE.N && MINMN.GT.0 ) {
 
             // There is no complex work space needed for bidiagonal SVD
             // The real work space needed for bidiagonal SVD (dbdsdc) is
@@ -352,7 +352,7 @@
       }
       if ( INFO == 0 ) {
          WORK( 1 ) = DROUNDUP_LWORK( MAXWRK )
-         if ( LWORK.LT.MINWRK .AND. .NOT. LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT. LQUERY ) {
             INFO = -12
          }
       }
@@ -384,7 +384,7 @@
           RETURN
       }
       ISCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ISCL = 1
          zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, IERR );
       } else if ( ANRM.GT.BIGNUM ) {
@@ -1742,7 +1742,7 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 .AND. ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 .AND. ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if (ANRM.GT.BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.GT.BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO != 0 && ANRM.LT.SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

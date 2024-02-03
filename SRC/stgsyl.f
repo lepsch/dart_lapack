@@ -47,7 +47,7 @@
       NOTRAN = LSAME( TRANS, 'N' )
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) {
+      if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -1
       } else if ( NOTRAN ) {
          if ( ( IJOB.LT.0 ) .OR. ( IJOB.GT.4 ) ) {
@@ -86,7 +86,7 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -20
          }
       }
@@ -122,12 +122,12 @@
             IFUNC = IJOB - 2
             slaset('F', M, N, ZERO, ZERO, C, LDC );
             slaset('F', M, N, ZERO, ZERO, F, LDF );
-         } else if ( IJOB.GE.1 .AND. NOTRAN ) {
+         } else if ( IJOB.GE.1 && NOTRAN ) {
             ISOLVE = 2
          }
       }
 
-      if ( ( MB.LE.1 .AND. NB.LE.1 ) .OR. ( MB.GE.M .AND. NB.GE.N ) ) {
+      if ( ( MB.LE.1 && NB.LE.1 ) .OR. ( MB.GE.M && NB.GE.N ) ) {
 
          for (IROUND = 1; IROUND <= ISOLVE; IROUND++) { // 30
 
@@ -145,7 +145,7 @@
                }
             }
 
-            if ( ISOLVE == 2 .AND. IROUND == 1 ) {
+            if ( ISOLVE == 2 && IROUND == 1 ) {
                if ( NOTRAN ) {
                   IFUNC = IJOB
                }
@@ -154,7 +154,7 @@
                slacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
                slaset('F', M, N, ZERO, ZERO, C, LDC );
                slaset('F', M, N, ZERO, ZERO, F, LDF );
-            } else if ( ISOLVE == 2 .AND. IROUND == 2 ) {
+            } else if ( ISOLVE == 2 && IROUND == 2 ) {
                slacpy('F', M, N, WORK, M, C, LDC );
                slacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
@@ -262,7 +262,7 @@
                   DIF = SQRT( REAL( PQ ) ) / ( DSCALE*SQRT( DSUM ) )
                }
             }
-            if ( ISOLVE == 2 .AND. IROUND == 1 ) {
+            if ( ISOLVE == 2 && IROUND == 1 ) {
                if ( NOTRAN ) {
                   IFUNC = IJOB
                }
@@ -271,7 +271,7 @@
                slacpy('F', M, N, F, LDF, WORK( M*N+1 ), M );
                slaset('F', M, N, ZERO, ZERO, C, LDC );
                slaset('F', M, N, ZERO, ZERO, F, LDF );
-            } else if ( ISOLVE == 2 .AND. IROUND == 2 ) {
+            } else if ( ISOLVE == 2 && IROUND == 2 ) {
                slacpy('F', M, N, WORK, M, C, LDC );
                slacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2

@@ -151,7 +151,7 @@
       C1 = BSIZE*( SAFMIN*MAX( ONE, ASCALE ) )
       C2 = SAFMIN*MAX( ONE, BNORM )
       C3 = BSIZE*SAFMIN
-      if ( ASCALE.LE.ONE .AND. BSIZE.LE.ONE ) {
+      if ( ASCALE.LE.ONE && BSIZE.LE.ONE ) {
          C4 = MIN( ONE, ( ASCALE / SAFMIN )*BSIZE )
       } else {
          C4 = ONE

@@ -49,11 +49,11 @@
 
       if ( MODE.LT.-6 .OR. MODE.GT.6 ) {
          INFO = -1
-      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. ( IRSIGN != 0 .AND. IRSIGN != 1 ) ) {
+      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && ( IRSIGN != 0 && IRSIGN != 1 ) ) {
          INFO = -2
-      } else if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && COND.LT.ONE ) {
          INFO = -3
-      } else if ( ( MODE == 6 .OR. MODE == -6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.4 ) ) {
+      } else if ( ( MODE == 6 .OR. MODE == -6 ) && ( IDIST.LT.1 .OR. IDIST.GT.4 ) ) {
          INFO = -4
       } else if ( N.LT.0 ) {
          INFO = -7
@@ -131,7 +131,7 @@
          // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
          // random signs to D
 
-         if ( ( MODE != -6 .AND. MODE != 0 .AND. MODE != 6 ) .AND. IRSIGN == 1 ) {
+         if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == 1 ) {
             for (I = 1; I <= N; I++) { // 130
                CTEMP = CLARND( 3, ISEED )
                D( I ) = D( I )*( CTEMP / ABS( CTEMP ) )

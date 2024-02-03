@@ -100,7 +100,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO == 0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK.GE.1 ) {
          MINWRK = NMAX*( NMAX+1 )
          NB = MAX( 1, ILAENV( 1, 'ZGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'ZUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'ZUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( 2*NMAX, NMAX*( NB+1 ), NMAX*( NMAX+1 ) )
@@ -192,7 +192,7 @@
                }
                zlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 .AND. IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
+               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) );
 
                // Generate B (w/o rotation)
 
@@ -204,9 +204,9 @@
                }
                zlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
+               if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) );
 
-               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
 
                   // Include rotations
 
@@ -284,7 +284,7 @@
             zlacpy(' ', N, N, A, LDA, S, LDA );
             zlacpy(' ', N, N, B, LDA, T, LDA );
             zggev3('V', 'V', N, S, LDA, T, LDA, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV31', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -310,7 +310,7 @@
             zlacpy(' ', N, N, A, LDA, S, LDA );
             zlacpy(' ', N, N, B, LDA, T, LDA );
             zggev3('N', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV32', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -327,7 +327,7 @@
             zlacpy(' ', N, N, A, LDA, S, LDA );
             zlacpy(' ', N, N, B, LDA, T, LDA );
             zggev3('V', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, RWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV33', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
@@ -350,7 +350,7 @@
             zlacpy(' ', N, N, A, LDA, S, LDA );
             zlacpy(' ', N, N, B, LDA, T, LDA );
             zggev3('N', 'V', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, RWORK, IERR );
-            if ( IERR != 0 .AND. IERR != N+1 ) {
+            if ( IERR != 0 && IERR != N+1 ) {
                RESULT( 1 ) = ULPINV
                WRITE( NOUNIT, FMT = 9999 )'ZGGEV34', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )

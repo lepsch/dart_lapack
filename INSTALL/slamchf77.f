@@ -232,7 +232,7 @@
          }
          F = SLAMC3( B / 2, B / 100 )
          C = SLAMC3( F, A )
-         IF( ( LRND ) .AND. ( C == A ) ) LRND = false;
+         IF( ( LRND ) && ( C == A ) ) LRND = false;
 
          // Try and decide whether rounding is done in the  IEEE  'round to
          // nearest' style. B/2 is half a unit in the last place of the two
@@ -242,7 +242,7 @@
 
          T1 = SLAMC3( B / 2, A )
          T2 = SLAMC3( B / 2, SAVEC )
-         LIEEE1 = ( T1 == A ) .AND. ( T2.GT.SAVEC ) .AND. LRND
+         LIEEE1 = ( T1 == A ) && ( T2.GT.SAVEC ) && LRND
 
          // Now find  the  mantissa, t.  It should  be the  integer part of
          // log to the base beta of a,  however it is safer to determine  t
@@ -417,9 +417,9 @@
 
          LEPS = 1
 
-*+       WHILE( ( LEPS.GT.B ).AND.( B.GT.ZERO ) )LOOP
+*+       WHILE( ( LEPS.GT.B ) && ( B.GT.ZERO ) )LOOP
          } // 10
-         if ( ( LEPS.GT.B ) .AND. ( B.GT.ZERO ) ) {
+         if ( ( LEPS.GT.B ) && ( B.GT.ZERO ) ) {
             LEPS = B
             C = SLAMC3( HALF*LEPS, ( TWO**5 )*( LEPS**2 ) )
             C = SLAMC3( HALF, -C )
@@ -450,7 +450,7 @@
          slamc4(GNMIN, -A, LBETA );
          IEEE = false;
 
-         if ( ( NGPMIN == NGNMIN ) .AND. ( GPMIN == GNMIN ) ) {
+         if ( ( NGPMIN == NGNMIN ) && ( GPMIN == GNMIN ) ) {
             if ( NGPMIN == GPMIN ) {
                LEMIN = NGPMIN
              // ( Non twos-complement machines, no gradual underflow;
@@ -466,7 +466,7 @@
                IWARN = true;
             }
 
-         } else if ( ( NGPMIN == GPMIN ) .AND. ( NGNMIN == GNMIN ) ) {
+         } else if ( ( NGPMIN == GPMIN ) && ( NGNMIN == GNMIN ) ) {
             if ( ABS( NGPMIN-NGNMIN ) == 1 ) {
                LEMIN = MAX( NGPMIN, NGNMIN )
              // ( Twos-complement machines, no gradual underflow;
@@ -477,7 +477,7 @@
                IWARN = true;
             }
 
-         } else if ( ( ABS( NGPMIN-NGNMIN ) == 1 ) .AND. ( GPMIN == GNMIN ) ) {
+         } else if ( ( ABS( NGPMIN-NGNMIN ) == 1 ) && ( GPMIN == GNMIN ) ) {
             if ( ( GPMIN-MIN( NGPMIN, NGNMIN ) ) == 3 ) {
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
              // ( Twos-complement machines with gradual underflow;
@@ -638,10 +638,10 @@
       C2 = A
       D1 = A
       D2 = A
-*+    WHILE( ( C1 == A ).AND.( C2 == A ).AND.
-*    $       ( D1 == A ).AND.( D2 == A )      )LOOP
+*+    WHILE( ( C1 == A ) && ( C2 == A ).AND.
+*    $       ( D1 == A ) && ( D2 == A )      )LOOP
       } // 10
-      if ( ( C1 == A ) .AND. ( C2 == A ) .AND. ( D1 == A ) .AND. ( D2 == A ) ) {
+      if ( ( C1 == A ) && ( C2 == A ) && ( D1 == A ) && ( D2 == A ) ) {
          EMIN = EMIN - 1
          A = B1
          B1 = SLAMC3( A / BASE, ZERO )
@@ -782,7 +782,7 @@
       // NBITS is the total number of bits needed to store a
       // floating-point number.
 
-      if ( ( MOD( NBITS, 2 ) == 1 ) .AND. ( BETA == 2 ) ) {
+      if ( ( MOD( NBITS, 2 ) == 1 ) && ( BETA == 2 ) ) {
 
          // Either there are an odd number of bits used to store a
          // floating-point number, which is unlikely, or some bits are

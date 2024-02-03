@@ -33,7 +33,7 @@
 
       INFO = 0
       LOWER = LSAME( UPLO, 'L' )
-      if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
+      if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2

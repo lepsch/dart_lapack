@@ -86,11 +86,11 @@
          INFO = -7
       } else if ( MV.LT.0 ) {
          INFO = -9
-      } else if ( ( RSVEC .AND. ( LDV.LT.N ) ) .OR. ( APPLV .AND. ( LDV.LT.MV ) ) ) {
+      } else if ( ( RSVEC && ( LDV.LT.N ) ) .OR. ( APPLV && ( LDV.LT.MV ) ) ) {
          INFO = -11
-      } else if ( UCTOL .AND. ( WORK( 1 ).LE.ONE ) ) {
+      } else if ( UCTOL && ( WORK( 1 ).LE.ONE ) ) {
          INFO = -12
-      } else if ( LWORK.LT.LWMIN .AND. ( .NOT.LQUERY ) ) {
+      } else if ( LWORK.LT.LWMIN && ( .NOT.LQUERY ) ) {
          INFO = -13
       } else {
          INFO = 0
@@ -185,7 +185,7 @@
                RETURN
             }
             AAQQ = DSQRT( AAQQ )
-            if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
+            if ( ( AAPP.LT.( BIG / AAQQ ) ) && NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = false;
@@ -210,7 +210,7 @@
                RETURN
             }
             AAQQ = DSQRT( AAQQ )
-            if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
+            if ( ( AAPP.LT.( BIG / AAQQ ) ) && NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = false;
@@ -235,7 +235,7 @@
                RETURN
             }
             AAQQ = DSQRT( AAQQ )
-            if ( ( AAPP.LT.( BIG / AAQQ ) ) .AND. NOSCALE ) {
+            if ( ( AAPP.LT.( BIG / AAQQ ) ) && NOSCALE ) {
                SVA( p ) = AAPP*AAQQ
             } else {
                NOSCALE = false;
@@ -298,19 +298,19 @@
 
       SN = DSQRT( SFMIN / EPSLN )
       TEMP1 = DSQRT( BIG / DBLE( N ) )
-      if ( ( AAPP.LE.SN ) .OR. ( AAQQ.GE.TEMP1 ) .OR. ( ( SN.LE.AAQQ ) .AND. ( AAPP.LE.TEMP1 ) ) ) {
+      if ( ( AAPP.LE.SN ) .OR. ( AAQQ.GE.TEMP1 ) .OR. ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.LE.SN ) .AND. ( AAPP.LE.TEMP1 ) ) {
+      } else if ( ( AAQQ.LE.SN ) && ( AAPP.LE.TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( AAPP*DSQRT( DBLE( N ) ) ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.GE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) {
+      } else if ( ( AAQQ.GE.SN ) && ( AAPP.GE.TEMP1 ) ) {
          TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.LE.SN ) .AND. ( AAPP.GE.TEMP1 ) ) {
+      } else if ( ( AAQQ.LE.SN ) && ( AAPP.GE.TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( DSQRT( DBLE( N ) )*AAPP ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -375,7 +375,7 @@
       // invokes cubic convergence. Big part of this cycle is done inside
       // canonical subspaces of dimensions less than M.
 
-      if ( ( LOWER .OR. UPPER ) .AND. ( N.GT.MAX( 64, 4*KBL ) ) ) {
+      if ( ( LOWER .OR. UPPER ) && ( N.GT.MAX( 64, 4*KBL ) ) ) {
 *[TP] The number of partition levels and the actual partition are
       // tuning parameters.
          N4 = N / 4
@@ -481,7 +481,7 @@
          // If properly implemented DNRM2 is available, the IF-THEN-ELSE
          // below should read "AAPP = DNRM2( M, A(1,p), 1 ) * WORK(p)".
 
-                     if ( ( SVA( p ).LT.ROOTBIG ) .AND. ( SVA( p ).GT.ROOTSFMIN ) ) {
+                     if ( ( SVA( p ).LT.ROOTBIG ) && ( SVA( p ).GT.ROOTSFMIN ) ) {
                         SVA( p ) = DNRM2( M, A( 1, p ), 1 )*WORK( p )
                      } else {
                         TEMP1 = ZERO
@@ -635,7 +635,7 @@
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q )
+                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q )
                                  } else {
                                     T = ZERO
                                     AAQQ = ONE
@@ -644,7 +644,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
-                                 IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p )
+                                 IF( ( AAPP.LT.ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
@@ -666,7 +666,7 @@
                            PSKIPPED = PSKIPPED + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
                            if (ir1 == 0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
@@ -682,7 +682,7 @@
 
                   } else {
                      SVA( p ) = AAPP
-                     IF( ( ir1 == 0 ) .AND. ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
+                     IF( ( ir1 == 0 ) && ( AAPP == ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
                   }
 
                } // 2001
@@ -862,7 +862,7 @@
 
             // In the case of cancellation in updating SVA(q)
             // .. recompute SVA(q)
-                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q )
+                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) && ( AAQQ.GT.ROOTSFMIN ) ) THEN                                     SVA( q ) = DNRM2( M, A( 1, q ), 1 )* WORK( q )
                                  } else {
                                     T = ZERO
                                     AAQQ = ONE
@@ -871,7 +871,7 @@
                                  }
                               }
                               if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
-                                 IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p )
+                                 IF( ( AAPP.LT.ROOTBIG ) && ( AAPP.GT.ROOTSFMIN ) ) THEN                                     AAPP = DNRM2( M, A( 1, p ), 1 )* WORK( p )
                                  } else {
                                     T = ZERO
                                     AAPP = ONE
@@ -893,12 +893,12 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( IJBLSK.GE.BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) {
+                        if ( ( i.LE.SWBAND ) && ( PSKIPPED.GT.ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -931,7 +931,7 @@
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
-         if ( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) {
+         if ( ( SVA( N ).LT.ROOTBIG ) && ( SVA( N ).GT.ROOTSFMIN ) ) {
             SVA( N ) = DNRM2( M, A( 1, N ), 1 )*WORK( N )
          } else {
             T = ZERO
@@ -942,9 +942,9 @@
 
       // Additional steering devices
 
-         IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i.LT.SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 
-         if ( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.DSQRT( DBLE( N ) )* TOL ) .AND. ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
+         if ( ( i.GT.SWBAND+1 ) && ( MXAAPQ.LT.DSQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ.LT.TOL ) ) {
             GO TO 1994
          }
 
@@ -1016,7 +1016,7 @@
       }
 
       // Undo scaling, if necessary (and possible).
-      if ( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL) ) ) ) {
+      if ( ( ( SKL.GT.ONE ) && ( SVA( 1 ).LT.( BIG / SKL) ) ) .OR. ( ( SKL.LT.ONE ) && ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
             SVA( P ) = SKL*SVA( P )
          } // 2400

@@ -237,7 +237,7 @@
          // Compare condition number for eigenvalue cluster
          // without taking its condition number into account
 
-         if ( SIN.LE.DBLE( 2*N )*EPS .AND. STMP.LE.DBLE( 2*N )*EPS ) {
+         if ( SIN.LE.DBLE( 2*N )*EPS && STMP.LE.DBLE( 2*N )*EPS ) {
             VMAX = ONE
          } else if ( EPS*SIN.GT.STMP ) {
             VMAX = ONE / EPS
@@ -258,7 +258,7 @@
          // Compare condition numbers for invariant subspace
          // without taking its condition number into account
 
-         if ( SEPIN.LE.V .AND. SEPTMP.LE.V ) {
+         if ( SEPIN.LE.V && SEPTMP.LE.V ) {
             VMAX = ONE
          } else if ( EPS*SEPIN.GT.SEPTMP ) {
             VMAX = ONE / EPS

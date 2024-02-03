@@ -111,7 +111,7 @@
          } else {
          // Either everything succeeded (INFO == 0) or some solution failed
          // to converge (INFO > N+1).
-            if (INFO .GT. 0 .AND. INFO .LE. N+1) {
+            if (INFO .GT. 0 && INFO .LE. N+1) {
                NFAIL = NFAIL + 1
                WRITE (*, FMT=8000) C2, N, INFO, ORCOND, RCOND
             }
@@ -286,13 +286,13 @@
 
       // Condition number tests
             TSTRAT(4) = RCOND / ORCOND
-            IF (RCOND .GE. CONDTHRESH .AND. TSTRAT(4) .LT. 1.0D+0) TSTRAT(4) = 1.0D+0 / TSTRAT(4)
+            IF (RCOND .GE. CONDTHRESH && TSTRAT(4) .LT. 1.0D+0) TSTRAT(4) = 1.0D+0 / TSTRAT(4)
 
             TSTRAT(5) = NCOND / NWISE_RCOND
-            IF (NCOND .GE. CONDTHRESH .AND. TSTRAT(5) .LT. 1.0D+0) TSTRAT(5) = 1.0D+0 / TSTRAT(5)
+            IF (NCOND .GE. CONDTHRESH && TSTRAT(5) .LT. 1.0D+0) TSTRAT(5) = 1.0D+0 / TSTRAT(5)
 
             TSTRAT(6) = CCOND / NWISE_RCOND
-            IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0D+0) TSTRAT(6) = 1.0D+0 / TSTRAT(6)
+            IF (CCOND .GE. CONDTHRESH && TSTRAT(6) .LT. 1.0D+0) TSTRAT(6) = 1.0D+0 / TSTRAT(6)
 
             for (I = 1; I <= NTESTS; I++) {
                if (TSTRAT(I) .GT. THRESH) {

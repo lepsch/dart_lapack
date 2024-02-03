@@ -85,9 +85,9 @@
          INFO = -8
       } else if ( LDB.LT.N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( ILQ && LDQ.LT.N ) ) {
          INFO = -15
-      } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( ILZ && LDZ.LT.N ) ) {
          INFO = -17
       }
       if ( INFO != 0 ) {

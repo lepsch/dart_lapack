@@ -51,7 +51,7 @@
 
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) {
+      if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) && .NOT. LSAME( TRANS, 'C' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -159,7 +159,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         if ( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) {
+         if ( BERR( J ).GT.EPS && TWO*BERR( J ).LE.LSTRES && COUNT.LE.ITMAX ) {
 
             // Update solution and try again.
 

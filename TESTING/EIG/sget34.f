@@ -120,7 +120,7 @@
                            shst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                            RES = RESULT( 1 ) + RESULT( 2 )
                            if ( INFO == 0 ) {
-                              IF( T1( 1, 1 ) != T( 3, 3 ) ) RES = RES + ONE / EPS                               IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 2, 1 ) != 0 .AND. ( T( 1, 1 ) != T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) ) RES = RES + ONE / EPS
+                              IF( T1( 1, 1 ) != T( 3, 3 ) ) RES = RES + ONE / EPS                               IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 2, 1 ) != 0 && ( T( 1, 1 ) != T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) ) RES = RES + ONE / EPS
                            }
                            KNT = KNT + 1
                            if ( RES.GT.RMAX ) {
@@ -159,7 +159,7 @@
                            shst01(3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                            RES = RESULT( 1 ) + RESULT( 2 )
                            if ( INFO == 0 ) {
-                              IF( T1( 3, 3 ) != T( 1, 1 ) ) RES = RES + ONE / EPS                               IF( T( 2, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ) != 0 .AND. ( T( 2, 2 ) != T( 3, 3 ) .OR. SIGN( ONE, T( 2, 3 ) ) == SIGN( ONE, T( 3, 2 ) ) ) ) RES = RES + ONE / EPS
+                              IF( T1( 3, 3 ) != T( 1, 1 ) ) RES = RES + ONE / EPS                               IF( T( 2, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ) != 0 && ( T( 2, 2 ) != T( 3, 3 ) .OR. SIGN( ONE, T( 2, 3 ) ) == SIGN( ONE, T( 3, 2 ) ) ) ) RES = RES + ONE / EPS
                            }
                            KNT = KNT + 1
                            if ( RES.GT.RMAX ) {
@@ -212,7 +212,7 @@
                                     shst01(4, 1, 4, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT );
                                     RES = RESULT( 1 ) + RESULT( 2 )
                                     if ( INFO == 0 ) {
-                                       IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 1 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 3, 2 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 2 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 2, 1 ) != 0 .AND. ( T( 1, 1 ) != T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) )RES = RES + ONE / EPS                                        IF( T( 4, 3 ) != 0 .AND. ( T( 3, 3 ) != T( 4, 4 ) .OR. SIGN( ONE, T( 3, 4 ) ) == SIGN( ONE, T( 4, 3 ) ) ) )RES = RES + ONE / EPS
+                                       IF( T( 3, 1 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 1 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 3, 2 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 2 ) != ZERO ) RES = RES + ONE / EPS                                        IF( T( 2, 1 ) != 0 && ( T( 1, 1 ) != T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ) == SIGN( ONE, T( 2, 1 ) ) ) )RES = RES + ONE / EPS                                        IF( T( 4, 3 ) != 0 && ( T( 3, 3 ) != T( 4, 4 ) .OR. SIGN( ONE, T( 3, 4 ) ) == SIGN( ONE, T( 4, 3 ) ) ) )RES = RES + ONE / EPS
                                     }
                                     KNT = KNT + 1
                                     if ( RES.GT.RMAX ) {

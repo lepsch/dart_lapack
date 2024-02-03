@@ -53,7 +53,7 @@
          INFO = -6
       } else if ( LDT.LT.MAX( 1, MIN( NB, N ) ) ) {
          INFO = -8
-      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
          INFO = -10
       }
 

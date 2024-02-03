@@ -37,7 +37,7 @@
 
       // Quick return if possible
 
-      if ( N != 2 .AND. N != 3 ) {
+      if ( N != 2 && N != 3 ) {
          RETURN
       }
 

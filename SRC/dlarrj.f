@@ -71,8 +71,8 @@
             // Remove it from the list.
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
-            IF((I == I1).AND.(I.LT.I2)) I1 = I + 1
-            IF((PREV.GE.I1).AND.(I.LE.I2)) IWORK( 2*PREV-1 ) = I + 1
+            IF((I == I1) && (I.LT.I2)) I1 = I + 1
+            IF((PREV.GE.I1) && (I.LE.I2)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
             PREV = I
@@ -182,7 +182,7 @@
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
       // since this is the best we can do.
-      IF( ( NINT.GT.0 ).AND.(ITER.LE.MAXITR) ) GO TO 80
+      IF( ( NINT.GT.0 ) && (ITER.LE.MAXITR) ) GO TO 80
 
 
       // At this point, all the intervals have converged

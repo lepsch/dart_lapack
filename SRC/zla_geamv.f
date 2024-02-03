@@ -68,7 +68,7 @@
 
       // Quick return if possible.
 
-      IF( ( M == 0 ).OR.( N == 0 ).OR. ( ( ALPHA == ZERO ).AND.( BETA == ONE ) ) ) RETURN
+      IF( ( M == 0 ).OR.( N == 0 ).OR. ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
@@ -119,7 +119,7 @@
                if ( ALPHA != 0.0D+0 ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -142,7 +142,7 @@
                if ( ALPHA != 0.0D+0 ) {
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   }
@@ -168,7 +168,7 @@
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -193,7 +193,7 @@
                   JX = KX
                   for (J = 1; J <= LENX; J++) {
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX

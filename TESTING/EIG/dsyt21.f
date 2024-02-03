@@ -81,7 +81,7 @@
             dsyr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
          } // 10
 
-         if ( N.GT.1 .AND. KBAND == 1 ) {
+         if ( N.GT.1 && KBAND == 1 ) {
             for (J = 1; J <= N - 1; J++) { // 20
                dsyr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
             } // 20

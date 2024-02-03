@@ -178,7 +178,7 @@
 
 
       if ( NS.LT.JW .OR. S == ZERO ) {
-         if ( NS.GT.1 .AND. S != ZERO ) {
+         if ( NS.GT.1 && S != ZERO ) {
 
             // ==== Reflect spike back into lower triangle ====
 
@@ -208,7 +208,7 @@
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         if (NS.GT.1 .AND. S != ZERO) CALL CUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
+         if (NS.GT.1 && S != ZERO) CALL CUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

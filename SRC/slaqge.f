@@ -41,7 +41,7 @@
       SMALL = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      if ( ROWCND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) {
+      if ( ROWCND.GE.THRESH && AMAX.GE.SMALL && AMAX.LE.LARGE ) {
 
          // No row scaling
 

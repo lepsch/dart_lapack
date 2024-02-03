@@ -132,7 +132,7 @@
          K = K+1
       }
 
-      if ( KWTOP != ILO .AND. S != CZERO ) {
+      if ( KWTOP != ILO && S != CZERO ) {
          // Reflect spike back, this will create optimally packed bulges
          A( KWTOP:KWBOT, KWTOP-1 ) = A( KWTOP, KWTOP-1 ) *DCONJG( QC( 1, 1:JW-ND ) )
          DO K = KWBOT-1, KWTOP, -1

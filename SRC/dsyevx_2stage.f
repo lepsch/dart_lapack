@@ -64,7 +64,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -8;
+            if (N.GT.0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
@@ -74,7 +74,7 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
             INFO = -15
          }
       }
@@ -89,7 +89,7 @@
             WORK( 1 )  = LWMIN
          }
 
-         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -17;
+         if (LWORK.LT.LWMIN && .NOT.LQUERY) INFO = -17;
       }
 
       if ( INFO != 0 ) {
@@ -111,7 +111,7 @@
             M = 1
             W( 1 ) = A( 1, 1 )
          } else {
-            if ( VL.LT.A( 1, 1 ) .AND. VU.GE.A( 1, 1 ) ) {
+            if ( VL.LT.A( 1, 1 ) && VU.GE.A( 1, 1 ) ) {
                M = 1
                W( 1 ) = A( 1, 1 )
             }
@@ -138,7 +138,7 @@
          VUU = VU
       }
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -179,11 +179,11 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL == 1 .AND. IU == N ) {
+         if ( IL == 1 && IU == N ) {
             TEST = true;
          }
       }
-      if ( ( ALLEIG .OR. TEST ) .AND. ( ABSTOL.LE.ZERO ) ) {
+      if ( ( ALLEIG .OR. TEST ) && ( ABSTOL.LE.ZERO ) ) {
          dcopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
          if ( .NOT.WANTZ ) {

@@ -99,11 +99,11 @@
          INFO = -8
       } else if ( LDT.LT.N ) {
          INFO = -10
-      } else if ( LDQ.LT.1 .OR. ( ILQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( ILQ && LDQ.LT.N ) ) {
          INFO = -15
-      } else if ( LDZ.LT.1 .OR. ( ILZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( ILZ && LDZ.LT.N ) ) {
          INFO = -17
-      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -19
       }
       if ( INFO != 0 ) {
@@ -246,7 +246,7 @@
                   TEMP = ABS( H( J, J-1 ) )
                   TEMP2 = ABS( H( J, J ) )
                   TEMPR = MAX( TEMP, TEMP2 )
-                  if ( TEMPR.LT.ONE .AND. TEMPR != ZERO ) {
+                  if ( TEMPR.LT.ONE && TEMPR != ZERO ) {
                      TEMP = TEMP / TEMPR
                      TEMP2 = TEMP2 / TEMPR
                   }
@@ -434,7 +434,7 @@
             TEMP = ABS( S1*H( J, J-1 ) )
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) )
             TEMPR = MAX( TEMP, TEMP2 )
-            if ( TEMPR.LT.ONE .AND. TEMPR != ZERO ) {
+            if ( TEMPR.LT.ONE && TEMPR != ZERO ) {
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }

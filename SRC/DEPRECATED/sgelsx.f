@@ -77,7 +77,7 @@
 
       ANRM = SLANGE( 'M', M, N, A, LDA, WORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -100,7 +100,7 @@
 
       BNRM = SLANGE( 'M', M, NRHS, B, LDB, WORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 

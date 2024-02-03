@@ -48,7 +48,7 @@
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -9
       }
 
@@ -67,9 +67,9 @@
          }
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          IWORK( 1 ) = LIWMIN
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -11
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -13
          }
       }

@@ -61,9 +61,9 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( ( LDU.LT.1 ) .OR. ( ( ICOMPQ == 2 ) .AND. ( LDU.LT. N ) ) ) {
+      } else if ( ( LDU.LT.1 ) .OR. ( ( ICOMPQ == 2 ) && ( LDU.LT. N ) ) ) {
          INFO = -7
-      } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ == 2 ) .AND. ( LDVT.LT. N ) ) ) {
+      } else if ( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ == 2 ) && ( LDVT.LT. N ) ) ) {
          INFO = -9
       }
       if ( INFO != 0 ) {
@@ -274,7 +274,7 @@
       // If B is lower bidiagonal, update U by those Givens rotations
       // which rotated B to be upper bidiagonal
 
-      IF( ( IUPLO == 2 ) .AND. ( ICOMPQ == 2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
+      IF( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
 
       RETURN
 

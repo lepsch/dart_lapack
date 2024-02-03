@@ -61,7 +61,7 @@
          // c) Matrix T and array WORK for CUNGTSQR_ROW;
          // d) Diagonal D for CUNHR_COL.
 
-         if ( LWORK.LT.N*N+1 .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.N*N+1 && .NOT.LQUERY ) {
             INFO = -11
          } else {
 
@@ -89,7 +89,7 @@
             LWORKOPT = MAX( LWT + LW1, MAX( LWT+N*N+LW2, LWT+N*N+N ) )
             LWORKOPT = MAX( 1, LWORKOPT )
 
-            if ( LWORK.LT.LWORKOPT .AND. .NOT.LQUERY ) {
+            if ( LWORK.LT.LWORKOPT && .NOT.LQUERY ) {
                INFO = -11
             }
 

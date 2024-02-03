@@ -103,8 +103,8 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            if (ZEROT .AND. N.LT.IMAT-2) GO TO 170;
+            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            if (ZEROT && N.LT.IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -296,7 +296,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSYSV ', UPLO, N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSYSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 110
@@ -377,7 +377,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 140
@@ -417,7 +417,7 @@
 
                   // Check the error code from DSYSVXX.
 
-                  if ( INFO != K .AND. INFO.LE.N ) {
+                  if ( INFO != K && INFO.LE.N ) {
                      alaerh(PATH, 'DSYSVXX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      GO TO 150
                   }
@@ -460,7 +460,7 @@
 
                   for (K = K1; K <= 6; K++) { // 85
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DSYSVXX', FACT, UPLO, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DSYSVXX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 85

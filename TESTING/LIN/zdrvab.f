@@ -92,8 +92,8 @@
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-            if (ZEROT .AND. N.LT.IMAT-4) GO TO 100;
+            ZEROT = IMAT.GE.5 && IMAT.LE.7
+            if (ZEROT && N.LT.IMAT-4) GO TO 100;
 
             // Set up parameters with ZLATB4 and generate a test matrix
             // with ZLATMS.
@@ -158,10 +158,10 @@
 
                if ( INFO != IZERO ) {
 
-                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                   NERRS = NERRS + 1
 
-                  if ( INFO != IZERO .AND. IZERO != 0 ) {
+                  if ( INFO != IZERO && IZERO != 0 ) {
                      WRITE( NOUT, FMT = 9988 )'ZCGESV',INFO, IZERO,M,IMAT
                   } else {
                      WRITE( NOUT, FMT = 9975 )'ZCGESV',INFO, M, IMAT
@@ -190,9 +190,9 @@
                  // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
-               if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) {
+               if ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0) && (N.GT.0) && (RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0) && (RESULT(1).GE.THRESH))) {
 
-                  if ( NFAIL == 0 .AND. NERRS == 0 ) {
+                  if ( NFAIL == 0 && NERRS == 0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'
                      WRITE( NOUT, FMT = '( '' Matrix types:'' )' )
                      WRITE( NOUT, FMT = 8979 )

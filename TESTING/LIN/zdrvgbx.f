@@ -141,7 +141,7 @@
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
                if ( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) {
-                  if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                   if ( LDA*N.GT.LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
@@ -161,8 +161,8 @@
 
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
-                  ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 120;
+                  ZEROT = IMAT.GE.2 && IMAT.LE.4
+                  if (ZEROT && N.LT.IMAT-1) GO TO 120;
 
                   // Set up parameters with ZLATB4 and generate a
                   // test matrix with ZLATMS.
@@ -246,7 +246,7 @@
                               // equilibrate the matrix A.
 
                               zgbequ(N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                              if ( INFO == 0 .AND. N.GT.0 ) {
+                              if ( INFO == 0 && N.GT.0 ) {
                                  if ( LSAME( EQUED, 'R' ) ) {
                                     ROWCND = ZERO
                                     COLCND = ONE
@@ -329,7 +329,7 @@
                            XTYPE = 'C'
                            zlacpy('Full', N, NRHS, B, LDB, BSAV, LDB );
 
-                           if ( NOFACT .AND. ITRAN == 1 ) {
+                           if ( NOFACT && ITRAN == 1 ) {
 
                               // --- Test ZGBSV  ---
 
@@ -371,7 +371,7 @@
 
                               for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'ZGBSV ', N, KL, KU, IMAT, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'ZGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 50
@@ -382,7 +382,7 @@
 
                            if (.NOT.PREFAC) CALL ZLASET( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
                            zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDB );
-                           if ( IEQUED.GT.1 .AND. N.GT.0 ) {
+                           if ( IEQUED.GT.1 && N.GT.0 ) {
 
                               // Equilibrate the matrix if FACT = 'F' and
                               // EQUED = 'R', 'C', or 'B'.
@@ -447,7 +447,7 @@
                               // Check solution from generated exact
                               // solution.
 
-                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                              IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                                  zget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN == 1 ) {
@@ -477,7 +477,7 @@
                            if ( .NOT.TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                                     if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                                     } else {
@@ -488,7 +488,7 @@
                               } // 80
                               NRUN = NRUN + 7 - K1
                            } else {
-                              IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL == 0 .AND. NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                              IF( RESULT( 1 ).GE.THRESH && .NOT. PREFAC ) THEN                                  IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                                  } else {
@@ -498,7 +498,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 6 ).GE.THRESH ) {
-                                 if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                                  } else {
@@ -508,7 +508,7 @@
                                  NRUN = NRUN + 1
                               }
                               if ( RESULT( 7 ).GE.THRESH ) {
-                                 if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                                  } else {
@@ -528,7 +528,7 @@
                      zlacpy('Full', N, NRHS, BSAV, LDB, B, LDB );
                       if (.NOT.PREFAC) CALL ZLASET( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDB );
-                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
+                     if ( IEQUED.GT.1 && N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
@@ -555,7 +555,7 @@
                      // reciprocal pivot growth factor RPVGRW
 
 
-                     if ( INFO .GT. 0 .AND. INFO .LT. N+1 ) {
+                     if ( INFO .GT. 0 && INFO .LT. N+1 ) {
                         RPVGRW = ZLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
                      } else {
                         RPVGRW = ZLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)
@@ -583,7 +583,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            zget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {
@@ -608,7 +608,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9995 )'ZGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -619,7 +619,7 @@
                         } // 45
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL == 0 .AND. NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'ZGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -629,7 +629,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'ZGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -639,7 +639,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9995 )'ZGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                            } else {

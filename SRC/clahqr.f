@@ -292,7 +292,7 @@
                } // 100
             }
 
-            if ( K == M .AND. M.GT.L ) {
+            if ( K == M && M.GT.L ) {
 
                // If the QR step was started at row M > L because two
                // consecutive small subdiagonals were found, then extra

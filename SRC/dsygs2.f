@@ -41,7 +41,7 @@
       UPPER = LSAME( UPLO, 'U' )
       if ( ITYPE.LT.1 .OR. ITYPE.GT.3 ) {
          INFO = -1
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3

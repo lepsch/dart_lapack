@@ -56,9 +56,9 @@
       INFO = 0
       LQUERY = ( LWORK == -1 )
 
-      if ( .NOT.WANTS .AND. .NOT.WANTDF ) {
+      if ( .NOT.WANTS && .NOT.WANTDF ) {
          INFO = -1
-      } else if ( .NOT.LSAME( HOWMNY, 'A' ) .AND. .NOT.SOMCON ) {
+      } else if ( .NOT.LSAME( HOWMNY, 'A' ) && .NOT.SOMCON ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -66,9 +66,9 @@
          INFO = -6
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( WANTS .AND. LDVL.LT.N ) {
+      } else if ( WANTS && LDVL.LT.N ) {
          INFO = -10
-      } else if ( WANTS .AND. LDVR.LT.N ) {
+      } else if ( WANTS && LDVR.LT.N ) {
          INFO = -12
       } else {
 
@@ -95,7 +95,7 @@
 
          if ( MM.LT.M ) {
             INFO = -15
-         } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -18
          }
       }

@@ -48,7 +48,7 @@
          INFO = -7
       } else if ( LDBB.LT.KB+1 ) {
          INFO = -9
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -12
       }
       if ( INFO != 0 ) {

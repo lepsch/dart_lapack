@@ -90,9 +90,9 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( ILVL && LDVL.LT.N ) ) {
          INFO = -11
-      } else if ( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( ILVR && LDVR.LT.N ) ) {
          INFO = -13
       }
 
@@ -113,7 +113,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if (LWORK.LT.LWKMIN .AND. .NOT.LQUERY) INFO = -15;
+         if (LWORK.LT.LWKMIN && .NOT.LQUERY) INFO = -15;
       }
 
       if ( INFO != 0 ) {
@@ -139,7 +139,7 @@
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -152,7 +152,7 @@
 
       BNRM = ZLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -226,9 +226,9 @@
       }
       zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR );
       if ( IERR != 0 ) {
-         if ( IERR.GT.0 .AND. IERR.LE.N ) {
+         if ( IERR.GT.0 && IERR.LE.N ) {
             INFO = IERR
-         } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
+         } else if ( IERR.GT.N && IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1

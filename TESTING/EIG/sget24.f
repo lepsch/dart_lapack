@@ -107,7 +107,7 @@
 
          slacpy('F', N, N, A, LDA, H, LDA );
          sgeesx('V', SORT, SSLECT, 'N', N, H, LDA, SDIM, WR, WI, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 1+RSUB ) = ULPINV
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEESX1', IINFO, N, JTYPE, ISEED
@@ -131,7 +131,7 @@
             } // 20
          } // 30
          for (I = 1; I <= N - 2; I++) { // 40
-            IF( H( I+1, I ) != ZERO .AND. H( I+2, I+1 ) != ZERO ) RESULT( 1+RSUB ) = ULPINV
+            IF( H( I+1, I ) != ZERO && H( I+2, I+1 ) != ZERO ) RESULT( 1+RSUB ) = ULPINV
          } // 40
          for (I = 1; I <= N - 1; I++) { // 50
             if ( H( I+1, I ) != ZERO ) {
@@ -177,13 +177,13 @@
             IF( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV
          } // 60
          if ( N.GT.1 ) {
-            IF( H( 2, 1 ) == ZERO .AND. WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ) == ZERO .AND. WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
+            IF( H( 2, 1 ) == ZERO && WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ) == ZERO && WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
          }
          for (I = 1; I <= N - 1; I++) { // 70
             if ( H( I+1, I ) != ZERO ) {
                TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, SMLNUM ) )                RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, SMLNUM ) )
             } else if ( I.GT.1 ) {
-               IF( H( I+1, I ) == ZERO .AND. H( I, I-1 ) == ZERO .AND. WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
+               IF( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
             }
          } // 70
 
@@ -191,7 +191,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('N', SORT, SSLECT, 'N', N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 5+RSUB ) = ULPINV
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEESX2', IINFO, N, JTYPE, ISEED
@@ -224,7 +224,7 @@
             for (I = 1; I <= N; I++) { // 110
                IF( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) )KNTEIG = KNTEIG + 1
                if ( I.LT.N ) {
-                  IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO != N+2 )RESULT( 13 ) = ULPINV
+                  IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 )RESULT( 13 ) = ULPINV
                }
             } // 110
             if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;
@@ -244,7 +244,7 @@
          RESULT( 15 ) = ZERO
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('V', SORT, SSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
             if ( JTYPE != 22 ) {
@@ -270,7 +270,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('N', SORT, SSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 14 ) = ULPINV
             RESULT( 15 ) = ULPINV
             if ( JTYPE != 22 ) {
@@ -300,7 +300,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('V', SORT, SSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 14 ) = ULPINV
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEESX5', IINFO, N, JTYPE, ISEED
@@ -329,7 +329,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('N', SORT, SSLECT, 'E', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 14 ) = ULPINV
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEESX6', IINFO, N, JTYPE, ISEED
@@ -358,7 +358,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('V', SORT, SSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 15 ) = ULPINV
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEESX7', IINFO, N, JTYPE, ISEED
@@ -387,7 +387,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('N', SORT, SSLECT, 'V', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCNDE1, RCNDV1, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 15 ) = ULPINV
             if ( JTYPE != 22 ) {
                WRITE( NOUNIT, FMT = 9998 )'SGEESX8', IINFO, N, JTYPE, ISEED
@@ -461,7 +461,7 @@
 
          slacpy('F', N, N, A, LDA, HT, LDA );
          sgeesx('N', 'S', SSLECT, 'B', N, HT, LDA, SDIM1, WRT, WIT, VS1, LDVS, RCONDE, RCONDV, WORK, LWORK, IWORK, LIWORK, BWORK, IINFO );
-         if ( IINFO != 0 .AND. IINFO != N+2 ) {
+         if ( IINFO != 0 && IINFO != N+2 ) {
             RESULT( 16 ) = ULPINV
             RESULT( 17 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'SGEESX9', IINFO, N, ISEED( 1 )

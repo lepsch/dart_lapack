@@ -43,7 +43,7 @@
       // Test the input parameters
 
       INFO = 0
-      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) {
+      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.LSAME( JOB, 'P' ) && .NOT.LSAME( JOB, 'S' ) && .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -90,7 +90,7 @@
             DO I = L, 1, -1
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
-                  if ( I != J .AND. ( REAL( A( I, J ) ) != ZERO .OR. AIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( REAL( A( I, J ) ) != ZERO .OR. AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT
                   }
@@ -125,7 +125,7 @@
             for (J = K; J <= L; J++) {
                CANSWAP = true;
                for (I = K; I <= L; I++) {
-                  if ( I != J .AND. ( REAL( A( I, J ) ) != ZERO .OR. AIMAG( A( I, J ) ) != ZERO ) ) {
+                  if ( I != J && ( REAL( A( I, J ) ) != ZERO .OR. AIMAG( A( I, J ) ) != ZERO ) ) {
                      CANSWAP = false;
                      EXIT
                   }
@@ -199,7 +199,7 @@
             F = ONE
             S = C + R
 
-            DO WHILE( C.LT.G .AND. MAX( F, C, CA ).LT.SFMAX2 .AND. MIN( R, G, RA ).GT.SFMIN2 )
+            DO WHILE( C.LT.G && MAX( F, C, CA ).LT.SFMAX2 && MIN( R, G, RA ).GT.SFMIN2 )
                F = F*SCLFAC
                C = C*SCLFAC
                CA = CA*SCLFAC
@@ -210,7 +210,7 @@
 
             G = C / SCLFAC
 
-            DO WHILE( G.GE.R .AND. MAX( R, RA ).LT.SFMAX2 .AND. MIN( F, C, G, CA ).GT.SFMIN2 )
+            DO WHILE( G.GE.R && MAX( R, RA ).LT.SFMAX2 && MIN( F, C, G, CA ).GT.SFMIN2 )
                F = F / SCLFAC
                C = C / SCLFAC
                G = G / SCLFAC
@@ -222,10 +222,10 @@
             // Now balance.
 
             IF( ( C+R ).GE.FACTOR*S ) CYCLE
-            if ( F.LT.ONE .AND. SCALE( I ).LT.ONE ) {
+            if ( F.LT.ONE && SCALE( I ).LT.ONE ) {
                IF( F*SCALE( I ).LE.SFMIN1 ) CYCLE
             }
-            if ( F.GT.ONE .AND. SCALE( I ).GT.ONE ) {
+            if ( F.GT.ONE && SCALE( I ).GT.ONE ) {
                IF( SCALE( I ).GE.SFMAX1 / F ) CYCLE
             }
             G = ONE / F

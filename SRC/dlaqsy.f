@@ -42,7 +42,7 @@
       SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      if ( SCOND.GE.THRESH .AND. AMAX.GE.SMALL .AND. AMAX.LE.LARGE ) {
+      if ( SCOND.GE.THRESH && AMAX.GE.SMALL && AMAX.LE.LARGE ) {
 
          // No equilibration
 

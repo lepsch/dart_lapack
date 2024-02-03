@@ -50,7 +50,7 @@
             I = 1
          }
       // Look for the last non-zero row in V.
-         DO WHILE( LASTV.GT.0 .AND. V( I ) == ZERO )
+         DO WHILE( LASTV.GT.0 && V( I ) == ZERO )
             LASTV = LASTV - 1
             I = I - INCV
          }

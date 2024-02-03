@@ -56,7 +56,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -173,8 +173,8 @@
 
           // Check termination criteria.
 
-            if (YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
-             if (X_STATE == NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
+            if (YMIN*RCOND .LT. INCR_THRESH*NORMY && Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
+             if (X_STATE == NOPROG_STATE && DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
                if ( DX_X .LE. EPS ) {
                   X_STATE = CONV_STATE
@@ -189,7 +189,7 @@
                }
                if (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE == UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
+             if (Z_STATE == UNSTABLE_STATE && DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
@@ -208,7 +208,7 @@
                }
                if (Z_STATE .GT. WORKING_STATE) FINAL_DZ_Z = DZ_Z;
             }
-             IF ( X_STATE != WORKING_STATE.AND. ( IGNORE_CWISE.OR.Z_STATE != WORKING_STATE ) ) GOTO 666
+             IF ( X_STATE != WORKING_STATE && ( IGNORE_CWISE.OR.Z_STATE != WORKING_STATE ) ) GOTO 666
 
             if ( INCR_PREC ) {
                INCR_PREC = false;
@@ -230,7 +230,7 @@
             }
 
          }
-         // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
+         // Target of "IF (Z_STOP && X_STOP)".  Sun's f77 won't EXIT.
          } // 666
 
       // Set final_* when cnt hits ithresh.

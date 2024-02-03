@@ -23,7 +23,7 @@
 
       SFLAG = SPARAM(1)
       IF (N.LE.0 .OR. (SFLAG+TWO == ZERO)) RETURN
-      if (INCX == INCY.AND.INCX.GT.0) {
+      if (INCX == INCY && INCX.GT.0) {
 
          NSTEPS = N*INCX
          if (SFLAG.LT.ZERO) {

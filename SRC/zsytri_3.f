@@ -43,13 +43,13 @@
       NB = MAX( 1, ILAENV( 1, 'ZSYTRI_3', UPLO, N, -1, -1, -1 ) )
       LWKOPT = ( N+NB+1 ) * ( NB+3 )
 
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK .LT. LWKOPT .AND. .NOT.LQUERY ) {
+      } else if ( LWORK .LT. LWKOPT && .NOT.LQUERY ) {
          INFO = -8
       }
 

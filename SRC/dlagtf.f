@@ -91,9 +91,9 @@
                C( K ) = MULT
             }
          }
-         IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ) == 0 ) ) IN( N ) = K
+         IF( ( MAX( PIV1, PIV2 ).LE.TL ) && ( IN( N ) == 0 ) ) IN( N ) = K
       } // 10
-      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ) == 0 ) ) IN( N ) = N
+      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N
 
       RETURN
 

@@ -72,11 +72,11 @@
          INFO = -10
       } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -12
-      } else if ( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 .OR. ( WANTU && LDU.LT.M ) ) {
          INFO = -18
-      } else if ( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) {
+      } else if ( LDV.LT.1 .OR. ( WANTV && LDV.LT.P ) ) {
          INFO = -20
-      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
          INFO = -22
       }
       if ( INFO != 0 ) {
@@ -147,7 +147,7 @@
 
                // Update unitary matrices U, V, Q, if desired.
 
-               if (WANTU .AND. K+J.LE.M) CALL ZROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J.LE.M) CALL ZROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
                if (WANTV) CALL ZROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
@@ -201,7 +201,7 @@
          B1 = DBLE( B( I, N-L+I ) )
          GAMMA = B1 / A1
 
-         if ( (GAMMA.LE.HUGENUM).AND.(GAMMA.GE.-HUGENUM) ) {
+         if ( (GAMMA.LE.HUGENUM) && (GAMMA.GE.-HUGENUM) ) {
 
             if ( GAMMA.LT.ZERO ) {
                zdscal(L-I+1, -ONE, B( I, N-L+I ), LDB );

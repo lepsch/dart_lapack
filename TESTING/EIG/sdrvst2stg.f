@@ -570,7 +570,7 @@
                   }
                }
 
-               if ( M2 == 0 .AND. N.GT.0 ) {
+               if ( M2 == 0 && N.GT.0 ) {
                   RESULT( 13 ) = ULPINV
                   RESULT( 14 ) = ULPINV
                   RESULT( 15 ) = ULPINV
@@ -769,7 +769,7 @@
                   }
                }
 
-               if ( M2 == 0 .AND. N.GT.0 ) {
+               if ( M2 == 0 && N.GT.0 ) {
                   RESULT( 22 ) = ULPINV
                   RESULT( 23 ) = ULPINV
                   RESULT( 24 ) = ULPINV
@@ -1034,7 +1034,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 700
                }
@@ -1316,7 +1316,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 990
                }
@@ -1405,7 +1405,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1080
                }
@@ -1427,7 +1427,7 @@
 
                if ( JTYPE.LE.7 ) {
                   KD = 1
-               } else if ( JTYPE.GE.8 .AND. JTYPE.LE.15 ) {
+               } else if ( JTYPE.GE.8 && JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -1724,7 +1724,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1460
                }
@@ -1887,7 +1887,7 @@
 
                if ( JTYPE.LE.7 ) {
                   KD = 1
-               } else if ( JTYPE.GE.8 .AND. JTYPE.LE.15 ) {
+               } else if ( JTYPE.GE.8 && JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -2103,7 +2103,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 700
                }

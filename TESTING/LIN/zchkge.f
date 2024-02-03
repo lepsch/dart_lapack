@@ -104,8 +104,8 @@
 
                // Skip types 5, 6, or 7 if the matrix size is too small.
 
-               ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-               if (ZEROT .AND. N.LT.IMAT-4) GO TO 100;
+               ZEROT = IMAT.GE.5 && IMAT.LE.7
+               if (ZEROT && N.LT.IMAT-4) GO TO 100;
 
                // Set up parameters with ZLATB4 and generate a test matrix
                // with ZLATMS.
@@ -179,7 +179,7 @@
                   // Form the inverse if the factorization was successful
                   // and compute the residual.
 
-                  if ( M == N .AND. INFO == 0 ) {
+                  if ( M == N && INFO == 0 ) {
                      zlacpy('Full', N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'ZGETRI'
                      NRHS = NSVAL( 1 )
@@ -223,7 +223,7 @@
 
                   for (K = 1; K <= NT; K++) { // 30
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 30
@@ -289,7 +289,7 @@
 
                         for (K = 3; K <= 7; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 40
@@ -328,7 +328,7 @@
                      // the threshold.
 
                      if ( RESULT( 8 ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

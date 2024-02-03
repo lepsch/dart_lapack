@@ -68,7 +68,7 @@
          LWMIN = N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -11
          }
       }

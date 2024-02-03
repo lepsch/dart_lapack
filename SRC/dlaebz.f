@@ -84,7 +84,7 @@
 
          // Loop over intervals
 
-         if ( KL-KF+1.GE.NBMIN .AND. NBMIN.GT.0 ) {
+         if ( KL-KF+1.GE.NBMIN && NBMIN.GT.0 ) {
 
             // Begin of Parallel Version of the loop
 

@@ -73,9 +73,9 @@
          WORK( 1 ) = LOPT
          IWORK( 1 ) = LIOPT
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -11
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -13
          }
       }
@@ -106,7 +106,7 @@
       LOPT = INT( MAX( DBLE( LOPT ), DBLE( WORK( 1 ) ) ) )
       LIOPT = INT( MAX( DBLE( LIOPT ), DBLE( IWORK( 1 ) ) ) )
 
-      if ( WANTZ .AND. INFO == 0 ) {
+      if ( WANTZ && INFO == 0 ) {
 
          // Backtransform eigenvectors to the original problem.
 

@@ -135,13 +135,13 @@
       } else {
          if (2*LLB.LT.M) GIVENS = true ;
       }
-      if (LDA.LT.M .AND. LDA.GE.MINLDA) GIVENS = true ;
+      if (LDA.LT.M && LDA.GE.MINLDA) GIVENS = true ;
 
       // Set INFO if an error
 
       if ( M.LT.0 ) {
          INFO = -1
-      } else if ( M != N .AND. ISYM != 1 ) {
+      } else if ( M != N && ISYM != 1 ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -151,13 +151,13 @@
          INFO = -5
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -7
-      } else if ( ( MODE != 0 .AND. ABS( MODE ) != 6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND.LT.ONE ) {
          INFO = -8
       } else if ( KL.LT.0 ) {
          INFO = -10
-      } else if ( KU.LT.0 .OR. ( ISYM != 1 .AND. KL != KU ) ) {
+      } else if ( KU.LT.0 .OR. ( ISYM != 1 && KL != KU ) ) {
          INFO = -11
-      } else if ( IPACK == -1 .OR. ( ISYMPK == 1 .AND. ISYM == 1 ) .OR. ( ISYMPK == 2 .AND. ISYM == 1 .AND. KL.GT.0 ) .OR. ( ISYMPK == 3 .AND. ISYM == 1 .AND. KU.GT.0 ) .OR. ( ISYMPK != 0 .AND. M != N ) ) {
+      } else if ( IPACK == -1 .OR. ( ISYMPK == 1 && ISYM == 1 ) .OR. ( ISYMPK == 2 && ISYM == 1 && KL.GT.0 ) .OR. ( ISYMPK == 3 && ISYM == 1 && KU.GT.0 ) .OR. ( ISYMPK != 0 && M != N ) ) {
          INFO = -12
       } else if ( LDA.LT.MAX( 1, MINLDA ) ) {
          INFO = -14
@@ -195,7 +195,7 @@
          TOPDWN = false;
       }
 
-      if ( MODE != 0 .AND. ABS( MODE ) != 6 ) {
+      if ( MODE != 0 && ABS( MODE ) != 6 ) {
 
          // Scale by DMAX
 
@@ -248,7 +248,7 @@
       // Diagonal Matrix -- We are done, unless it
       // is to be stored SP/PP/TP (PACK='R' or 'C')
 
-      if ( LLB == 0 .AND. UUB == 0 ) {
+      if ( LLB == 0 && UUB == 0 ) {
          scopy(MNMIN, D, 1, A( 1-ISKEW+IOFFST, 1 ), ILDA+1 );
          if (IPACK.LE.2 .OR. IPACK.GE.5) IPACKG = IPACK;
 
@@ -500,7 +500,7 @@
                // If we need lower triangle, copy from upper. Note that
                // the order of copying is chosen to work for 'q' -> 'b'
 
-               if ( IPACK != IPACKG .AND. IPACK != 3 ) {
+               if ( IPACK != IPACKG && IPACK != 3 ) {
                   for (JC = 1; JC <= N; JC++) { // 280
                      IROW = IOFFST - ISKEW*JC
                      DO 270 JR = JC, MIN( N, JC+UUB )
@@ -562,7 +562,7 @@
                // If we need upper triangle, copy from lower. Note that
                // the order of copying is chosen to work for 'b' -> 'q'
 
-               if ( IPACK != IPACKG .AND. IPACK != 4 ) {
+               if ( IPACK != IPACKG && IPACK != 4 ) {
                   DO 350 JC = N, 1, -1
                      IROW = IOFFST - ISKEW*JC
                      DO 340 JR = JC, MAX( 1, JC-UUB ), -1

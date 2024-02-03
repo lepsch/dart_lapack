@@ -51,7 +51,7 @@
       LOWER = LSAME( UPLO, 'L' )
 
       INFO = 0
-      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LOWER ) {
+      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LOWER ) {
          INFO = -1
       } else if ( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) {
          INFO = -2
@@ -75,7 +75,7 @@
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N*2 ) ) INFO = -14
+         IF( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N*2 ) ) INFO = -14
       }
 
       if ( INFO != 0 ) {
@@ -93,7 +93,7 @@
             NS = 1
             S( 1 ) = ABS( D( 1 ) )
          } else {
-            if ( VL.LT.ABS( D( 1 ) ) .AND. VU.GE.ABS( D( 1 ) ) ) {
+            if ( VL.LT.ABS( D( 1 ) ) && VU.GE.ABS( D( 1 ) ) ) {
                NS = 1
                S( 1 ) = ABS( D( 1 ) )
             }
@@ -352,7 +352,7 @@
                   }
                   EMIN = ABS( MAXVAL( S( ISBEG:ISBEG+NSL-1 ) ) )
 
-                  if ( NSL.GT.0 .AND. WANTZ ) {
+                  if ( NSL.GT.0 && WANTZ ) {
 
                      // Normalize u=Z([2,4,...],:) and v=Z([1,3,...],:),
                      // changing the sign of v as discussed in the leading
@@ -362,7 +362,7 @@
                      // those norms and, if needed, reorthogonalize the
                      // vectors.
 
-                     if ( NSL.GT.1 .AND. VUTGK == ZERO .AND. MOD(NTGK,2) == 0 .AND. EMIN == 0 .AND. .NOT.SPLIT ) {
+                     if ( NSL.GT.1 && VUTGK == ZERO && MOD(NTGK,2) == 0 && EMIN == 0 && .NOT.SPLIT ) {
 
                         // D=0 at the top or bottom of the active submatrix:
                         // one eigenvalue is equal to zero; concatenate the
@@ -383,7 +383,7 @@
                            INFO = N*2 + 1
                            RETURN
                         }
-                        CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
+                        CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU != ONE && ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
                               daxpy(NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
@@ -398,7 +398,7 @@
                            INFO = N*2 + 1
                            RETURN
                         }
-                        CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
+                        CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV != ONE && ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
                               ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
                               daxpy(NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
@@ -407,7 +407,7 @@
                            dscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );
                         }
                      }
-                     if ( VUTGK == ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) {
+                     if ( VUTGK == ZERO && IDPTR.LT.IDEND && MOD(NTGK,2).GT.0 ) {
 
                         // D=0 in the middle of the active submatrix (one
                         // eigenvalue is equal to zero): save the corresponding
@@ -440,11 +440,11 @@
                   NRU = 0
                   NRV = 0
                END IF !** NTGK.GT.0 **!
-               if ( IROWZ.LT.N*2 .AND. WANTZ ) {
+               if ( IROWZ.LT.N*2 && WANTZ ) {
                   Z( 1:IROWZ-1, ICOLZ ) = ZERO
                }
             END DO !** IDPTR loop **!
-            if ( SPLIT .AND. WANTZ ) {
+            if ( SPLIT && WANTZ ) {
 
                // Bring back eigenvector corresponding
                // to eigenvalue equal to zero.

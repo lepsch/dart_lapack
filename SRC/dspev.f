@@ -47,7 +47,7 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -7
       }
 
@@ -79,7 +79,7 @@
 
       ANRM = DLANSP( 'M', UPLO, N, AP, WORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

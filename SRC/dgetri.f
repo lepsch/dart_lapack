@@ -46,7 +46,7 @@
          INFO = -1
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -3
-      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -6
       }
       if ( INFO != 0 ) {
@@ -68,7 +68,7 @@
 
       NBMIN = 2
       LDWORK = N
-      if ( NB.GT.1 .AND. NB.LT.N ) {
+      if ( NB.GT.1 && NB.LT.N ) {
          IWS = MAX( LDWORK*NB, 1 )
          if ( LWORK.LT.IWS ) {
             NB = LWORK / LDWORK

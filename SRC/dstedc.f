@@ -56,7 +56,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 && LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -6
       }
 
@@ -85,9 +85,9 @@
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN .AND. .NOT. LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT. LQUERY ) {
             INFO = -8
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT. LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT. LQUERY ) {
             INFO = -10
          }
       }

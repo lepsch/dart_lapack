@@ -52,11 +52,11 @@
          INFO = -5
       } else if ( NCC.LT.0 ) {
          INFO = -6
-      } else if ( ( NCVT == 0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCVT == 0 && LDVT.LT.1 ) .OR. ( NCVT.GT.0 && LDVT.LT.MAX( 1, N ) ) ) {
          INFO = -10
       } else if ( LDU.LT.MAX( 1, NRU ) ) {
          INFO = -12
-      } else if ( ( NCC == 0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) {
+      } else if ( ( NCC == 0 && LDC.LT.1 ) .OR. ( NCC.GT.0 && LDC.LT.MAX( 1, N ) ) ) {
          INFO = -14
       }
       if ( INFO != 0 ) {
@@ -74,7 +74,7 @@
       // If matrix non-square upper bidiagonal, rotate to be lower
       // bidiagonal.  The rotations are on the right.
 
-      if ( ( IUPLO == 1 ) .AND. ( SQRE1 == 1 ) ) {
+      if ( ( IUPLO == 1 ) && ( SQRE1 == 1 ) ) {
          for (I = 1; I <= N - 1; I++) { // 10
             slartg(D( I ), E( I ), CS, SN, R );
             D( I ) = R

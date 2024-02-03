@@ -23,7 +23,7 @@
       // ..
       if (N.LE.0) RETURN;
       IF (DCABS1(ZA) == 0.0d0) RETURN
-      if (INCX == 1 .AND. INCY == 1) {
+      if (INCX == 1 && INCY == 1) {
 
          // code for both increments equal to 1
 

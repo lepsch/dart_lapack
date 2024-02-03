@@ -38,7 +38,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -130,7 +130,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K .LT. N .AND. KP == -IPIV( K+1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K .LT. N && KP == -IPIV( K+1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          }
         }
@@ -201,7 +201,7 @@
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K.GT.1 .AND. KP == -IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K.GT.1 && KP == -IPIV( K-1 ) ) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          }
         }

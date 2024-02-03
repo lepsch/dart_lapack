@@ -60,7 +60,7 @@
          INFO = -4
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -7;
+            if (N.GT.0 && VU.LE.VL) INFO = -7;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -8
@@ -70,7 +70,7 @@
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
+         IF( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) INFO = -14
       }
 
       if ( INFO != 0 ) {
@@ -88,7 +88,7 @@
             M = 1
             W( 1 ) = DBLE( AP( 1 ) )
          } else {
-            if ( VL.LT.DBLE( AP( 1 ) ) .AND. VU.GE.DBLE( AP( 1 ) ) ) {
+            if ( VL.LT.DBLE( AP( 1 ) ) && VU.GE.DBLE( AP( 1 ) ) ) {
                M = 1
                W( 1 ) = DBLE( AP( 1 ) )
             }
@@ -118,7 +118,7 @@
          VUU = ZERO
       }
       ANRM = ZLANHP( 'M', UPLO, N, AP, RWORK )
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -149,11 +149,11 @@
 
       TEST = false;
       if (INDEIG) {
-         if (IL == 1 .AND. IU == N) {
+         if (IL == 1 && IU == N) {
             TEST = true;
          }
       }
-      if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
+      if ((ALLEIG .OR. TEST) && (ABSTOL.LE.ZERO)) {
          dcopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          if ( .NOT.WANTZ ) {

@@ -320,7 +320,7 @@
             dlacpy(' ', N, N, H, LDA, T2, LDA );
 
             dhseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -333,7 +333,7 @@
             dlacpy(' ', N, N, U, LDU, UZ, LDU );
 
             dhseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 .AND. IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO.LE.N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -430,7 +430,7 @@
             K = 1
             MATCH = true;
             for (J = 1; J <= N; J++) { // 170
-               if ( SELECT( J ) .AND. WI1( J ) == ZERO ) {
+               if ( SELECT( J ) && WI1( J ) == ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 150
                      if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) ) {
                         MATCH = false;
@@ -438,7 +438,7 @@
                      }
                   } // 150
                   K = K + 1
-               } else if ( SELECT( J ) .AND. WI1( J ) != ZERO ) {
+               } else if ( SELECT( J ) && WI1( J ) != ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
                      if ( EVECTR( JJ, J ) != EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ) != EVECTL( JJ, K+1 ) ) {
                         MATCH = false;
@@ -483,7 +483,7 @@
             K = 1
             MATCH = true;
             for (J = 1; J <= N; J++) { // 210
-               if ( SELECT( J ) .AND. WI1( J ) == ZERO ) {
+               if ( SELECT( J ) && WI1( J ) == ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 190
                      if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) ) {
                         MATCH = false;
@@ -491,7 +491,7 @@
                      }
                   } // 190
                   K = K + 1
-               } else if ( SELECT( J ) .AND. WI1( J ) != ZERO ) {
+               } else if ( SELECT( J ) && WI1( J ) != ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 200
                      if ( EVECTL( JJ, J ) != EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ) != EVECTR( JJ, K+1 ) ) {
                         MATCH = false;

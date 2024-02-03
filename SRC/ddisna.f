@@ -48,7 +48,7 @@
       } else if ( SING ) {
          K = MIN( M, N )
       }
-      if ( .NOT.EIGEN .AND. .NOT.SING ) {
+      if ( .NOT.EIGEN && .NOT.SING ) {
          INFO = -1
       } else if ( M.LT.0 ) {
          INFO = -2
@@ -58,10 +58,10 @@
          INCR = true;
          DECR = true;
          for (I = 1; I <= K - 1; I++) { // 10
-            if (INCR) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 );
+            if (INCR) INCR = INCR && D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR && D( I ).GE.D( I+1 );
          } // 10
-         if ( SING .AND. K.GT.0 ) {
-            if (INCR) INCR = INCR .AND. ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR .AND. D( K ).GE.ZERO;
+         if ( SING && K.GT.0 ) {
+            if (INCR) INCR = INCR && ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR && D( K ).GE.ZERO;
          }
          IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
       }
@@ -89,7 +89,7 @@
          SEP( K ) = OLDGAP
       }
       if ( SING ) {
-         if ( ( LEFT .AND. M.GT.N ) .OR. ( RIGHT .AND. M.LT.N ) ) {
+         if ( ( LEFT && M.GT.N ) .OR. ( RIGHT && M.LT.N ) ) {
             if (INCR) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) );
          }
       }

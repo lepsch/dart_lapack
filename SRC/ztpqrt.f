@@ -29,9 +29,9 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( L.LT.0 .OR. (L.GT.MIN(M,N) .AND. MIN(M,N).GE.0)) {
+      } else if ( L.LT.0 .OR. (L.GT.MIN(M,N) && MIN(M,N).GE.0)) {
          INFO = -3
-      } else if ( NB.LT.1 .OR. (NB.GT.N .AND. N.GT.0)) {
+      } else if ( NB.LT.1 .OR. (NB.GT.N && N.GT.0)) {
          INFO = -4
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6

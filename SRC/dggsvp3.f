@@ -66,13 +66,13 @@
          INFO = -8
       } else if ( LDB.LT.MAX( 1, P ) ) {
          INFO = -10
-      } else if ( LDU.LT.1 .OR. ( WANTU .AND. LDU.LT.M ) ) {
+      } else if ( LDU.LT.1 .OR. ( WANTU && LDU.LT.M ) ) {
          INFO = -16
-      } else if ( LDV.LT.1 .OR. ( WANTV .AND. LDV.LT.P ) ) {
+      } else if ( LDV.LT.1 .OR. ( WANTV && LDV.LT.P ) ) {
          INFO = -18
-      } else if ( LDQ.LT.1 .OR. ( WANTQ .AND. LDQ.LT.N ) ) {
+      } else if ( LDQ.LT.1 .OR. ( WANTQ && LDQ.LT.N ) ) {
          INFO = -20
-      } else if ( LWORK.LT.1 .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.1 && .NOT.LQUERY ) {
          INFO = -24
       }
 
@@ -148,7 +148,7 @@
          dlapmt(FORWRD, N, N, Q, LDQ, IWORK );
       }
 
-      if ( P.GE.L .AND. N != L ) {
+      if ( P.GE.L && N != L ) {
 
          // RQ factorization of (S11 S12): ( S11 S12 ) = ( 0 S12 )*Z
 

@@ -45,7 +45,7 @@
       INFO = 0
       LIWMIN = 1
       LWMIN = 1
-      if ( N.GT.1 .AND. WANTZ ) {
+      if ( N.GT.1 && WANTZ ) {
          LWMIN = 1 + 4*N + N**2
          LIWMIN = 3 + 5*N
       }
@@ -54,7 +54,7 @@
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -6
       }
 
@@ -62,9 +62,9 @@
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -8
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -10
          }
       }
@@ -98,7 +98,7 @@
 
       ISCALE = 0
       TNRM = DLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
+      if ( TNRM.GT.ZERO && TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
       } else if ( TNRM.GT.RMAX ) {

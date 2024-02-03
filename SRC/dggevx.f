@@ -93,9 +93,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( ILVL && LDVL.LT.N ) ) {
          INFO = -14
-      } else if ( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( ILVR && LDVR.LT.N ) ) {
          INFO = -16
       }
 
@@ -112,7 +112,7 @@
             MINWRK = 1
             MAXWRK = 1
          } else {
-            if ( NOSCL .AND. .NOT.ILV ) {
+            if ( NOSCL && .NOT.ILV ) {
                MINWRK = 2*N
             } else {
                MINWRK = 6*N
@@ -131,7 +131,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -26
          }
       }
@@ -160,7 +160,7 @@
 
       ANRM = DLANGE( 'M', N, N, A, LDA, WORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -173,7 +173,7 @@
 
       BNRM = DLANGE( 'M', N, N, B, LDB, WORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -258,9 +258,9 @@
 
       dhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR );
       if ( IERR != 0 ) {
-         if ( IERR.GT.0 .AND. IERR.LE.N ) {
+         if ( IERR.GT.0 && IERR.LE.N ) {
             INFO = IERR
-         } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
+         } else if ( IERR.GT.N && IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1

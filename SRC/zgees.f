@@ -52,15 +52,15 @@
       LQUERY = ( LWORK == -1 )
       WANTVS = LSAME( JOBVS, 'V' )
       WANTST = LSAME( SORT, 'S' )
-      if ( ( .NOT.WANTVS ) .AND. ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
+      if ( ( .NOT.WANTVS ) && ( .NOT.LSAME( JOBVS, 'N' ) ) ) {
          INFO = -1
-      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -4
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -6
-      } else if ( LDVS.LT.1 .OR. ( WANTVS .AND. LDVS.LT.N ) ) {
+      } else if ( LDVS.LT.1 .OR. ( WANTVS && LDVS.LT.N ) ) {
          INFO = -10
       }
 
@@ -95,7 +95,7 @@
          }
          WORK( 1 ) = MAXWRK
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -126,7 +126,7 @@
 
       ANRM = ZLANGE( 'M', N, N, A, LDA, DUM )
       SCALEA = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          SCALEA = true;
          CSCALE = SMLNUM
       } else if ( ANRM.GT.BIGNUM ) {
@@ -174,7 +174,7 @@
 
       // Sort eigenvalues if desired
 
-      if ( WANTST .AND. INFO == 0 ) {
+      if ( WANTST && INFO == 0 ) {
          if (SCALEA) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR );
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )

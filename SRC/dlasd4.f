@@ -371,7 +371,7 @@
 
             TAU = TAU2 / ( D( I )+SQRT( D( I )*D( I )+TAU2 ) )
             TEMP = SQRT(EPS)
-            if ( (D(I).LE.TEMP*D(IP1)).AND.(ABS(Z(I)).LE.TEMP) .AND.(D(I).GT.ZERO) ) {
+            if ( (D(I).LE.TEMP*D(IP1)) && (ABS(Z(I)).LE.TEMP) && (D(I).GT.ZERO) ) {
                TAU = MIN( TEN*D(I), SGUB )
                GEOMAVG = true;
             }
@@ -854,7 +854,7 @@
             ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $             + ABS( TAU2 )*DW
 
-            IF( W*PREW.GT.ZERO .AND. ABS( W ).GT.ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
+            IF( W*PREW.GT.ZERO && ABS( W ).GT.ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
 
          } // 230
 

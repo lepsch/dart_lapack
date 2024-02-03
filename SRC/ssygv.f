@@ -64,7 +64,7 @@
          LWKOPT = MAX( LWKMIN, ( NB + 2 )*N )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 
-         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
             INFO = -11
          }
       }

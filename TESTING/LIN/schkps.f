@@ -93,7 +93,7 @@
                // Only repeat test 3 to 5 for different ranks
                // Other tests use full rank
 
-               IF( ( IMAT.LT.3 .OR. IMAT.GT.5 ) .AND. IRANK.GT.1 ) GO TO 130
+               IF( ( IMAT.LT.3 .OR. IMAT.GT.5 ) && IRANK.GT.1 ) GO TO 130
 
                RANK = CEILING( ( N * REAL( RANKVAL( IRANK ) ) ) / 100.E+0 )
 
@@ -137,7 +137,7 @@
 
                   // Check error code from SPSTRF.
 
-                     IF( (INFO.LT.IZERO) .OR.(INFO != IZERO.AND.RANK == N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN;
+                     IF( (INFO.LT.IZERO) .OR.(INFO != IZERO && RANK == N) .OR.(INFO.LE.IZERO && RANK.LT.N) ) THEN;
                         alaerh(PATH, 'SPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110
                      }
@@ -158,7 +158,7 @@
                      if (N == 0) COMPRANK = 0;
                      RANKDIFF = RANK - COMPRANK
                      if ( RESULT.GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, RANK, RANKDIFF, NB, IMAT, RESULT;
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1

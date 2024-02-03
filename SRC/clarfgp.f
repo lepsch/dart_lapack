@@ -46,7 +46,7 @@
       ALPHR = REAL( ALPHA )
       ALPHI = AIMAG( ALPHA )
 
-      if ( XNORM.LE.EPS*ABS(ALPHA) .AND. ALPHI == ZERO ) {
+      if ( XNORM.LE.EPS*ABS(ALPHA) && ALPHI == ZERO ) {
 
          // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
@@ -83,7 +83,7 @@
             BETA = BETA*BIGNUM
             ALPHI = ALPHI*BIGNUM
             ALPHR = ALPHR*BIGNUM
-            IF( (ABS( BETA ).LT.SMLNUM) .AND. (KNT .LT. 20) ) GO TO 10
+            IF( (ABS( BETA ).LT.SMLNUM) && (KNT .LT. 20) ) GO TO 10
 
             // New BETA is at most 1, at least SMLNUM
 

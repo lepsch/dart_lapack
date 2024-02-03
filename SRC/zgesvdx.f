@@ -66,9 +66,9 @@
       INDS = LSAME( RANGE, 'I' )
 
       INFO = 0
-      if ( .NOT.LSAME( JOBU, 'V' ) .AND. .NOT.LSAME( JOBU, 'N' ) ) {
+      if ( .NOT.LSAME( JOBU, 'V' ) && .NOT.LSAME( JOBU, 'N' ) ) {
          INFO = -1
-      } else if ( .NOT.LSAME( JOBVT, 'V' ) .AND. .NOT.LSAME( JOBVT, 'N' ) ) {
+      } else if ( .NOT.LSAME( JOBVT, 'V' ) && .NOT.LSAME( JOBVT, 'N' ) ) {
          INFO = -2
       } else if ( .NOT.( ALLS .OR. VALS .OR. INDS ) ) {
          INFO = -3
@@ -93,7 +93,7 @@
             }
          }
          if ( INFO == 0 ) {
-            if ( WANTU .AND. LDU.LT.M ) {
+            if ( WANTU && LDU.LT.M ) {
                INFO = -15
             } else if ( WANTVT ) {
                if ( INDS ) {
@@ -168,7 +168,7 @@
          MAXWRK = MAX( MAXWRK, MINWRK )
          WORK( 1 ) = DCMPLX( DBLE( MAXWRK ), ZERO )
 
-         if ( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.MINWRK && .NOT.LQUERY ) {
             INFO = -19
          }
       }
@@ -212,7 +212,7 @@
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, DUM )
       ISCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ISCL = 1
          zlascl('G', 0, 0, ANRM, SMLNUM, M, N, A, LDA, INFO );
       } else if ( ANRM.GT.BIGNUM ) {

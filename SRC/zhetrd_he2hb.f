@@ -50,7 +50,7 @@
          LWMIN = ILAENV2STAGE( 4, 'ZHETRD_HE2HB', '', N, KD, -1, -1 )
       }
 
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -60,7 +60,7 @@
          INFO = -5
       } else if ( LDAB.LT.MAX( 1, KD+1 ) ) {
          INFO = -7
-      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
          INFO = -10
       }
 

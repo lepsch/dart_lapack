@@ -36,19 +36,19 @@
       LEFTV = LSAME( SIDE, 'L' )
 
       INFO = 0
-      if ( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) {
+      if ( .NOT.LSAME( JOB, 'N' ) && .NOT.LSAME( JOB, 'P' ) && .NOT.LSAME( JOB, 'S' ) && .NOT.LSAME( JOB, 'B' ) ) {
          INFO = -1
-      } else if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
+      } else if ( .NOT.RIGHTV && .NOT.LEFTV ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
       } else if ( ILO.LT.1 ) {
          INFO = -4
-      } else if ( N == 0 .AND. IHI == 0 .AND. ILO != 1 ) {
+      } else if ( N == 0 && IHI == 0 && ILO != 1 ) {
          INFO = -4
-      } else if ( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) {
+      } else if ( N.GT.0 && ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) {
          INFO = -5
-      } else if ( N == 0 .AND. ILO == 1 .AND. IHI != 0 ) {
+      } else if ( N == 0 && ILO == 1 && IHI != 0 ) {
          INFO = -5
       } else if ( M.LT.0 ) {
          INFO = -8

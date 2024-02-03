@@ -69,7 +69,7 @@
       for (J = 1; J <= NRHS; J++) { // 10
          BNORM = SCASUM( N1, B( 1, J ), 1 )
          XNORM = SCASUM( N2, X( 1, J ), 1 )
-         if ( ANORM == ZERO .AND. BNORM == ZERO ) {
+         if ( ANORM == ZERO && BNORM == ZERO ) {
             RESID = ZERO
          } else if ( ANORM.LE.ZERO .OR. XNORM.LE.ZERO ) {
             RESID = ONE / EPS

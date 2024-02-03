@@ -56,7 +56,7 @@
          LWMIN = MAX( 1, LW )
       }
 
-      if ( ( NB.GT.K ) .AND. ( MN.GT.K ) ) {
+      if ( ( NB.GT.K ) && ( MN.GT.K ) ) {
         if ( MOD( MN - K, NB - K ) == 0 ) {
           NBLCKS = ( MN - K ) / ( NB - K )
         } else {
@@ -67,9 +67,9 @@
       }
 
       INFO = 0
-      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
+      if ( .NOT.LEFT && .NOT.RIGHT ) {
         INFO = -1
-      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
+      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
         INFO = -2
       } else if ( M.LT.0 ) {
         INFO = -3
@@ -83,7 +83,7 @@
         INFO = -9
       } else if ( LDC.LT.MAX( 1, M ) ) {
         INFO = -11
-      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
         INFO = -13
       }
 
@@ -104,7 +104,7 @@
         RETURN
       }
 
-      IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL DGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
+      IF( ( LEFT && M.LE.K ) .OR. ( RIGHT && N.LE.K ) .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL DGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
       } else {
         dlamswlq(SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO );
       }

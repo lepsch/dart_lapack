@@ -76,7 +76,7 @@
 
                   // Test DTPLQT and DTPMLQT
 
-                  if ( (NB.LE.M).AND.(NB.GT.0) ) {
+                  if ( (NB.LE.M) && (NB.GT.0) ) {
                      slqt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not
@@ -84,7 +84,7 @@
 
                      for (T = 1; T <= NTESTS; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, NB, L, T, RESULT( T );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, NB, L, T, RESULT( T );
                            NFAIL = NFAIL + 1
                         }
                      }

@@ -107,8 +107,8 @@
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-            if (ZEROT .AND. N.LT.IMAT-4) GO TO 80;
+            ZEROT = IMAT.GE.5 && IMAT.LE.7
+            if (ZEROT && N.LT.IMAT-4) GO TO 80;
 
             // Set up parameters with DLATB4 and generate a test matrix
             // with DLATMS.
@@ -186,7 +186,7 @@
                         // equilibrate the matrix A.
 
                         dgeequ(N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO );
-                        if ( INFO == 0 .AND. N.GT.0 ) {
+                        if ( INFO == 0 && N.GT.0 ) {
                            if ( LSAME( EQUED, 'R' ) ) {
                               ROWCND = ZERO
                               COLCND = ONE
@@ -268,7 +268,7 @@
                      XTYPE = 'C'
                      dlacpy('Full', N, NRHS, B, LDA, BSAV, LDA );
 
-                     if ( NOFACT .AND. ITRAN == 1 ) {
+                     if ( NOFACT && ITRAN == 1 ) {
 
                         // --- Test DGESV  ---
 
@@ -308,7 +308,7 @@
 
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'DGESV ', N, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'DGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 30
@@ -319,7 +319,7 @@
 
                      if (.NOT.PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
-                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
+                     if ( IEQUED.GT.1 && N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
@@ -378,7 +378,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {
@@ -408,7 +408,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -419,7 +419,7 @@
                         } // 40
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL == 0 .AND. NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -429,7 +429,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -439,7 +439,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            } else {
@@ -459,7 +459,7 @@
                      dlacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
                       if (.NOT.PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
-                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
+                     if ( IEQUED.GT.1 && N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT = 'F' and
                         // EQUED = 'R', 'C', or 'B'.
@@ -486,7 +486,7 @@
                      // reciprocal pivot growth factor RPVGRW
 
 
-                     if ( INFO .GT. 0 .AND. INFO .LT. N+1 ) {
+                     if ( INFO .GT. 0 && INFO .LT. N+1 ) {
                         RPVGRW = DLA_GERPVGRW (N, INFO, A, LDA, AFAC, LDA)
                      } else {
                         RPVGRW = DLA_GERPVGRW (N, N, A, LDA, AFAC, LDA)
@@ -514,7 +514,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN == 1 ) {
@@ -539,7 +539,7 @@
                      if ( .NOT.TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'DGESVXX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               } else {
@@ -550,7 +550,7 @@
                         } // 45
                         NRUN = NRUN + 7 - K1
                      } else {
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL == 0 .AND. NERRS == 0 ) CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH && .NOT.PREFAC ) THEN                            IF( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH )
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVXX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            } else {
@@ -560,7 +560,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 6 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVXX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            } else {
@@ -570,7 +570,7 @@
                            NRUN = NRUN + 1
                         }
                         if ( RESULT( 7 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVXX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            } else {

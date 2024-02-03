@@ -105,8 +105,8 @@
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            if (ZEROT .AND. N.LT.IMAT-2) GO TO 120;
+            ZEROT = IMAT.GE.3 && IMAT.LE.5
+            if (ZEROT && N.LT.IMAT-2) GO TO 120;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -203,7 +203,7 @@
                            // equilibrate the matrix A.
 
                            spoequ(N, AFAC, LDA, S, SCOND, AMAX, INFO );
-                           if ( INFO == 0 .AND. N.GT.0 ) {
+                           if ( INFO == 0 && N.GT.0 ) {
                               if (IEQUED.GT.1) SCOND = ZERO;
 
                               // Equilibrate the matrix.
@@ -293,7 +293,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'SPOSV ', UPLO, N, IMAT, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'SPOSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 60
@@ -305,7 +305,7 @@
 
                      if (.NOT.PREFAC) CALL SLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                      slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
-                     if ( IEQUED.GT.1 .AND. N.GT.0 ) {
+                     if ( IEQUED.GT.1 && N.GT.0 ) {
 
                         // Equilibrate the matrix if FACT='F' and
                         // EQUED='Y'.
@@ -345,7 +345,7 @@
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                        IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                            sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
@@ -369,7 +369,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K )
                            } else {

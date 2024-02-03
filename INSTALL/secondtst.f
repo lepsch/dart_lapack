@@ -70,7 +70,7 @@
       // Compute the equivalent number of floating point operations used
       // by an average call to SECOND.
 
-      IF(( AVG.GT.0.0 ).AND.( TNOSEC.GT.0.0 )) WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC
+      IF(( AVG.GT.0.0 ) && ( TNOSEC.GT.0.0 )) WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC
 
  9999 FORMAT( ' Time for ', G10.3,' SAXPY ops = ', G10.3, ' seconds' )
  9998 FORMAT( ' SAXPY performance rate        = ', G10.3, ' mflops ' )

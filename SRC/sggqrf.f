@@ -52,7 +52,7 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.MAX( 1, N, M, P ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N, M, P ) && .NOT.LQUERY ) {
          INFO = -11
       }
       if ( INFO != 0 ) {

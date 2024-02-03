@@ -261,12 +261,12 @@ void main() {
           nTests = nTests + 3
           Y = cInf(i)
           R = czero / Y
-          if ( (R != czero) .and. (R == R) ) {
+          if ( (R != czero) && (R == R) ) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ia',i, czero, Y, R, 'NaN and 0'
           }
           R = cone / Y
-          if ( (R != czero) .and. (R == R) ) {
+          if ( (R != czero) && (R == R) ) {
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'NaN and 0'
           }

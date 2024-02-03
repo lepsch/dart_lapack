@@ -39,11 +39,11 @@
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
       LOWER = LSAME( UPLO, 'L' )
-      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'C' ) ) {
+      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      } else if ( .NOT.LSAME( DIAG, 'N' ) .AND. .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( .NOT.LSAME( DIAG, 'N' ) && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4

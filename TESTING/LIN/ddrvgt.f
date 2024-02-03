@@ -95,7 +95,7 @@
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
+            ZEROT = IMAT.GE.8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
@@ -266,7 +266,7 @@
 
                   dlagtm(TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA );
 
-                  if ( IFACT == 2 .AND. ITRAN == 1 ) {
+                  if ( IFACT == 2 && ITRAN == 1 ) {
 
                      // --- Test DGTSV  ---
 
@@ -301,7 +301,7 @@
 
                      for (K = 2; K <= NT; K++) { // 80
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 80
@@ -364,7 +364,7 @@
 
                   for (K = K1; K <= NT; K++) { // 100
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 100
@@ -373,7 +373,7 @@
 
                   RESULT( 6 ) = DGET06( RCOND, RCONDC )
                   if ( RESULT( 6 ).GE.THRESH ) {
-                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + NT - K1 + 2

@@ -101,7 +101,7 @@
          CTEMP = CTEMP*DR( JSUB )
       } else if ( IGRADE == 3 ) {
          CTEMP = CTEMP*DL( ISUB )*DR( JSUB )
-      } else if ( IGRADE == 4 .AND. ISUB != JSUB ) {
+      } else if ( IGRADE == 4 && ISUB != JSUB ) {
          CTEMP = CTEMP*DL( ISUB ) / DL( JSUB )
       } else if ( IGRADE == 5 ) {
          CTEMP = CTEMP*DL( ISUB )*CONJG( DL( JSUB ) )

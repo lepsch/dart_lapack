@@ -49,7 +49,7 @@
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT.GE.6 .AND. IMAT.LE.9 ) .OR. IMAT == 17 ) {
+      if ( ( IMAT.GE.6 && IMAT.LE.9 ) .OR. IMAT == 17 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
@@ -353,7 +353,7 @@
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
                } // 240
-               if (J.GT.1 .AND. KD.GT.0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
+               if (J.GT.1 && KD.GT.0) AB( KD, J ) = DCMPLX( -ONE, -ONE );
                AB( KD+1, J ) = TSCAL*ZLARND( 5, ISEED )
             } // 250
             B( N ) = DCMPLX( ONE, ONE )
@@ -362,7 +362,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 260
-               if (J.LT.N .AND. KD.GT.0) AB( 2, J ) = DCMPLX( -ONE, -ONE );
+               if (J.LT.N && KD.GT.0) AB( 2, J ) = DCMPLX( -ONE, -ONE );
                AB( 1, J ) = TSCAL*ZLARND( 5, ISEED )
             } // 270
             B( 1 ) = DCMPLX( ONE, ONE )

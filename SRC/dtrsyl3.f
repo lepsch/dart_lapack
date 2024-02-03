@@ -63,11 +63,11 @@
 
       // Test the input arguments
 
-      if ( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'T' ) .AND. .NOT. LSAME( TRANA, 'C' ) ) {
+      if ( .NOT.NOTRNA && .NOT.LSAME( TRANA, 'T' ) && .NOT. LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT. LSAME( TRANB, 'C' ) ) {
+      } else if ( .NOT.NOTRNB && .NOT.LSAME( TRANB, 'T' ) && .NOT. LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
+      } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -123,7 +123,7 @@
                 // A( M, M ) is a 1-by-1 block
                 CYCLE
              }
-             if ( A( L, L+1 ) != ZERO .AND. A( L+1, L ) != ZERO ) {
+             if ( A( L, L+1 ) != ZERO && A( L+1, L ) != ZERO ) {
                 // Check if 2-by-2 block is split
                 if ( L + 1 == IWORK( K + 1 ) ) {
                    IWORK( K + 1 ) = IWORK( K + 1 ) + 1
@@ -159,7 +159,7 @@
                 // B( N, N ) is a 1-by-1 block
                 CYCLE
              }
-             if ( B( L, L+1 ) != ZERO .AND. B( L+1, L ) != ZERO ) {
+             if ( B( L, L+1 ) != ZERO && B( L+1, L ) != ZERO ) {
                 // Check if 2-by-2 block is split
                 if ( L + 1 == IWORK( PC + K + 1 ) ) {
                    IWORK( PC + K + 1 ) = IWORK( PC + K + 1 ) + 1
@@ -221,7 +221,7 @@
 
       SGN = DBLE( ISGN )
 
-      if ( NOTRNA .AND. NOTRNB ) {
+      if ( NOTRNA && NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B = scale*C.
 
@@ -392,7 +392,7 @@
                }
             }
          }
-      } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
+      } else if ( .NOT.NOTRNA && NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B = scale*C.
 
@@ -562,7 +562,7 @@
                }
             }
          }
-      } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( .NOT.NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A**T*X + ISGN*X*B**T = scale*C.
 
@@ -732,7 +732,7 @@
                }
             }
          }
-      } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**T = scale*C.
 
@@ -945,7 +945,7 @@
          }
       }
 
-      if ( BUF != ONE .AND. BUF.GT.ZERO ) {
+      if ( BUF != ONE && BUF.GT.ZERO ) {
 
          // Decrease SCALE as much as possible.
 
@@ -954,7 +954,7 @@
          SCALE = SCALE / SCALOC
       }
 
-      if ( BUF != ONE .AND. BUF.GT.ZERO ) {
+      if ( BUF != ONE && BUF.GT.ZERO ) {
 
          // In case of overly aggressive scaling during the computation,
          // flushing of the global scale factor may be prevented by

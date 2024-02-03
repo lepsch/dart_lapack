@@ -64,7 +64,7 @@
          INFO = -9
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -11;
+            if (N.GT.0 && VU.LE.VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -12
@@ -74,7 +74,7 @@
          }
       }
       if (INFO == 0) {
-         if (LDZ.LT.1 .OR. (WANTZ .AND. LDZ.LT.N)) {
+         if (LDZ.LT.1 .OR. (WANTZ && LDZ.LT.N)) {
             INFO = -18
          }
       }
@@ -85,7 +85,7 @@
          LWKOPT = MAX( LWKMIN, ( NB + 3 )*N )
          WORK( 1 ) = LWKOPT
 
-         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
             INFO = -20
          }
       }

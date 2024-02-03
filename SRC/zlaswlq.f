@@ -47,7 +47,7 @@
         INFO = -1
       } else if ( N.LT.0 .OR. N.LT.M ) {
         INFO = -2
-      } else if ( MB.LT.1 .OR. ( MB.GT.M .AND. M.GT.0 ) ) {
+      } else if ( MB.LT.1 .OR. ( MB.GT.M && M.GT.0 ) ) {
         INFO = -3
       } else if ( NB.LE.0 ) {
         INFO = -4
@@ -55,7 +55,7 @@
         INFO = -6
       } else if ( LDT.LT.MB ) {
         INFO = -8
-      } else if ( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) {
+      } else if ( LWORK.LT.LWMIN && (.NOT.LQUERY) ) {
         INFO = -10
       }
 

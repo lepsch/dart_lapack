@@ -44,7 +44,7 @@
       ALPHR = REAL( ALPHA )
       ALPHI = AIMAG( ALPHA )
 
-      if ( XNORM == ZERO .AND. ALPHI == ZERO ) {
+      if ( XNORM == ZERO && ALPHI == ZERO ) {
 
          // H  =  I
 
@@ -68,7 +68,7 @@
             BETA = BETA*RSAFMN
             ALPHI = ALPHI*RSAFMN
             ALPHR = ALPHR*RSAFMN
-            IF( (ABS( BETA ).LT.SAFMIN) .AND. (KNT .LT. 20) ) GO TO 10
+            IF( (ABS( BETA ).LT.SAFMIN) && (KNT .LT. 20) ) GO TO 10
 
             // New BETA is at most 1, at least SAFMIN
 

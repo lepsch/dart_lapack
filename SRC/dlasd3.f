@@ -42,7 +42,7 @@
          INFO = -1
       } else if ( NR.LT.1 ) {
          INFO = -2
-      } else if ( ( SQRE != 1 ) .AND. ( SQRE != 0 ) ) {
+      } else if ( ( SQRE != 1 ) && ( SQRE != 0 ) ) {
          INFO = -3
       }
 

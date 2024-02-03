@@ -84,11 +84,11 @@
          RWORK( 1 ) = LROPT
          IWORK( 1 ) = LIOPT
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -8
-         } else if ( LRWORK.LT.LRWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LRWORK.LT.LRWMIN && .NOT.LQUERY ) {
             INFO = -10
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -12
          }
       }
@@ -123,7 +123,7 @@
 
       ANRM = ZLANHE( 'M', UPLO, N, A, LDA, RWORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

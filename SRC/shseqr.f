@@ -63,9 +63,9 @@
       LQUERY = LWORK == -1
 
       INFO = 0
-      if ( .NOT.LSAME( JOB, 'E' ) .AND. .NOT.WANTT ) {
+      if ( .NOT.LSAME( JOB, 'E' ) && .NOT.WANTT ) {
          INFO = -1
-      } else if ( .NOT.LSAME( COMPZ, 'N' ) .AND. .NOT.WANTZ ) {
+      } else if ( .NOT.LSAME( COMPZ, 'N' ) && .NOT.WANTZ ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -75,9 +75,9 @@
          INFO = -5
       } else if ( LDH.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -11
-      } else if ( LWORK.LT.MAX( 1, N ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, N ) && .NOT.LQUERY ) {
          INFO = -13
       }
 
@@ -175,7 +175,7 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         IF( ( WANTT .OR. INFO != 0 ) .AND. N.GT.2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT .OR. INFO != 0 ) && N.GT.2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

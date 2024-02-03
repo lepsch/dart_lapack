@@ -51,7 +51,7 @@
       J3 = J1 + 2
       J4 = J1 + 3
 
-      if ( N1 == 1 .AND. N2 == 1 ) {
+      if ( N1 == 1 && N2 == 1 ) {
 
          // Swap two 1-by-1 blocks.
 

@@ -74,7 +74,7 @@
 
             // Adjust INFO and the pivot indices.
 
-            if (INFO == 0 .AND. IINFO.GT.0) INFO = IINFO + J - 1;
+            if (INFO == 0 && IINFO.GT.0) INFO = IINFO + J - 1;
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
             } // 10

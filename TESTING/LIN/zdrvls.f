@@ -91,7 +91,7 @@
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      IF( ( NM == 0 .OR. NN == 0 ) .AND. THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
+      IF( ( NM == 0 .OR. NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH )
       INFOT = 0
 
       // Compute maximal workspace needed for all routines
@@ -252,7 +252,7 @@
 
                               // Solve LS or overdetermined system
 
-                              if ( M.GT.0 .AND. N.GT.0 ) {
+                              if ( M.GT.0 && N.GT.0 ) {
                                  zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
@@ -266,13 +266,13 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS.GT.0 && NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               zqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for ZGELS.
 
-                              if ( ( ITRAN == 1 .AND. M.GE.N ) .OR. ( ITRAN == 2 .AND. M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -289,7 +289,7 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -341,7 +341,7 @@
 
                               // Solve LS or overdetermined system
 
-                              if ( M.GT.0 .AND. N.GT.0 ) {
+                              if ( M.GT.0 && N.GT.0 ) {
                                  zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                  zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
@@ -355,13 +355,13 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS.GT.0 && NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               zqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for ZGELST.
 
-                              if ( ( ITRAN == 1 .AND. M.GE.N ) .OR. ( ITRAN == 2 .AND. M.LT.N ) ) {
+                              if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
 
                                  // Solving LS system
 
@@ -378,7 +378,7 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -436,7 +436,7 @@
 
                                  // Solve LS or overdetermined system
 
-                                 if ( M.GT.0 .AND. N.GT.0 ) {
+                                 if ( M.GT.0 && N.GT.0 ) {
                                     zlacpy('Full', M, N, COPYA, LDA, A, LDA );
                                     zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
@@ -448,13 +448,13 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 if (NROWS.GT.0 && NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                                  zqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for ZGETSLS.
 
-                                 if ( ( ITRAN == 1 .AND. M.GE.N ) .OR. ( ITRAN == 2 .AND. M.LT.N ) ) {
+                                 if ( ( ITRAN == 1 && M.GE.N ) .OR. ( ITRAN == 2 && M.LT.N ) ) {
 
                                     // Solving LS system, compute:
                                     // r = norm((B- A*X)**T * A) /
@@ -473,7 +473,7 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ).GE.THRESH ) {
-                                       if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
+                                       if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                           NFAIL = NFAIL + 1
                                     }
                                  }
@@ -630,7 +630,7 @@
 
                         for (K = 7; K <= 18; K++) { // 80
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1
                            }
                         } // 80

@@ -55,9 +55,9 @@
       // Test the input parameters.
 
       INFO = 0
-      if ((.NOT.NOTA) .AND. (.NOT.LSAME(TRANSA,'C')) .AND. (.NOT.LSAME(TRANSA,'T'))) {
+      if ((.NOT.NOTA) && (.NOT.LSAME(TRANSA,'C')) && (.NOT.LSAME(TRANSA,'T'))) {
           INFO = 1
-      } else if ((.NOT.NOTB) .AND. (.NOT.LSAME(TRANSB,'C')) .AND. (.NOT.LSAME(TRANSB,'T'))) {
+      } else if ((.NOT.NOTB) && (.NOT.LSAME(TRANSB,'C')) && (.NOT.LSAME(TRANSB,'T'))) {
           INFO = 2
       } else if (M.LT.0) {
           INFO = 3
@@ -79,7 +79,7 @@
 
       // Quick return if possible.
 
-      IF ((M == 0) .OR. (N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)).AND. (BETA == ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. (((ALPHA == ZERO).OR. (K == 0)) && (BETA == ONE))) RETURN
 
       // And if  alpha == zero.
 

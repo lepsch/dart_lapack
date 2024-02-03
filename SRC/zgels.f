@@ -59,7 +59,7 @@
          INFO = -6
       } else if ( LDB.LT.MAX( 1, M, N ) ) {
          INFO = -8
-      } else if ( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) && .NOT.LQUERY ) {
          INFO = -10
       }
 
@@ -114,7 +114,7 @@
 
       ANRM = ZLANGE( 'M', M, N, A, LDA, RWORK )
       IASCL = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 
@@ -138,7 +138,7 @@
       if (TPSD) BROW = N;
       BNRM = ZLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
 
          // Scale matrix norm up to SMLNUM
 

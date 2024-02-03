@@ -68,11 +68,11 @@
          INFO = -5
       } else if ( LDAB.LT.KD+1 ) {
          INFO = -7
-      } else if ( WANTZ .AND. LDQ.LT.MAX( 1, N ) ) {
+      } else if ( WANTZ && LDQ.LT.MAX( 1, N ) ) {
          INFO = -9
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -11;
+            if (N.GT.0 && VU.LE.VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -12
@@ -82,7 +82,7 @@
          }
       }
       if ( INFO == 0 ) {
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
+         IF( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) INFO = -18
       }
 
       if ( INFO == 0 ) {
@@ -95,7 +95,7 @@
             WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
          }
 
-         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) INFO = -20;
+         if (LWORK.LT.LWMIN && .NOT.LQUERY) INFO = -20;
       }
 
       if ( INFO != 0 ) {
@@ -119,7 +119,7 @@
          }
          TMP1 = REAL( CTMP1 )
          if ( VALEIG ) {
-            IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) ) M = 0
+            IF( .NOT.( VL.LT.TMP1 && VU.GE.TMP1 ) ) M = 0
          }
          if ( M == 1 ) {
             W( 1 ) = REAL( CTMP1 )
@@ -149,7 +149,7 @@
          VUU = ZERO
       }
       ANRM = CLANHB( 'M', UPLO, N, KD, AB, LDAB, RWORK )
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -187,11 +187,11 @@
 
       TEST = false;
       if (INDEIG) {
-         if (IL == 1 .AND. IU == N) {
+         if (IL == 1 && IU == N) {
             TEST = true;
          }
       }
-      if ((ALLEIG .OR. TEST) .AND. (ABSTOL.LE.ZERO)) {
+      if ((ALLEIG .OR. TEST) && (ABSTOL.LE.ZERO)) {
          scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          if ( .NOT.WANTZ ) {

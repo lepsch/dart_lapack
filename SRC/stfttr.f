@@ -37,9 +37,9 @@
       INFO = 0
       NORMALTRANSR = LSAME( TRANSR, 'N' )
       LOWER = LSAME( UPLO, 'L' )
-      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'T' ) ) {
+      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'T' ) ) {
          INFO = -1
-      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3

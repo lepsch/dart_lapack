@@ -46,9 +46,9 @@
       IQEND = 1
 
       INFO = 0
-      if ( .NOT.WANTQ .AND. .NOT.LSAME( VECT, 'N' ) ) {
+      if ( .NOT.WANTQ && .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
@@ -56,7 +56,7 @@
          INFO = -4
       } else if ( LDAB.LT.KD1 ) {
          INFO = -6
-      } else if ( LDQ.LT.MAX( 1, N ) .AND. WANTQ ) {
+      } else if ( LDQ.LT.MAX( 1, N ) && WANTQ ) {
          INFO = -10
       }
       if ( INFO != 0 ) {

@@ -44,9 +44,9 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDQ.LT.1 .OR. WANTQ .AND. ( LDQ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDQ.LT.1 .OR. WANTQ && ( LDQ.LT.MAX( 1, N ) ) ) {
          INFO = -9
-      } else if ( LDZ.LT.1 .OR. WANTZ .AND. ( LDZ.LT.MAX( 1, N ) ) ) {
+      } else if ( LDZ.LT.1 .OR. WANTZ && ( LDZ.LT.MAX( 1, N ) ) ) {
          INFO = -11
       } else if ( IFST.LT.1 .OR. IFST.GT.N ) {
          INFO = -12
@@ -62,7 +62,7 @@
          }
          WORK(1) = LWMIN
 
-         if (LWORK.LT.LWMIN .AND. .NOT.LQUERY) {
+         if (LWORK.LT.LWMIN && .NOT.LQUERY) {
             INFO = -15
          }
       }
@@ -105,7 +105,7 @@
 
          // Update ILST.
 
-         if (NBF == 2 .AND. NBL == 1) ILST = ILST - 1          IF( NBF == 1 .AND. NBL == 2 ) ILST = ILST + 1;
+         if (NBF == 2 && NBL == 1) ILST = ILST - 1          IF( NBF == 1 && NBL == 2 ) ILST = ILST + 1;
 
          HERE = IFST
 

@@ -64,7 +64,7 @@
       START = STACK( 1, STKPNT )
       ENDD = STACK( 2, STKPNT )
       STKPNT = STKPNT - 1
-      if ( ENDD-START.LE.SELECT .AND. ENDD-START.GT.0 ) {
+      if ( ENDD-START.LE.SELECT && ENDD-START.GT.0 ) {
 
          // Do Insertion sort on D( START:ENDD )
 

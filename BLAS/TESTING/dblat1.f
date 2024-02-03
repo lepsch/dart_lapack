@@ -414,7 +414,7 @@ void main() {
                   }
                     // SEE REMARK ABOVE ABOUT DT11X(1,2,7)
                         // AND DT11X(5,3,8).
-                  IF ((KPAR == 2) .AND. (KNI == 7)) SSIZE(1) = 2.4D0                   IF ((KPAR == 3) .AND. (KNI == 8)) SSIZE(5) = 1.8D0
+                  IF ((KPAR == 2) && (KNI == 7)) SSIZE(1) = 2.4D0                   IF ((KPAR == 3) && (KNI == 8)) SSIZE(5) = 1.8D0
 
                   drotm(N,SX,INCX,SY,INCY,DTEMP);
                   stest(LENX,SX,STX,SSIZE,SFAC);

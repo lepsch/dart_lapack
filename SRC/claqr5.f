@@ -127,7 +127,7 @@
             MTOP = MAX( 1, ( KTOP-KRCOL ) / 2+1 )
             MBOT = MIN( NBMPS, ( KBOT-KRCOL-1 ) / 2 )
             M22 = MBOT + 1
-            BMP22 = ( MBOT.LT.NBMPS ) .AND. ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 )
+            BMP22 = ( MBOT.LT.NBMPS ) && ( KRCOL+2*( M22-1 ) ) == ( KBOT-2 )
 
             // ==== Generate reflections to chase the chain right
             // .    one column.  (The minimum value of K is KTOP-1.) ====

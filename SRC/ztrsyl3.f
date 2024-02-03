@@ -65,11 +65,11 @@
 
       // Test the input arguments
 
-      if ( .NOT.NOTRNA .AND. .NOT. LSAME( TRANA, 'C' ) ) {
+      if ( .NOT.NOTRNA && .NOT. LSAME( TRANA, 'C' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRNB .AND. .NOT. LSAME( TRANB, 'C' ) ) {
+      } else if ( .NOT.NOTRNB && .NOT. LSAME( TRANB, 'C' ) ) {
          INFO = -2
-      } else if ( ISGN != 1 .AND. ISGN != -1 ) {
+      } else if ( ISGN != 1 && ISGN != -1 ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -154,7 +154,7 @@
       SGN = DBLE( ISGN )
       CSGN = DCMPLX( SGN, ZERO )
 
-      if ( NOTRNA .AND. NOTRNB ) {
+      if ( NOTRNA && NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B = scale*C.
 
@@ -324,7 +324,7 @@
                }
             }
          }
-      } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
+      } else if ( .NOT.NOTRNA && NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B = scale*C.
 
@@ -494,7 +494,7 @@
                }
             }
          }
-      } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( .NOT.NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A**H *X + ISGN*X*B**H = scale*C.
 
@@ -664,7 +664,7 @@
                }
             }
          }
-      } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
+      } else if ( NOTRNA && .NOT.NOTRNB ) {
 
          // Solve    A*X + ISGN*X*B**H = scale*C.
 
@@ -875,7 +875,7 @@
          }
       }
 
-      if ( BUF != ONE .AND. BUF.GT.ZERO ) {
+      if ( BUF != ONE && BUF.GT.ZERO ) {
 
          // Decrease SCALE as much as possible.
 
@@ -884,7 +884,7 @@
          SCALE = SCALE / SCALOC
       }
 
-      if ( BUF != ONE .AND. BUF.GT.ZERO ) {
+      if ( BUF != ONE && BUF.GT.ZERO ) {
 
          // In case of overly aggressive scaling during the computation,
          // flushing of the global scale factor may be prevented by

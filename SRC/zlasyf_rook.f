@@ -76,7 +76,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -218,7 +218,7 @@
 
             KKW = NB + KK - N
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -356,9 +356,9 @@
             }
 
             J = J + 1
-            if (JP2 != JJ .AND. J.LE.N) CALL ZSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
+            if (JP2 != JJ && J.LE.N) CALL ZSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = J - 1
-            if (JP1 != JJ .AND. KSTEP == 2) CALL ZSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
+            if (JP1 != JJ && KSTEP == 2) CALL ZSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -377,7 +377,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -513,7 +513,7 @@
 
             KK = K + KSTEP - 1
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -649,9 +649,9 @@
             }
 
             J = J - 1
-            if (JP2 != JJ .AND. J.GE.1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
+            if (JP2 != JJ && J.GE.1) CALL ZSWAP( J, A( JP2, 1 ), LDA, A( JJ, 1 ), LDA );
             JJ = J + 1
-            if (JP1 != JJ .AND. KSTEP == 2) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GE.1 ) GO TO 120;
+            if (JP1 != JJ && KSTEP == 2) CALL ZSWAP( J, A( JP1, 1 ), LDA, A( JJ, 1 ), LDA )          IF( J.GE.1 ) GO TO 120;
 
          // Set KB to the number of columns factorized
 

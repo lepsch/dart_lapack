@@ -53,7 +53,7 @@
 
       // Check whether E(N0-1) is negligible, 1 eigenvalue.
 
-      IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) .AND. Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
+      IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) && Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
 
       } // 20
 
@@ -65,7 +65,7 @@
 
       } // 30
 
-      IF( Z( NN-9 ).GT.TOL2*SIGMA .AND. Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) ) GO TO 50
+      IF( Z( NN-9 ).GT.TOL2*SIGMA && Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) ) GO TO 50
 
       } // 40
 
@@ -75,7 +75,7 @@
          Z( NN-7 ) = S
       }
       T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
-      if ( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T != ZERO ) {
+      if ( Z( NN-5 ).GT.Z( NN-3 )*TOL2 && T != ZERO ) {
          S = Z( NN-3 )*( Z( NN-5 ) / T )
          if ( S.LE.T ) {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
@@ -139,13 +139,13 @@
 
       // Check status.
 
-      if ( DMIN.GE.ZERO .AND. DMIN1.GE.ZERO ) {
+      if ( DMIN.GE.ZERO && DMIN1.GE.ZERO ) {
 
          // Success.
 
          GO TO 90
 
-      } else if ( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND. Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND. ABS( DN ).LT.TOL*SIGMA ) {
+      } else if ( DMIN.LT.ZERO && DMIN1.GT.ZERO && Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) && ABS( DN ).LT.TOL*SIGMA ) {
 
          // Convergence hidden by negative DN.
 

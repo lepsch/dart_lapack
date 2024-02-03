@@ -781,7 +781,7 @@
                }
             }
 
-            if ( M3 == 0 .AND. N != 0 ) {
+            if ( M3 == 0 && N != 0 ) {
                RESULT( 19 ) = ULPINV
                GO TO 280
             }
@@ -920,7 +920,7 @@
 
             // Only test ZSTEMR if IEEE compliant
 
-            if ( ILAENV( 10, 'ZSTEMR', 'VA', 1, 0, 0, 0 ) == 1 .AND. ILAENV( 11, 'ZSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
+            if ( ILAENV( 10, 'ZSTEMR', 'VA', 1, 0, 0, 0 ) == 1 && ILAENV( 11, 'ZSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
 
             // Call ZSTEMR, do test 27 (relative eigenvalue accuracy)
 
@@ -931,7 +931,7 @@
                VU = ZERO
                IL = 0
                IU = 0
-               if ( JTYPE == 21 .AND. CREL ) {
+               if ( JTYPE == 21 && CREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
                   zstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );

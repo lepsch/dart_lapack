@@ -95,12 +95,12 @@
 
                // If N == 0, only consider the first type
 
-               if (N == 0 .AND. IIT.GE.1) GO TO 120;
+               if (N == 0 && IIT.GE.1) GO TO 120;
 
                // Skip types 3, 4, or 5 if the matrix size is too small.
 
-               if (IMAT == 4 .AND. N.LE.1) GO TO 120;
-               if (IMAT == 5 .AND. N.LE.2) GO TO 120;
+               if (IMAT == 4 && N.LE.1) GO TO 120;
+               if (IMAT == 5 && N.LE.2) GO TO 120;
 
                // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -130,7 +130,7 @@
                      // For types 3-5, zero one row and column of the matrix to
                      // test that INFO is returned correctly.
 
-                     ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
+                     ZEROT = IMAT.GE.3 && IMAT.LE.5
                      if ( ZEROT ) {
                         if ( IIT == 3 ) {
                            IZERO = 1
@@ -290,7 +290,7 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, 'ZPF' )                            WRITE( NOUT, FMT = 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'ZPF' )                            WRITE( NOUT, FMT = 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 60

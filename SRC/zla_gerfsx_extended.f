@@ -152,8 +152,8 @@
 
           // Check termination criteria
 
-            if (.NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
-             if (X_STATE == NOPROG_STATE .AND. DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
+            if (.NOT.IGNORE_CWISE && YMIN*RCOND .LT. INCR_THRESH*NORMY && Y_PREC_STATE .LT. EXTRA_Y) INCR_PREC = true ;
+             if (X_STATE == NOPROG_STATE && DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
                if (DX_X .LE. EPS) {
                   X_STATE = CONV_STATE
@@ -168,7 +168,7 @@
                }
                if (X_STATE .GT. WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE == UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
+             if (Z_STATE == UNSTABLE_STATE && DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
                if ( DZ_Z .LE. EPS ) {
                   Z_STATE = CONV_STATE
@@ -195,7 +195,7 @@
             if ( X_STATE != WORKING_STATE ) {
                if (IGNORE_CWISE) GOTO 666;
                if (Z_STATE == NOPROG_STATE .OR. Z_STATE == CONV_STATE) GOTO 666;
-               if (Z_STATE == UNSTABLE_STATE .AND. CNT.GT.1) GOTO 666;
+               if (Z_STATE == UNSTABLE_STATE && CNT.GT.1) GOTO 666;
             }
 
             if ( INCR_PREC ) {
@@ -218,7 +218,7 @@
             }
 
          }
-         // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
+         // Target of "IF (Z_STOP && X_STOP)".  Sun's f77 won't EXIT.
          } // 666
 
       // Set final_* when cnt hits ithresh

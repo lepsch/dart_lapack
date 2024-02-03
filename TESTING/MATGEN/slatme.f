@@ -120,7 +120,7 @@
       // Check DS, if MODES=0 and ISIM=1
 
       BADS = false;
-      if ( MODES == 0 .AND. ISIM == 1 ) {
+      if ( MODES == 0 && ISIM == 1 ) {
          for (J = 1; J <= N; J++) { // 20
             IF( DS( J ) == ZERO ) BADS = true;
          } // 20
@@ -134,7 +134,7 @@
          INFO = -2
       } else if ( ABS( MODE ).GT.6 ) {
          INFO = -5
-      } else if ( ( MODE != 0 .AND. ABS( MODE ) != 6 ) .AND. COND.LT.ONE ) {
+      } else if ( ( MODE != 0 && ABS( MODE ) != 6 ) && COND.LT.ONE ) {
          INFO = -6
       } else if ( BADEI ) {
          INFO = -8
@@ -146,13 +146,13 @@
          INFO = -11
       } else if ( BADS ) {
          INFO = -12
-      } else if ( ISIM == 1 .AND. ABS( MODES ).GT.5 ) {
+      } else if ( ISIM == 1 && ABS( MODES ).GT.5 ) {
          INFO = -13
-      } else if ( ISIM == 1 .AND. MODES != 0 .AND. CONDS.LT.ONE ) {
+      } else if ( ISIM == 1 && MODES != 0 && CONDS.LT.ONE ) {
          INFO = -14
       } else if ( KL.LT.1 ) {
          INFO = -15
-      } else if ( KU.LT.1 .OR. ( KU.LT.N-1 .AND. KL.LT.N-1 ) ) {
+      } else if ( KU.LT.1 .OR. ( KU.LT.N-1 && KL.LT.N-1 ) ) {
          INFO = -16
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -19
@@ -180,7 +180,7 @@
          INFO = 1
          RETURN
       }
-      if ( MODE != 0 .AND. ABS( MODE ) != 6 ) {
+      if ( MODE != 0 && ABS( MODE ) != 6 ) {
 
          // Scale by DMAX
 

@@ -81,7 +81,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 ) GO TO 30
+         IF( ( K.LE.N-NB+1 && NB.LT.N ) .OR. K.LT.1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -228,7 +228,7 @@
 
             KKW = NB + KK - N
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column K to column P
 
@@ -382,7 +382,7 @@
 
          // Exit from loop
 
-         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N ) GO TO 90
+         IF( ( K.GE.NB && NB.LT.N ) .OR. K.GT.N ) GO TO 90
 
          KSTEP = 1
          P = K
@@ -523,7 +523,7 @@
 
             KK = K + KSTEP - 1
 
-            if ( ( KSTEP == 2 ) .AND. ( P != K ) ) {
+            if ( ( KSTEP == 2 ) && ( P != K ) ) {
 
                // Copy non-updated column K to column P
 

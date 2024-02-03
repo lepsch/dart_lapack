@@ -49,9 +49,9 @@
         LWMIN = MAX( 1, LW )
       }
 
-      if ( .NOT.LEFT .AND. .NOT.RIGHT ) {
+      if ( .NOT.LEFT && .NOT.RIGHT ) {
         INFO = -1
-      } else if ( .NOT.TRAN .AND. .NOT.NOTRAN ) {
+      } else if ( .NOT.TRAN && .NOT.NOTRAN ) {
         INFO = -2
       } else if ( K.LT.0 ) {
         INFO = -5
@@ -67,7 +67,7 @@
         INFO = -11
       } else if ( LDC.LT.MAX( 1, M ) ) {
         INFO = -13
-      } else if ( LWORK.LT.LWMIN .AND. (.NOT.LQUERY) ) {
+      } else if ( LWORK.LT.LWMIN && (.NOT.LQUERY) ) {
         INFO = -15
       }
 
@@ -92,7 +92,7 @@
         RETURN
       }
 
-      if (LEFT.AND.TRAN) {
+      if (LEFT && TRAN) {
 
           // Multiply Q to the last block of C
 
@@ -119,7 +119,7 @@
 
           zgemlqt('L','C',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-      } else if (LEFT.AND.NOTRAN) {
+      } else if (LEFT && NOTRAN) {
 
           // Multiply Q to the first block of C
 
@@ -144,7 +144,7 @@
 
          }
 
-      } else if (RIGHT.AND.NOTRAN) {
+      } else if (RIGHT && NOTRAN) {
 
           // Multiply Q to the last block of C
 
@@ -170,7 +170,7 @@
 
           zgemlqt('R','N',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-      } else if (RIGHT.AND.TRAN) {
+      } else if (RIGHT && TRAN) {
 
         // Multiply Q to the first block of C
 

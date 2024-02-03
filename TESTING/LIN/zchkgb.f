@@ -142,7 +142,7 @@
                   LDA = KL + KU + 1
                   LDAFAC = 2*KL + KU + 1
                   if ( ( LDA*N ).GT.LA .OR. ( LDAFAC*N ).GT.LAFAC ) {
-                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
                      if ( N*( KL+KU+1 ).GT.LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 )
                         NERRS = NERRS + 1
@@ -163,8 +163,8 @@
                      // Skip types 2, 3, or 4 if the matrix size is too
                      // small.
 
-                     ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                     if (ZEROT .AND. N.LT.IMAT-1) GO TO 120;
+                     ZEROT = IMAT.GE.2 && IMAT.LE.4
+                     if (ZEROT && N.LT.IMAT-1) GO TO 120;
 
                      if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
@@ -243,7 +243,7 @@
 
                         // Compute the LU factorization of the band matrix.
 
-                        if (M.GT.0 .AND. N.GT.0) CALL ZLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
+                        if (M.GT.0 && N.GT.0) CALL ZLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
                         SRNAMT = 'ZGBTRF'
                         zgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
@@ -262,7 +262,7 @@
                         // did not pass the threshold.
 
                         if ( RESULT( 1 ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
                            NFAIL = NFAIL + 1
                         }
                         NRUN = NRUN + 1
@@ -373,7 +373,7 @@
 
                               for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1
                                  }
                               } // 60
@@ -408,7 +408,7 @@
                            // not pass the threshold.
 
                            if ( RESULT( 7 ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
                               NFAIL = NFAIL + 1
                            }
                            NRUN = NRUN + 1

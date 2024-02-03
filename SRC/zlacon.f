@@ -125,7 +125,7 @@
       } // 90
       JLAST = J
       J = IZMAX1( N, X, 1 )
-      if ( ( ABS( X( JLAST ) ) != ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
+      if ( ( ABS( X( JLAST ) ) != ABS( X( J ) ) ) && ( ITER.LT.ITMAX ) ) {
          ITER = ITER + 1
          GO TO 50
       }

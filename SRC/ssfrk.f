@@ -48,11 +48,11 @@
          NROWA = K
       }
 
-      if ( .NOT.NORMALTRANSR .AND. .NOT.LSAME( TRANSR, 'T' ) ) {
+      if ( .NOT.NORMALTRANSR && .NOT.LSAME( TRANSR, 'T' ) ) {
          INFO = -1
-      } else if ( .NOT.LOWER .AND. .NOT.LSAME( UPLO, 'U' ) ) {
+      } else if ( .NOT.LOWER && .NOT.LSAME( UPLO, 'U' ) ) {
          INFO = -2
-      } else if ( .NOT.NOTRANS .AND. .NOT.LSAME( TRANS, 'T' ) ) {
+      } else if ( .NOT.NOTRANS && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -68,12 +68,12 @@
 
       // Quick return if possible.
 
-      // The quick return case: ((ALPHA == 0).AND.(BETA != ZERO)) is not
+      // The quick return case: ((ALPHA == 0) && (BETA != ZERO)) is not
       // done (it is in SSYRK for example) and left in the general case.
 
-      IF( ( N == 0 ) .OR. ( ( ( ALPHA == ZERO ) .OR. ( K == 0 ) ) .AND. ( BETA == ONE ) ) )RETURN
+      IF( ( N == 0 ) .OR. ( ( ( ALPHA == ZERO ) .OR. ( K == 0 ) ) && ( BETA == ONE ) ) )RETURN
 
-      if ( ( ALPHA == ZERO ) .AND. ( BETA == ZERO ) ) {
+      if ( ( ALPHA == ZERO ) && ( BETA == ZERO ) ) {
          for (J = 1; J <= ( ( N*( N+1 ) ) / 2 ); J++) {
             C( J ) = ZERO
          }

@@ -69,7 +69,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ).GT.0 .AND. M.GE.N ) {
+            if ( MIN( M, N ).GT.0 && M.GE.N ) {
 
                // Do for each possible value of MB1
 
@@ -90,7 +90,7 @@
                         for (INB2 = 1; INB2 <= NNB; INB2++) {
                            NB2 = NBVAL( INB2 )
 
-                           if ( NB1.GT.0 .AND. NB2.GT.0 ) {
+                           if ( NB1.GT.0 && NB2.GT.0 ) {
 
                               // Test ZUNHR_COL
 
@@ -101,7 +101,7 @@
 
                               for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T );
                                     NFAIL = NFAIL + 1
                                  }
                               }
@@ -127,7 +127,7 @@
 
             // Only for M >= N
 
-            if ( MIN( M, N ).GT.0 .AND. M.GE.N ) {
+            if ( MIN( M, N ).GT.0 && M.GE.N ) {
 
                // Do for each possible value of MB1
 
@@ -148,7 +148,7 @@
                         for (INB2 = 1; INB2 <= NNB; INB2++) {
                            NB2 = NBVAL( INB2 )
 
-                           if ( NB1.GT.0 .AND. NB2.GT.0 ) {
+                           if ( NB1.GT.0 && NB2.GT.0 ) {
 
                               // Test ZUNHR_COL
 
@@ -159,7 +159,7 @@
 
                               for (T = 1; T <= NTESTS; T++) {
                                  if ( RESULT( T ).GE.THRESH ) {
-                                    if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
+                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T );
                                     NFAIL = NFAIL + 1
                                  }
                               }

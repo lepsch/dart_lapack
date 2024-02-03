@@ -94,7 +94,7 @@
         // following subroutine, as returned by ILAENV.
 
       MINWRK = 1
-      if ( INFO == 0 .AND. LWORK.GE.1 ) {
+      if ( INFO == 0 && LWORK.GE.1 ) {
          MINWRK = MAX( 10*( NMAX+1 ), 3*NMAX*NMAX )
          NB = MAX( 1, ILAENV( 1, 'DGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'DORMQR', 'LT', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'DORGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( 10*( NMAX+1 ), 2*NMAX+NMAX*NB, 3*NMAX*NMAX )
@@ -197,7 +197,7 @@
                }
                dlatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD.GT.0 .AND. IADD.LE.N) A( IADD, IADD ) = ONE;
+               if (IADD.GT.0 && IADD.LE.N) A( IADD, IADD ) = ONE;
 
                // Generate B (w/o rotation)
 
@@ -209,9 +209,9 @@
                }
                dlatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD != 0 .AND. IADD.LE.N) B( IADD, IADD ) = ONE;
+               if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = ONE;
 
-               if ( KCLASS( JTYPE ) == 2 .AND. N.GT.0 ) {
+               if ( KCLASS( JTYPE ) == 2 && N.GT.0 ) {
 
                   // Include rotations
 
@@ -292,7 +292,7 @@
                NTEST = 1 + RSUB + ISORT
                RESULT( 1+RSUB+ISORT ) = ULPINV
                dgges('V', 'V', SORT, DLCTES, N, S, LDA, T, LDA, SDIM, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, BWORK, IINFO );
-               if ( IINFO != 0 .AND. IINFO != N+2 ) {
+               if ( IINFO != 0 && IINFO != N+2 ) {
                   RESULT( 1+RSUB+ISORT ) = ULPINV
                   WRITE( NOUNIT, FMT = 9999 )'DGGES', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -386,7 +386,7 @@
                         KNTEIG = KNTEIG + 1
                      }
                      if ( I.LT.N ) {
-                        if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) .OR. DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) .AND. ( .NOT.( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) .OR. DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) .AND. IINFO != N+2 ) {
+                        if ( ( DLCTES( ALPHAR( I+1 ), ALPHAI( I+1 ), BETA( I+1 ) ) .OR. DLCTES( ALPHAR( I+1 ), -ALPHAI( I+1 ), BETA( I+1 ) ) ) && ( .NOT.( DLCTES( ALPHAR( I ), ALPHAI( I ), BETA( I ) ) .OR. DLCTES( ALPHAR( I ), -ALPHAI( I ), BETA( I ) ) ) ) && IINFO != N+2 ) {
                            RESULT( 12 ) = ULPINV
                         }
                      }

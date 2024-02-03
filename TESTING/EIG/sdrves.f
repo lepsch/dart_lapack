@@ -127,7 +127,7 @@
       for (JSIZE = 1; JSIZE <= NSIZES; JSIZE++) { // 270
          N = NN( JSIZE )
          MTYPES = MAXTYP
-         if (NSIZES == 1 .AND. NTYPES == MAXTYP+1) MTYPES = MTYPES + 1;
+         if (NSIZES == 1 && NTYPES == MAXTYP+1) MTYPES = MTYPES + 1;
 
          for (JTYPE = 1; JTYPE <= MTYPES; JTYPE++) { // 260
             IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
@@ -306,7 +306,7 @@
 
                   slacpy('F', N, N, A, LDA, H, LDA );
                   sgees('V', SORT, SSLECT, N, H, LDA, SDIM, WR, WI, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
-                  if ( IINFO != 0 .AND. IINFO != N+2 ) {
+                  if ( IINFO != 0 && IINFO != N+2 ) {
                      RESULT( 1+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'SGEES1', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -322,7 +322,7 @@
                      } // 110
                   } // 120
                   for (I = 1; I <= N - 2; I++) { // 130
-                     IF( H( I+1, I ) != ZERO .AND. H( I+2, I+1 ) != ZERO )RESULT( 1+RSUB ) = ULPINV
+                     IF( H( I+1, I ) != ZERO && H( I+2, I+1 ) != ZERO )RESULT( 1+RSUB ) = ULPINV
                   } // 130
                   for (I = 1; I <= N - 1; I++) { // 140
                      if ( H( I+1, I ) != ZERO ) {
@@ -344,13 +344,13 @@
                      IF( H( I, I ) != WR( I ) ) RESULT( 4+RSUB ) = ULPINV
                   } // 150
                   if ( N.GT.1 ) {
-                     IF( H( 2, 1 ) == ZERO .AND. WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO .AND. WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
+                     IF( H( 2, 1 ) == ZERO && WI( 1 ) != ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ) == ZERO && WI( N ) != ZERO ) RESULT( 4+RSUB ) = ULPINV
                   }
                   for (I = 1; I <= N - 1; I++) { // 160
                      if ( H( I+1, I ) != ZERO ) {
                         TMP = SQRT( ABS( H( I+1, I ) ) )* SQRT( ABS( H( I, I+1 ) ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I )-TMP ) / MAX( ULP*TMP, UNFL ) )                         RESULT( 4+RSUB ) = MAX( RESULT( 4+RSUB ), ABS( WI( I+1 )+TMP ) / MAX( ULP*TMP, UNFL ) )
                      } else if ( I.GT.1 ) {
-                        IF( H( I+1, I ) == ZERO .AND. H( I, I-1 ) == ZERO .AND. WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
+                        IF( H( I+1, I ) == ZERO && H( I, I-1 ) == ZERO && WI( I ) != ZERO )RESULT( 4+RSUB ) = ULPINV
                      }
                   } // 160
 
@@ -358,7 +358,7 @@
 
                   slacpy('F', N, N, A, LDA, HT, LDA );
                   sgees('N', SORT, SSLECT, N, HT, LDA, SDIM, WRT, WIT, VS, LDVS, WORK, NNWORK, BWORK, IINFO );
-                  if ( IINFO != 0 .AND. IINFO != N+2 ) {
+                  if ( IINFO != 0 && IINFO != N+2 ) {
                      RESULT( 5+RSUB ) = ULPINV
                      WRITE( NOUNIT, FMT = 9992 )'SGEES2', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
@@ -387,7 +387,7 @@
                      for (I = 1; I <= N; I++) { // 200
                         IF( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I.LT.N ) {
-                           IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO != N+2 ) RESULT( 13 ) = ULPINV
+                           IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) && ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) && IINFO != N+2 ) RESULT( 13 ) = ULPINV
                         }
                      } // 200
                      if ( SDIM != KNTEIG ) {

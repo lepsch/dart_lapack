@@ -51,14 +51,14 @@
 
             // Cases 2 and 3.
 
-            if ( DMIN == DN .AND. DMIN1 == DN1 ) {
+            if ( DMIN == DN && DMIN1 == DN1 ) {
                GAP2 = DMIN2 - A2 - DMIN2*QURTR
-               if ( GAP2.GT.ZERO .AND. GAP2.GT.B2 ) {
+               if ( GAP2.GT.ZERO && GAP2.GT.B2 ) {
                   GAP1 = A2 - DN - ( B2 / GAP2 )*B2
                } else {
                   GAP1 = A2 - DN - ( B1+B2 )
                }
-               if ( GAP1.GT.ZERO .AND. GAP1.GT.B1 ) {
+               if ( GAP1.GT.ZERO && GAP1.GT.B1 ) {
                   S = MAX( DN-( B1 / GAP1 )*B1, HALF*DMIN )
                   TTYPE = -2
                } else {
@@ -160,7 +160,7 @@
 
          // One eigenvalue just deflated. Use DMIN1, DN1 for DMIN and DN.
 
-         if ( DMIN1 == DN1 .AND. DMIN2 == DN2 ) {
+         if ( DMIN1 == DN1 && DMIN2 == DN2 ) {
 
             // Cases 7 and 8.
 
@@ -181,7 +181,7 @@
             B2 = SQRT( CNST3*B2 )
             A2 = DMIN1 / ( ONE+B2**2 )
             GAP2 = HALF*DMIN2 - A2
-            if ( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) {
+            if ( GAP2.GT.ZERO && GAP2.GT.B2*A2 ) {
                S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) )
             } else {
                S = MAX( S, A2*( ONE-CNST2*B2 ) )
@@ -202,7 +202,7 @@
 
          // Cases 10 and 11.
 
-         if ( DMIN2 == DN2 .AND. TWO*Z( NN-5 ).LT.Z( NN-7 ) ) {
+         if ( DMIN2 == DN2 && TWO*Z( NN-5 ).LT.Z( NN-7 ) ) {
             TTYPE = -10
             S = THIRD*DMIN2
             IF( Z( NN-5 ).GT.Z( NN-7 ) ) RETURN
@@ -219,7 +219,7 @@
             B2 = SQRT( CNST3*B2 )
             A2 = DMIN2 / ( ONE+B2**2 )
             GAP2 = Z( NN-7 ) + Z( NN-9 ) - SQRT( Z( NN-11 ) )*SQRT( Z( NN-9 ) ) - A2
-            if ( GAP2.GT.ZERO .AND. GAP2.GT.B2*A2 ) {
+            if ( GAP2.GT.ZERO && GAP2.GT.B2*A2 ) {
                S = MAX( S, A2*( ONE-CNST2*A2*( B2 / GAP2 )*B2 ) )
             } else {
                S = MAX( S, A2*( ONE-CNST2*B2 ) )

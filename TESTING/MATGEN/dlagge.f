@@ -66,7 +66,7 @@
 
       // Quick exit if the user wants a diagonal matrix
 
-      IF(( KL == 0 ).AND.( KU == 0)) RETURN
+      IF(( KL == 0 ) && ( KU == 0)) RETURN
 
       // pre- and post-multiply A by random orthogonal matrices
 

@@ -77,9 +77,9 @@
       } else if ( N.LT.0 ) {
          INFO = -3
       } else if ( IRANGE == 2 ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == 3 .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == 3 && ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE == 3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
+      } else if ( IRANGE == 3 && ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
          INFO = -7
       }
 
@@ -101,7 +101,7 @@
 
       // Simplifications:
 
-      if (IRANGE == 3 .AND. IL == 1 .AND. IU == N) IRANGE = 1;
+      if (IRANGE == 3 && IL == 1 && IU == N) IRANGE = 1;
 
       // Get machine constants
       // NB is the minimum vector length for vector bisection, or 0
@@ -118,7 +118,7 @@
       if ( N == 1 ) {
          NSPLIT = 1
          ISPLIT( 1 ) = 1
-         if ( IRANGE == 2 .AND. ( VL.GE.D( 1 ) .OR. VU.LT.D( 1 ) ) ) {
+         if ( IRANGE == 2 && ( VL.GE.D( 1 ) .OR. VU.LT.D( 1 ) ) ) {
             M = 0
          } else {
             W( 1 ) = D( 1 )
@@ -264,7 +264,7 @@
 
             // Special Case -- IN=1
 
-            if ( IRANGE == 1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( IRANGE == 1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE == 1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == 1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
@@ -361,9 +361,9 @@
 
          if ( IDISCL.GT.0 .OR. IDISCU.GT.0 ) {
             for (JE = 1; JE <= M; JE++) { // 80
-               if ( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) {
+               if ( W( JE ).LE.WLU && IDISCL.GT.0 ) {
                   IDISCL = IDISCL - 1
-               } else if ( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) {
+               } else if ( W( JE ).GE.WUL && IDISCU.GT.0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM + 1
@@ -390,7 +390,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -404,7 +404,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).GT.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ).GT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -431,7 +431,7 @@
          // by block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      if ( IORDER == 1 .AND. NSPLIT.GT.1 ) {
+      if ( IORDER == 1 && NSPLIT.GT.1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )

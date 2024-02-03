@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N.LE.0) RETURN       IF( INCX == 1 .AND. INCY == 1 ) GO TO 20;
+      if (N.LE.0) RETURN       IF( INCX == 1 && INCY == 1 ) GO TO 20;
 
       // Code for unequal increments or equal increments not equal to 1
 

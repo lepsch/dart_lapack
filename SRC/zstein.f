@@ -62,7 +62,7 @@
                INFO = -6
                GO TO 30
             }
-            if ( IBLOCK( J ) == IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) ) {
+            if ( IBLOCK( J ) == IBLOCK( J-1 ) && W( J ).LT.W( J-1 ) ) {
                INFO = -5
                GO TO 30
             }

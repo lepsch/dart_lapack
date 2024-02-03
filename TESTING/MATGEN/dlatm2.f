@@ -93,7 +93,7 @@
          TEMP = TEMP*DR( JSUB )
       } else if ( IGRADE == 3 ) {
          TEMP = TEMP*DL( ISUB )*DR( JSUB )
-      } else if ( IGRADE == 4 .AND. ISUB != JSUB ) {
+      } else if ( IGRADE == 4 && ISUB != JSUB ) {
          TEMP = TEMP*DL( ISUB ) / DL( JSUB )
       } else if ( IGRADE == 5 ) {
          TEMP = TEMP*DL( ISUB )*DL( JSUB )

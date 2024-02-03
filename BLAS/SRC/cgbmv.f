@@ -40,7 +40,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if (.NOT.LSAME(TRANS,'N') .AND. .NOT.LSAME(TRANS,'T') .AND. .NOT.LSAME(TRANS,'C')) {
+      if (.NOT.LSAME(TRANS,'N') && .NOT.LSAME(TRANS,'T') && .NOT.LSAME(TRANS,'C')) {
           INFO = 1
       } else if (M.LT.0) {
           INFO = 2
@@ -64,7 +64,7 @@
 
       // Quick return if possible.
 
-      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO).AND. (BETA == ONE))) RETURN
+      IF ((M == 0) .OR. (N == 0) .OR. ((ALPHA == ZERO) && (BETA == ONE))) RETURN
 
       NOCONJ = LSAME(TRANS,'T')
 

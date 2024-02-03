@@ -64,7 +64,7 @@
 
             for (J = 1; J <= NSZ; J++) { // 40
                for (I = 1; I <= NSZ; I++) { // 30
-                  if ( I.LE.M .AND. J.LE.N ) {
+                  if ( I.LE.M && J.LE.N ) {
                      A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                   } else {
                      A( I, J ) = CZERO
@@ -77,7 +77,7 @@
             if ( INFO != 0 ) {
                RESLTS( 1 ) = ONE
             } else {
-               if ( N != 0 .AND. M != 0 ) {
+               if ( N != 0 && M != 0 ) {
                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( RCOND-RPOW( M ) ) / RPOW( M ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( CCOND-RPOW( N ) ) / RPOW( N ) ) )                   RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( NORM-POW( N+M+1 ) ) / POW( N+M+ 1 ) ) )
                   for (I = 1; I <= M; I++) { // 50
                      RESLTS( 1 ) = MAX( RESLTS( 1 ), ABS( ( R( I )-RPOW( I+N+1 ) ) / RPOW( I+N+1 ) ) )
@@ -123,7 +123,7 @@
                   } // 130
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= M; I++) { // 140
-                        IF( I.LE.MIN( M, J+KL ) .AND. I.GE. MAX( 1, J-KU ) .AND. J.LE.N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
+                        IF( I.LE.MIN( M, J+KL ) && I.GE. MAX( 1, J-KU ) && J.LE.N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
                         }
                      } // 140
                   } // 150
@@ -131,11 +131,11 @@
                   zgbequ(M, N, KL, KU, AB, NSZB, R, C, RCOND, CCOND, NORM, INFO );
 
                   if ( INFO != 0 ) {
-                     if ( .NOT.( ( N+KL.LT.M .AND. INFO == N+KL+1 ) .OR. ( M+KU.LT.N .AND. INFO == 2*M+KU+1 ) ) ) {
+                     if ( .NOT.( ( N+KL.LT.M && INFO == N+KL+1 ) .OR. ( M+KU.LT.N && INFO == 2*M+KU+1 ) ) ) {
                         RESLTS( 2 ) = ONE
                      }
                   } else {
-                     if ( N != 0 .AND. M != 0 ) {
+                     if ( N != 0 && M != 0 ) {
 
                         RCMIN = R( 1 )
                         RCMAX = R( 1 )
@@ -159,7 +159,7 @@
                         for (I = 1; I <= M; I++) { // 190
                            RCMAX = ZERO
                            for (J = 1; J <= N; J++) { // 180
-                              if ( I.LE.J+KL .AND. I.GE.J-KU ) {
+                              if ( I.LE.J+KL && I.GE.J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
                               }
@@ -170,7 +170,7 @@
                         for (J = 1; J <= N; J++) { // 210
                            RCMAX = ZERO
                            for (I = 1; I <= M; I++) { // 200
-                              if ( I.LE.J+KL .AND. I.GE.J-KU ) {
+                              if ( I.LE.J+KL && I.GE.J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
                               }
@@ -192,7 +192,7 @@
 
          for (I = 1; I <= NSZ; I++) { // 270
             for (J = 1; J <= NSZ; J++) { // 260
-               if ( I.LE.N .AND. J == I ) {
+               if ( I.LE.N && J == I ) {
                   A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                } else {
                   A( I, J ) = CZERO
@@ -340,7 +340,7 @@
          } // 450
       } // 460
       RESLTS( 5 ) = RESLTS( 5 ) / EPS
-      OK = ( RESLTS( 1 ).LE.THRESH ) .AND. ( RESLTS( 2 ).LE.THRESH ) .AND. ( RESLTS( 3 ).LE.THRESH ) .AND. ( RESLTS( 4 ).LE.THRESH ) .AND. ( RESLTS( 5 ).LE.THRESH )
+      OK = ( RESLTS( 1 ).LE.THRESH ) && ( RESLTS( 2 ).LE.THRESH ) && ( RESLTS( 3 ).LE.THRESH ) && ( RESLTS( 4 ).LE.THRESH ) && ( RESLTS( 5 ).LE.THRESH )
       WRITE( NOUT, FMT = * )
       if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH

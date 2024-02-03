@@ -34,7 +34,7 @@
       I = 1
       // while ( (N1SV > 0) & (N2SV > 0) )
       } // 10
-      if ( N1SV.GT.0 .AND. N2SV.GT.0 ) {
+      if ( N1SV.GT.0 && N2SV.GT.0 ) {
          if ( A( IND1 ).LE.A( IND2 ) ) {
             INDEX( I ) = IND1
             I = I + 1

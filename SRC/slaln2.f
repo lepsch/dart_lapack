@@ -88,7 +88,7 @@
             // Check scaling for  X = B / C
 
             BNORM = ABS( B( 1, 1 ) )
-            if ( CNORM.LT.ONE .AND. BNORM.GT.ONE ) {
+            if ( CNORM.LT.ONE && BNORM.GT.ONE ) {
                if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
@@ -118,7 +118,7 @@
             // Check scaling for  X = B / C
 
             BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) )
-            if ( CNORM.LT.ONE .AND. BNORM.GT.ONE ) {
+            if ( CNORM.LT.ONE && BNORM.GT.ONE ) {
                if (BNORM.GT.BIGNUM*CNORM) SCALE = ONE / BNORM;
             }
 
@@ -164,7 +164,7 @@
 
             if ( CMAX.LT.SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) )
-               if ( SMINI.LT.ONE .AND. BNORM.GT.ONE ) {
+               if ( SMINI.LT.ONE && BNORM.GT.ONE ) {
                   if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
@@ -200,7 +200,7 @@
             }
             BR2 = BR2 - LR21*BR1
             BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) )
-            if ( BBND.GT.ONE .AND. ABS( UR22 ).LT.ONE ) {
+            if ( BBND.GT.ONE && ABS( UR22 ).LT.ONE ) {
                IF( BBND.GE.BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
             }
 
@@ -217,7 +217,7 @@
 
             // Further scaling if  norm(A) norm(X) > overflow
 
-            if ( XNORM.GT.ONE .AND. CMAX.GT.ONE ) {
+            if ( XNORM.GT.ONE && CMAX.GT.ONE ) {
                if ( XNORM.GT.BIGNUM / CMAX ) {
                   TEMP = CMAX / BIGNUM
                   X( 1, 1 ) = TEMP*X( 1, 1 )
@@ -250,7 +250,7 @@
 
             if ( CMAX.LT.SMINI ) {
                BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
-               if ( SMINI.LT.ONE .AND. BNORM.GT.ONE ) {
+               if ( SMINI.LT.ONE && BNORM.GT.ONE ) {
                   if (BNORM.GT.BIGNUM*SMINI) SCALE = ONE / BNORM;
                }
                TEMP = SCALE / SMINI
@@ -328,7 +328,7 @@
             BR2 = BR2 - LR21*BR1 + LI21*BI1
             BI2 = BI2 - LI21*BR1 - LR21*BI1
             BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) )
-            if ( BBND.GT.ONE .AND. U22ABS.LT.ONE ) {
+            if ( BBND.GT.ONE && U22ABS.LT.ONE ) {
                if ( BBND.GE.BIGNUM*U22ABS ) {
                   SCALE = ONE / BBND
                   BR1 = SCALE*BR1
@@ -356,7 +356,7 @@
 
             // Further scaling if  norm(A) norm(X) > overflow
 
-            if ( XNORM.GT.ONE .AND. CMAX.GT.ONE ) {
+            if ( XNORM.GT.ONE && CMAX.GT.ONE ) {
                if ( XNORM.GT.BIGNUM / CMAX ) {
                   TEMP = CMAX / BIGNUM
                   X( 1, 1 ) = TEMP*X( 1, 1 )

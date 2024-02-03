@@ -40,7 +40,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.LSAME( UPLO, 'U' ) && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = 1
       } else if ( N.LT.0 ) {
          INFO = 2
@@ -60,7 +60,7 @@
 
       // Quick return if possible.
 
-      IF( ( N == 0 ) .OR. ( ( ALPHA == ZERO ) .AND. ( BETA == ONE ) ) ) RETURN
+      IF( ( N == 0 ) .OR. ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set up the start points in  X  and  Y.
 
@@ -112,7 +112,7 @@
          // Form  y  when upper triangle of A is stored.
 
          KPLUS1 = K + 1
-         if ( ( INCX == 1 ) .AND. ( INCY == 1 ) ) {
+         if ( ( INCX == 1 ) && ( INCY == 1 ) ) {
             for (J = 1; J <= N; J++) { // 60
                TEMP1 = ALPHA*X( J )
                TEMP2 = ZERO
@@ -151,7 +151,7 @@
 
          // Form  y  when lower triangle of A is stored.
 
-         if ( ( INCX == 1 ) .AND. ( INCY == 1 ) ) {
+         if ( ( INCX == 1 ) && ( INCY == 1 ) ) {
             for (J = 1; J <= N; J++) { // 100
                TEMP1 = ALPHA*X( J )
                TEMP2 = ZERO

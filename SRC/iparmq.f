@@ -89,11 +89,11 @@
 
             // ASCII character set
 
-            if ( IC.GE.97 .AND. IC.LE.122 ) {
+            if ( IC.GE.97 && IC.LE.122 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  if (IC.GE.97 .AND. IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
+                  if (IC.GE.97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
                }
             }
 
@@ -101,11 +101,11 @@
 
             // EBCDIC character set
 
-            if ( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) {
+            if ( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) ) {
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+                  IF( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                }
             }
 
@@ -113,11 +113,11 @@
 
             // Prime machines:  ASCII+128
 
-            if ( IC.GE.225 .AND. IC.LE.250 ) {
+            if ( IC.GE.225 && IC.LE.250 ) {
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                for (I = 2; I <= 6; I++) {
                   IC = ICHAR( SUBNAM( I: I ) )
-                  if (IC.GE.225 .AND. IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
+                  if (IC.GE.225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
                }
             }
          }

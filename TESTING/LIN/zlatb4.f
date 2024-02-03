@@ -157,7 +157,7 @@
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
 
-            if ( IMAT.GE.5 .AND. IMAT.LE.14 ) {
+            if ( IMAT.GE.5 && IMAT.LE.14 ) {
 
                // 5.-14. Random, CNDNUM = 2.
 

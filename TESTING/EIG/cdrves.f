@@ -376,7 +376,7 @@
                      for (I = 1; I <= N; I++) { // 170
                         IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                         if ( I.LT.N ) {
-                           IF( CSLECT( W( I+1 ) ) .AND. ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
+                           IF( CSLECT( W( I+1 ) ) && ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                         }
                      } // 170
                      if (SDIM != KNTEIG) RESULT( 13 ) = ULPINV;

@@ -49,7 +49,7 @@
          INFO = -2
       } else if ( N.LT.0 ) {
          INFO = -3
-      } else if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+      } else if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
          INFO = -7
       }
 
@@ -69,9 +69,9 @@
          IWORK( 1 ) = LIWMIN
          WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -9
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -11
          }
       }
@@ -106,7 +106,7 @@
 
       ANRM = SLANSP( 'M', UPLO, N, AP, WORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

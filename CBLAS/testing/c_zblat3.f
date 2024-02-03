@@ -101,7 +101,7 @@ void main() {
       }
       // Read the flag that directs rewinding of the snapshot file.
       READ( NIN, FMT = * )REWI
-      REWI = REWI.AND.TRACE
+      REWI = REWI && TRACE
       // Read the flag that directs stopping on any failure.
       READ( NIN, FMT = * )SFATAL
       // Read the flag that indicates whether error exits are to be tested.
@@ -314,7 +314,7 @@ void main() {
             }
             GO TO 190
 
-  190       IF( FATAL.AND.SFATAL ) GO TO 210
+  190       IF( FATAL && SFATAL ) GO TO 210
          }
       } // 200
       WRITE( NOUT, FMT = 9986 )
@@ -545,7 +545,7 @@ void main() {
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
-                              SAME = SAME.AND.ISAME( I )
+                              SAME = SAME && ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 40
                            if ( .NOT.SAME ) {
@@ -821,7 +821,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
@@ -1091,7 +1091,7 @@ void main() {
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 50
-                              SAME = SAME.AND.ISAME( I )
+                              SAME = SAME && ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                            } // 50
                            if ( .NOT.SAME ) {
@@ -1290,7 +1290,7 @@ void main() {
             for (ICT = 1; ICT <= 2; ICT++) { // 80
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS == 'C'
-               if (TRAN.AND..NOT.CONJ) TRANS = 'T';
+               if (TRAN && .NOT.CONJ) TRANS = 'T';
                if ( TRAN ) {
                   MA = K
                   NA = N
@@ -1327,7 +1327,7 @@ void main() {
                            BETA = DCMPLX( RBETA, RZERO )
                         }
                         NULL = N.LE.0
-                        if (CONJ) NULL = NULL.OR.( ( K.LE.0.OR.RALPHA == RZERO ).AND.RBETA == RONE );
+                        if (CONJ) NULL = NULL.OR.( ( K.LE.0.OR.RALPHA == RZERO ) && RBETA == RONE );
 
                         // Generate the matrix C.
 
@@ -1410,7 +1410,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 30
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 30
                         if ( .NOT.SAME ) {
@@ -1640,7 +1640,7 @@ void main() {
             for (ICT = 1; ICT <= 2; ICT++) { // 110
                TRANS = ICHT( ICT: ICT )
                TRAN = TRANS == 'C'
-               if (TRAN.AND..NOT.CONJ) TRANS = 'T';
+               if (TRAN && .NOT.CONJ) TRANS = 'T';
                if ( TRAN ) {
                   MA = K
                   NA = N
@@ -1687,7 +1687,7 @@ void main() {
                            BETA = DCMPLX( RBETA, RZERO )
                         }
                         NULL = N.LE.0
-                        if (CONJ) NULL = NULL.OR.( ( K.LE.0.OR.ALPHA == ZERO ).AND.RBETA == RONE );
+                        if (CONJ) NULL = NULL.OR.( ( K.LE.0.OR.ALPHA == ZERO ) && RBETA == RONE );
 
                         // Generate the matrix C.
 
@@ -1768,7 +1768,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
                         } // 40
                         if ( .NOT.SAME ) {
@@ -1990,19 +1990,19 @@ void main() {
       HER = TYPE == 'he'
       SYM = TYPE == 'sy'
       TRI = TYPE == 'tr'
-      UPPER = ( HER.OR.SYM.OR.TRI ).AND.UPLO == 'U'
-      LOWER = ( HER.OR.SYM.OR.TRI ).AND.UPLO == 'L'
-      UNIT = TRI.AND.DIAG == 'U'
+      UPPER = ( HER.OR.SYM.OR.TRI ) && UPLO == 'U'
+      LOWER = ( HER.OR.SYM.OR.TRI ) && UPLO == 'L'
+      UNIT = TRI && DIAG == 'U'
 
       // Generate data in array A.
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) {
+            if ( GEN.OR.( UPPER && I.LE.J ).OR.( LOWER && I.GE.J ) ) {
                A( I, J ) = ZBEG( RESET ) + TRANSL
                if ( I != J ) {
                   // Set some elements to zero
-                  if (N.GT.3.AND.J == N/2) A( I, J ) = ZERO;
+                  if (N.GT.3 && J == N/2) A( I, J ) = ZERO;
                   if ( HER ) {
                      A( J, I ) = DCONJG( A( I, J ) )
                   } else if ( SYM ) {
@@ -2117,14 +2117,14 @@ void main() {
             CT( I ) = ZERO
             G( I ) = RZERO
          } // 10
-         if ( .NOT.TRANA.AND..NOT.TRANB ) {
+         if ( .NOT.TRANA && .NOT.TRANB ) {
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
                   CT( I ) = CT( I ) + A( I, K )*B( K, J )
                   G( I ) = G( I ) + ABS1( A( I, K ) )*ABS1( B( K, J ) )
                } // 20
             } // 30
-         } else if ( TRANA.AND..NOT.TRANB ) {
+         } else if ( TRANA && .NOT.TRANB ) {
             if ( CTRANA ) {
                for (K = 1; K <= KK; K++) { // 50
                   for (I = 1; I <= M; I++) { // 40
@@ -2140,7 +2140,7 @@ void main() {
                   } // 60
                } // 70
             }
-         } else if ( .NOT.TRANA.AND.TRANB ) {
+         } else if ( .NOT.TRANA && TRANB ) {
             if ( CTRANB ) {
                for (K = 1; K <= KK; K++) { // 90
                   for (I = 1; I <= M; I++) { // 80
@@ -2156,7 +2156,7 @@ void main() {
                   } // 100
                } // 110
             }
-         } else if ( TRANA.AND.TRANB ) {
+         } else if ( TRANA && TRANB ) {
             if ( CTRANA ) {
                if ( CTRANB ) {
                   for (K = 1; K <= KK; K++) { // 130

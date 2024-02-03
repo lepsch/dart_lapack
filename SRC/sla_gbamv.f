@@ -62,7 +62,7 @@
 
       // Quick return if possible.
 
-      IF( ( M == 0 ).OR.( N == 0 ).OR. ( ( ALPHA == ZERO ).AND.( BETA == ONE ) ) ) RETURN
+      IF( ( M == 0 ).OR.( N == 0 ).OR. ( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set  LENX  and  LENY, the lengths of the vectors x and y, and set
       // up the start points in  X  and  Y.
@@ -115,7 +115,7 @@
                if ( ALPHA != ZERO ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KD+I-J, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
@@ -137,7 +137,7 @@
                if ( ALPHA != ZERO ) {
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KE-I+J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
@@ -162,7 +162,7 @@
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KD+I-J, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -187,7 +187,7 @@
                   JX = KX
                   DO J = MAX( I-KL, 1 ), MIN( I+KU, LENX )
                      TEMP = ABS( AB( KE-I+J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( JX ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX

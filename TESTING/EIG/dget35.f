@@ -112,7 +112,7 @@
                                  if (INFO != 0) NINFO = NINFO + 1;
                                  XNRM = DLANGE( 'M', M, N, C, 6, DUM )
                                  RMUL = ONE
-                                 if ( XNRM.GT.ONE .AND. TNRM.GT.ONE ) {
+                                 if ( XNRM.GT.ONE && TNRM.GT.ONE ) {
                                     if ( XNRM.GT.BIGNUM / TNRM ) {
                                        RMUL = ONE / MAX( XNRM, TNRM )
                                     }

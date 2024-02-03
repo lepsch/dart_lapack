@@ -204,7 +204,7 @@
                // Do tests 1--4
 
                sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) );
                   sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
@@ -223,7 +223,7 @@
                RESULT( 7 ) = ZERO
                for (IJU = 0; IJU <= 3; IJU++) { // 80
                   for (IJVT = 0; IJVT <= 3; IJVT++) { // 70
-                     IF( ( IJU == 3 .AND. IJVT == 3 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) )GO TO 70
+                     IF( ( IJU == 3 && IJVT == 3 ) .OR. ( IJU == 1 && IJVT == 1 ) )GO TO 70
                      JOBU = CJOB( IJU+1 )
                      JOBVT = CJOB( IJVT+1 )
                      slacpy('F', M, N, ASAV, LDA, A, LDA );
@@ -233,7 +233,7 @@
                      // Compare U
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJU == 1 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, IINFO );
                         } else if ( IJU == 2 ) {
@@ -247,7 +247,7 @@
                      // Compare VT
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJVT == 1 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, A, LDA, WORK, LWORK, DIF, IINFO );
                         } else if ( IJVT == 2 ) {
@@ -290,7 +290,7 @@
                // Do tests 8--11
 
                sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) );
                   sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
@@ -316,7 +316,7 @@
                   // Compare U
 
                   DIF = ZERO
-                  if ( M.GT.0 .AND. N.GT.0 ) {
+                  if ( M.GT.0 && N.GT.0 ) {
                      if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, A, LDA, WORK, LWORK, DIF, INFO );
@@ -332,7 +332,7 @@
                   // Compare VT
 
                   DIF = ZERO
-                  if ( M.GT.0 .AND. N.GT.0 ) {
+                  if ( M.GT.0 && N.GT.0 ) {
                      if ( IJQ == 1 ) {
                         if ( M.GE.N ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, INFO );
@@ -387,7 +387,7 @@
                   // Do tests 36--39
 
                   sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) );
-                  if ( M != 0 .AND. N != 0 ) {
+                  if ( M != 0 && N != 0 ) {
                      sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) );
                      sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
@@ -436,7 +436,7 @@
                   // Do tests 15--18
 
                   sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) );
-                  if ( M != 0 .AND. N != 0 ) {
+                  if ( M != 0 && N != 0 ) {
                      sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) );
                      sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
@@ -484,7 +484,7 @@
                   // Do tests 19--22
 
                   sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) );
-                  if ( M != 0 .AND. N != 0 ) {
+                  if ( M != 0 && N != 0 ) {
                      sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) );
                      sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
@@ -513,7 +513,7 @@
                RESULT( 24 ) = ZERO
                RESULT( 25 ) = ZERO
                sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) );
-               if ( M != 0 .AND. N != 0 ) {
+               if ( M != 0 && N != 0 ) {
                   sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) );
                   sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
@@ -532,7 +532,7 @@
                RESULT( 29 ) = ZERO
                for (IJU = 0; IJU <= 1; IJU++) { // 180
                   for (IJVT = 0; IJVT <= 1; IJVT++) { // 170
-                     IF( ( IJU == 0 .AND. IJVT == 0 ) .OR. ( IJU == 1 .AND. IJVT == 1 ) )GO TO 170
+                     IF( ( IJU == 0 && IJVT == 0 ) .OR. ( IJU == 1 && IJVT == 1 ) )GO TO 170
                      JOBU = CJOBV( IJU+1 )
                      JOBVT = CJOBV( IJVT+1 )
                      RANGE = CJOBR( 1 )
@@ -542,7 +542,7 @@
                      // Compare U
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJU == 1 ) {
                            sort03('C', M, MNMIN, M, MNMIN, USAV, LDU, U, LDU, WORK, LWORK, DIF, IINFO );
                         }
@@ -552,7 +552,7 @@
                      // Compare VT
 
                      DIF = ZERO
-                     if ( M.GT.0 .AND. N.GT.0 ) {
+                     if ( M.GT.0 && N.GT.0 ) {
                         if ( IJVT == 1 ) {
                            sort03('R', N, MNMIN, N, MNMIN, VTSAV, LDVT, VT, LDVT, WORK, LWORK, DIF, IINFO );
                         }
@@ -605,7 +605,7 @@
 
                // Do tests 33--35: SGESVDX( 'V', 'V', 'V' )
 
-               if ( MNMIN.GT.0 .AND. NSI.GT.1 ) {
+               if ( MNMIN.GT.0 && NSI.GT.1 ) {
                   if ( IL != 1 ) {
                      VU = SSAV( IL ) + MAX( HALF*ABS( SSAV( IL )-SSAV( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                   } else {

@@ -135,8 +135,8 @@
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
-                  ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  if (ZEROT .AND. N.LT.IMAT-1) GO TO 80;
+                  ZEROT = IMAT.GE.2 && IMAT.LE.4
+                  if (ZEROT && N.LT.IMAT-1) GO TO 80;
 
                   if ( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) {
 
@@ -255,7 +255,7 @@
                               // equilibrate the matrix A.
 
                               cpbequ(UPLO, N, KD, AFAC, LDAB, S, SCOND, AMAX, INFO );
-                              if ( INFO == 0 .AND. N.GT.0 ) {
+                              if ( INFO == 0 && N.GT.0 ) {
                                  if (IEQUED.GT.1) SCOND = ZERO;
 
                                  // Equilibrate the matrix.
@@ -347,7 +347,7 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ).GE.THRESH ) {
-                                 if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'CPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
+                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'CPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1
                               }
                            } // 30
@@ -359,7 +359,7 @@
 
                         if (.NOT.PREFAC) CALL CLASET( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB );
                         claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
-                        if ( IEQUED.GT.1 .AND. N.GT.0 ) {
+                        if ( IEQUED.GT.1 && N.GT.0 ) {
 
                            // Equilibrate the matrix if FACT='F' and
                            // EQUED='Y'
@@ -399,7 +399,7 @@
 
                            // Check solution from generated exact solution.
 
-                           IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           IF( NOFACT .OR. ( PREFAC && LSAME( EQUED, 'N' ) ) ) THEN;
                               cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                            } else {
                               cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
@@ -423,7 +423,7 @@
 
                         for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ).GE.THRESH ) {
-                              if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K )
                               } else {

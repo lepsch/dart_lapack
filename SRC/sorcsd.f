@@ -56,35 +56,35 @@
          INFO = -8
       } else if ( Q .LT. 0 .OR. Q .GT. M ) {
          INFO = -9
-      } else if ( COLMAJOR .AND.  LDX11 .LT. MAX( 1, P ) ) {
+      } else if ( COLMAJOR && LDX11 .LT. MAX( 1, P ) ) {
         INFO = -11
-      } else if (.NOT. COLMAJOR .AND. LDX11 .LT. MAX( 1, Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX11 .LT. MAX( 1, Q ) ) {
         INFO = -11
-      } else if (COLMAJOR .AND. LDX12 .LT. MAX( 1, P ) ) {
+      } else if (COLMAJOR && LDX12 .LT. MAX( 1, P ) ) {
         INFO = -13
-      } else if (.NOT. COLMAJOR .AND. LDX12 .LT. MAX( 1, M-Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX12 .LT. MAX( 1, M-Q ) ) {
         INFO = -13
-      } else if (COLMAJOR .AND. LDX21 .LT. MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX21 .LT. MAX( 1, M-P ) ) {
         INFO = -15
-      } else if (.NOT. COLMAJOR .AND. LDX21 .LT. MAX( 1, Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX21 .LT. MAX( 1, Q ) ) {
         INFO = -15
-      } else if (COLMAJOR .AND. LDX22 .LT. MAX( 1, M-P ) ) {
+      } else if (COLMAJOR && LDX22 .LT. MAX( 1, M-P ) ) {
         INFO = -17
-      } else if (.NOT. COLMAJOR .AND. LDX22 .LT. MAX( 1, M-Q ) ) {
+      } else if (.NOT. COLMAJOR && LDX22 .LT. MAX( 1, M-Q ) ) {
         INFO = -17
-      } else if ( WANTU1 .AND. LDU1 .LT. P ) {
+      } else if ( WANTU1 && LDU1 .LT. P ) {
          INFO = -20
-      } else if ( WANTU2 .AND. LDU2 .LT. M-P ) {
+      } else if ( WANTU2 && LDU2 .LT. M-P ) {
          INFO = -22
-      } else if ( WANTV1T .AND. LDV1T .LT. Q ) {
+      } else if ( WANTV1T && LDV1T .LT. Q ) {
          INFO = -24
-      } else if ( WANTV2T .AND. LDV2T .LT. M-Q ) {
+      } else if ( WANTV2T && LDV2T .LT. M-Q ) {
          INFO = -26
       }
 
       // Work with transpose if convenient
 
-      if ( INFO == 0 .AND. MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) {
+      if ( INFO == 0 && MIN( P, M-P ) .LT. MIN( Q, M-Q ) ) {
          if ( COLMAJOR ) {
             TRANST = 'T'
          } else {
@@ -102,7 +102,7 @@
       // Work with permutation [ 0 I; I 0 ] * X * [ 0 I; I 0 ] if
       // convenient
 
-      if ( INFO == 0 .AND. M-Q .LT. Q ) {
+      if ( INFO == 0 && M-Q .LT. Q ) {
          if ( DEFAULTSIGNS ) {
             SIGNST = 'O'
          } else {
@@ -148,7 +148,7 @@
          LWORKOPT = MAX( IORGQR + LORGQRWORKOPT, IORGLQ + LORGLQWORKOPT, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKOPT ) - 1          LWORKMIN = MAX( IORGQR + LORGQRWORKMIN, IORGLQ + LORGLQWORKMIN, IORBDB + LORBDBWORKOPT, IBBCSD + LBBCSDWORKMIN ) - 1
          WORK(1) = MAX(LWORKOPT,LWORKMIN)
 
-         if ( LWORK .LT. LWORKMIN .AND. .NOT. LQUERY ) {
+         if ( LWORK .LT. LWORKMIN && .NOT. LQUERY ) {
             INFO = -22
          } else {
             LORGQRWORK = LWORK - IORGQR + 1
@@ -174,15 +174,15 @@
       // Accumulate Householder reflectors
 
       if ( COLMAJOR ) {
-         if ( WANTU1 .AND. P .GT. 0 ) {
+         if ( WANTU1 && P .GT. 0 ) {
             slacpy('L', P, Q, X11, LDX11, U1, LDU1 );
             sorgqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQRWORK, INFO);
          }
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             slacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
             sorgqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQRWORK, INFO );
          }
-         if ( WANTV1T .AND. Q .GT. 0 ) {
+         if ( WANTV1T && Q .GT. 0 ) {
             slacpy('U', Q-1, Q-1, X11(1,2), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
             for (J = 2; J <= Q; J++) {
@@ -191,21 +191,21 @@
             }
             sorglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQWORK, INFO );
          }
-         if ( WANTV2T .AND. M-Q .GT. 0 ) {
+         if ( WANTV2T && M-Q .GT. 0 ) {
             slacpy('U', P, M-Q, X12, LDX12, V2T, LDV2T );
             slacpy('U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T );
             sorglq(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO );
          }
       } else {
-         if ( WANTU1 .AND. P .GT. 0 ) {
+         if ( WANTU1 && P .GT. 0 ) {
             slacpy('U', Q, P, X11, LDX11, U1, LDU1 );
             sorglq(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGLQ), LORGLQWORK, INFO);
          }
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             slacpy('U', Q, M-P, X21, LDX21, U2, LDU2 );
             sorglq(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGLQ), LORGLQWORK, INFO );
          }
-         if ( WANTV1T .AND. Q .GT. 0 ) {
+         if ( WANTV1T && Q .GT. 0 ) {
             slacpy('L', Q-1, Q-1, X11(2,1), LDX11, V1T(2,2), LDV1T );
             V1T(1, 1) = ONE
             for (J = 2; J <= Q; J++) {
@@ -214,7 +214,7 @@
             }
             sorgqr(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGQR), LORGQRWORK, INFO );
          }
-         if ( WANTV2T .AND. M-Q .GT. 0 ) {
+         if ( WANTV2T && M-Q .GT. 0 ) {
             slacpy('L', M-Q, P, X12, LDX12, V2T, LDV2T );
             slacpy('L', M-P-Q, M-P-Q, X22(P+1,Q+1), LDX22, V2T(P+1,P+1), LDV2T );
             sorgqr(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
@@ -230,7 +230,7 @@
       // block and/or bottom-right corner of (2,1)-block and/or top-left
       // corner of (2,2)-block
 
-      if ( Q .GT. 0 .AND. WANTU2 ) {
+      if ( Q .GT. 0 && WANTU2 ) {
          for (I = 1; I <= Q; I++) {
             IWORK(I) = M - P - Q + I
          }
@@ -243,7 +243,7 @@
             slapmr( false , M-P, M-P, U2, LDU2, IWORK );
          }
       }
-      if ( M .GT. 0 .AND. WANTV2T ) {
+      if ( M .GT. 0 && WANTV2T ) {
          for (I = 1; I <= P; I++) {
             IWORK(I) = M - P - Q + I
          }

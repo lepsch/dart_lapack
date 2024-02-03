@@ -50,11 +50,11 @@
       ONENRM = NORM == '1' .OR. LSAME( NORM, 'O' )
       NOUNIT = LSAME( DIAG, 'N' )
 
-      if ( .NOT.ONENRM .AND. .NOT.LSAME( NORM, 'I' ) ) {
+      if ( .NOT.ONENRM && .NOT.LSAME( NORM, 'I' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) {
+      } else if ( .NOT.NOUNIT && .NOT.LSAME( DIAG, 'U' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4

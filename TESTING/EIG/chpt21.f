@@ -92,7 +92,7 @@
             chpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
          } // 10
 
-         if ( N.GT.1 .AND. KBAND == 1 ) {
+         if ( N.GT.1 && KBAND == 1 ) {
             for (J = 2; J <= N - 1; J++) { // 20
                chpr2(CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK );
             } // 20

@@ -83,11 +83,11 @@
          INFO = -5
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -7
-      } else if ( LDVL.LT.1 .OR. ( ILVL .AND. LDVL.LT.N ) ) {
+      } else if ( LDVL.LT.1 .OR. ( ILVL && LDVL.LT.N ) ) {
          INFO = -12
-      } else if ( LDVR.LT.1 .OR. ( ILVR .AND. LDVR.LT.N ) ) {
+      } else if ( LDVR.LT.1 .OR. ( ILVR && LDVR.LT.N ) ) {
          INFO = -14
-      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -16
       }
 
@@ -238,9 +238,9 @@
       shgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         if ( IINFO.GT.0 .AND. IINFO.LE.N ) {
+         if ( IINFO.GT.0 && IINFO.LE.N ) {
             INFO = IINFO
-         } else if ( IINFO.GT.N .AND. IINFO.LE.2*N ) {
+         } else if ( IINFO.GT.N && IINFO.LE.2*N ) {
             INFO = IINFO - N
          } else {
             INFO = N + 6
@@ -359,7 +359,7 @@
 
          // Check for significant underflow in ALPHAI
 
-         if ( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
+         if ( ABS( SALFAI ).LT.SAFMIN && ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
 
@@ -368,23 +368,23 @@
             // If insignificant underflow in ALPHAI, then make the
             // conjugate eigenvalue real.
 
-            if ( ALPHAI( JC ).LT.ZERO .AND. JC.GT.1 ) {
+            if ( ALPHAI( JC ).LT.ZERO && JC.GT.1 ) {
                ALPHAI( JC-1 ) = ZERO
-            } else if ( ALPHAI( JC ).GT.ZERO .AND. JC.LT.N ) {
+            } else if ( ALPHAI( JC ).GT.ZERO && JC.LT.N ) {
                ALPHAI( JC+1 ) = ZERO
             }
          }
 
          // Check for significant underflow in ALPHAR
 
-         if ( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
+         if ( ABS( SALFAR ).LT.SAFMIN && ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
          }
 
          // Check for significant underflow in BETA
 
-         if ( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
+         if ( ABS( SBETA ).LT.SAFMIN && ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) {
             ILIMIT = true;
             SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
          }

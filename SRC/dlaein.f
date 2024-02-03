@@ -261,7 +261,7 @@
 
                WORK( I ) = DASUM( N-I, B( I, I+1 ), LDB ) + DASUM( N-I, B( I+2, I ), 1 )
             } // 170
-            IF( B( N, N ) == ZERO .AND. B( N+1, N ) == ZERO ) B( N, N ) = EPS3
+            IF( B( N, N ) == ZERO && B( N+1, N ) == ZERO ) B( N, N ) = EPS3
             WORK( N ) = ZERO
 
             I1 = N
@@ -324,7 +324,7 @@
 
                WORK( J ) = DASUM( J-1, B( 1, J ), 1 ) + DASUM( J-1, B( J+1, 1 ), LDB )
             } // 210
-            IF( B( 1, 1 ) == ZERO .AND. B( 2, 1 ) == ZERO ) B( 1, 1 ) = EPS3
+            IF( B( 1, 1 ) == ZERO && B( 2, 1 ) == ZERO ) B( 1, 1 ) = EPS3
             WORK( 1 ) = ZERO
 
             I1 = 1

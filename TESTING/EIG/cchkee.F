@@ -395,7 +395,7 @@ void main() {
          WRITE( NOUT, FMT = 9983 )'NX:   ', NXVAL( 1 )
          WRITE( NOUT, FMT = 9983 )'NS:   ', NSVAL( 1 )
          WRITE( NOUT, FMT = 9983 )'MAXB: ', MXBVAL( 1 )
-      } else if ( .NOT.CHB .AND. .NOT.GLM .AND. .NOT.GQR .AND. .NOT. GSV .AND. .NOT.CSD .AND. .NOT.LSE ) {
+      } else if ( .NOT.CHB && .NOT.GLM && .NOT.GQR && .NOT. GSV && .NOT.CSD && .NOT.LSE ) {
 
          // For the other paths, the number of parameters can be varied
          // from the input file.  Read the number of parameter values.
@@ -686,7 +686,7 @@ void main() {
                GO TO 240
             }
          }
-         if ( LINE( I: I ) != ' ' .AND. LINE( I: I ) != ',' ) {
+         if ( LINE( I: I ) != ' ' && LINE( I: I ) != ',' ) {
             I1 = I
             C1 = LINE( I1: I1 )
 
@@ -713,7 +713,7 @@ void main() {
 
       // Skip the tests if NTYPES is <= 0.
 
-         if ( .NOT.( CEV .OR. CES .OR. CVX .OR. CSX .OR. CGV .OR. CGS ) .AND. NTYPES.LE.0 ) {
+         if ( .NOT.( CEV .OR. CES .OR. CVX .OR. CSX .OR. CGV .OR. CGS ) && NTYPES.LE.0 ) {
             WRITE( NOUT, FMT = 9990 )C3
             GO TO 200
          }
@@ -878,7 +878,7 @@ void main() {
          // Test the error exits
 
          xlaenv(1, 1 );
-         if (TSTERR .AND. TSTCHK) CALL CERRBD( 'CBD', NOUT )          IF( TSTERR .AND. TSTDRV ) CALL CERRED( 'CBD', NOUT );
+         if (TSTERR && TSTCHK) CALL CERRBD( 'CBD', NOUT )          IF( TSTERR && TSTDRV ) CALL CERRED( 'CBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I )
@@ -995,7 +995,7 @@ void main() {
          NTYPES = MIN( MAXTYP, NTYPES )
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
-         if (TSTCHK .AND. TSTERR) CALL CERRGG( C3, NOUT );
+         if (TSTCHK && TSTERR) CALL CERRGG( C3, NOUT );
          for (I = 1; I <= NPARMS; I++) { // 350
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );

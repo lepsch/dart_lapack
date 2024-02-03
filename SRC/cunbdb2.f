@@ -62,7 +62,7 @@
          LWORKOPT = MAX( ILARF+LLARF-1, IORBDB5+LORBDB5-1 )
          LWORKMIN = LWORKOPT
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
-         if ( LWORK .LT. LWORKMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
            INFO = -14
          }
       }

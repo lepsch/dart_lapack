@@ -49,11 +49,11 @@
       } else {
          NQ = N
       }
-      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -2
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -3
       } else if ( M.LT.0 ) {
          INFO = -4
@@ -75,7 +75,7 @@
 
          // Q was determined by a call to ZHPTRD with UPLO = 'U'
 
-         FORWRD = ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN )
+         FORWRD = ( LEFT && NOTRAN ) .OR. ( .NOT.LEFT && .NOT.NOTRAN )
 
          if ( FORWRD ) {
             I1 = 1
@@ -130,7 +130,7 @@
 
          // Q was determined by a call to ZHPTRD with UPLO = 'L'.
 
-         FORWRD = ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN )
+         FORWRD = ( LEFT && .NOT.NOTRAN ) .OR. ( .NOT.LEFT && NOTRAN )
 
          if ( FORWRD ) {
             I1 = 1

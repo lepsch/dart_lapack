@@ -475,7 +475,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 170
                }
@@ -833,7 +833,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 550
                }
@@ -855,7 +855,7 @@
 
                if ( JTYPE.LE.7 ) {
                   KD = 0
-               } else if ( JTYPE.GE.8 .AND. JTYPE.LE.15 ) {
+               } else if ( JTYPE.GE.8 && JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -1147,7 +1147,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 930
                }
@@ -1308,7 +1308,7 @@
 
                if ( JTYPE.LE.7 ) {
                   KD = 0
-               } else if ( JTYPE.GE.8 .AND. JTYPE.LE.15 ) {
+               } else if ( JTYPE.GE.8 && JTYPE.LE.15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -1515,7 +1515,7 @@
                   }
                }
 
-               if ( M3 == 0 .AND. N.GT.0 ) {
+               if ( M3 == 0 && N.GT.0 ) {
                   RESULT( NTEST ) = ULPINV
                   GO TO 1190
                }

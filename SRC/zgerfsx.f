@@ -116,7 +116,7 @@
 
       if ( TRANS_TYPE == -1 ) {
         INFO = -1
-      } else if ( .NOT.ROWEQU .AND. .NOT.COLEQU .AND. .NOT.LSAME( EQUED, 'N' ) ) {
+      } else if ( .NOT.ROWEQU && .NOT.COLEQU && .NOT.LSAME( EQUED, 'N' ) ) {
         INFO = -2
       } else if ( N.LT.0 ) {
         INFO = -3
@@ -202,13 +202,13 @@
       }
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )
-      if ( N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 1 ) {
+      if ( N_ERR_BNDS .GE. 1 && N_NORMS .GE. 1 ) {
 
       // Compute scaled normwise condition number cond(A*C).
 
-         if ( COLEQU .AND. NOTRAN ) {
+         if ( COLEQU && NOTRAN ) {
             RCOND_TMP = ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, true , INFO, WORK, RWORK )
-         } else if ( ROWEQU .AND. .NOT. NOTRAN ) {
+         } else if ( ROWEQU && .NOT. NOTRAN ) {
             RCOND_TMP = ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, R, true , INFO, WORK, RWORK )
          } else {
             RCOND_TMP = ZLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, false , INFO, WORK, RWORK )
@@ -217,7 +217,7 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
+            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
 
       // Threshold the error (see LAWN).
 
@@ -238,7 +238,7 @@
          }
       }
 
-      if ( N_ERR_BNDS .GE. 1 .AND. N_NORMS .GE. 2 ) {
+      if ( N_ERR_BNDS .GE. 1 && N_NORMS .GE. 2 ) {
 
       // Compute componentwise condition number cond(A*diag(Y(:,J))) for
       // each right-hand side using the current solution as an estimate of
@@ -257,14 +257,14 @@
 
       // Cap the error at 1.0.
 
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
+            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I && ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
 
       // Threshold the error (see LAWN).
 
             if ( RCOND_TMP .LT. ILLRCOND_THRESH ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0D+0
-               if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0D+0 .AND. INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
+               if ( PARAMS( LA_LINRX_CWISE_I ) == 1.0D+0 && INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) {
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
             }

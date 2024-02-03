@@ -40,7 +40,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -69,14 +69,14 @@
          // Upper triangular storage: examine D from bottom to top
 
          DO INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == CZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == CZERO ) RETURN
          }
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) {
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ) == CZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 && A( INFO, INFO ) == CZERO ) RETURN
          }
       }
 

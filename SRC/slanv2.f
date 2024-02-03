@@ -49,7 +49,7 @@
          B = -C
          C = ZERO
 
-      } else if ( (A-D) == ZERO .AND. SIGN( ONE, B ) != SIGN( ONE, C ) ) {
+      } else if ( (A-D) == ZERO && SIGN( ONE, B ) != SIGN( ONE, C ) ) {
          CS = ONE
          SN = ZERO
 

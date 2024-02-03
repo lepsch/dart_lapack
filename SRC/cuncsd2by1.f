@@ -61,11 +61,11 @@
          INFO = -8
       } else if ( LDX21 .LT. MAX( 1, M-P ) ) {
          INFO = -10
-      } else if ( WANTU1 .AND. LDU1 .LT. MAX( 1, P ) ) {
+      } else if ( WANTU1 && LDU1 .LT. MAX( 1, P ) ) {
          INFO = -13
-      } else if ( WANTU2 .AND. LDU2 .LT. MAX( 1, M - P ) ) {
+      } else if ( WANTU2 && LDU2 .LT. MAX( 1, M - P ) ) {
          INFO = -15
-      } else if ( WANTV1T .AND. LDV1T .LT. MAX( 1, Q ) ) {
+      } else if ( WANTV1T && LDV1T .LT. MAX( 1, Q ) ) {
          INFO = -17
       }
 
@@ -128,17 +128,17 @@
          if ( R == Q ) {
             cunbdb1(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, WORK, -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
-            if ( WANTU1 .AND. P .GT. 0 ) {
+            if ( WANTU1 && P .GT. 0 ) {
                cungqr(P, P, Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 .AND. M-P .GT. 0 ) {
+            if ( WANTU2 && M-P .GT. 0 ) {
                cungqr(M-P, M-P, Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T .AND. Q .GT. 0 ) {
+            if ( WANTV1T && Q .GT. 0 ) {
                cunglq(Q-1, Q-1, Q-1, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q-1 )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -148,17 +148,17 @@
          } else if ( R == P ) {
             cunbdb2(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
-            if ( WANTU1 .AND. P .GT. 0 ) {
+            if ( WANTU1 && P .GT. 0 ) {
                cungqr(P-1, P-1, P-1, U1(2,2), LDU1, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P-1 )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 .AND. M-P .GT. 0 ) {
+            if ( WANTU2 && M-P .GT. 0 ) {
                cungqr(M-P, M-P, Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T .AND. Q .GT. 0 ) {
+            if ( WANTV1T && Q .GT. 0 ) {
                cunglq(Q, Q, R, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -168,17 +168,17 @@
          } else if ( R == M-P ) {
             cunbdb3(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO );
             LORBDB = INT( WORK(1) )
-            if ( WANTU1 .AND. P .GT. 0 ) {
+            if ( WANTU1 && P .GT. 0 ) {
                cungqr(P, P, Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 .AND. M-P .GT. 0 ) {
+            if ( WANTU2 && M-P .GT. 0 ) {
                cungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P-1 )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T .AND. Q .GT. 0 ) {
+            if ( WANTV1T && Q .GT. 0 ) {
                cunglq(Q, Q, R, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -188,17 +188,17 @@
          } else {
             cunbdb4(M, P, Q, X11, LDX11, X21, LDX21, THETA, DUM, CDUM, CDUM, CDUM, CDUM, WORK(1), -1, CHILDINFO );
             LORBDB = M + INT( WORK(1) )
-            if ( WANTU1 .AND. P .GT. 0 ) {
+            if ( WANTU1 && P .GT. 0 ) {
                cungqr(P, P, M-Q, U1, LDU1, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTU2 .AND. M-P .GT. 0 ) {
+            if ( WANTU2 && M-P .GT. 0 ) {
                cungqr(M-P, M-P, M-Q, U2, LDU2, CDUM, WORK(1), -1, CHILDINFO );
                LORGQRMIN = MAX( LORGQRMIN, M-P )
                LORGQROPT = MAX( LORGQROPT, INT( WORK(1) ) )
             }
-            if ( WANTV1T .AND. Q .GT. 0 ) {
+            if ( WANTV1T && Q .GT. 0 ) {
                cunglq(Q, Q, Q, V1T, LDV1T, CDUM, WORK(1), -1, CHILDINFO );
                LORGLQMIN = MAX( LORGLQMIN, Q )
                LORGLQOPT = MAX( LORGLQOPT, INT( WORK(1) ) )
@@ -211,10 +211,10 @@
          RWORK(1) = LRWORKOPT
          LWORKMIN = MAX( IORBDB+LORBDB-1, IORGQR+LORGQRMIN-1, IORGLQ+LORGLQMIN-1 )          LWORKOPT = MAX( IORBDB+LORBDB-1, IORGQR+LORGQROPT-1, IORGLQ+LORGLQOPT-1 )
          WORK(1) = SROUNDUP_LWORK(LWORKOPT)
-         if ( LWORK .LT. LWORKMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK .LT. LWORKMIN && .NOT.LQUERY ) {
             INFO = -19
          }
-         if ( LRWORK .LT. LRWORKMIN .AND. .NOT.LQUERY ) {
+         if ( LRWORK .LT. LRWORKMIN && .NOT.LQUERY ) {
             INFO = -21
          }
       }
@@ -240,15 +240,15 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU1 .AND. P .GT. 0 ) {
+         if ( WANTU1 && P .GT. 0 ) {
             clacpy('L', P, Q, X11, LDX11, U1, LDU1 );
             cungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             clacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
             cungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T .AND. Q .GT. 0 ) {
+         if ( WANTV1T && Q .GT. 0 ) {
             V1T(1,1) = ONE
             for (J = 2; J <= Q; J++) {
                V1T(1,J) = ZERO
@@ -265,7 +265,7 @@
          // Permute rows and columns to place zero submatrices in
          // preferred positions
 
-         if ( Q .GT. 0 .AND. WANTU2 ) {
+         if ( Q .GT. 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             }
@@ -284,7 +284,7 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU1 .AND. P .GT. 0 ) {
+         if ( WANTU1 && P .GT. 0 ) {
             U1(1,1) = ONE
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
@@ -293,11 +293,11 @@
             clacpy('L', P-1, P-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             cungqr(P-1, P-1, P-1, U1(2,2), LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             clacpy('L', M-P, Q, X21, LDX21, U2, LDU2 );
             cungqr(M-P, M-P, Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T .AND. Q .GT. 0 ) {
+         if ( WANTV1T && Q .GT. 0 ) {
             clacpy('U', P, Q, X11, LDX11, V1T, LDV1T );
             cunglq(Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
@@ -309,7 +309,7 @@
          // Permute rows and columns to place identity submatrices in
          // preferred positions
 
-         if ( Q .GT. 0 .AND. WANTU2 ) {
+         if ( Q .GT. 0 && WANTU2 ) {
             for (I = 1; I <= Q; I++) {
                IWORK(I) = M - P - Q + I
             }
@@ -328,11 +328,11 @@
 
          // Accumulate Householder reflectors
 
-         if ( WANTU1 .AND. P .GT. 0 ) {
+         if ( WANTU1 && P .GT. 0 ) {
             clacpy('L', P, Q, X11, LDX11, U1, LDU1 );
             cungqr(P, P, Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             U2(1,1) = ONE
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
@@ -341,7 +341,7 @@
             clacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             cungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T .AND. Q .GT. 0 ) {
+         if ( WANTV1T && Q .GT. 0 ) {
             clacpy('U', M-P, Q, X21, LDX21, V1T, LDV1T );
             cunglq(Q, Q, R, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
@@ -378,10 +378,10 @@
          // Accumulate Householder reflectors
 
 
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             ccopy(M-P, WORK(IORBDB+P), 1, U2, 1 );
          }
-         if ( WANTU1 .AND. P .GT. 0 ) {
+         if ( WANTU1 && P .GT. 0 ) {
             ccopy(P, WORK(IORBDB), 1, U1, 1 );
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
@@ -389,14 +389,14 @@
             clacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
             cungqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTU2 .AND. M-P .GT. 0 ) {
+         if ( WANTU2 && M-P .GT. 0 ) {
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
             }
             clacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
             cungqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
-         if ( WANTV1T .AND. Q .GT. 0 ) {
+         if ( WANTV1T && Q .GT. 0 ) {
             clacpy('U', M-Q, Q, X21, LDX21, V1T, LDV1T );
             clacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T );
             clacpy('U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T );

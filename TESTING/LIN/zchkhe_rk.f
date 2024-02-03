@@ -122,8 +122,8 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            if (ZEROT .AND. N.LT.IMAT-2) GO TO 260;
+            ZEROT = IMAT.GE.3 && IMAT.LE.6
+            if (ZEROT && N.LT.IMAT-2) GO TO 260;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
 
@@ -290,7 +290,7 @@
                   // (i.e. there is no zero rows and columns).
                   // Do it only for the first block size.
 
-                  if ( INB == 1 .AND. .NOT.TRFCON ) {
+                  if ( INB == 1 && .NOT.TRFCON ) {
                      zlacpy(UPLO, N, N, AFAC, LDA, AINV, LDA );
                      SRNAMT = 'ZHETRI_3'
 
@@ -317,7 +317,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 110
@@ -496,7 +496,7 @@
 
                   for (K = 3; K <= 4; K++) { // 200
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 200
@@ -555,7 +555,7 @@
 
                      for (K = 5; K <= 6; K++) { // 210
                         if ( RESULT( K ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1
                         }
                      } // 210
@@ -585,7 +585,7 @@
                   // the threshold.
 
                   if ( RESULT( 7 ).GE.THRESH ) {
-                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1

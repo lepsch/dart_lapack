@@ -123,7 +123,7 @@
          for (J = 1; J <= NL; J++) { // 10
             IWORK( IDXQI+J ) = J
          } // 10
-         if ( ( I == ND ) .AND. ( SQRE == 0 ) ) {
+         if ( ( I == ND ) && ( SQRE == 0 ) ) {
             SQREI = 0
          } else {
             SQREI = 1

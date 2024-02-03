@@ -39,7 +39,7 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( UPLO != ILAUPLO( 'U' ) .AND. UPLO != ILAUPLO( 'L' ) ) {
+      if ( UPLO != ILAUPLO( 'U' ) && UPLO != ILAUPLO( 'L' ) ) {
          INFO = 1
       } else if ( N.LT.0 ) {
          INFO = 2
@@ -57,7 +57,7 @@
 
       // Quick return if possible.
 
-      IF( ( N == 0 ).OR.( ( ALPHA == ZERO ).AND.( BETA == ONE ) ) ) RETURN
+      IF( ( N == 0 ).OR.( ( ALPHA == ZERO ) && ( BETA == ONE ) ) ) RETURN
 
       // Set up the start points in  X  and  Y.
 
@@ -100,13 +100,13 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
@@ -129,13 +129,13 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   }
@@ -161,14 +161,14 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
@@ -193,14 +193,14 @@
                if ( ALPHA != ZERO ) {
                   for (J = 1; J <= I; J++) {
                      TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
                   }
                   for (J = I+1; J <= N; J++) {
                      TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) == ZERO .OR. TEMP == ZERO )
+                     SYMB_ZERO = SYMB_ZERO && ( X( J ) == ZERO .OR. TEMP == ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX

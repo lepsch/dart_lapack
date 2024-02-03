@@ -64,7 +64,7 @@
          INFO = -3
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -7;
+            if (N.GT.0 && VU.LE.VL) INFO = -7;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -8
@@ -74,7 +74,7 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
             INFO = -14
          }
       }
@@ -83,9 +83,9 @@
          WORK( 1 ) = LWMIN
          IWORK( 1 ) = LIWMIN
 
-         if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -17
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -19
          }
       }
@@ -107,7 +107,7 @@
             M = 1
             W( 1 ) = D( 1 )
          } else {
-            if ( VL.LT.D( 1 ) .AND. VU.GE.D( 1 ) ) {
+            if ( VL.LT.D( 1 ) && VU.GE.D( 1 ) ) {
                M = 1
                W( 1 ) = D( 1 )
             }
@@ -135,7 +135,7 @@
       }
 
       TNRM = DLANST( 'M', N, D, E )
-      if ( TNRM.GT.ZERO .AND. TNRM.LT.RMIN ) {
+      if ( TNRM.GT.ZERO && TNRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / TNRM
       } else if ( TNRM.GT.RMAX ) {
@@ -175,11 +175,11 @@
 
       TEST = false;
       if ( INDEIG ) {
-         if ( IL == 1 .AND. IU == N ) {
+         if ( IL == 1 && IU == N ) {
             TEST = true;
          }
       }
-      if ( ( ALLEIG .OR. TEST ) .AND. IEEEOK == 1 ) {
+      if ( ( ALLEIG .OR. TEST ) && IEEEOK == 1 ) {
          dcopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
          if ( .NOT.WANTZ ) {
             dcopy(N, D, 1, W, 1 );
@@ -252,7 +252,7 @@
       }
 
        // Causes problems with tests 19 & 20:
-       // IF (wantz .and. INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002
+       // IF (wantz && INDEIG ) Z( 1,1) = Z(1,1) / 1.002 + .002
 
 
       WORK( 1 ) = LWMIN

@@ -321,7 +321,7 @@
                   VRMX = ZERO
                   for (JJ = 1; JJ <= N; JJ++) { // 110
                      VTST = ABS( VR( JJ, J ) )
-                     if (VTST.GT.VMX) VMX = VTST                      IF( AIMAG( VR( JJ, J ) ) == ZERO .AND. ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
+                     if (VTST.GT.VMX) VMX = VTST                      IF( AIMAG( VR( JJ, J ) ) == ZERO && ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) );
                   } // 110
                   if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 3 ) = ULPINV;
                } // 120
@@ -335,7 +335,7 @@
                   VRMX = ZERO
                   for (JJ = 1; JJ <= N; JJ++) { // 130
                      VTST = ABS( VL( JJ, J ) )
-                     if (VTST.GT.VMX) VMX = VTST                      IF( AIMAG( VL( JJ, J ) ) == ZERO .AND. ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
+                     if (VTST.GT.VMX) VMX = VTST                      IF( AIMAG( VL( JJ, J ) ) == ZERO && ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) );
                   } // 130
                   if (VRMX / VMX.LT.ONE-TWO*ULP) RESULT( 4 ) = ULPINV;
                } // 140

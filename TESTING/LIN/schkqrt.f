@@ -147,7 +147,7 @@
             MINMN = MIN( M, N )
             for (K = 1; K <= NNB; K++) {
                NB = NBVAL( K )
-               if ( (NB.LE.MINMN).AND.(NB.GT.0) ) {
+               if ( (NB.LE.MINMN) && (NB.GT.0) ) {
 
                   // Test SGEQRT and SGEMQRT
 
@@ -158,7 +158,7 @@
 
                   for (T = 1; T <= NTESTS; T++) {
                      if ( RESULT( T ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T );
                         NFAIL = NFAIL + 1
                      }
                   }

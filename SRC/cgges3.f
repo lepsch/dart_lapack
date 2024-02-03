@@ -84,7 +84,7 @@
          INFO = -1
       } else if ( IJOBVR.LE.0 ) {
          INFO = -2
-      } else if ( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) {
+      } else if ( ( .NOT.WANTST ) && ( .NOT.LSAME( SORT, 'N' ) ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -5
@@ -92,11 +92,11 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( LDVSL.LT.1 .OR. ( ILVSL .AND. LDVSL.LT.N ) ) {
+      } else if ( LDVSL.LT.1 .OR. ( ILVSL && LDVSL.LT.N ) ) {
          INFO = -14
-      } else if ( LDVSR.LT.1 .OR. ( ILVSR .AND. LDVSR.LT.N ) ) {
+      } else if ( LDVSR.LT.1 .OR. ( ILVSR && LDVSR.LT.N ) ) {
          INFO = -16
-      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -18
       }
 
@@ -153,7 +153,7 @@
 
       ANRM = CLANGE( 'M', N, N, A, LDA, RWORK )
       ILASCL = false;
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.SMLNUM ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.SMLNUM ) {
          ANRMTO = SMLNUM
          ILASCL = true;
       } else if ( ANRM.GT.BIGNUM ) {
@@ -167,7 +167,7 @@
 
       BNRM = CLANGE( 'M', N, N, B, LDB, RWORK )
       ILBSCL = false;
-      if ( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) {
+      if ( BNRM.GT.ZERO && BNRM.LT.SMLNUM ) {
          BNRMTO = SMLNUM
          ILBSCL = true;
       } else if ( BNRM.GT.BIGNUM ) {
@@ -221,9 +221,9 @@
       IWRK = ITAU
       claqz0('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR );
       if ( IERR != 0 ) {
-         if ( IERR.GT.0 .AND. IERR.LE.N ) {
+         if ( IERR.GT.0 && IERR.LE.N ) {
             INFO = IERR
-         } else if ( IERR.GT.N .AND. IERR.LE.2*N ) {
+         } else if ( IERR.GT.N && IERR.LE.2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1
@@ -274,7 +274,7 @@
          SDIM = 0
          for (I = 1; I <= N; I++) { // 20
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
-            if (CURSL) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2;
+            if (CURSL) SDIM = SDIM + 1             IF( CURSL && .NOT.LASTSL ) INFO = N + 2;
             LASTSL = CURSL
          } // 20
 

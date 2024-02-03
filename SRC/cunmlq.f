@@ -53,9 +53,9 @@
          NQ = N
          NW = MAX( 1, M )
       }
-      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -67,7 +67,7 @@
          INFO = -7
       } else if ( LDC.LT.MAX( 1, M ) ) {
          INFO = -10
-      } else if ( LWORK.LT.NW .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.NW && .NOT.LQUERY ) {
          INFO = -12
       }
 
@@ -101,7 +101,7 @@
 
       NBMIN = 2
       LDWORK = NW
-      if ( NB.GT.1 .AND. NB.LT.K ) {
+      if ( NB.GT.1 && NB.LT.K ) {
          if ( LWORK.LT.LWKOPT ) {
             NB = (LWORK-TSIZE) / LDWORK
             NBMIN = MAX( 2, ILAENV( 2, 'CUNMLQ', SIDE // TRANS, M, N, K, -1 ) )
@@ -118,7 +118,7 @@
          // Use blocked code
 
          IWT = 1 + NW*NB
-         if ( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) {
+         if ( ( LEFT && NOTRAN ) .OR. ( .NOT.LEFT && .NOT.NOTRAN ) ) {
             I1 = 1
             I2 = K
             I3 = NB

@@ -44,9 +44,9 @@
       } else {
          NQ = N
       }
-      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'C' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'C' ) ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -54,7 +54,7 @@
          INFO = -4
       } else if ( K.LT.0 .OR. K.GT.NQ ) {
          INFO = -5
-      } else if ( L.LT.0 .OR. ( LEFT .AND. ( L.GT.M ) ) .OR. ( .NOT.LEFT .AND. ( L.GT.N ) ) ) {
+      } else if ( L.LT.0 .OR. ( LEFT && ( L.GT.M ) ) .OR. ( .NOT.LEFT && ( L.GT.N ) ) ) {
          INFO = -6
       } else if ( LDA.LT.MAX( 1, K ) ) {
          INFO = -8
@@ -70,7 +70,7 @@
 
       if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
 
-      if ( ( LEFT .AND. .NOT.NOTRAN .OR. .NOT.LEFT .AND. NOTRAN ) ) {
+      if ( ( LEFT && .NOT.NOTRAN .OR. .NOT.LEFT && NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1

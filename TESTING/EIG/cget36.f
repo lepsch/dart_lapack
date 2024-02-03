@@ -62,7 +62,7 @@
       ctrexc('N', N, T1, LDT, Q, LDT, IFST, ILST, INFO1 );
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
-            IF( I == J .AND. Q( I, J ) != CONE ) RES = RES + ONE / EPS             IF( I != J .AND. Q( I, J ) != CZERO ) RES = RES + ONE / EPS
+            IF( I == J && Q( I, J ) != CONE ) RES = RES + ONE / EPS             IF( I != J && Q( I, J ) != CZERO ) RES = RES + ONE / EPS
          } // 30
       } // 40
 

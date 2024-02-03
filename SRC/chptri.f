@@ -43,7 +43,7 @@
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
@@ -65,7 +65,7 @@
 
          KP = N*( N+1 ) / 2
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ) == ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 && AP( KP ) == ZERO ) RETURN
             KP = KP - INFO
          } // 10
       } else {
@@ -74,7 +74,7 @@
 
          KP = 1
          for (INFO = 1; INFO <= N; INFO++) { // 20
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ) == ZERO ) RETURN
+            IF( IPIV( INFO ).GT.0 && AP( KP ) == ZERO ) RETURN
             KP = KP + N - INFO + 1
          } // 20
       }

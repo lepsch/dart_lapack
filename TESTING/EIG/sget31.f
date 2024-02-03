@@ -106,7 +106,7 @@
                         for (IB = 1; IB <= 3; IB++) { // 20
                            B( 1, 1 ) = VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 10
-                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
+                              if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
@@ -120,8 +120,8 @@
                                  DEN = MAX( SMIN*ABS( X( 1, 1 ) ), SMLNUM )
                               }
                               RES = RES / DEN
-                              IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
-                              if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO != 0 .AND. INFO != 1 ) RES = RES + ONE / EPS;
+                              IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
+                              if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                               KNT = KNT + 1
                               if ( RES.GT.RMAX ) {
                                  LMAX = KNT
@@ -139,13 +139,13 @@
                            B( 1, 1 ) = VAB( IB )
                            B( 1, 2 ) = -HALF*VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 50
-                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
+                              if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
                               }
                               for (IWI = 1; IWI <= 4; IWI++) { // 40
-                                 if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
+                                 if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
                                     WI = VWI( IWI )
@@ -158,9 +158,9 @@
                                     DEN = MAX( SMIN*( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ), SMLNUM )
                                  }
                                  RES = RES / DEN
-                                 IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 1, 2 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
+                                 IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( X( 1, 2 ) ).LT.UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
                                  if (SCALE.GT.ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- ABS( X( 1, 1 ) )- ABS( X( 1, 2 ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
-                                 if (INFO != 0 .AND. INFO != 1) RES = RES + ONE / EPS;
+                                 if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1
                                  if ( RES.GT.RMAX ) {
                                     LMAX = KNT
@@ -182,7 +182,7 @@
                            B( 1, 1 ) = VAB( IB )
                            B( 2, 1 ) = -TWO*VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 80
-                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
+                              if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
@@ -202,9 +202,9 @@
                                  DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
                               }
                               RES = RES / DEN
-                              IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 2, 1 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
+                              IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( X( 2, 1 ) ).LT.UNFL && ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
                               if (SCALE.GT.ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
-                              if (INFO != 0 .AND. INFO != 1) RES = RES + ONE / EPS;
+                              if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                               KNT = KNT + 1
                               if ( RES.GT.RMAX ) {
                                  LMAX = KNT
@@ -227,13 +227,13 @@
                            B( 1, 2 ) = FOUR*VAB( IB )
                            B( 2, 2 ) = -SEVEN*VAB( IB )
                            for (IWR = 1; IWR <= 4; IWR++) { // 120
-                              if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
+                              if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                  WR = VWR( IWR )*A( 1, 1 )
                               } else {
                                  WR = VWR( IWR )
                               }
                               for (IWI = 1; IWI <= 4; IWI++) { // 110
-                                 if ( D1 == ONE .AND. D2 == ONE .AND. CA == ONE ) {
+                                 if ( D1 == ONE && D2 == ONE && CA == ONE ) {
                                     WI = VWI( IWI )*A( 1, 1 )
                                  } else {
                                     WI = VWI( IWI )
@@ -253,9 +253,9 @@
                                     DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
                                  }
                                  RES = RES / DEN
-                                 IF( ABS( X( 1, 1 ) ).LT.UNFL .AND. ABS( X( 2, 1 ) ).LT.UNFL .AND. ABS( X( 1, 2 ) ).LT.UNFL .AND. ABS( X( 2, 2 ) ).LT.UNFL .AND. ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
+                                 IF( ABS( X( 1, 1 ) ).LT.UNFL && ABS( X( 2, 1 ) ).LT.UNFL && ABS( X( 1, 2 ) ).LT.UNFL && ABS( X( 2, 2 ) ).LT.UNFL && ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
                                  if (SCALE.GT.ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ABS( X( 2, 2 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
-                                 if (INFO != 0 .AND. INFO != 1) RES = RES + ONE / EPS;
+                                 if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1
                                  if ( RES.GT.RMAX ) {
                                     LMAX = KNT

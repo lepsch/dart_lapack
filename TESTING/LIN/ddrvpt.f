@@ -88,13 +88,13 @@
 
             // Do the tests only if DOTYPE( IMAT ) is true.
 
-            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 110
+            IF( N.GT.0 && .NOT.DOTYPE( IMAT ) ) GO TO 110
 
             // Set up parameters with DLATB4.
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
+            ZEROT = IMAT.GE.8 && IMAT.LE.10
             if ( IMAT.LE.6 ) {
 
                // Type 1-6:  generate a symmetric tridiagonal matrix of
@@ -303,7 +303,7 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DPTSV ', N, IMAT, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 70
@@ -371,7 +371,7 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ).GE.THRESH ) {
-                     if (NFAIL == 0 .AND. NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DPTSVX', FACT, N, IMAT, K, RESULT( K );
+                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1
                   }
                } // 90

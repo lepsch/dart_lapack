@@ -129,7 +129,7 @@
             NL = IWORK( NDIML+IM1 )
             NR = IWORK( NDIMR+IM1 )
             NLF = IC - NL
-            if ( ( SQRE == 0 ) .AND. ( I == LL ) ) {
+            if ( ( SQRE == 0 ) && ( I == LL ) ) {
                SQREI = SQRE
             } else {
                SQREI = 1

@@ -71,7 +71,7 @@
          cher('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
       } // 20
 
-      if ( N.GT.1 .AND. KBAND == 1 ) {
+      if ( N.GT.1 && KBAND == 1 ) {
          for (J = 1; J <= N - 1; J++) { // 30
             cher2('L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
          } // 30

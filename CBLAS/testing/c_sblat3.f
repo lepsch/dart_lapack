@@ -95,7 +95,7 @@ void main() {
       }
       // Read the flag that directs rewinding of the snapshot file.
       READ( NIN, FMT = * )REWI
-      REWI = REWI.AND.TRACE
+      REWI = REWI && TRACE
       // Read the flag that directs stopping on any failure.
       READ( NIN, FMT = * )SFATAL
       // Read the flag that indicates whether error exits are to be tested.
@@ -308,7 +308,7 @@ void main() {
             }
             GO TO 190
 
-  190       IF( FATAL.AND.SFATAL ) GO TO 210
+  190       IF( FATAL && SFATAL ) GO TO 210
          }
       } // 200
       WRITE( NOUT, FMT = 9986 )
@@ -535,7 +535,7 @@ void main() {
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 40
-                              SAME = SAME.AND.ISAME( I )
+                              SAME = SAME && ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I+1
                            } // 40
                            if ( .NOT.SAME ) {
@@ -805,7 +805,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I+1
                         } // 40
                         if ( .NOT.SAME ) {
@@ -1071,7 +1071,7 @@ void main() {
 
                            SAME = true;
                            for (I = 1; I <= NARGS; I++) { // 50
-                              SAME = SAME.AND.ISAME( I )
+                              SAME = SAME && ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I+1
                            } // 50
                            if ( .NOT.SAME ) {
@@ -1354,7 +1354,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 30
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I+1
                         } // 30
                         if ( .NOT.SAME ) {
@@ -1646,7 +1646,7 @@ void main() {
 
                         SAME = true;
                         for (I = 1; I <= NARGS; I++) { // 40
-                           SAME = SAME.AND.ISAME( I )
+                           SAME = SAME && ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I+1
                         } // 40
                         if ( .NOT.SAME ) {
@@ -1809,19 +1809,19 @@ void main() {
       GEN = TYPE == 'GE'
       SYM = TYPE == 'SY'
       TRI = TYPE == 'TR'
-      UPPER = ( SYM.OR.TRI ).AND.UPLO == 'U'
-      LOWER = ( SYM.OR.TRI ).AND.UPLO == 'L'
-      UNIT = TRI.AND.DIAG == 'U'
+      UPPER = ( SYM.OR.TRI ) && UPLO == 'U'
+      LOWER = ( SYM.OR.TRI ) && UPLO == 'L'
+      UNIT = TRI && DIAG == 'U'
 
       // Generate data in array A.
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) {
+            if ( GEN.OR.( UPPER && I.LE.J ).OR.( LOWER && I.GE.J ) ) {
                A( I, J ) = SBEG( RESET ) + TRANSL
                if ( I != J ) {
                   // Set some elements to zero
-                  if (N.GT.3.AND.J == N/2) A( I, J ) = ZERO;
+                  if (N.GT.3 && J == N/2) A( I, J ) = ZERO;
                   if ( SYM ) {
                      A( J, I ) = A( I, J )
                   } else if ( TRI ) {
@@ -1919,28 +1919,28 @@ void main() {
             CT( I ) = ZERO
             G( I ) = ZERO
          } // 10
-         if ( .NOT.TRANA.AND..NOT.TRANB ) {
+         if ( .NOT.TRANA && .NOT.TRANB ) {
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
                   CT( I ) = CT( I ) + A( I, K )*B( K, J )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) )
                } // 20
             } // 30
-         } else if ( TRANA.AND..NOT.TRANB ) {
+         } else if ( TRANA && .NOT.TRANB ) {
             for (K = 1; K <= KK; K++) { // 50
                for (I = 1; I <= M; I++) { // 40
                   CT( I ) = CT( I ) + A( K, I )*B( K, J )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) )
                } // 40
             } // 50
-         } else if ( .NOT.TRANA.AND.TRANB ) {
+         } else if ( .NOT.TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 70
                for (I = 1; I <= M; I++) { // 60
                   CT( I ) = CT( I ) + A( I, K )*B( J, K )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) )
                } // 60
             } // 70
-         } else if ( TRANA.AND.TRANB ) {
+         } else if ( TRANA && TRANB ) {
             for (K = 1; K <= KK; K++) { // 90
                for (I = 1; I <= M; I++) { // 80
                   CT( I ) = CT( I ) + A( K, I )*B( J, K )

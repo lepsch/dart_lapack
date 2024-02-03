@@ -48,9 +48,9 @@
       } else {
          NQ = N
       }
-      if ( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) {
+      if ( .NOT.LEFT && .NOT.LSAME( SIDE, 'R' ) ) {
          INFO = -1
-      } else if ( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) ) {
+      } else if ( .NOT.NOTRAN && .NOT.LSAME( TRANS, 'T' ) ) {
          INFO = -2
       } else if ( M.LT.0 ) {
          INFO = -3
@@ -72,7 +72,7 @@
 
       if (M == 0 .OR. N == 0 .OR. K == 0) RETURN;
 
-      if ( ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN ) ) {
+      if ( ( LEFT && .NOT.NOTRAN ) .OR. ( .NOT.LEFT && NOTRAN ) ) {
          I1 = 1
          I2 = K
          I3 = 1

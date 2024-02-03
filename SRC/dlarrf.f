@@ -131,7 +131,7 @@
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
       } // 6
       SAWNAN1 = SAWNAN1 .OR.  DISNAN( MAX1 )
-       if ( FORCER .OR. (MAX1.LE.GROWTHBOUND .AND. .NOT.SAWNAN1 ) ) {
+       if ( FORCER .OR. (MAX1.LE.GROWTHBOUND && .NOT.SAWNAN1 ) ) {
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
@@ -160,7 +160,7 @@
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
       } // 7
       SAWNAN2 = SAWNAN2 .OR.  DISNAN( MAX2 )
-       if ( FORCER .OR. (MAX2.LE.GROWTHBOUND .AND. .NOT.SAWNAN2 ) ) {
+       if ( FORCER .OR. (MAX2.LE.GROWTHBOUND && .NOT.SAWNAN2 ) ) {
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
@@ -168,7 +168,7 @@
       // If we are at this point, both shifts led to too much element growth
 
       // Record the better of the two shifts (provided it didn't lead to NaN)
-      if (SAWNAN1.AND.SAWNAN2) {
+      if (SAWNAN1 && SAWNAN2) {
          // both MAX1 and MAX2 are NaN
          GOTO 50
       } else {
@@ -193,13 +193,13 @@
       // we may still accept the representation, if it passes a
       // refined test for RRR. This test supposes that no NaN occurred.
       // Moreover, we use the refined RRR test only for isolated clusters.
-      if ((CLWDTH.LT.MINGAP/DBLE(128)) .AND. (MIN(MAX1,MAX2).LT.FAIL2) .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) {
+      if ((CLWDTH.LT.MINGAP/DBLE(128)) && (MIN(MAX1,MAX2).LT.FAIL2) && (.NOT.SAWNAN1) && (.NOT.SAWNAN2)) {
          DORRR1 = true;
       } else {
          DORRR1 = false;
       }
       TRYRRR1 = true;
-      if ( TRYRRR1 .AND. DORRR1 ) {
+      if ( TRYRRR1 && DORRR1 ) {
       if (INDX == 1) {
          TMP = ABS( DPLUS( N ) )
          ZNM2 = ONE

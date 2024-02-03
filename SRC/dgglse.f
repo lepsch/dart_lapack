@@ -67,7 +67,7 @@
          }
          WORK( 1 ) = LWKOPT
 
-         if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+         if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
             INFO = -12
          }
       }

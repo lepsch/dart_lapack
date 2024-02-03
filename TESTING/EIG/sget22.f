@@ -73,7 +73,7 @@
          IPAIR = 0
          for (JVEC = 1; JVEC <= N; JVEC++) { // 30
             TEMP1 = ZERO
-            IF( IPAIR == 0 .AND. JVEC.LT.N .AND. WI( JVEC ) != ZERO ) IPAIR = 1
+            IF( IPAIR == 0 && JVEC.LT.N && WI( JVEC ) != ZERO ) IPAIR = 1
             if ( IPAIR == 1 ) {
 
                // Complex eigenvector
@@ -110,7 +110,7 @@
          for (J = 1; J <= N; J++) { // 60
             IPAIR = 0
             for (JVEC = 1; JVEC <= N; JVEC++) { // 50
-               IF( IPAIR == 0 .AND. JVEC.LT.N .AND. WI( JVEC ) != ZERO ) IPAIR = 1
+               IF( IPAIR == 0 && JVEC.LT.N && WI( JVEC ) != ZERO ) IPAIR = 1
                if ( IPAIR == 1 ) {
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) )
                   WORK( JVEC+1 ) = WORK( JVEC )
@@ -154,7 +154,7 @@
             IECOL = JCOL
          }
 
-         IF( IPAIR == 0 .AND. WI( JCOL ) != ZERO ) IPAIR = 1
+         IF( IPAIR == 0 && WI( JCOL ) != ZERO ) IPAIR = 1
 
          if ( IPAIR == 1 ) {
             WMAT( 1, 1 ) = WR( JCOL )

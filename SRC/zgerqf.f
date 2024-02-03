@@ -52,7 +52,7 @@
          WORK( 1 ) = LWKOPT
 
          if ( .NOT.LQUERY ) {
-            IF( LWORK.LE.0 .OR. ( N.GT.0 .AND. LWORK.LT.MAX( 1, M ) ) ) INFO = -7
+            IF( LWORK.LE.0 .OR. ( N.GT.0 && LWORK.LT.MAX( 1, M ) ) ) INFO = -7
          }
       }
 
@@ -72,7 +72,7 @@
       NBMIN = 2
       NX = 1
       IWS = M
-      if ( NB.GT.1 .AND. NB.LT.K ) {
+      if ( NB.GT.1 && NB.LT.K ) {
 
          // Determine when to cross over from blocked to unblocked code.
 
@@ -94,7 +94,7 @@
          }
       }
 
-      if ( NB.GE.NBMIN .AND. NB.LT.K .AND. NX.LT.K ) {
+      if ( NB.GE.NBMIN && NB.LT.K && NX.LT.K ) {
 
          // Use blocked code initially.
          // The last kk rows are handled by the block method.
@@ -130,7 +130,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      if (MU.GT.0 .AND. NU.GT.0) CALL ZGERQ2( MU, NU, A, LDA, TAU, WORK, IINFO );
+      if (MU.GT.0 && NU.GT.0) CALL ZGERQ2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK( 1 ) = IWS
       RETURN

@@ -73,7 +73,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            if (N.GT.0 .AND. VU.LE.VL) INFO = -8;
+            if (N.GT.0 && VU.LE.VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) {
                INFO = -9
@@ -83,11 +83,11 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) {
+         if ( LDZ.LT.1 .OR. ( WANTZ && LDZ.LT.N ) ) {
             INFO = -15
-         } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
             INFO = -18
-         } else if ( LIWORK.LT.LIWMIN .AND. .NOT.LQUERY ) {
+         } else if ( LIWORK.LT.LIWMIN && .NOT.LQUERY ) {
             INFO = -20
          }
       }
@@ -121,7 +121,7 @@
             M = 1
             W( 1 ) = A( 1, 1 )
          } else {
-            if ( VL.LT.A( 1, 1 ) .AND. VU.GE.A( 1, 1 ) ) {
+            if ( VL.LT.A( 1, 1 ) && VU.GE.A( 1, 1 ) ) {
                M = 1
                W( 1 ) = A( 1, 1 )
             }
@@ -152,7 +152,7 @@
          VUU = VU
       }
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {
@@ -220,7 +220,7 @@
       // If all eigenvalues are desired
       // then call DSTERF or DSTEMR and DORMTR.
 
-      if ( ( ALLEIG .OR. ( INDEIG .AND. IL == 1 .AND. IU == N ) ) .AND. IEEEOK == 1 ) {
+      if ( ( ALLEIG .OR. ( INDEIG && IL == 1 && IU == N ) ) && IEEEOK == 1 ) {
          if ( .NOT.WANTZ ) {
             dcopy(N, WORK( INDD ), 1, W, 1 );
             dcopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
@@ -241,7 +241,7 @@
          // Apply orthogonal matrix used in reduction to tridiagonal
          // form to eigenvectors returned by DSTEMR.
 
-            if ( WANTZ .AND. INFO == 0 ) {
+            if ( WANTZ && INFO == 0 ) {
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
                dormtr('L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO );

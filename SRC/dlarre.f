@@ -78,7 +78,7 @@
 
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE == INDRNG).AND.(IL == 1).AND.(IU == 1)) ) {
+         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG) && (D(1).GT.VL) && (D(1).LE.VU)).OR. ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -132,9 +132,9 @@
 
       // Initialize USEDQD, DQDS should be used for ALLRNG unless someone
       // explicitly wants bisection.
-      USEDQD = (( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB))
+      USEDQD = (( IRANGE == ALLRNG ) && (.NOT.FORCEB))
 
-      if ( (IRANGE == ALLRNG) .AND. (.NOT. FORCEB) ) {
+      if ( (IRANGE == ALLRNG) && (.NOT. FORCEB) ) {
          // Set interval [VL,VU] that contains all eigenvalues
          VL = GL
          VU = GU
@@ -170,7 +170,7 @@
 
          // 1 X 1 block
          if ( IN == 1 ) {
-            if ( (IRANGE == ALLRNG).OR.( (IRANGE == VALRNG).AND. ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE == INDRNG).AND.(IBLOCK(WBEGIN) == JBLK)) ) {
+            if ( (IRANGE == ALLRNG).OR.( (IRANGE == VALRNG) && ( D( IBEGIN ).GT.VL ) && ( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -201,7 +201,7 @@
          } // 15
          SPDIAM = GU - GL
 
-         if (.NOT. ((IRANGE == ALLRNG).AND.(.NOT.FORCEB)) ) {
+         if (.NOT. ((IRANGE == ALLRNG) && (.NOT.FORCEB)) ) {
             // Count the number of eigenvalues in the current block.
             MB = 0
             for (I = WBEGIN; I <= MM; I++) { // 20
@@ -222,7 +222,7 @@
             } else {
 
                // Decide whether dqds or bisection is more efficient
-               USEDQD = ( (MB .GT. FAC*IN) .AND. (.NOT.FORCEB) )
+               USEDQD = ( (MB .GT. FAC*IN) && (.NOT.FORCEB) )
                WEND = WBEGIN + MB - 1
                // Calculate gaps for the current block
                // In later stages, when representations for individual
@@ -237,7 +237,7 @@
                INDU = INDEXW( WEND )
             }
          }
-         if (( (IRANGE == ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) {
+         if (( (IRANGE == ALLRNG) && (.NOT. FORCEB) ).OR.USEDQD) {
             // Case of DQDS
             // Find approximations to the extremal eigenvalues of the block
             dlarrk(IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO );
@@ -269,7 +269,7 @@
          // the eigenvalue approximations at the end of DLARRE or bisection.
          // dqds is chosen if all eigenvalues are desired or the number of
          // eigenvalues to be computed is large compared to the blocksize.
-         if ( ( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB) ) {
+         if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
             // If all the eigenvalues have to be computed, we use dqd
             USEDQD = true;
             // INDL is the local index of the first eigenvalue to compute
@@ -304,7 +304,7 @@
             SIGMA = GL
             SGNDEF = ONE
          } else if ( CNT1 - INDL .GE. INDU - CNT2 ) {
-            if ( ( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB) ) {
+            if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
                SIGMA = MAX(ISLEFT,GL)
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get pos def matrix
@@ -317,7 +317,7 @@
             }
             SGNDEF = ONE
          } else {
-            if ( ( IRANGE == ALLRNG ) .AND. (.NOT.FORCEB) ) {
+            if ( ( IRANGE == ALLRNG ) && (.NOT.FORCEB) ) {
                SIGMA = MIN(ISRGHT,GU)
             } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get neg def matrix
@@ -381,7 +381,7 @@
             } else {
                NOREP = false;
             }
-            if ( USEDQD .AND. .NOT.NOREP ) {
+            if ( USEDQD && .NOT.NOREP ) {
                // Ensure the definiteness of the representation
                // All entries of D (of L D L^T) must have the same sign
                for (I = 1; I <= IN; I++) { // 71

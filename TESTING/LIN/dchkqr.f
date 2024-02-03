@@ -175,7 +175,7 @@
                         // with NRHS right hand sides and compute the
                         // residual.
 
-                        if ( K == N .AND. INB == 1 ) {
+                        if ( K == N && INB == 1 ) {
 
                            // Generate a solution and set the right
                            // hand side.
@@ -207,7 +207,7 @@
 
                      for (I = 1; I <= NTESTS; I++) { // 20
                         if ( RESULT( I ).GE.THRESH ) {
-                           if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
+                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1
                         }
                      } // 20

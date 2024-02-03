@@ -83,9 +83,9 @@
          INFO = -7
       } else if ( LDB.LT.MAX( 1, N ) ) {
          INFO = -9
-      } else if ( ( ILQ .AND. LDQ.LT.N ) .OR. LDQ.LT.1 ) {
+      } else if ( ( ILQ && LDQ.LT.N ) .OR. LDQ.LT.1 ) {
          INFO = -11
-      } else if ( ( ILZ .AND. LDZ.LT.N ) .OR. LDZ.LT.1 ) {
+      } else if ( ( ILZ && LDZ.LT.N ) .OR. LDZ.LT.1 ) {
          INFO = -13
       }
       if ( INFO != 0 ) {

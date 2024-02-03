@@ -75,9 +75,9 @@
       } else if ( N.LT.0 ) {
          INFO = -3
       } else if ( IRANGE == VALRNG ) {
-         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
+         if ( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE == INDRNG && ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) {
          INFO = -6
-      } else if ( IRANGE == INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
+      } else if ( IRANGE == INDRNG && ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) {
          INFO = -7
       }
 
@@ -90,7 +90,7 @@
       TOOFEW = false;
 
       // Simplification:
-      if (IRANGE == INDRNG .AND. IL == 1 .AND. IU == N) IRANGE = 1;
+      if (IRANGE == INDRNG && IL == 1 && IU == N) IRANGE = 1;
 
       // Get machine constants
       EPS = DLAMCH( 'P' )
@@ -100,7 +100,7 @@
       // Special Case when N=1
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE == INDRNG).AND.(IL == 1).AND.(IU == 1)) ) {
+         if ( (IRANGE == ALLRNG).OR. ((IRANGE == VALRNG) && (D(1).GT.VL) && (D(1).LE.VU)).OR. ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -216,7 +216,7 @@
 
          if ( IN == 1 ) {
             // 1x1 block
-            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) {
+            if ( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE == ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN && WU.GE. D( IBEGIN )-PIVMIN ) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -249,7 +249,7 @@
       // $         NWL = NWL + 1
              // IF( WU.GE. L1-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE == ALLRNG .OR. ( WL.LT.L1-PIVMIN .AND. WU.GE.
+             // IF( IRANGE == ALLRNG .OR. ( WL.LT.L1-PIVMIN && WU.GE.
       // $          L1-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L1
@@ -263,7 +263,7 @@
       // $         NWL = NWL + 1
              // IF( WU.GE. L2-PIVMIN )
       // $         NWU = NWU + 1
-             // IF( IRANGE == ALLRNG .OR. ( WL.LT.L2-PIVMIN .AND. WU.GE.
+             // IF( IRANGE == ALLRNG .OR. ( WL.LT.L2-PIVMIN && WU.GE.
       // $          L2-PIVMIN ) ) THEN
                 // M = M + 1
                 // W( M ) = L2
@@ -365,7 +365,7 @@
             for (JE = 1; JE <= M; JE++) { // 80
                // Remove some of the smallest eigenvalues from the left so that
                // at the end IDISCL =0. Move all eigenvalues up to the left.
-               if ( W( JE ).LE.WLU .AND. IDISCL.GT.0 ) {
+               if ( W( JE ).LE.WLU && IDISCL.GT.0 ) {
                   IDISCL = IDISCL - 1
                } else {
                   IM = IM + 1
@@ -382,7 +382,7 @@
             // at the end IDISCU =0. Move all eigenvalues up to the left.
             IM=M+1
             DO 81 JE = M, 1, -1
-               if ( W( JE ).GE.WUL .AND. IDISCU.GT.0 ) {
+               if ( W( JE ).GE.WUL && IDISCU.GT.0 ) {
                   IDISCU = IDISCU - 1
                } else {
                   IM = IM - 1
@@ -415,7 +415,7 @@
                for (JDISC = 1; JDISC <= IDISCL; JDISC++) { // 100
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 90
-                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ).LT.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -428,7 +428,7 @@
                for (JDISC = 1; JDISC <= IDISCU; JDISC++) { // 120
                   IW = 0
                   for (JE = 1; JE <= M; JE++) { // 110
-                     if ( IBLOCK( JE ) != 0 .AND. ( W( JE ).GE.WKILL .OR. IW == 0 ) ) {
+                     if ( IBLOCK( JE ) != 0 && ( W( JE ).GE.WKILL .OR. IW == 0 ) ) {
                         IW = JE
                         WKILL = W( JE )
                      }
@@ -454,7 +454,7 @@
          }
       }
 
-      if (( IRANGE == ALLRNG .AND. M != N ).OR. ( IRANGE == INDRNG .AND. M != IU-IL+1 ) ) {
+      if (( IRANGE == ALLRNG && M != N ).OR. ( IRANGE == INDRNG && M != IU-IL+1 ) ) {
          TOOFEW = true;
       }
 
@@ -462,7 +462,7 @@
          // block.
       // If ORDER='E', sort the eigenvalues from smallest to largest
 
-      if ( LSAME(ORDER,'E') .AND. NSPLIT.GT.1 ) {
+      if ( LSAME(ORDER,'E') && NSPLIT.GT.1 ) {
          for (JE = 1; JE <= M - 1; JE++) { // 150
             IE = 0
             TMP1 = W( JE )

@@ -59,7 +59,7 @@
          LWKOPT = MAX( 1, ( NB+2 )*N )
          WORK( 1 ) = LWKOPT
 
-         IF( LWORK.LT.MAX( 1, 3*N-1 ) .AND. .NOT.LQUERY ) INFO = -8
+         IF( LWORK.LT.MAX( 1, 3*N-1 ) && .NOT.LQUERY ) INFO = -8
       }
 
       if ( INFO != 0 ) {
@@ -95,7 +95,7 @@
 
       ANRM = DLANSY( 'M', UPLO, N, A, LDA, WORK )
       ISCALE = 0
-      if ( ANRM.GT.ZERO .AND. ANRM.LT.RMIN ) {
+      if ( ANRM.GT.ZERO && ANRM.LT.RMIN ) {
          ISCALE = 1
          SIGMA = RMIN / ANRM
       } else if ( ANRM.GT.RMAX ) {

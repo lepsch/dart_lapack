@@ -56,13 +56,13 @@
          LWKOPT = (NB+1)*N
       }
 
-      if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -1
       } else if ( N.LT.0 ) {
          INFO = -2
       } else if ( LDA.LT.MAX( 1, N ) ) {
          INFO = -4
-      } else if ( LWORK.LT.LWKMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWKMIN && .NOT.LQUERY ) {
          INFO = -7
       }
 
@@ -131,7 +131,7 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            if ( (J2 != IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
+            if ( (J2 != IPIV(J2)) && ((J1-K1).GT.2) ) {
                zswap(J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 );
             }
          }
@@ -238,7 +238,7 @@
 
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
-            if ( (J2 != IPIV(J2)) .AND. ((J1-K1).GT.2) ) {
+            if ( (J2 != IPIV(J2)) && ((J1-K1).GT.2) ) {
                zswap(J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA );
             }
          }

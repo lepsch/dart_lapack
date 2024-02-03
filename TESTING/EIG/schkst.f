@@ -713,7 +713,7 @@
                }
             }
 
-            if ( M3 == 0 .AND. N != 0 ) {
+            if ( M3 == 0 && N != 0 ) {
                RESULT( 19 ) = ULPINV
                GO TO 280
             }
@@ -850,7 +850,7 @@
 
             // Only test SSTEMR if IEEE compliant
 
-            if ( ILAENV( 10, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 .AND. ILAENV( 11, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
+            if ( ILAENV( 10, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 && ILAENV( 11, 'SSTEMR', 'VA', 1, 0, 0, 0 ) == 1 ) {
 
             // Call SSTEMR, do test 27 (relative eigenvalue accuracy)
 
@@ -861,7 +861,7 @@
                VU = ZERO
                IL = 0
                IU = 0
-               if ( JTYPE == 21 .AND. SREL ) {
+               if ( JTYPE == 21 && SREL ) {
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
                   sstemr('V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK, LWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO );

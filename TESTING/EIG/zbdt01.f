@@ -49,7 +49,7 @@
 
          // B is bidiagonal.
 
-         if ( KD != 0 .AND. M.GE.N ) {
+         if ( KD != 0 && M.GE.N ) {
 
             // B is upper bidiagonal and M >= N.
 

@@ -67,11 +67,11 @@
          LWMIN = ILAENV2STAGE( 4, 'CHETRD_HB2ST', VECT, N, KD, IB, -1 )
       }
 
-      if ( .NOT.AFTERS1 .AND. .NOT.LSAME( STAGE1, 'N' ) ) {
+      if ( .NOT.AFTERS1 && .NOT.LSAME( STAGE1, 'N' ) ) {
          INFO = -1
       } else if ( .NOT.LSAME( VECT, 'N' ) ) {
          INFO = -2
-      } else if ( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) {
+      } else if ( .NOT.UPPER && .NOT.LSAME( UPLO, 'L' ) ) {
          INFO = -3
       } else if ( N.LT.0 ) {
          INFO = -4
@@ -79,9 +79,9 @@
          INFO = -5
       } else if ( LDAB.LT.(KD+1) ) {
          INFO = -7
-      } else if ( LHOUS.LT.LHMIN .AND. .NOT.LQUERY ) {
+      } else if ( LHOUS.LT.LHMIN && .NOT.LQUERY ) {
          INFO = -11
-      } else if ( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) {
+      } else if ( LWORK.LT.LWMIN && .NOT.LQUERY ) {
          INFO = -13
       }
 
@@ -265,7 +265,7 @@
                               COLPT      = ((MYID+1)/2)*KD + SWEEPID
                               STIND      = COLPT-KD+1
                               EDIND      = MIN(COLPT,N)
-                              if ( ( STIND.GE.EDIND-1 ).AND. ( EDIND == N ) ) {
+                              if ( ( STIND.GE.EDIND-1 ) && ( EDIND == N ) ) {
                                   BLKLASTIND = N
                               } else {
                                   BLKLASTIND = 0

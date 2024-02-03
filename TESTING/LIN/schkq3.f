@@ -174,7 +174,7 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 50
                      if ( RESULT( K ).GE.THRESH ) {
-                        if (NFAIL == 0 .AND. NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SGEQP3', M, N, NB, IMODE, K, RESULT( K );
+                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SGEQP3', M, N, NB, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1
                      }
                   } // 50

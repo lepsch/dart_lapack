@@ -44,11 +44,11 @@
 
          // ASCII character set
 
-         if ( IC.GE.97 .AND. IC.LE.122 ) {
+         if ( IC.GE.97 && IC.LE.122 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 20
                IC = ICHAR( SUBNAM( I: I ) )
-               if (IC.GE.97 .AND. IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
+               if (IC.GE.97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 20
          }
 
@@ -56,11 +56,11 @@
 
          // EBCDIC character set
 
-         if ( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) {
+         if ( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) ) {
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
             for (I = 2; I <= 6; I++) { // 30
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+               IF( ( IC.GE.129 && IC.LE.137 ) .OR. ( IC.GE.145 && IC.LE.153 ) .OR. ( IC.GE.162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
             } // 30
          }
 
@@ -68,11 +68,11 @@
 
          // Prime machines:  ASCII+128
 
-         if ( IC.GE.225 .AND. IC.LE.250 ) {
+         if ( IC.GE.225 && IC.LE.250 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 40
                IC = ICHAR( SUBNAM( I: I ) )
-               if (IC.GE.225 .AND. IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
+               if (IC.GE.225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 40
          }
       }
@@ -84,7 +84,7 @@
       C2 = SUBNAM( 2: 3 )
       C3 = SUBNAM( 4: 6 )
       C4 = C3( 2: 3 )
-      TWOSTAGE = LEN( SUBNAM ).GE.11 .AND. SUBNAM( 11: 11 ) == '2'
+      TWOSTAGE = LEN( SUBNAM ).GE.11 && SUBNAM( 11: 11 ) == '2'
 
       GO TO ( 50, 60, 70 )ISPEC
 
@@ -214,12 +214,12 @@
                   NB = 64
                }
             }
-         } else if ( SNAME .AND. C3 == 'TRD' ) {
+         } else if ( SNAME && C3 == 'TRD' ) {
             NB = 32
-         } else if ( SNAME .AND. C3 == 'GST' ) {
+         } else if ( SNAME && C3 == 'GST' ) {
             NB = 64
          }
-      } else if ( CNAME .AND. C2 == 'HE' ) {
+      } else if ( CNAME && C2 == 'HE' ) {
          if ( C3 == 'TRF' ) {
             if ( TWOSTAGE ) {
                NB = 192
@@ -231,7 +231,7 @@
          } else if ( C3 == 'GST' ) {
             NB = 64
          }
-      } else if ( SNAME .AND. C2 == 'OR' ) {
+      } else if ( SNAME && C2 == 'OR' ) {
          if ( C3( 1: 1 ) == 'G' ) {
             if ( C4 == 'QR' .OR. C4 == 'RQ' .OR. C4 == 'LQ' .OR. C4 == 'QL' .OR. C4 == 'HR' .OR. C4 == 'TR' .OR. C4 == 'BR' ) {
                NB = 32
@@ -241,7 +241,7 @@
                NB = 32
             }
          }
-      } else if ( CNAME .AND. C2 == 'UN' ) {
+      } else if ( CNAME && C2 == 'UN' ) {
          if ( C3( 1: 1 ) == 'G' ) {
             if ( C4 == 'QR' .OR. C4 == 'RQ' .OR. C4 == 'LQ' .OR. C4 == 'QL' .OR. C4 == 'HR' .OR. C4 == 'TR' .OR. C4 == 'BR' ) {
                NB = 32
@@ -318,7 +318,7 @@
                NB = 32
             }
          }
-      } else if ( SNAME .AND. C2 == 'ST' ) {
+      } else if ( SNAME && C2 == 'ST' ) {
          if ( C3 == 'EBZ' ) {
             NB = 1
          }
@@ -380,14 +380,14 @@
             } else {
                NBMIN = 8
             }
-         } else if ( SNAME .AND. C3 == 'TRD' ) {
+         } else if ( SNAME && C3 == 'TRD' ) {
             NBMIN = 2
          }
-      } else if ( CNAME .AND. C2 == 'HE' ) {
+      } else if ( CNAME && C2 == 'HE' ) {
          if ( C3 == 'TRD' ) {
             NBMIN = 2
          }
-      } else if ( SNAME .AND. C2 == 'OR' ) {
+      } else if ( SNAME && C2 == 'OR' ) {
          if ( C3( 1: 1 ) == 'G' ) {
             if ( C4 == 'QR' .OR. C4 == 'RQ' .OR. C4 == 'LQ' .OR. C4 == 'QL' .OR. C4 == 'HR' .OR. C4 == 'TR' .OR. C4 == 'BR' ) {
                NBMIN = 2
@@ -397,7 +397,7 @@
                NBMIN = 2
             }
          }
-      } else if ( CNAME .AND. C2 == 'UN' ) {
+      } else if ( CNAME && C2 == 'UN' ) {
          if ( C3( 1: 1 ) == 'G' ) {
             if ( C4 == 'QR' .OR. C4 == 'RQ' .OR. C4 == 'LQ' .OR. C4 == 'QL' .OR. C4 == 'HR' .OR. C4 == 'TR' .OR. C4 == 'BR' ) {
                NBMIN = 2
@@ -448,20 +448,20 @@
             }
          }
       } else if ( C2 == 'SY' ) {
-         if ( SNAME .AND. C3 == 'TRD' ) {
+         if ( SNAME && C3 == 'TRD' ) {
             NX = 32
          }
-      } else if ( CNAME .AND. C2 == 'HE' ) {
+      } else if ( CNAME && C2 == 'HE' ) {
          if ( C3 == 'TRD' ) {
             NX = 32
          }
-      } else if ( SNAME .AND. C2 == 'OR' ) {
+      } else if ( SNAME && C2 == 'OR' ) {
          if ( C3( 1: 1 ) == 'G' ) {
             if ( C4 == 'QR' .OR. C4 == 'RQ' .OR. C4 == 'LQ' .OR. C4 == 'QL' .OR. C4 == 'HR' .OR. C4 == 'TR' .OR. C4 == 'BR' ) {
                NX = 128
             }
          }
-      } else if ( CNAME .AND. C2 == 'UN' ) {
+      } else if ( CNAME && C2 == 'UN' ) {
          if ( C3( 1: 1 ) == 'G' ) {
             if ( C4 == 'QR' .OR. C4 == 'RQ' .OR. C4 == 'LQ' .OR. C4 == 'QL' .OR. C4 == 'HR' .OR. C4 == 'TR' .OR. C4 == 'BR' ) {
                NX = 128
