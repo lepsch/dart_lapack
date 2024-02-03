@@ -73,4 +73,4 @@
 
       // End of STPLQT
 
-      END
+      }

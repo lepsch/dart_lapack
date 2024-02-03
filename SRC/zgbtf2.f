@@ -120,4 +120,4 @@
 
       // End of ZGBTF2
 
-      END
+      }

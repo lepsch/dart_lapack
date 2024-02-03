@@ -98,4 +98,4 @@
 
       // End of SGET01
 
-      END
+      }

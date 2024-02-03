@@ -274,4 +274,4 @@
 
       // End of SGET31
 
-      END
+      }

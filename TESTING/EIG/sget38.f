@@ -365,4 +365,4 @@
 
       // End of SGET38
 
-      END
+      }

@@ -495,4 +495,4 @@
 
       // End of ZCHKHB2STG
 
-      END
+      }

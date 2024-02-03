@@ -253,4 +253,4 @@
 
       // End of SLA_GBRFSX_EXTENDED
 
-      END
+      }

@@ -290,7 +290,7 @@
 
       // End of DBLAT3
 
-      END
+      }
       SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests DGEMM.
@@ -541,7 +541,7 @@
 
       // End of DCHK1
 
-      END
+      }
       SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests DSYMM.
@@ -779,7 +779,7 @@
 
       // End of DCHK2
 
-      END
+      }
       SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C )
 
 *  Tests DTRMM and DTRSM.
@@ -1035,7 +1035,7 @@
 
       // End of DCHK3
 
-      END
+      }
       SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests DSYRK.
@@ -1276,7 +1276,7 @@
 
       // End of DCHK4
 
-      END
+      }
       SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W )
 
 *  Tests DSYR2K.
@@ -1546,7 +1546,7 @@
 
       // End of DCHK5
 
-      END
+      }
       SUBROUTINE DCHKE( ISNUM, SRNAMT, NOUT )
 
 *  Tests the error exits from the Level 3 Blas.
@@ -2100,7 +2100,7 @@
 
       // End of DCHKE
 
-      END
+      }
       SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
 
 *  Generates values for an M by N matrix A.
@@ -2207,7 +2207,7 @@
 
       // End of DMAKE
 
-      END
+      }
       SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2323,7 +2323,7 @@
 
       // End of DMMCH
 
-      END
+      }
       bool    FUNCTION LDE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2354,7 +2354,7 @@
 
       // End of LDE
 
-      END
+      }
       bool    FUNCTION LDERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2412,7 +2412,7 @@
 
       // End of LDERES
 
-      END
+      }
       double           FUNCTION DBEG( RESET );
 
 *  Generates random numbers uniformly distributed between -0.5 and 0.5.
@@ -2458,7 +2458,7 @@
 
       // End of DBEG
 
-      END
+      }
       double           FUNCTION DDIFF( X, Y );
 
 *  Auxiliary routine for test program for Level 3 Blas.
@@ -2477,7 +2477,7 @@
 
       // End of DDIFF
 
-      END
+      }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
 
 *  Tests whether XERBLA has detected an error when it should.
@@ -2507,7 +2507,7 @@
 
       // End of CHKXER
 
-      END
+      }
       SUBROUTINE XERBLA( SRNAME, INFO )
 
 *  This is a special version of XERBLA to be used only as part of
@@ -2562,4 +2562,4 @@
 
       // End of XERBLA
 
-      END
+      }

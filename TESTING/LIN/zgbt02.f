@@ -123,4 +123,4 @@
 
       // End of ZGBT02
 
-      END
+      }

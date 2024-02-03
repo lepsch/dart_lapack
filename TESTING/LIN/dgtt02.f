@@ -76,4 +76,4 @@
 
       // End of DGTT02
 
-      END
+      }

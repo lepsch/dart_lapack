@@ -600,4 +600,4 @@
 
       // End of SCHKGG
 
-      END
+      }

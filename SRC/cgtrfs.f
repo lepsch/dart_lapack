@@ -246,4 +246,4 @@
 
       // End of CGTRFS
 
-      END
+      }

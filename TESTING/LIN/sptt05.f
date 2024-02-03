@@ -102,4 +102,4 @@
 
       // End of SPTT05
 
-      END
+      }

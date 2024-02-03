@@ -86,4 +86,4 @@
 
       // End of SGET02
 
-      END
+      }

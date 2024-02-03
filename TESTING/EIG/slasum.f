@@ -26,4 +26,4 @@
 
 *    End of SLASUM
 
-      END
+      }

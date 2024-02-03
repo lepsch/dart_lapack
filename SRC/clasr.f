@@ -232,4 +232,4 @@
 
       // End of CLASR
 
-      END
+      }

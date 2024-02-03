@@ -595,4 +595,4 @@
 
       // End of ZSYTF2_ROOK
 
-      END
+      }

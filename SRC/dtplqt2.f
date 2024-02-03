@@ -126,4 +126,4 @@
 
       // End of DTPLQT2
 
-      END
+      }

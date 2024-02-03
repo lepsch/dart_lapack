@@ -171,4 +171,4 @@
 
       // End of SPOSVXX
 
-      END
+      }

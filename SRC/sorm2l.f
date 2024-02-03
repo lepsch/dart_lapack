@@ -112,4 +112,4 @@
 
       // End of SORM2L
 
-      END
+      }

@@ -28,4 +28,4 @@
 
       // End of CHLA_TRANSTYPE
 
-      END
+      }

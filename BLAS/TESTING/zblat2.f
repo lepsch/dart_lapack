@@ -309,7 +309,7 @@
 
       // End of ZBLAT2
 
-      END
+      }
       SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
 
 *  Tests ZGEMV and ZGBMV.
@@ -626,7 +626,7 @@
 
       // End of ZCHK1
 
-      END
+      }
       SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
 
 *  Tests ZHEMV, ZHBMV and ZHPMV.
@@ -931,7 +931,7 @@
 
       // End of ZCHK2
 
-      END
+      }
       SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z )
 
 *  Tests ZTRMV, ZTBMV, ZTPMV, ZTRSV, ZTBSV and ZTPSV.
@@ -1234,7 +1234,7 @@
 
       // End of ZCHK3
 
-      END
+      }
       SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests ZGERC and ZGERU.
@@ -1477,7 +1477,7 @@
 
       // End of ZCHK4
 
-      END
+      }
       SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests ZHER and ZHPR.
@@ -1735,7 +1735,7 @@
 
       // End of ZCHK5
 
-      END
+      }
       SUBROUTINE ZCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests ZHER2 and ZHPR2.
@@ -2023,7 +2023,7 @@
 
       // End of ZCHK6
 
-      END
+      }
       SUBROUTINE ZCHKE( ISNUM, SRNAMT, NOUT )
 
 *  Tests the error exits from the Level 2 Blas.
@@ -2362,7 +2362,7 @@
 
       // End of ZCHKE
 
-      END
+      }
       SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
 
 *  Generates values for an M by N matrix A within the bandwidth
@@ -2542,7 +2542,7 @@
 
       // End of ZMAKE
 
-      END
+      }
       SUBROUTINE ZMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2669,7 +2669,7 @@
 
       // End of ZMVCH
 
-      END
+      }
       bool    FUNCTION LZE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2698,7 +2698,7 @@
 
       // End of LZE
 
-      END
+      }
       bool    FUNCTION LZERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2754,7 +2754,7 @@
 
       // End of LZERES
 
-      END
+      }
       COMPLEX*16 FUNCTION ZBEG( RESET )
 
 *  Generates complex numbers as pairs of random numbers uniformly
@@ -2806,7 +2806,7 @@
 
       // End of ZBEG
 
-      END
+      }
       double           FUNCTION DDIFF( X, Y );
 
 *  Auxiliary routine for test program for Level 2 Blas.
@@ -2822,7 +2822,7 @@
 
       // End of DDIFF
 
-      END
+      }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
 
 *  Tests whether XERBLA has detected an error when it should.
@@ -2850,7 +2850,7 @@
 
       // End of CHKXER
 
-      END
+      }
       SUBROUTINE ZREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS )
 
 *  Input initialization for regression test.
@@ -2882,7 +2882,7 @@
          YS( I ) = Y( I )
   10  CONTINUE
       RETURN
-      END
+      }
       SUBROUTINE XERBLA( SRNAME, INFO )
 
 *  This is a special version of XERBLA to be used only as part of
@@ -2935,4 +2935,4 @@
 
       // End of XERBLA
 
-      END
+      }

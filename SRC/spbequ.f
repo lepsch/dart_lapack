@@ -109,4 +109,4 @@
 
       // End of SPBEQU
 
-      END
+      }

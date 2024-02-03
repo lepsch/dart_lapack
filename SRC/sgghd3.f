@@ -574,4 +574,4 @@
 
       // End of SGGHD3
 
-      END
+      }

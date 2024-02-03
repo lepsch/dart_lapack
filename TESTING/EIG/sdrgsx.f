@@ -567,4 +567,4 @@
 
       // End of SDRGSX
 
-      END
+      }

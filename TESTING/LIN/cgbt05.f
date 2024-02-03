@@ -120,4 +120,4 @@
 
       // End of CGBT05
 
-      END
+      }

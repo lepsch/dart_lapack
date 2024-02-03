@@ -56,4 +56,4 @@
 
       // End of IZMAX1
 
-      END
+      }

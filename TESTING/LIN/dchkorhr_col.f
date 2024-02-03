@@ -187,4 +187,4 @@
 
       // End of DCHKORHR_COL
 
-      END
+      }

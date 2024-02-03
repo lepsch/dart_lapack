@@ -219,4 +219,4 @@
 
       // End of DORM22
 
-      END
+      }

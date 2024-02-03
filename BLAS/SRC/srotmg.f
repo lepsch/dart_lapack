@@ -168,4 +168,4 @@
 
       // End of SROTMG
 
-      END
+      }

@@ -528,4 +528,4 @@
 
       // End of ZLATTB
 
-      END
+      }

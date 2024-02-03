@@ -120,4 +120,4 @@
 
       // End of CGET36
 
-      END
+      }

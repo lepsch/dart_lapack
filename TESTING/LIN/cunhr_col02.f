@@ -246,4 +246,4 @@
 
       // End of CUNHR_COL02
 
-      END
+      }

@@ -106,4 +106,4 @@
 
       // End of SLAQP2
 
-      END
+      }

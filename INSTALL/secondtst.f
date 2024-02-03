@@ -81,9 +81,9 @@
  9994 FORMAT( ' *** Warning:  Time for operations was less or equal',
      $        ' than zero => timing in TESTING might be dubious' )
       CALL MYSUB(NMAX,X,Y)
-      END
+      }
       SUBROUTINE MYSUB(N,X,Y)
       int     N;
       REAL X(N), Y(N)
       RETURN
-      END
+      }

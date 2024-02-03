@@ -78,4 +78,4 @@
 
       // End of DSYTRI2
 
-      END
+      }

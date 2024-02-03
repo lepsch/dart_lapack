@@ -283,4 +283,4 @@
 
       // End of ZUNHR_COL01
 
-      END
+      }

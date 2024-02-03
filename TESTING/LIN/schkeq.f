@@ -358,4 +358,4 @@
 
       // End of SCHKEQ
 
-      END
+      }

@@ -120,4 +120,4 @@
 
       // End of SPPCON
 
-      END
+      }

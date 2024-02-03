@@ -241,4 +241,4 @@
 
       // End of SLASQ4
 
-      END
+      }

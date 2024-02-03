@@ -72,4 +72,4 @@
 
       // End of SLARZT
 
-      END
+      }

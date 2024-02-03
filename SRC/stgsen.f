@@ -366,4 +366,4 @@
 
       // End of STGSEN
 
-      END
+      }

@@ -66,4 +66,4 @@
 
       // End of CGERQ2
 
-      END
+      }

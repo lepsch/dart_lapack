@@ -27,4 +27,4 @@
 
  9999 FORMAT( ' *** Error:  LSAME( ', A1, ', ', A1, ') is .FALSE.' )
  9998 FORMAT( ' *** Error:  LSAME( ', A1, ', ', A1, ') is .TRUE.' )
-      END
+      }

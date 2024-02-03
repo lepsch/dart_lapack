@@ -126,4 +126,4 @@
 
       // End of ZPTTS2
 
-      END
+      }

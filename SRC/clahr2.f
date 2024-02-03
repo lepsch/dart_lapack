@@ -108,4 +108,4 @@
 
       // End of CLAHR2
 
-      END
+      }

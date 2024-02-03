@@ -566,4 +566,4 @@
 
       // End of CLATTR
 
-      END
+      }

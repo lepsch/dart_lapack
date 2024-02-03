@@ -109,4 +109,4 @@
 
       // End of SGET40
 
-      END
+      }

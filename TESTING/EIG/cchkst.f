@@ -1218,4 +1218,4 @@
  9987 FORMAT( / 'Test performed:  see CCHKST for details.', / )
       // End of CCHKST
 
-      END
+      }

@@ -81,4 +81,4 @@
 
       // End of DORGR2
 
-      END
+      }

@@ -76,4 +76,4 @@
 
       // End of SHST01
 
-      END
+      }

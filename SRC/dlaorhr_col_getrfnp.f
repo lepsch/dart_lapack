@@ -91,4 +91,4 @@
 
       // End of DLAORHR_COL_GETRFNP
 
-      END
+      }

@@ -78,4 +78,4 @@
 
       // End of CGET04
 
-      END
+      }

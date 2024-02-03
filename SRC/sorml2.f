@@ -116,4 +116,4 @@
 
       // End of SORML2
 
-      END
+      }

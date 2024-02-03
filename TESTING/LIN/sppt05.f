@@ -122,4 +122,4 @@
 
       // End of SPPT05
 
-      END
+      }

@@ -603,4 +603,4 @@
 
       // End of ZCHKHE_ROOK
 
-      END
+      }

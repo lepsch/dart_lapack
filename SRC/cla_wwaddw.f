@@ -29,4 +29,4 @@
 
       // End of CLA_WWADDW
 
-      END
+      }

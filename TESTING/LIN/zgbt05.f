@@ -120,4 +120,4 @@
 
       // End of ZGBT05
 
-      END
+      }

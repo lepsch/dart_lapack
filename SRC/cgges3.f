@@ -287,4 +287,4 @@
 
       // End of CGGES3
 
-      END
+      }

@@ -197,4 +197,4 @@
 
       // End of CGTTS2
 
-      END
+      }

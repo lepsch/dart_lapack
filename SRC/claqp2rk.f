@@ -374,4 +374,4 @@
 
       // End of CLAQP2RK
 
-      END
+      }

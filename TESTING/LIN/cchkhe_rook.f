@@ -603,4 +603,4 @@
 
       // End of CCHKHE_ROOK
 
-      END
+      }

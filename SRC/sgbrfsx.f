@@ -285,4 +285,4 @@
 
       // End of SGBRFSX
 
-      END
+      }

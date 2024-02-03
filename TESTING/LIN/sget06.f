@@ -45,4 +45,4 @@
 
       // End of SGET06
 
-      END
+      }

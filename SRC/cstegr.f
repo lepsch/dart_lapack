@@ -30,4 +30,4 @@
 
       // End of CSTEGR
 
-      END
+      }

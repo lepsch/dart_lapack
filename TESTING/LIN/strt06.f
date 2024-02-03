@@ -74,4 +74,4 @@
 
       // End of STRT06
 
-      END
+      }

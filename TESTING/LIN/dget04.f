@@ -71,4 +71,4 @@
 
       // End of DGET04
 
-      END
+      }

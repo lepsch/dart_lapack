@@ -126,4 +126,4 @@
 
       // End of SLASQ6
 
-      END
+      }

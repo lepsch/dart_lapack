@@ -1263,4 +1263,4 @@
 
       // End of SCHKST2STG
 
-      END
+      }

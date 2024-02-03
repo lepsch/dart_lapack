@@ -117,4 +117,4 @@
 
       // End of SPOT05
 
-      END
+      }

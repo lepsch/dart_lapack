@@ -300,4 +300,4 @@
 
       // End of SGETSLS
 
-      END
+      }

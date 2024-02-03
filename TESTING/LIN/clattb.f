@@ -528,4 +528,4 @@
 
       // End of CLATTB
 
-      END
+      }

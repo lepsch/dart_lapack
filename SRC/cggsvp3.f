@@ -278,4 +278,4 @@
 
       // End of CGGSVP3
 
-      END
+      }

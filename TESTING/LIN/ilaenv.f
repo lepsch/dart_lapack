@@ -92,7 +92,7 @@
 
       // End of ILAENV
 
-      END
+      }
       int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
       // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
@@ -137,4 +137,4 @@
       END IF
 
       RETURN
-      END
+      }

@@ -260,4 +260,4 @@
 
       // End of ZLA_GBRFSX_EXTENDED
 
-      END
+      }

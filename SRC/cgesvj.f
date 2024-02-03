@@ -945,5 +945,5 @@
       // ..
       // .. END OF CGESVJ
       // ..
-      END
+      }
 

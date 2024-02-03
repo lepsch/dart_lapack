@@ -97,4 +97,4 @@
 
       // End of SPTCON
 
-      END
+      }

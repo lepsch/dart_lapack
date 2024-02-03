@@ -230,4 +230,4 @@
 
       // End of CLAIC1
 
-      END
+      }

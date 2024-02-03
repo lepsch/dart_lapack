@@ -197,4 +197,4 @@
 
       // End of ZGTTS2
 
-      END
+      }

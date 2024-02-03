@@ -282,4 +282,4 @@
 
       // End of DERRBD
 
-      END
+      }

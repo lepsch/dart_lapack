@@ -182,4 +182,4 @@
 
       // End of CHB2ST_KERNELS
 
-      END
+      }

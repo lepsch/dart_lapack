@@ -127,4 +127,4 @@
 
       // End of SQLT03
 
-      END
+      }

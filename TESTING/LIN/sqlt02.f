@@ -95,4 +95,4 @@
 
       // End of SQLT02
 
-      END
+      }

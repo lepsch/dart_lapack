@@ -1277,4 +1277,4 @@
 
       // End of ZCHKST2STG
 
-      END
+      }

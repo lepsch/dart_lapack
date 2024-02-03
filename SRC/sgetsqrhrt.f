@@ -167,4 +167,4 @@
 
       // End of SGETSQRHRT
 
-      END
+      }

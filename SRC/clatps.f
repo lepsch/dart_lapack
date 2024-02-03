@@ -723,4 +723,4 @@
 
       // End of CLATPS
 
-      END
+      }

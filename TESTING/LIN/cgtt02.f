@@ -76,4 +76,4 @@
 
       // End of CGTT02
 
-      END
+      }

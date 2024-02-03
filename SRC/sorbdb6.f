@@ -150,4 +150,4 @@
 
       // End of SORBDB6
 
-      END
+      }

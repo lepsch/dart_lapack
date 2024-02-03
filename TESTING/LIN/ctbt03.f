@@ -101,4 +101,4 @@
 
       // End of CTBT03
 
-      END
+      }

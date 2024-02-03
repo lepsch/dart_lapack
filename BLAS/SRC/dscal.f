@@ -59,4 +59,4 @@
 
       // End of DSCAL
 
-      END
+      }

@@ -42,4 +42,4 @@
 
       // End of SLAPY3
 
-      END
+      }

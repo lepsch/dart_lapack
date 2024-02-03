@@ -90,4 +90,4 @@
 
       // End of SPOT03
 
-      END
+      }

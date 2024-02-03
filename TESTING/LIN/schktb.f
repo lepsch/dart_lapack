@@ -349,4 +349,4 @@
 
       // End of SCHKTB
 
-      END
+      }

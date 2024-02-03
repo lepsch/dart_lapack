@@ -122,4 +122,4 @@
 
       // End of CGET07
 
-      END
+      }

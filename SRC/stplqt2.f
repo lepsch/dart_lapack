@@ -126,4 +126,4 @@
 
       // End of STPLQT2
 
-      END
+      }

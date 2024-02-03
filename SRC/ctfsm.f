@@ -556,4 +556,4 @@
 
       // End of CTFSM
 
-      END
+      }

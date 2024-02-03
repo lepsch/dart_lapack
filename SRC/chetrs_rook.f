@@ -328,4 +328,4 @@
 
       // End of CHETRS_ROOK
 
-      END
+      }

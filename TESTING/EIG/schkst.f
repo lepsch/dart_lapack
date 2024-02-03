@@ -1205,4 +1205,4 @@
  9988 FORMAT( / 'Test performed:  see SCHKST for details.', / )
       // End of SCHKST
 
-      END
+      }

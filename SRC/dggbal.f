@@ -347,4 +347,4 @@
 
       // End of DGGBAL
 
-      END
+      }

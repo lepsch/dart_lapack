@@ -302,4 +302,4 @@
 
       // End of DSYTRD_SB2ST
 
-      END
+      }

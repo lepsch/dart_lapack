@@ -74,4 +74,4 @@
 
       // End of DTPT06
 
-      END
+      }

@@ -102,4 +102,4 @@
 
       // End of CGET01
 
-      END
+      }

@@ -653,4 +653,4 @@
 
       // End of DLASYF_ROOK
 
-      END
+      }

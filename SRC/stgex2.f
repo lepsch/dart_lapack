@@ -377,4 +377,4 @@
 
       // End of STGEX2
 
-      END
+      }

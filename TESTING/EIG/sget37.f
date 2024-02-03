@@ -451,4 +451,4 @@
 
       // End of SGET37
 
-      END
+      }

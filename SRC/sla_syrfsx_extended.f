@@ -271,4 +271,4 @@
 
       // End of SLA_SYRFSX_EXTENDED
 
-      END
+      }

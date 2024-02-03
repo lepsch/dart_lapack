@@ -105,4 +105,4 @@
       IF( GAMMA.LT.ZERO ) NEGCNT = NEGCNT+1
 
       SLANEG = NEGCNT
-      END
+      }

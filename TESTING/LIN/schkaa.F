@@ -840,4 +840,4 @@
 
       // End of SCHKAA
 
-      END
+      }

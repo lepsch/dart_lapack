@@ -367,4 +367,4 @@
 
       // End of SCHKTR
 
-      END
+      }

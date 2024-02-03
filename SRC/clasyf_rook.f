@@ -662,4 +662,4 @@
 
       // End of CLASYF_ROOK
 
-      END
+      }

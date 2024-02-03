@@ -120,4 +120,4 @@
 
       // End of CGBTF2
 
-      END
+      }

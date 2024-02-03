@@ -163,4 +163,4 @@
 
       // End of DGETSQRHRT
 
-      END
+      }

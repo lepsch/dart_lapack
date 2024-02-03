@@ -305,4 +305,4 @@
 
       // End of CGGEV3
 
-      END
+      }

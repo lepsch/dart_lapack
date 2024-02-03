@@ -145,4 +145,4 @@
 
       // End of SCHKTSQR
 
-      END
+      }

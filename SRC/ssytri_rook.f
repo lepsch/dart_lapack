@@ -283,4 +283,4 @@
 
       // End of SSYTRI_ROOK
 
-      END
+      }

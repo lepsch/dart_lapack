@@ -243,4 +243,4 @@
 
       // End of STREXC
 
-      END
+      }

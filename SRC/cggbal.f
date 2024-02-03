@@ -363,4 +363,4 @@
 
       // End of CGGBAL
 
-      END
+      }

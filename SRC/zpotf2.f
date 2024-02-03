@@ -119,4 +119,4 @@
 
       // End of ZPOTF2
 
-      END
+      }

@@ -91,4 +91,4 @@
 
       // End of CLAUNHR_COL_GETRFNP
 
-      END
+      }

@@ -295,7 +295,7 @@
 
       // End of ZBLAT3
 
-      END
+      }
       SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests ZGEMM.
@@ -550,7 +550,7 @@
 
       // End of ZCHK1
 
-      END
+      }
       SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests ZHEMM and ZSYMM.
@@ -797,7 +797,7 @@
 
       // End of ZCHK2
 
-      END
+      }
       SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C )
 
 *  Tests ZTRMM and ZTRSM.
@@ -1058,7 +1058,7 @@
 
       // End of ZCHK3
 
-      END
+      }
       SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests ZHERK and ZSYRK.
@@ -1347,7 +1347,7 @@
 
       // End of ZCHK4
 
-      END
+      }
       SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W )
 
 *  Tests ZHER2K and ZSYR2K.
@@ -1661,7 +1661,7 @@
 
       // End of ZCHK5
 
-      END
+      }
       SUBROUTINE ZCHKE( ISNUM, SRNAMT, NOUT )
 
 *  Tests the error exits from the Level 3 Blas.
@@ -2603,7 +2603,7 @@
 
       // End of ZCHKE
 
-      END
+      }
       SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
 
 *  Generates values for an M by N matrix A.
@@ -2723,7 +2723,7 @@
 
       // End of ZMAKE
 
-      END
+      }
       SUBROUTINE ZMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2892,7 +2892,7 @@
 
       // End of ZMMCH
 
-      END
+      }
       bool    FUNCTION LZE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2923,7 +2923,7 @@
 
       // End of LZE
 
-      END
+      }
       bool    FUNCTION LZERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2981,7 +2981,7 @@
 
       // End of LZERES
 
-      END
+      }
       COMPLEX*16     FUNCTION ZBEG( RESET )
 
 *  Generates complex numbers as pairs of random numbers uniformly
@@ -3035,7 +3035,7 @@
 
       // End of ZBEG
 
-      END
+      }
       double           FUNCTION DDIFF( X, Y );
 
 *  Auxiliary routine for test program for Level 3 Blas.
@@ -3054,7 +3054,7 @@
 
       // End of DDIFF
 
-      END
+      }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
 
 *  Tests whether XERBLA has detected an error when it should.
@@ -3084,7 +3084,7 @@
 
       // End of CHKXER
 
-      END
+      }
       SUBROUTINE XERBLA( SRNAME, INFO )
 
 *  This is a special version of XERBLA to be used only as part of
@@ -3139,4 +3139,4 @@
 
       // End of XERBLA
 
-      END
+      }

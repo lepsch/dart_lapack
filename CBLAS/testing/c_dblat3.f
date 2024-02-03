@@ -360,7 +360,7 @@
 
       // End of DBLAT3.
 
-      END
+      }
       SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
 
 *  Tests DGEMM.
@@ -618,7 +618,7 @@
 
       // End of DCHK1.
 
-      END
+      }
       SUBROUTINE DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
       double           ALPHA, BETA;
@@ -651,7 +651,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
  9994 FORMAT( 20X, 3( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',',
      $ F4.1, ', ', 'C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
 
@@ -897,7 +897,7 @@
 
       // End of DCHK2.
 
-      END
+      }
 
       SUBROUTINE DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
@@ -927,7 +927,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
  9994 FORMAT( 20X, 2( I3, ',' ), F4.1, ', A,', I3, ', B,', I3, ',',
      $ F4.1, ', ', 'C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER )
 
@@ -1191,7 +1191,7 @@
 
       // End of DCHK3.
 
-      END
+      }
 
       SUBROUTINE DPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
@@ -1233,7 +1233,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
  9994 FORMAT( 22X, 2( A14, ',') , 2( I3, ',' ),
      $      F4.1, ', A,', I3, ', B,', I3, ').' )
-      END
+      }
 
       SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
 
@@ -1482,7 +1482,7 @@
 
       // End of DCHK4.
 
-      END
+      }
 
       SUBROUTINE DPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
@@ -1514,7 +1514,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
  9994 FORMAT( 20X, 2( I3, ',' ),
      $      F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER )
 
@@ -1791,7 +1791,7 @@
 
       // End of DCHK5.
 
-      END
+      }
 
       SUBROUTINE DPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
@@ -1823,7 +1823,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
  9994 FORMAT( 20X, 2( I3, ',' ),
      $      F4.1, ', A,', I3, ', B', I3, ',', F4.1, ', C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
 
@@ -1931,7 +1931,7 @@
 
       // End of DMAKE.
 
-      END
+      }
       SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2047,7 +2047,7 @@
 
       // End of DMMCH.
 
-      END
+      }
       bool    FUNCTION LDE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2078,7 +2078,7 @@
 
       // End of LDE.
 
-      END
+      }
       bool    FUNCTION LDERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2137,7 +2137,7 @@
 
       // End of LDERES.
 
-      END
+      }
       double           FUNCTION DBEG( RESET );
 
 *  Generates random numbers uniformly distributed between -0.5 and 0.5.
@@ -2183,7 +2183,7 @@
 
       // End of DBEG.
 
-      END
+      }
       double           FUNCTION DDIFF( X, Y );
 
 *  Auxiliary routine for test program for Level 3 Blas.
@@ -2202,4 +2202,4 @@
 
       // End of DDIFF.
 
-      END
+      }

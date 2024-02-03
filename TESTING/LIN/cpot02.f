@@ -76,4 +76,4 @@
 
       // End of CPOT02
 
-      END
+      }

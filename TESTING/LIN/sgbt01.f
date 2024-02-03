@@ -108,4 +108,4 @@
 
       // End of SGBT01
 
-      END
+      }

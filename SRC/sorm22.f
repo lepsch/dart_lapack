@@ -220,4 +220,4 @@
 
       // End of SORM22
 
-      END
+      }

@@ -53,4 +53,4 @@
 
       // End of CLACP2
 
-      END
+      }

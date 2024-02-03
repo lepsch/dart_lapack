@@ -617,4 +617,4 @@
 
       // End of CCHKSY_RK
 
-      END
+      }

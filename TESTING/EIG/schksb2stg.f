@@ -492,4 +492,4 @@
 
       // End of SCHKSB2STG
 
-      END
+      }

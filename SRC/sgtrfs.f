@@ -238,4 +238,4 @@
 
       // End of SGTRFS
 
-      END
+      }

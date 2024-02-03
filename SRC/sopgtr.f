@@ -112,4 +112,4 @@
 
       // End of SOPGTR
 
-      END
+      }

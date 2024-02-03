@@ -664,4 +664,4 @@
 
       // End of CLATTP
 
-      END
+      }

@@ -225,4 +225,4 @@
 
       // End of ZLATM4
 
-      END
+      }

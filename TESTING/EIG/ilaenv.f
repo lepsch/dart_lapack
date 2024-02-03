@@ -96,7 +96,7 @@
 
       // End of ILAENV
 
-      END
+      }
       int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
       // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
@@ -144,7 +144,7 @@
 
       // End of ILAENV2STAGE
 
-      END
+      }
       int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
 
       int                INMIN, INWIN, INIBL, ISHFTS, IACC22;
@@ -228,4 +228,4 @@
 
       // ==== End of IPARMQ ====
 
-      END
+      }

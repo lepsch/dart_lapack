@@ -170,4 +170,4 @@
 
       // End of DDRVRF2
 
-      END
+      }

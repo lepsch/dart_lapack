@@ -74,4 +74,4 @@
 
       // End of CLASET
 
-      END
+      }

@@ -283,4 +283,4 @@
 
       // End of CGBRFSX
 
-      END
+      }

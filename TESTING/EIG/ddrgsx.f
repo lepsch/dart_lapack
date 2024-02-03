@@ -566,4 +566,4 @@
 
       // End of DDRGSX
 
-      END
+      }

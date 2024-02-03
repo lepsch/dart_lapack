@@ -154,4 +154,4 @@
 
       // End of SGBCON
 
-      END
+      }

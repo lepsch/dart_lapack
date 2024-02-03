@@ -528,4 +528,4 @@
 
       // End of ZGET24
 
-      END
+      }

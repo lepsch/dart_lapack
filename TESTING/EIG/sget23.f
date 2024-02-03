@@ -423,4 +423,4 @@
 
       // End of SGET23
 
-      END
+      }

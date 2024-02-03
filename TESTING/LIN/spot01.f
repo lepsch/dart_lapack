@@ -112,4 +112,4 @@
 
       // End of SPOT01
 
-      END
+      }

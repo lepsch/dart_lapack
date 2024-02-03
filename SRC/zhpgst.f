@@ -151,4 +151,4 @@
 
       // End of ZHPGST
 
-      END
+      }

@@ -352,4 +352,4 @@
 
       // End of CCHKGT
 
-      END
+      }

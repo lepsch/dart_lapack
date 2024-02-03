@@ -418,4 +418,4 @@
 
       // End of SLATRS3
 
-      END
+      }

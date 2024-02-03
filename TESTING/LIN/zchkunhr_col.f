@@ -187,4 +187,4 @@
 
       // End of ZCHKUNHR_COL
 
-      END
+      }

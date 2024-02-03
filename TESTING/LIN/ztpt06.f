@@ -74,4 +74,4 @@
 
       // End of ZTPT06
 
-      END
+      }

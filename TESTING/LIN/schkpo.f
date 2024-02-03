@@ -305,4 +305,4 @@
 
       // End of SCHKPO
 
-      END
+      }

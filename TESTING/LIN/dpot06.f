@@ -76,4 +76,4 @@
 
       // End of DPOT06
 
-      END
+      }

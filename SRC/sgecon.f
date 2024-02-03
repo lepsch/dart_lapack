@@ -145,4 +145,4 @@
 
       // End of SGECON
 
-      END
+      }

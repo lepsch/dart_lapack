@@ -76,4 +76,4 @@
 
       // End of ZGTT02
 
-      END
+      }

@@ -81,4 +81,4 @@
 
       // End of SORGR2
 
-      END
+      }

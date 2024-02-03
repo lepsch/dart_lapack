@@ -109,4 +109,4 @@
 
       // End of CLAQP2
 
-      END
+      }

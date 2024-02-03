@@ -140,4 +140,4 @@
 
       // End of STPT05
 
-      END
+      }

@@ -604,4 +604,4 @@
 
       // End of ZCHKGG
 
-      END
+      }

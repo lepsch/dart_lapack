@@ -377,4 +377,4 @@
 
       // End of CLAVSY_ROOK
 
-      END
+      }

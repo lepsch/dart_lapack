@@ -104,4 +104,4 @@
 
       // End of SERRORHR_COL
 
-      END
+      }

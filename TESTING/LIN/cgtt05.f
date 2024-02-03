@@ -128,4 +128,4 @@
 
       // End of CGTT05
 
-      END
+      }

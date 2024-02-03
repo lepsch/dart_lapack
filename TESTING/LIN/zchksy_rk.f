@@ -680,4 +680,4 @@
 
       // End of ZCHKSY_RK
 
-      END
+      }

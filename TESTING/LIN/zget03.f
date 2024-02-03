@@ -74,4 +74,4 @@
 
       // End of ZGET03
 
-      END
+      }

@@ -595,4 +595,4 @@
 
       // End of CSYTF2_ROOK
 
-      END
+      }

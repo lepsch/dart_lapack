@@ -83,4 +83,4 @@
 
       // End of DGET08
 
-      END
+      }

@@ -107,4 +107,4 @@
 
       // End of CLATB5
 
-      END
+      }

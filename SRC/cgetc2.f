@@ -113,4 +113,4 @@
 
       // End of CGETC2
 
-      END
+      }

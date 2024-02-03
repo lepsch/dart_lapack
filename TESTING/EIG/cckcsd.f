@@ -151,7 +151,7 @@
 
       // End of CCKCSD
 
-      END
+      }
 
 
 
@@ -199,4 +199,4 @@
       CALL CLAROR( 'Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO )
       CALL CLAROR( 'Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL CLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL CLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO )
 
-      END
+      }

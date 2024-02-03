@@ -351,4 +351,4 @@
 
       // End of SCHKSP
 
-      END
+      }

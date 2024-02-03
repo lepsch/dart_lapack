@@ -174,4 +174,4 @@
 
       // End of DORHR_COL
 
-      END
+      }

@@ -73,4 +73,4 @@
 
       // End of SPOT02
 
-      END
+      }

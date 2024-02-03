@@ -595,4 +595,4 @@
 
       // End of SCHKSY_ROOK
 
-      END
+      }

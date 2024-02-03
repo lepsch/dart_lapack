@@ -1218,4 +1218,4 @@
  9987 FORMAT( / 'Test performed:  see ZCHKST for details.', / )
       // End of ZCHKST
 
-      END
+      }

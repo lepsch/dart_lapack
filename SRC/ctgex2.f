@@ -168,4 +168,4 @@
 
       // End of CTGEX2
 
-      END
+      }

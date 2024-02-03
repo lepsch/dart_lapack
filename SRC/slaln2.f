@@ -374,4 +374,4 @@
 
       // End of SLALN2
 
-      END
+      }

@@ -177,4 +177,4 @@
 
       // End of SSYMV
 
-      END
+      }

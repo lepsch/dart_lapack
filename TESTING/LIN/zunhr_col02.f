@@ -246,4 +246,4 @@
 
       // End of ZUNHR_COL02
 
-      END
+      }

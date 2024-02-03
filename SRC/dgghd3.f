@@ -573,4 +573,4 @@
 
       // End of DGGHD3
 
-      END
+      }

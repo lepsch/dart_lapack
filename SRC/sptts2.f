@@ -51,4 +51,4 @@
 
       // End of SPTTS2
 
-      END
+      }

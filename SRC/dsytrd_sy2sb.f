@@ -227,4 +227,4 @@
 
       // End of DSYTRD_SY2SB
 
-      END
+      }

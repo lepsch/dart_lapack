@@ -367,7 +367,7 @@
 
       // End of ZBLAT3.
 
-      END
+      }
       SUBROUTINE ZCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER )
 
 *  Tests ZGEMM.
@@ -629,7 +629,7 @@
 
       // End of ZCHK1.
 
-      END
+      }
 
       SUBROUTINE ZPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC;
@@ -663,7 +663,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
  9994 FORMAT( 10X, 3( I3, ',' ) ,' (', F4.1,',',F4.1,') , A,',
      $ I3, ', B,', I3, ', (', F4.1,',',F4.1,') , C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE ZCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER )
 
@@ -918,7 +918,7 @@
 
       // End of ZCHK2.
 
-      END
+      }
 
       SUBROUTINE ZPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, M, N, LDA, LDB, LDC;
@@ -948,7 +948,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
  9994 FORMAT( 10X, 2( I3, ',' ),' (',F4.1,',',F4.1, '), A,', I3,
      $ ', B,', I3, ', (',F4.1,',',F4.1, '), ', 'C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE ZCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER )
 
@@ -1217,7 +1217,7 @@
 
       // End of ZCHK3.
 
-      END
+      }
 
       SUBROUTINE ZPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
       int              NOUT, NC, IORDER, M, N, LDA, LDB;
@@ -1259,7 +1259,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', A14, ',', A14, ',', A14, ',')
  9994 FORMAT( 10X, 2( A14, ',') , 2( I3, ',' ), ' (', F4.1, ',',
      $    F4.1, '), A,', I3, ', B,', I3, ').' )
-      END
+      }
 
       SUBROUTINE ZCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER )
 
@@ -1556,7 +1556,7 @@
 
       // End of CCHK4.
 
-      END
+      }
 
       SUBROUTINE ZPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
       int              NOUT, NC, IORDER, N, K, LDA, LDC;
@@ -1588,7 +1588,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
  9994 FORMAT( 10X, 2( I3, ',' ), ' (', F4.1, ',', F4.1 ,'), A,',
      $        I3, ', (', F4.1,',', F4.1, '), C,', I3, ').' )
-      END
+      }
 
 
       SUBROUTINE ZPRCN6(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
@@ -1621,7 +1621,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
  9994 FORMAT( 10X, 2( I3, ',' ),
      $      F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE ZCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER )
 
@@ -1943,7 +1943,7 @@
 
       // End of ZCHK5.
 
-      END
+      }
 
       SUBROUTINE ZPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
       int              NOUT, NC, IORDER, N, K, LDA, LDB, LDC;
@@ -1975,7 +1975,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
  9994 FORMAT( 10X, 2( I3, ',' ), ' (', F4.1, ',', F4.1, '), A,',
      $  I3, ', B', I3, ', (', F4.1, ',', F4.1, '), C,', I3, ').' )
-      END
+      }
 
 
       SUBROUTINE ZPRCN7(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
@@ -2009,7 +2009,7 @@
  9995 FORMAT( 1X, I6, ': ', A12,'(', 3( A14, ',') )
  9994 FORMAT( 10X, 2( I3, ',' ), ' (', F4.1, ',', F4.1, '), A,',
      $      I3, ', B', I3, ',', F4.1, ', C,', I3, ').' )
-      END
+      }
 
       SUBROUTINE ZMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
 
@@ -2130,7 +2130,7 @@
 
       // End of ZMAKE.
 
-      END
+      }
       SUBROUTINE ZMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2299,7 +2299,7 @@
 
       // End of ZMMCH.
 
-      END
+      }
       bool    FUNCTION LZE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2330,7 +2330,7 @@
 
       // End of LZE.
 
-      END
+      }
       bool    FUNCTION LZERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2389,7 +2389,7 @@
 
       // End of LZERES.
 
-      END
+      }
       COMPLEX*16     FUNCTION ZBEG( RESET )
 
 *  Generates complex numbers as pairs of random numbers uniformly
@@ -2443,7 +2443,7 @@
 
       // End of ZBEG.
 
-      END
+      }
       double           FUNCTION DDIFF( X, Y );
 
 *  Auxiliary routine for test program for Level 3 Blas.
@@ -2462,4 +2462,4 @@
 
       // End of DDIFF.
 
-      END
+      }

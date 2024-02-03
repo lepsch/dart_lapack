@@ -74,4 +74,4 @@
 
       // End of STPT06
 
-      END
+      }

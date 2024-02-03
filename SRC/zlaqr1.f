@@ -65,4 +65,4 @@
             V( 3 ) = H31S*( H( 1, 1 )+H( 3, 3 )-S1-S2 ) + H21S*H( 3, 2 )
          END IF
       END IF
-      END
+      }

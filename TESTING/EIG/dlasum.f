@@ -24,4 +24,4 @@
 
       // End of DLASUM
 
-      END
+      }

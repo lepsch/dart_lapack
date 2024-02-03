@@ -84,4 +84,4 @@
 
       // End of CGETF2
 
-      END
+      }

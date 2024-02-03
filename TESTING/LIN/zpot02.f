@@ -76,4 +76,4 @@
 
       // End of ZPOT02
 
-      END
+      }

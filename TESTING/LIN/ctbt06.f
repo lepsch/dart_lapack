@@ -74,4 +74,4 @@
 
       // End of CTBT06
 
-      END
+      }

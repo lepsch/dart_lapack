@@ -13,4 +13,4 @@
 *  .. Executable Statements ..
       DLAISNAN = (DIN1.NE.DIN2)
       RETURN
-      END
+      }

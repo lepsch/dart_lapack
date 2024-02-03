@@ -347,4 +347,4 @@
 
       // End of CHETRI_ROOK
 
-      END
+      }

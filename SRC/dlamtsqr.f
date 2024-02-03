@@ -206,4 +206,4 @@
 
       // End of DLAMTSQR
 
-      END
+      }

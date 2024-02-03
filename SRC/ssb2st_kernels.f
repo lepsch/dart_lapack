@@ -182,4 +182,4 @@
 
       // End of SSB2ST_KERNELS
 
-      END
+      }

@@ -284,4 +284,4 @@
 
       // End of SLASY2
 
-      END
+      }

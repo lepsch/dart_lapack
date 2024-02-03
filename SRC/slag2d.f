@@ -29,4 +29,4 @@
 
       // End of SLAG2D
 
-      END
+      }

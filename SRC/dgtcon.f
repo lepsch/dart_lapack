@@ -101,4 +101,4 @@
 
       // End of DGTCON
 
-      END
+      }

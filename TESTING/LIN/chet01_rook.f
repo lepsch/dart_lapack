@@ -106,4 +106,4 @@
 
       // End of CHET01_ROOK
 
-      END
+      }

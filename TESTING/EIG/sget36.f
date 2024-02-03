@@ -134,4 +134,4 @@
 
       // End of SGET36
 
-      END
+      }

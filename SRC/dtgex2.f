@@ -377,4 +377,4 @@
 
       // End of DTGEX2
 
-      END
+      }

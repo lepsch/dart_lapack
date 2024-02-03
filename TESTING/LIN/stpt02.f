@@ -80,4 +80,4 @@
 
       // End of STPT02
 
-      END
+      }

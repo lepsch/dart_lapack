@@ -102,4 +102,4 @@
 
       // End of SCHKBK
 
-      END
+      }

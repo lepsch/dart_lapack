@@ -227,4 +227,4 @@
 
       // End of CHER2K
 
-      END
+      }

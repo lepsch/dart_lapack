@@ -261,4 +261,4 @@
 
       // End of ZLA_GERFSX_EXTENDED
 
-      END
+      }

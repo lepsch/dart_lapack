@@ -611,4 +611,4 @@
 
       // End of ZCHKSY_ROOK
 
-      END
+      }

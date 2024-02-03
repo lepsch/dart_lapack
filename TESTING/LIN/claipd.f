@@ -35,4 +35,4 @@
          IXA = IXA + VINDA
    10 CONTINUE
       RETURN
-      END
+      }

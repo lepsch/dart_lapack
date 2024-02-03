@@ -709,4 +709,4 @@
 
       // End of DTGSY2
 
-      END
+      }

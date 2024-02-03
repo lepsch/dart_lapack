@@ -515,4 +515,4 @@
 
       // End of CLATB4
 
-      END
+      }

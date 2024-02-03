@@ -609,4 +609,4 @@
 
       // End of ZCHKHE_RK
 
-      END
+      }

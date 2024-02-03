@@ -523,4 +523,4 @@
 
       // End of SLATTB
 
-      END
+      }

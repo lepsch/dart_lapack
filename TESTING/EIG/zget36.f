@@ -120,4 +120,4 @@
 
       // End of ZGET36
 
-      END
+      }

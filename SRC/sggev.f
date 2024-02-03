@@ -326,4 +326,4 @@
 
       // End of SGGEV
 
-      END
+      }

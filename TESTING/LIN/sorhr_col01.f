@@ -280,4 +280,4 @@
 
       // End of SORHR_COL01
 
-      END
+      }

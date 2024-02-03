@@ -328,4 +328,4 @@
 
       // End of SCHKTP
 
-      END
+      }

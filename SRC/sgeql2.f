@@ -64,4 +64,4 @@
 
       // End of SGEQL2
 
-      END
+      }

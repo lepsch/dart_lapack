@@ -103,4 +103,4 @@
 
       // End of SLATM2
 
-      END
+      }

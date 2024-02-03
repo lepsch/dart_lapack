@@ -94,4 +94,4 @@
 
       // End of STRT03
 
-      END
+      }

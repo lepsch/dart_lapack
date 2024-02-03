@@ -278,4 +278,4 @@
 
       // End of ZLA_SYRFSX_EXTENDED
 
-      END
+      }

@@ -53,4 +53,4 @@
 
       // End of CLAR2V
 
-      END
+      }

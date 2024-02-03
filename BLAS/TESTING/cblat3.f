@@ -295,7 +295,7 @@
 
       // End of CBLAT3
 
-      END
+      }
       SUBROUTINE CCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests CGEMM.
@@ -550,7 +550,7 @@
 
       // End of CCHK1
 
-      END
+      }
       SUBROUTINE CCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests CHEMM and CSYMM.
@@ -797,7 +797,7 @@
 
       // End of CCHK2
 
-      END
+      }
       SUBROUTINE CCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C )
 
 *  Tests CTRMM and CTRSM.
@@ -1058,7 +1058,7 @@
 
       // End of CCHK3
 
-      END
+      }
       SUBROUTINE CCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G )
 
 *  Tests CHERK and CSYRK.
@@ -1347,7 +1347,7 @@
 
       // End of CCHK4
 
-      END
+      }
       SUBROUTINE CCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W )
 
 *  Tests CHER2K and CSYR2K.
@@ -1661,7 +1661,7 @@
 
       // End of CCHK5
 
-      END
+      }
       SUBROUTINE CCHKE( ISNUM, SRNAMT, NOUT )
 
 *  Tests the error exits from the Level 3 Blas.
@@ -2600,7 +2600,7 @@
 
       // End of CCHKE
 
-      END
+      }
       SUBROUTINE CMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
 
 *  Generates values for an M by N matrix A.
@@ -2720,7 +2720,7 @@
 
       // End of CMAKE
 
-      END
+      }
       SUBROUTINE CMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2891,7 +2891,7 @@
 
       // End of CMMCH
 
-      END
+      }
       bool    FUNCTION LCE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2922,7 +2922,7 @@
 
       // End of LCE
 
-      END
+      }
       bool    FUNCTION LCERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2980,7 +2980,7 @@
 
       // End of LCERES
 
-      END
+      }
       COMPLEX FUNCTION CBEG( RESET )
 
 *  Generates complex numbers as pairs of random numbers uniformly
@@ -3034,7 +3034,7 @@
 
       // End of CBEG
 
-      END
+      }
       REAL FUNCTION SDIFF( X, Y )
 
 *  Auxiliary routine for test program for Level 3 Blas.
@@ -3053,7 +3053,7 @@
 
       // End of SDIFF
 
-      END
+      }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
 
 *  Tests whether XERBLA has detected an error when it should.
@@ -3083,7 +3083,7 @@
 
       // End of CHKXER
 
-      END
+      }
       SUBROUTINE XERBLA( SRNAME, INFO )
 
 *  This is a special version of XERBLA to be used only as part of
@@ -3138,4 +3138,4 @@
 
       // End of XERBLA
 
-      END
+      }

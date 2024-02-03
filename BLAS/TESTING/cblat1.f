@@ -51,7 +51,7 @@
 
       // End of CBLAT1
 
-      END
+      }
       SUBROUTINE HEADER
       // .. Parameters ..
       int              NOUT;
@@ -82,7 +82,7 @@
 
       // End of HEADER
 
-      END
+      }
       SUBROUTINE CHECK1(SFAC)
       // .. Parameters ..
       int               NOUT;
@@ -217,7 +217,7 @@
 
       // End of CHECK1
 
-      END
+      }
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
       int               NOUT;
@@ -328,7 +328,7 @@
 
       // End of CHECK2
 
-      END
+      }
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
       // ********************************* STEST **************************
 
@@ -386,7 +386,7 @@
 
       // End of STEST
 
-      END
+      }
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
       // ************************* STEST1 *****************************
 
@@ -414,7 +414,7 @@
 
       // End of STEST1
 
-      END
+      }
       REAL             FUNCTION SDIFF(SA,SB)
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
@@ -427,7 +427,7 @@
 
       // End of SDIFF
 
-      END
+      }
       SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC)
       // **************************** CTEST *****************************
 
@@ -461,7 +461,7 @@
 
       // End of CTEST
 
-      END
+      }
       SUBROUTINE ITEST1(ICOMP,ITRUE)
       // ********************************* ITEST1 *************************
 
@@ -504,7 +504,7 @@
 
       // End of ITEST1
 
-      END
+      }
       SUBROUTINE CB1NRM2(N,INCX,THRESH)
       // Compare NRM2 with a reference computation using combinations
       // of the following values:
@@ -722,5 +722,5 @@
       END IF
       SXVALS = X
       RETURN
-      END
-      END
+      }
+      }

@@ -115,4 +115,4 @@
 
       // End of CGTT01
 
-      END
+      }

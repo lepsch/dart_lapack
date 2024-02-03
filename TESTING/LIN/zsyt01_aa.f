@@ -122,4 +122,4 @@
 
       // End of ZSYT01_AA
 
-      END
+      }

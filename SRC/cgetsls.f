@@ -303,4 +303,4 @@
 
       // End of CGETSLS
 
-      END
+      }

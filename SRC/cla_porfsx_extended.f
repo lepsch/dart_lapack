@@ -257,4 +257,4 @@
 
       // End of CLA_PORFSX_EXTENDED
 
-      END
+      }

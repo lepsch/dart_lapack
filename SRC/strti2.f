@@ -96,4 +96,4 @@
 
       // End of STRTI2
 
-      END
+      }

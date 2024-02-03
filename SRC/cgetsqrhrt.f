@@ -167,4 +167,4 @@
 
       // End of CGETSQRHRT
 
-      END
+      }

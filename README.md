@@ -78,6 +78,11 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t](     [ \t]*)
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t]$//g' %
 ```
 
+### END -> }
+```sh
+find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/      \1}/g' %
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

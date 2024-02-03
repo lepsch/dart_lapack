@@ -74,4 +74,4 @@
 
       // End of CTRT06
 
-      END
+      }

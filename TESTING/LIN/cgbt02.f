@@ -123,4 +123,4 @@
 
       // End of CGBT02
 
-      END
+      }

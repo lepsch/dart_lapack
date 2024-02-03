@@ -228,4 +228,4 @@
 
       // End of CLANTP
 
-      END
+      }

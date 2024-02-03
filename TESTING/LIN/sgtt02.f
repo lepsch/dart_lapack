@@ -76,4 +76,4 @@
 
       // End of SGTT02
 
-      END
+      }

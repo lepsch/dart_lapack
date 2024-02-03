@@ -101,4 +101,4 @@
 
       // End of SGTCON
 
-      END
+      }

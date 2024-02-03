@@ -110,4 +110,4 @@
 
       // End of SGET51
 
-      END
+      }

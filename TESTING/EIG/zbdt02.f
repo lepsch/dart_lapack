@@ -71,4 +71,4 @@
 
       // End of ZBDT02
 
-      END
+      }

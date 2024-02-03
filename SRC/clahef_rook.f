@@ -922,4 +922,4 @@
 
       // End of CLAHEF_ROOK
 
-      END
+      }

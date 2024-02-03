@@ -41,4 +41,4 @@
       END IF
       WRITE( 6, FMT = * )
 
-      END
+      }

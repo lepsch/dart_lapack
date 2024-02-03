@@ -87,4 +87,4 @@
 
       // End of CHESV_ROOK
 
-      END
+      }

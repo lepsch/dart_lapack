@@ -128,4 +128,4 @@
 
       // End of ZGTT05
 
-      END
+      }

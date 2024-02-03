@@ -159,4 +159,4 @@
 
       // End of SORGQL
 
-      END
+      }

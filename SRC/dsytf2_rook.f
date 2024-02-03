@@ -585,4 +585,4 @@
 
       // End of DSYTF2_ROOK
 
-      END
+      }

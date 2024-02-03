@@ -187,4 +187,4 @@
 
       // End of SCHKORHR_COL
 
-      END
+      }

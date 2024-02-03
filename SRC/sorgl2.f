@@ -84,4 +84,4 @@
 
       // End of SORGL2
 
-      END
+      }

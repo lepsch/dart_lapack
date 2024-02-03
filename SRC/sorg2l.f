@@ -78,4 +78,4 @@
 
       // End of SORG2L
 
-      END
+      }

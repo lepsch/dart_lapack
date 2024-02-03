@@ -76,4 +76,4 @@
 
       // End of ZSYT02
 
-      END
+      }

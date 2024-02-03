@@ -423,4 +423,4 @@
 
       // End of DGET23
 
-      END
+      }

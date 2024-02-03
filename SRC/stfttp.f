@@ -324,4 +324,4 @@
 
       // End of STFTTP
 
-      END
+      }

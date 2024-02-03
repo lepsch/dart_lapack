@@ -151,4 +151,4 @@
 
       // End of ZHEGS2
 
-      END
+      }

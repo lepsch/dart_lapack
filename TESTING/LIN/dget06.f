@@ -45,4 +45,4 @@
 
       // End of DGET06
 
-      END
+      }

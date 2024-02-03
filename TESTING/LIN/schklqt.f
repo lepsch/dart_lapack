@@ -100,4 +100,4 @@
 
       // End of SCHKLQT
 
-      END
+      }

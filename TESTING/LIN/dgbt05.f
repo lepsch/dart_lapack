@@ -112,4 +112,4 @@
 
       // End of DGBT05
 
-      END
+      }

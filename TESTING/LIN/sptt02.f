@@ -75,4 +75,4 @@
 
       // End of SPTT02
 
-      END
+      }

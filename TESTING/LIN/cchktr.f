@@ -365,4 +365,4 @@
 
       // End of CCHKTR
 
-      END
+      }

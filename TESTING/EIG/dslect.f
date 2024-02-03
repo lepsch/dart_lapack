@@ -51,4 +51,4 @@
 
       // End of DSLECT
 
-      END
+      }

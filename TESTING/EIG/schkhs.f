@@ -669,4 +669,4 @@
 
       // End of SCHKHS
 
-      END
+      }

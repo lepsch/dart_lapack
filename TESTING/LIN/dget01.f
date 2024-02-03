@@ -98,4 +98,4 @@
 
       // End of DGET01
 
-      END
+      }

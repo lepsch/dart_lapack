@@ -280,4 +280,4 @@
 
       // End of DORHR_COL01
 
-      END
+      }

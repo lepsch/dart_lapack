@@ -136,4 +136,4 @@
 
       // End of SLATM6
 
-      END
+      }

@@ -120,4 +120,4 @@
 
       // End of DGTT05
 
-      END
+      }

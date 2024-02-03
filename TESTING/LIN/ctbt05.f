@@ -140,4 +140,4 @@
 
       // End of CTBT05
 
-      END
+      }

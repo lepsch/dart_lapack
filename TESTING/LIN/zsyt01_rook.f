@@ -94,4 +94,4 @@
 
       // End of ZSYT01_ROOK
 
-      END
+      }

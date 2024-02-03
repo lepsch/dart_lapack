@@ -86,4 +86,4 @@
 
       // End of DGET02
 
-      END
+      }

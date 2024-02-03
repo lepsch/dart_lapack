@@ -78,4 +78,4 @@
 
       // End of ZGET04
 
-      END
+      }

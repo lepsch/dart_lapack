@@ -243,4 +243,4 @@
 
       // End of DORHR_COL02
 
-      END
+      }

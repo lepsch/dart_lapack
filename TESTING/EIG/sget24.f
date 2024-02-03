@@ -538,4 +538,4 @@
 
       // End of SGET24
 
-      END
+      }

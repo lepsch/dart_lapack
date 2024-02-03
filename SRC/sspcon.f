@@ -106,4 +106,4 @@
 
       // End of SSPCON
 
-      END
+      }

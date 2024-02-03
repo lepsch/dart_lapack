@@ -69,4 +69,4 @@
 
       // End of SGEHD2
 
-      END
+      }

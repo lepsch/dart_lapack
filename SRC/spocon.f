@@ -122,4 +122,4 @@
 
       // End of SPOCON
 
-      END
+      }

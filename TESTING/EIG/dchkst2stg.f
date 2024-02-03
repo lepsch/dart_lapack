@@ -1263,4 +1263,4 @@
 
       // End of DCHKST2STG
 
-      END
+      }

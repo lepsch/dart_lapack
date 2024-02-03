@@ -206,4 +206,4 @@
       END DO
       SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )
 
-      END
+      }

@@ -120,4 +120,4 @@
 
       // End of SGTT05
 
-      END
+      }

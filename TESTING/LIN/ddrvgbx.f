@@ -677,4 +677,4 @@
 
       // End of DDRVGBX
 
-      END
+      }

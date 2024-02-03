@@ -104,4 +104,4 @@
 
       // End of DERRORHR_COL
 
-      END
+      }

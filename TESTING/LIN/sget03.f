@@ -71,4 +71,4 @@
 
       // End of SGET03
 
-      END
+      }

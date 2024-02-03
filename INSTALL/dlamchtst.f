@@ -29,4 +29,4 @@
       WRITE( 6, * )' Overflow threshold           = ', RMAX
       WRITE( 6, * )' Reciprocal of safe minimum   = ', 1 / SFMIN
 
-      END
+      }

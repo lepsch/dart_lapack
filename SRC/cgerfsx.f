@@ -279,4 +279,4 @@
 
       // End of CGERFSX
 
-      END
+      }

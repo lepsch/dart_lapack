@@ -105,4 +105,4 @@
 
       // End of SQLT01
 
-      END
+      }

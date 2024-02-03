@@ -245,4 +245,4 @@
 
       // End of CHERFS
 
-      END
+      }

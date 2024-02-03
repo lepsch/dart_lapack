@@ -160,4 +160,4 @@
 
       // End of SORGRQ
 
-      END
+      }

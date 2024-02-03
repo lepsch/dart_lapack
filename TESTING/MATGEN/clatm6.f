@@ -109,4 +109,4 @@
 
       // End of CLATM6
 
-      END
+      }

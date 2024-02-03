@@ -174,4 +174,4 @@
 
       // End of SORHR_COL
 
-      END
+      }

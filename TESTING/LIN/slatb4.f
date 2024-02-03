@@ -518,4 +518,4 @@
 
       // End of SLATB4
 
-      END
+      }

@@ -304,7 +304,7 @@
 
       // End of SBLAT2
 
-      END
+      }
       SUBROUTINE SCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
 
 *  Tests SGEMV and SGBMV.
@@ -616,7 +616,7 @@
 
       // End of SCHK1
 
-      END
+      }
       SUBROUTINE SCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
 
 *  Tests SSYMV, SSBMV and SSPMV.
@@ -915,7 +915,7 @@
 
       // End of SCHK2
 
-      END
+      }
       SUBROUTINE SCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z )
 
 *  Tests STRMV, STBMV, STPMV, STRSV, STBSV and STPSV.
@@ -1214,7 +1214,7 @@
 
       // End of SCHK3
 
-      END
+      }
       SUBROUTINE SCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests SGER.
@@ -1447,7 +1447,7 @@
 
       // End of SCHK4
 
-      END
+      }
       SUBROUTINE SCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests SSYR and SSPR.
@@ -1700,7 +1700,7 @@
 
       // End of SCHK5
 
-      END
+      }
       SUBROUTINE SCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests SSYR2 and SSPR2.
@@ -1982,7 +1982,7 @@
 
       // End of SCHK6
 
-      END
+      }
       SUBROUTINE SCHKE( ISNUM, SRNAMT, NOUT )
 
 *  Tests the error exits from the Level 2 Blas.
@@ -2304,7 +2304,7 @@
 
       // End of SCHKE
 
-      END
+      }
       SUBROUTINE SMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
 
 *  Generates values for an M by N matrix A within the bandwidth
@@ -2472,7 +2472,7 @@
 
       // End of SMAKE
 
-      END
+      }
       SUBROUTINE SMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2583,7 +2583,7 @@
 
       // End of SMVCH
 
-      END
+      }
       bool    FUNCTION LSE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2612,7 +2612,7 @@
 
       // End of LSE
 
-      END
+      }
       bool    FUNCTION LSERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2668,7 +2668,7 @@
 
       // End of LSERES
 
-      END
+      }
       REAL FUNCTION SBEG( RESET )
 
 *  Generates random numbers uniformly distributed between -0.5 and 0.5.
@@ -2714,7 +2714,7 @@
 
       // End of SBEG
 
-      END
+      }
       REAL FUNCTION SDIFF( X, Y )
 
 *  Auxiliary routine for test program for Level 2 Blas.
@@ -2730,7 +2730,7 @@
 
       // End of SDIFF
 
-      END
+      }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
 
 *  Tests whether XERBLA has detected an error when it should.
@@ -2758,7 +2758,7 @@
 
       // End of CHKXER
 
-      END
+      }
       SUBROUTINE SREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS )
 
 *  Input initialization for regression test.
@@ -2790,7 +2790,7 @@
          YS( I ) = Y( I )
   10  CONTINUE
       RETURN
-      END
+      }
       SUBROUTINE XERBLA( SRNAME, INFO )
 
 *  This is a special version of XERBLA to be used only as part of
@@ -2843,4 +2843,4 @@
 
       // End of XERBLA
 
-      END
+      }

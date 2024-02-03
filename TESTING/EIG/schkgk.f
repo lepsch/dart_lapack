@@ -164,4 +164,4 @@
 
       // End of SCHKGK
 
-      END
+      }

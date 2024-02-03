@@ -372,4 +372,4 @@
 
       // End of CGET38
 
-      END
+      }

@@ -242,4 +242,4 @@
 
       // End of SORHR_COL02
 
-      END
+      }

@@ -351,4 +351,4 @@
 
       // End of SCHKGT
 
-      END
+      }

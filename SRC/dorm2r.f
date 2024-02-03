@@ -116,4 +116,4 @@
 
       // End of DORM2R
 
-      END
+      }

@@ -106,4 +106,4 @@
 
       // End of DSPCON
 
-      END
+      }

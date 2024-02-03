@@ -192,4 +192,4 @@
 
       // End of CLARFB_GETT
 
-      END
+      }

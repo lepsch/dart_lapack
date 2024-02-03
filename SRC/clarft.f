@@ -148,4 +148,4 @@
 
       // End of CLARFT
 
-      END
+      }

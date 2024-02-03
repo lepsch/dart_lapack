@@ -78,4 +78,4 @@
 
       // End of ZUNG2L
 
-      END
+      }

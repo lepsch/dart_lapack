@@ -88,4 +88,4 @@
 
       // End of ZPOT06
 
-      END
+      }

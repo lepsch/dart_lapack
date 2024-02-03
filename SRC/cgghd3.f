@@ -572,4 +572,4 @@
 
       // End of CGGHD3
 
-      END
+      }

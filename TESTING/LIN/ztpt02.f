@@ -81,4 +81,4 @@
 
       // End of ZTPT02
 
-      END
+      }

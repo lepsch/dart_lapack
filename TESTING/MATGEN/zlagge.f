@@ -234,4 +234,4 @@
 
       // End of ZLAGGE
 
-      END
+      }

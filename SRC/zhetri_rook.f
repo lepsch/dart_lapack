@@ -348,4 +348,4 @@
 
       // End of ZHETRI_ROOK
 
-      END
+      }

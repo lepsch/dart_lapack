@@ -362,4 +362,4 @@
 
       // End of SCHKSY_AA_2STAGE
 
-      END
+      }

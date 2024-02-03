@@ -599,4 +599,4 @@
 
       // End of SCHKSY_RK
 
-      END
+      }

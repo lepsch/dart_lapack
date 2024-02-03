@@ -70,4 +70,4 @@
 
       // End of DLAS2
 
-      END
+      }

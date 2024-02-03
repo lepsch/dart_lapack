@@ -211,4 +211,4 @@
 
       // End of SCHKRFP
 
-      END
+      }

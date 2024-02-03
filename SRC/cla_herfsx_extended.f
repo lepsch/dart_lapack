@@ -278,4 +278,4 @@
 
       // End of CLA_HERFSX_EXTENDED
 
-      END
+      }

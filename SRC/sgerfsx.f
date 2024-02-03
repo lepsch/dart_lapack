@@ -278,4 +278,4 @@
 
       // End of SGERFSX
 
-      END
+      }

@@ -114,4 +114,4 @@
 
       // End of SORMR3
 
-      END
+      }

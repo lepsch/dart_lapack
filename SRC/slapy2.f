@@ -53,4 +53,4 @@
 
       // End of SLAPY2
 
-      END
+      }

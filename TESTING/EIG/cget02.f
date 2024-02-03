@@ -89,4 +89,4 @@
 
       // End of CGET02
 
-      END
+      }

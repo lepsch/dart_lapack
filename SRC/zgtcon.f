@@ -104,4 +104,4 @@
 
       // End of ZGTCON
 
-      END
+      }

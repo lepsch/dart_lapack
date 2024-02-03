@@ -260,4 +260,4 @@
 
       // End of CLA_GBRFSX_EXTENDED
 
-      END
+      }

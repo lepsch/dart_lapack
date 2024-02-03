@@ -151,4 +151,4 @@
 
       // End of CHEGS2
 
-      END
+      }

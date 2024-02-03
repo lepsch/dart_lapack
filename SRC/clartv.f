@@ -39,4 +39,4 @@
 
       // End of CLARTV
 
-      END
+      }

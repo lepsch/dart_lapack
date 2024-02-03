@@ -528,4 +528,4 @@
 
       // End of CGET24
 
-      END
+      }

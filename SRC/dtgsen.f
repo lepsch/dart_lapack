@@ -366,4 +366,4 @@
 
       // End of DTGSEN
 
-      END
+      }

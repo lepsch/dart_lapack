@@ -309,7 +309,7 @@
 
       // End of CBLAT2
 
-      END
+      }
       SUBROUTINE CCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
 
 *  Tests CGEMV and CGBMV.
@@ -626,7 +626,7 @@
 
       // End of CCHK1
 
-      END
+      }
       SUBROUTINE CCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NALF, ALF, NBET, BET, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G )
 
 *  Tests CHEMV, CHBMV and CHPMV.
@@ -931,7 +931,7 @@
 
       // End of CCHK2
 
-      END
+      }
       SUBROUTINE CCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NKB, KB, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, XT, G, Z )
 
 *  Tests CTRMV, CTBMV, CTPMV, CTRSV, CTBSV and CTPSV.
@@ -1234,7 +1234,7 @@
 
       // End of CCHK3
 
-      END
+      }
       SUBROUTINE CCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests CGERC and CGERU.
@@ -1477,7 +1477,7 @@
 
       // End of CCHK4
 
-      END
+      }
       SUBROUTINE CCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests CHER and CHPR.
@@ -1735,7 +1735,7 @@
 
       // End of CCHK5
 
-      END
+      }
       SUBROUTINE CCHK6( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NINC, INC, NMAX, INCMAX, A, AA, AS, X, XX, XS, Y, YY, YS, YT, G, Z )
 
 *  Tests CHER2 and CHPR2.
@@ -2023,7 +2023,7 @@
 
       // End of CCHK6
 
-      END
+      }
       SUBROUTINE CCHKE( ISNUM, SRNAMT, NOUT )
 
 *  Tests the error exits from the Level 2 Blas.
@@ -2362,7 +2362,7 @@
 
       // End of CCHKE
 
-      END
+      }
       SUBROUTINE CMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, KL, KU, RESET, TRANSL )
 
 *  Generates values for an M by N matrix A within the bandwidth
@@ -2542,7 +2542,7 @@
 
       // End of CMAKE
 
-      END
+      }
       SUBROUTINE CMVCH( TRANS, M, N, ALPHA, A, NMAX, X, INCX, BETA, Y, INCY, YT, G, YY, EPS, ERR, FATAL, NOUT, MV )
 
 *  Checks the results of the computational tests.
@@ -2669,7 +2669,7 @@
 
       // End of CMVCH
 
-      END
+      }
       bool    FUNCTION LCE( RI, RJ, LR );
 
 *  Tests if two arrays are identical.
@@ -2698,7 +2698,7 @@
 
       // End of LCE
 
-      END
+      }
       bool    FUNCTION LCERES( TYPE, UPLO, M, N, AA, AS, LDA );
 
 *  Tests if selected elements in two arrays are equal.
@@ -2754,7 +2754,7 @@
 
       // End of LCERES
 
-      END
+      }
       COMPLEX FUNCTION CBEG( RESET )
 
 *  Generates complex numbers as pairs of random numbers uniformly
@@ -2806,7 +2806,7 @@
 
       // End of CBEG
 
-      END
+      }
       REAL FUNCTION SDIFF( X, Y )
 
 *  Auxiliary routine for test program for Level 2 Blas.
@@ -2822,7 +2822,7 @@
 
       // End of SDIFF
 
-      END
+      }
       SUBROUTINE CHKXER( SRNAMT, INFOT, NOUT, LERR, OK )
 
 *  Tests whether XERBLA has detected an error when it should.
@@ -2850,7 +2850,7 @@
 
       // End of CHKXER
 
-      END
+      }
       SUBROUTINE CREGR1( TRANS, M, N, LY, KL, KU, ALPHA, A, LDA, X, INCX, BETA, Y, INCY, YS )
 
 *  Input initialization for regression test.
@@ -2882,7 +2882,7 @@
          YS( I ) = Y( I )
   10  CONTINUE
       RETURN
-      END
+      }
       SUBROUTINE XERBLA( SRNAME, INFO )
 
 *  This is a special version of XERBLA to be used only as part of
@@ -2935,4 +2935,4 @@
 
       // End of XERBLA
 
-      END
+      }

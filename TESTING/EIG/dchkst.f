@@ -1205,4 +1205,4 @@
  9988 FORMAT( / 'Test performed:  see DCHKST for details.', / )
       // End of DCHKST
 
-      END
+      }

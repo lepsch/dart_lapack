@@ -435,4 +435,4 @@
 
       // End of SCHKGB
 
-      END
+      }

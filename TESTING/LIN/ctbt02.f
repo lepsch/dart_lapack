@@ -81,4 +81,4 @@
 
       // End of CTBT02
 
-      END
+      }

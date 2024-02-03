@@ -611,4 +611,4 @@
 
       // End of CCHKSY_ROOK
 
-      END
+      }

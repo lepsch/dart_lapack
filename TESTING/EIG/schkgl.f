@@ -129,4 +129,4 @@
 
       // End of SCHKGL
 
-      END
+      }

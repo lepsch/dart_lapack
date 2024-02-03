@@ -1277,4 +1277,4 @@
 
       // End of CCHKST2STG
 
-      END
+      }

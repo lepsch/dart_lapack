@@ -44,7 +44,7 @@
 
 99999 FORMAT (' Complex CBLAS Test Program Results',/1X)
 99998 FORMAT ('                                    ----- PASS -----')
-      END
+      }
       SUBROUTINE HEADER
       // .. Parameters ..
       int              NOUT;
@@ -72,7 +72,7 @@
       RETURN
 
 99999 FORMAT (/' Test of subprogram number',I3,9X,A15)
-      END
+      }
       SUBROUTINE CHECK1(SFAC)
       // .. Parameters ..
       int               NOUT;
@@ -181,7 +181,7 @@
          CALL CTEST(5,CX,MWPCT,MWPCS,SFAC)
       END IF
       RETURN
-      END
+      }
       SUBROUTINE CHECK2(SFAC)
       // .. Parameters ..
       int               NOUT;
@@ -262,7 +262,7 @@
    40    CONTINUE
    60 CONTINUE
       RETURN
-      END
+      }
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
       // ********************************* STEST **************************
 
@@ -316,7 +316,7 @@
      +       ' COMP(I)                             TRUE(I)  DIFFERENCE',
      +       '     SIZE(I)',/1X)
 99997 FORMAT (1X,I4,I3,3I5,I3,2E36.8,2E12.4)
-      END
+      }
       SUBROUTINE STEST1(SCOMP1,STRUE1,SSIZE,SFAC)
       // ************************* STEST1 *****************************
 
@@ -341,7 +341,7 @@
       CALL STEST(1,SCOMP,STRUE,SSIZE,SFAC)
 
       RETURN
-      END
+      }
       REAL             FUNCTION SDIFF(SA,SB)
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
@@ -351,7 +351,7 @@
       // .. Executable Statements ..
       SDIFF = SA - SB
       RETURN
-      END
+      }
       SUBROUTINE CTEST(LEN,CCOMP,CTRUE,CSIZE,SFAC)
       // **************************** CTEST *****************************
 
@@ -382,7 +382,7 @@
 
       CALL STEST(2*LEN,SCOMP,STRUE,SSIZE,SFAC)
       RETURN
-      END
+      }
       SUBROUTINE ITEST1(ICOMP,ITRUE)
       // ********************************* ITEST1 *************************
 
@@ -422,4 +422,4 @@
      +       ' COMP                                TRUE     DIFFERENCE',
      +       /1X)
 99997 FORMAT (1X,I4,I3,3I5,2I36,I12)
-      END
+      }

@@ -79,7 +79,7 @@
 
       // End of SLADIV
 
-      END
+      }
 
 *> \ingroup ladiv
 
@@ -119,7 +119,7 @@
 
       // End of SLADIV1
 
-      END
+      }
 
 *> \ingroup ladiv
 
@@ -159,4 +159,4 @@
 
       // End of SLADIV2
 
-      END
+      }

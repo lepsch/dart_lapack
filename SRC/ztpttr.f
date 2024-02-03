@@ -68,4 +68,4 @@
 
       // End of ZTPTTR
 
-      END
+      }

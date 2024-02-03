@@ -74,4 +74,4 @@
 
       // End of CGET03
 
-      END
+      }

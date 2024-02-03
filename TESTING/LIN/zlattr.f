@@ -566,4 +566,4 @@
 
       // End of ZLATTR
 
-      END
+      }

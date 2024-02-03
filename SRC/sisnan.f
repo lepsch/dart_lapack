@@ -17,4 +17,4 @@
 *  .. Executable Statements ..
       SISNAN = SLAISNAN(SIN,SIN)
       RETURN
-      END
+      }

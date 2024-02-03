@@ -95,4 +95,4 @@
 
       // End of CQLT02
 
-      END
+      }

@@ -147,4 +147,4 @@
 
       // End of CTPLQT2
 
-      END
+      }

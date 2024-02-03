@@ -110,4 +110,4 @@
 
       // End of SLATSQR
 
-      END
+      }

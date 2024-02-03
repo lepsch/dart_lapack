@@ -204,4 +204,4 @@
 
       // End of CLA_HERPVGRW
 
-      END
+      }

@@ -159,4 +159,4 @@
 
       // End of CHER2
 
-      END
+      }

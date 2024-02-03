@@ -394,4 +394,4 @@
 
       // End of DDRVGT
 
-      END
+      }

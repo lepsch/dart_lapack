@@ -547,4 +547,4 @@
 
       // End of CLARFX
 
-      END
+      }

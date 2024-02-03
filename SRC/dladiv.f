@@ -79,7 +79,7 @@
 
       // End of DLADIV
 
-      END
+      }
 
 *> \ingroup ladiv
 
@@ -119,7 +119,7 @@
 
       // End of DLADIV1
 
-      END
+      }
 
 *> \ingroup ladiv
 
@@ -159,4 +159,4 @@
 
       // End of DLADIV2
 
-      END
+      }

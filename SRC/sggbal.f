@@ -347,4 +347,4 @@
 
       // End of SGGBAL
 
-      END
+      }

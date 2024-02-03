@@ -378,4 +378,4 @@
 
       // End of SLAVSY_ROOK
 
-      END
+      }
