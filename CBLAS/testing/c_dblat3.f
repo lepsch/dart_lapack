@@ -1,4 +1,4 @@
-void main() {
+      void main() {
 *  Test program for the DOUBLE PRECISION Level 3 Blas.
 
 *  The program must be driven by a short data file. The first 13 records
