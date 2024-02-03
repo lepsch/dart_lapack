@@ -15,7 +15,7 @@
       int                NMAX, LW;
       const              NMAX = 4, LW = 5*NMAX ;
       REAL               ONE, ZERO
-      const              ONE = 1.0E0, ZERO = 0.0E0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             C2;

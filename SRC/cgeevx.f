@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E0, ONE = 1.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV;

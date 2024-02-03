@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE, TEN, ODM3, ODM1
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, ODM3 = 1.0E-3, ODM1 = 1.0E-1 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1 ;
       int                MAXITS, EXTRA;
       const              MAXITS = 5, EXTRA = 2 ;
       // ..

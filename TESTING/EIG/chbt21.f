@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LOWER;

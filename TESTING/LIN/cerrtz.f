@@ -45,12 +45,12 @@
 
       NOUT = NUNIT
       C2 = PATH( 2: 3 )
-      A( 1, 1 ) = CMPLX( 1.E+0, -1.E+0 )
-      A( 1, 2 ) = CMPLX( 2.E+0, -2.E+0 )
-      A( 2, 2 ) = CMPLX( 3.E+0, -3.E+0 )
-      A( 2, 1 ) = CMPLX( 4.E+0, -4.E+0 )
-      W( 1 ) = CMPLX( 0.E+0, 0.E+0 )
-      W( 2 ) = CMPLX( 0.E+0, 0.E+0 )
+      A( 1, 1 ) = CMPLX( 1.0, -1.0 )
+      A( 1, 2 ) = CMPLX( 2.0, -2.0 )
+      A( 2, 2 ) = CMPLX( 3.0, -3.0 )
+      A( 2, 1 ) = CMPLX( 4.0, -4.0 )
+      W( 1 ) = CMPLX( 0.0, 0.0 )
+      W( 2 ) = CMPLX( 0.0, 0.0 )
       OK = true;
 
       // Test error exits for the trapezoidal routines.

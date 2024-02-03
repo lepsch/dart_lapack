@@ -17,7 +17,7 @@
 *  =====================================================================
 
       // .. Parameters ..
-      REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR=4.0E0, HNDRD = 100.0E0, PERT = 4.0E0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0E0, FUDGE = 2.0E0 )
+      REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0, ONE = 1.0, TWO = 2.0, FOUR=4.0, HNDRD = 100.0, PERT = 4.0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0, FUDGE = 2.0 )
       int                MAXTRY, ALLRNG, INDRNG, VALRNG;
       const              MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 ;
       // ..
@@ -77,7 +77,7 @@
       // one should keep in mind that for the subset case, the extremal
       // eigenvalues must be at least as accurate as the current setting
       // (eigenvalues in the middle need not as much accuracy)
-      BSRTOL = SQRT(EPS)*(0.5E-3)
+      BSRTOL = SQRT(EPS)*(0.5e-3)
 
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {

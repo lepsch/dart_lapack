@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       COMPLEX            CZERO
-      const              CZERO = ( 0.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 9 ;
       int                NTESTS;

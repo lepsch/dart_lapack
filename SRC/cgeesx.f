@@ -23,7 +23,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E0, ONE = 1.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SCALEA, WANTSB, WANTSE, WANTSN, WANTST, WANTSV, WANTVS;

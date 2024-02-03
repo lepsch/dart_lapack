@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               TEN
-      const              TEN = 1.0E+1 ;
+      const              TEN = 1.0e+1 ;
       int                LDD, LDX;
       const              LDD = 4, LDX = 2 ;
       // ..

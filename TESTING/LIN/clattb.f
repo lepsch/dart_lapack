@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL               ONE, TWO, ZERO
-      const              ONE = 1.0E+0, TWO = 2.0E+0, ZERO = 0.0E+0 ;
+      const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;

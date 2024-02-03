@@ -13,11 +13,11 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TEN
-      const              ZERO = 0.0E0, ONE = 1.0E+0, TEN = 1.0E1 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e1 ;
       COMPLEX            CZERO
-      const              CZERO = ( 0.0E0, 0.0E0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       COMPLEX            CONE
-      const              CONE = ( 1.0E0, 0.0E0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       int                NSZ, NSZB;
       const              NSZ = 5, NSZB = 3*NSZ-2 ;
       int                NSZP, NPOW;

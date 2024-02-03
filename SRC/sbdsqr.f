@@ -16,19 +16,19 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
       REAL               NEGONE
-      const              NEGONE = -1.0E0 ;
+      const              NEGONE = -1.0 ;
       REAL               HNDRTH
-      const              HNDRTH = 0.01E0 ;
+      const              HNDRTH = 0.01 ;
       REAL               TEN
-      const              TEN = 10.0E0 ;
+      const              TEN = 10.0 ;
       REAL               HNDRD
-      const              HNDRD = 100.0E0 ;
+      const              HNDRD = 100.0 ;
       REAL               MEIGTH
-      const              MEIGTH = -0.125E0 ;
+      const              MEIGTH = -0.125 ;
       int                MAXITR;
       const              MAXITR = 6 ;
       // ..

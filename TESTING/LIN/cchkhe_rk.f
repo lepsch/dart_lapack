@@ -20,13 +20,13 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               ONEHALF
-      const              ONEHALF = 0.5E+0 ;
+      const              ONEHALF = 0.5 ;
       REAL               EIGHT, SEVTEN
-      const              EIGHT = 8.0E+0, SEVTEN = 17.0E+0 ;
+      const              EIGHT = 8.0, SEVTEN = 17.0 ;
       COMPLEX            CZERO
-      const              CZERO = ( 0.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       int                NTYPES;
       const              NTYPES = 10 ;
       int                NTESTS;

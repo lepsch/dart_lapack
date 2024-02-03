@@ -15,7 +15,7 @@
 *  =====================================================================
 
       // .. Parameters ..
-*    $                     SAFETY = 1.0E+0 )
+*    $                     SAFETY = 1.0 )
       double             HALF, ZERO, ONE, SAFETY;
       const              HALF = 0.5, ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2 ;
       // ..

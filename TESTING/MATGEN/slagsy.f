@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, HALF
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, HALF = 0.5E+0 ;
+      const              ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                I, J;

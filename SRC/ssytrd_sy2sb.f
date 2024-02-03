@@ -19,7 +19,7 @@
       // .. Parameters ..
       REAL               RONE
       REAL               ZERO, ONE, HALF
-      const              RONE = 1.0E+0, ZERO = 0.0E+0, ONE = 1.0E+0, HALF = 0.5E+0 ;
+      const              RONE = 1.0, ZERO = 0.0, ONE = 1.0, HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER;

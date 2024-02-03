@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       COMPLEX ZERO
-      const     ZERO= (0.0E+0,0.0E+0);
+      const     ZERO= (0.0,0.0);
       // ..
       // .. Local Scalars ..
       COMPLEX TEMP

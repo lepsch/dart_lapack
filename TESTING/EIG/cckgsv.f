@@ -64,14 +64,14 @@
       M = 6
       P = 6
       N = 6
-      A(1:M*N) = CMPLX(1.E0, 0.E0)
-      B(1:M*N) = CMPLX(0.E0, 0.E0)
-      B(1+0*M) = CMPLX(9.E19, 0.E0)
-      B(2+1*M) = CMPLX(9.E18, 0.E0)
-      B(3+2*M) = CMPLX(9.E17, 0.E0)
-      B(4+3*M) = CMPLX(9.E16, 0.E0)
-      B(5+4*M) = CMPLX(9.E15, 0.E0)
-      B(6+5*M) = CMPLX(9.E14, 0.E0)
+      A(1:M*N) = CMPLX(1.0, 0.0)
+      B(1:M*N) = CMPLX(0.0, 0.0)
+      B(1+0*M) = CMPLX(9e19, 0.0)
+      B(2+1*M) = CMPLX(9e18, 0.0)
+      B(3+2*M) = CMPLX(9e17, 0.0)
+      B(4+3*M) = CMPLX(9e16, 0.0)
+      B(5+4*M) = CMPLX(9e15, 0.0)
+      B(6+5*M) = CMPLX(9e14, 0.0)
       cggsvd3('N','N','N', M, P, N, K, L, A, M, B, M, ALPHA, BETA, U, 1, V, 1, Q, 1, WORK, M*N, RWORK, IWORK, INFO);
 
       // Print information there is a NAN in BETA

@@ -22,11 +22,11 @@
       int                NTYPES;
       const              NTYPES = 4 ;
       REAL               GAPDIGIT, ORTH, REALONE, REALZERO, TEN
-      const              GAPDIGIT = 10.0E0, ORTH = 1.0E-4, REALONE = 1.0E0, REALZERO = 0.0E0, TEN = 10.0E0 ;
+      const              GAPDIGIT = 10.0, ORTH = 1.0e-4, REALONE = 1.0, REALZERO = 0.0, TEN = 10.0 ;
       COMPLEX            ONE, ZERO
-      const              ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) ;
+      const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       REAL               PIOVER2
-      const     PIOVER2 = 1.57079632679489661923132169163975144210E0 ;
+      const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
       bool               FIRSTT;
@@ -163,7 +163,7 @@
       COMPLEX            WORK( * ), X( LDX, * )
 
       COMPLEX            ONE, ZERO
-      const              ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) ;
+      const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
 
       int                I, INFO, R;
 
@@ -175,25 +175,25 @@
          X(I,I) = ONE
       }
       for (I = 1; I <= R; I++) {
-         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = CMPLX ( COS(THETA(I)), 0.0E0 )
+         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = CMPLX ( COS(THETA(I)), 0.0 )
       }
       DO I = 1, MIN(P,M-Q)-R
          X(P-I+1,M-I+1) = -ONE
       }
       for (I = 1; I <= R; I++) {
-         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = CMPLX( -SIN(THETA(R-I+1)), 0.0E0 )
+         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = CMPLX( -SIN(THETA(R-I+1)), 0.0 )
       }
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = ONE
       }
       for (I = 1; I <= R; I++) {
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
+         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = CMPLX( SIN(THETA(R-I+1)), 0.0 )
       }
       DO I = 1, MIN(M-P,M-Q)-R
          X(P+I,Q+I) = ONE
       }
       for (I = 1; I <= R; I++) {
-         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = CMPLX( COS(THETA(I)), 0.0E0 )
+         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = CMPLX( COS(THETA(I)), 0.0 )
       }
       claror('Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO );
       claror('Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL CLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL CLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO );

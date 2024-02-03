@@ -18,11 +18,11 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
       REAL               TWOPI
-      const      TWOPI = 6.28318530717958647692528676655900576839E+0 ;
+      const      TWOPI = 6.28318530717958647692528676655900576839 ;
       // ..
       // .. Local Scalars ..
       REAL               ALPHA, ANGLE, C, DUMMY, EXTRA, S, TEMP

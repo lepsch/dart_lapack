@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0e0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       REAL               H21S, H31S, S

@@ -258,7 +258,7 @@ void main() {
 
  9998 FORMAT( '[',A1,I1, '] ABS(', (ES8.1,SP,ES8.1,"*I"), ' ) = ', ES8.1, ' differs from NaN' )
 
- 9999 FORMAT( '[',A1,I1, '] ABS(', ES24.16E3, ' * ', A7, ' ) = ', ES24.16E3, ' differs from ', ES24.16E3 )
+ 9999 FORMAT( '[',A1,I1, '] ABS(', ES24.16e3, ' * ', A7, ' ) = ', ES24.16e3, ' differs from ', ES24.16e3 )
 
       // End of zabs
 

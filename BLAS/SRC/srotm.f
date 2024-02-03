@@ -18,7 +18,7 @@
       int     I,KX,KY,NSTEPS;
       // ..
       // .. Data statements ..
-      DATA ZERO,TWO/0.E0,2.E0/
+      DATA ZERO,TWO/0.0,2.0/
       // ..
 
       SFLAG = SPARAM(1)

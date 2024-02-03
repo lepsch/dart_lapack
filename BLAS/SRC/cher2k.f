@@ -33,9 +33,9 @@
       // ..
       // .. Parameters ..
       REAL ONE
-      const     ONE=1.0E+0;
+      const     ONE=1.0;
       COMPLEX ZERO
-      const     ZERO= (0.0E+0,0.0E+0);
+      const     ZERO= (0.0,0.0);
       // ..
 
       // Test the input parameters.

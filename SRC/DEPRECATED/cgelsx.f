@@ -20,9 +20,9 @@
       int                IMAX, IMIN;
       const              IMAX = 1, IMIN = 2 ;
       REAL               ZERO, ONE, DONE, NTDONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, DONE = ZERO, NTDONE = ONE ;
+      const              ZERO = 0.0, ONE = 1.0, DONE = ZERO, NTDONE = ONE ;
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN;

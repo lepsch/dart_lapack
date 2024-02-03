@@ -25,7 +25,7 @@
       const              NTESTS = 5 ;
       REAL               ONE, ZERO, BIGNUM
       COMPLEX            CONE, CZERO
-      const              ONE = 1.0E+0, ZERO = 0.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ), BIGNUM = 1.0E+38 ;
+      const              ONE = 1.0, ZERO = 0.0, CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ), BIGNUM = 1.0e+38 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;

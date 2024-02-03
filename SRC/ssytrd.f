@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ONE
-      const              ONE = 1.0E+0 ;
+      const              ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER;

@@ -192,7 +192,7 @@
                               // After the QR factorization, the diagonal
                               // of A is made of real numbers, we multiply
                               // by a random complex number of absolute
-                              // value 1.0E+00.
+                              // value 1.0e+00.
 
                               for (J = 1; J <= NA; J++) {
                                  A( J, J ) = A( J, J ) * ZLARND( 5, ISEED )

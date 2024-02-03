@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       REAL               ONE
-      const              ONE = 1.0E+0 ;
+      const              ONE = 1.0 ;
       int                NTYPES;
       const              NTYPES = 9 ;
       // ..
@@ -95,7 +95,7 @@
 
                IF( ( IMAT < 3 || IMAT > 5 ) && IRANK > 1 ) GO TO 130
 
-               RANK = CEILING( ( N * REAL( RANKVAL( IRANK ) ) ) / 100.E+0 )
+               RANK = CEILING( ( N * REAL( RANKVAL( IRANK ) ) ) / 100.0 )
 
 
             // Do first for UPLO = 'U', then for UPLO = 'L'

@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ONE, HALF
-      const              ONE = 1.0E+0, HALF = 0.5E+0 ;
+      const              ONE = 1.0, HALF = 0.5 ;
       COMPLEX            CONE
-      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;

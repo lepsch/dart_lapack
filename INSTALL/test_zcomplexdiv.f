@@ -310,9 +310,9 @@ void main() {
       if( (caseAFails > 0) || (caseBFails > 0) || (caseCFails > 0) || (caseDFails > 0) || (caseEFails > 0) || (caseFFails > 0) ) print *, "# Please check the failed divisions in [stderr]"
 
       // .. Formats ..
- 9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ', (ES24.16E3,SP,ES24.16E3,"*I"), ' = ', (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', A10 )
+ 9998 FORMAT( '[',A2,I1, '] ', (ES24.16e3,SP,ES24.16e3,"*I"), ' * ', (ES24.16e3,SP,ES24.16e3,"*I"), ' = ', (ES24.16e3,SP,ES24.16e3,"*I"), ' differs from ', A10 )
 
- 9999 FORMAT( '[',A2,I1, '] X = ', ES24.16E3, ' : ', A15, ' = ', (ES24.16E3,SP,ES24.16E3,"*I"), ' differs from ', (ES24.16E3,SP,ES24.16E3,"*I") )
+ 9999 FORMAT( '[',A2,I1, '] X = ', ES24.16e3, ' : ', A15, ' = ', (ES24.16e3,SP,ES24.16e3,"*I"), ' differs from ', (ES24.16e3,SP,ES24.16e3,"*I") )
 
       // End of zdiv
 

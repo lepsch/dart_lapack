@@ -18,7 +18,7 @@
 *  =====================================================================
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE  = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE  = ( 1.0, 0.0 ) ;
 
       // .. Local Scalars ..
       bool               UPPER, TQUERY, WQUERY;

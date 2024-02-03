@@ -44,7 +44,7 @@
       TNOSEC = T2 - T1
       WRITE( 6, 9999 )TOTAL, TNOSEC
       if ( TNOSEC > 0.0 ) {
-         WRITE( 6, 9998 )(TOTAL/1.0E6)/TNOSEC
+         WRITE( 6, 9998 )(TOTAL/1.0e6)/TNOSEC
       } else {
          WRITE( 6, 9994 )
       }
@@ -64,7 +64,7 @@
       // to SECOND.
 
       WRITE( 6, 9997 )T2 - T1
-      AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0E+00/REAL( ITS )
+      AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0e+00/REAL( ITS )
       if (AVG > 0.0) WRITE( 6, 9996 )AVG;
 
       // Compute the equivalent number of floating point operations used

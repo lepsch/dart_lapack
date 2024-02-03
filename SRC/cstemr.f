@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, FOUR, MINRGP
-      const              ZERO = 0.0E0, ONE = 1.0E0, FOUR = 4.0E0, MINRGP = 3.0E-3 ;
+      const              ZERO = 0.0, ONE = 1.0, FOUR = 4.0, MINRGP = 3.0e-3 ;
       // ..
       // .. Local Scalars ..
       bool               ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP;
@@ -318,8 +318,8 @@
             // CLARRV will refine the eigenvalue approximations, and we only
             // need less accurate initial bisection in SLARRE.
             // Note: these settings do only affect the subset case and SLARRE
-            RTOL1 = MAX( SQRT(EPS)*5.0E-2, FOUR * EPS )
-            RTOL2 = MAX( SQRT(EPS)*5.0E-3, FOUR * EPS )
+            RTOL1 = MAX( SQRT(EPS)*5.0e-2, FOUR * EPS )
+            RTOL2 = MAX( SQRT(EPS)*5.0e-3, FOUR * EPS )
          }
          slarre(RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO );
          if ( IINFO != 0 ) {

@@ -34,7 +34,7 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       int                NTESTS;
       const              NTESTS = 4 ;
       // ..

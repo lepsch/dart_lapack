@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF, FUDGE
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = ONE/TWO, FUDGE = TWO ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = ONE/TWO, FUDGE = TWO ;
       int       ALLRNG, VALRNG, INDRNG;
       const     ALLRNG = 1, VALRNG = 2, INDRNG = 3 ;
       // ..
@@ -229,15 +229,15 @@
          // Disabled 2x2 case because of a failure on the following matrix
          // RANGE = 'I', IL = IU = 4
            // Original Tridiagonal, d = [
-            // -0.150102010615740E+00
-            // -0.849897989384260E+00
-            // -0.128208148052635E-15
-             // 0.128257718286320E-15
+            // -0.150102010615740e+00
+            // -0.849897989384260e+00
+            // -0.128208148052635e-15
+             // 0.128257718286320e-15
            // ];
            // e = [
-            // -0.357171383266986E+00
-            // -0.180411241501588E-15
-            // -0.175152352710251E-15
+            // -0.357171383266986e+00
+            // -0.180411241501588e-15
+            // -0.175152352710251e-15
            // ];
 
           // ELSE IF( IN == 2 ) THEN

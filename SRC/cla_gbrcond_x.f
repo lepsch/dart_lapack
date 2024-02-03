@@ -43,7 +43,7 @@
       // ..
       // .. Executable Statements ..
 
-      CLA_GBRCOND_X = 0.0E+0
+      CLA_GBRCOND_X = 0.0;
 
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
@@ -72,7 +72,7 @@
       ANORM = 0.0
       if ( NOTRANS ) {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0E+0
+            TMP = 0.0;
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                TMP = TMP + CABS1( AB( KD+I-J, J) * X( J ) )
             }
@@ -81,7 +81,7 @@
          }
       } else {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0E+0
+            TMP = 0.0;
             DO J = MAX( I-KL, 1 ), MIN( I+KU, N )
                TMP = TMP + CABS1( AB( KE-I+J, I ) * X( J ) )
             }
@@ -93,15 +93,15 @@
       // Quick return if possible.
 
       if ( N == 0 ) {
-         CLA_GBRCOND_X = 1.0E+0
+         CLA_GBRCOND_X = 1.0;
          RETURN
-      } else if ( ANORM == 0.0E+0 ) {
+      } else if ( ANORM == 0.0 ) {
          RETURN
       }
 
       // Estimate the norm of inv(op(A)).
 
-      AINVNM = 0.0E+0
+      AINVNM = 0.0;
 
       KASE = 0
       } // 10
@@ -151,7 +151,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM != 0.0E+0) CLA_GBRCOND_X = 1.0E+0 / AINVNM;
+      if (AINVNM != 0.0) CLA_GBRCOND_X = 1.0 / AINVNM;
 
       RETURN
 

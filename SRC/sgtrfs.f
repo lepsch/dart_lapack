@@ -19,11 +19,11 @@
       int                ITMAX;
       const              ITMAX = 5 ;
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               TWO
-      const              TWO = 2.0E+0 ;
+      const              TWO = 2.0 ;
       REAL               THREE
-      const              THREE = 3.0E+0 ;
+      const              THREE = 3.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;

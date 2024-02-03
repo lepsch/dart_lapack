@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
-      const              ZERO = 0.0E+0, HALF = 0.5E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN, NOUNIT, UPPER;

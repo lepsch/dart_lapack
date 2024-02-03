@@ -18,7 +18,7 @@
       int                MAXIT;
       const              MAXIT = 400 ;
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0, FOUR = 4.0E+0, EIGHT = 8.0E+0, TEN = 10.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0, TEN = 10.0 ;
       // ..
       // .. Local Scalars ..
       bool               ORGATI, SWTCH, SWTCH3, GEOMAVG;

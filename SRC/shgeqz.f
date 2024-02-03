@@ -15,9 +15,9 @@
 *  =====================================================================
 
       // .. Parameters ..
-*    $                     SAFETY = 1.0E+0 )
+*    $                     SAFETY = 1.0 )
       REAL               HALF, ZERO, ONE, SAFETY
-      const              HALF = 0.5E+0, ZERO = 0.0E+0, ONE = 1.0E+0, SAFETY = 1.0E+2 ;
+      const              HALF = 0.5, ZERO = 0.0, ONE = 1.0, SAFETY = 1.0e+2 ;
       // ..
       // .. Local Scalars ..
       bool               ILAZR2, ILAZRO, ILPIVT, ILQ, ILSCHR, ILZ, LQUERY;

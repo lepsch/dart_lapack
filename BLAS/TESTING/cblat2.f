@@ -2318,11 +2318,11 @@ void main() {
       COMPLEX            ZERO, ONE
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       COMPLEX            ROGUE
-      const              ROGUE = ( -1.0E10, 1.0E10 ) ;
+      const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       REAL               RZERO
       const              RZERO = 0.0 ;
       REAL               RROGUE
-      const              RROGUE = -1.0E10 ;
+      const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       COMPLEX            TRANSL
       int                KL, KU, LDA, M, N, NMAX;

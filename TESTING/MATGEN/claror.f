@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TOOSML
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, TOOSML = 1.0E-20 ;
+      const              ZERO = 0.0, ONE = 1.0, TOOSML = 1.0e-20 ;
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM;

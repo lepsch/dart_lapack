@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       COMPLEX            ONE, ZERO
-      const              ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) ;
+      const              ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       String             TRANST, SIGNST;

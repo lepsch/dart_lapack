@@ -1790,7 +1790,7 @@ void main() {
       REAL               ZERO, ONE
       const              ZERO = 0.0, ONE = 1.0 ;
       REAL               ROGUE
-      const              ROGUE = -1.0E10 ;
+      const              ROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       REAL               TRANSL
       int                LDA, M, N, NMAX;

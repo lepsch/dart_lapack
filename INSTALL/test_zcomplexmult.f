@@ -101,7 +101,7 @@ void main() {
       }
 
       // .. Formats ..
- 9998 FORMAT( '[',A2,I1, '] (', (ES24.16E3,SP,ES24.16E3,"*I"), ') * (', (ES24.16E3,SP,ES24.16E3,"*I"), ') = (', (ES24.16E3,SP,ES24.16E3,"*I"), ') differs from ', A17 )
+ 9998 FORMAT( '[',A2,I1, '] (', (ES24.16e3,SP,ES24.16e3,"*I"), ') * (', (ES24.16e3,SP,ES24.16e3,"*I"), ') = (', (ES24.16e3,SP,ES24.16e3,"*I"), ') differs from ', A17 )
 
       // End of zmul
 

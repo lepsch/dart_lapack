@@ -38,11 +38,11 @@
       // ==== The constant WILK1 is used to form the exceptional
       // .    shifts. ====
       REAL               WILK1
-      const              WILK1 = 0.75e0 ;
+      const              WILK1 = 0.75 ;
       COMPLEX            ZERO, ONE
-      const              ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               TWO
-      const              TWO = 2.0e0 ;
+      const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       COMPLEX            AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2

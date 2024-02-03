@@ -23,7 +23,7 @@
       int                NTESTS;
       const              NTESTS = 5 ;
       REAL               ONE, ZERO, BIGNUM
-      const              ONE = 1.0E+0, ZERO = 0.0E+0, BIGNUM = 1.0E+38 ;
+      const              ONE = 1.0, ZERO = 0.0, BIGNUM = 1.0e+38 ;
       // ..
       // .. Local Scalars ..
       String             DIST, TYPE;

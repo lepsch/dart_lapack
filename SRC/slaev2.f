@@ -12,13 +12,13 @@
 
       // .. Parameters ..
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
       REAL               TWO
-      const              TWO = 2.0E0 ;
+      const              TWO = 2.0 ;
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       REAL               HALF
-      const              HALF = 0.5E0 ;
+      const              HALF = 0.5 ;
       // ..
       // .. Local Scalars ..
       int                SGN1, SGN2;

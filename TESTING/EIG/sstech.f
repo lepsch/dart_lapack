@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                BPNT, COUNT, I, ISUB, J, NUML, NUMU, TPNT;

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       COMPLEX            ONE
-      const              ONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              ONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               FORWRD, LEFT, NOTRAN, UPPER;

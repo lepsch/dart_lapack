@@ -19,7 +19,7 @@
 
       if ( INT( SROUNDUP_LWORK ) < LWORK ) {
           // Force round up of LWORK
-          SROUNDUP_LWORK = SROUNDUP_LWORK * ( 1.0E+0 + EPSILON(0.0E+0) )
+          SROUNDUP_LWORK = SROUNDUP_LWORK * ( 1.0 + EPSILON(0.0) )
       }
 
       RETURN

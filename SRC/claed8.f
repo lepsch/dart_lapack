@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL               MONE, ZERO, ONE, TWO, EIGHT
-      const              MONE = -1.0E0, ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, EIGHT = 8.0E0 ;
+      const              MONE = -1.0, ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2;

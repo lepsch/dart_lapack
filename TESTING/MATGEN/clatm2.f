@@ -21,9 +21,9 @@
       // .. Parameters ..
 
       COMPLEX            CZERO
-      const              CZERO = ( 0.0E0, 0.0E0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       // ..
 
       // .. Local Scalars ..

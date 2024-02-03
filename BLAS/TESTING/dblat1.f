@@ -663,7 +663,7 @@ void main() {
       // .. Parameters ..
       int              NOUT;
       REAL             ZERO
-      const            NOUT=6, ZERO=0.0E0;
+      const            NOUT=6, ZERO=0.0;
       // .. Scalar Arguments ..
       REAL             SFAC, SCOMP, SSIZE, STRUE
       // .. Scalars in Common ..

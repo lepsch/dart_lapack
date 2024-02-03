@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E+0 ;
+      const              ZERO = 0.0 ;
       COMPLEX            CONE
-      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       REAL               SSMAX

@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               EIGHT, SEVTEN
-      const              EIGHT = 8.0E+0, SEVTEN = 17.0E+0 ;
+      const              EIGHT = 8.0, SEVTEN = 17.0 ;
       // ..
       // .. Local Scalars ..
       bool               UPPER;
@@ -223,7 +223,7 @@
                      } // 30
                      A( J, K ) = WK
                      A( J, K-1 ) = WKM1
-                     A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0E+0 )
+                     A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0 )
                   } // 40
 
                }
@@ -402,7 +402,7 @@
                      } // 70
                      A( J, K ) = WK
                      A( J, K+1 ) = WKP1
-                     A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0E+0 )
+                     A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0 )
                   } // 80
                }
             }

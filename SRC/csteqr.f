@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0 ;
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXIT;
       const              MAXIT = 30 ;
       // ..

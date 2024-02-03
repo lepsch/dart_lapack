@@ -20,8 +20,8 @@
       // .. Intrinsic Functions ..
       // INTRINSIC ABS,AIMAG,REAL
       // ..
-      SCASUM = 0.0e0
-      STEMP = 0.0e0
+      SCASUM = 0.0;
+      STEMP = 0.0;
       if (N <= 0 || INCX <= 0) RETURN;
       if (INCX == 1) {
 

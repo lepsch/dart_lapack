@@ -23,7 +23,7 @@
       const              ITERMAX = 30 ;
 
       double             BWDMAX;
-      const              BWDMAX = 1.0E+00 ;
+      const              BWDMAX = 1.0e+00 ;
 
       double             NEGONE, ONE;
       const              NEGONE = -1.0, ONE = 1.0 ;

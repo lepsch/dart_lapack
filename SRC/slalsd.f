@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       int                BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL, NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z;

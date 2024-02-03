@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E+0 ;
+      const              ZERO = 0.0 ;
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               WANTB, WANTC, WANTPT, WANTQ;

@@ -14,7 +14,7 @@
       int                LDE;
       const              LDE = 20 ;
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IHI, ILO, INFO, J, KNT, N, NINFO;

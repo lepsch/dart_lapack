@@ -12,11 +12,11 @@
 
       // .. Parameters ..
       REAL               BS
-      const              BS = 2.0E0 ;
+      const              BS = 2.0 ;
       REAL               HALF
-      const              HALF = 0.5E0 ;
+      const              HALF = 0.5 ;
       REAL               TWO
-      const              TWO = 2.0E0 ;
+      const              TWO = 2.0 ;
 
       // .. Local Scalars ..
       REAL               AA, BB, CC, DD, AB, CD, S, OV, UN, BE, EPS
@@ -39,7 +39,7 @@
       DD = D
       AB = MAX( ABS(A), ABS(B) )
       CD = MAX( ABS(C), ABS(D) )
-      S = 1.0E0
+      S = 1.0;
 
       OV = SLAMCH( 'Overflow threshold' )
       UN = SLAMCH( 'Safe minimum' )
@@ -98,7 +98,7 @@
 
       // .. Parameters ..
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
 
       // .. Local Scalars ..
       REAL               R, T
@@ -137,7 +137,7 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
 
       // .. Local Scalars ..
       REAL               BR

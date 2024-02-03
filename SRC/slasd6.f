@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M, N, N1, N2;

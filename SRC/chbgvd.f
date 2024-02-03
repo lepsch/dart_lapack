@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       COMPLEX            CONE, CZERO
-      const              CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) ;
+      const              CONE = ( 1.0, 0.0 ), CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, UPPER, WANTZ;

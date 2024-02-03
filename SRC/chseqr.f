@@ -31,9 +31,9 @@
       int                NL;
       const              NL = 49 ;
       COMPLEX            ZERO, ONE
-      const              ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) ;
+      const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       REAL               RZERO
-      const              RZERO = 0.0e0 ;
+      const              RZERO = 0.0 ;
       // ..
       // .. Local Arrays ..
       COMPLEX            HL( NL, NL ), WORKL( NL )

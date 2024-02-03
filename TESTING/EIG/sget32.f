@@ -13,9 +13,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E0, ONE = 1.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               TWO, FOUR, EIGHT
-      const              TWO = 2.0E0, FOUR = 4.0E0, EIGHT = 8.0E0 ;
+      const              TWO = 2.0, FOUR = 4.0, EIGHT = 8.0 ;
       // ..
       // .. Local Scalars ..
       bool               LTRANL, LTRANR;

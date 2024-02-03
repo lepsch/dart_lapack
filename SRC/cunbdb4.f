@@ -35,7 +35,7 @@
 
       // .. Parameters ..
       COMPLEX            NEGONE, ONE, ZERO
-      const              NEGONE = (-1.0E0,0.0E0), ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) ;
+      const              NEGONE = (-1.0,0.0), ONE = (1.0,0.0), ZERO = (0.0,0.0) ;
       // ..
       // .. Local Scalars ..
       REAL               C, S

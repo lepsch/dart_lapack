@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, SVMIN
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, SVMIN = 0.1E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, SVMIN = 0.1 ;
       // ..
       // .. Local Scalars ..
       int                INFO, J, MN;

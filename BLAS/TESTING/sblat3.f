@@ -1520,7 +1520,7 @@ void main() {
       bool               LERR, OK;
       // .. Parameters ..
       REAL               ONE, TWO
-      const              ONE = 1.0E0, TWO = 2.0E0 ;
+      const              ONE = 1.0, TWO = 2.0 ;
       // .. Local Scalars ..
       REAL               ALPHA, BETA
       // .. Local Arrays ..
@@ -2068,7 +2068,7 @@ void main() {
       REAL               ZERO, ONE
       const              ZERO = 0.0, ONE = 1.0 ;
       REAL               ROGUE
-      const              ROGUE = -1.0E10 ;
+      const              ROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       REAL               TRANSL
       int                LDA, M, N, NMAX;

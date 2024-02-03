@@ -596,23 +596,23 @@
          ssyevr('V', 'A', 'U', 2, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         ssyevr('V', 'V', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr('V', 'V', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ssyevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 0, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          INFOT = 10
 
-         ssyevr('V', 'I', 'U', 2, A, 2, 0.0E0, 0.0E0, 2, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr('V', 'I', 'U', 2, A, 2, 0.0, 0.0, 2, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         ssyevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 0, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 0, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         ssyevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 0, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 0, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          INFOT = 20
-         ssyevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO );
+         ssyevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO );
          chkxer('SSYEVR', INFOT, NOUT, LERR, OK );
          NT = NT + 11
 
@@ -621,40 +621,40 @@
          SRNAMT = 'SSYEVR_2STAGE'
          N = 1
          INFOT = 1
-         ssyevr_2stage('/', 'A', 'U', 0, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('/', 'A', 'U', 0, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 1
-         ssyevr_2stage('V', 'A', 'U', 0, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('V', 'A', 'U', 0, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         ssyevr_2stage('N', '/', 'U', 0, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', '/', 'U', 0, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         ssyevr_2stage('N', 'A', '/', -1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'A', '/', -1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         ssyevr_2stage('N', 'A', 'U', -1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'A', 'U', -1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         ssyevr_2stage('N', 'A', 'U', 2, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'A', 'U', 2, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         ssyevr_2stage('N', 'V', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'V', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 0, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         ssyevr_2stage('N', 'I', 'U', 2, A, 2, 0.0E0, 0.0E0, 2, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'I', 'U', 2, A, 2, 0.0, 0.0, 2, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 0, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 0, IW, Q, 26*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 0, IW( 2*N+1 ), 10*N, INFO );
+         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 0, IW( 2*N+1 ), 10*N, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 20
-         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0E0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO );
+         ssyevr_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 26*N, IW( 2*N+1 ), 0, INFO );
          chkxer('SSYEVR_2STAGE', INFOT, NOUT, LERR, OK );
          NT = NT + 12
 
@@ -745,42 +745,42 @@
 
          SRNAMT = 'SSYEVX_2STAGE'
          INFOT = 1
-         ssyevx_2stage('/', 'A', 'U', 0, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 1, IW, I3, INFO );
+         ssyevx_2stage('/', 'A', 'U', 0, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 1
-         ssyevx_2stage('V', 'A', 'U', 0, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 1, IW, I3, INFO );
+         ssyevx_2stage('V', 'A', 'U', 0, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         ssyevx_2stage('N', '/', 'U', 0, A, 1, 0.0E0, 1.0E0, 1, 0, 0.0E0, M, X, Z, 1, W, 1, IW, I3, INFO );
+         ssyevx_2stage('N', '/', 'U', 0, A, 1, 0.0, 1.0, 1, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         ssyevx_2stage('N', 'A', '/', 0, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 1, IW, I3, INFO );
+         ssyevx_2stage('N', 'A', '/', 0, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          INFOT = 4
-         ssyevx_2stage('N', 'A', 'U', -1, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 1, IW, I3, INFO );
+         ssyevx_2stage('N', 'A', 'U', -1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 1, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 6
-         ssyevx_2stage('N', 'A', 'U', 2, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 16, IW, I3, INFO );
+         ssyevx_2stage('N', 'A', 'U', 2, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 16, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         ssyevx_2stage('N', 'V', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 8, IW, I3, INFO );
+         ssyevx_2stage('N', 'V', 'U', 1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 8, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ssyevx_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 8, IW, I3, INFO );
+         ssyevx_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 8, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         ssyevx_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 2, 1, 0.0E0, M, X, Z, 1, W, 8, IW, I3, INFO );
+         ssyevx_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 2, 1, 0.0, M, X, Z, 1, W, 8, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         ssyevx_2stage('N', 'I', 'U', 2, A, 2, 0.0E0, 0.0E0, 2, 1, 0.0E0, M, X, Z, 1, W, 16, IW, I3, INFO );
+         ssyevx_2stage('N', 'I', 'U', 2, A, 2, 0.0, 0.0, 2, 1, 0.0, M, X, Z, 1, W, 16, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 10
-         ssyevx_2stage('N', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 2, 0.0E0, M, X, Z, 1, W, 8, IW, I3, INFO );
+         ssyevx_2stage('N', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 2, 0.0, M, X, Z, 1, W, 8, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         ssyevx_2stage('N', 'A', 'U', 2, A, 2, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 0, W, 16, IW, I3, INFO );
+         ssyevx_2stage('N', 'A', 'U', 2, A, 2, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 0, W, 16, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 17
-         ssyevx_2stage('N', 'A', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssyevx_2stage('N', 'A', 'U', 1, A, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSYEVX_2STAGE', INFOT, NOUT, LERR, OK );
          NT = NT + 13
 
@@ -1112,51 +1112,51 @@
 
          SRNAMT = 'SSBEVX_2STAGE'
          INFOT = 1
-         ssbevx_2stage('/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('/', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 1
-         ssbevx_2stage('V', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('V', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 2
-         ssbevx_2stage('N', '/', 'U', 0, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', '/', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 3
-         ssbevx_2stage('N', 'A', '/', 0, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'A', '/', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 4
-         ssbevx_2stage('N', 'A', 'U', -1, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'A', 'U', -1, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 5
-         ssbevx_2stage('N', 'A', 'U', 0, -1, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'A', 'U', 0, -1, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         ssbevx_2stage('N', 'A', 'U', 2, 1, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'A', 'U', 2, 1, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
           // INFOT = 9
-          // CALL SSBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1, 0.0E0,
-      // $          0.0E0, 0, 0, 0.0E0, M, X, Z, 2, W, 0, IW, I3, INFO )
+          // CALL SSBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 1, 0.0,
+      // $          0.0, 0, 0, 0.0, M, X, Z, 2, W, 0, IW, I3, INFO )
           // CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         ssbevx_2stage('N', 'V', 'U', 1, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'V', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         ssbevx_2stage('N', 'I', 'U', 1, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'I', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 12
-         ssbevx_2stage('N', 'I', 'U', 1, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 2, 1, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'I', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 2, 1, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         ssbevx_2stage('N', 'I', 'U', 2, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 2, 1, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'I', 'U', 2, 0, A, 1, Q, 1, 0.0, 0.0, 2, 1, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
          INFOT = 13
-         ssbevx_2stage('N', 'I', 'U', 1, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 1, 2, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'I', 'U', 1, 0, A, 1, Q, 1, 0.0, 0.0, 1, 2, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
           // INFOT = 18
-          // CALL SSBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0E0,
-      // $          0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO )
+          // CALL SSBEVX_2STAGE( 'V', 'A', 'U', 2, 0, A, 1, Q, 2, 0.0,
+      // $          0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO )
           // CALL CHKXER( 'SSBEVX_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         ssbevx_2stage('N', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0E0, 0.0E0, 0, 0, 0.0E0, M, X, Z, 1, W, 0, IW, I3, INFO );
+         ssbevx_2stage('N', 'A', 'U', 0, 0, A, 1, Q, 1, 0.0, 0.0, 0, 0, 0.0, M, X, Z, 1, W, 0, IW, I3, INFO );
          chkxer('SSBEVX_2STAGE', INFOT, NOUT, LERR, OK );
           // NT = NT + 15
          NT = NT + 13

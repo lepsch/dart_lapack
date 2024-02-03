@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       REAL               REALZERO
-      const              REALZERO = 0.0E0 ;
+      const              REALZERO = 0.0 ;
       REAL               ONE, ZERO
-      const              ONE = 1.0E0, ZERO = 0.0E0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                CHILDINFO, I, J;

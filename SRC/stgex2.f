@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               TWENTY
-      const              TWENTY = 2.0E+01 ;
+      const              TWENTY = 2.0e+01 ;
       int                LDST;
       const              LDST = 4 ;
       bool               WANDS;

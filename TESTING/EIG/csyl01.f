@@ -20,9 +20,9 @@
       // ..
       // .. Parameters ..
       COMPLEX            CONE
-      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       REAL               ONE, ZERO
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       int                MAXM, MAXN, LDSWORK;
       const              MAXM = 101, MAXN = 138, LDSWORK = 18 ;
       // ..
@@ -78,7 +78,7 @@
       // Expect INFO = 0
       VM( 1 ) = ONE
       // Expect INFO = 1
-      VM( 2 ) = 0.5E+0
+      VM( 2 ) = 0.5;
 
       // Begin test loop
 

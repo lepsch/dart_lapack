@@ -59,12 +59,12 @@
             A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
             AF( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
          } // 10
-         B( J ) = 0.E+0
-         E( J ) = 0.E+0
-         R1( J ) = 0.E+0
-         R2( J ) = 0.E+0
-         W( J ) = 0.E+0
-         X( J ) = 0.E+0
+         B( J ) = 0.0;
+         E( J ) = 0.0;
+         R1( J ) = 0.0;
+         R2( J ) = 0.0;
+         W( J ) = 0.0;
+         X( J ) = 0.0;
          IP( J ) = J
       } // 20
       ANRM = 1.0
@@ -430,7 +430,7 @@
          checon_3('U', 2, A, 1, E, IP, ANRM, RCOND, W, INFO );
          chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
          INFOT = 7
-         checon_3('U', 1, A, 1, E, IP, -1.0E0, RCOND, W, INFO);
+         checon_3('U', 1, A, 1, E, IP, -1.0, RCOND, W, INFO);
          chkxer('CHECON_3', INFOT, NOUT, LERR, OK );
 
       } else if ( LSAMEN( 2, C2, 'HP' ) ) {

@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       REAL               ALPHA, REALONE, REALZERO
-      const              ALPHA = 0.83E0, REALONE = 1.0E0, REALZERO = 0.0E0 ;
+      const              ALPHA = 0.83, REALONE = 1.0, REALZERO = 0.0 ;
       REAL               NEGONE, ONE, ZERO
-      const              NEGONE = -1.0E0, ONE = 1.0E0, ZERO = 0.0E0 ;
+      const              NEGONE = -1.0, ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                I, IX;

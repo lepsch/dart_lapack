@@ -19,7 +19,7 @@
       int                MAXIT;
       const              MAXIT = 40 ;
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, EIGHT = 8.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, EIGHT = 8.0 ;
       // ..
       // .. External Functions ..
       REAL               SLAMCH

@@ -22,8 +22,8 @@
       // ..
       // .. Executable Statements ..
 
-      SCSUM1 = 0.0E0
-      STEMP = 0.0E0
+      SCSUM1 = 0.0;
+      STEMP = 0.0;
       if (N <= 0) RETURN       IF( INCX == 1 ) GO TO 20;
 
       // CODE FOR INCREMENT NOT EQUAL TO 1

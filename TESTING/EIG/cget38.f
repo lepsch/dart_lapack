@@ -18,11 +18,11 @@
       int                LDT, LWORK;
       const              LDT = 20, LWORK = 2*LDT*( 10+LDT ) ;
       REAL               ZERO, ONE, TWO
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       REAL               EPSIN
-      const              EPSIN = 5.9605E-8 ;
+      const              EPSIN = 5.9605e-8 ;
       COMPLEX            CZERO
-      const              CZERO = ( 0.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, ISCL, ISRT, ITMP, J, KMIN, M, N, NDIM;

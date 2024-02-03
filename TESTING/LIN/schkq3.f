@@ -22,7 +22,7 @@
       int                NTESTS;
       const              NTESTS = 3 ;
       REAL               ONE, ZERO
-      const              ONE = 1.0E0, ZERO = 0.0E0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             PATH;

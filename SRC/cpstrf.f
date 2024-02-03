@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       COMPLEX            CONE
-      const              CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CONE = ( 1.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       COMPLEX            CTEMP

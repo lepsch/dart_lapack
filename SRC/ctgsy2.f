@@ -18,7 +18,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE
       int                LDZ;
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, LDZ = 2 ;
+      const              ZERO = 0.0, ONE = 1.0, LDZ = 2 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRAN;

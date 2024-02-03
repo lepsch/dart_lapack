@@ -19,11 +19,11 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, TEN
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, TEN = 10.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, TEN = 10.0 ;
       REAL               HALF
       const              HALF = ONE / TWO ;
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       int                MAXTYP;
       const              MAXTYP = 18 ;
       // ..

@@ -22,7 +22,7 @@
       double             ZERO;
       const              ZERO = 0.0 ;
       COMPLEX*16         CZERO
-      const              CZERO = 0.0E+0 ;
+      const              CZERO = 0.0 ;
       int                NTYPES, NTESTS;
       const              NTYPES = 10, NTESTS = 3 ;
       int                NFACT;

@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, EIGHT, TEN, HUN
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, EIGHT = 8.0E0, TEN = 10.0E0, HUN = 100.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, EIGHT = 8.0, TEN = 10.0, HUN = 100.0 ;
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               HALF
       const              HALF = ONE / TWO ;
       int                MAXTYP;
@@ -1227,7 +1227,7 @@
                      WRITE( NOUNIT, FMT = 9987 )
                   }
                   NERRS = NERRS + 1
-                  if ( RESULT( JR ) < 10000.0E0 ) {
+                  if ( RESULT( JR ) < 10000.0 ) {
                      WRITE( NOUNIT, FMT = 9989 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   } else {
                      WRITE( NOUNIT, FMT = 9988 )N, JTYPE, IOLDSD, JR, RESULT( JR )

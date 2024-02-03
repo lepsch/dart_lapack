@@ -18,7 +18,7 @@
       // .. Parameters ..
 
       REAL               ONE, ZERO
-      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       int                COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2;

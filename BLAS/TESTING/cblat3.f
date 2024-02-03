@@ -1629,7 +1629,7 @@ void main() {
       bool               LERR, OK;
       // .. Parameters ..
       REAL               ONE, TWO
-      const              ONE = 1.0E0, TWO = 2.0E0 ;
+      const              ONE = 1.0, TWO = 2.0 ;
       // .. Local Scalars ..
       COMPLEX            ALPHA, BETA
       REAL               RALPHA, RBETA
@@ -2561,11 +2561,11 @@ void main() {
       COMPLEX            ZERO, ONE
       const              ZERO = ( 0.0, 0.0 ), ONE = ( 1.0, 0.0 ) ;
       COMPLEX            ROGUE
-      const              ROGUE = ( -1.0E10, 1.0E10 ) ;
+      const              ROGUE = ( -1.0e10, 1.0e10 ) ;
       REAL               RZERO
       const              RZERO = 0.0 ;
       REAL               RROGUE
-      const              RROGUE = -1.0E10 ;
+      const              RROGUE = -1.0e10 ;
       // .. Scalar Arguments ..
       COMPLEX            TRANSL
       int                LDA, M, N, NMAX;

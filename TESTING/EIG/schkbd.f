@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 0.5E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 0.5 ;
       int                MAXTYP;
       const              MAXTYP = 16 ;
       // ..

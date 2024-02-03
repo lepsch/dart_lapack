@@ -15,9 +15,9 @@
 
       // .. Parameters ..
       REAL               CBIAS
-      const              CBIAS = 1.50E0 ;
+      const              CBIAS = 1.50 ;
       REAL               ZERO, HALF, ONE, TWO, FOUR, HUNDRD
-      const              ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0, TWO = 2.0E0, FOUR = 4.0E0, HUNDRD = 100.0E0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0, FOUR = 4.0, HUNDRD = 100.0 ;
       // ..
       // .. Local Scalars ..
       bool               IEEE;

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO
-      const              ONE = 1.0E0, TWO = 2.0E0, QUART = 0.25E0, MAXGROWTH1 = 8.E0, MAXGROWTH2 = 8.E0 ;
+      const              ONE = 1.0, TWO = 2.0, QUART = 0.25, MAXGROWTH1 = 8.0, MAXGROWTH2 = 8.0 ;
       // ..
       // .. Local Scalars ..
       bool      DORRR1, FORCER, NOFAIL, SAWNAN1, SAWNAN2, TRYRRR1;

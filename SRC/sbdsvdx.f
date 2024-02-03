@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TEN, HNDRD, MEIGTH
-      const              ZERO = 0.0E0, ONE = 1.0E0, TEN = 10.0E0, HNDRD = 100.0E0, MEIGTH = -0.1250E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 10.0, HNDRD = 100.0, MEIGTH = -0.1250 ;
       REAL               FUDGE
-      const              FUDGE = 2.0E0 ;
+      const              FUDGE = 2.0 ;
       // ..
       // .. Local Scalars ..
       String             RNGVX;
@@ -108,7 +108,7 @@
       ABSTOL = 2*SLAMCH( 'Safe Minimum' )
       ULP = SLAMCH( 'Precision' )
       EPS = SLAMCH( 'Epsilon' )
-      SQRT2 = SQRT( 2.0E0 )
+      SQRT2 = SQRT( 2.0 )
       ORTOL = SQRT( ULP )
 
       // Criterion for splitting is taken from SBDSQR when singular

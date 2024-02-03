@@ -20,7 +20,7 @@
       // .. Parameters ..
       REAL               ZERO, ONE
       int                IDIFJB;
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, IDIFJB = 3 ;
+      const              ZERO = 0.0, ONE = 1.0, IDIFJB = 3 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, SOMCON, WANTBH, WANTDF, WANTS;

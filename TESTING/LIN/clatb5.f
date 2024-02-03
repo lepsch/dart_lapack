@@ -15,11 +15,11 @@
 
       // .. Parameters ..
       REAL               SHRINK, TENTH
-      const              SHRINK = 0.25E0, TENTH = 0.1E+0 ;
+      const              SHRINK = 0.25, TENTH = 0.1 ;
       REAL               ONE
-      const              ONE = 1.0E+0 ;
+      const              ONE = 1.0 ;
       REAL               TWO
-      const              TWO = 2.0E+0 ;
+      const              TWO = 2.0 ;
       // ..
       // .. Local Scalars ..
       REAL               BADC1, BADC2, EPS, LARGE, SMALL
@@ -77,13 +77,13 @@
       // Set the condition number and norm.etc
 
       if ( IMAT == 3 ) {
-         CNDNUM = 1.0E4
+         CNDNUM = 1.0e4
          MODE = 2
       } else if ( IMAT == 4 ) {
-         CNDNUM = 1.0E4
+         CNDNUM = 1.0e4
          MODE = 1
       } else if ( IMAT == 5 ) {
-         CNDNUM = 1.0E4
+         CNDNUM = 1.0e4
          MODE = 3
       } else if ( IMAT == 6 ) {
          CNDNUM = BADC1

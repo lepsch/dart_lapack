@@ -17,11 +17,11 @@
 
       // .. Parameters ..
       REAL               REALONE, REALZERO
-      const              REALONE = 1.0E0, REALZERO = 0.0E0 ;
+      const              REALONE = 1.0, REALZERO = 0.0 ;
       COMPLEX            ZERO, ONE
-      const              ZERO = (0.0E0,0.0E0), ONE = (1.0E0,0.0E0) ;
+      const              ZERO = (0.0,0.0), ONE = (1.0,0.0) ;
       REAL               PIOVER2
-      const     PIOVER2 = 1.57079632679489661923132169163975144210E0 ;
+      const     PIOVER2 = 1.57079632679489661923132169163975144210 ;
       // ..
       // .. Local Scalars ..
       int                I, INFO, R;
@@ -73,7 +73,7 @@
          XF(I,I) = XF(I,I) - ONE
       }
       for (I = 1; I <= R; I++) {
-         XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0E0 )
+         XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0 )
       }
 
       cgemm('No transpose', 'Conjugate transpose', P, M-Q, M-Q, ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
@@ -84,7 +84,7 @@
          XF(P-I+1,M-I+1) = XF(P-I+1,M-I+1) + ONE
       }
       for (I = 1; I <= R; I++) {
-         XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) + CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
+         XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) + CMPLX( SIN(THETA(R-I+1)), 0.0 )
       }
 
       cgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
@@ -95,7 +95,7 @@
          XF(M-I+1,Q-I+1) = XF(M-I+1,Q-I+1) - ONE
       }
       for (I = 1; I <= R; I++) {
-         XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
+         XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0 )
       }
 
       cgemm('No transpose', 'Conjugate transpose', M-P, M-Q, M-Q, ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX );
@@ -106,7 +106,7 @@
          XF(P+I,Q+I) = XF(P+I,Q+I) - ONE
       }
       for (I = 1; I <= R; I++) {
-         XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) - CMPLX( COS(THETA(I)), 0.0E0 )
+         XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) - CMPLX( COS(THETA(I)), 0.0 )
       }
 
       // Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
@@ -212,7 +212,7 @@
          X(I,I) = X(I,I) - ONE
       }
       for (I = 1; I <= R; I++) {
-         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0E0 )
+         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - CMPLX( COS(THETA(I)), 0.0 )
       }
 
       cgemm('No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX );
@@ -223,7 +223,7 @@
          X(M-I+1,Q-I+1) = X(M-I+1,Q-I+1) - ONE
       }
       for (I = 1; I <= R; I++) {
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0E0 )
+         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - CMPLX( SIN(THETA(R-I+1)), 0.0 )
       }
 
       // Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .

@@ -16,13 +16,13 @@
 
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
-      const              ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       REAL               TWO, THREE, FOUR
-      const              TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0 ;
+      const              TWO = 2.0, THREE = 3.0, FOUR = 4.0 ;
       REAL               SEVEN, TEN
-      const              SEVEN = 7.0E0, TEN = 10.0E0 ;
+      const              SEVEN = 7.0, TEN = 10.0 ;
       REAL               TWNONE
-      const              TWNONE = 21.0E0 ;
+      const              TWNONE = 21.0 ;
       // ..
       // .. Local Scalars ..
       int                IA, IB, ICA, ID1, ID2, INFO, ISMIN, ITRANS, IWI, IWR, NA, NW;

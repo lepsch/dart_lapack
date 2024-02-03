@@ -24,7 +24,7 @@
       const              ITERMAX = 30 ;
 
       double             BWDMAX;
-      const              BWDMAX = 1.0E+00 ;
+      const              BWDMAX = 1.0e+00 ;
 
       COMPLEX*16         NEGONE, ONE
       const              NEGONE = ( -1.0e+00, 0.0e+00 ), ONE = ( 1.0e+00, 0.0e+00 ) ;

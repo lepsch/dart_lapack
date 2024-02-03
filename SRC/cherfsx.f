@@ -17,7 +17,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       REAL               ITREF_DEFAULT, ITHRESH_DEFAULT, COMPONENTWISE_DEFAULT
       REAL               RTHRESH_DEFAULT, DZTHRESH_DEFAULT
       const              ITREF_DEFAULT = 1.0 ;

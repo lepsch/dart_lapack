@@ -80,7 +80,7 @@
          // Store A in band format for GB tests
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               AB( I, J ) = (0.0E+0,0.0E+0)
+               AB( I, J ) = (0.0,0.0)
             }
          }
          for (J = 1; J <= N; J++) {
@@ -92,7 +92,7 @@
          // Copy AB into ABCOPY.
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= KL+KU+1; I++) {
-               ABCOPY( I, J ) = (0.0E+0,0.0E+0)
+               ABCOPY( I, J ) = (0.0,0.0)
             }
          }
          clacpy('ALL', KL+KU+1, N, AB, LDAB, ABCOPY, LDAB);

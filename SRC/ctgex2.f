@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               TWENTY
-      const              TWENTY = 2.0E+1 ;
+      const              TWENTY = 2.0e+1 ;
       int                LDST;
       const              LDST = 2 ;
       bool               WANDS;

@@ -12,15 +12,15 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       REAL               HALF
-      const              HALF = 0.5E0 ;
+      const              HALF = 0.5 ;
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
       REAL               TWO
-      const              TWO = 2.0E0 ;
+      const              TWO = 2.0 ;
       REAL               FOUR
-      const              FOUR = 4.0E0 ;
+      const              FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       bool               GASMAL, SWAP;

@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
       int                LV, IPW2;
       REAL               R
       const              LV = 128, IPW2 = 4096, R = ONE / IPW2 ;

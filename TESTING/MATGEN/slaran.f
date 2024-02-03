@@ -14,7 +14,7 @@
       int                M1, M2, M3, M4;
       const              M1 = 494, M2 = 322, M3 = 2508, M4 = 2549 ;
       REAL               ONE
-      const              ONE = 1.0E+0 ;
+      const              ONE = 1.0 ;
       int                IPW2;
       REAL               R
       const              IPW2 = 4096, R = ONE / IPW2 ;

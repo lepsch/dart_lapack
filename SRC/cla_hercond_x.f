@@ -43,7 +43,7 @@
       // ..
       // .. Executable Statements ..
 
-      CLA_HERCOND_X = 0.0E+0
+      CLA_HERCOND_X = 0.0;
 
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
@@ -68,7 +68,7 @@
       ANORM = 0.0
       if ( UP ) {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0E+0
+            TMP = 0.0;
             for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( J, I ) * X( J ) )
             }
@@ -80,7 +80,7 @@
          }
       } else {
          for (I = 1; I <= N; I++) {
-            TMP = 0.0E+0
+            TMP = 0.0;
             for (J = 1; J <= I; J++) {
                TMP = TMP + CABS1( A( I, J ) * X( J ) )
             }
@@ -95,15 +95,15 @@
       // Quick return if possible.
 
       if ( N == 0 ) {
-         CLA_HERCOND_X = 1.0E+0
+         CLA_HERCOND_X = 1.0;
          RETURN
-      } else if ( ANORM == 0.0E+0 ) {
+      } else if ( ANORM == 0.0 ) {
          RETURN
       }
 
       // Estimate the norm of inv(op(A)).
 
-      AINVNM = 0.0E+0
+      AINVNM = 0.0;
 
       KASE = 0
       } // 10
@@ -153,7 +153,7 @@
 
       // Compute the estimate of the reciprocal condition number.
 
-      if (AINVNM != 0.0E+0) CLA_HERCOND_X = 1.0E+0 / AINVNM;
+      if (AINVNM != 0.0) CLA_HERCOND_X = 1.0 / AINVNM;
 
       RETURN
 

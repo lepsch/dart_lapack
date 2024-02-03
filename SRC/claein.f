@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       REAL               ONE, TENTH
-      const              ONE = 1.0E+0, TENTH = 1.0E-1 ;
+      const              ONE = 1.0, TENTH = 1.0e-1 ;
       COMPLEX            ZERO
-      const              ZERO = ( 0.0E+0, 0.0E+0 ) ;
+      const              ZERO = ( 0.0, 0.0 ) ;
       // ..
       // .. Local Scalars ..
       String             NORMIN, TRANS;

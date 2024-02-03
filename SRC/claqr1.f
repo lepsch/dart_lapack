@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       COMPLEX            ZERO
-      const              ZERO = ( 0.0e0, 0.0e0 ) ;
+      const              ZERO = ( 0.0, 0.0 ) ;
       REAL               RZERO
-      const              RZERO = 0.0e0 ;
+      const              RZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       COMPLEX            CDUM, H21S, H31S

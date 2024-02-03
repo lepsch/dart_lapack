@@ -12,7 +12,7 @@
       // ..
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               NOTRNA, NOTRNB, LQUERY, SKIP;
@@ -270,14 +270,14 @@
                      BUF = ZERO
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                   }
                   for (JJ = 1; JJ <= NBB; JJ++) {
                      for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                      }
                   }
                }
@@ -302,14 +302,14 @@
                   SCALOC = SLARMM( ANRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -358,14 +358,14 @@
                   SCALOC = SLARMM( BNRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -441,14 +441,14 @@
                      BUF = ZERO
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                   }
                   for (JJ = 1; JJ <= NBB; JJ++) {
                      for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                      }
                   }
                }
@@ -473,14 +473,14 @@
                   SCALOC = SLARMM( ANRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -528,14 +528,14 @@
                   SCALOC = SLARMM( BNRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -611,14 +611,14 @@
                      BUF = ZERO
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                   }
                   for (JJ = 1; JJ <= NBB; JJ++) {
                      for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                      }
                   }
                }
@@ -643,14 +643,14 @@
                   SCALOC = SLARMM( ANRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -698,14 +698,14 @@
                   SCALOC = SLARMM( BNRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -781,14 +781,14 @@
                      BUF = ZERO
                   } else {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                   }
                   for (JJ = 1; JJ <= NBB; JJ++) {
                      for (LL = 1; LL <= NBA; LL++) {
                         // Bound by BIGNUM to not introduce Inf. The value
                         // is irrelevant; corresponding entries of the
                         // solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                      }
                   }
                }
@@ -813,14 +813,14 @@
                   SCALOC = SLARMM( ANRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC
@@ -869,14 +869,14 @@
                   SCALOC = SLARMM( BNRM, XNRM, CNRM )
                   if ( SCALOC * SCAMIN == ZERO ) {
                      // Use second scaling factor to prevent flushing to zero.
-                     BUF = BUF*2.E0**EXPONENT( SCALOC )
+                     BUF = BUF*2.0**EXPONENT( SCALOC )
                      for (JJ = 1; JJ <= NBB; JJ++) {
                         for (LL = 1; LL <= NBA; LL++) {
-                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.E0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.0**EXPONENT( SCALOC ) )
                         }
                      }
-                     SCAMIN = SCAMIN / 2.E0**EXPONENT( SCALOC )
-                     SCALOC = SCALOC / 2.E0**EXPONENT( SCALOC )
+                     SCAMIN = SCAMIN / 2.0**EXPONENT( SCALOC )
+                     SCALOC = SCALOC / 2.0**EXPONENT( SCALOC )
                   }
                   CNRM = CNRM * SCALOC
                   XNRM = XNRM * SCALOC

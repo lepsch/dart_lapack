@@ -96,11 +96,11 @@
 
             ccopy(N, B( 1, J ), 1, RES, 1 );
             if ( Y_PREC_STATE == BASE_RESIDUAL ) {
-               cgemv(TRANS, N, N, (-1.0E+0,0.0E+0), A, LDA, Y( 1, J ), 1, (1.0E+0,0.0E+0), RES, 1);
+               cgemv(TRANS, N, N, (-1.0,0.0), A, LDA, Y( 1, J ), 1, (1.0,0.0), RES, 1);
             } else if (Y_PREC_STATE == EXTRA_RESIDUAL) {
-               blas_cgemv_x(TRANS_TYPE, N, N, (-1.0E+0,0.0E+0), A, LDA, Y( 1, J ), 1, (1.0E+0,0.0E+0), RES, 1, PREC_TYPE );
+               blas_cgemv_x(TRANS_TYPE, N, N, (-1.0,0.0), A, LDA, Y( 1, J ), 1, (1.0,0.0), RES, 1, PREC_TYPE );
             } else {
-               blas_cgemv2_x(TRANS_TYPE, N, N, (-1.0E+0,0.0E+0), A, LDA, Y(1, J), Y_TAIL, 1, (1.0E+0,0.0E+0), RES, 1, PREC_TYPE);
+               blas_cgemv2_x(TRANS_TYPE, N, N, (-1.0,0.0), A, LDA, Y(1, J), Y_TAIL, 1, (1.0,0.0), RES, 1, PREC_TYPE);
             }
 
           // XXX: RES is no longer needed.
@@ -109,17 +109,17 @@
 
           // Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 
-            NORMX = 0.0E+0
-            NORMY = 0.0E+0
-            NORMDX = 0.0E+0
-            DZ_Z = 0.0E+0
+            NORMX = 0.0;
+            NORMY = 0.0;
+            NORMDX = 0.0;
+            DZ_Z = 0.0;
             YMIN = HUGEVAL
 
             for (I = 1; I <= N; I++) {
                YK = CABS1( Y( I, J ) )
                DYK = CABS1( DY( I ) )
 
-               if ( YK != 0.0E+0 ) {
+               if ( YK != 0.0 ) {
                   DZ_Z = MAX( DZ_Z, DYK / YK )
                } else if ( DYK != 0.0 ) {
                   DZ_Z = HUGEVAL
@@ -211,7 +211,7 @@
             // Update solution.
 
             if ( Y_PREC_STATE < EXTRA_Y ) {
-               caxpy(N, (1.0E+0,0.0E+0), DY, 1, Y(1,J), 1 );
+               caxpy(N, (1.0,0.0), DY, 1, Y(1,J), 1 );
             } else {
                cla_wwaddw(N, Y( 1, J ), Y_TAIL, DY );
             }
@@ -244,7 +244,7 @@
              // op(A) = A, A**T, or A**H depending on TRANS (and type).
 
          ccopy(N, B( 1, J ), 1, RES, 1 );
-         cgemv(TRANS, N, N, (-1.0E+0,0.0E+0), A, LDA, Y(1,J), 1, (1.0E+0,0.0E+0), RES, 1 );
+         cgemv(TRANS, N, N, (-1.0,0.0), A, LDA, Y(1,J), 1, (1.0,0.0), RES, 1 );
 
          for (I = 1; I <= N; I++) {
             AYB( I ) = CABS1( B( I, J ) )
@@ -252,7 +252,7 @@
 
       // Compute abs(op(A_s))*abs(Y) + abs(B_s).
 
-         cla_geamv(TRANS_TYPE, N, N, 1.0E+0, A, LDA, Y(1, J), 1, 1.0E+0, AYB, 1 );
+         cla_geamv(TRANS_TYPE, N, N, 1.0, A, LDA, Y(1, J), 1, 1.0, AYB, 1 );
 
          cla_lin_berr(N, N, 1, RES, AYB, BERR_OUT( J ) );
 

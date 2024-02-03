@@ -17,9 +17,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO
-      const              ZERO = 0.0e0, ONE = 1.0e0, TWO = 2.0e0 ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0 ;
       REAL               DAT1, DAT2
-      const              DAT1 = 3.0e0 / 4.0e0, DAT2 = -0.4375e0 ;
+      const              DAT1 = 3.0 / 4.0, DAT2 = -0.4375 ;
       int                KEXSH;
       const              KEXSH = 10 ;
       // ..

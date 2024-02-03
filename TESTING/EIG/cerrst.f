@@ -586,26 +586,26 @@
          cheevr('V', 'A', 'U', 2, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 8
-         cheevr('V', 'V', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
+         cheevr('V', 'V', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 9
-         cheevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 0, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
+         cheevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 0, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 10
 
-         cheevr('V', 'I', 'U', 2, A, 2, 0.0E0, 0.0E0, 2, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
+         cheevr('V', 'I', 'U', 2, A, 2, 0.0, 0.0, 2, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 15
-         cheevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 0, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
+         cheevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 0, IW, Q, 2*N, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 18
-         cheevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 0, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
+         cheevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 0, RW, 24*N, IW( 2*N+1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 20
-         cheevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 0, IW( 2*N-1 ), 10*N, INFO );
+         cheevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 0, IW( 2*N-1 ), 10*N, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          INFOT = 22
-         cheevr('V', 'I', 'U', 1, A, 1, 0.0E0, 0.0E0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW, 0, INFO );
+         cheevr('V', 'I', 'U', 1, A, 1, 0.0, 0.0, 1, 1, 0.0, M, R, Z, 1, IW, Q, 2*N, RW, 24*N, IW, 0, INFO );
          chkxer('CHEEVR', INFOT, NOUT, LERR, OK );
          NT = NT + 12
 

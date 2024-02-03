@@ -19,11 +19,11 @@
 
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       REAL               ONE
-      const              ONE = 1.0E0 ;
+      const              ONE = 1.0 ;
       REAL               HALF
-      const              HALF = 1.0E0 / 2.0E0 ;
+      const              HALF = 1.0 / 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               BADEI, BADS, USEEI;

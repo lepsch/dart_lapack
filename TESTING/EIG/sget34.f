@@ -16,9 +16,9 @@
 
       // .. Parameters ..
       REAL               ZERO, HALF, ONE
-      const              ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0 ;
       REAL               TWO, THREE
-      const              TWO = 2.0E0, THREE = 3.0E0 ;
+      const              TWO = 2.0, THREE = 3.0 ;
       int                LWORK;
       const              LWORK = 32 ;
       // ..

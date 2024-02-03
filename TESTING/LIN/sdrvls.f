@@ -23,7 +23,7 @@
       int                SMLSIZ;
       const              SMLSIZ = 25 ;
       REAL               ONE, TWO, ZERO
-      const              ONE = 1.0E0, TWO = 2.0E0, ZERO = 0.0E0 ;
+      const              ONE = 1.0, TWO = 2.0, ZERO = 0.0 ;
       // ..
       // .. Local Scalars ..
       String             TRANS;

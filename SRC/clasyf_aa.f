@@ -18,7 +18,7 @@
 *  =====================================================================
       // .. Parameters ..
       COMPLEX            ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
 
       // .. Local Scalars ..
       int                J, K, K1, I1, I2, MJ;

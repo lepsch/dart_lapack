@@ -189,7 +189,7 @@
                  // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
-               if ((THRESH <= 0.0E+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
+               if ((THRESH <= 0.0e+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                   if ( NFAIL == 0 && NERRS == 0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'

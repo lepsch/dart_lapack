@@ -18,7 +18,7 @@
 
       // .. Parameters ..
       REAL   ZERO, ONE
-      const              ZERO = 0.0E0, ONE = 1.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
@@ -79,7 +79,7 @@
          MINWRK = 1
          MAXWRK = 1
          BDSPAC = 0
-         MNTHR  = INT( MINMN*11.0E0 / 6.0E0 )
+         MNTHR  = INT( MINMN*11.0 / 6.0 )
          if ( M >= N && MINMN > 0 ) {
 
             // Compute space needed for SBDSDC

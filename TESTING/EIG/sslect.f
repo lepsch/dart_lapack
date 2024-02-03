@@ -26,7 +26,7 @@
       // ..
       // .. Parameters ..
       REAL               ZERO
-      const              ZERO = 0.0E0 ;
+      const              ZERO = 0.0 ;
       // ..
       // .. External Functions ..
       REAL               SLAPY2

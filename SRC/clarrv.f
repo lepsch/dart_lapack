@@ -20,9 +20,9 @@
       int                MAXITR;
       const              MAXITR = 10 ;
       COMPLEX            CZERO
-      const              CZERO = ( 0.0E0, 0.0E0 ) ;
+      const              CZERO = ( 0.0, 0.0 ) ;
       REAL               ZERO, ONE, TWO, THREE, FOUR, HALF
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, HALF = 0.5E0;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, THREE = 3.0, FOUR = 4.0, HALF = 0.5;
       // ..
       // .. Local Scalars ..
       bool               ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ;

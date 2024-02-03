@@ -19,9 +19,9 @@
 
       // .. Parameters ..
       COMPLEX            CZERO, CONE
-      const              CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) ;
+      const              CZERO = ( 0.0, 0.0 ), CONE = ( 1.0, 0.0 ) ;
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, WNTQA, WNTQAS, WNTQN, WNTQO, WNTQS;
@@ -51,8 +51,8 @@
 
       INFO   = 0
       MINMN  = MIN( M, N )
-      MNTHR1 = INT( MINMN*17.0E0 / 9.0E0 )
-      MNTHR2 = INT( MINMN*5.0E0 / 3.0E0 )
+      MNTHR1 = INT( MINMN*17.0 / 9.0 )
+      MNTHR2 = INT( MINMN*5.0 / 3.0 )
       WNTQA  = LSAME( JOBZ, 'A' )
       WNTQS  = LSAME( JOBZ, 'S' )
       WNTQAS = WNTQA || WNTQS

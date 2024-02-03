@@ -20,7 +20,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TEN
-      const              ZERO = 0.0E0, ONE = 1.0E0, TEN = 10.0E0 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 10.0 ;
       int                MAXTYP;
       const              MAXTYP = 21 ;
       // ..

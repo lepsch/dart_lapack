@@ -20,8 +20,8 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      STEMP = 0.0e0
-      SDOT = 0.0e0
+      STEMP = 0.0;
+      SDOT = 0.0;
       if (N <= 0) RETURN;
       if (INCX == 1 && INCY == 1) {
 

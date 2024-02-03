@@ -4,7 +4,7 @@
       REAL               ANORM, BNORM, CNORM
       // .. Parameters ..
       REAL               ONE, HALF, FOUR
-      const              ONE = 1.0E0, HALF = 0.5E+0, FOUR = 4.0E+0 ;
+      const              ONE = 1.0, HALF = 0.5, FOUR = 4.0 ;
       // ..
       // .. Local Scalars ..
       REAL               BIGNUM, SMLNUM

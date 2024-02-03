@@ -19,7 +19,7 @@
 
       // .. Parameters ..
       REAL               ONE, ZERO
-      const              ONE = 1.0E+0, ZERO = 0.0E+0 ;
+      const              ONE = 1.0, ZERO = 0.0 ;
       int                NTYPES;
       const              NTYPES = 8 ;
       int                NTESTS;

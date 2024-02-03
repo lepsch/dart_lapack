@@ -18,9 +18,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF
-      const              ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = 1.0E0 / TWO ;
+      const              ZERO = 0.0, ONE = 1.0, TWO = 2.0, HALF = 1.0 / TWO ;
       REAL               FUDGE, RELFAC
-      const              FUDGE = 2.1E0, RELFAC = 2.0E0 ;
+      const              FUDGE = 2.1, RELFAC = 2.0 ;
       // ..
       // .. Local Scalars ..
       bool               NCNVRG, TOOFEW;

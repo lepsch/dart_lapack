@@ -20,9 +20,9 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0E+0, ONE = 1.0E+0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       COMPLEX            CZERO
-      const              CZERO = (0.0E+0, 0.0E+0) ;
+      const              CZERO = (0.0, 0.0) ;
       // ..
       // .. Local Scalars ..
       bool               LQUERY, NOTRAN;

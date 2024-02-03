@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, RELCOND
-      const              ZERO = 0.0E0, RELCOND = 0.999E0 ;
+      const              ZERO = 0.0, RELCOND = 0.999 ;
       // ..
       // .. Local Scalars ..
       int                I;

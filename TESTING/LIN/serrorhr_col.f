@@ -46,10 +46,10 @@
 
       for (J = 1; J <= NMAX; J++) {
          for (I = 1; I <= NMAX; I++) {
-            A( I, J ) = 1.E+0 / REAL( I+J )
-            T( I, J ) = 1.E+0 / REAL( I+J )
+            A( I, J ) = 1.0 / REAL( I+J )
+            T( I, J ) = 1.0 / REAL( I+J )
          }
-         D( J ) = 0.E+0
+         D( J ) = 0.0;
       }
       OK = true;
 

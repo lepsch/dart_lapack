@@ -15,7 +15,7 @@
 *  ================================================================
       // .. Parameters ..
       REAL               ZERO, ONE
-      const              ZERO = 0.0e0, ONE = 1.0e0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       REAL               AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP;

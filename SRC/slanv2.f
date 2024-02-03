@@ -12,9 +12,9 @@
 
       // .. Parameters ..
       REAL               ZERO, HALF, ONE, TWO
-      const              ZERO = 0.0E+0, HALF = 0.5E+0, ONE = 1.0E+0, TWO = 2.0E+0 ;
+      const              ZERO = 0.0, HALF = 0.5, ONE = 1.0, TWO = 2.0 ;
       REAL               MULTPL
-      const              MULTPL = 4.0E+0 ;
+      const              MULTPL = 4.0 ;
       // ..
       // .. Local Scalars ..
       REAL               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB, SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, SAFMN2, SAFMX2

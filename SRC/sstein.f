@@ -16,7 +16,7 @@
 
       // .. Parameters ..
       REAL               ZERO, ONE, TEN, ODM3, ODM1
-      const              ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, ODM3 = 1.0E-3, ODM1 = 1.0E-1 ;
+      const              ZERO = 0.0, ONE = 1.0, TEN = 1.0e+1, ODM3 = 1.0e-3, ODM1 = 1.0e-1 ;
       int                MAXITS, EXTRA;
       const              MAXITS = 5, EXTRA = 2 ;
       // ..

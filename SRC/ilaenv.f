@@ -494,7 +494,7 @@
 
       // ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
 
-      ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
+      ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6 )
       RETURN
 
       } // 110

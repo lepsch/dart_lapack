@@ -37,9 +37,9 @@
       // ==== The constants WILK1 and WILK2 are used to form the
       // .    exceptional shifts. ====
       REAL               WILK1, WILK2
-      const              WILK1 = 0.75e0, WILK2 = -0.4375e0 ;
+      const              WILK1 = 0.75, WILK2 = -0.4375 ;
       REAL               ZERO, ONE
-      const              ZERO = 0.0e0, ONE = 1.0e0 ;
+      const              ZERO = 0.0, ONE = 1.0 ;
       // ..
       // .. Local Scalars ..
       REAL               AA, BB, CC, CS, DD, SN, SS, SWAP
