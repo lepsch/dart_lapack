@@ -63,7 +63,7 @@
          if ( VALSV ) {
             if ( VL < ZERO ) {
                INFO = -7
-            } else if ( VU.LE.VL ) {
+            } else if ( VU <= VL ) {
                INFO = -8
             }
          } else if ( INDSV ) {
@@ -83,7 +83,7 @@
          RETURN
       }
 
-      // Quick return if possible (N.LE.1)
+      // Quick return if possible (N <= 1)
 
       NS = 0
       if (N == 0) RETURN;
@@ -142,10 +142,10 @@
       // Check for zeros in D and E (splits), i.e. submatrices.
 
       for (I = 1; I <= N-1; I++) {
-         IF( ABS( D( I ) ).LE.THRESH ) D( I ) = ZERO
-         IF( ABS( E( I ) ).LE.THRESH ) E( I ) = ZERO
+         IF( ABS( D( I ) ) <= THRESH ) D( I ) = ZERO
+         IF( ABS( E( I ) ) <= THRESH ) E( I ) = ZERO
       }
-      IF( ABS( D( N ) ).LE.THRESH ) D( N ) = ZERO
+      IF( ABS( D( N ) ) <= THRESH ) D( N ) = ZERO
 
       // Pointers for arrays used by DSTEVX.
 
@@ -467,7 +467,7 @@
          K = 1
          SMIN = S( 1 )
          for (J = 2; J <= NS + 1 - I; J++) {
-            if ( S( J ).LE.SMIN ) {
+            if ( S( J ) <= SMIN ) {
                K = J
                SMIN = S( J )
             }

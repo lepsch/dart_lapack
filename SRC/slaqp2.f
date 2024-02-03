@@ -86,7 +86,7 @@
                TEMP = ONE - ( ABS( A( OFFPI, J ) ) / VN1( J ) )**2
                TEMP = MAX( TEMP, ZERO )
                TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-               if ( TEMP2 .LE. TOL3Z ) {
+               if ( TEMP2 <= TOL3Z ) {
                   if ( OFFPI < M ) {
                      VN1( J ) = SNRM2( M-OFFPI, A( OFFPI+1, J ), 1 )
                      VN2( J ) = VN1( J )

@@ -98,7 +98,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 80
 
@@ -108,7 +108,7 @@
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT >= 5 && IMAT.LE.7
+            ZEROT = IMAT >= 5 && IMAT <= 7
             if (ZEROT && N < IMAT-4) GO TO 80;
 
             // Set up parameters with CLATB4 and generate a test matrix
@@ -231,7 +231,7 @@
                      // Compute the 1-norm condition number of A.
 
                      AINVNM = CLANGE( '1', N, N, A, LDA, RWORK )
-                     if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
+                     if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                         RCONDO = ONE
                      } else {
                         RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -240,7 +240,7 @@
                      // Compute the infinity-norm condition number of A.
 
                      AINVNM = CLANGE( 'I', N, N, A, LDA, RWORK )
-                     if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
+                     if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                         RCONDI = ONE
                      } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM

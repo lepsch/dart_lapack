@@ -71,7 +71,7 @@
       } // 10
       TAU1 = TL( 1, 1 ) + SGN*TR( 1, 1 )
       BET = ABS( TAU1 )
-      if ( BET.LE.SMLNUM ) {
+      if ( BET <= SMLNUM ) {
          TAU1 = SMLNUM
          BET = SMLNUM
          INFO = 1
@@ -129,7 +129,7 @@
 
       IPIV = ISAMAX( 4, TMP, 1 )
       U11 = TMP( IPIV )
-      if ( ABS( U11 ).LE.SMIN ) {
+      if ( ABS( U11 ) <= SMIN ) {
          INFO = 1
          U11 = SMIN
       }
@@ -138,7 +138,7 @@
       U22 = TMP( LOCU22( IPIV ) ) - U12*L21
       XSWAP = XSWPIV( IPIV )
       BSWAP = BSWPIV( IPIV )
-      if ( ABS( U22 ).LE.SMIN ) {
+      if ( ABS( U22 ) <= SMIN ) {
          INFO = 1
          U22 = SMIN
       }

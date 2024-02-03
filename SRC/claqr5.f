@@ -76,7 +76,7 @@
 
       // ==== clear trash ====
 
-      if (KTOP+2.LE.KBOT) H( KTOP+2, KTOP ) = ZERO;
+      if (KTOP+2 <= KBOT) H( KTOP+2, KTOP ) = ZERO;
 
       // ==== NBMPS = number of 2-shift bulges in the chain ====
 
@@ -193,13 +193,13 @@
                   if ( H( K+1, K ) != ZERO ) {
                      TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                      if ( TST1 == RZERO ) {
-                        if (K >= KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K >= KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K >= KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
+                        if (K >= KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K >= KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K >= KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K <= KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K <= KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K <= KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
                      }
-                     IF( CABS1( H( K+1, K ) ) .LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
+                     IF( CABS1( H( K+1, K ) ) <= MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
                         TST2 = H22*( H11 / SCL )
 
-                        IF( TST2 == RZERO || H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
+                        IF( TST2 == RZERO || H21*( H12 / SCL ) <= MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
                      }
                   }
                }
@@ -346,13 +346,13 @@
                if ( H( K+1, K ) != ZERO ) {
                   TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                   if ( TST1 == RZERO ) {
-                     if (K >= KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K >= KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K >= KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
+                     if (K >= KTOP+1) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K >= KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K >= KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K <= KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K <= KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K <= KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) );
                   }
-                  IF( CABS1( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                      H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
+                  IF( CABS1( H( K+1, K ) ) <= MAX( SMLNUM, ULP*TST1 ) ) THEN                      H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                      SCL = H11 + H12
                      TST2 = H22*( H11 / SCL )
 
-                     IF( TST2 == RZERO || H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
+                     IF( TST2 == RZERO || H21*( H12 / SCL ) <= MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
                   }
                }
             } // 80

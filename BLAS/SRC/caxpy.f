@@ -21,7 +21,7 @@
       REAL SCABS1
       // EXTERNAL SCABS1
       // ..
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
       IF (SCABS1(CA) == 0.0E+0) RETURN
       if (INCX == 1 && INCY == 1) {
 

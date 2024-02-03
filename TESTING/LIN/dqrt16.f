@@ -38,7 +38,7 @@
 
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      if ( M.LE.0 || N.LE.0 || NRHS == 0 ) {
+      if ( M <= 0 || N <= 0 || NRHS == 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -68,7 +68,7 @@
          XNORM = DASUM( N2, X( 1, J ), 1 )
          if ( ANORM == ZERO && BNORM == ZERO ) {
             RESID = ZERO
-         } else if ( ANORM.LE.ZERO || XNORM.LE.ZERO ) {
+         } else if ( ANORM <= ZERO || XNORM <= ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )

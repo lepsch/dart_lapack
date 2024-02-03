@@ -61,7 +61,7 @@
 
       NB = ILAENV( 1, 'ZLAUUM', UPLO, N, -1, -1, -1 )
 
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
 
@@ -78,7 +78,7 @@
                IB = MIN( NB, N-I+1 )
                ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA );
                zlauu2('Upper', IB, A( I, I ), LDA, INFO );
-               if ( I+IB.LE.N ) {
+               if ( I+IB <= N ) {
                   zgemm('No transpose', 'Conjugate transpose', I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, CONE, A( 1, I ), LDA );
                   zherk('Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
                }
@@ -91,7 +91,7 @@
                IB = MIN( NB, N-I+1 )
                ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA );
                zlauu2('Lower', IB, A( I, I ), LDA, INFO );
-               if ( I+IB.LE.N ) {
+               if ( I+IB <= N ) {
                   zgemm('Conjugate transpose', 'No transpose', IB, I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA );
                   zherk('Lower', 'Conjugate transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
                }

@@ -102,7 +102,7 @@
 
       IMAX = ISAMAX( N, CNORM, 1 )
       TMAX = CNORM( IMAX )
-      if ( TMAX.LE.BIGNUM ) {
+      if ( TMAX <= BIGNUM ) {
          TSCAL = ONE
       } else {
          TSCAL = ONE / ( SMLNUM*TMAX )
@@ -149,7 +149,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 50;
+               if (GROW <= SMLNUM) GO TO 50;
 
                // M(j) = G(j-1) / abs(A(j,j))
 
@@ -181,7 +181,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 50;
+               if (GROW <= SMLNUM) GO TO 50;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -224,7 +224,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 80;
+               if (GROW <= SMLNUM) GO TO 80;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -250,7 +250,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 80;
+               if (GROW <= SMLNUM) GO TO 80;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 

@@ -58,7 +58,7 @@
 
         // Compute the workspace requirements
 
-         if ( NH.LE.1 ) {
+         if ( NH <= 1 ) {
             LWKOPT = 1
          } else {
             NB = MIN( NBMAX, ILAENV( 1, 'SGEHRD', ' ', N, ILO, IHI, -1 ) )
@@ -85,7 +85,7 @@
 
       // Quick return if possible
 
-      if ( NH.LE.1 ) {
+      if ( NH <= 1 ) {
          WORK( 1 ) = 1
          RETURN
       }

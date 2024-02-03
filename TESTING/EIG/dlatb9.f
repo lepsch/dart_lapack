@@ -178,7 +178,7 @@
          }
       }
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          CNDNMA = ONE
          CNDNMB = ONE
       }

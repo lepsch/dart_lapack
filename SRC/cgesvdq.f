@@ -488,7 +488,7 @@
                A(p,p) = CONJG(A(p,p))
                for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = CONJG(A(p,q))
-                  if (q .LE. NR) A(p,q) = CZERO;
+                  if (q <= NR) A(p,q) = CZERO;
                } // 1147
             } // 1146
 

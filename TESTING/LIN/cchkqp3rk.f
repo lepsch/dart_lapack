@@ -152,7 +152,7 @@
                      S( I ) = ZERO
                   }
 
-               } else if ( (IMAT >= 2 && IMAT.LE.4 ) || (IMAT >= 14 && IMAT.LE.19 ) ) {
+               } else if ( (IMAT >= 2 && IMAT <= 4 ) || (IMAT >= 14 && IMAT <= 19 ) ) {
 
                   // Matrices 2-5.
 
@@ -173,7 +173,7 @@
 
                   slaord('Decreasing', MINMN, S, 1 );
 
-               } else if ( MINMN >= 2 && IMAT >= 5 && IMAT.LE.13 ) {
+               } else if ( MINMN >= 2 && IMAT >= 5 && IMAT <= 13 ) {
 
                   // Rectangular matrices 5-13 that contain zero columns,
                   // only for matrices MINMN >=2.

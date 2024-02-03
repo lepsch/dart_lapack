@@ -233,7 +233,7 @@
          // without taking their condition numbers into account
 
          for (I = 1; I <= N; I++) { // 110
-            if ( SIN( I ).LE.REAL( 2*N )*EPS && STMP( I ).LE. REAL( 2*N )*EPS ) {
+            if ( SIN( I ) <= REAL( 2*N )*EPS && STMP( I ) <= REAL( 2*N )*EPS ) {
                VMAX = ONE
             } else if ( EPS*SIN( I ) > STMP( I ) ) {
                VMAX = ONE / EPS
@@ -256,7 +256,7 @@
          // without taking their condition numbers into account
 
          for (I = 1; I <= N; I++) { // 120
-            if ( SEPIN( I ).LE.V && SEPTMP( I ).LE.V ) {
+            if ( SEPIN( I ) <= V && SEPTMP( I ) <= V ) {
                VMAX = ONE
             } else if ( EPS*SEPIN( I ) > SEPTMP( I ) ) {
                VMAX = ONE / EPS

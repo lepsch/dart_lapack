@@ -80,9 +80,9 @@
 
       INFO = 0
       LQUERY = ( LWORK == -1 )
-      if ( IJOBVL.LE.0 ) {
+      if ( IJOBVL <= 0 ) {
          INFO = -1
-      } else if ( IJOBVR.LE.0 ) {
+      } else if ( IJOBVR <= 0 ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -226,9 +226,9 @@
       }
       zhgeqz(CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR );
       if ( IERR != 0 ) {
-         if ( IERR > 0 && IERR.LE.N ) {
+         if ( IERR > 0 && IERR <= N ) {
             INFO = IERR
-         } else if ( IERR > N && IERR.LE.2*N ) {
+         } else if ( IERR > N && IERR <= 2*N ) {
             INFO = IERR - N
          } else {
             INFO = N + 1

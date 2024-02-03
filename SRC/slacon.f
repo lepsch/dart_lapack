@@ -105,7 +105,7 @@
 
       } // 90
       // TEST FOR CYCLING.
-      if (EST.LE.ESTOLD) GO TO 120;
+      if (EST <= ESTOLD) GO TO 120;
 
       for (I = 1; I <= N; I++) { // 100
          X( I ) = SIGN( ONE, X( I ) )

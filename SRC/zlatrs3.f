@@ -168,7 +168,7 @@
          }
       }
 
-      if ( .NOT. TMAX.LE.DLAMCH('Overflow') ) {
+      if ( .NOT. TMAX <= DLAMCH('Overflow') ) {
 
          // Some matrix entries have huge absolute value. At least one upper
          // bound norm( A(I1:I2-1, J1:J2-1), 'I') is not a valid floating-point
@@ -285,7 +285,7 @@
                   // rescaled to preserve a valid combined scale
                   // factor WORK( J, KK ) > 0.
                   RSCAL = ONE / SCALOC
-                  if ( XNRM( KK )*RSCAL .LE. BIGNUM ) {
+                  if ( XNRM( KK )*RSCAL <= BIGNUM ) {
                      XNRM( KK ) = XNRM( KK ) * RSCAL
                      zdscal(J2-J1, RSCAL, X( J1, RHS ), 1 );
                      SCALOC = ONE

@@ -98,7 +98,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          WORK( 1 ) = REAL( 1 )
          RETURN
       }
@@ -185,14 +185,14 @@
          }
 
          // Check deflations at the end
-         if ( ABS( A( ISTOP, ISTOP-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
+         if ( ABS( A( ISTOP, ISTOP-1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
             A( ISTOP, ISTOP-1 ) = CZERO
             ISTOP = ISTOP-1
             LD = 0
             ESHIFT = CZERO
          }
          // Check deflations at the start
-         if ( ABS( A( ISTART+1, ISTART ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
+         if ( ABS( A( ISTART+1, ISTART ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
             A( ISTART+1, ISTART ) = CZERO
             ISTART = ISTART+1
             LD = 0
@@ -206,7 +206,7 @@
          // Check interior deflations
          ISTART2 = ISTART
          DO K = ISTOP, ISTART+1, -1
-            if ( ABS( A( K, K-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
+            if ( ABS( A( K, K-1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
                A( K, K-1 ) = CZERO
                ISTART2 = K
                EXIT

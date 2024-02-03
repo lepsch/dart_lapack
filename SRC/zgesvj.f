@@ -93,7 +93,7 @@
          INFO = -9
       } else if ( ( RSVEC && ( LDV < N ) ) || ( APPLV && ( LDV < MV ) ) ) {
          INFO = -11
-      } else if ( UCTOL && ( RWORK( 1 ).LE.ONE ) ) {
+      } else if ( UCTOL && ( RWORK( 1 ) <= ONE ) ) {
          INFO = -12
       } else if ( LWORK < LWMIN && ( .NOT.LQUERY ) ) {
          INFO = -13
@@ -306,11 +306,11 @@
 
       SN = SQRT( SFMIN / EPSLN )
       TEMP1 = SQRT( BIG / DBLE( N ) )
-      if ( ( AAPP.LE.SN ) || ( AAQQ >= TEMP1 ) || ( ( SN.LE.AAQQ ) && ( AAPP.LE.TEMP1 ) ) ) {
+      if ( ( AAPP <= SN ) || ( AAQQ >= TEMP1 ) || ( ( SN <= AAQQ ) && ( AAPP <= TEMP1 ) ) ) {
          TEMP1 = MIN( BIG, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.LE.SN ) && ( AAPP.LE.TEMP1 ) ) {
+      } else if ( ( AAQQ <= SN ) && ( AAPP <= TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / (AAPP*SQRT( DBLE(N)) ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -318,7 +318,7 @@
          TEMP1 = MAX( SN / AAQQ, TEMP1 / AAPP )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
-      } else if ( ( AAQQ.LE.SN ) && ( AAPP >= TEMP1 ) ) {
+      } else if ( ( AAQQ <= SN ) && ( AAPP >= TEMP1 ) ) {
          TEMP1 = MIN( SN / AAQQ, BIG / ( SQRT( DBLE( N ) )*AAPP ) )
           // AAQQ  = AAQQ*TEMP1
           // AAPP  = AAPP*TEMP1
@@ -507,7 +507,7 @@
 
                            AAPP0 = AAPP
                            if ( AAQQ >= ONE ) {
-                              ROTOK = ( SMALL*AAPP ).LE.AAQQ
+                              ROTOK = ( SMALL*AAPP ) <= AAQQ
                               if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
@@ -515,7 +515,7 @@
                                  CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR )                                  AAPQ = ZDOTC( M, CWORK(N+1), 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
-                              ROTOK = AAPP.LE.( AAQQ / SMALL )
+                              ROTOK = AAPP <= ( AAQQ / SMALL )
                               if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAPP ) / AAQQ
                               } else {
@@ -594,7 +594,7 @@
             // In the case of cancellation in updating SVA(q), SVA(p)
             // recompute SVA(q), SVA(p).
 
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1 )
                                  } else {
                                     T = ZERO
@@ -603,7 +603,7 @@
                                     SVA( q ) = T*SQRT( AAQQ )
                                  }
                               }
-                              if ( ( AAPP / AAPP0 ).LE.ROOTEPS ) {
+                              if ( ( AAPP / AAPP0 ) <= ROOTEPS ) {
                                  if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = DZNRM2( M, A( 1, p ), 1 )
                                  } else {
@@ -627,7 +627,7 @@
                            PSKIPPED = PSKIPPED + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
+                        if ( ( i <= SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            if (ir1 == 0) AAPP = -AAPP;
                            NOTROT = 0
                            GO TO 2103
@@ -682,9 +682,9 @@
 
                            if ( AAQQ >= ONE ) {
                               if ( AAPP >= AAQQ ) {
-                                 ROTOK = ( SMALL*AAPP ).LE.AAQQ
+                                 ROTOK = ( SMALL*AAPP ) <= AAQQ
                               } else {
-                                 ROTOK = ( SMALL*AAQQ ).LE.AAPP
+                                 ROTOK = ( SMALL*AAQQ ) <= AAPP
                               }
                               if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
@@ -695,9 +695,9 @@
                               }
                            } else {
                               if ( AAPP >= AAQQ ) {
-                                 ROTOK = AAPP.LE.( AAQQ / SMALL )
+                                 ROTOK = AAPP <= ( AAQQ / SMALL )
                               } else {
-                                 ROTOK = AAQQ.LE.( AAPP / SMALL )
+                                 ROTOK = AAQQ <= ( AAPP / SMALL )
                               }
                               if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
@@ -781,7 +781,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = DZNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -790,7 +790,7 @@
                                     SVA( q ) = T*SQRT( AAQQ )
                                  }
                               }
-                              if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
+                              if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
                                  if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = DZNRM2( M, A( 1, p ), 1 )
                                  } else {
@@ -814,12 +814,12 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
+                        if ( ( i <= SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
+                        if ( ( i <= SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -863,7 +863,7 @@
 
       // Additional steering devices
 
-         IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i
 
          if ( ( i > SWBAND+1 ) && ( MXAAPQ < SQRT( DBLE( N ) )* TOL ) && ( DBLE( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994

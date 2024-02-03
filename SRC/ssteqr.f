@@ -97,10 +97,10 @@
 
       } // 10
       if (L1 > N) GO TO 160       IF( L1 > 1 ) E( L1-1 ) = ZERO;
-      if ( L1.LE.NM1 ) {
+      if ( L1 <= NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
             TST = ABS( E( M ) )
-            if ( TST == ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
+            if ( TST == ZERO ) GO TO 30             IF( TST <= ( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
                E( M ) = ZERO
                GO TO 30
             }
@@ -149,7 +149,7 @@
             LENDM1 = LEND - 1
             for (M = L; M <= LENDM1; M++) { // 50
                TST = ABS( E( M ) )**2
-               IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
+               IF( TST <= ( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
             } // 50
          }
 
@@ -176,7 +176,7 @@
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
-            if (L.LE.LEND) GO TO 40;
+            if (L <= LEND) GO TO 40;
             GO TO 140
          }
 
@@ -233,7 +233,7 @@
          D( L ) = P
 
          L = L + 1
-         if (L.LE.LEND) GO TO 40;
+         if (L <= LEND) GO TO 40;
          GO TO 140
 
       } else {
@@ -247,7 +247,7 @@
             LENDP1 = LEND + 1
             DO 100 M = L, LENDP1, -1
                TST = ABS( E( M-1 ) )**2
-               IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110
+               IF( TST <= ( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110
             } // 100
          }
 

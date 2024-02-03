@@ -69,7 +69,7 @@
          RETURN
       }
 
-      if ( N.LE.NTINY ) {
+      if ( N <= NTINY ) {
 
          // ==== Tiny matrices must use DLAHQR. ====
 
@@ -265,7 +265,7 @@
             // .    skipped if many eigenvalues have just been deflated
             // .    or if the remaining active block is small.
 
-            if ( ( LD == 0 ) || ( ( 100*LD.LE.NW*NIBBLE ) && ( KBOT- KTOP+1 > MIN( NMIN, NWMAX ) ) ) ) {
+            if ( ( LD == 0 ) || ( ( 100*LD <= NW*NIBBLE ) && ( KBOT- KTOP+1 > MIN( NMIN, NWMAX ) ) ) ) {
 
                // ==== NS = nominal number of simultaneous shifts.
                // .    This may be lowered (slightly) if DLAQR2
@@ -301,11 +301,11 @@
 
                   // ==== Got NS/2 or fewer shifts? Use DLAHQR
                   // .    on a trailing principal submatrix to
-                  // .    get more. (Since NS.LE.NSMAX.LE.(N-3)/6,
+                  // .    get more. (Since NS <= NSMAX <= (N-3)/6,
                   // .    there is enough space below the subdiagonal
                   // .    to fit an NS-by-NS scratch array.) ====
 
-                  if ( KBOT-KS+1.LE.NS / 2 ) {
+                  if ( KBOT-KS+1 <= NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
                      dlacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );

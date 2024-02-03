@@ -60,7 +60,7 @@
          } else {
             zgeqrt2(M-I+1, IB, A(I,I), LDA, T(1,I), LDT, IINFO );
          }
-         if ( I+IB.LE.N ) {
+         if ( I+IB <= N ) {
 
       // Update by applying H**H to A(I:M,I+IB:N) from the left
 

@@ -314,7 +314,7 @@
                // Generate Q
 
                MQ = M
-               if (NRHS.LE.0) MQ = MNMIN;
+               if (NRHS <= 0) MQ = MNMIN;
                dorgbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from DORGBR.
@@ -647,7 +647,7 @@
             for (I = 1; I <= 4; I++) { // 200
                ISEED2( I ) = ISEED( I )
             } // 200
-            if ( MNMIN.LE.1 ) {
+            if ( MNMIN <= 1 ) {
                IL = 1
                IU = MNMIN
             } else {

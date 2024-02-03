@@ -170,7 +170,7 @@
 
             TOPBMN = MINMN - NX
             } // 30
-            if ( J.LE.TOPBMN ) {
+            if ( J <= TOPBMN ) {
                JB = MIN( NB, TOPBMN-J+1 )
 
                // Factorize JB columns among columns J:N.
@@ -187,7 +187,7 @@
          // Use unblocked code to factor the last or only block.
 
 
-         if (J.LE.MINMN) CALL DLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ) );
+         if (J <= MINMN) CALL DLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ) );
 
       }
 

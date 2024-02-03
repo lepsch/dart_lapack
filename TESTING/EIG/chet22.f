@@ -39,7 +39,7 @@
 
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      if (N.LE.0 || M.LE.0) RETURN;
+      if (N <= 0 || M <= 0) RETURN;
 
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )

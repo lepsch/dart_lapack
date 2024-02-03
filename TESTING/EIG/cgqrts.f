@@ -62,7 +62,7 @@
       // Generate the P-by-P matrix Z
 
       claset('Full', P, P, CROGUE, CROGUE, Z, LDB );
-      if ( N.LE.P ) {
+      if ( N <= P ) {
          if (N > 0 && N < P) CALL CLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N > 1 ) CALL CLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
       } else {
          if (P > 1) CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
@@ -77,7 +77,7 @@
       // Copy T
 
       claset('Full', N, P, CZERO, CZERO, T, LDB );
-      if ( N.LE.P ) {
+      if ( N <= P ) {
          clacpy('Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB );
       } else {
          clacpy('Full', N-P, P, BF, LDB, T, LDB );

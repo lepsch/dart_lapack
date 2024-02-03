@@ -71,12 +71,12 @@
          AMAX = MAX( AMAX, S( I ) )
       } // 10
 
-      if ( SMIN.LE.ZERO ) {
+      if ( SMIN <= ZERO ) {
 
          // Find the first non-positive diagonal element and return.
 
          for (I = 1; I <= N; I++) { // 20
-            if ( S( I ).LE.ZERO ) {
+            if ( S( I ) <= ZERO ) {
                INFO = I
                RETURN
             }

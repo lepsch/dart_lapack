@@ -104,7 +104,7 @@
             // A(i:m,i:i+ib-1)
 
             cgeqr2p(M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO );
-            if ( I+IB.LE.N ) {
+            if ( I+IB <= N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
@@ -122,7 +122,7 @@
 
       // Use unblocked code to factor the last or only block.
 
-      if (I.LE.K) CALL CGEQR2P( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
+      if (I <= K) CALL CGEQR2P( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK( 1 ) = SROUNDUP_LWORK( IWS )
       RETURN

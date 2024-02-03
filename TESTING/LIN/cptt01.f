@@ -35,7 +35,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -67,7 +67,7 @@
 
       // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
 
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS

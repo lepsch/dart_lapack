@@ -42,7 +42,7 @@
       // 1)      Constants
 
       RESULT( 1 ) = ZERO
-      if (ITYPE == 1) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN;
+      if (ITYPE == 1) RESULT( 2 ) = ZERO       IF( N <= 0 ) RETURN;
 
       LAP = ( N*( N+1 ) ) / 2
 

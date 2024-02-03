@@ -43,7 +43,7 @@
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       } else if ( .NOT.LQUERY ) {
-         IF( LWORK.LE.0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7
+         IF( LWORK <= 0 || ( M > 0 && LWORK < MAX( 1, N ) ) ) INFO = -7
       }
       if ( INFO != 0 ) {
          xerbla('SGEQRF', -INFO );
@@ -101,7 +101,7 @@
             // A(i:m,i:i+ib-1)
 
             sgeqr2(M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO );
-            if ( I+IB.LE.N ) {
+            if ( I+IB <= N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
@@ -119,7 +119,7 @@
 
       // Use unblocked code to factor the last or only block.
 
-      if (I.LE.K) CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
+      if (I <= K) CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

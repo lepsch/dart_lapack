@@ -69,7 +69,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      if ( NB.LE.1 || NB > KD ) {
+      if ( NB <= 1 || NB > KD ) {
 
          // Use unblocked code
 
@@ -104,7 +104,7 @@
                   INFO = I + II - 1
                   GO TO 150
                }
-               if ( I+IB.LE.N ) {
+               if ( I+IB <= N ) {
 
                   // Update the relevant part of the trailing submatrix.
                   // If A11 denotes the diagonal block which has just been
@@ -192,7 +192,7 @@
                   INFO = I + II - 1
                   GO TO 150
                }
-               if ( I+IB.LE.N ) {
+               if ( I+IB <= N ) {
 
                   // Update the relevant part of the trailing submatrix.
                   // If A11 denotes the diagonal block which has just been

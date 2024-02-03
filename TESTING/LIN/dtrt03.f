@@ -39,7 +39,7 @@
 
       // Quick exit if N = 0
 
-      if ( N.LE.0 || NRHS.LE.0 ) {
+      if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -77,12 +77,12 @@
          ERR = TSCAL*ABS( WORK( IX ) )
          IX = IDAMAX( N, X( 1, J ), 1 )
          XNORM = ABS( X( IX, J ) )
-         if ( ERR*SMLNUM.LE.XNORM ) {
+         if ( ERR*SMLNUM <= XNORM ) {
             if (XNORM > ZERO) ERR = ERR / XNORM;
          } else {
             if (ERR > ZERO) ERR = ONE / EPS;
          }
-         if ( ERR*SMLNUM.LE.TNORM ) {
+         if ( ERR*SMLNUM <= TNORM ) {
             if (TNORM > ZERO) ERR = ERR / TNORM;
          } else {
             if (ERR > ZERO) ERR = ONE / EPS;

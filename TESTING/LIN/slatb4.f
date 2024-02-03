@@ -157,7 +157,7 @@
             KL = MAX( M-1, 0 )
             KU = MAX( N-1, 0 )
 
-            if ( IMAT >= 5 && IMAT.LE.14 ) {
+            if ( IMAT >= 5 && IMAT <= 14 ) {
 
                // 5.-14. Random, CNDNUM = 2.
 
@@ -512,7 +512,7 @@
             ANORM = ONE
          }
       }
-      if (N.LE.1) CNDNUM = ONE;
+      if (N <= 1) CNDNUM = ONE;
 
       RETURN
 

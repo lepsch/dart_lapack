@@ -66,7 +66,7 @@
       XNORM = DASUM( M, X, 1 ) + DASUM( P, U, 1 )
       YNORM = ANORM + BNORM
 
-      if ( XNORM.LE.ZERO ) {
+      if ( XNORM <= ZERO ) {
          RESULT = ZERO
       } else {
          RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS

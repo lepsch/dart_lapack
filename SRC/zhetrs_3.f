@@ -156,7 +156,7 @@
          // Compute D \ B -> B   [ D \ (L \P**T * B) ]
 
          I = 1
-         DO WHILE ( I.LE.N )
+         DO WHILE ( I <= N )
             if ( IPIV( I ) > 0 ) {
                S = DBLE( ONE ) / DBLE( A( I, I ) )
                zdscal(NRHS, S, B( I, 1 ), LDB );

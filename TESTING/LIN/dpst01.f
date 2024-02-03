@@ -39,7 +39,7 @@
 
       // Quick exit if N = 0.
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -48,7 +48,7 @@
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANSY( '1', UPLO, N, A, LDA, RWORK )
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          RESID = ONE / EPS
          RETURN
       }
@@ -94,7 +94,7 @@
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
 
-            if (K+1.LE.N) CALL DSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC );
+            if (K+1 <= N) CALL DSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC );
 
             // Scale column K by the diagonal element.
 
@@ -110,8 +110,8 @@
 
          for (J = 1; J <= N; J++) { // 170
             for (I = 1; I <= N; I++) { // 160
-               if ( PIV( I ).LE.PIV( J ) ) {
-                  if ( I.LE.J ) {
+               if ( PIV( I ) <= PIV( J ) ) {
+                  if ( I <= J ) {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( I, J )
                   } else {
                      PERM( PIV( I ), PIV( J ) ) = AFAC( J, I )

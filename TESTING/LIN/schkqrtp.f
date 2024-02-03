@@ -76,7 +76,7 @@
 
                      // Test STPQRT and STPMQRT
 
-                  if ( (NB.LE.N) && (NB > 0) ) {
+                  if ( (NB <= N) && (NB > 0) ) {
                      sqrt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not

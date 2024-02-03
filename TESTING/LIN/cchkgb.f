@@ -119,7 +119,7 @@
             NKU = MIN( N+1, 4 )
             if (M == 0) NKU = 2;
             NIMAT = NTYPES
-            if (M.LE.0 || N.LE.0) NIMAT = 1;
+            if (M <= 0 || N <= 0) NIMAT = 1;
 
             for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -163,7 +163,7 @@
                      // Skip types 2, 3, or 4 if the matrix size is too
                      // small.
 
-                     ZEROT = IMAT >= 2 && IMAT.LE.4
+                     ZEROT = IMAT >= 2 && IMAT <= 4
                      if (ZEROT && N < IMAT-1) GO TO 120;
 
                      if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
@@ -288,7 +288,7 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = CLANGE( 'O', N, N, WORK, LDB, RWORK )
-                           if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
+                           if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                               RCONDO = ONE
                            } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -298,7 +298,7 @@
                            // A.
 
                            AINVNM = CLANGE( 'I', N, N, WORK, LDB, RWORK )
-                           if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
+                           if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                               RCONDI = ONE
                            } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM

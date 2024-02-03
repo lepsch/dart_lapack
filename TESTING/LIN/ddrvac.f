@@ -85,7 +85,7 @@
          N = MVAL( IM )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
@@ -95,7 +95,7 @@
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT.LE.5
+            ZEROT = IMAT >= 3 && IMAT <= 5
             if (ZEROT && N < IMAT-2) GO TO 110;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -216,7 +216,7 @@
                   // NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
                   // (Cf. the linear solver testing routines)
 
-                  if ((THRESH.LE.0.0E+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
+                  if ((THRESH <= 0.0E+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                      if ( NFAIL == 0 && NERRS == 0 ) {
                         WRITE( NOUT, FMT = 8999 )'DPO'

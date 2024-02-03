@@ -37,7 +37,7 @@
 
       // Quick return if possible
 
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
 
       if ( LSAME( UPLO, 'U' ) ) {
 

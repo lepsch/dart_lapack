@@ -118,7 +118,7 @@
                   NK = 1
                } else if ( MINMN == 1 ) {
                   NK = 2
-               } else if ( MINMN.LE.3 ) {
+               } else if ( MINMN <= 3 ) {
                   NK = 3
                } else {
                   NK = 4
@@ -145,7 +145,7 @@
                         // Test DGERQF
 
                         drqt01(M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) );
-                     } else if ( M.LE.N ) {
+                     } else if ( M <= N ) {
 
                         // Test DORGRQ, using factorization
                         // returned by DRQT01

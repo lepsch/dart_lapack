@@ -49,7 +49,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       M = LDST
       WEAK = false;
@@ -108,7 +108,7 @@
       // Weak stability test: |S21| <= O(EPS F-norm((A)))
                            // and  |T21| <= O(EPS F-norm((B)))
 
-      WEAK = ABS( S( 2, 1 ) ).LE.THRESHA && ABS( T( 2, 1 ) ).LE.THRESHB       IF( .NOT.WEAK ) GO TO 20
+      WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB       IF( .NOT.WEAK ) GO TO 20
 
       if ( WANDS ) {
 
@@ -137,7 +137,7 @@
          SUM = DBLE( CONE )
          zlassq(M*M, WORK(M*M+1), 1, SCALE, SUM );
          SB = SCALE*SQRT( SUM )
-         STRONG = SA.LE.THRESHA && SB.LE.THRESHB
+         STRONG = SA <= THRESHA && SB <= THRESHB
          if (.NOT.STRONG) GO TO 20;
       }
 

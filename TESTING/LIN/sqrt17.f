@@ -56,7 +56,7 @@
          RETURN
       }
 
-      if ( M.LE.0 || N.LE.0 || NRHS.LE.0 ) {
+      if ( M <= 0 || N <= 0 || NRHS <= 0 ) {
          RETURN
       }
 

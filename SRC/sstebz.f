@@ -70,9 +70,9 @@
 
       // Check for Errors
 
-      if ( IRANGE.LE.0 ) {
+      if ( IRANGE <= 0 ) {
          INFO = -1
-      } else if ( IORDER.LE.0 ) {
+      } else if ( IORDER <= 0 ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -112,7 +112,7 @@
       ULP = SLAMCH( 'P' )
       RTOLI = ULP*RELFAC
       NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
-      if (NB.LE.1) NB = 0;
+      if (NB <= 1) NB = 0;
 
       // Special Case when N=1
 
@@ -179,7 +179,7 @@
          // Compute Iteration parameters
 
          ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
-         if ( ABSTOL.LE.ZERO ) {
+         if ( ABSTOL <= ZERO ) {
             ATOLI = ULP*TNORM
          } else {
             ATOLI = ABSTOL
@@ -230,7 +230,7 @@
             TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) )
          } // 30
 
-         if ( ABSTOL.LE.ZERO ) {
+         if ( ABSTOL <= ZERO ) {
             ATOLI = ULP*TNORM
          } else {
             ATOLI = ABSTOL
@@ -246,8 +246,8 @@
       }
 
       // Find Eigenvalues -- Loop Over Blocks and recompute NWL and NWU.
-      // NWL accumulates the number of eigenvalues .le. WL,
-      // NWU accumulates the number of eigenvalues .le. WU
+      // NWL accumulates the number of eigenvalues <= WL,
+      // NWU accumulates the number of eigenvalues <= WU
 
       M = 0
       IEND = 0
@@ -296,7 +296,7 @@
 
             // Compute ATOLI for the current submatrix
 
-            if ( ABSTOL.LE.ZERO ) {
+            if ( ABSTOL <= ZERO ) {
                ATOLI = ULP*MAX( ABS( GL ), ABS( GU ) )
             } else {
                ATOLI = ABSTOL
@@ -362,7 +362,7 @@
 
          if ( IDISCL > 0 || IDISCU > 0 ) {
             for (JE = 1; JE <= M; JE++) { // 80
-               if ( W( JE ).LE.WLU && IDISCL > 0 ) {
+               if ( W( JE ) <= WLU && IDISCL > 0 ) {
                   IDISCL = IDISCL - 1
                } else if ( W( JE ) >= WUL && IDISCU > 0 ) {
                   IDISCU = IDISCU - 1

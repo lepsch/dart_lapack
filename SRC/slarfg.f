@@ -34,7 +34,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          TAU = ZERO
          RETURN
       }

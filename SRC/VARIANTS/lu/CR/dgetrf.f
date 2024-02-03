@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 )
-      if ( NB.LE.1 || NB >= MIN( M, N ) ) {
+      if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -88,7 +88,7 @@
 
             dlaswp(J-1, A, LDA, J, J+JB-1, IPIV, 1 );
 
-            if ( J+JB.LE.N ) {
+            if ( J+JB <= N ) {
 
                // Apply interchanges to column J+JB:N
 

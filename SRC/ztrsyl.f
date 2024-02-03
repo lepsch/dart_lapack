@@ -109,7 +109,7 @@
                SCALOC = ONE
                A11 = A( K, K ) + SGN*B( L, L )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               if ( DA11.LE.SMIN ) {
+               if ( DA11 <= SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
@@ -155,7 +155,7 @@
                SCALOC = ONE
                A11 = DCONJG( A( K, K ) ) + SGN*B( L, L )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               if ( DA11.LE.SMIN ) {
+               if ( DA11 <= SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
@@ -205,7 +205,7 @@
                SCALOC = ONE
                A11 = DCONJG( A( K, K )+SGN*B( L, L ) )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               if ( DA11.LE.SMIN ) {
+               if ( DA11 <= SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1
@@ -251,7 +251,7 @@
                SCALOC = ONE
                A11 = A( K, K ) + SGN*DCONJG( B( L, L ) )
                DA11 = ABS( DBLE( A11 ) ) + ABS( DIMAG( A11 ) )
-               if ( DA11.LE.SMIN ) {
+               if ( DA11 <= SMIN ) {
                   A11 = SMIN
                   DA11 = SMIN
                   INFO = 1

@@ -55,7 +55,7 @@
          INFO = -3
       } else {
          if ( VALEIG ) {
-            if (N > 0 && VU.LE.VL) INFO = -7;
+            if (N > 0 && VU <= VL) INFO = -7;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -8
@@ -138,7 +138,7 @@
             TEST = true;
          }
       }
-      if ( ( ALLEIG || TEST ) && ( ABSTOL.LE.ZERO ) ) {
+      if ( ( ALLEIG || TEST ) && ( ABSTOL <= ZERO ) ) {
          scopy(N, D, 1, W, 1 );
          scopy(N-1, E( 1 ), 1, WORK( 1 ), 1 );
          INDWRK = N + 1

@@ -32,7 +32,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          SSMIN = ZERO
          RETURN
       }

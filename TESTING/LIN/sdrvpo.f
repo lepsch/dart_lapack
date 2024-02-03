@@ -95,7 +95,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 120
 
@@ -105,7 +105,7 @@
 
             // Skip types 3, 4, or 5 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT.LE.5
+            ZEROT = IMAT >= 3 && IMAT <= 5
             if (ZEROT && N < IMAT-2) GO TO 120;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -233,7 +233,7 @@
                         // Compute the 1-norm condition number of A.
 
                         AINVNM = SLANSY( '1', UPLO, N, A, LDA, RWORK )
-                        if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                        if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                            RCONDC = ONE
                         } else {
                            RCONDC = ( ONE / ANORM ) / AINVNM

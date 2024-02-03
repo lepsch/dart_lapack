@@ -71,7 +71,7 @@
             IF( K < ( N-1 ) ) D( K ) = ZERO
          } else {
             PIV2 = ABS( C( K ) ) / SCALE2
-            if ( PIV2.LE.PIV1 ) {
+            if ( PIV2 <= PIV1 ) {
                IN( K ) = 0
                SCALE1 = SCALE2
                C( K ) = C( K ) / A( K )
@@ -91,9 +91,9 @@
                C( K ) = MULT
             }
          }
-         IF( ( MAX( PIV1, PIV2 ).LE.TL ) && ( IN( N ) == 0 ) ) IN( N ) = K
+         IF( ( MAX( PIV1, PIV2 ) <= TL ) && ( IN( N ) == 0 ) ) IN( N ) = K
       } // 10
-      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N
+      IF( ( ABS( A( N ) ) <= SCALE1*TL ) && ( IN( N ) == 0 ) ) IN( N ) = N
 
       RETURN
 

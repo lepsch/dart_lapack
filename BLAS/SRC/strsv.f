@@ -64,7 +64,7 @@
       // Set up the start point in X if the increment is not unity. This
       // will be  ( N - 1 )*INCX  too small for descending loops.
 
-      if (INCX.LE.0) {
+      if (INCX <= 0) {
           KX = 1 - (N-1)*INCX
       } else if (INCX != 1) {
           KX = 1

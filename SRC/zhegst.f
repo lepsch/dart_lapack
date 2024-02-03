@@ -65,7 +65,7 @@
 
       NB = ILAENV( 1, 'ZHEGST', UPLO, N, -1, -1, -1 )
 
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
 
@@ -85,7 +85,7 @@
                   // Update the upper triangle of A(k:n,k:n)
 
                   zhegs2(ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO );
-                  if ( K+KB.LE.N ) {
+                  if ( K+KB <= N ) {
                      ztrsm('Left', UPLO, 'Conjugate transpose', 'Non-unit', KB, N-K-KB+1, CONE, B( K, K ), LDB, A( K, K+KB ), LDA );
                      zhemm('Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, CONE, A( K, K+KB ), LDA );
                      zher2k(UPLO, 'Conjugate transpose', N-K-KB+1, KB, -CONE, A( K, K+KB ), LDA, B( K, K+KB ), LDB, ONE, A( K+KB, K+KB ), LDA );
@@ -103,7 +103,7 @@
                   // Update the lower triangle of A(k:n,k:n)
 
                   zhegs2(ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO );
-                  if ( K+KB.LE.N ) {
+                  if ( K+KB <= N ) {
                      ztrsm('Right', UPLO, 'Conjugate transpose', 'Non-unit', N-K-KB+1, KB, CONE, B( K, K ), LDB, A( K+KB, K ), LDA );
                      zhemm('Right', UPLO, N-K-KB+1, KB, -HALF, A( K, K ), LDA, B( K+KB, K ), LDB, CONE, A( K+KB, K ), LDA );
                      zher2k(UPLO, 'No transpose', N-K-KB+1, KB, -CONE, A( K+KB, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K+KB ), LDA );

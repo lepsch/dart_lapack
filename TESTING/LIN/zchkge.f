@@ -94,7 +94,7 @@
             N = NVAL( IN )
             XTYPE = 'N'
             NIMAT = NTYPES
-            if (M.LE.0 || N.LE.0) NIMAT = 1;
+            if (M <= 0 || N <= 0) NIMAT = 1;
 
             for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
@@ -104,7 +104,7 @@
 
                // Skip types 5, 6, or 7 if the matrix size is too small.
 
-               ZEROT = IMAT >= 5 && IMAT.LE.7
+               ZEROT = IMAT >= 5 && IMAT <= 7
                if (ZEROT && N < IMAT-4) GO TO 100;
 
                // Set up parameters with ZLATB4 and generate a test matrix
@@ -201,7 +201,7 @@
 
                      ANORMI = ZLANGE( 'I', M, N, A, LDA, RWORK )
                      AINVNM = ZLANGE( 'I', N, N, AINV, LDA, RWORK )
-                     if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
+                     if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                         RCONDI = ONE
                      } else {
                         RCONDI = ( ONE / ANORMI ) / AINVNM

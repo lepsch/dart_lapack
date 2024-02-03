@@ -47,7 +47,7 @@
 
       // Quick return if possible
 
-      if (M.LE.0) RETURN;
+      if (M <= 0) RETURN;
 
       if ( K < M ) {
 
@@ -57,7 +57,7 @@
             for (L = 1; L <= M - K; L++) { // 10
                A( L, J ) = ZERO
             } // 10
-            if (J > N-M && J.LE.N-K) A( M-N+J, J ) = ONE;
+            if (J > N-M && J <= N-K) A( M-N+J, J ) = ONE;
          } // 20
       }
 

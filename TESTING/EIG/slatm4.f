@@ -37,7 +37,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
       slaset('Full', N, N, ZERO, ZERO, A, LDA );
 
       // Insure a correct ISEED

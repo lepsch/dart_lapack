@@ -51,9 +51,9 @@
          INFO = -1
       } else if ( THRESH < ZERO ) {
          INFO = -2
-      } else if ( NIN.LE.0 ) {
+      } else if ( NIN <= 0 ) {
          INFO = -3
-      } else if ( NOUT.LE.0 ) {
+      } else if ( NOUT <= 0 ) {
          INFO = -4
       } else if ( LDA < 1 || LDA < NMAX ) {
          INFO = -6
@@ -179,7 +179,7 @@
                      // Print out tests which fail.
 
                      for (J = 1; J <= 4; J++) { // 20
-                        if ( ( RESULT( J ) >= THRSH2 && J >= 4 ) || ( RESULT( J ) >= THRESH && J.LE.3 ) ) {
+                        if ( ( RESULT( J ) >= THRSH2 && J >= 4 ) || ( RESULT( J ) >= THRESH && J <= 3 ) ) {
 
                         // If this is the first test to fail,
                         // print a header to the data file.

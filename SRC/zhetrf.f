@@ -129,7 +129,7 @@
 
          if (K > N) GO TO 40;
 
-         if ( K.LE.N-NB ) {
+         if ( K <= N-NB ) {
 
             // Factorize columns k:k+kb-1 of A and use blocked code to
             // update columns k+kb:n

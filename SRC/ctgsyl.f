@@ -57,9 +57,9 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( M.LE.0 ) {
+         if ( M <= 0 ) {
             INFO = -3
-         } else if ( N.LE.0 ) {
+         } else if ( N <= 0 ) {
             INFO = -4
          } else if ( LDA < MAX( 1, M ) ) {
             INFO = -6
@@ -129,7 +129,7 @@
          }
       }
 
-      if ( ( MB.LE.1 && NB.LE.1 ) || ( MB >= M && NB >= N ) ) {
+      if ( ( MB <= 1 && NB <= 1 ) || ( MB >= M && NB >= N ) ) {
 
          // Use unblocked Level 2 solver
 

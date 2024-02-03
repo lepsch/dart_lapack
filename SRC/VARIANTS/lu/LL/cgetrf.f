@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'CGETRF', ' ', M, N, -1, -1 )
-      if ( NB.LE.1 || NB >= MIN( M, N ) ) {
+      if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -120,7 +120,7 @@
                ctrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-M, ONE, A( K, K ), LDA, A( K, M+1 ), LDA );
 
 
-               if ( K+NB.LE.M ) {
+               if ( K+NB <= M ) {
                     cgemm('No transpose', 'No transpose', M-K-NB+1, N-M, NB, -ONE, A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE, A( K+NB, M+1 ), LDA );
                }
             } // 50

@@ -48,7 +48,7 @@
 
       // Quick return if possible
 
-      if ( (N.LE.0) || (M.LE.0) ) {
+      if ( (N <= 0) || (M <= 0) ) {
          RETURN
       }
 
@@ -553,7 +553,7 @@
                         // We need to check that the RQCORR update doesn't
                         // move the eigenvalue away from the desired one and
                         // towards a neighbor. -> protection with bisection
-                        if (INDEIG.LE.NEGCNT) {
+                        if (INDEIG <= NEGCNT) {
                            // The wanted eigenvalue lies to the left
                            SGNDEF = -ONE
                         } else {
@@ -562,7 +562,7 @@
                         }
                         // We only use the RQCORR if it improves the
                         // the iterate reasonably.
-                        if ( ( RQCORR*SGNDEF >= ZERO ) && ( LAMBDA + RQCORR.LE. RIGHT) && ( LAMBDA + RQCORR >= LEFT) ) {
+                        if ( ( RQCORR*SGNDEF >= ZERO ) && ( LAMBDA + RQCORR <= RIGHT) && ( LAMBDA + RQCORR >= LEFT) ) {
                            USEDRQ = true;
                            // Store new midpoint of bisection interval in WORK
                            if (SGNDEF == ONE) {
@@ -608,7 +608,7 @@
                         }
                      } else {
                         STP2II = false;
-        if (USEDRQ && USEDBS && BSTRES.LE.RESID) {
+        if (USEDRQ && USEDBS && BSTRES <= RESID) {
                            LAMBDA = BSTW
                            STP2II = true;
                         }

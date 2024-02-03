@@ -49,16 +49,16 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT >= 7 && IMAT.LE.10 ) || IMAT == 18 ) {
+      if ( ( IMAT >= 7 && IMAT <= 10 ) || IMAT == 18 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
       }
       INFO = 0
 
-      // Quick return if N.LE.0.
+      // Quick return if N <= 0.
 
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
 
       // Call CLATB4 to set parameters for CLATMS.
 
@@ -73,7 +73,7 @@
 
       // IMAT <= 6:  Non-unit triangular matrix
 
-      if ( IMAT.LE.6 ) {
+      if ( IMAT <= 6 ) {
          clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AP, N, WORK, INFO );
 
       // IMAT > 6:  Unit triangular matrix
@@ -108,7 +108,7 @@
       // forming a triangular matrix with known singular values and
       // filling in the zero entries with Givens rotations.
 
-      } else if ( IMAT.LE.10 ) {
+      } else if ( IMAT <= 10 ) {
          if ( UPPER ) {
             JC = 0
             for (J = 1; J <= N; J++) { // 60
@@ -194,7 +194,7 @@
             PLUS2 = STAR1 / PLUS1
             WORK( J ) = PLUS1
             WORK( N+J ) = STAR1
-            if ( J+1.LE.N ) {
+            if ( J+1 <= N ) {
                WORK( J+1 ) = PLUS2
                WORK( N+J+1 ) = ZERO
                PLUS1 = STAR1 / PLUS2
@@ -412,7 +412,7 @@
                for (I = 1; I <= J - 1; I++) { // 240
                   AP( JC+I-1 ) = ZERO
                } // 240
-               if ( JCOUNT.LE.2 ) {
+               if ( JCOUNT <= 2 ) {
                   AP( JC+J-1 ) = SMLNUM*CLARND( 5, ISEED )
                } else {
                   AP( JC+J-1 ) = CLARND( 5, ISEED )
@@ -428,7 +428,7 @@
                for (I = J + 1; I <= N; I++) { // 260
                   AP( JC+I-J ) = ZERO
                } // 260
-               if ( JCOUNT.LE.2 ) {
+               if ( JCOUNT <= 2 ) {
                   AP( JC ) = SMLNUM*CLARND( 5, ISEED )
                } else {
                   AP( JC ) = CLARND( 5, ISEED )

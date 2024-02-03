@@ -38,7 +38,7 @@
       // ==== Estimate optimal workspace. ====
 
       JW = MIN( NW, KBOT-KTOP+1 )
-      if ( JW.LE.2 ) {
+      if ( JW <= 2 ) {
          LWKOPT = 1
       } else {
 
@@ -103,7 +103,7 @@
          SI( KWTOP ) = ZERO
          NS = 1
          ND = 0
-         if ( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
+         if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
@@ -142,7 +142,7 @@
       NS = JW
       ILST = INFQR + 1
       } // 20
-      if ( ILST.LE.NS ) {
+      if ( ILST <= NS ) {
          if ( NS == 1 ) {
             BULGE = false;
          } else {
@@ -157,7 +157,7 @@
 
             FOO = ABS( T( NS, NS ) )
             if (FOO == ZERO) FOO = ABS( S );
-            if ( ABS( S*V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
+            if ( ABS( S*V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
 
                // ==== Deflatable ====
 
@@ -175,7 +175,7 @@
 
             // ==== Complex conjugate pair ====
 
-            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ).LE. MAX( SMLNUM, ULP*FOO ) ) THEN
+            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO == ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ) <= MAX( SMLNUM, ULP*FOO ) ) THEN
 
                // ==== Deflatable ====
 
@@ -223,7 +223,7 @@
             K = I + 2
          }
          } // 40
-         if ( K.LE.KEND ) {
+         if ( K <= KEND ) {
             if ( K == I+1 ) {
                EVI = ABS( T( I, I ) )
             } else {

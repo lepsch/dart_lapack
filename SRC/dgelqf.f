@@ -42,7 +42,7 @@
       } else if ( LDA < MAX( 1, M ) ) {
          INFO = -4
       } else if ( .NOT.LQUERY ) {
-         IF( LWORK.LE.0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7
+         IF( LWORK <= 0 || ( N > 0 && LWORK < MAX( 1, M ) ) ) INFO = -7
       }
       if ( INFO != 0 ) {
          xerbla('DGELQF', -INFO );
@@ -100,7 +100,7 @@
             // A(i:i+ib-1,i:n)
 
             dgelq2(IB, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
-            if ( I+IB.LE.M ) {
+            if ( I+IB <= M ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)
@@ -118,7 +118,7 @@
 
       // Use unblocked code to factor the last or only block.
 
-      if (I.LE.K) CALL DGELQ2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
+      if (I <= K) CALL DGELQ2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK( 1 ) = IWS
       RETURN

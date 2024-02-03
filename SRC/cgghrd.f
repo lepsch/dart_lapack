@@ -69,9 +69,9 @@
       // Test the input parameters.
 
       INFO = 0
-      if ( ICOMPQ.LE.0 ) {
+      if ( ICOMPQ <= 0 ) {
          INFO = -1
-      } else if ( ICOMPZ.LE.0 ) {
+      } else if ( ICOMPZ <= 0 ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -99,7 +99,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       // Zero out lower triangle of B
 

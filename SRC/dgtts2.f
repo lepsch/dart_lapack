@@ -29,7 +29,7 @@
          // Solve A*X = B using the LU factorization of A,
          // overwriting each right hand side vector with its solution.
 
-         if ( NRHS.LE.1 ) {
+         if ( NRHS <= 1 ) {
             J = 1
             } // 10
 
@@ -81,7 +81,7 @@
 
          // Solve A**T * X = B.
 
-         if ( NRHS.LE.1 ) {
+         if ( NRHS <= 1 ) {
 
             // Solve U**T*x = b.
 

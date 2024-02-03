@@ -48,7 +48,7 @@
       // Quick return if possible
 
       MN = MIN( M, N )
-      if (MN.LE.ZERO) RETURN;
+      if (MN <= ZERO) RETURN;
 
       NRMSVL = SNRM2( MN, S, 1 )
 

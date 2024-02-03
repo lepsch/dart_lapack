@@ -76,7 +76,7 @@
 
                   // Test DTPQRT and DTPMQRT
 
-                  if ( (NB.LE.N) && (NB > 0) ) {
+                  if ( (NB <= N) && (NB > 0) ) {
                      dqrt05(M, N, L, NB, RESULT );
 
                      // Print information about the tests that did not

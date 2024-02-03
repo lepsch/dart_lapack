@@ -101,7 +101,7 @@
 
       // PROCEDURE..SCALE-CHECK
          if (DD1 != ZERO) {
-            DO WHILE ((DD1.LE.RGAMSQ) || (DD1 >= GAMSQ))
+            DO WHILE ((DD1 <= RGAMSQ) || (DD1 >= GAMSQ))
                if (DFLAG == ZERO) {
                   DH11 = ONE
                   DH22 = ONE
@@ -111,7 +111,7 @@
                   DH12 = ONE
                   DFLAG = -ONE
                }
-               if (DD1.LE.RGAMSQ) {
+               if (DD1 <= RGAMSQ) {
                   DD1 = DD1*GAM**2
                   DX1 = DX1/GAM
                   DH11 = DH11/GAM
@@ -126,7 +126,7 @@
          }
 
          if (DD2 != ZERO) {
-            DO WHILE ( (DABS(DD2).LE.RGAMSQ) || (DABS(DD2) >= GAMSQ) )
+            DO WHILE ( (DABS(DD2) <= RGAMSQ) || (DABS(DD2) >= GAMSQ) )
                if (DFLAG == ZERO) {
                   DH11 = ONE
                   DH22 = ONE
@@ -136,7 +136,7 @@
                   DH12 = ONE
                   DFLAG = -ONE
                }
-               if (DABS(DD2).LE.RGAMSQ) {
+               if (DABS(DD2) <= RGAMSQ) {
                   DD2 = DD2*GAM**2
                   DH21 = DH21/GAM
                   DH22 = DH22/GAM

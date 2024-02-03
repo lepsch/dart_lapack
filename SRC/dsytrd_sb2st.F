@@ -55,7 +55,7 @@
       // Determine the block size, the workspace size and the hous size.
 
       IB       = ILAENV2STAGE( 2, 'DSYTRD_SB2ST', VECT, N, KD, -1, -1 )
-      if ( N == 0 || KD.LE.1 ) {
+      if ( N == 0 || KD <= 1 ) {
          LHMIN = 1
          LWMIN = 1
       } else {

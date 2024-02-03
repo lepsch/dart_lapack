@@ -41,7 +41,7 @@
          SSLECT = SELVAL( 1 )
          for (I = 2; I <= SELDIM; I++) { // 10
             X = SLAPY2( ZR-SELWR( I ), ZI-SELWI( I ) )
-            if ( X.LE.RMIN ) {
+            if ( X <= RMIN ) {
                RMIN = X
                SSLECT = SELVAL( I )
             }

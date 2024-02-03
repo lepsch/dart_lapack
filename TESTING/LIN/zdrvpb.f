@@ -135,7 +135,7 @@
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
-                  ZEROT = IMAT >= 2 && IMAT.LE.4
+                  ZEROT = IMAT >= 2 && IMAT <= 4
                   if (ZEROT && N < IMAT-1) GO TO 80;
 
                   if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
@@ -286,7 +286,7 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = ZLANGE( '1', N, N, A, LDA, RWORK )
-                           if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                           if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                               RCONDC = ONE
                            } else {
                               RCONDC = ( ONE / ANORM ) / AINVNM

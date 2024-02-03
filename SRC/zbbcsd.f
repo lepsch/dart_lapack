@@ -142,7 +142,7 @@
       if ( IMIN > 1 ) {
          DO WHILE( PHI(IMIN-1) != ZERO )
             IMIN = IMIN - 1
-            if (IMIN .LE. 1) EXIT;
+            if (IMIN <= 1) EXIT;
          }
       }
 
@@ -215,7 +215,7 @@
             dlas2(B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY );
             dlas2(B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY );
 
-            if ( SIGMA11 .LE. SIGMA21 ) {
+            if ( SIGMA11 <= SIGMA21 ) {
                MU = SIGMA11
                NU = SQRT( ONE - MU**2 )
                if ( MU < THRESH ) {
@@ -234,7 +234,7 @@
 
          // Rotate to produce bulges in B11 and B21
 
-         if ( MU .LE. NU ) {
+         if ( MU <= NU ) {
             dlartgs(B11D(IMIN), B11E(IMIN), MU, RWORK(IV1TCS+IMIN-1), RWORK(IV1TSN+IMIN-1) );
          } else {
             dlartgs(B21D(IMIN), B21E(IMIN), NU, RWORK(IV1TCS+IMIN-1), RWORK(IV1TSN+IMIN-1) );
@@ -257,7 +257,7 @@
 
          if ( B11D(IMIN)**2+B11BULGE**2 > THRESH**2 ) {
             dlartgp(B11BULGE, B11D(IMIN), RWORK(IU1SN+IMIN-1), RWORK(IU1CS+IMIN-1), R );
-         } else if ( MU .LE. NU ) {
+         } else if ( MU <= NU ) {
             dlartgs(B11E( IMIN ), B11D( IMIN + 1 ), MU, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1) );
          } else {
             dlartgs(B12D( IMIN ), B12E( IMIN ), NU, RWORK(IU1CS+IMIN-1), RWORK(IU1SN+IMIN-1) );
@@ -311,10 +311,10 @@
             // Determine if there are bulges to chase or if a new direct
             // summand has been reached
 
-            RESTART11 = B11E(I-1)**2 + B11BULGE**2 .LE. THRESH**2
-            RESTART21 = B21E(I-1)**2 + B21BULGE**2 .LE. THRESH**2
-            RESTART12 = B12D(I-1)**2 + B12BULGE**2 .LE. THRESH**2
-            RESTART22 = B22D(I-1)**2 + B22BULGE**2 .LE. THRESH**2
+            RESTART11 = B11E(I-1)**2 + B11BULGE**2 <= THRESH**2
+            RESTART21 = B21E(I-1)**2 + B21BULGE**2 <= THRESH**2
+            RESTART12 = B12D(I-1)**2 + B12BULGE**2 <= THRESH**2
+            RESTART22 = B22D(I-1)**2 + B22BULGE**2 <= THRESH**2
 
             // If possible, chase bulges from B11(I-1,I+1), B12(I-1,I),
             // B21(I-1,I+1), and B22(I-1,I). If necessary, restart bulge-
@@ -326,7 +326,7 @@
                dlartgp(B11BULGE, B11E(I-1), RWORK(IV1TSN+I-1), RWORK(IV1TCS+I-1), R );
             } else if ( RESTART11 && .NOT. RESTART21 ) {
                dlartgp(B21BULGE, B21E(I-1), RWORK(IV1TSN+I-1), RWORK(IV1TCS+I-1), R );
-            } else if ( MU .LE. NU ) {
+            } else if ( MU <= NU ) {
                dlartgs(B11D(I), B11E(I), MU, RWORK(IV1TCS+I-1), RWORK(IV1TSN+I-1) );
             } else {
                dlartgs(B21D(I), B21E(I), NU, RWORK(IV1TCS+I-1), RWORK(IV1TSN+I-1) );
@@ -376,10 +376,10 @@
             // Determine if there are bulges to chase or if a new direct
             // summand has been reached
 
-            RESTART11 =   B11D(I)**2 + B11BULGE**2 .LE. THRESH**2
-            RESTART12 = B12E(I-1)**2 + B12BULGE**2 .LE. THRESH**2
-            RESTART21 =   B21D(I)**2 + B21BULGE**2 .LE. THRESH**2
-            RESTART22 = B22E(I-1)**2 + B22BULGE**2 .LE. THRESH**2
+            RESTART11 =   B11D(I)**2 + B11BULGE**2 <= THRESH**2
+            RESTART12 = B12E(I-1)**2 + B12BULGE**2 <= THRESH**2
+            RESTART21 =   B21D(I)**2 + B21BULGE**2 <= THRESH**2
+            RESTART22 = B22E(I-1)**2 + B22BULGE**2 <= THRESH**2
 
             // If possible, chase bulges from B11(I+1,I), B12(I+1,I-1),
             // B21(I+1,I), and B22(I+1,I-1). If necessary, restart bulge-
@@ -391,7 +391,7 @@
                dlartgp(B11BULGE, B11D(I), RWORK(IU1SN+I-1), RWORK(IU1CS+I-1), R );
             } else if ( RESTART11 && .NOT. RESTART12 ) {
                dlartgp(B12BULGE, B12E(I-1), RWORK(IU1SN+I-1), RWORK(IU1CS+I-1), R );
-            } else if ( MU .LE. NU ) {
+            } else if ( MU <= NU ) {
                dlartgs(B11E(I), B11D(I+1), MU, RWORK(IU1CS+I-1), RWORK(IU1SN+I-1) );
             } else {
                dlartgs(B12D(I), B12E(I), NU, RWORK(IU1CS+I-1), RWORK(IU1SN+I-1) );
@@ -446,8 +446,8 @@
 
          // Chase bulges from B12(IMAX-1,IMAX) and B22(IMAX-1,IMAX)
 
-         RESTART12 = B12D(IMAX-1)**2 + B12BULGE**2 .LE. THRESH**2
-         RESTART22 = B22D(IMAX-1)**2 + B22BULGE**2 .LE. THRESH**2
+         RESTART12 = B12D(IMAX-1)**2 + B12BULGE**2 <= THRESH**2
+         RESTART22 = B22D(IMAX-1)**2 + B22BULGE**2 <= THRESH**2
 
          if ( .NOT. RESTART12 && .NOT. RESTART22 ) {
             dlartgp(Y2, Y1, RWORK(IV2TSN+IMAX-1-1), RWORK(IV2TCS+IMAX-1-1), R );
@@ -575,14 +575,14 @@
          if (IMAX > 1) {
             DO WHILE( PHI(IMAX-1) == ZERO )
                IMAX = IMAX - 1
-               if (IMAX .LE. 1) EXIT;
+               if (IMAX <= 1) EXIT;
             }
          }
          if (IMIN > IMAX - 1) IMIN = IMAX - 1;
          if (IMIN > 1) {
             DO WHILE (PHI(IMIN-1) != ZERO)
                 IMIN = IMIN - 1
-                if (IMIN .LE. 1) EXIT;
+                if (IMIN <= 1) EXIT;
             }
          }
 

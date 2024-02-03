@@ -68,7 +68,7 @@
       BINV22 = ONE / B22
       S1 = A11*BINV11
       S2 = A22*BINV22
-      if ( ABS( S1 ).LE.ABS( S2 ) ) {
+      if ( ABS( S1 ) <= ABS( S2 ) ) {
          AS12 = A12 - S1*B12
          AS22 = A22 - S1*B22
          SS = A21*( BINV11*BINV22 )
@@ -88,7 +88,7 @@
          DISCR = ( RTMIN*PP )**2 + QQ*SAFMIN
          R = SQRT( ABS( DISCR ) )*RTMAX
       } else {
-         if ( PP**2+ABS( QQ ).LE.SAFMIN ) {
+         if ( PP**2+ABS( QQ ) <= SAFMIN ) {
             DISCR = ( RTMAX*PP )**2 + QQ*SAFMAX
             R = SQRT( ABS( DISCR ) )*RTMIN
          } else {
@@ -151,12 +151,12 @@
       C1 = BSIZE*( SAFMIN*MAX( ONE, ASCALE ) )
       C2 = SAFMIN*MAX( ONE, BNORM )
       C3 = BSIZE*SAFMIN
-      if ( ASCALE.LE.ONE && BSIZE.LE.ONE ) {
+      if ( ASCALE <= ONE && BSIZE <= ONE ) {
          C4 = MIN( ONE, ( ASCALE / SAFMIN )*BSIZE )
       } else {
          C4 = ONE
       }
-      if ( ASCALE.LE.ONE || BSIZE.LE.ONE ) {
+      if ( ASCALE <= ONE || BSIZE <= ONE ) {
          C5 = MIN( ONE, ASCALE*BSIZE )
       } else {
          C5 = ONE

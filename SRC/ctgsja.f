@@ -101,16 +101,16 @@
                A1 = ZERO
                A2 = CZERO
                A3 = ZERO
-               if (K+I.LE.M) A1 = REAL( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A3 = REAL( A( K+J, N-L+J ) );
+               if (K+I <= M) A1 = REAL( A( K+I, N-L+I ) )                IF( K+J <= M ) A3 = REAL( A( K+J, N-L+J ) );
 
                B1 = REAL( B( I, N-L+I ) )
                B3 = REAL( B( J, N-L+J ) )
 
                if ( UPPER ) {
-                  if (K+I.LE.M) A2 = A( K+I, N-L+J );
+                  if (K+I <= M) A2 = A( K+I, N-L+J );
                   B2 = B( I, N-L+J )
                } else {
-                  if (K+J.LE.M) A2 = A( K+J, N-L+I );
+                  if (K+J <= M) A2 = A( K+J, N-L+I );
                   B2 = B( J, N-L+I )
                }
 
@@ -118,7 +118,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
 
-               if (K+J.LE.M) CALL CROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, CONJG( SNU ) );
+               if (K+J <= M) CALL CROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, CONJG( SNU ) );
 
                // Update I-th and J-th rows of matrix B: V**H *B
 
@@ -132,22 +132,22 @@
                crot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
                if ( UPPER ) {
-                  if (K+I.LE.M) A( K+I, N-L+J ) = CZERO;
+                  if (K+I <= M) A( K+I, N-L+J ) = CZERO;
                   B( I, N-L+J ) = CZERO
                } else {
-                  if (K+J.LE.M) A( K+J, N-L+I ) = CZERO;
+                  if (K+J <= M) A( K+J, N-L+I ) = CZERO;
                   B( J, N-L+I ) = CZERO
                }
 
                // Ensure that the diagonal elements of A and B are real.
 
-               if (K+I.LE.M) A( K+I, N-L+I ) = REAL( A( K+I, N-L+I ) )                IF( K+J.LE.M ) A( K+J, N-L+J ) = REAL( A( K+J, N-L+J ) );
+               if (K+I <= M) A( K+I, N-L+I ) = REAL( A( K+I, N-L+I ) )                IF( K+J <= M ) A( K+J, N-L+J ) = REAL( A( K+J, N-L+J ) );
                B( I, N-L+I ) = REAL( B( I, N-L+I ) )
                B( J, N-L+J ) = REAL( B( J, N-L+J ) )
 
                // Update unitary matrices U, V, Q, if desired.
 
-               if (WANTU && K+J.LE.M) CALL CROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J <= M) CALL CROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
                if (WANTV) CALL CROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
@@ -172,7 +172,7 @@
                ERROR = MAX( ERROR, SSMIN )
             } // 30
 
-            IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
+            IF( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50
          }
 
          // End of cycle loop
@@ -201,7 +201,7 @@
          B1 = REAL( B( I, N-L+I ) )
          GAMMA = B1 / A1
 
-         if ( (GAMMA.LE.HUGENUM) && (GAMMA >= -HUGENUM) ) {
+         if ( (GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM) ) {
 
             if ( GAMMA < ZERO ) {
                csscal(L-I+1, -ONE, B( I, N-L+I ), LDB );

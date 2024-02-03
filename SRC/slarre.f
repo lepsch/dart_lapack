@@ -53,7 +53,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RETURN
       }
 
@@ -81,7 +81,7 @@
 
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
+         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1) <= VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -173,7 +173,7 @@
 
          // 1 X 1 block
          if ( IN == 1 ) {
-            if ( (IRANGE == ALLRNG) || ( (IRANGE == VALRNG) && ( D( IBEGIN ) > VL ) && ( D( IBEGIN ).LE.VU ) ) || ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
+            if ( (IRANGE == ALLRNG) || ( (IRANGE == VALRNG) && ( D( IBEGIN ) > VL ) && ( D( IBEGIN ) <= VU ) ) || ( (IRANGE == INDRNG) && (IBLOCK(WBEGIN) == JBLK)) ) {
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO

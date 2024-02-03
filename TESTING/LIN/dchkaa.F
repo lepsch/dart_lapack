@@ -306,7 +306,7 @@ void main() {
       if ( .NOT.LSAME( C1, 'double          ' ) ) {
          WRITE( NOUT, FMT = 9990 )PATH
 
-      } else if ( NMATS.LE.0 ) {
+      } else if ( NMATS <= 0 ) {
 
          // Check for a positive number of tests requested.
 

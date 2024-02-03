@@ -154,7 +154,7 @@
       for (I = R1; I <= R2 - 1; I++) { // 110
          TMP = WORK( INDS+I ) + WORK( INDP+I )
          if (TMP == ZERO) TMP = EPS*WORK( INDS+I );
-         if ( ABS( TMP ).LE.ABS( MINGMA ) ) {
+         if ( ABS( TMP ) <= ABS( MINGMA ) ) {
             MINGMA = TMP
             R = I + 1
          }

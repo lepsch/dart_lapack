@@ -152,9 +152,9 @@
           // Check termination criteria.
 
             if (YMIN*RCOND < INCR_THRESH*NORMY && Y_PREC_STATE < EXTRA_Y) INCR_PREC = true ;
-             if (X_STATE == NOPROG_STATE && DXRAT .LE. RTHRESH) X_STATE = WORKING_STATE;
+             if (X_STATE == NOPROG_STATE && DXRAT <= RTHRESH) X_STATE = WORKING_STATE;
             if ( X_STATE == WORKING_STATE ) {
-               if ( DX_X .LE. EPS ) {
+               if ( DX_X <= EPS ) {
                   X_STATE = CONV_STATE
                } else if ( DXRAT > RTHRESH ) {
                   if ( Y_PREC_STATE != EXTRA_Y ) {
@@ -167,9 +167,9 @@
                }
                if (X_STATE > WORKING_STATE) FINAL_DX_X = DX_X;
             }
-             if (Z_STATE == UNSTABLE_STATE && DZ_Z .LE. DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE;
+             if (Z_STATE == UNSTABLE_STATE && DZ_Z <= DZ_UB) Z_STATE = WORKING_STATE             IF ( Z_STATE == NOPROG_STATE && DZRAT <= RTHRESH ) Z_STATE = WORKING_STATE;
             if ( Z_STATE == WORKING_STATE ) {
-               if ( DZ_Z .LE. EPS ) {
+               if ( DZ_Z <= EPS ) {
                   Z_STATE = CONV_STATE
                } else if ( DZ_Z > DZ_UB ) {
                   Z_STATE = UNSTABLE_STATE

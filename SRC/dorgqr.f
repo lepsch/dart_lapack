@@ -60,7 +60,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          WORK( 1 ) = 1
          RETURN
       }
@@ -119,7 +119,7 @@
 
          DO 50 I = KI + 1, 1, -NB
             IB = MIN( NB, K-I+1 )
-            if ( I+IB.LE.N ) {
+            if ( I+IB <= N ) {
 
                // Form the triangular factor of the block reflector
                // H = H(i) H(i+1) . . . H(i+ib-1)

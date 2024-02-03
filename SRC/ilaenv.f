@@ -44,11 +44,11 @@
 
          // ASCII character set
 
-         if ( IC >= 97 && IC.LE.122 ) {
+         if ( IC >= 97 && IC <= 122 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 20
                IC = ICHAR( SUBNAM( I: I ) )
-               if (IC >= 97 && IC.LE.122) SUBNAM( I: I ) = CHAR( IC-32 );
+               if (IC >= 97 && IC <= 122) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 20
          }
 
@@ -56,11 +56,11 @@
 
          // EBCDIC character set
 
-         if ( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) ) {
+         if ( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) ) {
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
             for (I = 2; I <= 6; I++) { // 30
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( ( IC >= 129 && IC.LE.137 ) || ( IC >= 145 && IC.LE.153 ) || ( IC >= 162 && IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
+               IF( ( IC >= 129 && IC <= 137 ) || ( IC >= 145 && IC <= 153 ) || ( IC >= 162 && IC <= 169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
             } // 30
          }
 
@@ -68,11 +68,11 @@
 
          // Prime machines:  ASCII+128
 
-         if ( IC >= 225 && IC.LE.250 ) {
+         if ( IC >= 225 && IC <= 250 ) {
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             for (I = 2; I <= 6; I++) { // 40
                IC = ICHAR( SUBNAM( I: I ) )
-               if (IC >= 225 && IC.LE.250) SUBNAM( I: I ) = CHAR( IC-32 );
+               if (IC >= 225 && IC <= 250) SUBNAM( I: I ) = CHAR( IC-32 );
             } // 40
          }
       }
@@ -124,13 +124,13 @@
             if ( N3 == 1) {
                if ( SNAME ) {
       // M*N
-                  if ((N1*N2.LE.131072) || (N1.LE.8192)) {
+                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
                   }
                } else {
-                  if ((N1*N2.LE.131072) || (N1.LE.8192)) {
+                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
@@ -147,13 +147,13 @@
             if ( N3 == 2) {
                if ( SNAME ) {
       // M*N
-                  if ((N1*N2.LE.131072) || (N1.LE.8192)) {
+                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
                   }
                } else {
-                  if ((N1*N2.LE.131072) || (N1.LE.8192)) {
+                  if ((N1*N2 <= 131072) || (N1 <= 8192)) {
                      NB = N1
                   } else {
                      NB = 32768/N2
@@ -254,13 +254,13 @@
       } else if ( C2 == 'GB' ) {
          if ( C3 == 'TRF' ) {
             if ( SNAME ) {
-               if ( N4.LE.64 ) {
+               if ( N4 <= 64 ) {
                   NB = 1
                } else {
                   NB = 32
                }
             } else {
-               if ( N4.LE.64 ) {
+               if ( N4 <= 64 ) {
                   NB = 1
                } else {
                   NB = 32
@@ -270,13 +270,13 @@
       } else if ( C2 == 'PB' ) {
          if ( C3 == 'TRF' ) {
             if ( SNAME ) {
-               if ( N2.LE.64 ) {
+               if ( N2 <= 64 ) {
                   NB = 1
                } else {
                   NB = 32
                }
             } else {
-               if ( N2.LE.64 ) {
+               if ( N2 <= 64 ) {
                   NB = 1
                } else {
                   NB = 32

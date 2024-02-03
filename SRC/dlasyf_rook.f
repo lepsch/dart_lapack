@@ -67,7 +67,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
+         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          KSTEP = 1
          P = K
@@ -173,7 +173,7 @@
                   // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P == JMAX ) || ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) || ( ROWMAX <= COLMAX ) ) {
 
                      // interchange rows and columns K-1 and IMAX,
                      // use 2-by-2 pivot block
@@ -347,9 +347,9 @@
             }
 
             J = J + 1
-            if (JP2 != JJ && J.LE.N) CALL DSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
+            if (JP2 != JJ && J <= N) CALL DSWAP( N-J+1, A( JP2, J ), LDA, A( JJ, J ), LDA );
             JJ = J - 1
-            if (JP1 != JJ && KSTEP == 2) CALL DSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
+            if (JP1 != JJ && KSTEP == 2) CALL DSWAP( N-J+1, A( JP1, J ), LDA, A( JJ, J ), LDA )          IF( J <= N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -472,7 +472,7 @@
                   // Equivalent to testing for ROWMAX == COLMAX,
                   // (used to handle NaN and Inf)
 
-                  } else if ( ( P == JMAX ) || ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) || ( ROWMAX <= COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -619,7 +619,7 @@
 
             // Update the rectangular subdiagonal block
 
-            if (J+JB.LE.N) CALL DGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -ONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, ONE, A( J+JB, J ), LDA );
+            if (J+JB <= N) CALL DGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -ONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, ONE, A( J+JB, J ), LDA );
          } // 110
 
          // Put L21 in standard form by partially undoing the interchanges

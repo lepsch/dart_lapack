@@ -53,7 +53,7 @@
 
       LQUERY = ( ( LWORK == -1 ) || ( LRWORK == -1 ) || ( LIWORK == -1 ) )
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          LWMIN  = 1
          LRWMIN = 1
          LIWMIN = 1
@@ -76,7 +76,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            if (N > 0 && VU.LE.VL) INFO = -8;
+            if (N > 0 && VU <= VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -9
@@ -249,7 +249,7 @@
             scopy(N-1, RWORK( INDRE ), 1, RWORK( INDREE ), 1 );
             scopy(N, RWORK( INDRD ), 1, RWORK( INDRDD ), 1 );
 
-            if (ABSTOL .LE. TWO*N*EPS) {
+            if (ABSTOL <= TWO*N*EPS) {
                TRYRAC = true;
             } else {
                TRYRAC = false;

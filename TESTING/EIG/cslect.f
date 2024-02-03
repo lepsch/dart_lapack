@@ -40,7 +40,7 @@
          CSLECT = SELVAL( 1 )
          for (I = 2; I <= SELDIM; I++) { // 10
             X = ABS( Z-CMPLX( SELWR( I ), SELWI( I ) ) )
-            if ( X.LE.RMIN ) {
+            if ( X <= RMIN ) {
                RMIN = X
                CSLECT = SELVAL( I )
             }

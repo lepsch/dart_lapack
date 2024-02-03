@@ -110,14 +110,14 @@
 
       IMAX = ISAMAX( N, CNORM, 1 )
       TMAX = CNORM( IMAX )
-      if ( TMAX.LE.BIGNUM*HALF ) {
+      if ( TMAX <= BIGNUM*HALF ) {
          TSCAL = ONE
       } else {
 
          // Avoid NaN generation if entries in CNORM exceed the
          // overflow threshold
 
-         if ( TMAX.LE.SLAMCH('Overflow') ) {
+         if ( TMAX <= SLAMCH('Overflow') ) {
             // Case 1: All entries in CNORM are valid floating-point numbers
             TSCAL = HALF / ( SMLNUM*TMAX )
             sscal(N, TSCAL, CNORM, 1 );
@@ -148,10 +148,10 @@
                }
             }
 
-            if ( TMAX.LE.SLAMCH('Overflow') ) {
+            if ( TMAX <= SLAMCH('Overflow') ) {
                TSCAL = ONE / ( SMLNUM*TMAX )
                for (J = 1; J <= N; J++) {
-                  if ( CNORM( J ).LE.SLAMCH('Overflow') ) {
+                  if ( CNORM( J ) <= SLAMCH('Overflow') ) {
                      CNORM( J ) = CNORM( J )*TSCAL
                   } else {
                      // Recompute the 1-norm of each column without
@@ -220,7 +220,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 60;
+               if (GROW <= SMLNUM) GO TO 60;
 
                TJJS = A( J, J )
                TJJ = CABS1( TJJS )
@@ -261,7 +261,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 60;
+               if (GROW <= SMLNUM) GO TO 60;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -302,7 +302,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 90;
+               if (GROW <= SMLNUM) GO TO 90;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -336,7 +336,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 90;
+               if (GROW <= SMLNUM) GO TO 90;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 

@@ -56,7 +56,7 @@
       // Generate the N-by-N matrix Q
 
       zlaset('Full', N, N, CROGUE, CROGUE, Q, LDA );
-      if ( M.LE.N ) {
+      if ( M <= N ) {
          if (M > 0 && M < N) CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M > 1 ) CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
          if (N > 1) CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
@@ -72,7 +72,7 @@
       // Copy R
 
       zlaset('Full', M, N, CZERO, CZERO, R, LDA );
-      if ( M.LE.N ) {
+      if ( M <= N ) {
          zlacpy('Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
       } else {
          zlacpy('Full', M-N, N, AF, LDA, R, LDA );

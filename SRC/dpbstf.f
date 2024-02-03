@@ -72,7 +72,7 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = AB( KD+1, J )
-            if (AJJ.LE.ZERO) GO TO 50;
+            if (AJJ <= ZERO) GO TO 50;
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
             KM = MIN( J-1, KD )
@@ -91,7 +91,7 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = AB( KD+1, J )
-            if (AJJ.LE.ZERO) GO TO 50;
+            if (AJJ <= ZERO) GO TO 50;
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
             KM = MIN( KD, M-J )
@@ -113,7 +113,7 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = AB( 1, J )
-            if (AJJ.LE.ZERO) GO TO 50;
+            if (AJJ <= ZERO) GO TO 50;
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
             KM = MIN( J-1, KD )
@@ -132,7 +132,7 @@
             // Compute s(j,j) and test for non-positive-definiteness.
 
             AJJ = AB( 1, J )
-            if (AJJ.LE.ZERO) GO TO 50;
+            if (AJJ <= ZERO) GO TO 50;
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
             KM = MIN( KD, M-J )

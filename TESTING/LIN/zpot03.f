@@ -41,7 +41,7 @@
 
       // Quick exit if N = 0.
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
@@ -52,7 +52,7 @@
       EPS = DLAMCH( 'Epsilon' )
       ANORM = ZLANHE( '1', UPLO, N, A, LDA, RWORK )
       AINVNM = ZLANHE( '1', UPLO, N, AINV, LDAINV, RWORK )
-      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

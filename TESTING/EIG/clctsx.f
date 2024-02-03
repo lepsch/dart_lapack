@@ -30,7 +30,7 @@
 
       if ( FS ) {
          I = I + 1
-         if ( I.LE.M ) {
+         if ( I <= M ) {
             CLCTSX = false;
          } else {
             CLCTSX = true;
@@ -41,7 +41,7 @@
          }
       } else {
          I = I + 1
-         if ( I.LE.N ) {
+         if ( I <= N ) {
             CLCTSX = true;
          } else {
             CLCTSX = false;

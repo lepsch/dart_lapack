@@ -41,7 +41,7 @@
 
       // Quick exit if N = 0
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -50,7 +50,7 @@
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANHP( '1', UPLO, N, A, RWORK )
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          RESID = ONE / EPS
          RETURN
       }

@@ -40,7 +40,7 @@
 
       // Quick exit if N = 0.
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RCOND = ONE
          RESID = ZERO
          RETURN
@@ -51,7 +51,7 @@
       EPS = SLAMCH( 'Epsilon' )
       ANORM = CLANTP( '1', UPLO, DIAG, N, AP, RWORK )
       AINVNM = CLANTP( '1', UPLO, DIAG, N, AINVP, RWORK )
-      if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+      if ( ANORM <= ZERO || AINVNM <= ZERO ) {
          RCOND = ZERO
          RESID = ONE / EPS
          RETURN

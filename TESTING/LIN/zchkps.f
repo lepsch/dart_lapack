@@ -77,7 +77,7 @@
          N = NVAL( IN )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          IZERO = 0
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 140
@@ -137,7 +137,7 @@
 
                   // Check error code from ZPSTRF.
 
-                     IF( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO.LE.IZERO && RANK < N) ) THEN;
+                     IF( (INFO < IZERO) || (INFO != IZERO && RANK == N) || (INFO <= IZERO && RANK < N) ) THEN;
                         alaerh(PATH, 'ZPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110
                      }

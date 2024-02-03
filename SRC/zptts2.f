@@ -27,7 +27,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          if (N == 1) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB );
          RETURN
       }
@@ -37,7 +37,7 @@
          // Solve A * X = B using the factorization A = U**H *D*U,
          // overwriting each right hand side vector with its solution.
 
-         if ( NRHS.LE.2 ) {
+         if ( NRHS <= 2 ) {
             J = 1
             } // 10
 
@@ -81,7 +81,7 @@
          // Solve A * X = B using the factorization A = L*D*L**H,
          // overwriting each right hand side vector with its solution.
 
-         if ( NRHS.LE.2 ) {
+         if ( NRHS <= 2 ) {
             J = 1
             } // 80
 

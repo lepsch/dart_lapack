@@ -181,7 +181,7 @@
       // (set them to zero) whose norm is less than sigma_max / BIG (roughly).
 * #:(
       WARNING = 0
-      if ( AAQQ .LE. SFMIN ) {
+      if ( AAQQ <= SFMIN ) {
          L2RANK = true;
          L2KILL = true;
          WARNING = 1
@@ -577,7 +577,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p > q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p > q) && (DABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 4949
                } // 4947
             } else {
@@ -605,7 +605,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p > q) && (DABS(A(p,q)).LE.TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p > q) && (DABS(A(p,q)) <= TEMP1) ) || ( p < q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
                   } // 1949
                } // 1947
             } else {
@@ -754,7 +754,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   TEMP1 = XSC*DABS( V(q,q) )
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p > q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                     IF ( ( p > q ) && ( DABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
                } // 2969
@@ -793,7 +793,7 @@
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
-                        IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
+                        IF ( DABS(V(q,p)) <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
                      } // 3958
                   } // 3959
                }
@@ -829,7 +829,7 @@
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
-                        IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
+                        IF ( DABS(V(q,p)) <= TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
                      } // 3968
                   } // 3969
                }
@@ -1108,7 +1108,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                TEMP1 = XSC*DABS( V(q,q) )
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p > q ) && ( DABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
+                  IF ( ( p > q ) && ( DABS(V(p,q)) <= TEMP1 ) || ( p < q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
             } // 5969
@@ -1189,7 +1189,7 @@
 
       // Undo scaling, if necessary (and possible)
 
-      if ( USCAL2 .LE. (BIG/SVA(1))*USCAL1 ) {
+      if ( USCAL2 <= (BIG/SVA(1))*USCAL1 ) {
          dlascl('G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR );
          USCAL1 = ONE
          USCAL2 = ONE

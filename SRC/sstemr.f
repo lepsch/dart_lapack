@@ -89,7 +89,7 @@
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
-      } else if ( VALEIG && N > 0 && WU.LE.WL ) {
+      } else if ( VALEIG && N > 0 && WU <= WL ) {
          INFO = -7
       } else if ( INDEIG && ( IIL < 1 || IIL > N ) ) {
          INFO = -8
@@ -180,7 +180,7 @@
             R2 = E(2)
             LAESWAP = true;
          }
-         if ( ALLEIG || (VALEIG && (R2 > WL) && (R2.LE.WU)) || (INDEIG && (IIL == 1)) ) {
+         if ( ALLEIG || (VALEIG && (R2 > WL) && (R2 <= WU)) || (INDEIG && (IIL == 1)) ) {
             M = M+1
             W( M ) = R2
             if ( WANTZ && (.NOT.ZQUERY) ) {
@@ -206,7 +206,7 @@
                }
             }
          }
-         if ( ALLEIG || (VALEIG && (R1 > WL) && (R1.LE.WU)) || (INDEIG && (IIU == 2)) ) {
+         if ( ALLEIG || (VALEIG && (R1 > WL) && (R1 <= WU)) || (INDEIG && (IIU == 2)) ) {
             M = M+1
             W( M ) = R1
             if ( WANTZ && (.NOT.ZQUERY) ) {

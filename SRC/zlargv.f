@@ -76,7 +76,7 @@
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
             if (SCALE >= SAFMX2 && COUNT < 20) GO TO 10;
-         } else if ( SCALE.LE.SAFMN2 ) {
+         } else if ( SCALE <= SAFMN2 ) {
             if ( G == CZERO ) {
                CS = ONE
                SN = CZERO
@@ -88,11 +88,11 @@
             FS = FS*SAFMX2
             GS = GS*SAFMX2
             SCALE = SCALE*SAFMX2
-            if (SCALE.LE.SAFMN2) GO TO 20;
+            if (SCALE <= SAFMN2) GO TO 20;
          }
          F2 = ABSSQ( FS )
          G2 = ABSSQ( GS )
-         if ( F2.LE.MAX( G2, ONE )*SAFMIN ) {
+         if ( F2 <= MAX( G2, ONE )*SAFMIN ) {
 
             // This is a rare case: F is very small.
 

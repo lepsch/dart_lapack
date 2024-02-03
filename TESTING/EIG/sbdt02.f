@@ -37,7 +37,7 @@
       // Quick return if possible
 
       RESID = ZERO
-      if (M.LE.0 || N.LE.0) RETURN;
+      if (M <= 0 || N <= 0) RETURN;
       REALMN = REAL( MAX( M, N ) )
       EPS = SLAMCH( 'Precision' )
 
@@ -53,7 +53,7 @@
 
       BNORM = SLANGE( '1', M, N, B, LDB, WORK )
 
-      if ( BNORM.LE.ZERO ) {
+      if ( BNORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM >= RESID ) {

@@ -72,7 +72,7 @@
          INFO = -9
       } else {
          if ( VALEIG ) {
-            if (N > 0 && VU.LE.VL) INFO = -11;
+            if (N > 0 && VU <= VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -12
@@ -86,7 +86,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( N.LE.1 ) {
+         if ( N <= 1 ) {
             LWMIN = 1
             WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          } else {
@@ -191,7 +191,7 @@
             TEST = true;
          }
       }
-      if ((ALLEIG || TEST) && (ABSTOL.LE.ZERO)) {
+      if ((ALLEIG || TEST) && (ABSTOL <= ZERO)) {
          scopy(N, RWORK( INDD ), 1, W, 1 );
          INDEE = INDRWK + 2*N
          if ( .NOT.WANTZ ) {

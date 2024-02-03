@@ -42,7 +42,7 @@
          INFO = -1
       } else if ( N < 0 || M < N ) {
          INFO = -2
-      } else if ( MB1.LE.N ) {
+      } else if ( MB1 <= N ) {
          INFO = -3
       } else if ( NB1 < 1 ) {
          INFO = -4

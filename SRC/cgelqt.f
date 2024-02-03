@@ -54,7 +54,7 @@
       // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)
 
          cgelqt3(IB, N-I+1, A(I,I), LDA, T(1,I), LDT, IINFO );
-         if ( I+IB.LE.M ) {
+         if ( I+IB <= M ) {
 
       // Update by applying H**T to A(I:M,I+IB:N) from the right
 

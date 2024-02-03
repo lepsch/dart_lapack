@@ -184,7 +184,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG + 1
 
-               if ( ABS1( S( JE, JE ) ).LE.SAFMIN && ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( REAL( P( JE, JE ) ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -271,7 +271,7 @@
                   // with scaling and perturbation of the denominator
 
                   D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) )
-                  IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
+                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN )
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( SUM ) >= BIGNUM*ABS1( D ) ) {
@@ -338,7 +338,7 @@
             if ( ILCOMP ) {
                IEIG = IEIG - 1
 
-               if ( ABS1( S( JE, JE ) ).LE.SAFMIN && ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) {
+               if ( ABS1( S( JE, JE ) ) <= SAFMIN && ABS( REAL( P( JE, JE ) ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -406,7 +406,7 @@
                   // with scaling and perturbation of the denominator
 
                   D = ACOEFF*S( J, J ) - BCOEFF*P( J, J )
-                  IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
+                  IF( ABS1( D ) <= DMIN ) D = CMPLX( DMIN )
 
                   if ( ABS1( D ) < ONE ) {
                      if ( ABS1( WORK( J ) ) >= BIGNUM*ABS1( D ) ) {

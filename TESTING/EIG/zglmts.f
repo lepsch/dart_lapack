@@ -69,7 +69,7 @@
       XNORM = DZASUM( M, X, 1 ) + DZASUM( P, U, 1 )
       YNORM = ANORM + BNORM
 
-      if ( XNORM.LE.ZERO ) {
+      if ( XNORM <= ZERO ) {
          RESULT = ZERO
       } else {
          RESULT = ( ( DNORM / YNORM ) / XNORM ) / EPS

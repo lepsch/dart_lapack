@@ -21,7 +21,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       for (I = 1; I <= N; I++) { // 10
          K( I ) = -K( I )

@@ -68,7 +68,7 @@
             // Compute U(J,J) and test for non-positive-definiteness.
 
             AJJ = DBLE( AB( KD+1, J ) )
-            if ( AJJ.LE.ZERO ) {
+            if ( AJJ <= ZERO ) {
                AB( KD+1, J ) = AJJ
                GO TO 30
             }
@@ -95,7 +95,7 @@
             // Compute L(J,J) and test for non-positive-definiteness.
 
             AJJ = DBLE( AB( 1, J ) )
-            if ( AJJ.LE.ZERO ) {
+            if ( AJJ <= ZERO ) {
                AB( 1, J ) = AJJ
                GO TO 30
             }

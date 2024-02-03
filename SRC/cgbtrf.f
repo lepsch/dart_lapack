@@ -76,7 +76,7 @@
 
       NB = MIN( NB, NBMAX )
 
-      if ( NB.LE.1 || NB > KL ) {
+      if ( NB <= 1 || NB > KL ) {
 
          // Use unblocked code
 
@@ -142,7 +142,7 @@
 
                // Set fill-in elements in column JJ+KV to zero
 
-               if ( JJ+KV.LE.N ) {
+               if ( JJ+KV <= N ) {
                   for (I = 1; I <= KL; I++) { // 70
                      AB( I, JJ+KV ) = ZERO
                   } // 70
@@ -196,7 +196,7 @@
                NW = MIN( JJ-J+1, I3 )
                if (NW > 0) CALL CCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
             } // 80
-            if ( J+JB.LE.N ) {
+            if ( J+JB <= N ) {
 
                // Apply the row interchanges to the other blocks.
 

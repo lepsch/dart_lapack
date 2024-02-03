@@ -49,7 +49,7 @@
       INFO = 0
       UPPER = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK == -1 )
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          LWKMIN = 1
          LWKOPT = 1
       } else {

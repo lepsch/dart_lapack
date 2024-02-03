@@ -63,7 +63,7 @@
 
       NB = ILAENV( 1, 'SSYGST', UPLO, N, -1, -1, -1 )
 
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
 
@@ -83,7 +83,7 @@
                   // Update the upper triangle of A(k:n,k:n)
 
                   ssygs2(ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO );
-                  if ( K+KB.LE.N ) {
+                  if ( K+KB <= N ) {
                      strsm('Left', UPLO, 'Transpose', 'Non-unit', KB, N-K-KB+1, ONE, B( K, K ), LDB, A( K, K+KB ), LDA );
                      ssymm('Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, ONE, A( K, K+KB ), LDA );
                      ssyr2k(UPLO, 'Transpose', N-K-KB+1, KB, -ONE, A( K, K+KB ), LDA, B( K, K+KB ), LDB, ONE, A( K+KB, K+KB ), LDA );
@@ -101,7 +101,7 @@
                   // Update the lower triangle of A(k:n,k:n)
 
                   ssygs2(ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO );
-                  if ( K+KB.LE.N ) {
+                  if ( K+KB <= N ) {
                      strsm('Right', UPLO, 'Transpose', 'Non-unit', N-K-KB+1, KB, ONE, B( K, K ), LDB, A( K+KB, K ), LDA );
                      ssymm('Right', UPLO, N-K-KB+1, KB, -HALF, A( K, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K ), LDA );
                      ssyr2k(UPLO, 'No transpose', N-K-KB+1, KB, -ONE, A( K+KB, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K+KB ), LDA );

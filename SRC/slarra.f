@@ -34,7 +34,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RETURN
       }
 
@@ -44,7 +44,7 @@
          TMP1 = ABS(SPLTOL)* TNRM
          for (I = 1; I <= N-1; I++) { // 9
             EABS = ABS( E(I) )
-            if ( EABS .LE. TMP1) {
+            if ( EABS <= TMP1) {
                E(I) = ZERO
                E2(I) = ZERO
                ISPLIT( NSPLIT ) = I
@@ -55,7 +55,7 @@
          // Criterion that guarantees relative accuracy
          for (I = 1; I <= N-1; I++) { // 10
             EABS = ABS( E(I) )
-            if ( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) {
+            if ( EABS <= SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) {
                E(I) = ZERO
                E2(I) = ZERO
                ISPLIT( NSPLIT ) = I

@@ -147,7 +147,7 @@
             MINMN = MIN( M, N )
             for (K = 1; K <= NNB; K++) {
                NB = NBVAL( K )
-               if ( (NB.LE.MINMN) && (NB > 0) ) {
+               if ( (NB <= MINMN) && (NB > 0) ) {
 
                   // Test SGEQRT and SGEMQRT
 

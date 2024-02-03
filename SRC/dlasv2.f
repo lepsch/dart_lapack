@@ -107,11 +107,11 @@
                L = D / FA
             }
 
-            // Note that 0 .le. L .le. 1
+            // Note that 0 <= L <= 1
 
             M = GT / FT
 
-            // Note that abs(M) .le. 1/macheps
+            // Note that abs(M) <= 1/macheps
 
             T = TWO - L
 
@@ -121,7 +121,7 @@
             TT = T*T
             S = SQRT( TT+MM )
 
-            // Note that 1 .le. S .le. 1 + 1/macheps
+            // Note that 1 <= S <= 1 + 1/macheps
 
             if ( L == ZERO ) {
                R = ABS( M )
@@ -129,11 +129,11 @@
                R = SQRT( L*L+MM )
             }
 
-            // Note that 0 .le. R .le. 1 + 1/macheps
+            // Note that 0 <= R <= 1 + 1/macheps
 
             A = HALF*( S+R )
 
-            // Note that 1 .le. A .le. 1 + abs(M)
+            // Note that 1 <= A <= 1 + abs(M)
 
             SSMIN = HA / A
             SSMAX = FA*A

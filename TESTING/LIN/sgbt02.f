@@ -38,7 +38,7 @@
 
       // Quick return if N = 0 pr NRHS = 0
 
-      if ( M.LE.0 || N.LE.0 || NRHS.LE.0 ) {
+      if ( M <= 0 || N <= 0 || NRHS <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -78,7 +78,7 @@
             IF( ANORM < TEMP || SISNAN( TEMP ) ) ANORM = TEMP
          } // 18
       }
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          RESID = ONE / EPS
          RETURN
       }
@@ -102,7 +102,7 @@
       for (J = 1; J <= NRHS; J++) { // 30
          BNORM = SASUM( N1, B( 1, J ), 1 )
          XNORM = SASUM( N1, X( 1, J ), 1 )
-         if ( XNORM.LE.ZERO ) {
+         if ( XNORM <= ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )

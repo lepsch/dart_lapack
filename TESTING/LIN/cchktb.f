@@ -90,7 +90,7 @@
          XTYPE = 'N'
          NIMAT = NTYPE1
          NIMAT2 = NTYPES
-         if ( N.LE.0 ) {
+         if ( N <= 0 ) {
             NIMAT = 1
             NIMAT2 = NTYPE1 + 1
          }
@@ -154,7 +154,7 @@
                   // Compute the 1-norm condition number of A.
 
                   ANORM = CLANTB( '1', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = CLANTR( '1', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                  if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                      RCONDO = ONE
                   } else {
                      RCONDO = ( ONE / ANORM ) / AINVNM
@@ -163,7 +163,7 @@
                   // Compute the infinity-norm condition number of A.
 
                   ANORM = CLANTB( 'I', UPLO, DIAG, N, KD, AB, LDAB, RWORK )                   AINVNM = CLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                  if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM

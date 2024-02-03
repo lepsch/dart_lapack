@@ -101,7 +101,7 @@
          ANORM = ONE
       }
 
-      if (N.LE.1) CNDNUM = ONE;
+      if (N <= 1) CNDNUM = ONE;
 
       RETURN
 

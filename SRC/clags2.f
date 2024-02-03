@@ -78,7 +78,7 @@
             if ( ( ABS( UA11R )+ABS1( UA12 ) ) == ZERO ) {
                clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
             } else if ( ( ABS( VB11R )+ABS1( VB12 ) ) == ZERO ) {
-               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN;
+               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ) <= AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN;
                clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R );
             } else {
                clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
@@ -109,7 +109,7 @@
                clartg(-CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R );
             } else if ( ( ABS1( VB21 )+ABS( VB22 ) ) == ZERO ) {
                clartg(-CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R );
-            } else if ( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) {
+            } else if ( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ) <= AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) {
                clartg(-CONJG( UA21 ), CONJG( UA22 ), CSQ, SNQ, R );
             } else {
                clartg(-CONJG( VB21 ), CONJG( VB22 ), CSQ, SNQ, R );
@@ -167,7 +167,7 @@
                clartg(CMPLX( VB22R ), VB21, CSQ, SNQ, R );
             } else if ( ( ABS1( VB21 )+ABS( VB22R ) ) == ZERO ) {
                clartg(CMPLX( UA22R ), UA21, CSQ, SNQ, R );
-            } else if ( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) {
+            } else if ( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ) <= AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) {
                clartg(CMPLX( UA22R ), UA21, CSQ, SNQ, R );
             } else {
                clartg(CMPLX( VB22R ), VB21, CSQ, SNQ, R );
@@ -198,7 +198,7 @@
                clartg(VB12, VB11, CSQ, SNQ, R );
             } else if ( ( ABS1( VB11 )+ABS1( VB12 ) ) == ZERO ) {
                clartg(UA12, UA11, CSQ, SNQ, R );
-            } else if ( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) {
+            } else if ( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ) <= AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) {
                clartg(UA12, UA11, CSQ, SNQ, R );
             } else {
                clartg(VB12, VB11, CSQ, SNQ, R );

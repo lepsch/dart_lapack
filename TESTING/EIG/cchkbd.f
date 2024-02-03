@@ -316,7 +316,7 @@
                // Generate Q
 
                MQ = M
-               if (NRHS.LE.0) MQ = MNMIN;
+               if (NRHS <= 0) MQ = MNMIN;
                cungbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from CUNGBR.

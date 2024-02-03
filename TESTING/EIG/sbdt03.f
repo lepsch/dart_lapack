@@ -40,7 +40,7 @@
       // Quick return if possible
 
       RESID = ZERO
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
 
       // Compute B - U * S * V' one column at a time.
 
@@ -106,7 +106,7 @@
 
       EPS = SLAMCH( 'Precision' )
 
-      if ( BNORM.LE.ZERO ) {
+      if ( BNORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM >= RESID ) {

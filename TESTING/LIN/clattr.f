@@ -49,16 +49,16 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT >= 7 && IMAT.LE.10 ) || IMAT == 18 ) {
+      if ( ( IMAT >= 7 && IMAT <= 10 ) || IMAT == 18 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
       }
       INFO = 0
 
-      // Quick return if N.LE.0.
+      // Quick return if N <= 0.
 
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
 
       // Call CLATB4 to set parameters for CLATMS.
 
@@ -71,7 +71,7 @@
 
       // IMAT <= 6:  Non-unit triangular matrix
 
-      if ( IMAT.LE.6 ) {
+      if ( IMAT <= 6 ) {
          clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO );
 
       // IMAT > 6:  Unit triangular matrix
@@ -102,7 +102,7 @@
       // forming a triangular matrix with known singular values and
       // filling in the zero entries with Givens rotations.
 
-      } else if ( IMAT.LE.10 ) {
+      } else if ( IMAT <= 10 ) {
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 60
                for (I = 1; I <= J - 1; I++) { // 50
@@ -184,7 +184,7 @@
             PLUS2 = STAR1 / PLUS1
             WORK( J ) = PLUS1
             WORK( N+J ) = STAR1
-            if ( J+1.LE.N ) {
+            if ( J+1 <= N ) {
                WORK( J+1 ) = PLUS2
                WORK( N+J+1 ) = ZERO
                PLUS1 = STAR1 / PLUS2
@@ -357,7 +357,7 @@
                for (I = 1; I <= J - 1; I++) { // 200
                   A( I, J ) = ZERO
                } // 200
-               if ( JCOUNT.LE.2 ) {
+               if ( JCOUNT <= 2 ) {
                   A( J, J ) = SMLNUM*CLARND( 5, ISEED )
                } else {
                   A( J, J ) = CLARND( 5, ISEED )
@@ -371,7 +371,7 @@
                for (I = J + 1; I <= N; I++) { // 220
                   A( I, J ) = ZERO
                } // 220
-               if ( JCOUNT.LE.2 ) {
+               if ( JCOUNT <= 2 ) {
                   A( J, J ) = SMLNUM*CLARND( 5, ISEED )
                } else {
                   A( J, J ) = CLARND( 5, ISEED )

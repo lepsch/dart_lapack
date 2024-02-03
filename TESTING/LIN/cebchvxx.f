@@ -121,7 +121,7 @@
          } else {
          // Either everything succeeded (INFO == 0) or some solution failed
          // to converge (INFO > N+1).
-            if (INFO > 0 && INFO .LE. N+1) {
+            if (INFO > 0 && INFO <= N+1) {
                NFAIL = NFAIL + 1
                WRITE (*, FMT=8000) C2, N, INFO, ORCOND, RCOND
             }
@@ -350,7 +350,7 @@ c$$$         WRITE(*,*)
  9998 FORMAT( ' C', A2, 'SVXX: ', I6, ' out of ', I6, ' tests failed to pass the threshold' )
  9997 FORMAT( ' C', A2, 'SVXX passed the tests of error bounds' )
       // Test ratios.
- 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error', / 5X, 'Guaranteed case: if norm ( abs( Xc - Xt )', ' / norm ( Xt ) .LE. ERRBND( *, nwise_i, bnd_i ), then', / 5X, 'ERRBND( *, nwise_i, bnd_i ) .LE. MAX(SQRT(N), 10) * EPS')
+ 9996 FORMAT( 3X, I2, ': Normwise guaranteed forward error', / 5X, 'Guaranteed case: if norm ( abs( Xc - Xt )', ' / norm ( Xt ) <= ERRBND( *, nwise_i, bnd_i ), then', / 5X, 'ERRBND( *, nwise_i, bnd_i ) <= MAX(SQRT(N), 10) * EPS')
  9995 FORMAT( 3X, I2, ': Componentwise guaranteed forward error' )
  9994 FORMAT( 3X, I2, ': Backwards error' )
  9993 FORMAT( 3X, I2, ': Reciprocal condition number' )

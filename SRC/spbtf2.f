@@ -68,7 +68,7 @@
             // Compute U(J,J) and test for non-positive-definiteness.
 
             AJJ = AB( KD+1, J )
-            if (AJJ.LE.ZERO) GO TO 30;
+            if (AJJ <= ZERO) GO TO 30;
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
 
@@ -90,7 +90,7 @@
             // Compute L(J,J) and test for non-positive-definiteness.
 
             AJJ = AB( 1, J )
-            if (AJJ.LE.ZERO) GO TO 30;
+            if (AJJ <= ZERO) GO TO 30;
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
 

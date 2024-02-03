@@ -73,7 +73,7 @@
          C = C / TEMP
          if ( C == ZERO ) {
             TAU = B / A
-         } else if ( A.LE.ZERO ) {
+         } else if ( A <= ZERO ) {
             TAU = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -83,12 +83,12 @@
             TAU = ZERO
          } else {
             TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) + TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) + TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
-            if ( TEMP .LE. ZERO ) {
+            if ( TEMP <= ZERO ) {
                LBD = TAU
             } else {
                UBD = TAU
             }
-            IF( ABS( FINIT ).LE.ABS( TEMP ) ) TAU = ZERO
+            IF( ABS( FINIT ) <= ABS( TEMP ) ) TAU = ZERO
          }
       }
 
@@ -114,9 +114,9 @@
          TEMP = MIN( ABS( D( 1 )-TAU ), ABS( D( 2 )-TAU ) )
       }
       SCALE = false;
-      if ( TEMP.LE.SMALL1 ) {
+      if ( TEMP <= SMALL1 ) {
          SCALE = true;
-         if ( TEMP.LE.SMALL2 ) {
+         if ( TEMP <= SMALL2 ) {
 
          // Scale up by power of radix nearest 1/SAFMIN**(2/3)
 
@@ -163,8 +163,8 @@
       } // 30
       F = FINIT + TAU*FC
 
-      IF( ABS( F ).LE.ZERO ) GO TO 60
-      if ( F .LE. ZERO ) {
+      IF( ABS( F ) <= ZERO ) GO TO 60
+      if ( F <= ZERO ) {
          LBD = TAU
       } else {
          UBD = TAU
@@ -201,7 +201,7 @@
          C = C / TEMP
          if ( C == ZERO ) {
             ETA = B / A
-         } else if ( A.LE.ZERO ) {
+         } else if ( A <= ZERO ) {
             ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
          } else {
             ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -233,8 +233,8 @@
             }
          } // 40
          F = FINIT + TAU*FC
-         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) || ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
-         if ( F .LE. ZERO ) {
+         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ) <= FOUR*EPS*ERRETM ) || ( (UBD-LBD) <= FOUR*EPS*ABS(TAU) )  ) GO TO 60
+         if ( F <= ZERO ) {
             LBD = TAU
          } else {
             UBD = TAU

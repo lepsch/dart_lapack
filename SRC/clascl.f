@@ -69,7 +69,7 @@
          INFO = -6
       } else if ( N < 0 || ( ITYPE == 4 && N != M ) || ( ITYPE == 5 && N != M ) ) {
          INFO = -7
-      } else if ( ITYPE.LE.3 && LDA < MAX( 1, M ) ) {
+      } else if ( ITYPE <= 3 && LDA < MAX( 1, M ) ) {
          INFO = -9
       } else if ( ITYPE >= 4 ) {
          if ( KL < 0 || KL > MAX( M-1, 0 ) ) {

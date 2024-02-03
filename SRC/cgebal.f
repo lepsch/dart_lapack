@@ -223,7 +223,7 @@
 
             IF( ( C+R ) >= FACTOR*S ) CYCLE
             if ( F < ONE && SCALE( I ) < ONE ) {
-               IF( F*SCALE( I ).LE.SFMIN1 ) CYCLE
+               IF( F*SCALE( I ) <= SFMIN1 ) CYCLE
             }
             if ( F > ONE && SCALE( I ) > ONE ) {
                IF( SCALE( I ) >= SFMAX1 / F ) CYCLE

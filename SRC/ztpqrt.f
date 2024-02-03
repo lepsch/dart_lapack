@@ -65,7 +65,7 @@
 
       // Update by applying H**H to B(:,I+IB:N) from the left
 
-         if ( I+IB.LE.N ) {
+         if ( I+IB <= N ) {
             ztprfb('L', 'C', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB );
          }
       }

@@ -41,7 +41,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RETURN
       }
 
@@ -131,7 +131,7 @@
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
       } // 6
       SAWNAN1 = SAWNAN1 || SISNAN( MAX1 )
-       if ( FORCER || (MAX1.LE.GROWTHBOUND && .NOT.SAWNAN1 ) ) {
+       if ( FORCER || (MAX1 <= GROWTHBOUND && .NOT.SAWNAN1 ) ) {
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
@@ -160,7 +160,7 @@
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
       } // 7
       SAWNAN2 = SAWNAN2 || SISNAN( MAX2 )
-       if ( FORCER || (MAX2.LE.GROWTHBOUND && .NOT.SAWNAN2 ) ) {
+       if ( FORCER || (MAX2 <= GROWTHBOUND && .NOT.SAWNAN2 ) ) {
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
@@ -174,14 +174,14 @@
       } else {
          if ( .NOT.SAWNAN1 ) {
             INDX = 1
-            if (MAX1.LE.SMLGROWTH) {
+            if (MAX1 <= SMLGROWTH) {
                SMLGROWTH = MAX1
                BESTSHIFT = LSIGMA
             }
          }
          if ( .NOT.SAWNAN2 ) {
-            if (SAWNAN1 || MAX2.LE.MAX1) INDX = 2;
-            if (MAX2.LE.SMLGROWTH) {
+            if (SAWNAN1 || MAX2 <= MAX1) INDX = 2;
+            if (MAX2 <= SMLGROWTH) {
                SMLGROWTH = MAX2
                BESTSHIFT = RSIGMA
             }
@@ -206,7 +206,7 @@
          PROD = ONE
          OLDP = ONE
          DO 15 I = N-1, 1, -1
-            if ( PROD .LE. EPS ) {
+            if ( PROD <= EPS ) {
                PROD = ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP
             } else {
                PROD = PROD*ABS(WORK(N+I))
@@ -216,7 +216,7 @@
             TMP = MAX( TMP, ABS( DPLUS( I ) * PROD ))
          } // 15
          RRR1 = TMP/( SPDIAM * SQRT( ZNM2 ) )
-         if (RRR1.LE.MAXGROWTH2) {
+         if (RRR1 <= MAXGROWTH2) {
             SIGMA = LSIGMA
             SHIFT = SLEFT
             GOTO 100
@@ -227,7 +227,7 @@
          PROD = ONE
          OLDP = ONE
          DO 16 I = N-1, 1, -1
-            if ( PROD .LE. EPS ) {
+            if ( PROD <= EPS ) {
                PROD = ((WORK(I+1)*LPLUS(I+1))/(WORK(I)*LPLUS(I)))*OLDP
             } else {
                PROD = PROD*ABS(LPLUS(I))
@@ -237,7 +237,7 @@
             TMP = MAX( TMP, ABS( WORK( I ) * PROD ))
          } // 16
          RRR2 = TMP/( SPDIAM * SQRT( ZNM2 ) )
-         if (RRR2.LE.MAXGROWTH2) {
+         if (RRR2 <= MAXGROWTH2) {
             SIGMA = RSIGMA
             SHIFT = SRIGHT
             GOTO 100

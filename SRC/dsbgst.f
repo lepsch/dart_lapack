@@ -283,7 +283,7 @@
          } // 130
 
          if ( UPDATE ) {
-            if ( I2.LE.N && KBT > 0 ) {
+            if ( I2 <= N && KBT > 0 ) {
 
                // create nonzero element a(i-kbt,i-kbt+ka+1) outside the
                // band and store it in WORK(i-kbt)
@@ -320,7 +320,7 @@
                AB( 1, J+1 ) = WORK( N+J )*AB( 1, J+1 )
             } // 160
             if ( UPDATE ) {
-               if (I-K < N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
+               if (I-K < N-KA && K <= KBT) WORK( I-K+KA ) = WORK( I-K );
             }
          } // 170
 
@@ -504,7 +504,7 @@
          } // 360
 
          if ( UPDATE ) {
-            if ( I2.LE.N && KBT > 0 ) {
+            if ( I2 <= N && KBT > 0 ) {
 
                // create nonzero element a(i-kbt+ka+1,i-kbt) outside the
                // band and store it in WORK(i-kbt)
@@ -541,7 +541,7 @@
                AB( KA1, J-KA+1 ) = WORK( N+J )*AB( KA1, J-KA+1 )
             } // 390
             if ( UPDATE ) {
-               if (I-K < N-KA && K.LE.KBT) WORK( I-K+KA ) = WORK( I-K );
+               if (I-K < N-KA && K <= KBT) WORK( I-K+KA ) = WORK( I-K );
             }
          } // 400
 
@@ -812,7 +812,7 @@
                AB( 1, J+KA-1 ) = WORK( N+M-KB+J )*AB( 1, J+KA-1 )
             } // 640
             if ( UPDATE ) {
-               if (I+K > KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
+               if (I+K > KA1 && K <= KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
             }
          } // 650
 
@@ -1036,7 +1036,7 @@
                AB( KA1, J-1 ) = WORK( N+M-KB+J )*AB( KA1, J-1 )
             } // 870
             if ( UPDATE ) {
-               if (I+K > KA1 && K.LE.KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
+               if (I+K > KA1 && K <= KBT) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K );
             }
          } // 880
 

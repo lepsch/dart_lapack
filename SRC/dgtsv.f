@@ -170,7 +170,7 @@
 
       // Back solve with the matrix U from the factorization.
 
-      if ( NRHS.LE.2 ) {
+      if ( NRHS <= 2 ) {
          J = 1
          } // 70
          B( N, J ) = B( N, J ) / D( N )

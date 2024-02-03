@@ -46,7 +46,7 @@
          xerbla('DSTERF', -INFO );
          RETURN
       }
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       // Determine the unit roundoff for this environment.
 
@@ -73,7 +73,7 @@
       } // 10
       if (L1 > N) GO TO 170       IF( L1 > 1 ) E( L1-1 ) = ZERO;
       for (M = L1; M <= N - 1; M++) { // 20
-         if ( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
+         if ( ABS( E( M ) ) <= ( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO
             GO TO 30
          }
@@ -123,7 +123,7 @@
          } // 50
          if ( L != LEND ) {
             for (M = L; M <= LEND - 1; M++) { // 60
-               IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
+               IF( ABS( E( M ) ) <= EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
             } // 60
          }
          M = LEND
@@ -143,7 +143,7 @@
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
-            if (L.LE.LEND) GO TO 50;
+            if (L <= LEND) GO TO 50;
             GO TO 150
          }
 
@@ -192,7 +192,7 @@
          D( L ) = P
 
          L = L + 1
-         if (L.LE.LEND) GO TO 50;
+         if (L <= LEND) GO TO 50;
          GO TO 150
 
       } else {
@@ -203,7 +203,7 @@
 
          } // 100
          DO 110 M = L, LEND + 1, -1
-            IF( ABS( E( M-1 ) ).LE.EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120
+            IF( ABS( E( M-1 ) ) <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120
          } // 110
          M = LEND
 

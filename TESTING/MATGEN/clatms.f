@@ -198,7 +198,7 @@
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
 
-      if ( ABS( D( 1 ) ).LE.ABS( D( MNMIN ) ) ) {
+      if ( ABS( D( 1 ) ) <= ABS( D( MNMIN ) ) ) {
          TOPDWN = true;
       } else {
          TOPDWN = false;
@@ -263,7 +263,7 @@
             A( ( 1-ISKEW )*J+IOFFST, J ) = CMPLX( D( J ) )
          } // 30
 
-         if (IPACK.LE.2 || IPACK >= 5) IPACKG = IPACK;
+         if (IPACK <= 2 || IPACK >= 5) IPACKG = IPACK;
 
       } else if ( GIVENS ) {
 
@@ -432,7 +432,7 @@
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           clarot( false , true , JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
+                           clarot( false , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
                            IC = ICOL
                         }
                      } // 110
@@ -482,7 +482,7 @@
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           clarot( true , true , JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA );
+                           clarot( true , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA );
                            IR = IROW
                         }
                      } // 140

@@ -149,7 +149,7 @@
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 )
                   DA11 = ABS( A11 )
-                  if ( DA11.LE.SMIN ) {
+                  if ( DA11 <= SMIN ) {
                      A11 = SMIN
                      DA11 = SMIN
                      INFO = 1
@@ -313,7 +313,7 @@
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 )
                   DA11 = ABS( A11 )
-                  if ( DA11.LE.SMIN ) {
+                  if ( DA11 <= SMIN ) {
                      A11 = SMIN
                      DA11 = SMIN
                      INFO = 1
@@ -476,7 +476,7 @@
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 )
                   DA11 = ABS( A11 )
-                  if ( DA11.LE.SMIN ) {
+                  if ( DA11 <= SMIN ) {
                      A11 = SMIN
                      DA11 = SMIN
                      INFO = 1
@@ -638,7 +638,7 @@
 
                   A11 = A( K1, K1 ) + SGN*B( L1, L1 )
                   DA11 = ABS( A11 )
-                  if ( DA11.LE.SMIN ) {
+                  if ( DA11 <= SMIN ) {
                      A11 = SMIN
                      DA11 = SMIN
                      INFO = 1

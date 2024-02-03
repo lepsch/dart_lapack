@@ -95,7 +95,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          WORK( 1 ) = DBLE( 1 )
          RETURN
       }
@@ -183,24 +183,24 @@
          }
 
          // Check deflations at the end
-         if ( ABS( A( ISTOP-1, ISTOP-2 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTOP-1, ISTOP-1 ) )+ABS( A( ISTOP-2, ISTOP-2 ) ) ) ) ) {
+         if ( ABS( A( ISTOP-1, ISTOP-2 ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTOP-1, ISTOP-1 ) )+ABS( A( ISTOP-2, ISTOP-2 ) ) ) ) ) {
             A( ISTOP-1, ISTOP-2 ) = ZERO
             ISTOP = ISTOP-2
             LD = 0
             ESHIFT = ZERO
-         } else if ( ABS( A( ISTOP, ISTOP-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
+         } else if ( ABS( A( ISTOP, ISTOP-1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTOP, ISTOP ) )+ABS( A( ISTOP-1, ISTOP-1 ) ) ) ) ) {
             A( ISTOP, ISTOP-1 ) = ZERO
             ISTOP = ISTOP-1
             LD = 0
             ESHIFT = ZERO
          }
          // Check deflations at the start
-         if ( ABS( A( ISTART+2, ISTART+1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTART+1, ISTART+1 ) )+ABS( A( ISTART+2, ISTART+2 ) ) ) ) ) {
+         if ( ABS( A( ISTART+2, ISTART+1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTART+1, ISTART+1 ) )+ABS( A( ISTART+2, ISTART+2 ) ) ) ) ) {
             A( ISTART+2, ISTART+1 ) = ZERO
             ISTART = ISTART+2
             LD = 0
             ESHIFT = ZERO
-         } else if ( ABS( A( ISTART+1, ISTART ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
+         } else if ( ABS( A( ISTART+1, ISTART ) ) <= MAX( SMLNUM, ULP*( ABS( A( ISTART, ISTART ) )+ABS( A( ISTART+1, ISTART+1 ) ) ) ) ) {
             A( ISTART+1, ISTART ) = ZERO
             ISTART = ISTART+1
             LD = 0
@@ -214,7 +214,7 @@
          // Check interior deflations
          ISTART2 = ISTART
          DO K = ISTOP, ISTART+1, -1
-            if ( ABS( A( K, K-1 ) ) .LE. MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
+            if ( ABS( A( K, K-1 ) ) <= MAX( SMLNUM, ULP*( ABS( A( K, K ) )+ABS( A( K-1, K-1 ) ) ) ) ) {
                A( K, K-1 ) = ZERO
                ISTART2 = K
                EXIT

@@ -72,9 +72,9 @@
          INFO = -3
       } else if ( THRESH < ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 || LDA < NMAX ) {
+      } else if ( LDA <= 1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDU.LE.1 || LDU < NMAX ) {
+      } else if ( LDU <= 1 || LDU < NMAX ) {
          INFO = -14
       } else if ( 4*NMAX*NMAX+2 > NWORK ) {
          INFO = -28
@@ -309,7 +309,7 @@
             shseqr('E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(E)', IINFO, N, JTYPE, IOLDSD
-               if ( IINFO.LE.N+2 ) {
+               if ( IINFO <= N+2 ) {
                   INFO = ABS( IINFO )
                   GO TO 250
                }
@@ -320,7 +320,7 @@
             slacpy(' ', N, N, H, LDA, T2, LDA );
 
             shseqr('S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 && IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO <= N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
@@ -333,7 +333,7 @@
             slacpy(' ', N, N, U, LDU, UZ, LDU );
 
             shseqr('S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 && IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO <= N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'SHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250

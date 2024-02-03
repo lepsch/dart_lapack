@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      if (M.LE.0 || N.LE.0) RETURN;
+      if (M <= 0 || N <= 0) RETURN;
 
       EPS = DLAMCH( 'Precision' )
       if ( M < N || ( M == N && LSAME( ROWCOL, 'R' ) ) ) {
@@ -62,7 +62,7 @@
       }
       MNMIN = MIN( M, N )
 
-      if ( ( MNMIN+1 )*MNMIN.LE.LWORK ) {
+      if ( ( MNMIN+1 )*MNMIN <= LWORK ) {
          LDWORK = MNMIN
       } else {
          LDWORK = 0

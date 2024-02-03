@@ -93,7 +93,7 @@
 
       // Determine the block size if it is tall skinny or short and wide
 
-      if ((MB.LE.K) || (MB >= MAX(M,N,K))) {
+      if ((MB <= K) || (MB >= MAX(M,N,K))) {
         cgemqrt(SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO );
         RETURN
       }
@@ -141,7 +141,7 @@
           CTR = CTR + 1
 
          }
-         if (II.LE.M) {
+         if (II <= M) {
 
           // Multiply Q to the last block of C
 
@@ -191,7 +191,7 @@
           CTR = CTR + 1
 
          }
-         if (II.LE.N) {
+         if (II <= N) {
 
           // Multiply Q to the last block of C
 

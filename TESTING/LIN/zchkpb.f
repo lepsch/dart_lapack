@@ -125,7 +125,7 @@
 
                   // Skip types 2, 3, or 4 if the matrix size is too small.
 
-                  ZEROT = IMAT >= 2 && IMAT.LE.4
+                  ZEROT = IMAT >= 2 && IMAT <= 4
                   if (ZEROT && N < IMAT-1) GO TO 60;
 
                   if ( .NOT.ZEROT || .NOT.DOTYPE( 1 ) ) {
@@ -263,7 +263,7 @@
 
                      ANORM = ZLANHB( '1', UPLO, N, KD, A, LDAB, RWORK )
                      AINVNM = ZLANGE( '1', N, N, AINV, LDA, RWORK )
-                     if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                     if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                         RCONDC = ONE
                      } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM

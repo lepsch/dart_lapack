@@ -35,7 +35,7 @@
       // while ( (N1SV > 0) & (N2SV > 0) )
       } // 10
       if ( N1SV > 0 && N2SV > 0 ) {
-         if ( A( IND1 ).LE.A( IND2 ) ) {
+         if ( A( IND1 ) <= A( IND2 ) ) {
             INDEX( I ) = IND1
             I = I + 1
             IND1 = IND1 + STRD1

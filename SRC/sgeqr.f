@@ -58,7 +58,7 @@
         MB = M
         NB = 1
       }
-      if (MB > M || MB.LE.N) MB = M;
+      if (MB > M || MB <= N) MB = M;
       IF( NB > MIN( M, N ) || NB < 1 ) NB = 1
       MINTSZ = N + 5
       if ( MB > N && M > N ) {
@@ -129,7 +129,7 @@
 
       // The QR Decomposition
 
-      if ( ( M.LE.N ) || ( MB.LE.N ) || ( MB >= M ) ) {
+      if ( ( M <= N ) || ( MB <= N ) || ( MB >= M ) ) {
         sgeqrt(M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO );
       } else {
         slatsqr(M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO );

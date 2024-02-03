@@ -44,7 +44,7 @@
       INFO   = 0
       UPPER  = LSAME( UPLO, 'U' )
       LQUERY = ( LWORK == -1 )
-      if ( N.LE.KD+1 ) {
+      if ( N <= KD+1 ) {
          LWMIN = 1
       } else {
          LWMIN = ILAENV2STAGE( 4, 'DSYTRD_SY2SB', ' ', N, KD, -1, -1 )
@@ -75,7 +75,7 @@
       // Quick return if possible
       // Copy the upper/lower portion of A into AB
 
-      if ( N.LE.KD+1 ) {
+      if ( N <= KD+1 ) {
           if ( UPPER ) {
               for (I = 1; I <= N; I++) { // 100
                   LK = MIN( KD+1, I )

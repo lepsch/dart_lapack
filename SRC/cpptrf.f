@@ -70,7 +70,7 @@
             // Compute U(J,J) and test for non-positive-definiteness.
 
             AJJ = REAL( REAL( AP( JJ ) ) - CDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) )
-            if ( AJJ.LE.ZERO ) {
+            if ( AJJ <= ZERO ) {
                AP( JJ ) = AJJ
                GO TO 30
             }
@@ -86,7 +86,7 @@
             // Compute L(J,J) and test for non-positive-definiteness.
 
             AJJ = REAL( AP( JJ ) )
-            if ( AJJ.LE.ZERO ) {
+            if ( AJJ <= ZERO ) {
                AP( JJ ) = AJJ
                GO TO 30
             }

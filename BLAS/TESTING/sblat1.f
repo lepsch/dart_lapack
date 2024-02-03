@@ -633,7 +633,7 @@ void main() {
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
-         IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
+         IF (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -799,7 +799,7 @@ void main() {
       }
 
       // Zero-sized inputs are tested in STEST1.
-      if (N.LE.0) {
+      if (N <= 0) {
          RETURN
       }
 

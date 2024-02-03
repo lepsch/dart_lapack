@@ -64,7 +64,7 @@
 
          // Apply transformation to the matrix T.
 
-         if (J3.LE.N) CALL SROT( N-J1-1, T( J1, J3 ), LDT, T( J2, J3 ), LDT, CS, SN );
+         if (J3 <= N) CALL SROT( N-J1-1, T( J1, J3 ), LDT, T( J2, J3 ), LDT, CS, SN );
          srot(J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN );
 
          T( J1, J1 ) = T22
@@ -256,7 +256,7 @@
 
             J3 = J1 + N2
             J4 = J3 + 1
-            slanv2(T( J3, J3 ), T( J3, J4 ), T( J4, J3 ), T( J4, J4 ), WR1, WI1, WR2, WI2, CS, SN )             IF( J3+2.LE.N ) CALL SROT( N-J3-1, T( J3, J3+2 ), LDT, T( J4, J3+2 ), LDT, CS, SN );
+            slanv2(T( J3, J3 ), T( J3, J4 ), T( J4, J3 ), T( J4, J4 ), WR1, WI1, WR2, WI2, CS, SN )             IF( J3+2 <= N ) CALL SROT( N-J3-1, T( J3, J3+2 ), LDT, T( J4, J3+2 ), LDT, CS, SN );
             srot(J3-1, T( 1, J3 ), 1, T( 1, J4 ), 1, CS, SN );
             if (WANTQ) CALL SROT( N, Q( 1, J3 ), 1, Q( 1, J4 ), 1, CS, SN );
          }

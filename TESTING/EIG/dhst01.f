@@ -35,7 +35,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESULT( 1 ) = ZERO
          RESULT( 2 ) = ZERO
          RETURN

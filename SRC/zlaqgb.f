@@ -35,7 +35,7 @@
 
       // Quick return if possible
 
-      if ( M.LE.0 || N.LE.0 ) {
+      if ( M <= 0 || N <= 0 ) {
          EQUED = 'N'
          RETURN
       }
@@ -45,7 +45,7 @@
       SMALL = DLAMCH( 'Safe minimum' ) / DLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      if ( ROWCND >= THRESH && AMAX >= SMALL && AMAX.LE.LARGE ) {
+      if ( ROWCND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
 
          // No row scaling
 

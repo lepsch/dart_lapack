@@ -55,7 +55,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       STKPNT = 1
       STACK( 1, 1 ) = 1
@@ -64,7 +64,7 @@
       START = STACK( 1, STKPNT )
       ENDD = STACK( 2, STKPNT )
       STKPNT = STKPNT - 1
-      if ( ENDD-START.LE.SELECT && ENDD-START > 0 ) {
+      if ( ENDD-START <= SELECT && ENDD-START > 0 ) {
 
          // Do Insertion sort on D( START:ENDD )
 

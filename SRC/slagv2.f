@@ -55,7 +55,7 @@
 
       // Check if A can be deflated
 
-      if ( ABS( A( 2, 1 ) ).LE.ULP ) {
+      if ( ABS( A( 2, 1 ) ) <= ULP ) {
          CSL = ONE
          SNL = ZERO
          CSR = ONE
@@ -66,7 +66,7 @@
 
       // Check if B is singular
 
-      } else if ( ABS( B( 1, 1 ) ).LE.ULP ) {
+      } else if ( ABS( B( 1, 1 ) ) <= ULP ) {
          slartg(A( 1, 1 ), A( 2, 1 ), CSL, SNL, R );
          CSR = ONE
          SNR = ZERO
@@ -77,7 +77,7 @@
          B( 2, 1 ) = ZERO
          WI = ZERO
 
-      } else if ( ABS( B( 2, 2 ) ).LE.ULP ) {
+      } else if ( ABS( B( 2, 2 ) ) <= ULP ) {
          slartg(A( 2, 2 ), A( 2, 1 ), CSR, SNR, T );
          SNR = -SNR
          srot(2, A( 1, 1 ), 1, A( 1, 2 ), 1, CSR, SNR );

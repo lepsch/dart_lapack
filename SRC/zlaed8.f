@@ -113,7 +113,7 @@
       // -- except to reorganize Q so that its columns correspond with the
       // elements in D.
 
-      if ( RHO*ABS( Z( IMAX ) ).LE.TOL ) {
+      if ( RHO*ABS( Z( IMAX ) ) <= TOL ) {
          K = 0
          for (J = 1; J <= N; J++) { // 50
             PERM( J ) = INDXQ( INDX( J ) )
@@ -132,7 +132,7 @@
       K = 0
       K2 = N + 1
       for (J = 1; J <= N; J++) { // 60
-         if ( RHO*ABS( Z( J ) ).LE.TOL ) {
+         if ( RHO*ABS( Z( J ) ) <= TOL ) {
 
             // Deflate due to small z component.
 
@@ -147,7 +147,7 @@
       } // 70
       J = J + 1
       if (J > N) GO TO 90;
-      if ( RHO*ABS( Z( J ) ).LE.TOL ) {
+      if ( RHO*ABS( Z( J ) ) <= TOL ) {
 
          // Deflate due to small z component.
 
@@ -167,7 +167,7 @@
          T = D( J ) - D( JLAM )
          C = C / TAU
          S = -S / TAU
-         if ( ABS( T*C*S ).LE.TOL ) {
+         if ( ABS( T*C*S ) <= TOL ) {
 
             // Deflation is possible.
 
@@ -188,7 +188,7 @@
             K2 = K2 - 1
             I = 1
             } // 80
-            if ( K2+I.LE.N ) {
+            if ( K2+I <= N ) {
                if ( D( JLAM ) < D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
                   INDXP( K2+I ) = JLAM

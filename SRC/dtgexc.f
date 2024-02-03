@@ -51,7 +51,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( N.LE.1 ) {
+         if ( N <= 1 ) {
             LWMIN = 1
          } else {
             LWMIN = 4*N + 16
@@ -72,7 +72,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       // Determine the first row of the specified block and find out
       // if it is 1-by-1 or 2-by-2.
@@ -114,7 +114,7 @@
             // Current block either 1-by-1 or 2-by-2.
 
             NBNEXT = 1
-            if ( HERE+NBF+1.LE.N ) {
+            if ( HERE+NBF+1 <= N ) {
                IF( A( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2
             }
             dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO );
@@ -136,7 +136,7 @@
             // must be swapped individually.
 
             NBNEXT = 1
-            if ( HERE+3.LE.N ) {
+            if ( HERE+3 <= N ) {
                IF( A( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2
             }
             dtgex2(WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO );

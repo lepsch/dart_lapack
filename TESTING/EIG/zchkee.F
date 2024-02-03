@@ -713,7 +713,7 @@ void main() {
 
       // Skip the tests if NTYPES is <= 0.
 
-         if ( .NOT.( ZEV || ZES || ZVX || ZSX || ZGV || ZGS ) && NTYPES.LE.0 ) {
+         if ( .NOT.( ZEV || ZES || ZVX || ZSX || ZGV || ZGS ) && NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
             GO TO 200
          }
@@ -907,7 +907,7 @@ void main() {
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         if ( NTYPES.LE.0 ) {
+         if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL ZERRED( C3, NOUT );
@@ -927,7 +927,7 @@ void main() {
 
          MAXTYP = 21
          NTYPES = MIN( MAXTYP, NTYPES )
-         if ( NTYPES.LE.0 ) {
+         if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL ZERRED( C3, NOUT );
@@ -1027,7 +1027,7 @@ void main() {
 
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
-         if ( NTYPES.LE.0 ) {
+         if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL ZERRGG( C3, NOUT );
@@ -1075,7 +1075,7 @@ void main() {
 
          MAXTYP = 26
          NTYPES = MIN( MAXTYP, NTYPES )
-         if ( NTYPES.LE.0 ) {
+         if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3
          } else {
             if (TSTERR) CALL ZERRGG( C3, NOUT );

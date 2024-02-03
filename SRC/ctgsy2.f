@@ -55,9 +55,9 @@
          }
       }
       if ( INFO == 0 ) {
-         if ( M.LE.0 ) {
+         if ( M <= 0 ) {
             INFO = -3
-         } else if ( N.LE.0 ) {
+         } else if ( N <= 0 ) {
             INFO = -4
          } else if ( LDA < MAX( 1, M ) ) {
             INFO = -6

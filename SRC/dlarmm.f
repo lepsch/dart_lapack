@@ -24,7 +24,7 @@
       // Compute a scale factor.
 
       DLARMM = ONE
-      if ( BNORM .LE. ONE ) {
+      if ( BNORM <= ONE ) {
          if ( ANORM * BNORM > BIGNUM - CNORM ) {
             DLARMM = HALF
          }

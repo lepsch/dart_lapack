@@ -20,7 +20,7 @@
       // .. Intrinsic Functions ..
       // INTRINSIC MOD
       // ..
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
       if (DA == 0.0d0) RETURN;
       if (INCX == 1 && INCY == 1) {
 

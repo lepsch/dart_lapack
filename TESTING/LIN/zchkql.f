@@ -119,7 +119,7 @@
                   NK = 1
                } else if ( MINMN == 1 ) {
                   NK = 2
-               } else if ( MINMN.LE.3 ) {
+               } else if ( MINMN <= 3 ) {
                   NK = 3
                } else {
                   NK = 4

@@ -46,7 +46,7 @@
 
       I4 = MOD( N-1, 4 )
       for (I = 1; I <= I4; I++) { // 10
-         if ( D( I ).LE.ZERO ) {
+         if ( D( I ) <= ZERO ) {
             INFO = I
             GO TO 30
          }
@@ -60,7 +60,7 @@
          // Drop out of the loop if d(i) <= 0: the matrix is not positive
          // definite.
 
-         if ( D( I ).LE.ZERO ) {
+         if ( D( I ) <= ZERO ) {
             INFO = I
             GO TO 30
          }
@@ -71,7 +71,7 @@
          E( I ) = EI / D( I )
          D( I+1 ) = D( I+1 ) - E( I )*EI
 
-         if ( D( I+1 ).LE.ZERO ) {
+         if ( D( I+1 ) <= ZERO ) {
             INFO = I + 1
             GO TO 30
          }
@@ -82,7 +82,7 @@
          E( I+1 ) = EI / D( I+1 )
          D( I+2 ) = D( I+2 ) - E( I+1 )*EI
 
-         if ( D( I+2 ).LE.ZERO ) {
+         if ( D( I+2 ) <= ZERO ) {
             INFO = I + 2
             GO TO 30
          }
@@ -93,7 +93,7 @@
          E( I+2 ) = EI / D( I+2 )
          D( I+3 ) = D( I+3 ) - E( I+2 )*EI
 
-         if ( D( I+3 ).LE.ZERO ) {
+         if ( D( I+3 ) <= ZERO ) {
             INFO = I + 3
             GO TO 30
          }
@@ -107,7 +107,7 @@
 
       // Check d(n) for positive definiteness.
 
-      IF( D( N ).LE.ZERO ) INFO = N
+      IF( D( N ) <= ZERO ) INFO = N
 
       } // 30
       RETURN

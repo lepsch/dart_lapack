@@ -66,7 +66,7 @@
          BETA( KWTOP ) = B( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         if ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
+         if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
             if ( KWTOP > ILO ) {
@@ -101,13 +101,13 @@
          KWBOT = IHI
          K = 1
          K2 = 1
-         DO WHILE ( K .LE. JW )
+         DO WHILE ( K <= JW )
                // Try to deflate eigenvalue
                TEMPR = ABS( A( KWBOT, KWBOT ) )
                if ( TEMPR == ZERO ) {
                   TEMPR = ABS( S )
                }
-               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMPR, SMLNUM ) ) {
+               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= MAX( ULP* TEMPR, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1
                } else {
@@ -126,7 +126,7 @@
       ND = IHI-KWBOT
       NS = JW-ND
       K = KWTOP
-      DO WHILE ( K .LE. IHI )
+      DO WHILE ( K <= IHI )
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
          K = K+1

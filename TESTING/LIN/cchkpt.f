@@ -85,7 +85,7 @@
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 110
 
@@ -97,8 +97,8 @@
 
             clatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT >= 8 && IMAT.LE.10
-            if ( IMAT.LE.6 ) {
+            ZEROT = IMAT >= 8 && IMAT <= 10
+            if ( IMAT <= 6 ) {
 
                // Type 1-6:  generate a Hermitian tridiagonal matrix of
                // known condition number in lower triangular band storage.

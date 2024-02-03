@@ -183,7 +183,7 @@
 
                claset('Full', LDA, N, CZERO, CZERO, A, LDA );
                IINFO = 0
-               if ( JTYPE.LE.15 ) {
+               if ( JTYPE <= 15 ) {
                   COND = ULPINV
                } else {
                   COND = ULPINV*ANINV / TEN

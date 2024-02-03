@@ -66,11 +66,11 @@
          // Compute the workspace requirements
 
          SMLSIZ = ILAENV( 9, 'CSTEDC', ' ', 0, 0, 0, 0 )
-         if ( N.LE.1 || ICOMPZ == 0 ) {
+         if ( N <= 1 || ICOMPZ == 0 ) {
             LWMIN = 1
             LIWMIN = 1
             LRWMIN = 1
-         } else if ( N.LE.SMLSIZ ) {
+         } else if ( N <= SMLSIZ ) {
             LWMIN = 1
             LIWMIN = 1
             LRWMIN = 2*( N - 1 )
@@ -132,7 +132,7 @@
       // If N is smaller than the minimum divide size (SMLSIZ+1), then
       // solve the problem with another solver.
 
-      if ( N.LE.SMLSIZ ) {
+      if ( N <= SMLSIZ ) {
 
          csteqr(COMPZ, N, D, E, Z, LDZ, RWORK, INFO );
 
@@ -167,7 +167,7 @@
          // while ( START <= N )
 
          } // 30
-         if ( START.LE.N ) {
+         if ( START <= N ) {
 
             // Let FINISH be the position of the next subdiagonal entry
             // such that E( FINISH ) <= TINY or FINISH = N if no such

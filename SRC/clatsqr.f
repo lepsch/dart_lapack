@@ -78,7 +78,7 @@
 
       // The QR Decomposition
 
-      if ( (MB.LE.N) || (MB >= M) ) {
+      if ( (MB <= N) || (MB >= M) ) {
         cgeqrt(M, N, NB, A, LDA, T, LDT, WORK, INFO );
         RETURN
       }
@@ -100,7 +100,7 @@
 
       // Compute the QR factorization of the last block A(II:M,1:N)
 
-      if ( II.LE.M ) {
+      if ( II <= M ) {
         ctpqrt(KK, N, 0, NB, A(1,1), LDA, A( II, 1 ), LDA, T(1, CTR * N + 1), LDT, WORK, INFO );
       }
 

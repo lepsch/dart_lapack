@@ -97,16 +97,16 @@
                A1 = ZERO
                A2 = ZERO
                A3 = ZERO
-               if (K+I.LE.M) A1 = A( K+I, N-L+I )                IF( K+J.LE.M ) A3 = A( K+J, N-L+J );
+               if (K+I <= M) A1 = A( K+I, N-L+I )                IF( K+J <= M ) A3 = A( K+J, N-L+J );
 
                B1 = B( I, N-L+I )
                B3 = B( J, N-L+J )
 
                if ( UPPER ) {
-                  if (K+I.LE.M) A2 = A( K+I, N-L+J );
+                  if (K+I <= M) A2 = A( K+I, N-L+J );
                   B2 = B( I, N-L+J )
                } else {
-                  if (K+J.LE.M) A2 = A( K+J, N-L+I );
+                  if (K+J <= M) A2 = A( K+J, N-L+I );
                   B2 = B( J, N-L+I )
                }
 
@@ -114,7 +114,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 
-               if (K+J.LE.M) CALL DROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU );
+               if (K+J <= M) CALL DROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU );
 
                // Update I-th and J-th rows of matrix B: V**T *B
 
@@ -128,16 +128,16 @@
                drot(L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ );
 
                if ( UPPER ) {
-                  if (K+I.LE.M) A( K+I, N-L+J ) = ZERO;
+                  if (K+I <= M) A( K+I, N-L+J ) = ZERO;
                   B( I, N-L+J ) = ZERO
                } else {
-                  if (K+J.LE.M) A( K+J, N-L+I ) = ZERO;
+                  if (K+J <= M) A( K+J, N-L+I ) = ZERO;
                   B( J, N-L+I ) = ZERO
                }
 
                // Update orthogonal matrices U, V, Q, if desired.
 
-               if (WANTU && K+J.LE.M) CALL DROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J <= M) CALL DROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
                if (WANTV) CALL DROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
@@ -162,7 +162,7 @@
                ERROR = MAX( ERROR, SSMIN )
             } // 30
 
-            IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
+            IF( ABS( ERROR ) <= MIN( TOLA, TOLB ) ) GO TO 50
          }
 
          // End of cycle loop
@@ -191,7 +191,7 @@
          B1 = B( I, N-L+I )
          GAMMA = B1 / A1
 
-         if ( (GAMMA.LE.HUGENUM) && (GAMMA >= -HUGENUM) ) {
+         if ( (GAMMA <= HUGENUM) && (GAMMA >= -HUGENUM) ) {
 
             // change sign if necessary
 

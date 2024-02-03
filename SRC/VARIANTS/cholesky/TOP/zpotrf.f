@@ -59,7 +59,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.
 

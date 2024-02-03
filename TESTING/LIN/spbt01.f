@@ -39,7 +39,7 @@
 
       // Quick exit if N = 0.
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -48,7 +48,7 @@
 
       EPS = SLAMCH( 'Epsilon' )
       ANORM = SLANSB( '1', UPLO, N, KD, A, LDA, RWORK )
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          RESID = ONE / EPS
          RETURN
       }

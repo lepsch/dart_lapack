@@ -66,7 +66,7 @@
       if ( N == 0 ) {
          RCOND = ONE
          RETURN
-      } else if ( ANORM.LE.ZERO ) {
+      } else if ( ANORM <= ZERO ) {
          RETURN
       }
 

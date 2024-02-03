@@ -64,7 +64,7 @@
          INFO = -9
       } else {
          if ( VALEIG ) {
-            if (N > 0 && VU.LE.VL) INFO = -11;
+            if (N > 0 && VU <= VL) INFO = -11;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -12
@@ -162,7 +162,7 @@
             TEST = true;
          }
       }
-      if ((ALLEIG || TEST) && (ABSTOL.LE.ZERO)) {
+      if ((ALLEIG || TEST) && (ABSTOL <= ZERO)) {
          dcopy(N, WORK( INDD ), 1, W, 1 );
          INDEE = INDWRK + 2*N
          if ( .NOT.WANTZ ) {

@@ -57,7 +57,7 @@
         NB = N
       }
       IF( MB > MIN( M, N ) || MB < 1 ) MB = 1
-      if (NB > N || NB.LE.M) NB = N;
+      if (NB > N || NB <= M) NB = N;
       MINTSZ = M + 5
       if ( NB > M && N > M ) {
         if ( MOD( N - M, NB - M ) == 0 ) {
@@ -71,7 +71,7 @@
 
       // Determine if the workspace size satisfies minimal size
 
-      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB >= N ) ) {
+      if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
          LWMIN = MAX( 1, N )
          LWOPT = MAX( 1, MB*N )
       } else {
@@ -90,7 +90,7 @@
             MB = 1
         }
       }
-      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB >= N ) ) {
+      if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
          LWREQ = MAX( 1, MB*N )
       } else {
          LWREQ = MAX( 1, MB*M )
@@ -137,7 +137,7 @@
 
       // The LQ Decomposition
 
-      if ( ( N.LE.M ) || ( NB.LE.M ) || ( NB >= N ) ) {
+      if ( ( N <= M ) || ( NB <= M ) || ( NB >= N ) ) {
         zgelqt(M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO );
       } else {
         zlaswlq(M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO );

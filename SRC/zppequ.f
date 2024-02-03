@@ -92,12 +92,12 @@
          } // 20
       }
 
-      if ( SMIN.LE.ZERO ) {
+      if ( SMIN <= ZERO ) {
 
          // Find the first non-positive diagonal element and return.
 
          for (I = 1; I <= N; I++) { // 30
-            if ( S( I ).LE.ZERO ) {
+            if ( S( I ) <= ZERO ) {
                INFO = I
                RETURN
             }

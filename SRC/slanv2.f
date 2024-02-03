@@ -94,12 +94,12 @@
             if ( SCALE >= SAFMX2 ) {
                SIGMA = SIGMA * SAFMN2
                TEMP = TEMP * SAFMN2
-               if (COUNT .LE. 20) GOTO 10;
+               if (COUNT <= 20) GOTO 10;
             }
-            if ( SCALE.LE.SAFMN2 ) {
+            if ( SCALE <= SAFMN2 ) {
                SIGMA = SIGMA * SAFMX2
                TEMP = TEMP * SAFMX2
-               if (COUNT .LE. 20) GOTO 10;
+               if (COUNT <= 20) GOTO 10;
             }
             P = HALF*TEMP
             TAU = SLAPY2( SIGMA, TEMP )

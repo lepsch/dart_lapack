@@ -302,7 +302,7 @@
 
       PGAMMA = GAMMA
       IT = IT + 1
-      if (IT.LE.NRP2) GO TO 250;
+      if (IT <= NRP2) GO TO 250;
 
       // End generalized conjugate gradient iteration
 

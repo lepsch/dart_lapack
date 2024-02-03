@@ -508,7 +508,7 @@
                // Columns IV:NB of work are valid vectors.
                // When the number of vectors stored reaches NB-1 or NB,
                // or if this was last vector, do the GEMM
-               if ( (IV.LE.2) || (KI2 == 1) ) {
+               if ( (IV <= 2) || (KI2 == 1) ) {
                   sgemm('N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N );
                   // normalize vectors
                   for (K = IV; K <= NB; K++) {

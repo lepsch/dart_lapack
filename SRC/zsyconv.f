@@ -112,7 +112,7 @@
             // Revert PERMUTATIONS
 
             I=1
-            DO WHILE ( I .LE. N )
+            DO WHILE ( I <= N )
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I)
                   if ( I < N) {
@@ -160,7 +160,7 @@
 
             I=1
             E(N)=ZERO
-            DO WHILE ( I .LE. N )
+            DO WHILE ( I <= N )
                if ( I < N && IPIV(I) < 0 ) {
                   E(I)=A(I+1,I)
                   E(I+1)=ZERO
@@ -175,7 +175,7 @@
             // Convert PERMUTATIONS
 
             I=1
-            DO WHILE ( I .LE. N )
+            DO WHILE ( I <= N )
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I)
                   if (I > 1) {
@@ -233,7 +233,7 @@
             // Revert VALUE
 
             I=1
-            DO WHILE ( I .LE. N-1 )
+            DO WHILE ( I <= N-1 )
                if ( IPIV(I) < 0 ) {
                   A(I+1,I)=E(I)
                   I=I+1

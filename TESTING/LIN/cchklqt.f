@@ -72,7 +72,7 @@
 
                // Test CGELQT and CUNMLQT
 
-               if ( (NB.LE.MINMN) && (NB > 0) ) {
+               if ( (NB <= MINMN) && (NB > 0) ) {
                   clqt04(M, N, NB, RESULT );
 
                   // Print information about the tests that did not

@@ -189,7 +189,7 @@
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
-            if ( JTYPE.LE.15 ) {
+            if ( JTYPE <= 15 ) {
                COND = ULPINV
             } else {
                COND = ULPINV*ANINV / TEN
@@ -657,7 +657,7 @@
             // IL-th through IU-th eigenvalues.
 
             NTEST = 19
-            if ( N.LE.1 ) {
+            if ( N <= 1 ) {
                IL = 1
                IU = N
             } else {

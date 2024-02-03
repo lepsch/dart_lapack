@@ -65,7 +65,7 @@
          xerbla('ZLAROT', 4 );
          RETURN
       }
-      if ( LDA.LE.0 || ( .NOT.LROWS && LDA < NL-NT ) ) {
+      if ( LDA <= 0 || ( .NOT.LROWS && LDA < NL-NT ) ) {
          xerbla('ZLAROT', 8 );
          RETURN
       }

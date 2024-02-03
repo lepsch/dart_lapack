@@ -59,7 +59,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.
 
@@ -82,7 +82,7 @@
                zpotrf2('Upper', JB, A( J, J ), LDA, INFO );
                 if (INFO != 0) GO TO 30;
 
-               if ( J+JB.LE.N ) {
+               if ( J+JB <= N ) {
 
                   // Updating the trailing submatrix.
 
@@ -105,7 +105,7 @@
                zpotrf2('Lower', JB, A( J, J ), LDA, INFO );
                 if (INFO != 0) GO TO 30;
 
-               if ( J+JB.LE.N ) {
+               if ( J+JB <= N ) {
 
                  // Updating the trailing submatrix.
 

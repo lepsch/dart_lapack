@@ -70,7 +70,7 @@
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
             } // 10
-            if ( SMIN.LE.ZERO ) {
+            if ( SMIN <= ZERO ) {
                INFO = -8
             } else if ( N > 0 ) {
                SCOND = MAX( SMIN, SMLNUM ) / MIN( SMAX, BIGNUM )

@@ -70,7 +70,7 @@
 
          // Exit from loop
 
-         IF( ( K.LE.N-NB+1 && NB < N ) || K < 1 ) GO TO 30
+         IF( ( K <= N-NB+1 && NB < N ) || K < 1 ) GO TO 30
 
          KSTEP = 1
 
@@ -399,7 +399,7 @@
             // (NOTE: Here, J is used to determine row length. Length N-J+1
             // of the rows to swap back doesn't include diagonal element)
             J = J + 1
-            if (JP != JJ && J.LE.N) CALL CSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J.LE.N ) GO TO 60;
+            if (JP != JJ && J <= N) CALL CSWAP( N-J+1, A( JP, J ), LDA, A( JJ, J ), LDA )          IF( J <= N ) GO TO 60;
 
          // Set KB to the number of columns factorized
 
@@ -716,7 +716,7 @@
 
             // Update the rectangular subdiagonal block
 
-            if (J+JB.LE.N) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA );
+            if (J+JB <= N) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA );
          } // 110
 
          // Put L21 in standard form by partially undoing the interchanges

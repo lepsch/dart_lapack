@@ -18,7 +18,7 @@
       // INTRINSIC DBLE
       // ..
       DSDOT = SB
-      if (N.LE.0) {
+      if (N <= 0) {
          SDSDOT = REAL(DSDOT)
          RETURN
       }

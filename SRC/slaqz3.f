@@ -66,7 +66,7 @@
          BETA( KWTOP ) = B( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         if ( ABS( S ) .LE. MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
+         if ( ABS( S ) <= MAX( SMLNUM, ULP*ABS( A( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
             if ( KWTOP > ILO ) {
@@ -101,7 +101,7 @@
          KWBOT = IHI
          K = 1
          K2 = 1
-         DO WHILE ( K .LE. JW )
+         DO WHILE ( K <= JW )
             BULGE = false;
             if ( KWBOT-KWTOP+1 >= 2 ) {
                BULGE = A( KWBOT, KWBOT-1 ) != ZERO
@@ -113,7 +113,7 @@
                if ( TEMP == ZERO ) {
                   TEMP = ABS( S )
                }
-               if ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( SMLNUM, ULP*TEMP ) ) {
+               if ( MAX( ABS( S*QC( 1, KWBOT-KWTOP ) ), ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= MAX( SMLNUM, ULP*TEMP ) ) {
                   // Deflatable
                   KWBOT = KWBOT-2
                } else {
@@ -131,7 +131,7 @@
                if ( TEMP == ZERO ) {
                   TEMP = ABS( S )
                }
-               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) .LE. MAX( ULP* TEMP, SMLNUM ) ) {
+               if ( ( ABS( S*QC( 1, KWBOT-KWTOP+1 ) ) ) <= MAX( ULP* TEMP, SMLNUM ) ) {
                   // Deflatable
                   KWBOT = KWBOT-1
                } else {
@@ -152,7 +152,7 @@
       ND = IHI-KWBOT
       NS = JW-ND
       K = KWTOP
-      DO WHILE ( K .LE. IHI )
+      DO WHILE ( K <= IHI )
          BULGE = false;
          if ( K < IHI ) {
             if ( A( K+1, K ) != ZERO ) {

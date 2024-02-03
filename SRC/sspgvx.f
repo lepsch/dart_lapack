@@ -54,7 +54,7 @@
          INFO = -5
       } else {
          if ( VALEIG ) {
-            if ( N > 0 && VU.LE.VL ) {
+            if ( N > 0 && VU <= VL ) {
                INFO = -9
             }
          } else if ( INDEIG ) {

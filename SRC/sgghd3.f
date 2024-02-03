@@ -45,7 +45,7 @@
       INFO = 0
       NB = ILAENV( 1, 'SGGHD3', ' ', N, ILO, IHI, -1 )
       NH = IHI - ILO + 1
-      if ( NH.LE.1 ) {
+      if ( NH <= 1 ) {
          LWKOPT = 1
       } else {
          LWKOPT = 6*N*NB
@@ -95,7 +95,7 @@
 
       // Quick return if possible
 
-      if ( NH.LE.1 ) {
+      if ( NH <= 1 ) {
          WORK( 1 ) = ONE
          RETURN
       }
@@ -211,7 +211,7 @@
                // TOP denotes the number of top rows in A and B that will
                // not be updated during the next steps.
 
-               if ( JCOL.LE.2 ) {
+               if ( JCOL <= 2 ) {
                   TOP = 0
                } else {
                   TOP = JCOL

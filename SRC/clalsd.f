@@ -60,7 +60,7 @@
 
       // Set up the tolerance.
 
-      if ( ( RCOND.LE.ZERO ) || ( RCOND >= ONE ) ) {
+      if ( ( RCOND <= ZERO ) || ( RCOND >= ONE ) ) {
          RCND = EPS
       } else {
          RCND = RCOND
@@ -124,7 +124,7 @@
       // If N is smaller than the minimum divide size SMLSIZ, then solve
       // the problem with another solver.
 
-      if ( N.LE.SMLSIZ ) {
+      if ( N <= SMLSIZ ) {
          IRWU = 1
          IRWVT = IRWU + N*N
          IRWWRK = IRWVT + N*N
@@ -170,7 +170,7 @@
 
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
          for (I = 1; I <= N; I++) { // 100
-            if ( D( I ).LE.TOL ) {
+            if ( D( I ) <= TOL ) {
                claset('A', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             } else {
                clascl('G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO );
@@ -301,7 +301,7 @@
                // explicitly.
 
                ccopy(NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
-            } else if ( NSIZE.LE.SMLSIZ ) {
+            } else if ( NSIZE <= SMLSIZ ) {
 
                // This is a small subproblem and is solved by SLASDQ.
 
@@ -370,7 +370,7 @@
          // Some of the elements in D can be negative because 1-by-1
          // subproblems were not solved explicitly.
 
-         if ( ABS( D( I ) ).LE.TOL ) {
+         if ( ABS( D( I ) ) <= TOL ) {
             claset('A', 1, NRHS, CZERO, CZERO, WORK( BX+I-1 ), N );
          } else {
             RANK = RANK + 1
@@ -389,7 +389,7 @@
          BXST = BX + ST1
          if ( NSIZE == 1 ) {
             ccopy(NRHS, WORK( BXST ), N, B( ST, 1 ), LDB );
-         } else if ( NSIZE.LE.SMLSIZ ) {
+         } else if ( NSIZE <= SMLSIZ ) {
 
             // Since B and BX are complex, the following call to SGEMM
             // is performed in two steps (real and imaginary parts).

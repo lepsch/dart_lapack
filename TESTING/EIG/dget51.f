@@ -35,7 +35,7 @@
       // .. Executable Statements ..
 
       RESULT = ZERO
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
 
       // Constants
 
@@ -49,7 +49,7 @@
          RETURN
       }
 
-      if ( ITYPE.LE.2 ) {
+      if ( ITYPE <= 2 ) {
 
          // Tests scaled by the norm(A)
 

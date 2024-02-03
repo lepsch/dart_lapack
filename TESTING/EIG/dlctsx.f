@@ -24,7 +24,7 @@
 
       if ( FS ) {
          I = I + 1
-         if ( I.LE.M ) {
+         if ( I <= M ) {
             DLCTSX = false;
          } else {
             DLCTSX = true;
@@ -35,7 +35,7 @@
          }
       } else {
          I = I + 1
-         if ( I.LE.N ) {
+         if ( I <= N ) {
             DLCTSX = true;
          } else {
             DLCTSX = false;

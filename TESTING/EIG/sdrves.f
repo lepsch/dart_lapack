@@ -92,7 +92,7 @@
          INFO = -3
       } else if ( THRESH < ZERO ) {
          INFO = -6
-      } else if ( NOUNIT.LE.0 ) {
+      } else if ( NOUNIT <= 0 ) {
          INFO = -7
       } else if ( LDA < 1 || LDA < NMAX ) {
          INFO = -9

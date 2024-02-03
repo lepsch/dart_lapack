@@ -132,7 +132,7 @@
 
          }
 
-         if ( ITYPE >= 2 && ITYPE.LE.4 ) {
+         if ( ITYPE >= 2 && ITYPE <= 4 ) {
 
             // Apply H(k)* (or H(k)') on the right of A
 

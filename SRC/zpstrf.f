@@ -66,7 +66,7 @@
       // Get block size
 
       NB = ILAENV( 1, 'ZPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
 
@@ -88,7 +88,7 @@
          } // 110
          PVT = MAXLOC( WORK( 1:N ), 1 )
          AJJ = DBLE( A( PVT, PVT ) )
-         if ( AJJ.LE.ZERO || DISNAN( AJJ ) ) {
+         if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
             RANK = 0
             INFO = 1
             GO TO 230
@@ -139,7 +139,7 @@
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     if ( AJJ.LE.DSTOP || DISNAN( AJJ ) ) {
+                     if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 220
                      }
@@ -185,7 +185,7 @@
 
                // Update trailing matrix, J already incremented
 
-               if ( K+JB.LE.N ) {
+               if ( K+JB <= N ) {
                   zherk('Upper', 'Conj Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA );
                }
 
@@ -227,7 +227,7 @@
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     if ( AJJ.LE.DSTOP || DISNAN( AJJ ) ) {
+                     if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 220
                      }
@@ -274,7 +274,7 @@
 
                // Update trailing matrix, J already incremented
 
-               if ( K+JB.LE.N ) {
+               if ( K+JB <= N ) {
                   zherk('Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA );
                }
 

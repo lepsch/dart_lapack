@@ -272,7 +272,7 @@
       // i.e. MAXC2NRM <= ABSTOL or RELMAXC2NRM <= RELTOL
       // (which is ONE <= RELTOL).
 
-      if ( MAXC2NRM.LE.ABSTOL || ONE.LE.RELTOL ) {
+      if ( MAXC2NRM <= ABSTOL || ONE <= RELTOL ) {
 
          K = 0
          MAXC2NRMK = MAXC2NRM
@@ -351,7 +351,7 @@
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
 
-         DO WHILE( J.LE.JMAXB )
+         DO WHILE( J <= JMAXB )
 
             JB = MIN( NB, JMAXB-J+1 )
             N_SUB = N-J+1
@@ -387,7 +387,7 @@
                // Set INFO on the first occurrence of NaN, NaN takes
                // prcedence over Inf.
 
-               if ( IINFO.LE.N_SUB && IINFO > 0 ) {
+               if ( IINFO <= N_SUB && IINFO > 0 ) {
                   INFO = IOFFSET + IINFO
                }
 
@@ -411,7 +411,7 @@
       // the MAXC2NORM and RELMAXC2NORM to return after we processed
       // the blocks.
 
-      if ( J.LE.JMAX ) {
+      if ( J <= JMAX ) {
 
          // N_SUB is the number of columns in the submatrix;
          // IOFFSET is the number of rows that should not be factorized.
@@ -439,7 +439,7 @@
 
          if ( IINFO > N_SUB && INFO == 0 ) {
             INFO = 2*IOFFSET + IINFO
-         } else if ( IINFO.LE.N_SUB && IINFO > 0 ) {
+         } else if ( IINFO <= N_SUB && IINFO > 0 ) {
             INFO = IOFFSET + IINFO
          }
 
@@ -476,7 +476,7 @@
 
          }
 
-      // END IF( J.LE.JMAX ) THEN
+      // END IF( J <= JMAX ) THEN
 
       }
 

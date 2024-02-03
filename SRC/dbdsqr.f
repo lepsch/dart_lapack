@@ -179,7 +179,7 @@
 
       // Check for convergence or exceeding iteration count
 
-      if (M.LE.1) GO TO 160;
+      if (M <= 1) GO TO 160;
 
       if ( ITER >= N ) {
          ITER = ITER - N
@@ -189,13 +189,13 @@
 
       // Find diagonal block of matrix to work on
 
-      IF( TOL < ZERO && ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
+      IF( TOL < ZERO && ABS( D( M ) ) <= THRESH ) D( M ) = ZERO
       SMAX = ABS( D( M ) )
       for (LLL = 1; LLL <= M - 1; LLL++) { // 70
          LL = M - LLL
          ABSS = ABS( D( LL ) )
          ABSE = ABS( E( LL ) )
-         if (TOL < ZERO && ABSS.LE.THRESH) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80;
+         if (TOL < ZERO && ABSS <= THRESH) D( LL ) = ZERO          IF( ABSE <= THRESH ) GO TO 80;
          SMAX = MAX( SMAX, ABSS, ABSE )
       } // 70
       LL = 0
@@ -257,7 +257,7 @@
          // Run convergence test in forward direction
          // First apply standard test to bottom of matrix
 
-         if ( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) || ( TOL < ZERO && ABS( E( M-1 ) ).LE.THRESH ) ) {
+         if ( ABS( E( M-1 ) ) <= ABS( TOL )*ABS( D( M ) ) || ( TOL < ZERO && ABS( E( M-1 ) ) <= THRESH ) ) {
             E( M-1 ) = ZERO
             GO TO 60
          }
@@ -270,7 +270,7 @@
             MU = ABS( D( LL ) )
             SMIN = MU
             for (LLL = LL; LLL <= M - 1; LLL++) { // 100
-               if ( ABS( E( LLL ) ).LE.TOL*MU ) {
+               if ( ABS( E( LLL ) ) <= TOL*MU ) {
                   E( LLL ) = ZERO
                   GO TO 60
                }
@@ -284,7 +284,7 @@
          // Run convergence test in backward direction
          // First apply standard test to top of matrix
 
-         if ( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) || ( TOL < ZERO && ABS( E( LL ) ).LE.THRESH ) ) {
+         if ( ABS( E( LL ) ) <= ABS( TOL )*ABS( D( LL ) ) || ( TOL < ZERO && ABS( E( LL ) ) <= THRESH ) ) {
             E( LL ) = ZERO
             GO TO 60
          }
@@ -297,7 +297,7 @@
             MU = ABS( D( M ) )
             SMIN = MU
             DO 110 LLL = M - 1, LL, -1
-               if ( ABS( E( LLL ) ).LE.TOL*MU ) {
+               if ( ABS( E( LLL ) ) <= TOL*MU ) {
                   E( LLL ) = ZERO
                   GO TO 60
                }
@@ -312,7 +312,7 @@
       // Compute shift.  First, test if shifting would ruin relative
       // accuracy, and if so set the shift to zero.
 
-      if ( TOL >= ZERO && N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) {
+      if ( TOL >= ZERO && N*TOL*( SMIN / SMAX ) <= MAX( EPS, HNDRTH*TOL ) ) {
 
          // Use a zero shift to avoid loss of relative accuracy
 
@@ -369,7 +369,7 @@
 
             // Test convergence
 
-            IF( ABS( E( M-1 ) ).LE.THRESH ) E( M-1 ) = ZERO
+            IF( ABS( E( M-1 ) ) <= THRESH ) E( M-1 ) = ZERO
 
          } else {
 
@@ -397,7 +397,7 @@
 
             // Test convergence
 
-            IF( ABS( E( LL ) ).LE.THRESH ) E( LL ) = ZERO
+            IF( ABS( E( LL ) ) <= THRESH ) E( LL ) = ZERO
          }
       } else {
 
@@ -438,7 +438,7 @@
 
             // Test convergence
 
-            IF( ABS( E( M-1 ) ).LE.THRESH ) E( M-1 ) = ZERO
+            IF( ABS( E( M-1 ) ) <= THRESH ) E( M-1 ) = ZERO
 
          } else {
 
@@ -471,7 +471,7 @@
 
             // Test convergence
 
-            IF( ABS( E( LL ) ).LE.THRESH ) E( LL ) = ZERO
+            IF( ABS( E( LL ) ) <= THRESH ) E( LL ) = ZERO
 
             // Update singular vectors if desired
 
@@ -506,7 +506,7 @@
          ISUB = 1
          SMIN = D( 1 )
          for (J = 2; J <= N + 1 - I; J++) { // 180
-            if ( D( J ).LE.SMIN ) {
+            if ( D( J ) <= SMIN ) {
                ISUB = J
                SMIN = D( J )
             }

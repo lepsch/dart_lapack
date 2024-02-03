@@ -120,7 +120,7 @@
                                  DEN = MAX( SMIN*ABS( X( 1, 1 ) ), SMLNUM )
                               }
                               RES = RES / DEN
-                              IF( ABS( X( 1, 1 ) ) < UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
+                              IF( ABS( X( 1, 1 ) ) < UNFL && ABS( B( 1, 1 ) ) <= SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) )RES = ZERO
                               if (SCALE > ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM-ABS( X( 1, 1 ) ) ) / MAX( SMLNUM, XNORM ) / EPS                               IF( INFO != 0 && INFO != 1 ) RES = RES + ONE / EPS;
                               KNT = KNT + 1
                               if ( RES > RMAX ) {
@@ -158,7 +158,7 @@
                                     DEN = MAX( SMIN*( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ) ), SMLNUM )
                                  }
                                  RES = RES / DEN
-                                 IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 1, 2 ) ) < UNFL && ABS( B( 1, 1 ) ).LE.SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
+                                 IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 1, 2 ) ) < UNFL && ABS( B( 1, 1 ) ) <= SMLNUM* ABS( CA*A( 1, 1 )-WR*D1 ) ) RES = ZERO
                                  if (SCALE > ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- ABS( X( 1, 1 ) )- ABS( X( 1, 2 ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
                                  if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1
@@ -202,7 +202,7 @@
                                  DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) )*MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ), SMLNUM )
                               }
                               RES = RES / DEN
-                              IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 2, 1 ) ) < UNFL && ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ).LE. SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
+                              IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 2, 1 ) ) < UNFL && ABS( B( 1, 1 ) )+ABS( B( 2, 1 ) ) <= SMLNUM*( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 ) ) ) RES = ZERO
                               if (SCALE > ONE) RES = RES + ONE / EPS                               RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) ), ABS( X( 2, 1 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
                               if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                               KNT = KNT + 1
@@ -253,7 +253,7 @@
                                     DEN = MAX( EPS*( MAX( SMIN / EPS, MAX( ABS( CA*A( 1, 1 )-WR*D1 )+ABS( CA*A( 1, 2 ) )+ABS( WI*D1 ), ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 ) ) )* MAX( ABS( X( 1, 1 ) )+ABS( X( 2, 1 ) ), ABS( X( 1, 2 ) )+ABS( X( 2, 2 ) ) ) ), SMLNUM )
                                  }
                                  RES = RES / DEN
-                                 IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 2, 1 ) ) < UNFL && ABS( X( 1, 2 ) ) < UNFL && ABS( X( 2, 2 ) ) < UNFL && ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ).LE.SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
+                                 IF( ABS( X( 1, 1 ) ) < UNFL && ABS( X( 2, 1 ) ) < UNFL && ABS( X( 1, 2 ) ) < UNFL && ABS( X( 2, 2 ) ) < UNFL && ABS( B( 1, 1 ) )+ ABS( B( 2, 1 ) ) <= SMLNUM* ( ABS( CA*A( 1, 1 )-WR*D1 )+ ABS( CA*A( 1, 2 ) )+ABS( CA*A( 2, 1 ) )+ABS( CA*A( 2, 2 )-WR*D2 )+ABS( WI*D2 )+ABS( WI* D1 ) ) )RES = ZERO
                                  if (SCALE > ONE) RES = RES + ONE / EPS                                  RES = RES + ABS( XNORM- MAX( ABS( X( 1, 1 ) )+ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) )+ABS( X( 2, 2 ) ) ) ) / MAX( SMLNUM, XNORM ) / EPS;
                                  if (INFO != 0 && INFO != 1) RES = RES + ONE / EPS;
                                  KNT = KNT + 1

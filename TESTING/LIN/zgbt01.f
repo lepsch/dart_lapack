@@ -39,7 +39,7 @@
       // Quick exit if M = 0 or N = 0.
 
       RESID = ZERO
-      if (M.LE.0 || N.LE.0) RETURN;
+      if (M <= 0 || N <= 0) RETURN;
 
       // Determine EPS and the norm of A.
 
@@ -99,7 +99,7 @@
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS

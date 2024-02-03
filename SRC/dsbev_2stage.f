@@ -61,7 +61,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( N.LE.1 ) {
+         if ( N <= 1 ) {
             LWMIN = 1
             WORK( 1 ) = LWMIN
          } else {

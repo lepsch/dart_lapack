@@ -181,7 +181,7 @@
       KTEMP = 1 + CTOT( 1 )
       sgemm('N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ, VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT );
       KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
-      if (KTEMP.LE.LDVT2) CALL SGEMM( 'N', 'N', K, NLP1, CTOT( 3 ), ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, 1 ), LDVT2, ONE, VT( 1, 1 ), LDVT );
+      if (KTEMP <= LDVT2) CALL SGEMM( 'N', 'N', K, NLP1, CTOT( 3 ), ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, 1 ), LDVT2, ONE, VT( 1, 1 ), LDVT );
 
       KTEMP = CTOT( 1 ) + 1
       NRP1 = NR + SQRE

@@ -103,14 +103,14 @@
 
       IMAX = IDAMAX( N, CNORM, 1 )
       TMAX = CNORM( IMAX )
-      if ( TMAX.LE.BIGNUM ) {
+      if ( TMAX <= BIGNUM ) {
          TSCAL = ONE
       } else {
 
          // Avoid NaN generation if entries in CNORM exceed the
          // overflow threshold
 
-         if ( TMAX.LE.DLAMCH('Overflow') ) {
+         if ( TMAX <= DLAMCH('Overflow') ) {
             // Case 1: All entries in CNORM are valid floating-point numbers
             TSCAL = ONE / ( SMLNUM*TMAX )
             dscal(N, TSCAL, CNORM, 1 );
@@ -136,10 +136,10 @@
                }
             }
 
-            if ( TMAX.LE.DLAMCH('Overflow') ) {
+            if ( TMAX <= DLAMCH('Overflow') ) {
                TSCAL = ONE / ( SMLNUM*TMAX )
                for (J = 1; J <= N; J++) {
-                  if ( CNORM( J ).LE.DLAMCH('Overflow') ) {
+                  if ( CNORM( J ) <= DLAMCH('Overflow') ) {
                      CNORM( J ) = CNORM( J )*TSCAL
                   } else {
                      // Recompute the 1-norm without introducing Infinity
@@ -203,7 +203,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 50;
+               if (GROW <= SMLNUM) GO TO 50;
 
                // M(j) = G(j-1) / abs(A(j,j))
 
@@ -233,7 +233,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 50;
+               if (GROW <= SMLNUM) GO TO 50;
 
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
@@ -274,7 +274,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 80;
+               if (GROW <= SMLNUM) GO TO 80;
 
                // G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 
@@ -298,7 +298,7 @@
 
                // Exit the loop if the growth factor is too small.
 
-               if (GROW.LE.SMLNUM) GO TO 80;
+               if (GROW <= SMLNUM) GO TO 80;
 
                // G(j) = ( 1 + CNORM(j) )*G(j-1)
 

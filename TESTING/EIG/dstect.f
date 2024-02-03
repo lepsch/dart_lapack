@@ -61,7 +61,7 @@
       SSUN = SQRT( SUN )
       SOV = SQRT( OVFL )
       TOM = SSUN*SOV
-      if ( MX.LE.ONE ) {
+      if ( MX <= ONE ) {
          M1 = ONE / MX
          M2 = TOM
       } else {
@@ -74,8 +74,8 @@
       NUM = 0
       SSHIFT = ( SHIFT*M1 )*M2
       U = ( A( 1 )*M1 )*M2 - SSHIFT
-      if ( U.LE.SUN ) {
-         if ( U.LE.ZERO ) {
+      if ( U <= SUN ) {
+         if ( U <= ZERO ) {
             NUM = NUM + 1
             if (U > -SUN) U = -SUN;
          } else {
@@ -85,8 +85,8 @@
       for (I = 2; I <= N; I++) { // 20
          TMP = ( B( I-1 )*M1 )*M2
          U = ( ( A( I )*M1 )*M2-TMP*( TMP / U ) ) - SSHIFT
-         if ( U.LE.SUN ) {
-            if ( U.LE.ZERO ) {
+         if ( U <= SUN ) {
+            if ( U <= ZERO ) {
                NUM = NUM + 1
                if (U > -SUN) U = -SUN;
             } else {

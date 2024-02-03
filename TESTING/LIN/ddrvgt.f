@@ -83,7 +83,7 @@
          M = MAX( N-1, 0 )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 130
 
@@ -95,8 +95,8 @@
 
             dlatb4(PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST );
 
-            ZEROT = IMAT >= 8 && IMAT.LE.10
-            if ( IMAT.LE.6 ) {
+            ZEROT = IMAT >= 8 && IMAT <= 10
+            if ( IMAT <= 6 ) {
 
                // Types 1-6:  generate matrices of known condition number.
 
@@ -218,7 +218,7 @@
 
                   // Compute the 1-norm condition number of A.
 
-                  if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
+                  if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                      RCONDO = ONE
                   } else {
                      RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -239,7 +239,7 @@
 
                   // Compute the infinity-norm condition number of A.
 
-                  if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
+                  if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORMI ) / AINVNM

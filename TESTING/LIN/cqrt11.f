@@ -46,7 +46,7 @@
 
       // Quick return if possible
 
-      if (M.LE.0) RETURN;
+      if (M <= 0) RETURN;
 
       claset('Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), WORK, M );
 

@@ -32,7 +32,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          EQUED = 'N'
          RETURN
       }
@@ -42,7 +42,7 @@
       SMALL = SLAMCH( 'Safe minimum' ) / SLAMCH( 'Precision' )
       LARGE = ONE / SMALL
 
-      if ( SCOND >= THRESH && AMAX >= SMALL && AMAX.LE.LARGE ) {
+      if ( SCOND >= THRESH && AMAX >= SMALL && AMAX <= LARGE ) {
 
          // No equilibration
 

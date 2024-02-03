@@ -63,7 +63,7 @@
          INFO = -3
       } else if ( THRESH < ZERO ) {
          INFO = -5
-      } else if ( NOUNIT.LE.0 ) {
+      } else if ( NOUNIT <= 0 ) {
          INFO = -7
       } else if ( N < 0 ) {
          INFO = -8

@@ -31,7 +31,7 @@ void main() {      // Test program for the COMPLEX*16 Level 1 CBLAS.
          INCX = 9999
          INCY = 9999
          MODE = 9999
-         if (ICASE.LE.5) {
+         if (ICASE <= 5) {
             check2(SFAC);
          } else if (ICASE >= 6) {
             check1(SFAC);

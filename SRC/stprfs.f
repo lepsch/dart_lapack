@@ -223,7 +223,7 @@
 
          // Bound error from formula
 
-         // norm(X - XTRUE) / norm(X) .le. FERR =
+         // norm(X - XTRUE) / norm(X) <= FERR =
          // norm( abs(inv(op(A)))*
             // ( abs(R) + NZ*EPS*( abs(op(A))*abs(X)+abs(B) ))) / norm(X)
 

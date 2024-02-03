@@ -401,7 +401,7 @@
       // (set them to zero) whose norm is less than sigma_max / BIG (roughly).
 * #:(
       WARNING = 0
-      if ( AAQQ .LE. SFMIN ) {
+      if ( AAQQ <= SFMIN ) {
          L2RANK = true;
          L2KILL = true;
          WARNING = 1
@@ -827,7 +827,7 @@
                for (q = 1; q <= NR; q++) { // 4947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= N; p++) { // 4949
-                     IF ( ( (p > q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) )
+                     IF ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) )
       // $                     A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 4949
                } // 4947
@@ -857,7 +857,7 @@
                for (q = 1; q <= NR; q++) { // 1947
                   CTEMP = CMPLX(XSC*ABS(A(q,q)),ZERO)
                   for (p = 1; p <= NR; p++) { // 1949
-                     IF ( ( (p > q) && (ABS(A(p,q)).LE.TEMP1) ) || ( p < q ) )
+                     IF ( ( (p > q) && (ABS(A(p,q)) <= TEMP1) ) || ( p < q ) )
       // $                   A(p,q) = TEMP1 * ( A(p,q) / ABS(A(p,q)) ) A(p,q) = CTEMP
                   } // 1949
                } // 1947
@@ -1022,7 +1022,7 @@
                for (q = 1; q <= NR; q++) { // 2969
                   CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                   for (p = 1; p <= N; p++) { // 2968
-                     IF ( ( p > q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) )
+                     IF ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) )
       // $                   V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                      if (p < q) V(p,q) = - V(p,q);
                   } // 2968
@@ -1062,7 +1062,7 @@
                   for (p = 2; p <= NR; p++) { // 3959
                      for (q = 1; q <= p - 1; q++) { // 3958
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
-                        IF ( ABS(V(q,p)) .LE. TEMP1 )
+                        IF ( ABS(V(q,p)) <= TEMP1 )
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3958
                   } // 3959
@@ -1101,7 +1101,7 @@
                   for (p = 2; p <= NR; p++) { // 3969
                      for (q = 1; q <= p - 1; q++) { // 3968
                         CTEMP=CMPLX(XSC*MIN(ABS(V(p,p)),ABS(V(q,q))), ZERO)
-                        IF ( ABS(V(q,p)) .LE. TEMP1 )
+                        IF ( ABS(V(q,p)) <= TEMP1 )
       // $                     V(q,p) = TEMP1 * ( V(q,p) / ABS(V(q,p)) ) V(q,p) = CTEMP
                      } // 3968
                   } // 3969
@@ -1385,7 +1385,7 @@
             for (q = 1; q <= NR; q++) { // 5969
                CTEMP = CMPLX(XSC*ABS( V(q,q) ),ZERO)
                for (p = 1; p <= N; p++) { // 5968
-                  IF ( ( p > q ) && ( ABS(V(p,q)) .LE. TEMP1 ) || ( p < q ) )
+                  IF ( ( p > q ) && ( ABS(V(p,q)) <= TEMP1 ) || ( p < q ) )
       // $                V(p,q) = TEMP1 * ( V(p,q) / ABS(V(p,q)) ) V(p,q) = CTEMP
                   if (p < q) V(p,q) = - V(p,q);
                } // 5968
@@ -1469,7 +1469,7 @@
 
       // Undo scaling, if necessary (and possible)
 
-      if ( USCAL2 .LE. (BIG/SVA(1))*USCAL1 ) {
+      if ( USCAL2 <= (BIG/SVA(1))*USCAL1 ) {
          slascl('G', 0, 0, USCAL1, USCAL2, NR, 1, SVA, N, IERR );
          USCAL1 = ONE
          USCAL2 = ONE

@@ -329,7 +329,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDC > NMAX) GO TO 100;
             LCC = LDC*N
-            NULL = N.LE.0 || M.LE.0
+            NULL = N <= 0 || M <= 0
 
             for (IK = 1; IK <= NIDIM; IK++) { // 90
                K = IDIM( IK )
@@ -574,7 +574,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDC > NMAX) GO TO 90;
             LCC = LDC*N
-            NULL = N.LE.0 || M.LE.0
+            NULL = N <= 0 || M <= 0
 
             // Set LDB to 1 more than minimum value if room.
             LDB = M
@@ -813,7 +813,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDB > NMAX) GO TO 130;
             LBB = LDB*N
-            NULL = M.LE.0 || N.LE.0
+            NULL = M <= 0 || N <= 0
 
             for (ICS = 1; ICS <= 2; ICS++) { // 120
                SIDE = ICHS( ICS: ICS )
@@ -1056,7 +1056,7 @@ void main() {
          // Skip tests if not enough room.
          if (LDC > NMAX) GO TO 100;
          LCC = LDC*N
-         NULL = N.LE.0
+         NULL = N <= 0
 
          for (IK = 1; IK <= NIDIM; IK++) { // 90
             K = IDIM( IK )
@@ -1292,7 +1292,7 @@ void main() {
          // Skip tests if not enough room.
          if (LDC > NMAX) GO TO 130;
          LCC = LDC*N
-         NULL = N.LE.0
+         NULL = N <= 0
 
          for (IK = 1; IK <= NIDIM; IK++) { // 120
             K = IDIM( IK )
@@ -2095,7 +2095,7 @@ void main() {
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I >= J ) ) {
+            if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) {
                A( I, J ) = DBEG( RESET ) + TRANSL
                if ( I != J ) {
                   // Set some elements to zero

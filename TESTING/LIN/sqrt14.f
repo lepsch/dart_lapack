@@ -46,7 +46,7 @@
          if ( LWORK < ( M+NRHS )*( N+2 ) ) {
             xerbla('SQRT14', 10 );
             RETURN
-         } else if ( N.LE.0 || NRHS.LE.0 ) {
+         } else if ( N <= 0 || NRHS <= 0 ) {
             RETURN
          }
       } else if ( LSAME( TRANS, 'T' ) ) {
@@ -55,7 +55,7 @@
          if ( LWORK < ( N+NRHS )*( M+2 ) ) {
             xerbla('SQRT14', 10 );
             RETURN
-         } else if ( M.LE.0 || NRHS.LE.0 ) {
+         } else if ( M <= 0 || NRHS <= 0 ) {
             RETURN
          }
       } else {

@@ -161,7 +161,7 @@
          claic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
          claic1(IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
-         if ( SMAXPR*RCOND.LE.SMINPR ) {
+         if ( SMAXPR*RCOND <= SMINPR ) {
             for (I = 1; I <= RANK; I++) { // 20
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )

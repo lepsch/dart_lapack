@@ -92,9 +92,9 @@
          C = RHOINV + PSI
          W = C + Z( II )*Z( II ) / DELTA( II ) + Z( N )*Z( N ) / DELTA( N )
 
-         if ( W.LE.ZERO ) {
+         if ( W <= ZERO ) {
             TEMP = Z( N-1 )*Z( N-1 ) / ( D( N )-D( N-1 )+RHO ) + Z( N )*Z( N ) / RHO
-            if ( C.LE.TEMP ) {
+            if ( C <= TEMP ) {
                TAU = RHO
             } else {
                DEL = D( N ) - D( N-1 )
@@ -157,12 +157,12 @@
 
          // Test for convergence
 
-         if ( ABS( W ).LE.EPS*ERRETM ) {
+         if ( ABS( W ) <= EPS*ERRETM ) {
             DLAM = D( I ) + TAU
             GO TO 250
          }
 
-         if ( W.LE.ZERO ) {
+         if ( W <= ZERO ) {
             DLTLB = MAX( DLTLB, TAU )
          } else {
             DLTUB = MIN( DLTUB, TAU )
@@ -239,12 +239,12 @@
 
             // Test for convergence
 
-            if ( ABS( W ).LE.EPS*ERRETM ) {
+            if ( ABS( W ) <= EPS*ERRETM ) {
                DLAM = D( I ) + TAU
                GO TO 250
             }
 
-            if ( W.LE.ZERO ) {
+            if ( W <= ZERO ) {
                DLTLB = MAX( DLTLB, TAU )
             } else {
                DLTUB = MIN( DLTUB, TAU )
@@ -436,7 +436,7 @@
 
          // Test for convergence
 
-         if ( ABS( W ).LE.EPS*ERRETM ) {
+         if ( ABS( W ) <= EPS*ERRETM ) {
             if ( ORGATI ) {
                DLAM = D( I ) + TAU
             } else {
@@ -445,7 +445,7 @@
             GO TO 250
          }
 
-         if ( W.LE.ZERO ) {
+         if ( W <= ZERO ) {
             DLTLB = MAX( DLTLB, TAU )
          } else {
             DLTUB = MIN( DLTUB, TAU )
@@ -471,7 +471,7 @@
                   }
                }
                ETA = B / A
-            } else if ( A.LE.ZERO ) {
+            } else if ( A <= ZERO ) {
                ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             } else {
                ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -566,7 +566,7 @@
 
             // Test for convergence
 
-            if ( ABS( W ).LE.EPS*ERRETM ) {
+            if ( ABS( W ) <= EPS*ERRETM ) {
                if ( ORGATI ) {
                   DLAM = D( I ) + TAU
                } else {
@@ -575,7 +575,7 @@
                GO TO 250
             }
 
-            if ( W.LE.ZERO ) {
+            if ( W <= ZERO ) {
                DLTLB = MAX( DLTLB, TAU )
             } else {
                DLTUB = MIN( DLTUB, TAU )
@@ -614,7 +614,7 @@
                      }
                   }
                   ETA = B / A
-               } else if ( A.LE.ZERO ) {
+               } else if ( A <= ZERO ) {
                   ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
                } else {
                   ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )

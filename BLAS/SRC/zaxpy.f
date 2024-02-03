@@ -21,7 +21,7 @@
       double           DCABS1;
       // EXTERNAL DCABS1
       // ..
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
       IF (DCABS1(ZA) == 0.0d0) RETURN
       if (INCX == 1 && INCY == 1) {
 

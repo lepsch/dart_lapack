@@ -751,7 +751,7 @@
       EXBITS = 1
       } // 10
       TRY = LEXP*2
-      if ( TRY.LE.( -EMIN ) ) {
+      if ( TRY <= ( -EMIN ) ) {
          LEXP = TRY
          EXBITS = EXBITS + 1
          GO TO 10

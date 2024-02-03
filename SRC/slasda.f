@@ -53,7 +53,7 @@
 
       // If the input matrix is too small, call SLASDQ to find the SVD.
 
-      if ( N.LE.SMLSIZ ) {
+      if ( N <= SMLSIZ ) {
          if ( ICOMPQ == 0 ) {
             slasdq('U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO );
          } else {

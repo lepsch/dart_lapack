@@ -57,7 +57,7 @@
 
       // Set up the tolerance.
 
-      if ( ( RCOND.LE.ZERO ) || ( RCOND >= ONE ) ) {
+      if ( ( RCOND <= ZERO ) || ( RCOND >= ONE ) ) {
          RCND = EPS
       } else {
          RCND = RCOND
@@ -121,7 +121,7 @@
       // If N is smaller than the minimum divide size SMLSIZ, then solve
       // the problem with another solver.
 
-      if ( N.LE.SMLSIZ ) {
+      if ( N <= SMLSIZ ) {
          NWORK = 1 + N*N
          slaset('A', N, N, ZERO, ONE, WORK, N );
          slasdq('U', 0, N, N, 0, NRHS, D, E, WORK, N, WORK, N, B, LDB, WORK( NWORK ), INFO );
@@ -130,7 +130,7 @@
          }
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
          for (I = 1; I <= N; I++) { // 40
-            if ( D( I ).LE.TOL ) {
+            if ( D( I ) <= TOL ) {
                slaset('A', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             } else {
                slascl('G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO );
@@ -226,7 +226,7 @@
                // explicitly.
 
                scopy(NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
-            } else if ( NSIZE.LE.SMLSIZ ) {
+            } else if ( NSIZE <= SMLSIZ ) {
 
                // This is a small subproblem and is solved by SLASDQ.
 
@@ -263,7 +263,7 @@
          // Some of the elements in D can be negative because 1-by-1
          // subproblems were not solved explicitly.
 
-         if ( ABS( D( I ) ).LE.TOL ) {
+         if ( ABS( D( I ) ) <= TOL ) {
             slaset('A', 1, NRHS, ZERO, ZERO, WORK( BX+I-1 ), N );
          } else {
             RANK = RANK + 1
@@ -282,7 +282,7 @@
          BXST = BX + ST1
          if ( NSIZE == 1 ) {
             scopy(NRHS, WORK( BXST ), N, B( ST, 1 ), LDB );
-         } else if ( NSIZE.LE.SMLSIZ ) {
+         } else if ( NSIZE <= SMLSIZ ) {
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO, B( ST, 1 ), LDB );
          } else {
             slalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO );

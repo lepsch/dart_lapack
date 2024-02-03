@@ -60,7 +60,7 @@
 
          // Test for non-positive-definiteness
 
-         if ( A( 1, 1 ).LE.ZERO || SISNAN( A( 1, 1 ) ) ) {
+         if ( A( 1, 1 ) <= ZERO || SISNAN( A( 1, 1 ) ) ) {
             INFO = 1
             RETURN
          }

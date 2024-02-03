@@ -130,7 +130,7 @@
                   TEMP = ABS( A( RK, J ) ) / VN1( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-                  if ( TEMP2 .LE. TOL3Z ) {
+                  if ( TEMP2 <= TOL3Z ) {
                      VN2( J ) = REAL( LSTICC )
                      LSTICC = J
                   } else {

@@ -45,7 +45,7 @@
       // Quick return if possible.
 
       RESID = ZERO
-      IF( MIN( M, N ).LE.0 || NS.LE.0 ) RETURN
+      IF( MIN( M, N ) <= 0 || NS <= 0 ) RETURN
 
       EPS = DLAMCH( 'Precision' )
       ANORM = ZLANGE( 'M', M, N, A, LDA, DUM )
@@ -63,7 +63,7 @@
          J = J + NS
       } // 10
 
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM >= RESID ) {

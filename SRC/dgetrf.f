@@ -55,7 +55,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DGETRF', ' ', M, N, -1, -1 )
-      if ( NB.LE.1 || NB >= MIN( M, N ) ) {
+      if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -83,7 +83,7 @@
 
             dlaswp(J-1, A, LDA, J, J+JB-1, IPIV, 1 );
 
-            if ( J+JB.LE.N ) {
+            if ( J+JB <= N ) {
 
                // Apply interchanges to columns J+JB:N.
 
@@ -92,7 +92,7 @@
                // Compute block row of U.
 
                dtrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
-               if ( J+JB.LE.M ) {
+               if ( J+JB <= M ) {
 
                   // Update trailing submatrix.
 

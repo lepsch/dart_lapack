@@ -491,7 +491,7 @@
             DO 1146 p = 1, MIN( N, NR )
                for (q = p + 1; q <= N; q++) { // 1147
                   A(q,p) = A(p,q)
-                  if (q .LE. NR) A(p,q) = ZERO;
+                  if (q <= NR) A(p,q) = ZERO;
                } // 1147
             } // 1146
 

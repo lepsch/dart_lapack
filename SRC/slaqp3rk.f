@@ -222,7 +222,7 @@
 
             RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
 
-            if ( MAXC2NRMK.LE.ABSTOL || RELMAXC2NRMK.LE.RELTOL ) {
+            if ( MAXC2NRMK <= ABSTOL || RELMAXC2NRMK <= RELTOL ) {
 
                DONE = true;
 
@@ -427,7 +427,7 @@
                   TEMP = ABS( A( I, J ) ) / VN1( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-                  if ( TEMP2.LE.TOL3Z ) {
+                  if ( TEMP2 <= TOL3Z ) {
 
                      // At J-index, we have a difficult column for the
                      // update of the 2-norm. Save the index of the previous

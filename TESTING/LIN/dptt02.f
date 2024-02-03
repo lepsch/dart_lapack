@@ -36,7 +36,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -48,7 +48,7 @@
       // Exit with RESID = 1/EPS if ANORM = 0.
 
       EPS = DLAMCH( 'Epsilon' )
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          RESID = ONE / EPS
          RETURN
       }
@@ -64,7 +64,7 @@
       for (J = 1; J <= NRHS; J++) { // 10
          BNORM = DASUM( N, B( 1, J ), 1 )
          XNORM = DASUM( N, X( 1, J ), 1 )
-         if ( XNORM.LE.ZERO ) {
+         if ( XNORM <= ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )

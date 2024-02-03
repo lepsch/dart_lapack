@@ -36,7 +36,7 @@
 
       // Quick return if possible
 
-      if ( M.LE.0 || N.LE.0 ) {
+      if ( M <= 0 || N <= 0 ) {
          RESULT = ZERO
          RETURN
       }

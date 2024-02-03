@@ -53,7 +53,7 @@
       BIGNUM = ONE / SFMIN
 
       if ( JOB < 0 ) {
-         if ( TOL.LE.ZERO ) {
+         if ( TOL <= ZERO ) {
             TOL = ABS( A( 1 ) )
             if (N > 1) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) );
             for (K = 3; K <= N; K++) { // 10
@@ -76,7 +76,7 @@
          } // 20
          if ( JOB == 1 ) {
             DO 30 K = N, 1, -1
-               if ( K.LE.N-2 ) {
+               if ( K <= N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
                } else if ( K == N-1 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 )
@@ -103,7 +103,7 @@
             } // 30
          } else {
             DO 50 K = N, 1, -1
-               if ( K.LE.N-2 ) {
+               if ( K <= N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 )
                } else if ( K == N-1 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 )

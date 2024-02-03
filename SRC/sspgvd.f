@@ -53,7 +53,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( N.LE.1 ) {
+         if ( N <= 1 ) {
             LIWMIN = 1
             LWMIN = 1
          } else {

@@ -74,9 +74,9 @@
          INFO = -2
       } else if ( NTYPES < 0 ) {
          INFO = -3
-      } else if ( LDA.LE.1 || LDA < NMAX ) {
+      } else if ( LDA <= 1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDZ.LE.1 || LDZ < NMAX ) {
+      } else if ( LDZ <= 1 || LDZ < NMAX ) {
          INFO = -16
       } else if ( 2*MAX( NMAX, 2 )**2 > NWORK ) {
          INFO = -21
@@ -264,7 +264,7 @@
             } // 90
 
             ABSTOL = UNFL + UNFL
-            if ( N.LE.1 ) {
+            if ( N <= 1 ) {
                IL = 1
                IU = N
             } else {

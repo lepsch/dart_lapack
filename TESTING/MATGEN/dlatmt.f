@@ -189,7 +189,7 @@
       // Choose Top-Down if D is (apparently) increasing,
       // Bottom-Up if D is (apparently) decreasing.
 
-      if ( ABS( D( 1 ) ).LE.ABS( D( RANK ) ) ) {
+      if ( ABS( D( 1 ) ) <= ABS( D( RANK ) ) ) {
          TOPDWN = true;
       } else {
          TOPDWN = false;
@@ -250,7 +250,7 @@
 
       if ( LLB == 0 && UUB == 0 ) {
          dcopy(MNMIN, D, 1, A( 1-ISKEW+IOFFST, 1 ), ILDA+1 );
-         if (IPACK.LE.2 || IPACK >= 5) IPACKG = IPACK;
+         if (IPACK <= 2 || IPACK >= 5) IPACKG = IPACK;
 
       } else if ( GIVENS ) {
 
@@ -398,7 +398,7 @@
                            dlartg(A( JCH-ISKEW*ICOL+IOFFST, ICOL ), TEMP, C, S, DUMMY );
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = ZERO
-                           dlarot( false , true , JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
+                           dlarot( false , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
                            IC = ICOL
                         }
                      } // 180
@@ -442,7 +442,7 @@
                            dlartg(A( IROW-ISKEW*JCH+IOFFST, JCH ), TEMP, C, S, DUMMY );
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = ZERO
-                           dlarot( true , true , JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, TEMP, EXTRA );
+                           dlarot( true , true , JCH+JKL+JKU <= IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, TEMP, EXTRA );
                            IR = IROW
                         }
                      } // 210

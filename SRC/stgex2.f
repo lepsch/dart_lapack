@@ -51,7 +51,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1 || N1.LE.0 || N2.LE.0) RETURN       IF( N1 > N || ( J1+N1 ) > N ) RETURN;
+      if (N <= 1 || N1 <= 0 || N2 <= 0) RETURN       IF( N1 > N || ( J1+N1 ) > N ) RETURN;
       M = N1 + N2
       if ( LWORK < MAX( N*M, M*M*2 ) ) {
          INFO = -16
@@ -124,7 +124,7 @@
          // Weak stability test: |S21| <= O(EPS F-norm((A)))
                             // and  |T21| <= O(EPS F-norm((B)))
 
-         WEAK = ABS( S( 2, 1 ) ) .LE. THRESHA && ABS( T( 2, 1 ) ) .LE. THRESHB          IF( .NOT.WEAK ) GO TO 70
+         WEAK = ABS( S( 2, 1 ) ) <= THRESHA && ABS( T( 2, 1 ) ) <= THRESHB          IF( .NOT.WEAK ) GO TO 70
 
          if ( WANDS ) {
 
@@ -148,7 +148,7 @@
             DSUM = ONE
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
-            STRONG = SA.LE.THRESHA && SB.LE.THRESHB
+            STRONG = SA <= THRESHA && SB <= THRESHB
             if (.NOT.STRONG) GO TO 70;
          }
 
@@ -268,7 +268,7 @@
            // Weak stability test:
               // F-norm(S21) <= O(EPS * F-norm((S)))
 
-         if ( BQRA21.LE.BRQA21 && BQRA21.LE.THRESHA ) {
+         if ( BQRA21 <= BRQA21 && BQRA21 <= THRESHA ) {
             slacpy('F', M, M, SCPY, LDST, S, LDST );
             slacpy('F', M, M, TCPY, LDST, T, LDST );
             slacpy('F', M, M, IRCOP, LDST, IR, LDST );
@@ -303,7 +303,7 @@
             DSUM = ONE
             slassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SB = DSCALE*SQRT( DSUM )
-            STRONG = SA.LE.THRESHA && SB.LE.THRESHB
+            STRONG = SA <= THRESHA && SB <= THRESHB
             if (.NOT.STRONG) GO TO 70;
 
          }
@@ -373,7 +373,7 @@
                  // (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
 
          I = J1 + M
-         if ( I.LE.N ) {
+         if ( I <= N ) {
             sgemm('T', 'N', M, N-I+1, M, ONE, LI, LDST, A( J1, I ), LDA, ZERO, WORK, M );
             slacpy('Full', M, N-I+1, WORK, M, A( J1, I ), LDA );
             sgemm('T', 'N', M, N-I+1, M, ONE, LI, LDST, B( J1, I ), LDB, ZERO, WORK, M );

@@ -108,7 +108,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          IZERO = 0
 
@@ -122,7 +122,7 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT.LE.6
+            ZEROT = IMAT >= 3 && IMAT <= 6
             if (ZEROT && N < IMAT-2) GO TO 260;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -331,7 +331,7 @@
 
                      K = N
                      } // 120
-                     if (K.LE.1) GO TO 130;
+                     if (K <= 1) GO TO 130;
 
                      if ( IWORK( K ) > ZERO ) {
 
@@ -411,7 +411,7 @@
 
                      K = N
                      } // 160
-                     if (K.LE.1) GO TO 170;
+                     if (K <= 1) GO TO 170;
 
                      if ( IWORK( K ) < ZERO ) {
 

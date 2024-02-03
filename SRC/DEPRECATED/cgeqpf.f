@@ -138,7 +138,7 @@
                   TEMP = ABS( A( I, J ) ) / RWORK( J )
                   TEMP = MAX( ZERO, ( ONE+TEMP )*( ONE-TEMP ) )
                   TEMP2 = TEMP*( RWORK( J ) / RWORK( N+J ) )**2
-                  if ( TEMP2 .LE. TOL3Z ) {
+                  if ( TEMP2 <= TOL3Z ) {
                      if ( M-I > 0 ) {
                         RWORK( J ) = SCNRM2( M-I, A( I+1, J ), 1 )
                         RWORK( N+J ) = RWORK( J )

@@ -89,7 +89,7 @@
 
       // ==== clear trash ====
 
-      if (KTOP+2.LE.KBOT) H( KTOP+2, KTOP ) = ZERO;
+      if (KTOP+2 <= KBOT) H( KTOP+2, KTOP ) = ZERO;
 
       // ==== NBMPS = number of 2-shift bulges in the chain ====
 
@@ -206,13 +206,13 @@
                   if ( H( K+1, K ) != ZERO ) {
                      TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) )
                      if ( TST1 == ZERO ) {
-                        if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                         IF( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                         IF( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
+                        if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                         IF( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                         IF( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                         IF( K <= KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                         IF( K <= KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                         IF( K <= KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                      }
-                     IF( ABS( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )
+                     IF( ABS( H( K+1, K ) ) <= MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )                         H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
                         TST2 = H22*( H11 / SCL )
 
-                        if ( TST2 == ZERO || H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
+                        if ( TST2 == ZERO || H21*( H12 / SCL ) <= MAX( SMLNUM, ULP*TST2 ) ) {
                            H( K+1, K ) = ZERO
                         }
                      }
@@ -362,16 +362,16 @@
                if ( H( K+1, K ) != ZERO ) {
                   TST1 = ABS( H( K, K ) ) + ABS( H( K+1, K+1 ) )
                   if ( TST1 == ZERO ) {
-                     if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                      IF( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                      IF( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
+                     if (K >= KTOP+1) TST1 = TST1 + ABS( H( K, K-1 ) )                      IF( K >= KTOP+2 ) TST1 = TST1 + ABS( H( K, K-2 ) )                      IF( K >= KTOP+3 ) TST1 = TST1 + ABS( H( K, K-3 ) )                      IF( K <= KBOT-2 ) TST1 = TST1 + ABS( H( K+2, K+1 ) )                      IF( K <= KBOT-3 ) TST1 = TST1 + ABS( H( K+3, K+1 ) )                      IF( K <= KBOT-4 ) TST1 = TST1 + ABS( H( K+4, K+1 ) );
                   }
-                  if ( ABS( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) {
+                  if ( ABS( H( K+1, K ) ) <= MAX( SMLNUM, ULP*TST1 ) ) {
                      H12 = MAX( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )
                      H21 = MIN( ABS( H( K+1, K ) ), ABS( H( K, K+1 ) ) )
                      H11 = MAX( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( ABS( H( K+1, K+1 ) ), ABS( H( K, K )-H( K+1, K+1 ) ) )
                      SCL = H11 + H12
                      TST2 = H22*( H11 / SCL )
 
-                     if ( TST2 == ZERO || H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) ) {
+                     if ( TST2 == ZERO || H21*( H12 / SCL ) <= MAX( SMLNUM, ULP*TST2 ) ) {
                         H( K+1, K ) = ZERO
                      }
                   }

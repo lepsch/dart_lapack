@@ -33,7 +33,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          INFO = 0
          RETURN
       }
@@ -71,11 +71,11 @@
       MID = HALF * (LEFT + RIGHT)
       NEGCNT = 0
       TMP1 = D( 1 ) - MID
-      IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN       IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
+      IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN       IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1
 
       for (I = 2; I <= N; I++) { // 20
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID
-         IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
+         IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN          IF( TMP1 <= ZERO ) NEGCNT = NEGCNT + 1
       } // 20
 
       if (NEGCNT >= IW) {

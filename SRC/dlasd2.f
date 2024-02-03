@@ -148,7 +148,7 @@
       K = 1
       K2 = N + 1
       for (J = 2; J <= N; J++) { // 80
-         if ( ABS( Z( J ) ).LE.TOL ) {
+         if ( ABS( Z( J ) ) <= TOL ) {
 
             // Deflate due to small z component.
 
@@ -166,7 +166,7 @@
       } // 100
       J = J + 1
       if (J > N) GO TO 110;
-      if ( ABS( Z( J ) ).LE.TOL ) {
+      if ( ABS( Z( J ) ) <= TOL ) {
 
          // Deflate due to small z component.
 
@@ -177,7 +177,7 @@
 
          // Check if singular values are close enough to allow deflation.
 
-         if ( ABS( D( J )-D( JPREV ) ).LE.TOL ) {
+         if ( ABS( D( J )-D( JPREV ) ) <= TOL ) {
 
             // Deflation is possible.
 
@@ -198,10 +198,10 @@
 
             IDXJP = IDXQ( IDX( JPREV )+1 )
             IDXJ = IDXQ( IDX( J )+1 )
-            if ( IDXJP.LE.NLP1 ) {
+            if ( IDXJP <= NLP1 ) {
                IDXJP = IDXJP - 1
             }
-            if ( IDXJ.LE.NLP1 ) {
+            if ( IDXJ <= NLP1 ) {
                IDXJ = IDXJ - 1
             }
             drot(N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S );
@@ -276,7 +276,7 @@
          JP = IDXP( J )
          DSIGMA( J ) = D( JP )
          IDXJ = IDXQ( IDX( IDXP( IDXC( J ) ) )+1 )
-         if ( IDXJ.LE.NLP1 ) {
+         if ( IDXJ <= NLP1 ) {
             IDXJ = IDXJ - 1
          }
          dcopy(N, U( 1, IDXJ ), 1, U2( 1, J ), 1 );
@@ -287,10 +287,10 @@
 
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
-      IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
+      IF( ABS( DSIGMA( 2 ) ) <= HLFTOL ) DSIGMA( 2 ) = HLFTOL
       if ( M > N ) {
          Z( 1 ) = DLAPY2( Z1, Z( M ) )
-         if ( Z( 1 ).LE.TOL ) {
+         if ( Z( 1 ) <= TOL ) {
             C = ONE
             S = ZERO
             Z( 1 ) = TOL
@@ -299,7 +299,7 @@
             S = Z( M ) / Z( 1 )
          }
       } else {
-         if ( ABS( Z1 ).LE.TOL ) {
+         if ( ABS( Z1 ) <= TOL ) {
             Z( 1 ) = TOL
          } else {
             Z( 1 ) = Z1

@@ -99,7 +99,7 @@
          RETURN
       }
 
-      if ( NORM_NEW .LE. N * EPS * NORM ) {
+      if ( NORM_NEW <= N * EPS * NORM ) {
          DO IX = 1, 1 + (M1-1)*INCX1, INCX1
            X1( IX ) = ZERO
          }

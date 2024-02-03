@@ -46,7 +46,7 @@
       // ==== Estimate optimal workspace. ====
 
       JW = MIN( NW, KBOT-KTOP+1 )
-      if ( JW.LE.2 ) {
+      if ( JW <= 2 ) {
          LWKOPT = 1
       } else {
 
@@ -105,7 +105,7 @@
          SH( KWTOP ) = H( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         if ( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
+         if ( CABS1( S ) <= MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) {
             NS = 0
             ND = 1
             if (KWTOP > KTOP) H( KWTOP, KWTOP-1 ) = ZERO;
@@ -135,7 +135,7 @@
          // ==== Small spike tip deflation test ====
 
          FOO = CABS1( T( NS, NS ) )
-         if ( FOO == RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) {
+         if ( FOO == RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ) <= MAX( SMLNUM, ULP*FOO ) ) {
 
             // ==== One more converged eigenvalue ====
 

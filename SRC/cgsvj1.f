@@ -63,7 +63,7 @@
          INFO = -9
       } else if ( ( RSVEC && ( LDV < N ) ) || ( APPLV && ( LDV < MV ) )  ) {
          INFO = -11
-      } else if ( TOL.LE.EPS ) {
+      } else if ( TOL <= EPS ) {
          INFO = -14
       } else if ( NSWEEP < 0 ) {
          INFO = -15
@@ -184,9 +184,9 @@
 
                            if ( AAQQ >= ONE ) {
                               if ( AAPP >= AAQQ ) {
-                                 ROTOK = ( SMALL*AAPP ).LE.AAQQ
+                                 ROTOK = ( SMALL*AAPP ) <= AAQQ
                               } else {
-                                 ROTOK = ( SMALL*AAQQ ).LE.AAPP
+                                 ROTOK = ( SMALL*AAQQ ) <= AAPP
                               }
                               if ( AAPP < ( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
@@ -197,9 +197,9 @@
                               }
                            } else {
                               if ( AAPP >= AAQQ ) {
-                                 ROTOK = AAPP.LE.( AAQQ / SMALL )
+                                 ROTOK = AAPP <= ( AAQQ / SMALL )
                               } else {
-                                 ROTOK = AAQQ.LE.( AAPP / SMALL )
+                                 ROTOK = AAQQ <= ( AAPP / SMALL )
                               }
                               if ( AAPP > ( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
@@ -282,7 +282,7 @@
 
             // In the case of cancellation in updating SVA(q), SVA(p)
             // .. recompute SVA(q), SVA(p)
-                              if ( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
+                              if ( ( SVA( q ) / AAQQ )**2 <= ROOTEPS ) THEN                                  IF( ( AAQQ < ROOTBIG ) && ( AAQQ > ROOTSFMIN ) ) {
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   } else {
                                     T = ZERO
@@ -291,7 +291,7 @@
                                     SVA( q ) = T*SQRT( AAQQ )
                                  }
                               }
-                              if ( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) {
+                              if ( ( AAPP / AAPP0 )**2 <= ROOTEPS ) {
                                  if ( ( AAPP < ROOTBIG ) && ( AAPP > ROOTSFMIN ) ) {
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  } else {
@@ -315,12 +315,12 @@
                            IJBLSK = IJBLSK + 1
                         }
 
-                        if ( ( i.LE.SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
+                        if ( ( i <= SWBAND ) && ( IJBLSK >= BLSKIP ) ) {
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
                         }
-                        if ( ( i.LE.SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
+                        if ( ( i <= SWBAND ) && ( PSKIPPED > ROWSKIP ) ) {
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -364,7 +364,7 @@
 
       // Additional steering devices
 
-         IF( ( i < SWBAND ) && ( ( MXAAPQ.LE.ROOTTOL ) || ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i < SWBAND ) && ( ( MXAAPQ <= ROOTTOL ) || ( ISWROT <= N ) ) )SWBAND = i
 
          if ( ( i > SWBAND+1 ) && ( MXAAPQ < SQRT( REAL( N ) )* TOL ) && ( REAL( N )*MXAAPQ*MXSINJ < TOL ) ) {
             GO TO 1994

@@ -66,7 +66,7 @@
          DD = DD * BE
          S  = S * BE
       }
-      if ( ABS( D ).LE.ABS( C ) ) {
+      if ( ABS( D ) <= ABS( C ) ) {
          dladiv1(AA, BB, CC, DD, P, Q);
       } else {
          dladiv1(BB, AA, DD, CC, P, Q);

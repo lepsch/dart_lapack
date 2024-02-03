@@ -49,16 +49,16 @@
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       SMLNUM = UNFL
       BIGNUM = ( ONE-ULP ) / SMLNUM
-      if ( ( IMAT >= 6 && IMAT.LE.9 ) || IMAT == 17 ) {
+      if ( ( IMAT >= 6 && IMAT <= 9 ) || IMAT == 17 ) {
          DIAG = 'U'
       } else {
          DIAG = 'N'
       }
       INFO = 0
 
-      // Quick return if N.LE.0.
+      // Quick return if N <= 0.
 
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
 
       // Call CLATB4 to set parameters for CLATMS.
 
@@ -79,7 +79,7 @@
 
       // IMAT <= 5:  Non-unit triangular matrix
 
-      if ( IMAT.LE.5 ) {
+      if ( IMAT <= 5 ) {
          clatms(N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK, INFO );
 
       // IMAT > 5:  Unit triangular matrix
@@ -109,7 +109,7 @@
       // A unit triangular matrix T with condition CNDNUM is formed.
       // In this version, T only has bandwidth 2, the rest of it is zero.
 
-      } else if ( IMAT.LE.9 ) {
+      } else if ( IMAT <= 9 ) {
          TNORM = SQRT( CNDNUM )
 
          // Initialize AB to zero.
@@ -174,7 +174,7 @@
                PLUS2 = STAR1 / PLUS1
                WORK( J ) = PLUS1
                WORK( N+J ) = STAR1
-               if ( J+1.LE.N ) {
+               if ( J+1 <= N ) {
                   WORK( J+1 ) = PLUS2
                   WORK( N+J+1 ) = ZERO
                   PLUS1 = STAR1 / PLUS2
@@ -299,7 +299,7 @@
                DO 180 I = MAX( 1, KD+1-( J-1 ) ), KD
                   AB( I, J ) = ZERO
                } // 180
-               if ( JCOUNT.LE.2 ) {
+               if ( JCOUNT <= 2 ) {
                   AB( KD+1, J ) = SMLNUM*CLARND( 5, ISEED )
                } else {
                   AB( KD+1, J ) = CLARND( 5, ISEED )
@@ -313,7 +313,7 @@
                DO 200 I = 2, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
                } // 200
-               if ( JCOUNT.LE.2 ) {
+               if ( JCOUNT <= 2 ) {
                   AB( 1, J ) = SMLNUM*CLARND( 5, ISEED )
                } else {
                   AB( 1, J ) = CLARND( 5, ISEED )

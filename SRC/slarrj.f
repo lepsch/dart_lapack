@@ -34,7 +34,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RETURN
       }
 
@@ -72,7 +72,7 @@
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
             IF((I == I1) && (I < I2)) I1 = I + 1
-            IF((PREV >= I1) && (I.LE.I2)) IWORK( 2*PREV-1 ) = I + 1
+            IF((PREV >= I1) && (I <= I2)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
             PREV = I
@@ -170,7 +170,7 @@
             DPLUS = D( J ) - S - E2( J-1 )/DPLUS
             if (DPLUS < ZERO) CNT = CNT + 1;
          } // 90
-         if ( CNT.LE.I-1 ) {
+         if ( CNT <= I-1 ) {
             WORK( K-1 ) = MID
          } else {
             WORK( K ) = MID
@@ -182,7 +182,7 @@
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
       // since this is the best we can do.
-      IF( ( NINT > 0 ) && (ITER.LE.MAXITR) ) GO TO 80
+      IF( ( NINT > 0 ) && (ITER <= MAXITR) ) GO TO 80
 
 
       // At this point, all the intervals have converged

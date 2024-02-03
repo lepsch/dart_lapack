@@ -38,7 +38,7 @@
 
       // Quick exit if M = 0 or N = 0.
 
-      if ( M.LE.0 || N.LE.0 ) {
+      if ( M <= 0 || N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -60,7 +60,7 @@
             // Compute elements (K+1:M,K)
 
             T = AFAC( K, K )
-            if ( K+1.LE.M ) {
+            if ( K+1 <= M ) {
                dscal(M-K, T, AFAC( K+1, K ), 1 );
                dgemv('No transpose', M-K, K-1, ONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE, AFAC( K+1, K ), 1 );
             }
@@ -88,7 +88,7 @@
 
       RESID = DLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS

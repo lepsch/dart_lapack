@@ -49,7 +49,7 @@
 
       // If the input matrix is too small, call DLASDQ to find the SVD.
 
-      if ( N.LE.SMLSIZ ) {
+      if ( N <= SMLSIZ ) {
          dlasdq('U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO );
          RETURN
       }

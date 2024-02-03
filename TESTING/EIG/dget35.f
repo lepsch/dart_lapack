@@ -80,7 +80,7 @@
                                  for (I = 1; I <= M; I++) { // 20
                                     for (J = 1; J <= M; J++) { // 10
                                        A( I, J ) = IVAL( I, J, IMA )
-                                       if ( ABS( I-J ).LE.1 ) {
+                                       if ( ABS( I-J ) <= 1 ) {
                                           A( I, J ) = A( I, J )* VM1( IMLDA1 )                                           A( I, J ) = A( I, J )* VM2( IMLDA2 )
                                        } else {
                                           A( I, J ) = A( I, J )* VM1( IMLOFF )
@@ -91,7 +91,7 @@
                                  for (I = 1; I <= N; I++) { // 40
                                     for (J = 1; J <= N; J++) { // 30
                                        B( I, J ) = IVAL( I, J, IMB )
-                                       if ( ABS( I-J ).LE.1 ) {
+                                       if ( ABS( I-J ) <= 1 ) {
                                           B( I, J ) = B( I, J )* VM1( IMLDB1 )
                                        } else {
                                           B( I, J ) = B( I, J )* VM1( IMLOFF )

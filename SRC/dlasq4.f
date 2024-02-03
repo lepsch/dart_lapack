@@ -32,7 +32,7 @@
       // A negative DMIN forces the shift to take that absolute value
       // TTYPE records the type of shift.
 
-      if ( DMIN.LE.ZERO ) {
+      if ( DMIN <= ZERO ) {
          TAU = -DMIN
          TTYPE = -1
          RETURN

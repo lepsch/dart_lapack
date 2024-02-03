@@ -59,7 +59,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'CPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.
 
@@ -81,7 +81,7 @@
                cherk('Upper', 'Conjugate transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
                cpotrf2('Upper', JB, A( J, J ), LDA, INFO );
                if (INFO != 0) GO TO 30;
-               if ( J+JB.LE.N ) {
+               if ( J+JB <= N ) {
 
                   // Compute the current block row.
 
@@ -103,7 +103,7 @@
                cherk('Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
                cpotrf2('Lower', JB, A( J, J ), LDA, INFO );
                if (INFO != 0) GO TO 30;
-               if ( J+JB.LE.N ) {
+               if ( J+JB <= N ) {
 
                   // Compute the current block column.
 

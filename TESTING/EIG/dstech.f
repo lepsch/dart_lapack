@@ -121,7 +121,7 @@
       }
       TPNT = BPNT + 1
       BPNT = TPNT
-      if (TPNT.LE.N) GO TO 50;
+      if (TPNT <= N) GO TO 50;
       } // 80
       RETURN
 

@@ -29,7 +29,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ISPEC >= 1 && ISPEC.LE.5 ) {
+      if ( ISPEC >= 1 && ISPEC <= 5 ) {
 
          // Return a value from the common block.
 
@@ -55,7 +55,7 @@
 
          ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
 
-      } else if ( ISPEC >= 7 && ISPEC.LE.9 ) {
+      } else if ( ISPEC >= 7 && ISPEC <= 9 ) {
 
          // Return a value from the common block.
 
@@ -118,7 +118,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (( ISPEC >= 1 ) && (ISPEC.LE.5)) {
+      if (( ISPEC >= 1 ) && (ISPEC <= 5)) {
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 

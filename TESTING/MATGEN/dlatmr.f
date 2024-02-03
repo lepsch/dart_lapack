@@ -167,7 +167,7 @@
       BADPVT = false;
       if ( IPVTNG > 0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ).LE.0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
+            IF( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
          } // 20
       }
 
@@ -189,7 +189,7 @@
          INFO = -8
       } else if ( ( MODE != -6 && MODE != 0 && MODE != 6 ) && IRSIGN == -1 ) {
          INFO = -10
-      } else if ( IGRADE == -1 || ( IGRADE == 4 && M != N ) || ( ( IGRADE >= 1 && IGRADE.LE.4 ) && ISYM == 0 ) ) {
+      } else if ( IGRADE == -1 || ( IGRADE == 4 && M != N ) || ( ( IGRADE >= 1 && IGRADE <= 4 ) && ISYM == 0 ) ) {
          INFO = -11
       } else if ( IGRADE == 4 && DZERO ) {
          INFO = -12
@@ -620,7 +620,7 @@
 
             // Scale carefully to avoid over / underflow
 
-            if ( IPACK.LE.2 ) {
+            if ( IPACK <= 2 ) {
                for (J = 1; J <= N; J++) { // 510
                   dscal(M, ONE / ONORM, A( 1, J ), 1 );
                   dscal(M, ANORM, A( 1, J ), 1 );
@@ -644,7 +644,7 @@
 
             // Scale straightforwardly
 
-            if ( IPACK.LE.2 ) {
+            if ( IPACK <= 2 ) {
                for (J = 1; J <= N; J++) { // 530
                   dscal(M, ANORM / ONORM, A( 1, J ), 1 );
                } // 530

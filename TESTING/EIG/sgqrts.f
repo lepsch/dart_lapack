@@ -59,7 +59,7 @@
       // Generate the P-by-P matrix Z
 
       slaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
-      if ( N.LE.P ) {
+      if ( N <= P ) {
          if (N > 0 && N < P) CALL SLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N > 1 ) CALL SLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
       } else {
          if (P > 1) CALL SLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
@@ -74,7 +74,7 @@
       // Copy T
 
       slaset('Full', N, P, ZERO, ZERO, T, LDB );
-      if ( N.LE.P ) {
+      if ( N <= P ) {
          slacpy('Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB );
       } else {
          slacpy('Full', N-P, P, BF, LDB, T, LDB );

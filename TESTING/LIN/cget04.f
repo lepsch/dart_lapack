@@ -41,7 +41,7 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      if ( N.LE.0 || NRHS.LE.0 ) {
+      if ( N <= 0 || NRHS <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -66,7 +66,7 @@
          for (I = 1; I <= N; I++) { // 10
             DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
          } // 10
-         if ( XNORM.LE.ZERO ) {
+         if ( XNORM <= ZERO ) {
             if (DIFFNM > ZERO) RESID = 1.0 / EPS;
          } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )

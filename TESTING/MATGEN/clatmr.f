@@ -179,7 +179,7 @@
       BADPVT = false;
       if ( IPVTNG > 0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
-            IF( IPIVOT( J ).LE.0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
+            IF( IPIVOT( J ) <= 0 || IPIVOT( J ) > NPVTS ) BADPVT = true;
          } // 20
       }
 
@@ -707,7 +707,7 @@
 
             // Scale carefully to avoid over / underflow
 
-            if ( IPACK.LE.2 ) {
+            if ( IPACK <= 2 ) {
                for (J = 1; J <= N; J++) { // 560
                   csscal(M, ONE / ONORM, A( 1, J ), 1 );
                   csscal(M, ANORM, A( 1, J ), 1 );
@@ -731,7 +731,7 @@
 
             // Scale straightforwardly
 
-            if ( IPACK.LE.2 ) {
+            if ( IPACK <= 2 ) {
                for (J = 1; J <= N; J++) { // 580
                   csscal(M, ANORM / ONORM, A( 1, J ), 1 );
                } // 580

@@ -80,7 +80,7 @@
 
          // Set fill-in elements in column J+KV to zero.
 
-         if ( J+KV.LE.N ) {
+         if ( J+KV <= N ) {
             for (I = 1; I <= KL; I++) { // 30
                AB( I, J+KV ) = ZERO
             } // 30

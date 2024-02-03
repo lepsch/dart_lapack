@@ -101,7 +101,7 @@
 
       // PROCEDURE..SCALE-CHECK
          if (SD1 != ZERO) {
-            DO WHILE ((SD1.LE.RGAMSQ) || (SD1 >= GAMSQ))
+            DO WHILE ((SD1 <= RGAMSQ) || (SD1 >= GAMSQ))
                if (SFLAG == ZERO) {
                   SH11 = ONE
                   SH22 = ONE
@@ -111,7 +111,7 @@
                   SH12 = ONE
                   SFLAG = -ONE
                }
-               if (SD1.LE.RGAMSQ) {
+               if (SD1 <= RGAMSQ) {
                   SD1 = SD1*GAM**2
                   SX1 = SX1/GAM
                   SH11 = SH11/GAM
@@ -126,7 +126,7 @@
          }
 
          if (SD2 != ZERO) {
-            DO WHILE ( (ABS(SD2).LE.RGAMSQ) || (ABS(SD2) >= GAMSQ) )
+            DO WHILE ( (ABS(SD2) <= RGAMSQ) || (ABS(SD2) >= GAMSQ) )
                if (SFLAG == ZERO) {
                   SH11 = ONE
                   SH22 = ONE
@@ -136,7 +136,7 @@
                   SH12 = ONE
                   SFLAG = -ONE
                }
-               if (ABS(SD2).LE.RGAMSQ) {
+               if (ABS(SD2) <= RGAMSQ) {
                   SD2 = SD2*GAM**2
                   SH21 = SH21/GAM
                   SH22 = SH22/GAM

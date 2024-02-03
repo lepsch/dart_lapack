@@ -79,7 +79,7 @@
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
             } // 10
-            if ( RCMIN.LE.ZERO ) {
+            if ( RCMIN <= ZERO ) {
                INFO = -11
             } else if ( N > 0 ) {
                ROWCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )
@@ -94,7 +94,7 @@
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
             } // 20
-            if ( RCMIN.LE.ZERO ) {
+            if ( RCMIN <= ZERO ) {
                INFO = -12
             } else if ( N > 0 ) {
                COLCND = MAX( RCMIN, SMLNUM ) / MIN( RCMAX, BIGNUM )

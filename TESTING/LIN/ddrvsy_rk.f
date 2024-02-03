@@ -102,7 +102,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 170
 
@@ -112,7 +112,7 @@
 
             // Skip types 3, 4, 5, or 6 if the matrix size is too small.
 
-            ZEROT = IMAT >= 3 && IMAT.LE.6
+            ZEROT = IMAT >= 3 && IMAT <= 6
             if (ZEROT && N < IMAT-2) GO TO 170;
 
             // Do first for UPLO = 'U', then for UPLO = 'L'
@@ -247,7 +247,7 @@
 
                      // Compute the 1-norm condition number of A.
 
-                     if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                     if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                         RCONDC = ONE
                      } else {
                         RCONDC = ( ONE / ANORM ) / AINVNM

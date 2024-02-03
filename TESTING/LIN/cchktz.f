@@ -85,13 +85,13 @@
 
          for (IN = 1; IN <= NN; IN++) { // 60
 
-            // Do for each value of N in NVAL for which M .LE. N.
+            // Do for each value of N in NVAL for which M <= N.
 
             N = NVAL( IN )
             MNMIN = MIN( M, N )
             LWORK = MAX( 1, N*N+4*M+N )
 
-            if ( M.LE.N ) {
+            if ( M <= N ) {
                for (IMODE = 1; IMODE <= NTYPES; IMODE++) { // 50
                   IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
 

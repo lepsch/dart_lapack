@@ -62,7 +62,7 @@
       // Get block size
 
       NB = ILAENV( 1, 'DPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
 
@@ -87,7 +87,7 @@
                AJJ = A( PVT, PVT )
             }
          }
-         if ( AJJ.LE.ZERO || DISNAN( AJJ ) ) {
+         if ( AJJ <= ZERO || DISNAN( AJJ ) ) {
             RANK = 0
             INFO = 1
             GO TO 200
@@ -138,7 +138,7 @@
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     if ( AJJ.LE.DSTOP || DISNAN( AJJ ) ) {
+                     if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 190
                      }
@@ -177,7 +177,7 @@
 
                // Update trailing matrix, J already incremented
 
-               if ( K+JB.LE.N ) {
+               if ( K+JB <= N ) {
                   dsyrk('Upper', 'Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA );
                }
 
@@ -219,7 +219,7 @@
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
                      PVT = ITEMP + J - 1
                      AJJ = WORK( N+PVT )
-                     if ( AJJ.LE.DSTOP || DISNAN( AJJ ) ) {
+                     if ( AJJ <= DSTOP || DISNAN( AJJ ) ) {
                         A( J, J ) = AJJ
                         GO TO 190
                      }
@@ -258,7 +258,7 @@
 
                // Update trailing matrix, J already incremented
 
-               if ( K+JB.LE.N ) {
+               if ( K+JB <= N ) {
                   dsyrk('Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA );
                }
 

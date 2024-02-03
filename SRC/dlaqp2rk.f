@@ -179,7 +179,7 @@
 
             RELMAXC2NRMK =  MAXC2NRMK / MAXC2NRM
 
-            if ( MAXC2NRMK.LE.ABSTOL || RELMAXC2NRMK.LE.RELTOL ) {
+            if ( MAXC2NRMK <= ABSTOL || RELMAXC2NRMK <= RELTOL ) {
 
                // Set K, the number of factorized columns.
 
@@ -296,7 +296,7 @@
                   TEMP = ONE - ( ABS( A( I, J ) ) / VN1( J ) )**2
                   TEMP = MAX( TEMP, ZERO )
                   TEMP2 = TEMP*( VN1( J ) / VN2( J ) )**2
-                  if ( TEMP2 .LE. TOL3Z ) {
+                  if ( TEMP2 <= TOL3Z ) {
 
                      // Compute the column 2-norm for the partial
                      // column A(I+1:M,J) by explicitly computing it,

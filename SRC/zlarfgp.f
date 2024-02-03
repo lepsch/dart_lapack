@@ -36,7 +36,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          TAU = ZERO
          RETURN
       }
@@ -46,7 +46,7 @@
       ALPHR = DBLE( ALPHA )
       ALPHI = DIMAG( ALPHA )
 
-      if ( XNORM.LE.EPS*ABS(ALPHA) && ALPHI == ZERO ) {
+      if ( XNORM <= EPS*ABS(ALPHA) && ALPHI == ZERO ) {
 
          // H  =  [1-alpha/abs(alpha) 0; 0 I], sign chosen so ALPHA >= 0.
 
@@ -104,7 +104,7 @@
          }
          ALPHA = ZLADIV( DCMPLX( ONE ), ALPHA )
 
-         if ( ABS(TAU).LE.SMLNUM ) {
+         if ( ABS(TAU) <= SMLNUM ) {
 
             // In the case where the computed TAU ends up being a denormalized number,
             // it loses relative accuracy. This is a BIG problem. Solution: flush TAU

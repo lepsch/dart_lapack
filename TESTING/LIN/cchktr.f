@@ -137,7 +137,7 @@
 
                   ANORM = CLANTR( 'I', UPLO, DIAG, N, N, A, LDA, RWORK )
                   AINVNM = CLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
-                  if ( ANORM.LE.ZERO || AINVNM.LE.ZERO ) {
+                  if ( ANORM <= ZERO || AINVNM <= ZERO ) {
                      RCONDI = ONE
                   } else {
                      RCONDI = ( ONE / ANORM ) / AINVNM

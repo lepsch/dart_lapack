@@ -36,7 +36,7 @@
 
       // Quick return if possible
 
-      if ( M.LE.0 || N.LE.0 ) {
+      if ( M <= 0 || N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -118,7 +118,7 @@
       ANORM = SLANGE( '1', M, N, A, LDA, WORK )
       EPS = SLAMCH( 'Precision' )
 
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( ANORM >= RESID ) {

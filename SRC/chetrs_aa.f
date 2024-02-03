@@ -82,7 +82,7 @@
             // Pivot, P**T * B -> B
 
             K = 1
-            DO WHILE ( K.LE.N )
+            DO WHILE ( K <= N )
                KP = IPIV( K )
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1
@@ -134,7 +134,7 @@
             // Pivot, P**T * B -> B
 
             K = 1
-            DO WHILE ( K.LE.N )
+            DO WHILE ( K <= N )
                KP = IPIV( K )
                if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1

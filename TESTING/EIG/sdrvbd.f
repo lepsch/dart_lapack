@@ -576,7 +576,7 @@
                for (I = 1; I <= 4; I++) { // 200
                   ISEED2( I ) = ISEED( I )
                } // 200
-               if ( MNMIN.LE.1 ) {
+               if ( MNMIN <= 1 ) {
                   IL = 1
                   IU = MAX( 1, MNMIN )
                } else {

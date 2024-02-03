@@ -40,7 +40,7 @@
       // Quick return if possible.
 
       RESID = ZERO
-      if (N.LE.0 || NS.LE.0) RETURN;
+      if (N <= 0 || NS <= 0) RETURN;
 
       EPS = SLAMCH( 'Precision' )
 
@@ -95,7 +95,7 @@
          K = K + NS
       } // 70
 
-      if ( BNORM.LE.ZERO ) {
+      if ( BNORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          if ( BNORM >= RESID ) {

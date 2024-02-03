@@ -59,7 +59,7 @@
 
       NB = ILAENV( 1, 'SLAUUM', UPLO, N, -1, -1, -1 )
 
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code
 
@@ -76,7 +76,7 @@
                IB = MIN( NB, N-I+1 )
                strmm('Right', 'Upper', 'Transpose', 'Non-unit', I-1, IB, ONE, A( I, I ), LDA, A( 1, I ), LDA );
                slauu2('Upper', IB, A( I, I ), LDA, INFO );
-               if ( I+IB.LE.N ) {
+               if ( I+IB <= N ) {
                   sgemm('No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA );
                   ssyrk('Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
                }
@@ -89,7 +89,7 @@
                IB = MIN( NB, N-I+1 )
                strmm('Left', 'Lower', 'Transpose', 'Non-unit', IB, I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA );
                slauu2('Lower', IB, A( I, I ), LDA, INFO );
-               if ( I+IB.LE.N ) {
+               if ( I+IB <= N ) {
                   sgemm('Transpose', 'No transpose', IB, I-1, N-I-IB+1, ONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA );
                   ssyrk('Lower', 'Transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
                }

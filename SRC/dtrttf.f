@@ -52,7 +52,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          if ( N == 1 ) {
             ARF( 0 ) = A( 0, 0 )
          }

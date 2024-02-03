@@ -75,9 +75,9 @@
          INFO = -3
       } else if ( THRESH < ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 || LDA < NMAX ) {
+      } else if ( LDA <= 1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDU.LE.1 || LDU < NMAX ) {
+      } else if ( LDU <= 1 || LDU < NMAX ) {
          INFO = -14
       } else if ( 4*NMAX*NMAX+2 > NWORK ) {
          INFO = -26
@@ -309,7 +309,7 @@
             zhseqr('E', 'N', N, ILO, IHI, T2, LDA, W3, UZ, LDU, WORK, NWORK, IINFO );
             if ( IINFO != 0 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEQR(E)', IINFO, N, JTYPE, IOLDSD
-               if ( IINFO.LE.N+2 ) {
+               if ( IINFO <= N+2 ) {
                   INFO = ABS( IINFO )
                   GO TO 240
                }
@@ -320,7 +320,7 @@
             zlacpy(' ', N, N, H, LDA, T2, LDA );
 
             zhseqr('S', 'N', N, ILO, IHI, T2, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 && IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO <= N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240
@@ -332,7 +332,7 @@
             zlacpy(' ', N, N, U, LDU, UZ, LDU );
 
             zhseqr('S', 'V', N, ILO, IHI, T1, LDA, W1, UZ, LDU, WORK, NWORK, IINFO );
-            if ( IINFO != 0 && IINFO.LE.N+2 ) {
+            if ( IINFO != 0 && IINFO <= N+2 ) {
                WRITE( NOUNIT, FMT = 9999 )'ZHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 240

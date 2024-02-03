@@ -38,13 +38,13 @@
       // ..
       // .. Executable Statements ..
 
-      if (M.LE.0 || N.LE.0) RETURN;
+      if (M <= 0 || N <= 0) RETURN;
 
       // benign matrix
 
       for (J = 1; J <= N; J++) { // 10
          clarnv(2, ISEED, M, A( 1, J ) );
-         if ( J.LE.M ) {
+         if ( J <= M ) {
             A( J, J ) = A( J, J ) + CMPLX( SIGN( SCASUM( M, A( 1, J ), 1 ), REAL( A( J, J ) ) ) )
          }
       } // 10

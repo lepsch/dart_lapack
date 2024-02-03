@@ -57,7 +57,7 @@
 
       // Set the start point in X if the increment is not unity.
 
-      if (INCX.LE.0) {
+      if (INCX <= 0) {
           KX = 1 - (N-1)*INCX
       } else if (INCX != 1) {
           KX = 1

@@ -80,9 +80,9 @@
          INFO = -3
       } else if ( THRESH < ZERO ) {
          INFO = -6
-      } else if ( LDA.LE.1 || LDA < NMAX ) {
+      } else if ( LDA <= 1 || LDA < NMAX ) {
          INFO = -9
-      } else if ( LDQ.LE.1 || LDQ < NMAX ) {
+      } else if ( LDQ <= 1 || LDQ < NMAX ) {
          INFO = -14
       }
 
@@ -197,7 +197,7 @@
                }
                slatm4(KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), IASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA );
                IADD = KADD( KAZERO( JTYPE ) )
-               if (IADD > 0 && IADD.LE.N) A( IADD, IADD ) = ONE;
+               if (IADD > 0 && IADD <= N) A( IADD, IADD ) = ONE;
 
                // Generate B (w/o rotation)
 
@@ -209,7 +209,7 @@
                }
                slatm4(KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), IBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA );
                IADD = KADD( KBZERO( JTYPE ) )
-               if (IADD != 0 && IADD.LE.N) B( IADD, IADD ) = ONE;
+               if (IADD != 0 && IADD <= N) B( IADD, IADD ) = ONE;
 
                if ( KCLASS( JTYPE ) == 2 && N > 0 ) {
 
@@ -351,7 +351,7 @@
                      } else {
                         I1 = J - 1
                      }
-                     if ( I1.LE.0 || I1 >= N ) {
+                     if ( I1 <= 0 || I1 >= N ) {
                         ILABAD = true;
                      } else if ( I1 < N-1 ) {
                         if ( S( I1+2, I1+1 ) != ZERO ) {

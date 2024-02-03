@@ -60,7 +60,7 @@
       SSUN = SQRT( SUN )
       SOV = SQRT( OVFL )
       TOM = SSUN*SOV
-      if ( MX.LE.ONE ) {
+      if ( MX <= ONE ) {
          M1 = ONE / MX
          M2 = TOM
       } else {
@@ -74,8 +74,8 @@
       NUM = 0
       SSHIFT = ( SHIFT*M1 )*M2
       U = -SSHIFT
-      if ( U.LE.SUN ) {
-         if ( U.LE.ZERO ) {
+      if ( U <= SUN ) {
+         if ( U <= ZERO ) {
             NUM = NUM + 1
             if (U > -SUN) U = -SUN;
          } else {
@@ -84,8 +84,8 @@
       }
       TMP = ( S( 1 )*M1 )*M2
       U = -TMP*( TMP / U ) - SSHIFT
-      if ( U.LE.SUN ) {
-         if ( U.LE.ZERO ) {
+      if ( U <= SUN ) {
+         if ( U <= ZERO ) {
             NUM = NUM + 1
             if (U > -SUN) U = -SUN;
          } else {
@@ -95,8 +95,8 @@
       for (I = 1; I <= N - 1; I++) { // 20
          TMP = ( E( I )*M1 )*M2
          U = -TMP*( TMP / U ) - SSHIFT
-         if ( U.LE.SUN ) {
-            if ( U.LE.ZERO ) {
+         if ( U <= SUN ) {
+            if ( U <= ZERO ) {
                NUM = NUM + 1
                if (U > -SUN) U = -SUN;
             } else {
@@ -105,8 +105,8 @@
          }
          TMP = ( S( I+1 )*M1 )*M2
          U = -TMP*( TMP / U ) - SSHIFT
-         if ( U.LE.SUN ) {
-            if ( U.LE.ZERO ) {
+         if ( U <= SUN ) {
+            if ( U <= ZERO ) {
                NUM = NUM + 1
                if (U > -SUN) U = -SUN;
             } else {

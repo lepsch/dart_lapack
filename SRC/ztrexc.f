@@ -56,7 +56,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1 || IFST == ILST) RETURN;
+      if (N <= 1 || IFST == ILST) RETURN;
 
       if ( IFST < ILST ) {
 
@@ -87,7 +87,7 @@
 
          // Apply transformation to the matrix T.
 
-         if (K+2.LE.N) CALL ZROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN );
+         if (K+2 <= N) CALL ZROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN );
          zrot(K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) );
 
          T( K, K ) = T22

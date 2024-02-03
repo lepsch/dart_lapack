@@ -35,7 +35,7 @@ void main() {
          INCX = 9999
          INCY = 9999
          MODE = 9999
-         if (ICASE.LE.5) {
+         if (ICASE <= 5) {
             check2(SFAC);
          } else if (ICASE >= 6) {
             check1(SFAC);
@@ -368,7 +368,7 @@ void main() {
 
       for (I = 1; I <= LEN; I++) { // 40
          SD = SCOMP(I) - STRUE(I)
-         IF (ABS(SFAC*SD) .LE. ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
+         IF (ABS(SFAC*SD) <= ABS(SSIZE(I))*EPSILON(ZERO)) GO TO 40
 
                               // HERE    SCOMP(I) IS NOT CLOSE TO STRUE(I).
 
@@ -568,7 +568,7 @@ void main() {
       }
 
       // Zero-sized inputs are tested in STEST1.
-      if (N.LE.0) {
+      if (N <= 0) {
          RETURN
       }
 

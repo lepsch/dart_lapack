@@ -153,7 +153,7 @@
             C0 = -(T*SI)*SI + 2 * REAL( WORK( I ) ) * SI - N*AVG
             D = C1*C1 - 4*C0*C2
 
-            if ( D .LE. 0 ) {
+            if ( D <= 0 ) {
                INFO = -1
                RETURN
             }

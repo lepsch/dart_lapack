@@ -51,7 +51,7 @@
         INFO = -2
       } else if ( MB < 1 || ( MB > M && M > 0 ) ) {
         INFO = -3
-      } else if ( NB.LE.0 ) {
+      } else if ( NB <= 0 ) {
         INFO = -4
       } else if ( LDA < MAX( 1, M ) ) {
         INFO = -6
@@ -80,7 +80,7 @@
 
       // The LQ Decomposition
 
-      if ( (M >= N) || (NB.LE.M) || (NB >= N) ) {
+      if ( (M >= N) || (NB <= M) || (NB >= N) ) {
         cgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO);
         RETURN
       }
@@ -103,7 +103,7 @@
 
       // Compute the QR factorization of the last block A(1:M,II:N)
 
-      if ( II.LE.N ) {
+      if ( II <= N ) {
         ctplqt(M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1,CTR*M+1), LDT, WORK, INFO );
       }
 

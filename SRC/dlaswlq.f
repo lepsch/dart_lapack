@@ -78,7 +78,7 @@
 
       // The LQ Decomposition
 
-      if ( (M >= N) || (NB.LE.M) || (NB >= N) ) {
+      if ( (M >= N) || (NB <= M) || (NB >= N) ) {
         dgelqt(M, N, MB, A, LDA, T, LDT, WORK, INFO );
         RETURN
       }
@@ -101,7 +101,7 @@
 
       // Compute the QR factorization of the last block A(1:M,II:N)
 
-      if ( II.LE.N ) {
+      if ( II <= N ) {
         dtplqt(M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO );
       }
 

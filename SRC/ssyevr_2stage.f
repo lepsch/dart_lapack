@@ -59,7 +59,7 @@
       LHTRD  = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
       LWTRD  = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          LWMIN  = 1
          LIWMIN = 1
       } else {
@@ -80,7 +80,7 @@
          INFO = -6
       } else {
          if ( VALEIG ) {
-            if (N > 0 && VU.LE.VL) INFO = -8;
+            if (N > 0 && VU <= VL) INFO = -8;
          } else if ( INDEIG ) {
             if ( IL < 1 || IL > MAX( 1, N ) ) {
                INFO = -9
@@ -246,7 +246,7 @@
             scopy(N-1, WORK( INDE ), 1, WORK( INDEE ), 1 );
             scopy(N, WORK( INDD ), 1, WORK( INDDD ), 1 );
 
-            if (ABSTOL .LE. TWO*N*EPS) {
+            if (ABSTOL <= TWO*N*EPS) {
                TRYRAC = true;
             } else {
                TRYRAC = false;

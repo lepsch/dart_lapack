@@ -81,7 +81,7 @@
 
          N = M
          NIMAT = NTYPES
-         if (M.LE.0 || N.LE.0) NIMAT = 1;
+         if (M <= 0 || N <= 0) NIMAT = 1;
 
          for (IMAT = 1; IMAT <= NIMAT; IMAT++) { // 100
 
@@ -91,7 +91,7 @@
 
             // Skip types 5, 6, or 7 if the matrix size is too small.
 
-            ZEROT = IMAT >= 5 && IMAT.LE.7
+            ZEROT = IMAT >= 5 && IMAT <= 7
             if (ZEROT && N < IMAT-4) GO TO 100;
 
             // Set up parameters with DLATB4 and generate a test matrix
@@ -189,7 +189,7 @@
                  // NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
                // (Cf. the linear solver testing routines)
 
-               if ((THRESH.LE.0.0E+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
+               if ((THRESH <= 0.0E+00) || ((ITER >= 0) && (N > 0) && (RESULT(1) >= SQRT(DBLE(N)))) || ((ITER < 0) && (RESULT(1) >= THRESH))) {
 
                   if ( NFAIL == 0 && NERRS == 0 ) {
                      WRITE( NOUT, FMT = 8999 )'DGE'

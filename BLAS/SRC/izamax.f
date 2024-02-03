@@ -22,7 +22,7 @@
       // EXTERNAL DCABS1
       // ..
       IZAMAX = 0
-      if (N < 1 || INCX.LE.0) RETURN;
+      if (N < 1 || INCX <= 0) RETURN;
       IZAMAX = 1
       if (N == 1) RETURN;
       if (INCX == 1) {

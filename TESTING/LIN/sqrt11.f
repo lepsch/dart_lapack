@@ -46,7 +46,7 @@
 
       // Quick return if possible
 
-      if (M.LE.0) RETURN;
+      if (M <= 0) RETURN;
 
       slaset('Full', M, M, ZERO, ONE, WORK, M );
 

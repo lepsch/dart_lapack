@@ -64,7 +64,7 @@
          // Test for non-positive-definiteness
 
          AJJ = REAL( A( 1, 1 ) )
-         if ( AJJ.LE.ZERO || SISNAN( AJJ ) ) {
+         if ( AJJ <= ZERO || SISNAN( AJJ ) ) {
             INFO = 1
             RETURN
          }

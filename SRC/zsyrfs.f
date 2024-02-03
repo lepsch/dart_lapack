@@ -166,7 +166,7 @@
                // last iteration, and
             // 3) At most ITMAX iterations tried.
 
-         if ( BERR( J ) > EPS && TWO*BERR( J ).LE.LSTRES && COUNT.LE.ITMAX ) {
+         if ( BERR( J ) > EPS && TWO*BERR( J ) <= LSTRES && COUNT <= ITMAX ) {
 
             // Update solution and try again.
 
@@ -179,7 +179,7 @@
 
          // Bound error from formula
 
-         // norm(X - XTRUE) / norm(X) .le. FERR =
+         // norm(X - XTRUE) / norm(X) <= FERR =
          // norm( abs(inv(A))*
             // ( abs(R) + NZ*EPS*( abs(A)*abs(X)+abs(B) ))) / norm(X)
 

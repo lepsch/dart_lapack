@@ -104,7 +104,7 @@
          if (N == 0) NKL = 1;
          NKU = NKL
          NIMAT = NTYPES
-         if (N.LE.0) NIMAT = 1;
+         if (N <= 0) NIMAT = 1;
 
          for (IKL = 1; IKL <= NKL; IKL++) { // 140
 
@@ -162,7 +162,7 @@
 
                   // Skip types 2, 3, or 4 if the matrix is too small.
 
-                  ZEROT = IMAT >= 2 && IMAT.LE.4
+                  ZEROT = IMAT >= 2 && IMAT <= 4
                   if (ZEROT && N < IMAT-1) GO TO 120;
 
                   // Set up parameters with ZLATB4 and generate a
@@ -290,7 +290,7 @@
                            // Compute the 1-norm condition number of A.
 
                            AINVNM = ZLANGE( '1', N, N, WORK, LDB, RWORK )
-                           if ( ANORMO.LE.ZERO || AINVNM.LE.ZERO ) {
+                           if ( ANORMO <= ZERO || AINVNM <= ZERO ) {
                               RCONDO = ONE
                            } else {
                               RCONDO = ( ONE / ANORMO ) / AINVNM
@@ -300,7 +300,7 @@
                            // of A.
 
                            AINVNM = ZLANGE( 'I', N, N, WORK, LDB, RWORK )
-                           if ( ANORMI.LE.ZERO || AINVNM.LE.ZERO ) {
+                           if ( ANORMI <= ZERO || AINVNM <= ZERO ) {
                               RCONDI = ONE
                            } else {
                               RCONDI = ( ONE / ANORMI ) / AINVNM
@@ -403,7 +403,7 @@
                            // Compare RWORK(2*NRHS+1) from ZGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
 
-                           if ( INFO != 0 && INFO.LE.N) {
+                           if ( INFO != 0 && INFO <= N) {
                               ANRMPV = ZERO
                               for (J = 1; J <= INFO; J++) { // 70
                                  DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )

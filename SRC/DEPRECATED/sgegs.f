@@ -68,9 +68,9 @@
       WORK( 1 ) = LWKOPT
       LQUERY = ( LWORK == -1 )
       INFO = 0
-      if ( IJOBVL.LE.0 ) {
+      if ( IJOBVL <= 0 ) {
          INFO = -1
-      } else if ( IJOBVR.LE.0 ) {
+      } else if ( IJOBVR <= 0 ) {
          INFO = -2
       } else if ( N < 0 ) {
          INFO = -3
@@ -216,9 +216,9 @@
       shgeqz('S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWORK ), LWORK+1-IWORK, IINFO );
       if (IINFO >= 0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
       if ( IINFO != 0 ) {
-         if ( IINFO > 0 && IINFO.LE.N ) {
+         if ( IINFO > 0 && IINFO <= N ) {
             INFO = IINFO
-         } else if ( IINFO > N && IINFO.LE.2*N ) {
+         } else if ( IINFO > N && IINFO <= 2*N ) {
             INFO = IINFO - N
          } else {
             INFO = N + 6

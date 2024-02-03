@@ -48,11 +48,11 @@
                TMP1 = D( 1 ) - AB( JI, JP )
                IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN
                NAB( JI, JP ) = 0
-               if (TMP1.LE.ZERO) NAB( JI, JP ) = 1;
+               if (TMP1 <= ZERO) NAB( JI, JP ) = 1;
 
                for (J = 2; J <= N; J++) { // 10
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP )
-                  IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1.LE.ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
+                  IF( ABS( TMP1 ) < PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1 <= ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
                } // 10
             } // 20
             MOUT = MOUT + NAB( JI, 2 ) - NAB( JI, 1 )
@@ -94,21 +94,21 @@
 
                WORK( JI ) = D( 1 ) - C( JI )
                IWORK( JI ) = 0
-               if ( WORK( JI ).LE.PIVMIN ) {
+               if ( WORK( JI ) <= PIVMIN ) {
                   IWORK( JI ) = 1
                   WORK( JI ) = MIN( WORK( JI ), -PIVMIN )
                }
 
                for (J = 2; J <= N; J++) { // 50
                   WORK( JI ) = D( J ) - E2( J-1 ) / WORK( JI ) - C( JI )
-                  if ( WORK( JI ).LE.PIVMIN ) {
+                  if ( WORK( JI ) <= PIVMIN ) {
                      IWORK( JI ) = IWORK( JI ) + 1
                      WORK( JI ) = MIN( WORK( JI ), -PIVMIN )
                   }
                } // 50
             } // 60
 
-            if ( IJOB.LE.2 ) {
+            if ( IJOB <= 2 ) {
 
                // IJOB=2: Choose all intervals containing eigenvalues.
 
@@ -137,7 +137,7 @@
                      AB( JI, 1 ) = C( JI )
                   } else {
                      KLNEW = KLNEW + 1
-                     if ( KLNEW.LE.MMAX ) {
+                     if ( KLNEW <= MMAX ) {
 
                         // Eigenvalue in both intervals -- add upper to
                         // queue.
@@ -161,7 +161,7 @@
                        // w   s.t. N(w) = NVAL
 
                for (JI = KF; JI <= KL; JI++) { // 80
-                  if ( IWORK( JI ).LE.NVAL( JI ) ) {
+                  if ( IWORK( JI ) <= NVAL( JI ) ) {
                      AB( JI, 1 ) = C( JI )
                      NAB( JI, 1 ) = IWORK( JI )
                   }
@@ -186,20 +186,20 @@
                TMP1 = C( JI )
                TMP2 = D( 1 ) - TMP1
                ITMP1 = 0
-               if ( TMP2.LE.PIVMIN ) {
+               if ( TMP2 <= PIVMIN ) {
                   ITMP1 = 1
                   TMP2 = MIN( TMP2, -PIVMIN )
                }
 
                for (J = 2; J <= N; J++) { // 90
                   TMP2 = D( J ) - E2( J-1 ) / TMP2 - TMP1
-                  if ( TMP2.LE.PIVMIN ) {
+                  if ( TMP2 <= PIVMIN ) {
                      ITMP1 = ITMP1 + 1
                      TMP2 = MIN( TMP2, -PIVMIN )
                   }
                } // 90
 
-               if ( IJOB.LE.2 ) {
+               if ( IJOB <= 2 ) {
 
                   // IJOB=2: Choose all intervals containing eigenvalues.
 
@@ -243,7 +243,7 @@
                   // IJOB=3: Binary search.  Keep only the interval
                           // containing  w  s.t. N(w) = NVAL
 
-                  if ( ITMP1.LE.NVAL( JI ) ) {
+                  if ( ITMP1 <= NVAL( JI ) ) {
                      AB( JI, 1 ) = TMP1
                      NAB( JI, 1 ) = ITMP1
                   }

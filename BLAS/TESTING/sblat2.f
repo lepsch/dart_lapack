@@ -364,7 +364,7 @@ void main() {
                // Skip tests if not enough room.
                if (LDA > NMAX) GO TO 100;
                LAA = LDA*N
-               NULL = N.LE.0 || M.LE.0
+               NULL = N <= 0 || M <= 0
 
                // Generate the matrix A.
 
@@ -514,8 +514,8 @@ void main() {
                                  // return.
                                  if (FATAL) GO TO 130;
                               } else {
-                                 // Avoid repeating tests with M.le.0 or
-                                 // N.le.0.
+                                 // Avoid repeating tests with M <= 0 or
+                                 // N <= 0.
                                  GO TO 110
                               }
 
@@ -673,7 +673,7 @@ void main() {
             } else {
                LAA = LDA*N
             }
-            NULL = N.LE.0
+            NULL = N <= 0
 
             for (IC = 1; IC <= 2; IC++) { // 90
                UPLO = ICH( IC: IC )
@@ -826,7 +826,7 @@ void main() {
                               // return.
                               if (FATAL) GO TO 120;
                            } else {
-                              // Avoid repeating tests with N.le.0
+                              // Avoid repeating tests with N <= 0
                               GO TO 110
                            }
 
@@ -971,7 +971,7 @@ void main() {
             } else {
                LAA = LDA*N
             }
-            NULL = N.LE.0
+            NULL = N <= 0
 
             for (ICU = 1; ICU <= 2; ICU++) { // 90
                UPLO = ICHU( ICU: ICU )
@@ -1125,7 +1125,7 @@ void main() {
                            // If got really bad answer, report and return.
                            if (FATAL) GO TO 120;
                         } else {
-                           // Avoid repeating tests with N.le.0.
+                           // Avoid repeating tests with N <= 0.
                            GO TO 110
                         }
 
@@ -1236,7 +1236,7 @@ void main() {
             // Skip tests if not enough room.
             if (LDA > NMAX) GO TO 110;
             LAA = LDA*N
-            NULL = N.LE.0 || M.LE.0
+            NULL = N <= 0 || M <= 0
 
             for (IX = 1; IX <= NINC; IX++) { // 100
                INCX = INC( IX )
@@ -1359,7 +1359,7 @@ void main() {
                            if (FATAL) GO TO 130;
                         } // 70
                      } else {
-                        // Avoid repeating tests with M.le.0 or N.le.0.
+                        // Avoid repeating tests with M <= 0 or N <= 0.
                         GO TO 110
                      }
 
@@ -1493,7 +1493,7 @@ void main() {
 
                for (IA = 1; IA <= NALF; IA++) { // 70
                   ALPHA = ALF( IA )
-                  NULL = N.LE.0 || ALPHA == ZERO
+                  NULL = N <= 0 || ALPHA == ZERO
 
                   // Generate the matrix A.
 
@@ -1602,8 +1602,8 @@ void main() {
                         if (FATAL) GO TO 110;
                      } // 60
                   } else {
-                     // Avoid repeating tests if N.le.0.
-                     if (N.LE.0) GO TO 100;
+                     // Avoid repeating tests if N <= 0.
+                     if (N <= 0) GO TO 100;
                   }
 
                } // 70
@@ -1752,7 +1752,7 @@ void main() {
 
                   for (IA = 1; IA <= NALF; IA++) { // 100
                      ALPHA = ALF( IA )
-                     NULL = N.LE.0 || ALPHA == ZERO
+                     NULL = N <= 0 || ALPHA == ZERO
 
                      // Generate the matrix A.
 
@@ -1877,8 +1877,8 @@ void main() {
                            if (FATAL) GO TO 150;
                         } // 90
                      } else {
-                        // Avoid repeating tests with N.le.0.
-                        if (N.LE.0) GO TO 140;
+                        // Avoid repeating tests with N <= 0.
+                        if (N <= 0) GO TO 140;
                      }
 
                   } // 100
@@ -2295,7 +2295,7 @@ void main() {
 
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
-            if ( GEN || ( UPPER && I.LE.J ) || ( LOWER && I >= J ) ) THEN                IF( ( I.LE.J && J - I.LE.KU ) || ( I >= J && I - J.LE.KL ) ) {
+            if ( GEN || ( UPPER && I <= J ) || ( LOWER && I >= J ) ) THEN                IF( ( I <= J && J - I <= KU ) || ( I >= J && I - J <= KL ) ) {
                   A( I, J ) = SBEG( RESET ) + TRANSL
                } else {
                   A( I, J ) = ZERO

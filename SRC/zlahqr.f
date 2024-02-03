@@ -67,7 +67,7 @@
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
       } // 10
-      if (ILO.LE.IHI-2) H( IHI, IHI-2 ) = ZERO;
+      if (ILO <= IHI-2) H( IHI, IHI-2 ) = ZERO;
       // ==== ensure that subdiagonal entries are real ====
       if ( WANTT ) {
          JLO = 1
@@ -136,21 +136,21 @@
          // Look for a single small subdiagonal element.
 
          DO 40 K = I, L + 1, -1
-            IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
+            IF( CABS1( H( K, K-1 ) ) <= SMLNUM ) GO TO 50
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) )
             if ( TST == ZERO ) {
-               if (K-2 >= ILO) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) );
+               if (K-2 >= ILO) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1 <= IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) );
             }
             // ==== The following is a conservative small subdiagonal
             // .    deflation criterion due to Ahues & Tisseur (LAWN 122,
             // .    1997). It has better mathematical foundation and
             // .    improves accuracy in some examples.  ====
-            if ( ABS( DBLE( H( K, K-1 ) ) ).LE.ULP*TST ) {
+            if ( ABS( DBLE( H( K, K-1 ) ) ) <= ULP*TST ) {
                AB = MAX( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
                BA = MIN( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
                AA = MAX( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )
                S = AA + AB
-               IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50
+               IF( BA*( AB / S ) <= MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50
             }
          } // 40
          } // 50
@@ -225,7 +225,7 @@
             V( 1 ) = H11S
             V( 2 ) = H21
             H10 = DBLE( H( M, M-1 ) )
-            IF( ABS( H10 )*ABS( H21 ).LE.ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70
+            IF( ABS( H10 )*ABS( H21 ) <= ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70
          } // 60
          H11 = H( L, L )
          H22 = H( L+1, L+1 )
@@ -302,7 +302,7 @@
                TEMP = ONE - T1
                TEMP = TEMP / ABS( TEMP )
                H( M+1, M ) = H( M+1, M )*DCONJG( TEMP )
-               if (M+2.LE.I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
+               if (M+2 <= I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
                   if ( J != M+1 ) {
                      if (I2 > J) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH );

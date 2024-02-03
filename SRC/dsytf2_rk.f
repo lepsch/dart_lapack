@@ -169,7 +169,7 @@
                   // Equivalent to testing for ROWMAX == COLMAX,
                   // used to handle NaN and Inf
 
-                  } else if ( ( P == JMAX ) || ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) || ( ROWMAX <= COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block
@@ -462,7 +462,7 @@
                   // Equivalent to testing for ROWMAX == COLMAX,
                   // used to handle NaN and Inf
 
-                  } else if ( ( P == JMAX ) || ( ROWMAX.LE.COLMAX ) ) {
+                  } else if ( ( P == JMAX ) || ( ROWMAX <= COLMAX ) ) {
 
                      // interchange rows and columns K+1 and IMAX,
                      // use 2-by-2 pivot block

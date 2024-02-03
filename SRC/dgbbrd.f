@@ -136,7 +136,7 @@
                } // 10
 
                if ( ML > ML0 ) {
-                  if ( ML.LE.M-I+1 ) {
+                  if ( ML <= M-I+1 ) {
 
                      // generate plane rotation to annihilate a(i+ml-1,i)
                      // within the band, and apply rotation from the left
@@ -201,7 +201,7 @@
                } // 50
 
                if ( ML == ML0 && MU > MU0 ) {
-                  if ( MU.LE.N-I+1 ) {
+                  if ( MU <= N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
                      // within the band, and apply rotation from the right
@@ -266,7 +266,7 @@
             }
             if (WANTQ) CALL DROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS )             IF( WANTC ) CALL DROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
-         if (M.LE.N) D( M ) = AB( 1, M );
+         if (M <= N) D( M ) = AB( 1, M );
       } else if ( KU > 0 ) {
 
          // A has been reduced to upper bidiagonal form

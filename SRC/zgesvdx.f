@@ -82,7 +82,7 @@
          if ( VALS ) {
             if ( VL < ZERO ) {
                INFO = -8
-            } else if ( VU.LE.VL ) {
+            } else if ( VU <= VL ) {
                INFO = -9
             }
          } else if ( INDS ) {

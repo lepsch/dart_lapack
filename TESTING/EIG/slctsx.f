@@ -24,7 +24,7 @@
 
       if ( FS ) {
          I = I + 1
-         if ( I.LE.M ) {
+         if ( I <= M ) {
             SLCTSX = false;
          } else {
             SLCTSX = true;
@@ -35,7 +35,7 @@
          }
       } else {
          I = I + 1
-         if ( I.LE.N ) {
+         if ( I <= N ) {
             SLCTSX = true;
          } else {
             SLCTSX = false;

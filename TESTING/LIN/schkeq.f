@@ -59,7 +59,7 @@
 
             for (J = 1; J <= NSZ; J++) { // 40
                for (I = 1; I <= NSZ; I++) { // 30
-                  if ( I.LE.M && J.LE.N ) {
+                  if ( I <= M && J <= N ) {
                      A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                   } else {
                      A( I, J ) = ZERO
@@ -118,7 +118,7 @@
                   } // 130
                   for (J = 1; J <= N; J++) { // 150
                      for (I = 1; I <= M; I++) { // 140
-                        IF( I.LE.MIN( M, J+KL ) && I >= MAX( 1, J-KU ) && J.LE.N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
+                        IF( I <= MIN( M, J+KL ) && I >= MAX( 1, J-KU ) && J <= N ) THEN                            AB( KU+1+I-J, J ) = POW( I+J+1 )* ( -1 )**( I+J )
                         }
                      } // 140
                   } // 150
@@ -154,7 +154,7 @@
                         for (I = 1; I <= M; I++) { // 190
                            RCMAX = ZERO
                            for (J = 1; J <= N; J++) { // 180
-                              if ( I.LE.J+KL && I >= J-KU ) {
+                              if ( I <= J+KL && I >= J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
                               }
@@ -165,7 +165,7 @@
                         for (J = 1; J <= N; J++) { // 210
                            RCMAX = ZERO
                            for (I = 1; I <= M; I++) { // 200
-                              if ( I.LE.J+KL && I >= J-KU ) {
+                              if ( I <= J+KL && I >= J-KU ) {
                                  RATIO = ABS( R( I )*POW( I+J+1 )* C( J ) )
                                  RCMAX = MAX( RCMAX, RATIO )
                               }
@@ -187,7 +187,7 @@
 
          for (I = 1; I <= NSZ; I++) { // 270
             for (J = 1; J <= NSZ; J++) { // 260
-               if ( I.LE.N && J == I ) {
+               if ( I <= N && J == I ) {
                   A( I, J ) = POW( I+J+1 )*( -1 )**( I+J )
                } else {
                   A( I, J ) = ZERO
@@ -335,7 +335,7 @@
          } // 450
       } // 460
       RESLTS( 5 ) = RESLTS( 5 ) / EPS
-      OK = ( RESLTS( 1 ).LE.THRESH ) && ( RESLTS( 2 ).LE.THRESH ) && ( RESLTS( 3 ).LE.THRESH ) && ( RESLTS( 4 ).LE.THRESH ) && ( RESLTS( 5 ).LE.THRESH )
+      OK = ( RESLTS( 1 ) <= THRESH ) && ( RESLTS( 2 ) <= THRESH ) && ( RESLTS( 3 ) <= THRESH ) && ( RESLTS( 4 ) <= THRESH ) && ( RESLTS( 5 ) <= THRESH )
       WRITE( NOUT, FMT = * )
       if ( OK ) {
          WRITE( NOUT, FMT = 9999 )PATH

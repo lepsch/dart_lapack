@@ -38,7 +38,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RETURN
       }
 
@@ -100,7 +100,7 @@
          WIDTH = HALF*ABS( LEFT - RIGHT )
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         if ( WIDTH.LE.CVRGD || WIDTH.LE.MNWDTH ) {
+         if ( WIDTH <= CVRGD || WIDTH <= MNWDTH ) {
             // This interval has already converged and does not need refinement.
             // (Note that the gaps might change through refining the
              // eigenvalues, however, they can only get bigger.)
@@ -108,7 +108,7 @@
             IWORK( K-1 ) = -1
             // Make sure that I1 always points to the first unconverged interval
             IF((I == I1) && (I < ILAST)) I1 = I + 1
-            IF((PREV >= I1) && (I.LE.ILAST)) IWORK( 2*PREV-1 ) = I + 1
+            IF((PREV >= I1) && (I <= ILAST)) IWORK( 2*PREV-1 ) = I + 1
          } else {
             // unconverged interval found
             PREV = I
@@ -146,7 +146,7 @@
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         if ( ( WIDTH.LE.CVRGD ) || ( WIDTH.LE.MNWDTH ) || ( ITER == MAXITR ) ) {
+         if ( ( WIDTH <= CVRGD ) || ( WIDTH <= MNWDTH ) || ( ITER == MAXITR ) ) {
             // reduce number of unconverged intervals
             NINT = NINT - 1
             // Mark interval as converged.
@@ -165,7 +165,7 @@
          // Perform one bisection step
 
          NEGCNT = SLANEG( N, D, LLD, MID, PIVMIN, R )
-         if ( NEGCNT.LE.I-1 ) {
+         if ( NEGCNT <= I-1 ) {
             WORK( K-1 ) = MID
          } else {
             WORK( K ) = MID
@@ -176,7 +176,7 @@
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
       // since this is the best we can do.
-      IF( ( NINT > 0 ) && (ITER.LE.MAXITR) ) GO TO 80
+      IF( ( NINT > 0 ) && (ITER <= MAXITR) ) GO TO 80
 
 
       // At this point, all the intervals have converged

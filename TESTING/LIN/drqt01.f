@@ -56,7 +56,7 @@
       // Copy details of Q
 
       dlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      if ( M.LE.N ) {
+      if ( M <= N ) {
          if (M > 0 && M < N) CALL DLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M > 1 ) CALL DLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
          if (N > 1) CALL DLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
@@ -70,7 +70,7 @@
       // Copy R
 
       dlaset('Full', M, N, ZERO, ZERO, R, LDA );
-      if ( M.LE.N ) {
+      if ( M <= N ) {
          if (M > 0) CALL DLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
       } else {
          if (M > N && N > 0) CALL DLACPY( 'Full', M-N, N, AF, LDA, R, LDA )          IF( N > 0 ) CALL DLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );

@@ -18,7 +18,7 @@
       IEEECK = 1
 
       POSINF = ONE / ZERO
-      if ( POSINF.LE.ONE ) {
+      if ( POSINF <= ONE ) {
          IEEECK = 0
          RETURN
       }
@@ -48,7 +48,7 @@
       }
 
       POSINF = ONE / NEWZRO
-      if ( POSINF.LE.ONE ) {
+      if ( POSINF <= ONE ) {
          IEEECK = 0
          RETURN
       }
@@ -60,7 +60,7 @@
       }
 
       POSINF = POSINF*POSINF
-      if ( POSINF.LE.ONE ) {
+      if ( POSINF <= ONE ) {
          IEEECK = 0
          RETURN
       }

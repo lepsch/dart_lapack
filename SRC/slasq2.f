@@ -85,7 +85,7 @@
          if ( Z( 2 ) > Z( 3 )*TOL2 ) {
             T = HALF*( ( Z( 1 )-Z( 3 ) )+Z( 2 ) )
             S = Z( 3 )*( Z( 2 ) / T )
-            if ( S.LE.T ) {
+            if ( S <= T ) {
                S = Z( 3 )*( Z( 2 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
             } else {
                S = Z( 3 )*( Z( 2 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
@@ -196,7 +196,7 @@
 
          D = Z( 4*N0+PP-3 )
          DO 50 I4 = 4*( N0-1 ) + PP, 4*I0 + PP, -4
-            if ( Z( I4-1 ).LE.TOL2*D ) {
+            if ( Z( I4-1 ) <= TOL2*D ) {
                Z( I4-1 ) = -ZERO
                D = Z( I4-3 )
             } else {
@@ -210,7 +210,7 @@
          D = Z( 4*I0+PP-3 )
          DO 60 I4 = 4*I0 + PP, 4*( N0-1 ) + PP, 4
             Z( I4-2*PP-2 ) = D + Z( I4-1 )
-            if ( Z( I4-1 ).LE.TOL2*D ) {
+            if ( Z( I4-1 ) <= TOL2*D ) {
                Z( I4-1 ) = -ZERO
                Z( I4-2*PP-2 ) = D
                Z( I4-2*PP ) = ZERO
@@ -285,7 +285,7 @@
          QMIN = Z( 4*N0-3 )
          QMAX = QMIN
          DO 90 I4 = 4*N0, 8, -4
-            IF( Z( I4-5 ).LE.ZERO ) GO TO 100
+            IF( Z( I4-5 ) <= ZERO ) GO TO 100
             if ( QMIN >= FOUR*EMAX ) {
                QMIN = MIN( QMIN, Z( I4-3 ) )
                EMAX = MAX( EMAX, Z( I4-5 ) )
@@ -305,12 +305,12 @@
             KMIN = I0
             DO 110 I4 = 4*I0+1, 4*N0-3, 4
                DEE = Z( I4 )*( DEE /( DEE+Z( I4-2 ) ) )
-               if ( DEE.LE.DEEMIN ) {
+               if ( DEE <= DEEMIN ) {
                   DEEMIN = DEE
                   KMIN = ( I4+3 )/4
                }
             } // 110
-            if ( (KMIN-I0)*2 < N0-KMIN && DEEMIN.LE.HALF*Z(4*N0-3) ) {
+            if ( (KMIN-I0)*2 < N0-KMIN && DEEMIN <= HALF*Z(4*N0-3) ) {
                IPN4 = 4*( I0+N0 )
                PP = 2
                DO 120 I4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -353,13 +353,13 @@
             // When EMIN is very small check for splits.
 
             if ( PP == 0 && N0-I0 >= 3 ) {
-               if ( Z( 4*N0 ).LE.TOL2*QMAX || Z( 4*N0-1 ).LE.TOL2*SIGMA ) {
+               if ( Z( 4*N0 ) <= TOL2*QMAX || Z( 4*N0-1 ) <= TOL2*SIGMA ) {
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )
                   EMIN = Z( 4*I0-1 )
                   OLDEMN = Z( 4*I0 )
                   DO 130 I4 = 4*I0, 4*( N0-3 ), 4
-                     if ( Z( I4 ).LE.TOL2*Z( I4-3 ) || Z( I4-1 ).LE.TOL2*SIGMA ) {
+                     if ( Z( I4 ) <= TOL2*Z( I4-3 ) || Z( I4-1 ) <= TOL2*SIGMA ) {
                         Z( I4-1 ) = -SIGMA
                         SPLT = I4 / 4
                         QMAX = ZERO

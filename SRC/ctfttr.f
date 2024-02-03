@@ -54,7 +54,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          if ( N == 1 ) {
             if ( NORMALTRANSR ) {
                A( 0, 0 ) = ARF( 0 )

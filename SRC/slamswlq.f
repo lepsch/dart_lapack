@@ -89,7 +89,7 @@
         RETURN
       }
 
-      if ((NB.LE.K) || (NB >= MAX(M,N,K))) {
+      if ((NB <= K) || (NB >= MAX(M,N,K))) {
         sgemlqt(SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO);
         RETURN
       }
@@ -137,7 +137,7 @@
           CTR = CTR + 1
 
          }
-         if (II.LE.M) {
+         if (II <= M) {
 
           // Multiply Q to the last block of C
 
@@ -188,7 +188,7 @@
           CTR = CTR + 1
 
          }
-         if (II.LE.N) {
+         if (II <= N) {
 
         // Multiply Q to the last block of C
 

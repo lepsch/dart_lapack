@@ -31,7 +31,7 @@
       // ..
       // .. Executable Statements ..
 
-      IF( ( N0-I0-1 ).LE.0 ) RETURN
+      IF( ( N0-I0-1 ) <= 0 ) RETURN
 
       SAFMIN = SLAMCH( 'Safe minimum' )
       J4 = 4*I0 + PP - 3

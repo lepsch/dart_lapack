@@ -67,9 +67,9 @@
          INFO = -1
       } else if ( THRESH < ZERO ) {
          INFO = -2
-      } else if ( NIN.LE.0 ) {
+      } else if ( NIN <= 0 ) {
          INFO = -3
-      } else if ( NOUT.LE.0 ) {
+      } else if ( NOUT <= 0 ) {
          INFO = -4
       } else if ( LDA < 1 || LDA < NSIZE ) {
          INFO = -6
@@ -240,7 +240,7 @@
 
                   RESULT( 8 ) = ZERO
                   MN2 = MM*( MPLUSN-MM )*2
-                  if ( IFUNC >= 2 && MN2.LE.NCMAX*NCMAX ) {
+                  if ( IFUNC >= 2 && MN2 <= NCMAX*NCMAX ) {
 
                      // Note: for either following two cases, there are
                      // almost same number of test cases fail the test.

@@ -135,7 +135,7 @@
             // in reverse factorization order where i increases from 1 to N
 
             I = 1
-            DO WHILE ( I.LE.N )
+            DO WHILE ( I <= N )
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -204,7 +204,7 @@
 
             I = 1
             E( N ) = ZERO
-            DO WHILE ( I.LE.N )
+            DO WHILE ( I <= N )
                if ( I < N && IPIV(I) < 0 ) {
                   E( I ) = A( I+1, I )
                   E( I+1 ) = ZERO
@@ -222,7 +222,7 @@
             // in factorization order where i increases from 1 to N
 
             I = 1
-            DO WHILE ( I.LE.N )
+            DO WHILE ( I <= N )
                if ( IPIV( I ) > 0 ) {
 
                   // 1-by-1 pivot interchange
@@ -312,7 +312,7 @@
             // subdiagonal entries of A.
 
             I = 1
-            DO WHILE ( I.LE.N-1 )
+            DO WHILE ( I <= N-1 )
                if ( IPIV( I ) < 0 ) {
                   A( I + 1, I ) = E( I )
                   I = I + 1

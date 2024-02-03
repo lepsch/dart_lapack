@@ -128,7 +128,7 @@
       // Quick return if possible
 
       // WORK( 1 ) = CMPLX( 1 )
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          WORK( 1 ) = DCMPLX( 1 )
          RETURN
       }
@@ -219,13 +219,13 @@
          if ( ILAST == ILO ) {
             GO TO 60
          } else {
-            if ( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
+            if ( ABS1( H( ILAST, ILAST-1 ) ) <= MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) {
                H( ILAST, ILAST-1 ) = CZERO
                GO TO 60
             }
          }
 
-         if ( ABS( T( ILAST, ILAST ) ).LE.BTOL ) {
+         if ( ABS( T( ILAST, ILAST ) ) <= BTOL ) {
             T( ILAST, ILAST ) = CZERO
             GO TO 50
          }
@@ -239,7 +239,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
+               if ( ABS1( H( J, J-1 ) ) <= MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = CZERO
                   ILAZRO = true;
                } else {
@@ -256,7 +256,7 @@
 
                ILAZR2 = false;
                if ( .NOT.ILAZRO ) {
-                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
+                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ) <= ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -432,7 +432,7 @@
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }
-            IF( ABS1( H( J, J-1 ) )*TEMP2.LE.TEMP*ATOL ) GO TO 90
+            IF( ABS1( H( J, J-1 ) )*TEMP2 <= TEMP*ATOL ) GO TO 90
          } // 80
 
          ISTART = IFIRST

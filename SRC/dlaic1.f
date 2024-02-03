@@ -60,7 +60,7 @@
                SESTPR = S1*TMP
             }
             RETURN
-         } else if ( ABSGAM.LE.EPS*ABSEST ) {
+         } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ONE
             C = ZERO
             TMP = MAX( ABSEST, ABSALP )
@@ -68,10 +68,10 @@
             S2 = ABSALP / TMP
             SESTPR = TMP*SQRT( S1*S1+S2*S2 )
             RETURN
-         } else if ( ABSALP.LE.EPS*ABSEST ) {
+         } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM
             S2 = ABSEST
-            if ( S1.LE.S2 ) {
+            if ( S1 <= S2 ) {
                S = ONE
                C = ZERO
                SESTPR = S2
@@ -81,10 +81,10 @@
                SESTPR = S1
             }
             RETURN
-         } else if ( ABSEST.LE.EPS*ABSALP || ABSEST.LE.EPS*ABSGAM ) {
+         } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
             S1 = ABSGAM
             S2 = ABSALP
-            if ( S1.LE.S2 ) {
+            if ( S1 <= S2 ) {
                TMP = S1 / S2
                S = SQRT( ONE+TMP*TMP )
                SESTPR = S2*S
@@ -144,15 +144,15 @@
             S = S / TMP
             C = C / TMP
             RETURN
-         } else if ( ABSGAM.LE.EPS*ABSEST ) {
+         } else if ( ABSGAM <= EPS*ABSEST ) {
             S = ZERO
             C = ONE
             SESTPR = ABSGAM
             RETURN
-         } else if ( ABSALP.LE.EPS*ABSEST ) {
+         } else if ( ABSALP <= EPS*ABSEST ) {
             S1 = ABSGAM
             S2 = ABSEST
-            if ( S1.LE.S2 ) {
+            if ( S1 <= S2 ) {
                S = ZERO
                C = ONE
                SESTPR = S1
@@ -162,10 +162,10 @@
                SESTPR = S2
             }
             RETURN
-         } else if ( ABSEST.LE.EPS*ABSALP || ABSEST.LE.EPS*ABSGAM ) {
+         } else if ( ABSEST <= EPS*ABSALP || ABSEST <= EPS*ABSGAM ) {
             S1 = ABSGAM
             S2 = ABSALP
-            if ( S1.LE.S2 ) {
+            if ( S1 <= S2 ) {
                TMP = S1 / S2
                C = SQRT( ONE+TMP*TMP )
                SESTPR = ABSEST*( TMP / C )

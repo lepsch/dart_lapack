@@ -58,7 +58,7 @@
 
       // Quick return if possible
 
-      if (N.LE.1) RETURN;
+      if (N <= 1) RETURN;
 
       // Determine the first row of specified block
       // and find out it is 1 by 1 or 2 by 2.
@@ -101,7 +101,7 @@
             // Current block either 1 by 1 or 2 by 2
 
             NBNEXT = 1
-            if ( HERE+NBF+1.LE.N ) {
+            if ( HERE+NBF+1 <= N ) {
                IF( T( HERE+NBF+1, HERE+NBF ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO );
@@ -123,7 +123,7 @@
             // must be swapped individually
 
             NBNEXT = 1
-            if ( HERE+3.LE.N ) {
+            if ( HERE+3 <= N ) {
                IF( T( HERE+3, HERE+2 ) != ZERO ) NBNEXT = 2
             }
             slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO );

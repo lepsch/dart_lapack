@@ -30,7 +30,7 @@
 
       if ( FS ) {
          I = I + 1
-         if ( I.LE.M ) {
+         if ( I <= M ) {
             ZLCTSX = false;
          } else {
             ZLCTSX = true;
@@ -41,7 +41,7 @@
          }
       } else {
          I = I + 1
-         if ( I.LE.N ) {
+         if ( I <= N ) {
             ZLCTSX = true;
          } else {
             ZLCTSX = false;

@@ -57,7 +57,7 @@
 
       NB = ILAENV( 1, 'CLAUNHR_COL_GETRFNP', ' ', M, N, -1, -1 )
 
-      if ( NB.LE.1 || NB >= MIN( M, N ) ) {
+      if ( NB <= 1 || NB >= MIN( M, N ) ) {
 
          // Use unblocked code.
 
@@ -73,12 +73,12 @@
 
             claunhr_col_getrfnp2(M-J+1, JB, A( J, J ), LDA, D( J ), IINFO );
 
-            if ( J+JB.LE.N ) {
+            if ( J+JB <= N ) {
 
                // Compute block row of U.
 
                ctrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA );
-               if ( J+JB.LE.M ) {
+               if ( J+JB <= M ) {
 
                   // Update trailing submatrix.
 

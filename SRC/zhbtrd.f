@@ -132,7 +132,7 @@
 
 
                   if ( K > 2 ) {
-                     if ( K.LE.N-I+1 ) {
+                     if ( K <= N-I+1 ) {
 
                         // generate plane rotation to annihilate a(i,i+k-1)
                         // within the band
@@ -315,7 +315,7 @@
                   }
 
                   if ( K > 2 ) {
-                     if ( K.LE.N-I+1 ) {
+                     if ( K <= N-I+1 ) {
 
                         // generate plane rotation to annihilate a(i+k-1,i)
                         // within the band

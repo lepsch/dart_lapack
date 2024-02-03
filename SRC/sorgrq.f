@@ -49,7 +49,7 @@
       }
 
       if ( INFO == 0 ) {
-         if ( M.LE.0 ) {
+         if ( M <= 0 ) {
             LWKOPT = 1
          } else {
             NB = ILAENV( 1, 'SORGRQ', ' ', M, N, K, -1 )
@@ -71,7 +71,7 @@
 
       // Quick return if possible
 
-      if ( M.LE.0 ) {
+      if ( M <= 0 ) {
          RETURN
       }
 

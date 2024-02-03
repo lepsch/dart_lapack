@@ -29,7 +29,7 @@
       // ..
       // .. Executable Statements ..
 
-      if ( ISPEC >= 1 && ISPEC.LE.5 ) {
+      if ( ISPEC >= 1 && ISPEC <= 5 ) {
 
          // Return a value from the common block.
 
@@ -41,7 +41,7 @@
 
          ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
 
-      } else if ( ISPEC >= 7 && ISPEC.LE.9 ) {
+      } else if ( ISPEC >= 7 && ISPEC <= 9 ) {
 
          // Return a value from the common block.
 
@@ -67,7 +67,7 @@
             ILAENV = IEEECK( 0, 0.0, 1.0 )
          }
 
-      } else if (( ISPEC >= 12 ) && (ISPEC.LE.16)) {
+      } else if (( ISPEC >= 12 ) && (ISPEC <= 16)) {
 
       // 12 <= ISPEC <= 16: xHSEQR or one of its subroutines.
 
@@ -75,7 +75,7 @@
           // WRITE(*,*) 'ISPEC = ',ISPEC,' ILAENV =',ILAENV
           // ILAENV = IPARMQ( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 
-      } else if (( ISPEC >= 17 ) && (ISPEC.LE.21)) {
+      } else if (( ISPEC >= 17 ) && (ISPEC <= 21)) {
 
       // 17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 
@@ -122,7 +122,7 @@
       // ..
       // .. Executable Statements ..
 
-      if (( ISPEC >= 1 ) && (ISPEC.LE.5)) {
+      if (( ISPEC >= 1 ) && (ISPEC <= 5)) {
 
       // 1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 
@@ -202,7 +202,7 @@
 
          // ==== NW: deflation window size.  ====
 
-         if ( NH.LE.KNWSWP ) {
+         if ( NH <= KNWSWP ) {
             IPARMQ = NS
          } else {
             IPARMQ = 3*NS / 2

@@ -71,7 +71,7 @@
       } else if ( PRTYPE == 2 || PRTYPE == 3 ) {
          for (I = 1; I <= M; I++) { // 80
             for (J = 1; J <= M; J++) { // 70
-               if ( I.LE.J ) {
+               if ( I <= J ) {
                   A( I, J ) = ( HALF-SIN( REAL( I ) ) )*TWO
                   D( I, J ) = ( HALF-SIN( REAL( I*J ) ) )*TWO
                } else {
@@ -83,7 +83,7 @@
 
          for (I = 1; I <= N; I++) { // 100
             for (J = 1; J <= N; J++) { // 90
-               if ( I.LE.J ) {
+               if ( I <= J ) {
                   B( I, J ) = ( HALF-SIN( REAL( I+J ) ) )*TWO
                   E( I, J ) = ( HALF-SIN( REAL( J ) ) )*TWO
                } else {
@@ -101,13 +101,13 @@
          } // 120
 
          if ( PRTYPE == 3 ) {
-            if (QBLCKA.LE.1) QBLCKA = 2;
+            if (QBLCKA <= 1) QBLCKA = 2;
             DO 130 K = 1, M - 1, QBLCKA
                A( K+1, K+1 ) = A( K, K )
                A( K+1, K ) = -SIN( A( K, K+1 ) )
             } // 130
 
-            if (QBLCKB.LE.1) QBLCKB = 2;
+            if (QBLCKB <= 1) QBLCKB = 2;
             DO 140 K = 1, N - 1, QBLCKB
                B( K+1, K+1 ) = B( K, K )
                B( K+1, K ) = -SIN( B( K, K+1 ) )
@@ -151,7 +151,7 @@
          } // 230
 
          for (I = 1; I <= M; I++) { // 240
-            if ( I.LE.4 ) {
+            if ( I <= 4 ) {
                A( I, I ) = ONE
                if (I > 2) A( I, I ) = ONE + REEPS;
                if ( MOD( I, 2 ) != 0 && I < M ) {
@@ -159,8 +159,8 @@
                } else if ( I > 1 ) {
                   A( I, I-1 ) = -IMEPS
                }
-            } else if ( I.LE.8 ) {
-               if ( I.LE.6 ) {
+            } else if ( I <= 8 ) {
+               if ( I <= 6 ) {
                   A( I, I ) = REEPS
                } else {
                   A( I, I ) = -REEPS
@@ -182,7 +182,7 @@
 
          for (I = 1; I <= N; I++) { // 250
             E( I, I ) = ONE
-            if ( I.LE.4 ) {
+            if ( I <= 4 ) {
                B( I, I ) = -ONE
                if (I > 2) B( I, I ) = ONE - REEPS;
                if ( MOD( I, 2 ) != 0 && I < N ) {
@@ -190,8 +190,8 @@
                } else if ( I > 1 ) {
                   B( I, I-1 ) = -IMEPS
                }
-            } else if ( I.LE.8 ) {
-               if ( I.LE.6 ) {
+            } else if ( I <= 8 ) {
+               if ( I <= 6 ) {
                   B( I, I ) = REEPS
                } else {
                   B( I, I ) = -REEPS

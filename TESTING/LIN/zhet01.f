@@ -42,7 +42,7 @@
 
       // Quick exit if N = 0.
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -96,7 +96,7 @@
 
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          if (RESID != ZERO) RESID = ONE / EPS;
       } else {
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS

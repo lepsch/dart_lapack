@@ -234,7 +234,7 @@
             // (c) complex eigenvalue.
 
             if ( .NOT.ILCPLX ) {
-               if ( ABS( S( JE, JE ) ).LE.SAFMIN && ABS( P( JE, JE ) ).LE.SAFMIN ) {
+               if ( ABS( S( JE, JE ) ) <= SAFMIN && ABS( P( JE, JE ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- return unit eigenvector
 
@@ -512,7 +512,7 @@
             // (c) complex eigenvalue.
 
             if ( .NOT.ILCPLX ) {
-               if ( ABS( S( JE, JE ) ).LE.SAFMIN && ABS( P( JE, JE ) ).LE.SAFMIN ) {
+               if ( ABS( S( JE, JE ) ) <= SAFMIN && ABS( P( JE, JE ) ) <= SAFMIN ) {
 
                   // Singular matrix pencil -- unit eigenvector
 

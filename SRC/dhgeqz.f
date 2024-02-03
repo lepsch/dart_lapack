@@ -115,7 +115,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          WORK( 1 ) = DBLE( 1 )
          RETURN
       }
@@ -206,13 +206,13 @@
 
             GO TO 80
          } else {
-            if ( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) {
+            if ( ABS( H( ILAST, ILAST-1 ) ) <= MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) {
                H( ILAST, ILAST-1 ) = ZERO
                GO TO 80
             }
          }
 
-         if ( ABS( T( ILAST, ILAST ) ).LE.BTOL ) {
+         if ( ABS( T( ILAST, ILAST ) ) <= BTOL ) {
             T( ILAST, ILAST ) = ZERO
             GO TO 70
          }
@@ -226,7 +226,7 @@
             if ( J == ILO ) {
                ILAZRO = true;
             } else {
-               if ( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
+               if ( ABS( H( J, J-1 ) ) <= MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) {
                   H( J, J-1 ) = ZERO
                   ILAZRO = true;
                } else {
@@ -250,7 +250,7 @@
                      TEMP = TEMP / TEMPR
                      TEMP2 = TEMP2 / TEMPR
                   }
-                  IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ).LE.TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
+                  IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ) <= TEMP2* ( ASCALE*ATOL ) )ILAZR2 = true;
                }
 
                // If both tests pass (1 & 2), i.e., the leading diagonal
@@ -438,7 +438,7 @@
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             }
-            IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ).LE.( ASCALE*ATOL )* TEMP2 )GO TO 130
+            IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ) <= ( ASCALE*ATOL )* TEMP2 )GO TO 130
          } // 120
 
          ISTART = IFIRST
@@ -596,7 +596,7 @@
                SZI = -C11I / T1
             } else {
                CZ = DLAPY2( C22R, C22I )
-               if ( CZ.LE.SAFMIN ) {
+               if ( CZ <= SAFMIN ) {
                   CZ = ZERO
                   SZR = ONE
                   SZI = ZERO
@@ -629,7 +629,7 @@
                A2R = CZ*A21 + SZR*A22
                A2I = SZI*A22
                CQ = DLAPY2( A1R, A1I )
-               if ( CQ.LE.SAFMIN ) {
+               if ( CQ <= SAFMIN ) {
                   CQ = ZERO
                   SQR = ONE
                   SQI = ZERO

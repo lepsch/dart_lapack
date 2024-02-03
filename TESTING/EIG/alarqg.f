@@ -92,7 +92,7 @@
          }
          for (I = 1; I <= NMATS; I++) { // 70
             NT = NREQ( I )
-            if ( NT > 0 && NT.LE.NTYPES ) {
+            if ( NT > 0 && NT <= NTYPES ) {
                if ( DOTYPE( NT ) ) {
                   if (FIRSTT) WRITE( NOUT, FMT = * );
                   FIRSTT = false;

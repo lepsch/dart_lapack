@@ -39,7 +39,7 @@
 
       // Quick exit if M = 0 or N = 0 or NRHS = 0
 
-      if ( M.LE.0 || N.LE.0 || NRHS == 0 ) {
+      if ( M <= 0 || N <= 0 || NRHS == 0 ) {
          RESID = ZERO
          RETURN
       }
@@ -56,7 +56,7 @@
 
       EPS = DLAMCH( 'Epsilon' )
       ANORM = DLANGE( 'I', N1, N2, A, LDA, RWORK )
-      if ( ANORM.LE.ZERO ) {
+      if ( ANORM <= ZERO ) {
          RESID = ONE / EPS
          RETURN
       }
@@ -72,7 +72,7 @@
       for (J = 1; J <= NRHS; J++) { // 10
          BNORM = ABS(B(IDAMAX( N1, B( 1, J ), 1 ),J))
          XNORM = ABS(X(IDAMAX( N2, X( 1, J ), 1 ),J))
-         if ( XNORM.LE.ZERO ) {
+         if ( XNORM <= ZERO ) {
             RESID = ONE / EPS
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )

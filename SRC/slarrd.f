@@ -50,7 +50,7 @@
 
       // Quick return if possible
 
-      if ( N.LE.0 ) {
+      if ( N <= 0 ) {
          RETURN
       }
 
@@ -68,7 +68,7 @@
 
       // Check for Errors
 
-      if ( IRANGE.LE.0 ) {
+      if ( IRANGE <= 0 ) {
          INFO = -1
       } else if ( .NOT.(LSAME(ORDER,'B') || LSAME(ORDER,'E')) ) {
          INFO = -2
@@ -100,7 +100,7 @@
       // Special Case when N=1
       // Treat case of 1x1 matrix for quick return
       if ( N == 1 ) {
-         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1).LE.VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
+         if ( (IRANGE == ALLRNG) || ((IRANGE == VALRNG) && (D(1) > VL) && (D(1) <= VU)) || ((IRANGE == INDRNG) && (IL == 1) && (IU == 1)) ) {
             M = 1
             W(1) = D(1)
             // The computation error of the eigenvalue is zero
@@ -114,7 +114,7 @@
       // NB is the minimum vector length for vector bisection, or 0
       // if only scalar is to be done.
       NB = ILAENV( 1, 'SSTEBZ', ' ', N, -1, -1, -1 )
-      if (NB.LE.1) NB = 0;
+      if (NB <= 1) NB = 0;
 
       // Find global spectral radius
       GL = D(1)
@@ -200,8 +200,8 @@
 
 
       // Find Eigenvalues -- Loop Over blocks and recompute NWL and NWU.
-      // NWL accumulates the number of eigenvalues .le. WL,
-      // NWU accumulates the number of eigenvalues .le. WU
+      // NWL accumulates the number of eigenvalues <= WL,
+      // NWU accumulates the number of eigenvalues <= WU
       M = 0
       IEND = 0
       INFO = 0
@@ -365,7 +365,7 @@
             for (JE = 1; JE <= M; JE++) { // 80
                // Remove some of the smallest eigenvalues from the left so that
                // at the end IDISCL =0. Move all eigenvalues up to the left.
-               if ( W( JE ).LE.WLU && IDISCL > 0 ) {
+               if ( W( JE ) <= WLU && IDISCL > 0 ) {
                   IDISCL = IDISCL - 1
                } else {
                   IM = IM + 1

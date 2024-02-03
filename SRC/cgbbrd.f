@@ -139,7 +139,7 @@
                } // 10
 
                if ( ML > ML0 ) {
-                  if ( ML.LE.M-I+1 ) {
+                  if ( ML <= M-I+1 ) {
 
                      // generate plane rotation to annihilate a(i+ml-1,i)
                      // within the band, and apply rotation from the left
@@ -204,7 +204,7 @@
                } // 50
 
                if ( ML == ML0 && MU > MU0 ) {
-                  if ( MU.LE.N-I+1 ) {
+                  if ( MU <= N-I+1 ) {
 
                      // generate plane rotation to annihilate a(i,i+mu-1)
                      // within the band, and apply rotation from the right

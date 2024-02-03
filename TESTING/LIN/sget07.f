@@ -37,7 +37,7 @@
 
       // Quick exit if N = 0 or NRHS = 0.
 
-      if ( N.LE.0 || NRHS.LE.0 ) {
+      if ( N <= 0 || NRHS <= 0 ) {
          RESLTS( 1 ) = ZERO
          RESLTS( 2 ) = ZERO
          RETURN
@@ -64,7 +64,7 @@
 
             if ( XNORM > ONE ) {
                GO TO 20
-            } else if ( DIFF.LE.OVFL*XNORM ) {
+            } else if ( DIFF <= OVFL*XNORM ) {
                GO TO 20
             } else {
                ERRBND = ONE / EPS
@@ -72,7 +72,7 @@
             }
 
             } // 20
-            if ( DIFF / XNORM.LE.FERR( J ) ) {
+            if ( DIFF / XNORM <= FERR( J ) ) {
                ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
             } else {
                ERRBND = ONE / EPS

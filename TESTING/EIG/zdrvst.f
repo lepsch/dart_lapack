@@ -253,7 +253,7 @@
             } // 110
 
             ABSTOL = UNFL + UNFL
-            if ( N.LE.1 ) {
+            if ( N <= 1 ) {
                IL = 1
                IU = N
             } else {
@@ -853,9 +853,9 @@
 
                // Call ZHBEVD and CHBEVX.
 
-               if ( JTYPE.LE.7 ) {
+               if ( JTYPE <= 7 ) {
                   KD = 0
-               } else if ( JTYPE >= 8 && JTYPE.LE.15 ) {
+               } else if ( JTYPE >= 8 && JTYPE <= 15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -1306,9 +1306,9 @@
 
                // Call ZHBEV
 
-               if ( JTYPE.LE.7 ) {
+               if ( JTYPE <= 7 ) {
                   KD = 0
-               } else if ( JTYPE >= 8 && JTYPE.LE.15 ) {
+               } else if ( JTYPE >= 8 && JTYPE <= 15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW

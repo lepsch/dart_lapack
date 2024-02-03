@@ -264,7 +264,7 @@
             } // 110
 
             ABSTOL = UNFL + UNFL
-            if ( N.LE.1 ) {
+            if ( N <= 1 ) {
                IL = 1
                IU = N
             } else {
@@ -279,7 +279,7 @@
 
             // 3)      If matrix is tridiagonal, call DSTEV and DSTEVX.
 
-            if ( JTYPE.LE.7 ) {
+            if ( JTYPE <= 7 ) {
                NTEST = 1
                for (I = 1; I <= N; I++) { // 120
                   D1( I ) = DBLE( A( I, I ) )
@@ -1425,9 +1425,9 @@
 
                // 6)      Call DSBEV and DSBEVX.
 
-               if ( JTYPE.LE.7 ) {
+               if ( JTYPE <= 7 ) {
                   KD = 1
-               } else if ( JTYPE >= 8 && JTYPE.LE.15 ) {
+               } else if ( JTYPE >= 8 && JTYPE <= 15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW
@@ -1885,9 +1885,9 @@
 
                // 9)      Call DSBEVD.
 
-               if ( JTYPE.LE.7 ) {
+               if ( JTYPE <= 7 ) {
                   KD = 1
-               } else if ( JTYPE >= 8 && JTYPE.LE.15 ) {
+               } else if ( JTYPE >= 8 && JTYPE <= 15 ) {
                   KD = MAX( N-1, 0 )
                } else {
                   KD = IHBW

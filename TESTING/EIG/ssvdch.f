@@ -39,7 +39,7 @@
       // Get machine constants
 
       INFO = 0
-      if (N.LE.0) RETURN;
+      if (N <= 0) RETURN;
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = SLAMCH( 'Overflow' )
       EPS = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
@@ -65,7 +65,7 @@
       } // 10
       UPPER = ( ONE+EPS )*SVD( TPNT ) + UNFLEP
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
-      if (LOWER.LE.UNFLEP) LOWER = -UPPER;
+      if (LOWER <= UNFLEP) LOWER = -UPPER;
 
       // Begin loop merging overlapping intervals
 
@@ -78,7 +78,7 @@
 
       BPNT = BPNT + 1
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
-      if (LOWER.LE.UNFLEP) LOWER = -UPPER;
+      if (LOWER <= UNFLEP) LOWER = -UPPER;
       GO TO 20
       } // 30
 
@@ -97,7 +97,7 @@
       }
       TPNT = BPNT + 1
       BPNT = TPNT
-      if (TPNT.LE.N) GO TO 10;
+      if (TPNT <= N) GO TO 10;
       } // 40
       RETURN
 

@@ -121,11 +121,11 @@
       // to KU
 
       DO 70 I = 1, MAX( M-1-KL, N-1-KU )
-         if ( KL.LE.KU ) {
+         if ( KL <= KU ) {
 
             // annihilate subdiagonal elements first (necessary if KL = 0)
 
-            if ( I.LE.MIN( M-1-KL, N ) ) {
+            if ( I <= MIN( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
@@ -147,7 +147,7 @@
                A( KL+I, I ) = -WA
             }
 
-            if ( I.LE.MIN( N-1-KU, M ) ) {
+            if ( I <= MIN( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
@@ -174,7 +174,7 @@
             // annihilate superdiagonal elements first (necessary if
             // KU = 0)
 
-            if ( I.LE.MIN( N-1-KU, M ) ) {
+            if ( I <= MIN( N-1-KU, M ) ) {
 
                // generate reflection to annihilate A(i,ku+i+1:n)
 
@@ -197,7 +197,7 @@
                A( I, KU+I ) = -WA
             }
 
-            if ( I.LE.MIN( M-1-KL, N ) ) {
+            if ( I <= MIN( M-1-KL, N ) ) {
 
                // generate reflection to annihilate A(kl+i+1:m,i)
 
@@ -220,13 +220,13 @@
             }
          }
 
-         if (I .LE. N) {
+         if (I <= N) {
             for (J = KL + I + 1; J <= M; J++) { // 50
                A( J, I ) = ZERO
             } // 50
          }
 
-         if (I .LE. M) {
+         if (I <= M) {
             for (J = KU + I + 1; J <= N; J++) { // 60
                A( I, J ) = ZERO
             } // 60

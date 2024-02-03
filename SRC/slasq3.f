@@ -77,7 +77,7 @@
       T = HALF*( ( Z( NN-7 )-Z( NN-3 ) )+Z( NN-5 ) )
       if ( Z( NN-5 ) > Z( NN-3 )*TOL2 && T != ZERO ) {
          S = Z( NN-3 )*( Z( NN-5 ) / T )
-         if ( S.LE.T ) {
+         if ( S <= T ) {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
          } else {
             S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
@@ -96,7 +96,7 @@
 
       // Reverse the qd-array, if warranted.
 
-      if ( DMIN.LE.ZERO || N0 < N0IN ) {
+      if ( DMIN <= ZERO || N0 < N0IN ) {
          if ( CBIAS*Z( 4*I0+PP-3 ) < Z( 4*N0+PP-3 ) ) {
             IPN4 = 4*( I0+N0 )
             DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -113,7 +113,7 @@
                Z( J4 ) = Z( IPN4-J4-4 )
                Z( IPN4-J4-4 ) = TEMP
             } // 60
-            if ( N0-I0.LE.4 ) {
+            if ( N0-I0 <= 4 ) {
                Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 )
                Z( 4*N0-PP ) = Z( 4*I0-PP )
             }

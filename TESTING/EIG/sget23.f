@@ -59,7 +59,7 @@
          INFO = -2
       } else if ( THRESH < ZERO ) {
          INFO = -4
-      } else if ( NOUNIT.LE.0 ) {
+      } else if ( NOUNIT <= 0 ) {
          INFO = -6
       } else if ( N < 0 ) {
          INFO = -7

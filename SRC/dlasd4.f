@@ -96,14 +96,14 @@
          C = RHOINV + PSI
          W = C + Z( II )*Z( II ) / ( DELTA( II )*WORK( II ) ) + Z( N )*Z( N ) / ( DELTA( N )*WORK( N ) )
 
-         if ( W.LE.ZERO ) {
+         if ( W <= ZERO ) {
             TEMP1 = SQRT( D( N )*D( N )+RHO )
             TEMP = Z( N-1 )*Z( N-1 ) / ( ( D( N-1 )+TEMP1 )* ( D( N )-D( N-1 )+RHO / ( D( N )+TEMP1 ) ) ) + Z( N )*Z( N ) / RHO
 
             // The following TAU2 is to approximate
             // SIGMA_n^2 - D( N )*D( N )
 
-            if ( C.LE.TEMP ) {
+            if ( C <= TEMP ) {
                TAU = RHO
             } else {
                DELSQ = ( D( N )-D( N-1 ) )*( D( N )+D( N-1 ) )
@@ -176,7 +176,7 @@
 
          // Test for convergence
 
-         if ( ABS( W ).LE.EPS*ERRETM ) {
+         if ( ABS( W ) <= EPS*ERRETM ) {
             GO TO 240
          }
 
@@ -248,7 +248,7 @@
 
             // Test for convergence
 
-            if ( ABS( W ).LE.EPS*ERRETM ) {
+            if ( ABS( W ) <= EPS*ERRETM ) {
                GO TO 240
             }
 
@@ -273,7 +273,7 @@
 
             if (W*ETA > ZERO) ETA = -W / ( DPSI+DPHI );
             TEMP = ETA - DTNSQ
-            if (TEMP.LE.ZERO) ETA = ETA / TWO;
+            if (TEMP <= ZERO) ETA = ETA / TWO;
 
             ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) )
             TAU = TAU + ETA
@@ -371,7 +371,7 @@
 
             TAU = TAU2 / ( D( I )+SQRT( D( I )*D( I )+TAU2 ) )
             TEMP = SQRT(EPS)
-            if ( (D(I).LE.TEMP*D(IP1)) && (ABS(Z(I)).LE.TEMP) && (D(I) > ZERO) ) {
+            if ( (D(I) <= TEMP*D(IP1)) && (ABS(Z(I)) <= TEMP) && (D(I) > ZERO) ) {
                TAU = MIN( TEN*D(I), SGUB )
                GEOMAVG = true;
             }
@@ -454,11 +454,11 @@
 
          // Test for convergence
 
-         if ( ABS( W ).LE.EPS*ERRETM ) {
+         if ( ABS( W ) <= EPS*ERRETM ) {
             GO TO 240
          }
 
-         if ( W.LE.ZERO ) {
+         if ( W <= ZERO ) {
             SGLB = MAX( SGLB, TAU )
          } else {
             SGUB = MIN( SGUB, TAU )
@@ -486,7 +486,7 @@
                   }
                }
                ETA = B / A
-            } else if ( A.LE.ZERO ) {
+            } else if ( A <= ZERO ) {
                ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
             } else {
                ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -550,7 +550,7 @@
                      }
                   }
                   ETA = B / A
-               } else if ( A.LE.ZERO ) {
+               } else if ( A <= ZERO ) {
                   ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
                } else {
                   ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -644,12 +644,12 @@
 
             // Test for convergence
 
-            if ( ABS( W ).LE.EPS*ERRETM ) {
-      // $ || (SGUB-SGLB).LE.EIGHT*ABS(SGUB+SGLB) ) THEN
+            if ( ABS( W ) <= EPS*ERRETM ) {
+      // $ || (SGUB-SGLB) <= EIGHT*ABS(SGUB+SGLB) ) THEN
                GO TO 240
             }
 
-            if ( W.LE.ZERO ) {
+            if ( W <= ZERO ) {
                SGLB = MAX( SGLB, TAU )
             } else {
                SGUB = MIN( SGUB, TAU )
@@ -690,7 +690,7 @@
                      }
                   }
                   ETA = B / A
-               } else if ( A.LE.ZERO ) {
+               } else if ( A <= ZERO ) {
                   ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
                } else {
                   ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
@@ -775,7 +775,7 @@
                         }
                      }
                      ETA = B / A
-                  } else if ( A.LE.ZERO ) {
+                  } else if ( A <= ZERO ) {
                      ETA = ( A-SQRT( ABS( A*A-FOUR*B*C ) ) ) / ( TWO*C )
                   } else {
                      ETA = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )

@@ -128,7 +128,7 @@
       // If N is smaller than the minimum divide size SMLSIZ, then solve
       // the problem with another solver.
 
-      if ( N.LE.SMLSIZ ) {
+      if ( N <= SMLSIZ ) {
          if ( ICOMPQ == 2 ) {
             slaset('A', N, N, ZERO, ONE, U, LDU );
             slaset('A', N, N, ZERO, ONE, VT, LDVT );

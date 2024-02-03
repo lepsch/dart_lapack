@@ -58,7 +58,7 @@
       // Determine the block size for this environment.
 
       NB = ILAENV( 1, 'DPOTRF', UPLO, N, -1, -1, -1 )
-      if ( NB.LE.1 || NB >= N ) {
+      if ( NB <= 1 || NB >= N ) {
 
          // Use unblocked code.
 
@@ -80,7 +80,7 @@
                dsyrk('Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA );
                dpotrf2('Upper', JB, A( J, J ), LDA, INFO );
                if (INFO != 0) GO TO 30;
-               if ( J+JB.LE.N ) {
+               if ( J+JB <= N ) {
 
                   // Compute the current block row.
 
@@ -102,7 +102,7 @@
                dsyrk('Lower', 'No transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA );
                dpotrf2('Lower', JB, A( J, J ), LDA, INFO );
                if (INFO != 0) GO TO 30;
-               if ( J+JB.LE.N ) {
+               if ( J+JB <= N ) {
 
                   // Compute the current block column.
 

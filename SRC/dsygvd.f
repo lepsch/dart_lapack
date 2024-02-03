@@ -43,7 +43,7 @@
       LQUERY = ( LWORK == -1 || LIWORK == -1 )
 
       INFO = 0
-      if ( N.LE.1 ) {
+      if ( N <= 1 ) {
          LIWMIN = 1
          LWMIN = 1
       } else if ( WANTZ ) {
